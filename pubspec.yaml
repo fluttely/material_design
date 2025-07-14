@@ -1,17 +1,20 @@
 name: material_design
-description: "A new Flutter package project."
-version: 0.0.0
-homepage:
+description: "The fastest path to consistent Material Design UIs in Flutter. Build beautiful apps aligned with official metrics and guidelines using a powerful set of ready-to-use design tokens and helper widgets."
+version: 0.0.1
+homepage: https://github.com/fluttely/material_design
+repository: https://github.com/fluttely/material_design
 
 environment:
   sdk: ^3.8.1
   flutter: ">=1.17.0"
 
 dependencies:
+  equatable: ^2.0.3
   flutter:
     sdk: flutter
 
 dev_dependencies:
+  flutter_lints: ^3.0.0
   flutter_test:
     sdk: flutter
-  flutter_lints: ^5.0.0
+  very_good_analysis: ^9.0.0
