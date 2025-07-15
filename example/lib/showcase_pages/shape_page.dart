@@ -6,6 +6,8 @@ class ShapePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     final shapes = [
       ('None', MaterialShape.none),
       ('Extra Small', MaterialShape.extraSmall),
@@ -31,7 +33,7 @@ class ShapePage extends StatelessWidget {
           final (label, shape) = shapes[index];
           return Container(
             decoration: ShapeDecoration(
-              color: Theme.of(context).colorScheme.surfaceContainerLow,
+              color: colorScheme.surfaceContainer,
               shape: shape,
             ),
             child: Center(

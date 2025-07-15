@@ -1,3 +1,10 @@
+## 0.2.1
+
+### Changed
+
+- **Renamed** `MaterialColorSchemes` to `MaterialColorScheme`.
+- **Removed** static schemes `lightScheme` and `darkScheme`; use the `create()` method instead.
+
 ## 0.2.0
 
 ### Added

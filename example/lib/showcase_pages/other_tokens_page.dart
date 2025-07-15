@@ -20,6 +20,7 @@ class OtherTokensPage extends StatelessWidget {
   }
 
   Widget _buildBorderSection(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     final borders = [
       ('Thin', MaterialBorder.thin),
       // ('Thick', MaterialBorder.thick),
@@ -28,7 +29,7 @@ class OtherTokensPage extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Borders', style: MaterialTypeScale.titleLarge),
+        const Text('Borders', style: MaterialTypeScale.titleLarge),
         const SizedBox(height: MaterialSpacing.space16),
         Wrap(
           spacing: MaterialSpacing.space16,
@@ -37,10 +38,7 @@ class OtherTokensPage extends StatelessWidget {
             return Container(
               padding: const EdgeInsets.all(MaterialSpacing.space16),
               decoration: BoxDecoration(
-                border: Border.all(
-                  width: width,
-                  color: Theme.of(context).colorScheme.primary,
-                ),
+                border: Border.all(width: width, color: colorScheme.primary),
                 borderRadius: BorderRadius.circular(MaterialRadius.small),
               ),
               child: Text('$label (${width}dp)'),
@@ -52,6 +50,7 @@ class OtherTokensPage extends StatelessWidget {
   }
 
   Widget _buildOpacitySection(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     final opacities = [
       ('Hover', MaterialOpacity.hover),
       ('Focus', MaterialOpacity.focus),
@@ -63,7 +62,10 @@ class OtherTokensPage extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Opacities (State Layers)', style: MaterialTypeScale.titleLarge),
+        const Text(
+          'Opacities (State Layers)',
+          style: MaterialTypeScale.titleLarge,
+        ),
         const SizedBox(height: MaterialSpacing.space16),
         Wrap(
           spacing: MaterialSpacing.space16,
@@ -74,16 +76,13 @@ class OtherTokensPage extends StatelessWidget {
               width: 120,
               height: 80,
               decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.primary.withOpacity(value),
+                color: colorScheme.primary.withValues(alpha: value),
                 borderRadius: BorderRadius.circular(MaterialRadius.small),
               ),
               child: Center(
                 child: Text(
                   '$label\n($value)',
                   textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.onPrimary,
-                  ),
                 ),
               ),
             );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:material_design/material_design.dart';
 import 'package:provider/provider.dart';
 
 import 'color_picker.dart';
@@ -93,84 +94,84 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
       ),
     );
   }
-}
 
-List<Widget> _buildNavigationDestinations(BuildContext context) {
-  final themeProvider = Provider.of<ThemeProvider>(context);
-  return [
-    const Padding(
-      padding: EdgeInsets.fromLTRB(28, 16, 16, 10),
-      child: Text('Tokens'),
-    ),
-    const NavigationDrawerDestination(
-      icon: Icon(Icons.palette_outlined),
-      label: Text('Color'),
-    ),
-    const NavigationDrawerDestination(
-      icon: Icon(Icons.text_fields_outlined),
-      label: Text('Typography'),
-    ),
-    const NavigationDrawerDestination(
-      icon: Icon(Icons.rounded_corner_outlined),
-      label: Text('Shape'),
-    ),
-    const NavigationDrawerDestination(
-      icon: Icon(Icons.copy_outlined),
-      label: Text('Elevation'),
-    ),
-    const NavigationDrawerDestination(
-      icon: Icon(Icons.space_bar_outlined),
-      label: Text('Spacing'),
-    ),
-    const NavigationDrawerDestination(
-      icon: Icon(Icons.token_outlined),
-      label: Text('Others'),
-    ),
-    const Padding(
-      padding: EdgeInsets.fromLTRB(28, 16, 28, 10),
-      child: Divider(),
-    ),
-    Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 28),
-      child: Text('Theme', style: Theme.of(context).textTheme.titleSmall),
-    ),
-    Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: Row(
-        children: [
-          const Text('Brightness'),
-          const Spacer(),
-          Switch(
-            value: themeProvider.themeMode == ThemeMode.light,
-            onChanged: (isOn) {
-              themeProvider.changeThemeMode(
-                isOn ? ThemeMode.light : ThemeMode.dark,
-              );
-            },
-          ),
-        ],
+  List<Widget> _buildNavigationDestinations(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
+    return [
+      const Padding(
+        padding: EdgeInsets.fromLTRB(28, 16, 16, 10),
+        child: Text('Tokens'),
       ),
-    ),
-    Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: Row(
-        children: [
-          const Text('Seed Color'),
-          const Spacer(),
-          IconButton(
-            icon: Icon(Icons.color_lens, color: themeProvider.seedColor),
-            onPressed: () async {
-              final newColor = await showColorPickerDialog(
-                context,
-                themeProvider.seedColor,
-              );
-              if (newColor != null) {
-                themeProvider.changeSeedColor(newColor);
-              }
-            },
-          ),
-        ],
+      const NavigationDrawerDestination(
+        icon: Icon(Icons.palette_outlined),
+        label: Text('Color'),
       ),
-    ),
-  ];
+      const NavigationDrawerDestination(
+        icon: Icon(Icons.text_fields_outlined),
+        label: Text('Typography'),
+      ),
+      const NavigationDrawerDestination(
+        icon: Icon(Icons.rounded_corner_outlined),
+        label: Text('Shape'),
+      ),
+      const NavigationDrawerDestination(
+        icon: Icon(Icons.copy_outlined),
+        label: Text('Elevation'),
+      ),
+      const NavigationDrawerDestination(
+        icon: Icon(Icons.space_bar_outlined),
+        label: Text('Spacing'),
+      ),
+      const NavigationDrawerDestination(
+        icon: Icon(Icons.token_outlined),
+        label: Text('Others'),
+      ),
+      const Padding(
+        padding: EdgeInsets.fromLTRB(28, 16, 28, 10),
+        child: Divider(),
+      ),
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 28),
+        child: Text('Theme', style: MaterialTypeScale.titleSmall),
+      ),
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: Row(
+          children: [
+            const Text('Brightness'),
+            const Spacer(),
+            Switch(
+              value: themeProvider.themeMode == ThemeMode.light,
+              onChanged: (isOn) {
+                themeProvider.changeThemeMode(
+                  isOn ? ThemeMode.light : ThemeMode.dark,
+                );
+              },
+            ),
+          ],
+        ),
+      ),
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: Row(
+          children: [
+            const Text('Seed Color'),
+            const Spacer(),
+            IconButton(
+              icon: Icon(Icons.color_lens, color: themeProvider.seedColor),
+              onPressed: () async {
+                final newColor = await showColorPickerDialog(
+                  context,
+                  themeProvider.seedColor,
+                );
+                if (newColor != null) {
+                  themeProvider.changeSeedColor(newColor);
+                }
+              },
+            ),
+          ],
+        ),
+      ),
+    ];
+  }
 }

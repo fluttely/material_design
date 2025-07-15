@@ -194,13 +194,15 @@ class _ColorChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Container(
       width: 150,
       padding: const EdgeInsets.all(MaterialSpacing.space8),
       decoration: BoxDecoration(
         color: color,
         borderRadius: BorderRadius.circular(MaterialRadius.small),
-        border: Border.all(color: Theme.of(context).colorScheme.outlineVariant),
+        border: Border.all(color: colorScheme.outlineVariant),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

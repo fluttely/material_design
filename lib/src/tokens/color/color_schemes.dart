@@ -11,19 +11,19 @@ import 'package:flutter/material.dart';
 /// These schemes can be directly applied to `ThemeData.colorScheme`.
 ///
 /// Reference: https://m3.material.io/styles/color/the-color-system
-abstract final class MaterialColorSchemes {
+abstract final class MaterialColorScheme {
   /// The default seed color used to generate the color schemes.
   /// This is a standard Material blue color.
-  static const Color _seedColor = Color(0xFF6750A4);
+  static const Color defaulthSeedColor = Color(0xFF6750A4);
 
-  /// A complete, pre-defined Material 3 light color scheme.
-  static final ColorScheme lightScheme = ColorScheme.fromSeed(
-    seedColor: _seedColor,
-  );
-
-  /// A complete, pre-defined Material 3 dark color scheme.
-  static final ColorScheme darkScheme = ColorScheme.fromSeed(
-    seedColor: _seedColor,
-    brightness: Brightness.dark,
-  );
+  /// A complete, pre-defined Material 3 color scheme.
+  static ColorScheme create({
+    Color seedColor = defaulthSeedColor,
+    Brightness brightness = Brightness.light,
+  }) {
+    return ColorScheme.fromSeed(
+      seedColor: seedColor,
+      brightness: brightness,
+    );
+  }
 }

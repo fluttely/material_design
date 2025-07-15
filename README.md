@@ -24,7 +24,7 @@ Add this line to your project's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  material_design: ^0.2.0
+  material_design: ^0.2.1
 ```
 
 Then run `flutter pub get`.
@@ -55,12 +55,18 @@ class MyApp extends StatelessWidget {
       title: 'Material 3 App',
       // Use the light theme
       theme: ThemeData(
-        colorScheme: MaterialColorSchemes.lightScheme,
+        colorScheme: MaterialColorScheme.create(
+          seedColor: _seedColor,
+          brightness: Brightness.light,
+        ),
         useMaterial3: true,
       ),
       // And the dark theme
       darkTheme: ThemeData(
-        colorScheme: MaterialColorSchemes.darkScheme,
+          colorScheme: MaterialColorScheme.create(
+          seedColor: _seedColor,
+          brightness: Brightness.dark,
+        ),
         useMaterial3: true,
       ),
       home: const MyHomePage(),

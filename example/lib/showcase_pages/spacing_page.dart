@@ -6,6 +6,8 @@ class SpacingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     final spacings = [
       ('space4', MaterialSpacing.space4),
       ('space8', MaterialSpacing.space8),
@@ -30,9 +32,9 @@ class SpacingPage extends StatelessWidget {
           return Row(
             children: [
               SizedBox(
-                width: MaterialSpacing.space104,
+                width: MaterialSpacing.space112,
                 child: Text(
-                  '$label (${height}dp)',
+                  '$label (${height}dp):',
                   style: MaterialTypeScale.bodyMedium,
                 ),
               ),
@@ -41,7 +43,7 @@ class SpacingPage extends StatelessWidget {
                 child: Container(
                   height: height,
                   decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.secondaryContainer,
+                    color: colorScheme.secondaryContainer,
                     borderRadius: BorderRadius.circular(
                       MaterialRadius.extraSmall,
                     ),

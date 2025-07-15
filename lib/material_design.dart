@@ -10,7 +10,7 @@
 /// ```
 ///
 /// Then, you can access all the tokens, such as:
-/// - `MaterialColorSchemes.lightScheme`
+/// - `MaterialColorScheme.createLightScheme`
 /// - `MaterialTypeScale.headlineLarge`
 /// - `MaterialShape.medium`
 /// - `MaterialSpacing.medium`
