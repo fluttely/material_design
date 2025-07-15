@@ -15,10 +15,10 @@ abstract final class MaterialBorder {
   /// This is the default for most components like `OutlinedButton`.
   static const double thin = 1;
 
-  /// A thicker border width (2dp) for emphasis or selected states.
-  static const double thick = 2;
+  // /// A thicker border width (2dp) for emphasis or selected states.
+  // static const double thick = 2;
 
-  /// An extra-thick border width (4dp) for special cases requiring
-  /// significant visual weight.
-  static const double extraThick = 4;
+  // /// An extra-thick border width (4dp) for special cases requiring
+  // /// significant visual weight.
+  // static const double extraThick = 4;
 }

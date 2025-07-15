@@ -1,354 +1,176 @@
 import 'package:flutter/material.dart';
-import 'package:material_design/material_design.dart';
+import 'package:provider/provider.dart';
+
+import 'color_picker.dart';
+// New, separated showcase pages
+import 'showcase_pages/color_page.dart';
+import 'showcase_pages/elevation_page.dart';
+import 'showcase_pages/other_tokens_page.dart';
+import 'showcase_pages/shape_page.dart';
+import 'showcase_pages/spacing_page.dart';
+import 'showcase_pages/typography_page.dart';
+import 'theme_provider.dart';
 
 void main() {
-  runApp(const StyleGuideApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (_) => ThemeProvider(),
+      child: const TokenShowcaseApp(),
+    ),
+  );
 }
 
-/// The main application widget that sets up the Material 3 theme.
-class StyleGuideApp extends StatelessWidget {
-  const StyleGuideApp({super.key});
+class TokenShowcaseApp extends StatelessWidget {
+  const TokenShowcaseApp({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
     return MaterialApp(
-      title: 'Material 3 Style Guide',
-      theme: ThemeData(
-        colorScheme: MaterialColorSchemes.lightScheme,
-        useMaterial3: true,
-      ),
-      darkTheme: ThemeData(
-        colorScheme: MaterialColorSchemes.darkScheme,
-        useMaterial3: true,
-      ),
-      home: const StyleGuidePage(),
+      title: 'Material Design Tokens Showcase',
+      theme: themeProvider.lightTheme,
+      darkTheme: themeProvider.darkTheme,
+      themeMode: themeProvider.themeMode,
+      debugShowCheckedModeBanner: false,
+      home: const ShowcaseHomePage(),
     );
   }
 }
 
-/// The main page of the example application, showcasing the design tokens.
-class StyleGuidePage extends StatelessWidget {
-  const StyleGuidePage({super.key});
+class ShowcaseHomePage extends StatefulWidget {
+  const ShowcaseHomePage({super.key});
+
+  @override
+  State<ShowcaseHomePage> createState() => _ShowcaseHomePageState();
+}
+
+class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
+  int _selectedIndex = 0;
+
+  final List<Widget> _pages = [
+    const ColorPage(),
+    const TypographyPage(),
+    const ShapePage(),
+    const ElevationPage(),
+    const SpacingPage(),
+    const OtherTokensPage(),
+  ];
 
   @override
   Widget build(BuildContext context) {
+    final isSmallScreen = MediaQuery.of(context).size.width < 600;
+
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Material 3 Tokens'),
-        elevation: MaterialElevation.level2,
-        shadowColor: Theme.of(context).colorScheme.shadow,
-      ),
-      body: ListView(
-        padding: const EdgeInsets.all(MaterialSpacing.space16),
-        children: const [
-          _SectionTitle('Color Scheme'),
-          _ColorGuide(),
-          _SectionTitle('Type Scale'),
-          _TypographyGuide(),
-          _SectionTitle('Shapes & Shadows'),
-          _ShapeAndShadowGuide(),
-          _SectionTitle('Other Tokens'),
-          _OtherTokensGuide(),
+      appBar: isSmallScreen
+          ? AppBar(title: const Text('Material Tokens'))
+          : null,
+      drawer: isSmallScreen
+          ? NavigationDrawer(
+              selectedIndex: _selectedIndex,
+              onDestinationSelected: (index) {
+                setState(() {
+                  _selectedIndex = index;
+                  Navigator.of(context).pop();
+                });
+              },
+              children: _buildNavigationDestinations(context),
+            )
+          : null,
+      body: Row(
+        children: [
+          if (!isSmallScreen)
+            NavigationDrawer(
+              selectedIndex: _selectedIndex,
+              onDestinationSelected: (index) {
+                setState(() {
+                  _selectedIndex = index;
+                });
+              },
+              children: _buildNavigationDestinations(context),
+            ),
+          Expanded(child: _pages[_selectedIndex]),
         ],
       ),
     );
   }
 }
 
-// --- Section Widgets ---
-
-class _SectionTitle extends StatelessWidget {
-  final String title;
-  const _SectionTitle(this.title);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(
-        top: MaterialSpacing.space24,
-        bottom: MaterialSpacing.space16,
+List<Widget> _buildNavigationDestinations(BuildContext context) {
+  final themeProvider = Provider.of<ThemeProvider>(context);
+  return [
+    const Padding(
+      padding: EdgeInsets.fromLTRB(28, 16, 16, 10),
+      child: Text('Tokens'),
+    ),
+    const NavigationDrawerDestination(
+      icon: Icon(Icons.palette_outlined),
+      label: Text('Color'),
+    ),
+    const NavigationDrawerDestination(
+      icon: Icon(Icons.text_fields_outlined),
+      label: Text('Typography'),
+    ),
+    const NavigationDrawerDestination(
+      icon: Icon(Icons.rounded_corner_outlined),
+      label: Text('Shape'),
+    ),
+    const NavigationDrawerDestination(
+      icon: Icon(Icons.copy_outlined),
+      label: Text('Elevation'),
+    ),
+    const NavigationDrawerDestination(
+      icon: Icon(Icons.space_bar_outlined),
+      label: Text('Spacing'),
+    ),
+    const NavigationDrawerDestination(
+      icon: Icon(Icons.token_outlined),
+      label: Text('Others'),
+    ),
+    const Padding(
+      padding: EdgeInsets.fromLTRB(28, 16, 28, 10),
+      child: Divider(),
+    ),
+    Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 28),
+      child: Text('Theme', style: Theme.of(context).textTheme.titleSmall),
+    ),
+    Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Row(
+        children: [
+          const Text('Brightness'),
+          const Spacer(),
+          Switch(
+            value: themeProvider.themeMode == ThemeMode.light,
+            onChanged: (isOn) {
+              themeProvider.changeThemeMode(
+                isOn ? ThemeMode.light : ThemeMode.dark,
+              );
+            },
+          ),
+        ],
       ),
-      child: Text(title, style: MaterialTypeScale.headlineSmall),
-    );
-  }
-}
-
-class _ColorGuide extends StatelessWidget {
-  const _ColorGuide();
-
-  @override
-  Widget build(BuildContext context) {
-    final colors = Theme.of(context).colorScheme;
-    return Wrap(
-      spacing: MaterialSpacing.space8,
-      runSpacing: MaterialSpacing.space8,
-      children: [
-        _ColorChip('Primary', colors.primary, colors.onPrimary),
-        _ColorChip('On Primary', colors.onPrimary, colors.primary),
-        _ColorChip(
-          'Primary Container',
-          colors.primaryContainer,
-          colors.onPrimaryContainer,
-        ),
-        _ColorChip(
-          'On Primary Container',
-          colors.onPrimaryContainer,
-          colors.primaryContainer,
-        ),
-        _ColorChip('Secondary', colors.secondary, colors.onSecondary),
-        _ColorChip(
-          'Secondary Container',
-          colors.secondaryContainer,
-          colors.onSecondaryContainer,
-        ),
-        _ColorChip('Tertiary', colors.tertiary, colors.onTertiary),
-        _ColorChip(
-          'Tertiary Container',
-          colors.tertiaryContainer,
-          colors.onTertiaryContainer,
-        ),
-        _ColorChip('Error', colors.error, colors.onError),
-        _ColorChip(
-          'Error Container',
-          colors.errorContainer,
-          colors.onErrorContainer,
-        ),
-        _ColorChip('Surface', colors.surface, colors.onSurface),
-        _ColorChip('On Surface', colors.onSurface, colors.surface),
-        _ColorChip(
-          'Surface Variant',
-          colors.surfaceVariant,
-          colors.onSurfaceVariant,
-        ),
-        _ColorChip('Background', colors.background, colors.onBackground),
-        _ColorChip('Outline', colors.outline, colors.surface),
-      ],
-    );
-  }
-}
-
-class _TypographyGuide extends StatelessWidget {
-  const _TypographyGuide();
-
-  @override
-  Widget build(BuildContext context) {
-    return const Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        _TypeSample('Display Large', MaterialTypeScale.displayLarge),
-        _TypeSample('Display Medium', MaterialTypeScale.displayMedium),
-        _TypeSample('Display Small', MaterialTypeScale.displaySmall),
-        _TypeSample('Headline Large', MaterialTypeScale.headlineLarge),
-        _TypeSample('Headline Medium', MaterialTypeScale.headlineMedium),
-        _TypeSample('Headline Small', MaterialTypeScale.headlineSmall),
-        _TypeSample('Title Large', MaterialTypeScale.titleLarge),
-        _TypeSample('Title Medium', MaterialTypeScale.titleMedium),
-        _TypeSample('Title Small', MaterialTypeScale.titleSmall),
-        _TypeSample('Body Large', MaterialTypeScale.bodyLarge),
-        _TypeSample('Body Medium', MaterialTypeScale.bodyMedium),
-        _TypeSample('Body Small', MaterialTypeScale.bodySmall),
-        _TypeSample('Label Large', MaterialTypeScale.labelLarge),
-        _TypeSample('Label Medium', MaterialTypeScale.labelMedium),
-        _TypeSample('Label Small', MaterialTypeScale.labelSmall),
-      ],
-    );
-  }
-}
-
-class _ShapeAndShadowGuide extends StatelessWidget {
-  const _ShapeAndShadowGuide();
-
-  @override
-  Widget build(BuildContext context) {
-    return Wrap(
-      spacing: MaterialSpacing.space16,
-      runSpacing: MaterialSpacing.space16,
-      alignment: WrapAlignment.start,
-      children: [
-        _ShapeCard(
-          label: 'Level 0',
-          shape: MaterialShape.extraSmall,
-          shadow: MaterialShadow.level0,
-        ),
-        _ShapeCard(
-          label: 'Level 1',
-          shape: MaterialShape.small,
-          shadow: MaterialShadow.level1,
-        ),
-        _ShapeCard(
-          label: 'Level 2',
-          shape: MaterialShape.medium,
-          shadow: MaterialShadow.level2,
-        ),
-        _ShapeCard(
-          label: 'Level 3',
-          shape: MaterialShape.large,
-          shadow: MaterialShadow.level3,
-        ),
-        _ShapeCard(
-          label: 'Level 4',
-          shape: MaterialShape.extraLarge,
-          shadow: MaterialShadow.level4,
-        ),
-        _ShapeCard(
-          label: 'Level 5',
-          shape: MaterialShape.full,
-          shadow: MaterialShadow.level5,
-        ),
-      ],
-    );
-  }
-}
-
-class _OtherTokensGuide extends StatelessWidget {
-  const _OtherTokensGuide();
-
-  @override
-  Widget build(BuildContext context) {
-    final color = Theme.of(context).colorScheme.primary;
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text('Borders', style: MaterialTypeScale.titleMedium),
-        const SizedBox(height: MaterialSpacing.space8),
-        Wrap(
-          spacing: MaterialSpacing.space16,
-          children: [
-            _BorderedBox('Thin', MaterialBorder.thin, color),
-            _BorderedBox('Thick', MaterialBorder.thick, color),
-            _BorderedBox('Extra Thick', MaterialBorder.extraThick, color),
-          ],
-        ),
-        const SizedBox(height: MaterialSpacing.space24),
-        const Text('Opacities', style: MaterialTypeScale.titleMedium),
-        const SizedBox(height: MaterialSpacing.space8),
-        Wrap(
-          spacing: MaterialSpacing.space16,
-          runSpacing: MaterialSpacing.space16,
-          children: [
-            _OpacityBox('Hover', MaterialOpacity.hover, color),
-            _OpacityBox('Focus', MaterialOpacity.focus, color),
-            _OpacityBox('Pressed', MaterialOpacity.pressed, color),
-            _OpacityBox('Dragged', MaterialOpacity.dragged, color),
-            _OpacityBox(
-              'Disabled Content',
-              MaterialOpacity.disabledContent,
-              color,
-            ),
-            _OpacityBox(
-              'Disabled Container',
-              MaterialOpacity.disabledContainer,
-              color,
-            ),
-          ],
-        ),
-      ],
-    );
-  }
-}
-
-// --- Helper Widgets ---
-
-class _ColorChip extends StatelessWidget {
-  final String label;
-  final Color color;
-  final Color onColor;
-
-  const _ColorChip(this.label, this.color, this.onColor);
-
-  @override
-  Widget build(BuildContext context) {
-    return Chip(
-      label: Text(label),
-      backgroundColor: color,
-      labelStyle: MaterialTypeScale.labelLarge.copyWith(color: onColor),
-      padding: const EdgeInsets.all(MaterialSpacing.space8),
-    );
-  }
-}
-
-class _TypeSample extends StatelessWidget {
-  final String label;
-  final TextStyle style;
-
-  const _TypeSample(this.label, this.style);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: MaterialSpacing.space8),
-      child: Text(label, style: style),
-    );
-  }
-}
-
-class _ShapeCard extends StatelessWidget {
-  final String label;
-  final ShapeBorder shape;
-  final List<BoxShadow> shadow;
-
-  const _ShapeCard({
-    required this.label,
-    required this.shape,
-    required this.shadow,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 100,
-      height: 100,
-      decoration: ShapeDecoration(
-        color: Theme.of(context).colorScheme.surface,
-        shape: shape,
-        shadows: shadow,
+    ),
+    Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Row(
+        children: [
+          const Text('Seed Color'),
+          const Spacer(),
+          IconButton(
+            icon: Icon(Icons.color_lens, color: themeProvider.seedColor),
+            onPressed: () async {
+              final newColor = await showColorPickerDialog(
+                context,
+                themeProvider.seedColor,
+              );
+              if (newColor != null) {
+                themeProvider.changeSeedColor(newColor);
+              }
+            },
+          ),
+        ],
       ),
-      child: Center(child: Text(label, style: MaterialTypeScale.bodyMedium)),
-    );
-  }
-}
-
-class _BorderedBox extends StatelessWidget {
-  final String label;
-  final double width;
-  final Color color;
-
-  const _BorderedBox(this.label, this.width, this.color);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(MaterialSpacing.space16),
-      decoration: BoxDecoration(
-        border: Border.all(width: width, color: color),
-        borderRadius: BorderRadius.circular(MaterialRadius.small),
-      ),
-      child: Text(label, style: MaterialTypeScale.bodyMedium),
-    );
-  }
-}
-
-class _OpacityBox extends StatelessWidget {
-  final String label;
-  final double opacity;
-  final Color color;
-
-  const _OpacityBox(this.label, this.opacity, this.color);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(MaterialSpacing.space16),
-      decoration: BoxDecoration(
-        color: color.withOpacity(opacity),
-        borderRadius: BorderRadius.circular(MaterialRadius.small),
-      ),
-      child: Text(
-        label,
-        style: MaterialTypeScale.bodyMedium.copyWith(
-          color: Theme.of(context).colorScheme.onSurface,
-        ),
-      ),
-    );
-  }
+    ),
+  ];
 }

@@ -3,6 +3,7 @@ library;
 
 export 'animation/motion.dart';
 export 'color/color_schemes.dart';
+export 'color/surface.dart';
 export 'geometry/breakpoint.dart';
 export 'geometry/density.dart';
 export 'geometry/elevation.dart';
