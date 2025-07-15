@@ -1,14 +1,20 @@
-/// A library that exports Material Design 3 related tokens and utilities.
+/// A comprehensive toolkit for implementing Material Design 3 in Flutter.
+///
+/// This library provides a set of pre-defined tokens and utilities that align
+/// with the official Material 3 specification, making it easier to build
+/// beautiful and consistent user interfaces.
+///
+/// To use the tokens, simply import this file:
+/// ```dart
+/// import 'package:material_design/material_design.dart';
+/// ```
+///
+/// Then, you can access all the tokens, such as:
+/// - `MaterialColorSchemes.lightScheme`
+/// - `MaterialTypeScale.headlineLarge`
+/// - `MaterialShape.medium`
+/// - `MaterialSpacing.medium`
+/// - `MaterialShadow.level2`
 library;
 
-// export 'src/tokens/animation/motion.dart';
-// export 'src/tokens/geometry/border_width.dart';
-// export 'src/tokens/geometry/breakpoint.dart';
-export 'src/tokens/geometry/elevation.dart';
-
-// export 'src/tokens/geometry/form_factor.dart';
-// export 'src/tokens/geometry/icon_size.dart';
-// export 'src/tokens/geometry/radius.dart';
-// export 'src/tokens/geometry/spacing.dart';
-// export 'src/tokens/painting/opacity.dart';
-// export 'src/tokens/painting/z_index.dart';
+export 'src/tokens/tokens.dart';

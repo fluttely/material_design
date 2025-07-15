@@ -1,133 +1,106 @@
-/// Standard motions used across the Material Design animations.
+// Copyright 2024 The Flutter Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+import 'package:flutter/animation.dart';
+
+/// Represents a Material Design 3 motion token, combining duration and easing.
 ///
-/// Based on official Material Design specifications:
-/// - Mobile: 200-300ms
-/// - Desktop: 150-200ms
-/// - Wearables: 30% faster than mobile
-/// - Tablets: 30% slower than mobile
-/// - Entrance animations: slightly longer than exit animations
-/// - Small elements: shorter motions than large elements
+/// This class encapsulates the two core components of an M3 animation:
+/// - [duration]: How long the animation runs.
+/// - [curve]: The easing curve that defines the rate of change over time.
 ///
-/// Reference: https://m2.material.io/design/motion/speed.html
+/// See: https://m3.material.io/styles/motion/easing-and-duration/tokens-specs
+class MotionToken {
+  /// Creates a motion token with a specific duration and curve.
+  const MotionToken(this.duration, this.curve);
+
+  /// The total time the animation will take.
+  final Duration duration;
+
+  /// The easing curve for the animation.
+  final Curve curve;
+
+  /// Creates a [Tween] for this motion token, animating between [begin] and [end].
+  ///
+  /// This is a convenience method for creating a [CurveTween] that can be
+  /// chained with another tween (like [Tween<double>]) and driven by an
+  /// [AnimationController].
+  ///
+  /// Example:
+  /// ```dart
+  /// myAnimation = controller.drive(MaterialMotion.emphasized.asTween(begin: 0.0, end: 1.0));
+  /// ```
+  Animatable<T> asTween<T>({required T begin, required T end}) {
+    return Tween<T>(begin: begin, end: end).chain(CurveTween(curve: curve));
+  }
+}
+
+/// Defines the standard motion tokens for Material Design 3.
+///
+/// These tokens provide standardized duration and easing values for creating
+/// consistent and natural-feeling animations across the application.
+///
+/// Instead of using fixed durations, M3 motion is defined by a combination of
+/// duration and an easing curve, represented here by the [MotionToken] class.
+///
+/// See: https://m3.material.io/styles/motion/easing-and-duration/applying-easing-and-duration
 abstract final class MaterialMotion {
-  static const none = Duration();
+  // --- Emphasized Easing ---
+  // For transitions of large-scale elements and hero moments.
 
-  /// Micro-interactions (icon changes, button press feedback)
-  static const microInteraction = Duration(milliseconds: 100);
+  /// Emphasized easing for elements that are on-screen at the start and end.
+  /// Duration: 500ms. Curve: Emphasized.
+  static const MotionToken emphasized = MotionToken(
+    Duration(milliseconds: 500),
+    Cubic(0.2, 0, 0, 1),
+  );
 
-  /// Small element transitions (buttons, chips, small cards)
-  static const smallElement = Duration(milliseconds: 150);
+  /// Emphasized easing for elements that are entering the screen.
+  /// Duration: 450ms. Curve: Emphasized Decelerate.
+  static const MotionToken emphasizedIncoming = MotionToken(
+    Duration(milliseconds: 450),
+    Cubic(0.05, 0.7, 0.1, 1),
+  );
 
-  /// Medium element transitions (cards, dialogs)
-  static const mediumElement = Duration(milliseconds: 250);
+  /// Emphasized easing for elements that are exiting the screen.
+  /// Duration: 200ms. Curve: Emphasized Accelerate.
+  static const MotionToken emphasizedOutgoing = MotionToken(
+    Duration(milliseconds: 200),
+    Cubic(0.3, 0, 0.8, 0.15),
+  );
 
-  /// Large element transitions (drawers, bottom sheets)
-  static const largeElement = Duration(milliseconds: 300);
+  // --- Standard Easing ---
+  // For standard, functional transitions of smaller components.
 
-  /// Complex transitions (page transitions, morphing)
-  static const complexTransition = Duration(milliseconds: 400);
+  /// Standard easing for elements that are on-screen at the start and end.
+  /// Duration: 300ms. Curve: Standard.
+  static const MotionToken standard = MotionToken(
+    Duration(milliseconds: 300),
+    Cubic(0.2, 0, 0, 1),
+  );
 
-  /// Full screen transitions
-  static const int fullScreen = 500;
+  /// Standard easing for elements that are entering the screen.
+  /// Duration: 250ms. Curve: Standard Decelerate.
+  static const MotionToken standardIncoming = MotionToken(
+    Duration(milliseconds: 250),
+    Cubic(0, 0, 0, 1),
+  );
 
-  // ============================================
-  // DEVICE-SPECIFIC DURATIONS
-  // ============================================
+  /// Standard easing for elements that are exiting the screen.
+  /// Duration: 150ms. Curve: Standard Accelerate.
+  static const MotionToken standardOutgoing = MotionToken(
+    Duration(milliseconds: 150),
+    Cubic(0.3, 0, 1, 1),
+  );
 
-  /// Desktop animations (150-200ms range)
-  static const desktopShort = Duration(milliseconds: 150);
-  static const desktopLong = Duration(milliseconds: 200);
+  // --- Legacy Easing ---
+  // For compatibility or specific cases where linear motion is needed.
 
-  /// Page transitions
-  static const pageTransition = Duration(milliseconds: 400);
-
-  /// Splash screens and loading
-  // static const int splash = ;
-
-  // ============================================
-  // MATERIAL DESIGN SEMANTIC DURATIONS
-  // ============================================
-
-  /// Desktop standard animations (200ms)
-  static const desktop = Duration(milliseconds: 200);
-
-  /// Mobile short animations (200ms)
-  static const mobileShort = Duration(milliseconds: 200);
-
-  static const mobileStandard = Duration(milliseconds: 250);
-
-  /// Mobile long animations (300ms)
-  static const mobileLong = Duration(milliseconds: 300);
-
-  // ============================================
-  // COMPONENT-SPECIFIC DURATIONS
-  // ============================================
-
-  /// Navigation drawer animations
-  static const drawerOpen = Duration(milliseconds: 250);
-  static const drawerClose = Duration(milliseconds: 200);
-
-  /// Card animations
-  static const cardExpand = Duration(milliseconds: 300);
-  static const cardCollapse = Duration(milliseconds: 250);
-
-  /// Dialog animations
-  static const dialogEnter = Duration(milliseconds: 300);
-  static const dialogExit = Duration(milliseconds: 200);
-
-  /// Bottom sheet animations
-  static const bottomSheetEnter = Duration(milliseconds: 300);
-  static const bottomSheetExit = Duration(milliseconds: 250);
-
-  /// FAB animations
-  static const fabShow = Duration(milliseconds: 200);
-  static const fabHide = Duration(milliseconds: 150);
-
-  /// Snackbar animations
-  static const snackbarEnter = Duration(milliseconds: 300);
-  static const snackbarExit = Duration(milliseconds: 200);
-
-  /// Splash screen duration
-  static const splash = Duration(milliseconds: 500);
-
-  // ============================================
-  // DEVICE-SPECIFIC DURATIONS
-  // ============================================
-
-  /// Wearable device animations (30% faster than mobile)
-  static const wearableShort = Duration(milliseconds: 140); // 200ms * 0.7
-  static const wearableStandard = Duration(milliseconds: 175); // 250ms * 0.7
-  static const wearableLong = Duration(milliseconds: 210); // 300ms * 0.7
-
-  /// Tablet device animations (30% slower than mobile)
-  static const tabletShort = Duration(milliseconds: 260); // 200ms * 1.3
-  static const tabletStandard = Duration(milliseconds: 325); // 250ms * 1.3
-  static const tabletLong = Duration(milliseconds: 390); // 300ms * 1.3
-
-  // ============================================
-  // UTILITY METHODS
-  // ============================================
-
-  /// Returns appropriate duration for device type
-  static int forDevice({
-    required int mobile,
-    int? desktop,
-    int? tablet,
-    int? wearable,
-  }) {
-    // Em uma implementação real, você detectaria o tipo de device
-    // Por enquanto, retorna mobile como padrão
-    return mobile;
-  }
-
-  /// Applies Material Design entrance/exit timing rules
-  static int forEntrance(int baseDuration) => baseDuration;
-  static int forExit(int baseDuration) => (baseDuration * 0.8).round();
-
-  /// Scales duration based on distance/size
-  static int forDistance(int baseDuration, double distance) {
-    if (distance < 100) return (baseDuration * 0.7).round();
-    if (distance > 500) return (baseDuration * 1.3).round();
-    return baseDuration;
-  }
+  /// A linear interpolation curve.
+  /// Duration: 200ms. Curve: Linear.
+  static const MotionToken linear = MotionToken(
+    Duration(milliseconds: 200),
+    Curves.linear,
+  );
 }
