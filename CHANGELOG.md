@@ -1,3 +1,9 @@
+## 0.2.2
+
+### Changed
+
+- **Improved** `README.md` with clearer instructions and updated usage examples.
+
 ## 0.2.1
 
 ### Changed
