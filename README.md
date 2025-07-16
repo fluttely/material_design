@@ -13,7 +13,7 @@ Add this line to your project's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  material_design: ^0.2.2
+  material_design: ^0.2.3
 ```
 
 Then run `flutter pub get`.
@@ -150,13 +150,81 @@ AnimatedContainer(
 
 ### Other Tokens
 
-The library also includes tokens for:
+The library also includes tokens for various other UI properties.
 
-- **`MaterialBorder`**: Standard border widths (e.g., `thin`).
-- **`MaterialOpacity`**: Opacity values for states like `hover`, `focus`, and `disabledContent`.
-- **`MaterialBreakpoint`**: Breakpoints for responsive layouts (`compact`, `medium`, `expanded`, etc.).
-- **`MaterialIconSize`**: Standard icon size (`standard` = 24dp).
-- **`MaterialZIndex`**: Conventional z-index values for layering (`content`, `floating`, `modal`, etc.).
+- **`MaterialBorder`**: Standard border widths.
+
+  - `thin` (1dp)
+
+  **Example:**
+
+  ```dart
+  Container(
+    decoration: BoxDecoration(
+      border: Border.all(width: MaterialBorder.thin),
+    ),
+  )
+  ```
+
+- **`MaterialOpacity`**: Opacity values for states and elements.
+
+  - `hover` (0.08), `focus` (0.10), `pressed` (0.10), `dragged` (0.16)
+  - `disabledContent` (0.38), `disabledContainer` (0.12)
+
+  **Example:**
+
+  ```dart
+  Container(
+    color: Colors.black.withOpacity(MaterialOpacity.hover),
+  )
+  ```
+
+- **`MaterialBreakpoint`**: Breakpoints for responsive layouts.
+
+  - `compact` (0), `medium` (600), `expanded` (840), `large` (1200), `extraLarge` (1600)
+
+  **Example:**
+
+  ```dart
+  final screenWidth = MediaQuery.of(context).size.width;
+  if (screenWidth >= MaterialBreakpoint.medium) {
+    // Use a two-column layout
+  }
+  ```
+
+- **`MaterialIconSize`**: Standard icon size.
+
+  - `standard` (24dp)
+
+  **Example:**
+
+  ```dart
+  Icon(
+    Icons.favorite,
+    size: MaterialIconSize.standard,
+  )
+  ```
+
+- **`MaterialZIndex`**: Conventional z-index values for layering.
+
+  - `content` (1), `floating` (10), `drawer` (100), `modal` (1000), `snackbar` (2000), `tooltip` (9999)
+
+  **Example:**
+
+  ```dart
+  Stack(
+    children: [
+      Positioned(
+        zIndex: MaterialZIndex.content,
+        child: Text('Content'),
+      ),
+      Positioned(
+        zIndex: MaterialZIndex.floating,
+        child: FloatingActionButton(onPressed: () {}),
+      ),
+    ],
+  )
+  ```
 
 ## Example App
 

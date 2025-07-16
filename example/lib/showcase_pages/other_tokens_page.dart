@@ -14,8 +14,113 @@ class OtherTokensPage extends StatelessWidget {
           _buildBorderSection(context),
           const SizedBox(height: MaterialSpacing.space32),
           _buildOpacitySection(context),
+          const SizedBox(height: MaterialSpacing.space32),
+          _buildBreakpointSection(context),
+          const SizedBox(height: MaterialSpacing.space32),
+          _buildIconSizeSection(context),
+          const SizedBox(height: MaterialSpacing.space32),
+          _buildZIndexSection(context),
         ],
       ),
+    );
+  }
+
+  Widget _buildBreakpointSection(BuildContext context) {
+    final breakpoints = [
+      ('Compact', MaterialBreakpoint.compact),
+      ('Medium', MaterialBreakpoint.medium),
+      ('Expanded', MaterialBreakpoint.expanded),
+      ('Large', MaterialBreakpoint.large),
+      ('Extra Large', MaterialBreakpoint.extraLarge),
+    ];
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text('Breakpoints', style: MaterialTypeScale.titleLarge),
+        const SizedBox(height: MaterialSpacing.space16),
+        Wrap(
+          spacing: MaterialSpacing.space16,
+          runSpacing: MaterialSpacing.space16,
+          children: breakpoints.map((breakpoint) {
+            final (label, value) = breakpoint;
+            return Chip(
+              label: Text('$label (${value.toInt()}dp)'),
+            );
+          }).toList(),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildIconSizeSection(BuildContext context) {
+    final iconSizes = [
+      ('Standard', MaterialIconSize.standard),
+    ];
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text('Icon Sizes', style: MaterialTypeScale.titleLarge),
+        const SizedBox(height: MaterialSpacing.space16),
+        Wrap(
+          spacing: MaterialSpacing.space16,
+          runSpacing: MaterialSpacing.space16,
+          crossAxisAlignment: WrapCrossAlignment.center,
+          children: iconSizes.map((iconSize) {
+            final (label, value) = iconSize;
+            return Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(Icons.favorite, size: value),
+                const SizedBox(width: MaterialSpacing.space8),
+                Text('$label (${value.toInt()}dp)'),
+              ],
+            );
+          }).toList(),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildZIndexSection(BuildContext context) {
+    final zIndexes = [
+      ('Content', MaterialZIndex.content),
+      ('Floating', MaterialZIndex.floating),
+      ('Drawer', MaterialZIndex.drawer),
+      ('Modal', MaterialZIndex.modal),
+      ('Snackbar', MaterialZIndex.snackbar),
+      ('Tooltip', MaterialZIndex.tooltip),
+    ];
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text('Z-Index', style: MaterialTypeScale.titleLarge),
+        const SizedBox(height: MaterialSpacing.space16),
+        SizedBox(
+          height: 150,
+          child: Stack(
+            children: zIndexes.map((zIndex) {
+              final (label, value) = zIndex;
+              final position = zIndexes.indexOf(zIndex) * 20.0;
+              return Positioned(
+                left: position,
+                top: position,
+                child: Container(
+                  width: 100,
+                  height: 100,
+                  color: Theme.of(context).colorScheme.primary.withOpacity(0.8),
+                  child: Center(
+                    child: Text(
+                      '$label\n(z: $value)',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
+                    ),
+                  ),
+                ),
+              );
+            }).toList(),
+          ),
+        ),
+      ],
     );
   }
 

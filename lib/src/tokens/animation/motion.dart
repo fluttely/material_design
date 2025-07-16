@@ -11,9 +11,9 @@ import 'package:flutter/animation.dart';
 /// - [curve]: The easing curve that defines the rate of change over time.
 ///
 /// See: https://m3.material.io/styles/motion/easing-and-duration/tokens-specs
-class MotionToken {
+class MaterialMotionToken {
   /// Creates a motion token with a specific duration and curve.
-  const MotionToken(this.duration, this.curve);
+  const MaterialMotionToken(this.duration, this.curve);
 
   /// The total time the animation will take.
   final Duration duration;
@@ -42,7 +42,7 @@ class MotionToken {
 /// consistent and natural-feeling animations across the application.
 ///
 /// Instead of using fixed durations, M3 motion is defined by a combination of
-/// duration and an easing curve, represented here by the [MotionToken] class.
+/// duration and an easing curve, represented here by the [MaterialMotionToken] class.
 ///
 /// See: https://m3.material.io/styles/motion/easing-and-duration/applying-easing-and-duration
 abstract final class MaterialMotion {
@@ -51,21 +51,21 @@ abstract final class MaterialMotion {
 
   /// Emphasized easing for elements that are on-screen at the start and end.
   /// Duration: 500ms. Curve: Emphasized.
-  static const MotionToken emphasized = MotionToken(
+  static const MaterialMotionToken emphasized = MaterialMotionToken(
     Duration(milliseconds: 500),
     Cubic(0.2, 0, 0, 1),
   );
 
   /// Emphasized easing for elements that are entering the screen.
   /// Duration: 450ms. Curve: Emphasized Decelerate.
-  static const MotionToken emphasizedIncoming = MotionToken(
+  static const MaterialMotionToken emphasizedIncoming = MaterialMotionToken(
     Duration(milliseconds: 450),
     Cubic(0.05, 0.7, 0.1, 1),
   );
 
   /// Emphasized easing for elements that are exiting the screen.
   /// Duration: 200ms. Curve: Emphasized Accelerate.
-  static const MotionToken emphasizedOutgoing = MotionToken(
+  static const MaterialMotionToken emphasizedOutgoing = MaterialMotionToken(
     Duration(milliseconds: 200),
     Cubic(0.3, 0, 0.8, 0.15),
   );
@@ -75,21 +75,21 @@ abstract final class MaterialMotion {
 
   /// Standard easing for elements that are on-screen at the start and end.
   /// Duration: 300ms. Curve: Standard.
-  static const MotionToken standard = MotionToken(
+  static const MaterialMotionToken standard = MaterialMotionToken(
     Duration(milliseconds: 300),
     Cubic(0.2, 0, 0, 1),
   );
 
   /// Standard easing for elements that are entering the screen.
   /// Duration: 250ms. Curve: Standard Decelerate.
-  static const MotionToken standardIncoming = MotionToken(
+  static const MaterialMotionToken standardIncoming = MaterialMotionToken(
     Duration(milliseconds: 250),
     Cubic(0, 0, 0, 1),
   );
 
   /// Standard easing for elements that are exiting the screen.
   /// Duration: 150ms. Curve: Standard Accelerate.
-  static const MotionToken standardOutgoing = MotionToken(
+  static const MaterialMotionToken standardOutgoing = MaterialMotionToken(
     Duration(milliseconds: 150),
     Cubic(0.3, 0, 1, 1),
   );
@@ -99,7 +99,7 @@ abstract final class MaterialMotion {
 
   /// A linear interpolation curve.
   /// Duration: 200ms. Curve: Linear.
-  static const MotionToken linear = MotionToken(
+  static const MaterialMotionToken linear = MaterialMotionToken(
     Duration(milliseconds: 200),
     Curves.linear,
   );
