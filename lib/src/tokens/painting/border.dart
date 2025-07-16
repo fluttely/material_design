@@ -7,9 +7,6 @@
 /// This class provides a set of conventional widths to ensure consistency
 /// when creating bordered components.
 abstract final class MaterialBorder {
-  /// No border width.
-  static const double none = 0;
-
   /// The standard thin border width (1dp).
   ///
   /// This is the default for most components like `OutlinedButton`.

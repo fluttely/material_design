@@ -1,8 +1,16 @@
+## 0.2.3
+
+- **Docs:** Added detailed examples to `README.md` for `MaterialBorder`, `MaterialOpacity`, `MaterialBreakpoint`, `MaterialIconSize`, and `MaterialZIndex`.
+- **Example:** Added a new `MotionPage` to the example app to showcase all `MaterialMotion` tokens.
+- **Example:** Updated the `OtherTokensPage` in the example app to include showcases for `MaterialBreakpoint`, `MaterialIconSize`, and `MaterialZIndex`.
+- **Refactor:** Renamed `MotionToken` to `MaterialMotionToken` for better clarity and consistency.
+- **Fix:** Removed `MaterialBorder.none` as it was redundant (equivalent to `0`).
+
 ## 0.2.2
 
 ### Changed
 
-- **Improved** `README.md` with clearer instructions and updated usage examples.
+- **Docs** `README.md` with clearer instructions and updated usage examples.
 
 ## 0.2.1
 

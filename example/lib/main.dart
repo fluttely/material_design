@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:material_design/material_design.dart';
+import 'package:material_design_example/showcase_pages/motion_page.dart';
 import 'package:provider/provider.dart';
 
 import 'color_picker.dart';
@@ -54,6 +55,7 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
     const ShapePage(),
     const ElevationPage(),
     const SpacingPage(),
+    const MotionPage(),
     const OtherTokensPage(),
   ];
 
@@ -121,6 +123,10 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
       const NavigationDrawerDestination(
         icon: Icon(Icons.space_bar_outlined),
         label: Text('Spacing'),
+      ),
+      const NavigationDrawerDestination(
+        icon: Icon(Icons.animation),
+        label: Text('Motion'),
       ),
       const NavigationDrawerDestination(
         icon: Icon(Icons.token_outlined),
