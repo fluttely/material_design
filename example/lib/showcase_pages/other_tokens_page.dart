@@ -33,6 +33,7 @@ class OtherTokensPage extends StatelessWidget {
       ('Large', MaterialBreakpoint.large),
       ('Extra Large', MaterialBreakpoint.extraLarge),
     ];
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -56,6 +57,7 @@ class OtherTokensPage extends StatelessWidget {
     final iconSizes = [
       ('Standard', MaterialIconSize.standard),
     ];
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -82,6 +84,8 @@ class OtherTokensPage extends StatelessWidget {
   }
 
   Widget _buildZIndexSection(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     final zIndexes = [
       ('Content', MaterialZIndex.content),
       ('Floating', MaterialZIndex.floating),
@@ -90,6 +94,7 @@ class OtherTokensPage extends StatelessWidget {
       ('Snackbar', MaterialZIndex.snackbar),
       ('Tooltip', MaterialZIndex.tooltip),
     ];
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -107,12 +112,14 @@ class OtherTokensPage extends StatelessWidget {
                 child: Container(
                   width: 100,
                   height: 100,
-                  color: Theme.of(context).colorScheme.primary.withOpacity(0.8),
+                  color: colorScheme.primary.withOpacity(0.8),
                   child: Center(
                     child: Text(
                       '$label\n(z: $value)',
                       textAlign: TextAlign.center,
-                      style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
+                      style: TextStyle(
+                        color: colorScheme.onPrimary,
+                      ),
                     ),
                   ),
                 ),
@@ -126,11 +133,13 @@ class OtherTokensPage extends StatelessWidget {
 
   Widget _buildBorderSection(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
+
     final borders = [
       ('Thin', MaterialBorder.thin),
       // ('Thick', MaterialBorder.thick),
       // ('Extra Thick', MaterialBorder.extraThick),
     ];
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -156,6 +165,7 @@ class OtherTokensPage extends StatelessWidget {
 
   Widget _buildOpacitySection(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
+
     final opacities = [
       ('Hover', MaterialOpacity.hover),
       ('Focus', MaterialOpacity.focus),
@@ -164,6 +174,7 @@ class OtherTokensPage extends StatelessWidget {
       ('Disabled Content', MaterialOpacity.disabledContent),
       ('Disabled Container', MaterialOpacity.disabledContainer),
     ];
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

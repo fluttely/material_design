@@ -1,5 +1,5 @@
 name: material_design_example
-description: "A new Flutter project."
+description: ""
 
 publish_to: "none"
 
@@ -19,7 +19,6 @@ dev_dependencies:
   flutter_lints: ^5.0.0
   flutter_test:
     sdk: flutter
-  very_good_analysis: ^9.0.0
 
 flutter:
   uses-material-design: true
