@@ -26,6 +26,16 @@ abstract final class MaterialElevation {
 
   /// Level 5 elevation (12dp) - Used for modal components like dialogs.
   static const double level5 = 12;
+
+  /// A list of all elevation levels for easy iteration.
+  static const List<double> allLevels = [
+    level0,
+    level1,
+    level2,
+    level3,
+    level4,
+    level5,
+  ];
 }
 
 /// A utility class to map elevation values to [BoxShadow]s.

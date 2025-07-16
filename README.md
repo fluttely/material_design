@@ -13,7 +13,7 @@ Add this line to your project's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  material_design: ^0.2.3
+  material_design: ^0.2.4
 ```
 
 Then run `flutter pub get`.
@@ -57,13 +57,13 @@ MaterialApp(
 )
 ```
 
-- **`MaterialSurface.getTintedColor(context, elevation)`**: Calculates the surface color with an elevation-based tint, crucial for M3's tonal elevation.
+- **`MaterialTonalColor.fromElevation(context, elevation)`**: Calculates the surface color with an elevation-based tint, crucial for M3's tonal elevation.
 
 **Example:**
 
 ```dart
 Container(
-  color: MaterialSurface.getTintedColor(context, MaterialElevation.level2),
+  color: MaterialTonalColor.fromElevation(context, MaterialElevation.level2),
 )
 ```
 

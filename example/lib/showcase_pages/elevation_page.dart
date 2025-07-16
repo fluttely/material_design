@@ -49,12 +49,12 @@ class _ElevationShowcase extends StatelessWidget {
 
     // Static elevation levels to showcase
     final elevationLevels = [
-      (0.0, 'Level 0', '0%'),
-      (1.0, 'Level 1', '5%'),
-      (3.0, 'Level 2', '8%'),
-      (6.0, 'Level 3', '11%'),
-      (8.0, 'Level 4', '12%'),
-      (12.0, 'Level 5', '14%'),
+      (MaterialElevation.level0, 'Level 0', '0%'),
+      (MaterialElevation.level1, 'Level 1', '5%'),
+      (MaterialElevation.level2, 'Level 2', '8%'),
+      (MaterialElevation.level3, 'Level 3', '11%'),
+      (MaterialElevation.level4, 'Level 4', '12%'),
+      (MaterialElevation.level5, 'Level 5', '14%'),
     ];
 
     // Static shadow definitions
@@ -84,7 +84,7 @@ class _ElevationShowcase extends StatelessWidget {
               final levelPercent = entry.value.$3;
 
               final surfaceColor = useSurfaceTint
-                  ? MaterialSurface.getTintedColor(context, elevation)
+                  ? MaterialTonalColor.fromElevation(context, elevation)
                   : colorScheme.surface;
 
               final shadows = useShadow ? shadowLevels[index] : <BoxShadow>[];

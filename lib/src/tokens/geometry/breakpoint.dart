@@ -2,27 +2,49 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-/// Defines the layout breakpoints for Material Design 3's window size classes.
+/// Defines the canonical Material Design 3 breakpoints, known as "window size classes".
 ///
-/// These values represent the lower bound of each window size class. Layouts
-/// should adapt based on these breakpoints to provide a responsive user
-/// experience across different screen sizes.
+/// These values are not arbitrary; they are based on extensive research by Google
+/// on the most common screen sizes across the device ecosystem. They function
+/// as lower bounds that categorize the available UI space, allowing layouts
+/// to adapt consistently and ergonomically.
 ///
-/// See: https://m3.material.io/foundations/layout/applying-layout/window-size-classes
+/// The goal is to ensure the application provides the best possible user experience,
+/// whether on a small phone or an ultra-wide monitor.
+///
+/// See the official documentation: https://m3.material.io/foundations/layout/applying-layout/window-size-classes
 abstract final class MaterialBreakpoint {
-  /// The breakpoint for the 'Compact' window size class (0dp to 599dp).
-  /// This is the default smallest size.
+  /// **Compact** (0dp to 599dp): The smallest breakpoint, representing the design baseline.
+  ///
+  /// **Typical Device**: Phones in portrait mode 📱.
+  /// **Common Use Case**: Interfaces focused on a single column, using a bottom navigation bar or a drawer.
   static const double compact = 0;
 
-  /// The breakpoint for the 'Medium' window size class (starts at 600dp).
+  /// **Medium** (600dp to 839dp): The first adaptation point for larger screens.
+  ///
+  /// **Typical Device**: Phones in landscape mode and small tablets (like iPad Minis) ↔️.
+  /// **Common Use Case**: Allows for introducing secondary panes, such as side-by-side list/detail views,
+  /// or using navigation rails instead of bottom navigation bars.
   static const double medium = 600;
 
-  /// The breakpoint for the 'Expanded' window size class (starts at 840dp).
+  /// **Expanded** (840dp to 1199dp): The breakpoint for screens that offer more horizontal space.
+  ///
+  /// **Typical Device**: Larger tablets in landscape mode (like iPad Pros) and foldable notebooks 💻.
+  /// **Common Use Case**: Ideal for more complex layouts with multiple panes, or for displaying
+  /// content that benefits from more space, such as dashboards and editing tools.
   static const double expanded = 840;
 
-  /// The breakpoint for the 'Large' window size class (starts at 1200dp).
+  /// **Large** (1200dp to 1599dp): Optimized for the desktop experience.
+  ///
+  /// **Typical Device**: Standard notebook and desktop screens 🖥️.
+  /// **Common Use Case**: Layouts that can display fixed panels (like a persistently visible navigation drawer)
+  /// without compromising the main content area. The space allows for information-rich interfaces.
   static const double large = 1200;
 
-  /// The breakpoint for the 'Extra-large' window size class (starts at 1600dp).
+  /// **Extra-large** (1600dp and up): For the largest available screen sizes.
+  ///
+  /// **Typical Device**: Large and ultra-wide monitors 🖥️✨.
+  /// **Common Use Case**: Allows for fully expansive layouts with multiple content columns,
+  /// visible auxiliary tools, and maximum use of horizontal space.
   static const double extraLarge = 1600;
 }

@@ -84,6 +84,8 @@ class _MotionShowcaseState extends State<_MotionShowcase>
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Padding(
       padding: const EdgeInsets.only(bottom: MaterialSpacing.space16),
       child: Column(
@@ -98,7 +100,7 @@ class _MotionShowcaseState extends State<_MotionShowcase>
                 painter: _MotionPainter(
                   animationValue: _animation.value,
                   curve: widget.motionToken.curve,
-                  color: Theme.of(context).colorScheme.primary,
+                  color: colorScheme.primary,
                 ),
                 child: SizedBox(
                   height: 100,

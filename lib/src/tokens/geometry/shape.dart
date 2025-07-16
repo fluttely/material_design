@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:material_design/material_design.dart';
-import 'package:material_design/src/tokens/geometry/radius.dart';
 
 /// Provides pre-defined, Material 3-compliant shape tokens.
 ///
