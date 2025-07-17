@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:material_design/material_design.dart';
 
 /// A provider class for managing the application's theme.
 ///
@@ -13,7 +12,7 @@ class ThemeProvider with ChangeNotifier {
   Color get seedColor => _seedColor;
 
   ThemeData get lightTheme => ThemeData(
-    colorScheme: MaterialColorScheme.create(
+    colorScheme: ColorScheme.fromSeed(
       seedColor: _seedColor,
       brightness: Brightness.light,
     ),
@@ -21,7 +20,7 @@ class ThemeProvider with ChangeNotifier {
   );
 
   ThemeData get darkTheme => ThemeData(
-    colorScheme: MaterialColorScheme.create(
+    colorScheme: ColorScheme.fromSeed(
       seedColor: _seedColor,
       brightness: Brightness.dark,
     ),

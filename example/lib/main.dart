@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'color_picker.dart';
 // New, separated showcase pages
 import 'showcase_pages/color_page.dart';
+import 'showcase_pages/density_page.dart';
 import 'showcase_pages/elevation_page.dart';
 import 'showcase_pages/other_tokens_page.dart';
 import 'showcase_pages/shape_page.dart';
@@ -56,6 +57,7 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
     const ElevationPage(),
     const SpacingPage(),
     const MotionPage(),
+    const DensityPage(),
     const OtherTokensPage(),
   ];
 
@@ -127,6 +129,10 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
       const NavigationDrawerDestination(
         icon: Icon(Icons.animation),
         label: Text('Motion'),
+      ),
+      const NavigationDrawerDestination(
+        icon: Icon(Icons.density_medium),
+        label: Text('Density'),
       ),
       const NavigationDrawerDestination(
         icon: Icon(Icons.token_outlined),

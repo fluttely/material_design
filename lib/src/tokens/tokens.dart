@@ -1,8 +1,9 @@
 /// Barrel file for Material 3 tokens.
 library;
 
+export 'animation/curve.dart';
+export 'animation/duration.dart';
 export 'animation/motion.dart';
-export 'color/color_scheme.dart';
 export 'color/surface.dart';
 export 'geometry/breakpoint.dart';
 export 'geometry/density.dart';
