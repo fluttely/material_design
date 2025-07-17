@@ -13,7 +13,7 @@ Add this line to your project's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  material_design: ^0.2.4
+  material_design: ^0.2.5
 ```
 
 Then run `flutter pub get`.
@@ -136,7 +136,7 @@ Padding(
 
 Standardized duration and easing curves for animations.
 
-- **`MaterialMotion`**: Provides `MotionToken` objects for `standard`, `emphasized`, and `linear` motion, including incoming and outgoing variations.
+- **`MaterialMotion`**: Provides `MotionScheme` objects for `standard`, `emphasized`, and `linear` motion, including incoming and outgoing variations.
 
 **Example:**
 
