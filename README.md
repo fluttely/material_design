@@ -13,7 +13,7 @@ Add this line to your project's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  material_design: ^0.2.4
+  material_design: ^0.2.6
 ```
 
 Then run `flutter pub get`.
@@ -34,21 +34,21 @@ This package provides a comprehensive set of Material 3 design tokens, allowing 
 
 The color system is based on a seed color, which generates a full `ColorScheme` for both light and dark modes.
 
-- **`MaterialColorScheme.create({seedColor, brightness})`**: Generates a full M3 color scheme.
+- **`ColorScheme.fromSeed({seedColor, brightness})`**: Generates a full M3 color scheme.
 
 **Example:**
 
 ```dart
 MaterialApp(
   theme: ThemeData(
-    colorScheme: MaterialColorScheme.create(
+    colorScheme: ColorScheme.fromSeed(
       seedColor: Colors.blue,
       brightness: Brightness.light,
     ),
     useMaterial3: true,
   ),
   darkTheme: ThemeData(
-    colorScheme: MaterialColorScheme.create(
+    colorScheme: ColorScheme.fromSeed(
       seedColor: Colors.blue,
       brightness: Brightness.dark,
     ),
@@ -132,11 +132,29 @@ Padding(
 )
 ```
 
+### Density
+
+Adjust component density for different interaction models.
+
+- **`MaterialDensity`**: An enum with `comfortable` (default) and `compact` values.
+
+**Example:**
+
+```dart
+// Use a switch to toggle between density settings
+final density = isCompact ? MaterialDensity.compact : MaterialDensity.comfortable;
+
+// This could be used to adjust layout constraints
+final horizontalPadding = density == MaterialDensity.compact
+    ? MaterialSpacing.space8
+    : MaterialSpacing.space16;
+```
+
 ### Motion
 
 Standardized duration and easing curves for animations.
 
-- **`MaterialMotion`**: Provides `MotionToken` objects for `standard`, `emphasized`, and `linear` motion, including incoming and outgoing variations.
+- **`MaterialMotion`**: Provides `MotionScheme` objects for `standard`, `emphasized`, and `linear` motion, including incoming and outgoing variations.
 
 **Example:**
 

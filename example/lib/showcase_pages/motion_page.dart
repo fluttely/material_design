@@ -52,7 +52,7 @@ class _MotionShowcase extends StatefulWidget {
   });
 
   final String title;
-  final MaterialMotionToken motionToken;
+  final MotionScheme motionToken;
 
   @override
   State<_MotionShowcase> createState() => _MotionShowcaseState();

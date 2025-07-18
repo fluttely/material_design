@@ -4,6 +4,20 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.2.6
+
+- **Feat:** Added `MaterialDensity` token to control UI density.
+- **Refactor:** Replaced `MaterialColorScheme.create` with `ColorScheme.fromSeed` to align with Flutter's core API.
+- **Refactor:** Refined motion tokens by separating them into `MotionEasing` and `MotionDuration` for more granular control.
+- **Example:** Added a new `DensityPage` to the example app to showcase the `MaterialDensity` token.
+- **Example:** Updated the example app to use the new motion tokens and `ColorScheme.fromSeed`.
+
+## 0.2.5
+
+- **Refactor:** The `MaterialMotionToken` has been renamed to `MotionScheme` to better align with the Material Design 3 specifications.
+- **Feature:** Introduced `MotionDurations` and `MotionEasings` classes to provide more granular control over animation durations and easing curves.
+- **Example:** Simplified the elevation page logic and updated the motion page to use the new `MotionScheme`.
+
 ## 0.2.4
 
 - **Refactor:** Renamed `MaterialSurface` to `MaterialTonalColor` and its method `getTintedColor` to `fromElevation` for better alignment with Material Design 3 terminology, where tonal colors are applied based on surface elevation.

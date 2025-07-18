@@ -12,18 +12,11 @@ class ElevationPage extends StatelessWidget {
         padding: const EdgeInsets.all(MaterialSpacing.space24),
         children: const [
           _ElevationShowcase(
-            title: 'Surface Tint Color Only',
-            useSurfaceTint: true,
+            title: 'Surface Tint Color',
             useShadow: false,
           ),
           _ElevationShowcase(
-            title: 'Shadow Only',
-            useSurfaceTint: false,
-            useShadow: true,
-          ),
-          _ElevationShowcase(
             title: 'Surface Tint Color and Shadow',
-            useSurfaceTint: true,
             useShadow: true,
           ),
         ],
@@ -35,18 +28,14 @@ class ElevationPage extends StatelessWidget {
 class _ElevationShowcase extends StatelessWidget {
   const _ElevationShowcase({
     required this.title,
-    required this.useSurfaceTint,
     required this.useShadow,
   });
 
   final String title;
-  final bool useSurfaceTint;
   final bool useShadow;
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-
     // Static elevation levels to showcase
     final elevationLevels = [
       (MaterialElevation.level0, 'Level 0', '0%'),
@@ -83,14 +72,15 @@ class _ElevationShowcase extends StatelessWidget {
               final levelName = entry.value.$2;
               final levelPercent = entry.value.$3;
 
-              final surfaceColor = useSurfaceTint
-                  ? MaterialTonalColor.fromElevation(context, elevation)
-                  : colorScheme.surface;
+              final surfaceColor = MaterialTonalColor.fromElevation(
+                context,
+                elevation,
+              );
 
               final shadows = useShadow ? shadowLevels[index] : <BoxShadow>[];
 
               return Container(
-                width: 120,
+                width: double.infinity,
                 height: 120,
                 decoration: ShapeDecoration(
                   color: surfaceColor,
