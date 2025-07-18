@@ -9,35 +9,35 @@ class MotionPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text('Motion')),
       body: ListView(
-        padding: const EdgeInsets.all(MaterialSpacing.space24),
+        padding: const EdgeInsets.all(M3Spacing.space24),
         children: const [
           _MotionShowcase(
             title: 'Emphasized',
-            motionToken: MaterialMotion.emphasized,
+            token: M3Motion.emphasized,
           ),
           _MotionShowcase(
             title: 'Emphasized Incoming',
-            motionToken: MaterialMotion.emphasizedIncoming,
+            token: M3Motion.emphasizedIncoming,
           ),
           _MotionShowcase(
             title: 'Emphasized Outgoing',
-            motionToken: MaterialMotion.emphasizedOutgoing,
+            token: M3Motion.emphasizedOutgoing,
           ),
           _MotionShowcase(
             title: 'Standard',
-            motionToken: MaterialMotion.standard,
+            token: M3Motion.standard,
           ),
           _MotionShowcase(
             title: 'Standard Incoming',
-            motionToken: MaterialMotion.standardIncoming,
+            token: M3Motion.standardIncoming,
           ),
           _MotionShowcase(
             title: 'Standard Outgoing',
-            motionToken: MaterialMotion.standardOutgoing,
+            token: M3Motion.standardOutgoing,
           ),
           _MotionShowcase(
             title: 'Linear',
-            motionToken: MaterialMotion.linear,
+            token: M3Motion.linear,
           ),
         ],
       ),
@@ -48,11 +48,11 @@ class MotionPage extends StatelessWidget {
 class _MotionShowcase extends StatefulWidget {
   const _MotionShowcase({
     required this.title,
-    required this.motionToken,
+    required this.token,
   });
 
   final String title;
-  final MotionScheme motionToken;
+  final M3MotionScheme token;
 
   @override
   State<_MotionShowcase> createState() => _MotionShowcaseState();
@@ -67,10 +67,10 @@ class _MotionShowcaseState extends State<_MotionShowcase>
   void initState() {
     super.initState();
     _controller = AnimationController(
-      duration: widget.motionToken.duration,
+      duration: widget.token.duration,
       vsync: this,
     );
-    _animation = widget.motionToken
+    _animation = widget.token
         .asTween(begin: 0.0, end: 1.0)
         .animate(_controller);
     _controller.repeat(reverse: true);
@@ -87,19 +87,19 @@ class _MotionShowcaseState extends State<_MotionShowcase>
     final colorScheme = Theme.of(context).colorScheme;
 
     return Padding(
-      padding: const EdgeInsets.only(bottom: MaterialSpacing.space16),
+      padding: const EdgeInsets.only(bottom: M3Spacing.space16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(widget.title, style: MaterialTypeScale.titleMedium),
-          const SizedBox(height: MaterialSpacing.space8),
+          Text(widget.title, style: M3TypeScale.titleMedium),
+          const SizedBox(height: M3Spacing.space8),
           AnimatedBuilder(
             animation: _animation,
             builder: (context, child) {
               return CustomPaint(
                 painter: _MotionPainter(
                   animationValue: _animation.value,
-                  curve: widget.motionToken.curve,
+                  curve: widget.token.curve,
                   color: colorScheme.primary,
                 ),
                 child: SizedBox(

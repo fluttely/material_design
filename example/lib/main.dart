@@ -63,48 +63,152 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final isSmallScreen = MediaQuery.of(context).size.width < 600;
+    final isSmallScreen =
+        MediaQuery.of(context).size.width < M3Breakpoint.medium;
 
+    // Layout para telas pequenas (mantém o NavigationDrawer)
+    if (isSmallScreen) {
+      return Scaffold(
+        appBar: AppBar(title: const Text('Material 3 Tokens')),
+        drawer: NavigationDrawer(
+          selectedIndex: _selectedIndex,
+          onDestinationSelected: (index) {
+            setState(() {
+              _selectedIndex = index;
+              Navigator.of(context).pop();
+            });
+          },
+          children: _buildNavigationDrawerChildren(context),
+        ),
+        body: _pages[_selectedIndex],
+      );
+    }
+
+    // Layout para telas grandes com NavigationRail
     return Scaffold(
-      appBar: isSmallScreen
-          ? AppBar(title: const Text('Material Tokens'))
-          : null,
-      drawer: isSmallScreen
-          ? NavigationDrawer(
-              selectedIndex: _selectedIndex,
-              onDestinationSelected: (index) {
-                setState(() {
-                  _selectedIndex = index;
-                  Navigator.of(context).pop();
-                });
-              },
-              children: _buildNavigationDestinations(context),
-            )
-          : null,
       body: Row(
         children: [
-          if (!isSmallScreen)
-            NavigationDrawer(
-              selectedIndex: _selectedIndex,
-              onDestinationSelected: (index) {
-                setState(() {
-                  _selectedIndex = index;
-                });
-              },
-              children: _buildNavigationDestinations(context),
+          NavigationRail(
+            selectedIndex: _selectedIndex,
+            onDestinationSelected: (index) {
+              setState(() {
+                _selectedIndex = index;
+              });
+            },
+            labelType: NavigationRailLabelType.all,
+            leading: const Padding(
+              padding: EdgeInsets.symmetric(vertical: 20.0),
+              child: Text(
+                'Material 3 Tokens',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+              ),
             ),
+            destinations: _buildNavigationRailDestinations(),
+            trailing: _buildNavigationRailTrailing(context),
+          ),
+          const VerticalDivider(thickness: 1, width: 1),
           Expanded(child: _pages[_selectedIndex]),
         ],
       ),
     );
   }
 
-  List<Widget> _buildNavigationDestinations(BuildContext context) {
+  /// Constrói os destinos para o NavigationRail (telas grandes).
+  List<NavigationRailDestination> _buildNavigationRailDestinations() {
+    return const [
+      NavigationRailDestination(
+        icon: Icon(Icons.palette_outlined),
+        selectedIcon: Icon(Icons.palette),
+        label: Text('Color'),
+      ),
+      NavigationRailDestination(
+        icon: Icon(Icons.text_fields_outlined),
+        selectedIcon: Icon(Icons.text_fields),
+        label: Text('Typography'),
+      ),
+      NavigationRailDestination(
+        icon: Icon(Icons.rounded_corner_outlined),
+        selectedIcon: Icon(Icons.rounded_corner),
+        label: Text('Shape'),
+      ),
+      NavigationRailDestination(
+        icon: Icon(Icons.copy_outlined),
+        selectedIcon: Icon(Icons.copy),
+        label: Text('Elevation'),
+      ),
+      NavigationRailDestination(
+        icon: Icon(Icons.space_bar_outlined),
+        selectedIcon: Icon(Icons.space_bar),
+        label: Text('Spacing'),
+      ),
+      NavigationRailDestination(
+        icon: Icon(Icons.animation_outlined),
+        selectedIcon: Icon(Icons.animation),
+        label: Text('Motion'),
+      ),
+      NavigationRailDestination(
+        icon: Icon(Icons.density_medium_outlined),
+        selectedIcon: Icon(Icons.density_medium),
+        label: Text('Density'),
+      ),
+      NavigationRailDestination(
+        icon: Icon(Icons.token_outlined),
+        selectedIcon: Icon(Icons.token),
+        label: Text('Others'),
+      ),
+    ];
+  }
+
+  /// Constrói os widgets do rodapé (trailing) para o NavigationRail (telas grandes).
+  Widget _buildNavigationRailTrailing(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
+    return Expanded(
+      child: Align(
+        alignment: Alignment.bottomCenter,
+        child: Padding(
+          padding: const EdgeInsets.only(bottom: 20.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              const Divider(height: 20, indent: 8, endIndent: 8),
+              const SizedBox(height: 10),
+              Switch(
+                value: themeProvider.themeMode == ThemeMode.dark,
+                onChanged: (isDark) {
+                  themeProvider.changeThemeMode(
+                    isDark ? ThemeMode.dark : ThemeMode.light,
+                  );
+                },
+              ),
+              const Text('Dark Mode'),
+              const SizedBox(height: 20),
+              IconButton(
+                icon: Icon(Icons.color_lens, color: themeProvider.seedColor),
+                onPressed: () async {
+                  final newColor = await showColorPickerDialog(
+                    context,
+                    themeProvider.seedColor,
+                  );
+                  if (newColor != null) {
+                    themeProvider.changeSeedColor(newColor);
+                  }
+                },
+              ),
+              const Text('Seed Color'),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  /// Constrói a lista completa de widgets para o NavigationDrawer (telas pequenas).
+  List<Widget> _buildNavigationDrawerChildren(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
     return [
       const Padding(
         padding: EdgeInsets.fromLTRB(28, 16, 16, 10),
-        child: Text('Tokens'),
+        child: Text('Material 3 Tokens'),
       ),
       const NavigationDrawerDestination(
         icon: Icon(Icons.palette_outlined),
@@ -144,19 +248,19 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
       ),
       Padding(
         padding: const EdgeInsets.symmetric(horizontal: 28),
-        child: Text('Theme', style: MaterialTypeScale.titleSmall),
+        child: Text('Theme', style: Theme.of(context).textTheme.titleSmall),
       ),
       Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Row(
           children: [
-            const Text('Brightness'),
+            const Text('Dark Mode'),
             const Spacer(),
             Switch(
-              value: themeProvider.themeMode == ThemeMode.light,
-              onChanged: (isOn) {
+              value: themeProvider.themeMode == ThemeMode.dark,
+              onChanged: (isDark) {
                 themeProvider.changeThemeMode(
-                  isOn ? ThemeMode.light : ThemeMode.dark,
+                  isDark ? ThemeMode.dark : ThemeMode.light,
                 );
               },
             ),

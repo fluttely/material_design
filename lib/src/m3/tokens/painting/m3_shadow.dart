@@ -10,7 +10,8 @@ import 'package:flutter/material.dart';
 /// should typically be `Colors.black`.
 ///
 /// Reference: https://m3.material.io/styles/elevation/shadows
-abstract final class MaterialShadow {
+@immutable
+abstract final class M3Shadow {
   /// No shadow. An empty list of [BoxShadow].
   static const List<BoxShadow> level0 = [];
 

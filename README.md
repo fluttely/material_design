@@ -13,7 +13,7 @@ Add this line to your project's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  material_design: ^0.2.6
+  material_design: ^0.3.0
 ```
 
 Then run `flutter pub get`.
@@ -57,28 +57,28 @@ MaterialApp(
 )
 ```
 
-- **`MaterialTonalColor.fromElevation(context, elevation)`**: Calculates the surface color with an elevation-based tint, crucial for M3's tonal elevation.
+- **`M3TonalColor.fromElevation(context, elevation)`**: Calculates the surface color with an elevation-based tint, crucial for M3's tonal elevation.
 
 **Example:**
 
 ```dart
 Container(
-  color: MaterialTonalColor.fromElevation(context, MaterialElevation.level2),
+  color: M3TonalColor.fromElevation(context, M3Elevation.level2),
 )
 ```
 
 ### Typography
 
-The full M3 type scale is available via the `MaterialTypeScale` class.
+The full M3 type scale is available via the `M3TypeScale` class.
 
-- **`MaterialTypeScale`**: Provides 15 `TextStyle` tokens, from `displayLarge` to `labelSmall`.
+- **`M3TypeScale`**: Provides 15 `TextStyle` tokens, from `displayLarge` to `labelSmall`.
 
 **Example:**
 
 ```dart
 Text(
   'Display Large',
-  style: MaterialTypeScale.displayLarge,
+  style: M3TypeScale.displayLarge,
 )
 ```
 
@@ -86,15 +86,15 @@ Text(
 
 Define corner shapes using radius and shape tokens.
 
-- **`MaterialRadius`**: Provides radius values from `none` (0dp) to `extraLarge` (28dp) and `full`.
-- **`MaterialShape`**: Provides `ShapeBorder` objects like `extraSmall`, `medium`, `large`, etc.
+- **`M3Radius`**: Provides radius values from `none` (0dp) to `extraLarge` (28dp) and `full`.
+- **`M3Shape`**: Provides `ShapeBorder` objects like `extraSmall`, `medium`, `large`, etc.
 
 **Example:**
 
 ```dart
 Container(
   decoration: ShapeDecoration(
-    shape: MaterialShape.medium, // 12dp corner radius
+    shape: M3Shape.medium, // 12dp corner radius
   ),
 )
 ```
@@ -103,16 +103,16 @@ Container(
 
 Use elevation tokens for surface depth and shadow tokens for casting shadows.
 
-- **`MaterialElevation`**: Defines 6 elevation levels from `level0` (0dp) to `level5` (12dp).
-- **`MaterialShadow`**: Provides `BoxShadow` lists for each elevation level (`level0` to `level5`).
+- **`M3Elevation`**: Defines 6 elevation levels from `level0` (0dp) to `level5` (12dp).
+- **`M3Shadow`**: Provides `BoxShadow` lists for each elevation level (`level0` to `level5`).
 
 **Example:**
 
 ```dart
 Container(
   decoration: ShapeDecoration(
-    shape: MaterialShape.medium,
-    shadows: MaterialShadow.level2, // 3dp elevation shadow
+    shape: M3Shape.medium,
+    shadows: M3Shadow.level2, // 3dp elevation shadow
   ),
 )
 ```
@@ -121,13 +121,13 @@ Container(
 
 A granular spacing scale for consistent layouts.
 
-- **`MaterialSpacing`**: Provides spacing values from `none` to `space512`.
+- **`M3Spacing`**: Provides spacing values from `none` to `space512`.
 
 **Example:**
 
 ```dart
 Padding(
-  padding: const EdgeInsets.all(MaterialSpacing.space16), // 16dp padding
+  padding: const EdgeInsets.all(M3Spacing.space16), // 16dp padding
   child: Text('Hello, Material!'),
 )
 ```
@@ -136,32 +136,32 @@ Padding(
 
 Adjust component density for different interaction models.
 
-- **`MaterialDensity`**: An enum with `comfortable` (default) and `compact` values.
+- **`M3Density`**: An enum with `comfortable` (default) and `compact` values.
 
 **Example:**
 
 ```dart
 // Use a switch to toggle between density settings
-final density = isCompact ? MaterialDensity.compact : MaterialDensity.comfortable;
+final density = isCompact ? M3Density.compact : M3Density.comfortable;
 
 // This could be used to adjust layout constraints
-final horizontalPadding = density == MaterialDensity.compact
-    ? MaterialSpacing.space8
-    : MaterialSpacing.space16;
+final horizontalPadding = density == M3Density.compact
+    ? M3Spacing.space8
+    : M3Spacing.space16;
 ```
 
 ### Motion
 
 Standardized duration and easing curves for animations.
 
-- **`MaterialMotion`**: Provides `MotionScheme` objects for `standard`, `emphasized`, and `linear` motion, including incoming and outgoing variations.
+- **`M3Motion`**: Provides `M3MotionScheme` objects for `standard`, `emphasized`, and `linear` motion, including incoming and outgoing variations.
 
 **Example:**
 
 ```dart
 AnimatedContainer(
-  duration: MaterialMotion.standard.duration,
-  curve: MaterialMotion.standard.curve,
+  duration: M3Motion.standard.duration,
+  curve: M3Motion.standard.curve,
   // ...
 )
 ```
@@ -170,7 +170,7 @@ AnimatedContainer(
 
 The library also includes tokens for various other UI properties.
 
-- **`MaterialBorder`**: Standard border widths.
+- **`M3Border`**: Standard border widths.
 
   - `thin` (1dp)
 
@@ -179,12 +179,12 @@ The library also includes tokens for various other UI properties.
   ```dart
   Container(
     decoration: BoxDecoration(
-      border: Border.all(width: MaterialBorder.thin),
+      border: Border.all(width: M3Border.thin),
     ),
   )
   ```
 
-- **`MaterialOpacity`**: Opacity values for states and elements.
+- **`M3Opacity`**: Opacity values for states and elements.
 
   - `hover` (0.08), `focus` (0.10), `pressed` (0.10), `dragged` (0.16)
   - `disabledContent` (0.38), `disabledContainer` (0.12)
@@ -193,11 +193,11 @@ The library also includes tokens for various other UI properties.
 
   ```dart
   Container(
-    color: Colors.black.withOpacity(MaterialOpacity.hover),
+    color: Colors.black.withOpacity(M3Opacity.hover),
   )
   ```
 
-- **`MaterialBreakpoint`**: Breakpoints for responsive layouts.
+- **`M3Breakpoint`**: Breakpoints for responsive layouts.
 
   - `compact` (0), `medium` (600), `expanded` (840), `large` (1200), `extraLarge` (1600)
 
@@ -205,12 +205,12 @@ The library also includes tokens for various other UI properties.
 
   ```dart
   final screenWidth = MediaQuery.of(context).size.width;
-  if (screenWidth >= MaterialBreakpoint.medium) {
+  if (screenWidth >= M3Breakpoint.medium) {
     // Use a two-column layout
   }
   ```
 
-- **`MaterialIconSize`**: Standard icon size.
+- **`M3IconSize`**: Standard icon size.
 
   - `standard` (24dp)
 
@@ -219,11 +219,11 @@ The library also includes tokens for various other UI properties.
   ```dart
   Icon(
     Icons.favorite,
-    size: MaterialIconSize.standard,
+    size: M3IconSize.standard,
   )
   ```
 
-- **`MaterialZIndex`**: Conventional z-index values for layering.
+- **`M3ZIndex`**: Conventional z-index values for layering.
 
   - `content` (1), `floating` (10), `drawer` (100), `modal` (1000), `snackbar` (2000), `tooltip` (9999)
 
@@ -233,11 +233,11 @@ The library also includes tokens for various other UI properties.
   Stack(
     children: [
       Positioned(
-        zIndex: MaterialZIndex.content,
+        zIndex: M3ZIndex.content,
         child: Text('Content'),
       ),
       Positioned(
-        zIndex: MaterialZIndex.floating,
+        zIndex: M3ZIndex.floating,
         child: FloatingActionButton(onPressed: () {}),
       ),
     ],

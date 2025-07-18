@@ -3,8 +3,9 @@
 // found in the LICENSE file.
 
 import 'package:flutter/animation.dart';
-import 'package:material_design/src/tokens/animation/curve.dart';
-import 'package:material_design/src/tokens/animation/duration.dart';
+import 'package:flutter/foundation.dart';
+import 'package:material_design/src/m3/tokens/animation/m3_motion_duration.dart';
+import 'package:material_design/src/m3/tokens/animation/m3_motion_easing.dart';
 
 /// Represents a Material Design 3 motion scheme, combining duration and easing.
 ///
@@ -17,9 +18,9 @@ import 'package:material_design/src/tokens/animation/duration.dart';
 /// Flutter animations.
 ///
 /// See: https://m3.material.io/styles/motion/easing-and-duration/tokens-specs
-class MotionScheme {
+class M3MotionScheme {
   /// Creates a motion scheme with a specific duration and curve.
-  const MotionScheme(this.duration, this.curve);
+  const M3MotionScheme(this.duration, this.curve);
 
   /// The total time the animation will take.
   final Duration duration;
@@ -35,7 +36,7 @@ class MotionScheme {
   ///
   /// Example:
   /// ```dart
-  /// myAnimation = controller.drive(MaterialMotion.emphasized.asTween(begin: 0.0, end: 1.0));
+  /// myAnimation = controller.drive(M3Motion.emphasized.asTween(begin: 0.0, end: 1.0));
   /// ```
   Animatable<T> asTween<T>({required T begin, required T end}) {
     return Tween<T>(begin: begin, end: end).chain(CurveTween(curve: curve));
@@ -47,66 +48,67 @@ class MotionScheme {
 /// These tokens provide standardized duration and easing values for creating
 /// consistent and natural-feeling animations across the application.
 ///
-/// This class provides pre-combined [MotionScheme]s for convenience, built
-/// from the granular [MotionDuration] and [MotionEasing] tokens.
+/// This class provides pre-combined [M3MotionScheme]s for convenience, built
+/// from the granular [M3MotionDuration] and [M3MotionEasing] tokens.
 ///
 /// See: https://m3.material.io/styles/motion/easing-and-duration/applying-easing-and-duration
-abstract final class MaterialMotion {
-  // --- Emphasized MaterialMotion ---
+@immutable
+abstract final class M3Motion {
+  // --- Emphasized M3Motion ---
   // For transitions of large-scale elements and hero moments.
 
   /// Emphasized motion for elements that are on-screen at the start and end.
   /// Duration: `long2` (500ms). Curve: `emphasized`.
-  static const MotionScheme emphasized = MotionScheme(
-    MotionDuration.long2,
-    MotionEasing.emphasized,
+  static const M3MotionScheme emphasized = M3MotionScheme(
+    M3MotionDuration.long2,
+    M3MotionEasing.emphasized,
   );
 
   /// Emphasized motion for elements that are entering the screen.
   /// Duration: `long1` (450ms). Curve: `emphasizedDecelerate`.
-  static const MotionScheme emphasizedIncoming = MotionScheme(
-    MotionDuration.long1,
-    MotionEasing.emphasizedDecelerate,
+  static const M3MotionScheme emphasizedIncoming = M3MotionScheme(
+    M3MotionDuration.long1,
+    M3MotionEasing.emphasizedDecelerate,
   );
 
   /// Emphasized motion for elements that are exiting the screen.
   /// Duration: `short3` (200ms). Curve: `emphasizedAccelerate`.
-  static const MotionScheme emphasizedOutgoing = MotionScheme(
-    MotionDuration.short3,
-    MotionEasing.emphasizedAccelerate,
+  static const M3MotionScheme emphasizedOutgoing = M3MotionScheme(
+    M3MotionDuration.short3,
+    M3MotionEasing.emphasizedAccelerate,
   );
 
-  // --- Standard MaterialMotion ---
+  // --- Standard M3Motion ---
   // For standard, functional transitions of smaller components.
 
   /// Standard motion for elements that are on-screen at the start and end.
   /// Duration: `medium2` (300ms). Curve: `standard`.
-  static const MotionScheme standard = MotionScheme(
-    MotionDuration.medium2,
-    MotionEasing.standard,
+  static const M3MotionScheme standard = M3MotionScheme(
+    M3MotionDuration.medium2,
+    M3MotionEasing.standard,
   );
 
   /// Standard motion for elements that are entering the screen.
   /// Duration: `medium1` (250ms). Curve: `standardDecelerate`.
-  static const MotionScheme standardIncoming = MotionScheme(
-    MotionDuration.medium1,
-    MotionEasing.standardDecelerate,
+  static const M3MotionScheme standardIncoming = M3MotionScheme(
+    M3MotionDuration.medium1,
+    M3MotionEasing.standardDecelerate,
   );
 
   /// Standard motion for elements that are exiting the screen.
   /// Duration: `short4` (150ms). Curve: `standardAccelerate`.
-  static const MotionScheme standardOutgoing = MotionScheme(
-    MotionDuration.short4,
-    MotionEasing.standardAccelerate,
+  static const M3MotionScheme standardOutgoing = M3MotionScheme(
+    M3MotionDuration.short4,
+    M3MotionEasing.standardAccelerate,
   );
 
-  // --- Utility MaterialMotion ---
+  // --- Utility M3Motion ---
 
   /// A linear interpolation scheme. Not part of the core M3 token set, but
   /// useful for specific cases.
   /// Duration: `short3` (200ms). Curve: `linear`.
-  static const MotionScheme linear = MotionScheme(
-    MotionDuration.short3,
-    MotionEasing.linear,
+  static const M3MotionScheme linear = M3MotionScheme(
+    M3MotionDuration.short3,
+    M3MotionEasing.linear,
   );
 }

@@ -10,7 +10,7 @@
 /// touch input.
 ///
 /// See: https://m3.material.io/foundations/layout/applying-layout/density
-enum MaterialDensity {
+enum M3Density {
   /// Default density for touch-based interfaces.
   comfortable,
 

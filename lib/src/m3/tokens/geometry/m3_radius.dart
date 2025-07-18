@@ -8,7 +8,7 @@ import 'package:flutter/foundation.dart';
 ///
 /// Reference: https://m3.material.io/styles/shape/tokens
 @immutable
-abstract final class MaterialRadius {
+abstract final class M3Radius {
   /// No corner radius (0dp).
   static const double none = 0;
 

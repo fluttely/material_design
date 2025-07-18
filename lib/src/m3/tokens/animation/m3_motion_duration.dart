@@ -1,10 +1,13 @@
+import 'package:flutter/foundation.dart';
+
 /// Material Design 3 motion duration tokens.
 ///
 /// These tokens define standardized durations for animations, ensuring a
 /// consistent pace across the application.
 ///
 /// See: https://m3.material.io/styles/motion/easing-and-duration/tokens-specs
-abstract final class MotionDuration {
+@immutable
+abstract final class M3MotionDuration {
   /// 50ms
   static const Duration short1 = Duration(milliseconds: 50);
 

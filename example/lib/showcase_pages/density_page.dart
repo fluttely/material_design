@@ -7,33 +7,32 @@ class DensityPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final densities = [
-      ('comfortable', MaterialDensity.comfortable),
-      ('compact', MaterialDensity.compact),
+      ('comfortable', M3Density.comfortable),
+      ('compact', M3Density.compact),
     ];
 
     return Scaffold(
       appBar: AppBar(title: const Text('Density Tokens')),
       body: ListView.separated(
-        padding: const EdgeInsets.all(MaterialSpacing.space16),
+        padding: const EdgeInsets.all(M3Spacing.space16),
         itemCount: densities.length,
-        separatorBuilder: (_, __) =>
-            const SizedBox(height: MaterialSpacing.space8),
+        separatorBuilder: (_, __) => const SizedBox(height: M3Spacing.space8),
         itemBuilder: (context, index) {
           final (label, density) = densities[index];
           return Row(
             children: [
               SizedBox(
-                width: MaterialSpacing.space112,
+                width: M3Spacing.space112,
                 child: Text(
                   '$label:',
-                  style: MaterialTypeScale.bodyMedium,
+                  style: M3TypeScale.bodyMedium,
                 ),
               ),
-              const SizedBox(width: MaterialSpacing.space16),
+              const SizedBox(width: M3Spacing.space16),
               Expanded(
                 child: Text(
                   density.toString(),
-                  style: MaterialTypeScale.bodyMedium,
+                  style: M3TypeScale.bodyMedium,
                 ),
               ),
             ],

@@ -1,4 +1,5 @@
 import 'package:flutter/animation.dart';
+import 'package:flutter/foundation.dart';
 
 /// Material Design 3 motion easing curve tokens.
 ///
@@ -6,7 +7,8 @@ import 'package:flutter/animation.dart';
 /// more natural and physically plausible feel.
 ///
 /// See: https://m3.material.io/styles/motion/easing-and-duration/tokens-specs
-abstract final class MotionEasing {
+@immutable
+abstract final class M3MotionEasing {
   // --- Emphasized Easing ---
 
   /// A more expressive curve for hero moments and large-scale transitions.

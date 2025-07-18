@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart';
+
 /// Opacity values used for state layers and other common UI elements,
 /// following Material Design 3 guidelines.
 ///
@@ -5,7 +7,8 @@
 /// interactive component (e.g., hovered, focused, pressed).
 ///
 /// Reference: https://m3.material.io/styles/states/overview
-abstract final class MaterialOpacity {
+@immutable
+abstract final class M3Opacity {
   // --- State Layer Opacities ---
 
   /// Opacity for a hovered state layer (+8%).

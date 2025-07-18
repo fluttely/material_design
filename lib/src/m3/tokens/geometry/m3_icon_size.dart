@@ -6,8 +6,11 @@
 /// Reference: https://m3.material.io/styles/icons/applying-icons
 library;
 
+import 'package:flutter/foundation.dart';
+
 /// Semantic icon sizes for different use cases in Material Design 3.
-abstract final class MaterialIconSize {
+@immutable
+abstract final class M3IconSize {
   /// Standard icon size (24dp) - The default size for most UI elements.
   static const double standard = 24;
 
