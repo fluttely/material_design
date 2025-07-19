@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:material_design/material_design.dart';
 import 'package:material_design_example/showcase_pages/motion_page.dart';
+import 'package:material_design_example/showcase_pages/widgets/launch_url_text.dart';
 import 'package:provider/provider.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import 'color_picker.dart';
 import 'showcase_pages/color_page.dart';
@@ -236,47 +236,32 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
             ],
           ),
         ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: M3Spacing.space16),
+          child: Row(
+            children: [
+              LaunchURLText(
+                title: 'M3 Components',
+                m3Url: 'https://flutterweb-wasm.web.app/',
+              ),
+            ],
+          ),
+        ),
       ],
     );
   }
 
   Widget _buildScrollableNavigationRail(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
-    final m3Url = 'https://m3.material.io/';
     return Container(
       width: 80,
       color: Theme.of(context).colorScheme.surface,
       child: Column(
         children: [
-          Tooltip(
-            // 1. O texto que aparecerá no tooltip
-            message: m3Url,
-            child: InkWell(
-              // 2. A função que será chamada ao clicar
-              onTap: () async {
-                await launchUrl(
-                  Uri.parse(m3Url),
-                  // Este parâmetro garante que o link abra em uma nova aba no navegador
-                  webOnlyWindowName: '_blank',
-                );
-              },
-              child: Container(
-                height: 56,
-                alignment: Alignment.center,
-                // O seu widget original permanece aqui
-                child: Text(
-                  'M3',
-                  // Opcional: Adicionar um estilo para parecer um link
-                  style: M3TypeScale.titleMedium.copyWith(
-                    color: Colors.blue,
-                    decoration: TextDecoration.underline,
-                    decorationColor: Colors.blue,
-                  ),
-                ),
-              ),
-            ),
+          LaunchURLText(
+            title: 'M3',
+            m3Url: 'https://m3.material.io/',
           ),
-
           Expanded(
             child: SingleChildScrollView(
               child: Column(
@@ -298,12 +283,14 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
                       },
                     );
                   }),
-
-                  const SizedBox(height: M3Spacing.space16),
-
-                  const Divider(height: 20, indent: 8, endIndent: 8),
-                  const SizedBox(height: M3Spacing.space12),
-
+                  const Divider(
+                    indent: M3Spacing.space8,
+                    endIndent: M3Spacing.space8,
+                  ),
+                  LaunchURLText(
+                    title: 'Demo',
+                    m3Url: 'https://flutterweb-wasm.web.app/',
+                  ),
                   Switch(
                     value: themeProvider.themeMode == ThemeMode.dark,
                     onChanged: (isDark) {
@@ -313,8 +300,7 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
                     },
                   ),
                   const Text('Dark Mode', style: TextStyle(fontSize: 12)),
-                  const SizedBox(height: M3Spacing.space20),
-
+                  const SizedBox(height: M3Spacing.space16),
                   IconButton(
                     icon: Icon(
                       Icons.color_lens,

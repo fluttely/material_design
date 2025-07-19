@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:material_design/material_design.dart';
+import 'package:material_design_example/showcase_pages/widgets/launch_url_text.dart';
 
 class MotionPage extends StatelessWidget {
   const MotionPage({super.key});
@@ -7,7 +8,13 @@ class MotionPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('M3Motion Tokens')),
+      appBar: AppBar(
+        title: LaunchURLText(
+          title: 'M3StateLayerOpacity Tokens (State Layers)',
+          m3Url:
+              'https://m3.material.io/styles/motion/easing-and-duration/applying-easing-and-duration',
+        ),
+      ),
       body: ListView(
         padding: const EdgeInsets.all(M3Spacing.space24),
         children: const [
@@ -95,13 +102,14 @@ class _MotionShowcaseState extends State<_MotionShowcase>
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
+    final textTheme = Theme.of(context).textTheme;
 
     return Padding(
       padding: const EdgeInsets.only(bottom: M3Spacing.space16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(widget.title, style: M3TypeScale.titleMedium),
+          Text(widget.title, style: textTheme.titleMedium),
           const SizedBox(height: M3Spacing.space8),
           AnimatedBuilder(
             animation: _animation,

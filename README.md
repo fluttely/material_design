@@ -1,4 +1,4 @@
-# Material Design
+# Material Design 3 Only
 
 [![pub version](https://img.shields.io/pub/v/material_design.svg)](https://pub.dev/packages/material_design)
 [![license](https://img.shields.io/badge/license-BSD-blue.svg)](/LICENSE)
@@ -13,7 +13,7 @@ Add this line to your project's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  material_design: ^0.4.0
+  material_design: ^0.4.1
 ```
 
 Then run `flutter pub get`.
@@ -99,7 +99,7 @@ Container(
 )
 ```
 
-### Elevation & Shadow
+### Elevation
 
 Use elevation tokens for surface depth and shadow tokens for casting shadows.
 
@@ -109,12 +109,17 @@ Use elevation tokens for surface depth and shadow tokens for casting shadows.
 **Example:**
 
 ```dart
+final useShadow = true;
+final elevation = M3Elevation.level5;
+final elevationSurfaceColor = M3TonalColor.fromElevation(context, elevation);
+final elevationShadows = useShadow ? M3Shadow.fromElevation(elevation) : <BoxShadow>[];
 Container(
   decoration: ShapeDecoration(
-    shape: M3Shape.medium,
-    shadows: M3Shadow.level2, // 3dp elevation shadow
+    shape: M3Shape.small,
+    color: elevationSurfaceColor,
+    shadows: elevationShadows,
   ),
-)
+),
 ```
 
 ### Spacing
@@ -185,7 +190,7 @@ The library also includes tokens for various other UI properties.
   )
   ```
 
-- **`M3Opacity`**: Opacity values for states and elements.
+- **`M3StateLayerOpacity`**: Opacity values for states and elements.
 
   - `hover` (0.08), `focus` (0.10), `pressed` (0.10), `dragged` (0.16)
   - `disabledContent` (0.38), `disabledContainer` (0.12)
@@ -193,8 +198,9 @@ The library also includes tokens for various other UI properties.
   **Example:**
 
   ```dart
+  final isHoreved = M3StateLayerOpacity.hover ? null;
   Container(
-    color: Colors.black.withValues(alpha: M3Opacity.hover),
+    color: Colors.black.withValues(alpha: M3StateLayerOpacity.hover),
   )
   ```
 

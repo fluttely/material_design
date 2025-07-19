@@ -12,7 +12,7 @@ export 'geometry/m3_shape.dart';
 export 'geometry/m3_spacing.dart';
 export 'geometry/m3_visual_density.dart';
 export 'painting/m3_border.dart';
-export 'painting/m3_opacity.dart';
 export 'painting/m3_shadow.dart';
+export 'painting/m3_state_layer_opacity.dart';
 export 'painting/m3_z_index.dart';
 export 'typography/m3_type_scale.dart';
