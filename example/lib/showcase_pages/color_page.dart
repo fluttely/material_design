@@ -8,12 +8,27 @@ class ColorPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
 
-    // Organize colorScheme as seen in the Flutter demo site
     final keyColors = [
-      ('Primary', colorScheme.primary, colorScheme.onPrimary),
-      ('Secondary', colorScheme.secondary, colorScheme.onSecondary),
-      ('Tertiary', colorScheme.tertiary, colorScheme.onTertiary),
-      ('Error', colorScheme.error, colorScheme.onError),
+      (
+        'Primary',
+        colorScheme.primary,
+        colorScheme.onPrimary,
+      ),
+      (
+        'Secondary',
+        colorScheme.secondary,
+        colorScheme.onSecondary,
+      ),
+      (
+        'Tertiary',
+        colorScheme.tertiary,
+        colorScheme.onTertiary,
+      ),
+      (
+        'Error',
+        colorScheme.error,
+        colorScheme.onError,
+      ),
     ];
 
     final allColors = [
@@ -22,28 +37,56 @@ class ColorPage extends StatelessWidget {
         colorScheme.primaryContainer,
         colorScheme.onPrimaryContainer,
       ),
-      ('On Primary', colorScheme.onPrimary, colorScheme.primary),
+      (
+        'On Primary',
+        colorScheme.onPrimary,
+        colorScheme.primary,
+      ),
       (
         'Secondary Container',
         colorScheme.secondaryContainer,
         colorScheme.onSecondaryContainer,
       ),
-      ('On Secondary', colorScheme.onSecondary, colorScheme.secondary),
+      (
+        'On Secondary',
+        colorScheme.onSecondary,
+        colorScheme.secondary,
+      ),
       (
         'Tertiary Container',
         colorScheme.tertiaryContainer,
         colorScheme.onTertiaryContainer,
       ),
-      ('On Tertiary', colorScheme.onTertiary, colorScheme.tertiary),
+      (
+        'On Tertiary',
+        colorScheme.onTertiary,
+        colorScheme.tertiary,
+      ),
       (
         'Error Container',
         colorScheme.errorContainer,
         colorScheme.onErrorContainer,
       ),
-      ('On Error', colorScheme.onError, colorScheme.error),
-      ('Surface Dim', colorScheme.surfaceDim, colorScheme.onSurface),
-      ('Surface', colorScheme.surface, colorScheme.onSurface),
-      ('Surface Bright', colorScheme.surfaceBright, colorScheme.onSurface),
+      (
+        'On Error',
+        colorScheme.onError,
+        colorScheme.error,
+      ),
+      (
+        'Surface Dim',
+        colorScheme.surfaceDim,
+        colorScheme.onSurface,
+      ),
+      (
+        'Surface',
+        colorScheme.surface,
+        colorScheme.onSurface,
+      ),
+      (
+        'Surface Bright',
+        colorScheme.surfaceBright,
+        colorScheme.onSurface,
+      ),
       (
         'Surface Container Lowest',
         colorScheme.surfaceContainerLowest,
@@ -69,10 +112,26 @@ class ColorPage extends StatelessWidget {
         colorScheme.surfaceContainerHighest,
         colorScheme.onSurface,
       ),
-      ('On Surface', colorScheme.onSurface, colorScheme.surface),
-      ('On Surface Variant', colorScheme.onSurfaceVariant, colorScheme.surface),
-      ('Outline', colorScheme.outline, colorScheme.surface),
-      ('Outline Variant', colorScheme.outlineVariant, colorScheme.surface),
+      (
+        'On Surface',
+        colorScheme.onSurface,
+        colorScheme.surface,
+      ),
+      (
+        'On Surface Variant',
+        colorScheme.onSurfaceVariant,
+        colorScheme.surface,
+      ),
+      (
+        'Outline',
+        colorScheme.outline,
+        colorScheme.surface,
+      ),
+      (
+        'Outline Variant',
+        colorScheme.outlineVariant,
+        colorScheme.surface,
+      ),
       (
         'Inverse Surface',
         colorScheme.inverseSurface,
@@ -83,12 +142,20 @@ class ColorPage extends StatelessWidget {
         colorScheme.onInverseSurface,
         colorScheme.inverseSurface,
       ),
-      ('Inverse Primary', colorScheme.inversePrimary, colorScheme.onPrimary),
-      ('Surface Tint', colorScheme.surfaceTint, colorScheme.onSurface),
+      (
+        'Inverse Primary',
+        colorScheme.inversePrimary,
+        colorScheme.onPrimary,
+      ),
+      (
+        'Surface Tint',
+        colorScheme.surfaceTint,
+        colorScheme.onSurface,
+      ),
     ];
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Color System')),
+      appBar: AppBar(title: const Text('ColorScheme Tokens')),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(M3Spacing.space24),
         child: Row(
@@ -113,7 +180,7 @@ class ColorPage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Color Scheme', style: M3TypeScale.titleLarge),
+                  Text('Scheme', style: M3TypeScale.titleLarge),
                   const SizedBox(height: M3Spacing.space16),
                   Wrap(
                     spacing: M3Spacing.space8,

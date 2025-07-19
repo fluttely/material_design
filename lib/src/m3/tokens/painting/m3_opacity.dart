@@ -33,14 +33,14 @@ abstract final class M3Opacity {
   /// This is applied directly to the container, not as a state layer.
   static const double disabledContainer = 0.12;
 
-  // --- Other Common Opacities ---
+  // // --- Other Common Opacities ---
 
-  /// Opacity for a scrim or backdrop, often used with dialogs or modals.
-  /// Note: This is not a formal M3 token but a common practice.
-  static const double backdrop = 0.5;
+  // /// Opacity for a scrim or backdrop, often used with dialogs or modals.
+  // /// Note: This is not a formal M3 token but a common practice.
+  // static const double backdrop = 0.5;
 
-  /// Opacity for dividers.
-  /// In M3, divider color is often specified directly, but an opacity-based
-  /// approach on top of a base color is also common.
-  static const double divider = 0.12;
+  // /// Opacity for dividers.
+  // /// In M3, divider color is often specified directly, but an opacity-based
+  // /// approach on top of a base color is also common.
+  // static const double divider = 0.12;
 }

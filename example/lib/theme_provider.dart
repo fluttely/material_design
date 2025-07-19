@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 
-/// A provider class for managing the application's theme.
-///
-/// It allows changing the theme mode and the seed color that generates
-/// the color schemes.
 class ThemeProvider with ChangeNotifier {
   ThemeMode _themeMode = ThemeMode.light;
-  Color _seedColor = const Color(0xFF6750A4); // Default Material blue
+  Color _seedColor = const Color(0xFF6750A4);
 
   ThemeMode get themeMode => _themeMode;
   Color get seedColor => _seedColor;

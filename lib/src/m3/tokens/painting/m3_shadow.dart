@@ -1,42 +1,141 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:material_design/material_design.dart';
 
 /// Provides pre-defined, Material 3-compliant shadow tokens.
 ///
-/// These tokens directly reference Flutter's internal `kElevationToShadow` map,
-/// ensuring they are perfectly aligned with the shadows used by standard
-/// Material components like [Card], [Dialog], and [ElevatedButton].
+/// These tokens are defined directly from the Material 3 specification and
+/// are composed of one or two simple `BoxShadow` layers. They are designed
+/// to be used with a `shadowColor`, which defaults to `Colors.black` in
+/// most Material components.
 ///
-/// The shadows are designed to work with a specific [shadowColor], which
-/// should typically be `Colors.black`.
+/// Note: The primary indicator of elevation in M3 is the "Surface Tint",
+/// with these shadows acting as a complementary element.
 ///
 /// Reference: https://m3.material.io/styles/elevation/shadows
 @immutable
 abstract final class M3Shadow {
-  /// No shadow. An empty list of [BoxShadow].
+  // The color used for M3 shadows is black with a specific opacity.
+  // We define it here for reuse.
+  static final Color _shadowColor = Colors.black.withValues(alpha: 0.15);
+
+  /// Level 0: No shadow.
   static const List<BoxShadow> level0 = [];
 
-  /// The shadow configuration for elevation level 1 (1dp).
-  ///
-  /// Corresponds to `kElevationToShadow[1]`.
-  static final List<BoxShadow> level1 = kElevationToShadow[1]!;
+  /// Level 1 (1dp): A single, subtle shadow.
+  static final List<BoxShadow> level1 = [
+    BoxShadow(
+      color: _shadowColor,
+      offset: const Offset(0, 1),
+      blurRadius: 2,
+    ),
+  ];
 
-  /// The shadow configuration for elevation level 2 (3dp).
-  ///
-  /// Note: M3 elevation level 2 is 3dp, so this references `kElevationToShadow[3]`.
-  static final List<BoxShadow> level2 = kElevationToShadow[3]!;
+  /// Level 2 (3dp): Two subtle shadows for added depth.
+  static final List<BoxShadow> level2 = [
+    BoxShadow(
+      color: _shadowColor,
+      offset: const Offset(0, 1),
+      blurRadius: 3,
+    ),
+    BoxShadow(
+      color: _shadowColor,
+      offset: const Offset(0, 2),
+      blurRadius: 6,
+      spreadRadius: 2,
+    ),
+  ];
 
-  /// The shadow configuration for elevation level 3 (6dp).
-  ///
-  /// Corresponds to `kElevationToShadow[6]`.
-  static final List<BoxShadow> level3 = kElevationToShadow[6]!;
+  /// Level 3 (6dp): Two slightly more pronounced shadows.
+  static final List<BoxShadow> level3 = [
+    BoxShadow(
+      color: _shadowColor,
+      offset: const Offset(0, 2),
+      blurRadius: 4,
+    ),
+    BoxShadow(
+      color: _shadowColor,
+      offset: const Offset(0, 4),
+      blurRadius: 8,
+      spreadRadius: 3,
+    ),
+  ];
 
-  /// The shadow configuration for elevation level 4 (8dp).
-  ///
-  /// Corresponds to `kElevationToShadow[8]`.
-  static final List<BoxShadow> level4 = kElevationToShadow[8]!;
+  /// Level 4 (8dp): Two distinct shadows for high elevation.
+  static final List<BoxShadow> level4 = [
+    BoxShadow(
+      color: _shadowColor,
+      offset: const Offset(0, 2),
+      blurRadius: 4,
+    ),
+    BoxShadow(
+      color: _shadowColor,
+      offset: const Offset(0, 4),
+      blurRadius: 10,
+      spreadRadius: 3,
+    ),
+  ];
 
-  /// The shadow configuration for elevation level 5 (12dp).
+  /// Level 5 (12dp): The strongest shadows for maximum elevation.
+  static final List<BoxShadow> level5 = [
+    BoxShadow(
+      color: _shadowColor,
+      offset: const Offset(0, 2),
+      blurRadius: 4,
+    ),
+    BoxShadow(
+      color: _shadowColor,
+      offset: const Offset(0, 4),
+      blurRadius: 12,
+      spreadRadius: 3,
+    ),
+  ];
+
+  static final Map<double, List<BoxShadow>> _elevationMap = {
+    M3Elevation.level0: level0,
+    M3Elevation.level1: level1,
+    M3Elevation.level2: level2,
+    M3Elevation.level3: level3,
+    M3Elevation.level4: level4,
+    M3Elevation.level5: level5,
+  };
+
+  /// Generates a Material 3-compliant shadow list by interpolating between
+  /// the official elevation levels.
   ///
-  /// Corresponds to `kElevationToShadow[12]`.
-  static final List<BoxShadow> level5 = kElevationToShadow[12]!;
+  /// This method ensures that passing a standard elevation value (e.g., 6.0)
+  /// returns the exact M3 shadow token, while intermediate values result in
+  /// a smooth, linear transition between the two closest official levels.
+  static List<BoxShadow> fromElevation(double elevation) {
+    if (elevation <= 0) {
+      return level0;
+    }
+
+    final elevations = _elevationMap.keys.toList();
+    if (elevation >= elevations.last) {
+      return _elevationMap[elevations.last]!;
+    }
+
+    final upperElevation = elevations.firstWhere((e) => e >= elevation);
+    final lowerElevation = elevations[elevations.indexOf(upperElevation) - 1];
+
+    final lowerShadows = _elevationMap[lowerElevation]!;
+    final upperShadows = _elevationMap[upperElevation]!;
+
+    final t = (elevation - lowerElevation) / (upperElevation - lowerElevation);
+
+    final interpolatedShadows = <BoxShadow>[];
+    final maxShadows = max(lowerShadows.length, upperShadows.length);
+
+    for (var i = 0; i < maxShadows; i++) {
+      final lower = i < lowerShadows.length ? lowerShadows[i] : null;
+      final upper = i < upperShadows.length ? upperShadows[i] : null;
+      final shadow = BoxShadow.lerp(lower, upper, t);
+      if (shadow != null) {
+        interpolatedShadows.add(shadow);
+      }
+    }
+    return interpolatedShadows;
+  }
 }

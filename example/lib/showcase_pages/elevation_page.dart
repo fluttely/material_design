@@ -7,16 +7,16 @@ class ElevationPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Elevation')),
+      appBar: AppBar(title: const Text('M3Elevation Tokens')),
       body: ListView(
         padding: const EdgeInsets.all(M3Spacing.space24),
         children: const [
           _ElevationShowcase(
-            title: 'Surface Tint Color',
+            title: 'Surface Tint Color Only',
             useShadow: false,
           ),
           _ElevationShowcase(
-            title: 'Surface Tint Color and Shadow',
+            title: 'Surface Tint Color and Shadow Color',
             useShadow: true,
           ),
         ],
@@ -36,7 +36,6 @@ class _ElevationShowcase extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Static elevation levels to showcase
     final elevationLevels = [
       (M3Elevation.level0, 'Level 0', '0%'),
       (M3Elevation.level1, 'Level 1', '5%'),
@@ -44,16 +43,6 @@ class _ElevationShowcase extends StatelessWidget {
       (M3Elevation.level3, 'Level 3', '11%'),
       (M3Elevation.level4, 'Level 4', '12%'),
       (M3Elevation.level5, 'Level 5', '14%'),
-    ];
-
-    // Static shadow definitions
-    final shadowLevels = [
-      M3Shadow.level0,
-      M3Shadow.level1,
-      M3Shadow.level2,
-      M3Shadow.level3,
-      M3Shadow.level4,
-      M3Shadow.level5,
     ];
 
     return Padding(
@@ -67,7 +56,6 @@ class _ElevationShowcase extends StatelessWidget {
             spacing: M3Spacing.space16,
             runSpacing: M3Spacing.space16,
             children: elevationLevels.asMap().entries.map((entry) {
-              final index = entry.key;
               final elevation = entry.value.$1;
               final levelName = entry.value.$2;
               final levelPercent = entry.value.$3;
@@ -77,15 +65,17 @@ class _ElevationShowcase extends StatelessWidget {
                 elevation,
               );
 
-              final shadows = useShadow ? shadowLevels[index] : <BoxShadow>[];
+              final shadows = useShadow
+                  ? M3Shadow.fromElevation(elevation)
+                  : <BoxShadow>[];
 
               return Container(
                 width: double.infinity,
-                height: 120,
+                height: M3Spacing.space120,
                 decoration: ShapeDecoration(
                   color: surfaceColor,
-                  shape: M3Shape.small,
                   shadows: shadows,
+                  shape: M3Shape.small,
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,

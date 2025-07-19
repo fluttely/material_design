@@ -25,7 +25,7 @@ class TypographyPage extends StatelessWidget {
     ];
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Typography Scale Tokens')),
+      appBar: AppBar(title: const Text('M3TypeScale Tokens')),
       body: ListView.builder(
         padding: const EdgeInsets.all(M3Spacing.space16),
         itemCount: textStyles.length,

@@ -13,7 +13,7 @@ Add this line to your project's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  material_design: ^0.3.0
+  material_design: ^0.4.0
 ```
 
 Then run `flutter pub get`.
@@ -154,14 +154,15 @@ final horizontalPadding = density == M3Density.compact
 
 Standardized duration and easing curves for animations.
 
-- **`M3Motion`**: Provides `M3MotionScheme` objects for `standard`, `emphasized`, and `linear` motion, including incoming and outgoing variations.
+- **`M3MotionDuration`**: Provides duration values from `short1` to `extralong4`.
+- **`M3MotionEasing`**: Provides duration values from `emphasizedAccelerate` to `standardDecelerate`.
 
 **Example:**
 
 ```dart
 AnimatedContainer(
-  duration: M3Motion.standard.duration,
-  curve: M3Motion.standard.curve,
+  duration: M3MotionDuration.long2,
+  curve: M3MotionEasing.emphasizedAccelerate,
   // ...
 )
 ```
@@ -193,7 +194,7 @@ The library also includes tokens for various other UI properties.
 
   ```dart
   Container(
-    color: Colors.black.withOpacity(M3Opacity.hover),
+    color: Colors.black.withValues(alpha: M3Opacity.hover),
   )
   ```
 

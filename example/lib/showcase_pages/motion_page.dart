@@ -7,37 +7,44 @@ class MotionPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Motion')),
+      appBar: AppBar(title: const Text('M3Motion Tokens')),
       body: ListView(
         padding: const EdgeInsets.all(M3Spacing.space24),
         children: const [
           _MotionShowcase(
             title: 'Emphasized',
-            token: M3Motion.emphasized,
+            duration: M3MotionDuration.long2,
+            curve: M3MotionEasing.emphasizedAccelerate,
           ),
           _MotionShowcase(
             title: 'Emphasized Incoming',
-            token: M3Motion.emphasizedIncoming,
+            duration: M3MotionDuration.long1,
+            curve: M3MotionEasing.emphasizedDecelerate,
           ),
           _MotionShowcase(
             title: 'Emphasized Outgoing',
-            token: M3Motion.emphasizedOutgoing,
+            duration: M3MotionDuration.short3,
+            curve: M3MotionEasing.emphasizedAccelerate,
           ),
           _MotionShowcase(
             title: 'Standard',
-            token: M3Motion.standard,
+            duration: M3MotionDuration.medium2,
+            curve: M3MotionEasing.standard,
           ),
           _MotionShowcase(
             title: 'Standard Incoming',
-            token: M3Motion.standardIncoming,
+            duration: M3MotionDuration.medium1,
+            curve: M3MotionEasing.standardDecelerate,
           ),
           _MotionShowcase(
             title: 'Standard Outgoing',
-            token: M3Motion.standardOutgoing,
+            duration: M3MotionDuration.short4,
+            curve: M3MotionEasing.standardAccelerate,
           ),
           _MotionShowcase(
             title: 'Linear',
-            token: M3Motion.linear,
+            duration: M3MotionDuration.short3,
+            curve: M3MotionEasing.linear,
           ),
         ],
       ),
@@ -48,11 +55,13 @@ class MotionPage extends StatelessWidget {
 class _MotionShowcase extends StatefulWidget {
   const _MotionShowcase({
     required this.title,
-    required this.token,
+    required this.duration,
+    required this.curve,
   });
 
   final String title;
-  final M3MotionScheme token;
+  final Duration duration;
+  final Curve curve;
 
   @override
   State<_MotionShowcase> createState() => _MotionShowcaseState();
@@ -67,12 +76,13 @@ class _MotionShowcaseState extends State<_MotionShowcase>
   void initState() {
     super.initState();
     _controller = AnimationController(
-      duration: widget.token.duration,
+      duration: widget.duration,
       vsync: this,
     );
-    _animation = widget.token
-        .asTween(begin: 0.0, end: 1.0)
-        .animate(_controller);
+    _animation = Tween<double>(
+      begin: 0.0,
+      end: 1.0,
+    ).chain(CurveTween(curve: widget.curve)).animate(_controller);
     _controller.repeat(reverse: true);
   }
 
@@ -99,7 +109,7 @@ class _MotionShowcaseState extends State<_MotionShowcase>
               return CustomPaint(
                 painter: _MotionPainter(
                   animationValue: _animation.value,
-                  curve: widget.token.curve,
+                  curve: widget.curve,
                   color: colorScheme.primary,
                 ),
                 child: SizedBox(
@@ -129,7 +139,7 @@ class _MotionPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
-      ..color = color.withOpacity(0.5)
+      ..color = color.withValues(alpha: 0.5)
       ..strokeWidth = 2.0
       ..style = PaintingStyle.stroke;
 

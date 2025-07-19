@@ -19,7 +19,7 @@ class ShapePage extends StatelessWidget {
     ];
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Shape Tokens')),
+      appBar: AppBar(title: const Text('M3Shape Tokens')),
       body: GridView.builder(
         padding: const EdgeInsets.all(M3Spacing.space24),
         gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(

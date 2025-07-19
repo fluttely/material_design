@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:material_design/material_design.dart';
 
-/// A simple dialog for picking a color.
 Future<Color?> showColorPickerDialog(BuildContext context, Color initialColor) {
   return showDialog<Color>(
     context: context,
