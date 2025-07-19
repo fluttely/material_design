@@ -8,12 +8,27 @@ class ColorPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
 
-    // Organize colorScheme as seen in the Flutter demo site
     final keyColors = [
-      ('Primary', colorScheme.primary, colorScheme.onPrimary),
-      ('Secondary', colorScheme.secondary, colorScheme.onSecondary),
-      ('Tertiary', colorScheme.tertiary, colorScheme.onTertiary),
-      ('Error', colorScheme.error, colorScheme.onError),
+      (
+        'Primary',
+        colorScheme.primary,
+        colorScheme.onPrimary,
+      ),
+      (
+        'Secondary',
+        colorScheme.secondary,
+        colorScheme.onSecondary,
+      ),
+      (
+        'Tertiary',
+        colorScheme.tertiary,
+        colorScheme.onTertiary,
+      ),
+      (
+        'Error',
+        colorScheme.error,
+        colorScheme.onError,
+      ),
     ];
 
     final allColors = [
@@ -22,28 +37,56 @@ class ColorPage extends StatelessWidget {
         colorScheme.primaryContainer,
         colorScheme.onPrimaryContainer,
       ),
-      ('On Primary', colorScheme.onPrimary, colorScheme.primary),
+      (
+        'On Primary',
+        colorScheme.onPrimary,
+        colorScheme.primary,
+      ),
       (
         'Secondary Container',
         colorScheme.secondaryContainer,
         colorScheme.onSecondaryContainer,
       ),
-      ('On Secondary', colorScheme.onSecondary, colorScheme.secondary),
+      (
+        'On Secondary',
+        colorScheme.onSecondary,
+        colorScheme.secondary,
+      ),
       (
         'Tertiary Container',
         colorScheme.tertiaryContainer,
         colorScheme.onTertiaryContainer,
       ),
-      ('On Tertiary', colorScheme.onTertiary, colorScheme.tertiary),
+      (
+        'On Tertiary',
+        colorScheme.onTertiary,
+        colorScheme.tertiary,
+      ),
       (
         'Error Container',
         colorScheme.errorContainer,
         colorScheme.onErrorContainer,
       ),
-      ('On Error', colorScheme.onError, colorScheme.error),
-      ('Surface Dim', colorScheme.surfaceDim, colorScheme.onSurface),
-      ('Surface', colorScheme.surface, colorScheme.onSurface),
-      ('Surface Bright', colorScheme.surfaceBright, colorScheme.onSurface),
+      (
+        'On Error',
+        colorScheme.onError,
+        colorScheme.error,
+      ),
+      (
+        'Surface Dim',
+        colorScheme.surfaceDim,
+        colorScheme.onSurface,
+      ),
+      (
+        'Surface',
+        colorScheme.surface,
+        colorScheme.onSurface,
+      ),
+      (
+        'Surface Bright',
+        colorScheme.surfaceBright,
+        colorScheme.onSurface,
+      ),
       (
         'Surface Container Lowest',
         colorScheme.surfaceContainerLowest,
@@ -69,10 +112,26 @@ class ColorPage extends StatelessWidget {
         colorScheme.surfaceContainerHighest,
         colorScheme.onSurface,
       ),
-      ('On Surface', colorScheme.onSurface, colorScheme.surface),
-      ('On Surface Variant', colorScheme.onSurfaceVariant, colorScheme.surface),
-      ('Outline', colorScheme.outline, colorScheme.surface),
-      ('Outline Variant', colorScheme.outlineVariant, colorScheme.surface),
+      (
+        'On Surface',
+        colorScheme.onSurface,
+        colorScheme.surface,
+      ),
+      (
+        'On Surface Variant',
+        colorScheme.onSurfaceVariant,
+        colorScheme.surface,
+      ),
+      (
+        'Outline',
+        colorScheme.outline,
+        colorScheme.surface,
+      ),
+      (
+        'Outline Variant',
+        colorScheme.outlineVariant,
+        colorScheme.surface,
+      ),
       (
         'Inverse Surface',
         colorScheme.inverseSurface,
@@ -83,14 +142,22 @@ class ColorPage extends StatelessWidget {
         colorScheme.onInverseSurface,
         colorScheme.inverseSurface,
       ),
-      ('Inverse Primary', colorScheme.inversePrimary, colorScheme.onPrimary),
-      ('Surface Tint', colorScheme.surfaceTint, colorScheme.onSurface),
+      (
+        'Inverse Primary',
+        colorScheme.inversePrimary,
+        colorScheme.onPrimary,
+      ),
+      (
+        'Surface Tint',
+        colorScheme.surfaceTint,
+        colorScheme.onSurface,
+      ),
     ];
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Color System')),
+      appBar: AppBar(title: const Text('ColorScheme Tokens')),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(MaterialSpacing.space24),
+        padding: const EdgeInsets.all(M3Spacing.space24),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -98,8 +165,8 @@ class ColorPage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Key Colors', style: MaterialTypeScale.titleLarge),
-                  const SizedBox(height: MaterialSpacing.space16),
+                  Text('Key Colors', style: M3TypeScale.titleLarge),
+                  const SizedBox(height: M3Spacing.space16),
                   ...keyColors.map(
                     (p) =>
                         _KeyColorChip(name: p.$1, color: p.$2, onColor: p.$3),
@@ -107,17 +174,17 @@ class ColorPage extends StatelessWidget {
                 ],
               ),
             ),
-            const SizedBox(width: MaterialSpacing.space24),
+            const SizedBox(width: M3Spacing.space24),
             Expanded(
               flex: 2,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Color Scheme', style: MaterialTypeScale.titleLarge),
-                  const SizedBox(height: MaterialSpacing.space16),
+                  Text('Scheme', style: M3TypeScale.titleLarge),
+                  const SizedBox(height: M3Spacing.space16),
                   Wrap(
-                    spacing: MaterialSpacing.space8,
-                    runSpacing: MaterialSpacing.space8,
+                    spacing: M3Spacing.space8,
+                    runSpacing: M3Spacing.space8,
                     children: allColors
                         .map(
                           (p) => _ColorChip(
@@ -154,23 +221,23 @@ class _KeyColorChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: MaterialSpacing.space8),
+      padding: const EdgeInsets.only(bottom: M3Spacing.space8),
       child: Container(
-        padding: const EdgeInsets.all(MaterialSpacing.space16),
+        padding: const EdgeInsets.all(M3Spacing.space16),
         decoration: BoxDecoration(
           color: color,
-          borderRadius: BorderRadius.circular(MaterialRadius.medium),
+          borderRadius: BorderRadius.circular(M3Radius.medium),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               name,
-              style: MaterialTypeScale.titleMedium.copyWith(color: onColor),
+              style: M3TypeScale.titleMedium.copyWith(color: onColor),
             ),
             Text(
               _colorToHex(color),
-              style: MaterialTypeScale.bodyMedium.copyWith(color: onColor),
+              style: M3TypeScale.bodyMedium.copyWith(color: onColor),
             ),
           ],
         ),
@@ -198,10 +265,10 @@ class _ColorChip extends StatelessWidget {
 
     return Container(
       width: 150,
-      padding: const EdgeInsets.all(MaterialSpacing.space8),
+      padding: const EdgeInsets.all(M3Spacing.space8),
       decoration: BoxDecoration(
         color: color,
-        borderRadius: BorderRadius.circular(MaterialRadius.small),
+        borderRadius: BorderRadius.circular(M3Radius.small),
         border: Border.all(color: colorScheme.outlineVariant),
       ),
       child: Column(
@@ -209,11 +276,11 @@ class _ColorChip extends StatelessWidget {
         children: [
           Text(
             name,
-            style: MaterialTypeScale.labelLarge.copyWith(color: onColor),
+            style: M3TypeScale.labelLarge.copyWith(color: onColor),
           ),
           Text(
             _colorToHex(color),
-            style: MaterialTypeScale.labelSmall.copyWith(color: onColor),
+            style: M3TypeScale.labelSmall.copyWith(color: onColor),
           ),
         ],
       ),

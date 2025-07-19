@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart';
+
 /// Defines a conventional z-index scale for managing the stacking order of UI components.
 ///
 /// While Material Design 3 focuses on an elevation system (tonal and shadow elevation)
@@ -7,7 +9,8 @@
 ///
 /// These values are not official M3 tokens but are provided as a utility for
 /// developers to ensure consistent layering.
-abstract final class MaterialZIndex {
+@immutable
+abstract final class M3ZIndex {
   /// The z-index for elements that should be in the background, behind all other content.
   static const int background = 0;
 

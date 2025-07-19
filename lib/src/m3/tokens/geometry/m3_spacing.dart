@@ -1,7 +1,11 @@
+import 'package:flutter/foundation.dart';
+
 /// Semantic spacing scale for Material Design 3.
-abstract final class MaterialSpacing {
+@immutable
+abstract final class M3Spacing {
   /// Material Design 3 spacing scale
   static const double none = 0;
+  static const double infinity = double.infinity;
 
   // Base spacing scale (4dp increments)
   static const double space4 = 4;

@@ -7,37 +7,44 @@ class MotionPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Motion')),
+      appBar: AppBar(title: const Text('M3Motion Tokens')),
       body: ListView(
-        padding: const EdgeInsets.all(MaterialSpacing.space24),
+        padding: const EdgeInsets.all(M3Spacing.space24),
         children: const [
           _MotionShowcase(
             title: 'Emphasized',
-            motionToken: MaterialMotion.emphasized,
+            duration: M3MotionDuration.long2,
+            curve: M3MotionEasing.emphasizedAccelerate,
           ),
           _MotionShowcase(
             title: 'Emphasized Incoming',
-            motionToken: MaterialMotion.emphasizedIncoming,
+            duration: M3MotionDuration.long1,
+            curve: M3MotionEasing.emphasizedDecelerate,
           ),
           _MotionShowcase(
             title: 'Emphasized Outgoing',
-            motionToken: MaterialMotion.emphasizedOutgoing,
+            duration: M3MotionDuration.short3,
+            curve: M3MotionEasing.emphasizedAccelerate,
           ),
           _MotionShowcase(
             title: 'Standard',
-            motionToken: MaterialMotion.standard,
+            duration: M3MotionDuration.medium2,
+            curve: M3MotionEasing.standard,
           ),
           _MotionShowcase(
             title: 'Standard Incoming',
-            motionToken: MaterialMotion.standardIncoming,
+            duration: M3MotionDuration.medium1,
+            curve: M3MotionEasing.standardDecelerate,
           ),
           _MotionShowcase(
             title: 'Standard Outgoing',
-            motionToken: MaterialMotion.standardOutgoing,
+            duration: M3MotionDuration.short4,
+            curve: M3MotionEasing.standardAccelerate,
           ),
           _MotionShowcase(
             title: 'Linear',
-            motionToken: MaterialMotion.linear,
+            duration: M3MotionDuration.short3,
+            curve: M3MotionEasing.linear,
           ),
         ],
       ),
@@ -48,11 +55,13 @@ class MotionPage extends StatelessWidget {
 class _MotionShowcase extends StatefulWidget {
   const _MotionShowcase({
     required this.title,
-    required this.motionToken,
+    required this.duration,
+    required this.curve,
   });
 
   final String title;
-  final MotionScheme motionToken;
+  final Duration duration;
+  final Curve curve;
 
   @override
   State<_MotionShowcase> createState() => _MotionShowcaseState();
@@ -67,12 +76,13 @@ class _MotionShowcaseState extends State<_MotionShowcase>
   void initState() {
     super.initState();
     _controller = AnimationController(
-      duration: widget.motionToken.duration,
+      duration: widget.duration,
       vsync: this,
     );
-    _animation = widget.motionToken
-        .asTween(begin: 0.0, end: 1.0)
-        .animate(_controller);
+    _animation = Tween<double>(
+      begin: 0.0,
+      end: 1.0,
+    ).chain(CurveTween(curve: widget.curve)).animate(_controller);
     _controller.repeat(reverse: true);
   }
 
@@ -87,19 +97,19 @@ class _MotionShowcaseState extends State<_MotionShowcase>
     final colorScheme = Theme.of(context).colorScheme;
 
     return Padding(
-      padding: const EdgeInsets.only(bottom: MaterialSpacing.space16),
+      padding: const EdgeInsets.only(bottom: M3Spacing.space16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(widget.title, style: MaterialTypeScale.titleMedium),
-          const SizedBox(height: MaterialSpacing.space8),
+          Text(widget.title, style: M3TypeScale.titleMedium),
+          const SizedBox(height: M3Spacing.space8),
           AnimatedBuilder(
             animation: _animation,
             builder: (context, child) {
               return CustomPaint(
                 painter: _MotionPainter(
                   animationValue: _animation.value,
-                  curve: widget.motionToken.curve,
+                  curve: widget.curve,
                   color: colorScheme.primary,
                 ),
                 child: SizedBox(
@@ -129,7 +139,7 @@ class _MotionPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
-      ..color = color.withOpacity(0.5)
+      ..color = color.withValues(alpha: 0.5)
       ..strokeWidth = 2.0
       ..style = PaintingStyle.stroke;
 

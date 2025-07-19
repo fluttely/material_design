@@ -10,10 +10,8 @@
 /// ```
 ///
 /// Then, you can access all the tokens, such as:
-/// - `MaterialTypeScale.headlineLarge`
-/// - `MaterialShape.medium`
-/// - `MaterialSpacing.medium`
-/// - `MaterialShadow.level2`
+/// - `M3TypeScale.headlineLarge`
+/// - `M3Shadow.level2`
 library;
 
-export 'src/tokens/tokens.dart';
+export 'src/m3/m3.dart';

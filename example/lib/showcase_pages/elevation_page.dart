@@ -7,16 +7,16 @@ class ElevationPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Elevation')),
+      appBar: AppBar(title: const Text('M3Elevation Tokens')),
       body: ListView(
-        padding: const EdgeInsets.all(MaterialSpacing.space24),
+        padding: const EdgeInsets.all(M3Spacing.space24),
         children: const [
           _ElevationShowcase(
-            title: 'Surface Tint Color',
+            title: 'Surface Tint Color Only',
             useShadow: false,
           ),
           _ElevationShowcase(
-            title: 'Surface Tint Color and Shadow',
+            title: 'Surface Tint Color and Shadow Color',
             useShadow: true,
           ),
         ],
@@ -36,73 +36,63 @@ class _ElevationShowcase extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Static elevation levels to showcase
     final elevationLevels = [
-      (MaterialElevation.level0, 'Level 0', '0%'),
-      (MaterialElevation.level1, 'Level 1', '5%'),
-      (MaterialElevation.level2, 'Level 2', '8%'),
-      (MaterialElevation.level3, 'Level 3', '11%'),
-      (MaterialElevation.level4, 'Level 4', '12%'),
-      (MaterialElevation.level5, 'Level 5', '14%'),
-    ];
-
-    // Static shadow definitions
-    final shadowLevels = [
-      MaterialShadow.level0,
-      MaterialShadow.level1,
-      MaterialShadow.level2,
-      MaterialShadow.level3,
-      MaterialShadow.level4,
-      MaterialShadow.level5,
+      (M3Elevation.level0, 'Level 0', '0%'),
+      (M3Elevation.level1, 'Level 1', '5%'),
+      (M3Elevation.level2, 'Level 2', '8%'),
+      (M3Elevation.level3, 'Level 3', '11%'),
+      (M3Elevation.level4, 'Level 4', '12%'),
+      (M3Elevation.level5, 'Level 5', '14%'),
     ];
 
     return Padding(
-      padding: const EdgeInsets.only(bottom: MaterialSpacing.space32),
+      padding: const EdgeInsets.only(bottom: M3Spacing.space32),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title, style: MaterialTypeScale.titleLarge),
-          const SizedBox(height: MaterialSpacing.space16),
+          Text(title, style: M3TypeScale.titleLarge),
+          const SizedBox(height: M3Spacing.space16),
           Wrap(
-            spacing: MaterialSpacing.space16,
-            runSpacing: MaterialSpacing.space16,
+            spacing: M3Spacing.space16,
+            runSpacing: M3Spacing.space16,
             children: elevationLevels.asMap().entries.map((entry) {
-              final index = entry.key;
               final elevation = entry.value.$1;
               final levelName = entry.value.$2;
               final levelPercent = entry.value.$3;
 
-              final surfaceColor = MaterialTonalColor.fromElevation(
+              final surfaceColor = M3TonalColor.fromElevation(
                 context,
                 elevation,
               );
 
-              final shadows = useShadow ? shadowLevels[index] : <BoxShadow>[];
+              final shadows = useShadow
+                  ? M3Shadow.fromElevation(elevation)
+                  : <BoxShadow>[];
 
               return Container(
                 width: double.infinity,
-                height: 120,
+                height: M3Spacing.space120,
                 decoration: ShapeDecoration(
                   color: surfaceColor,
-                  shape: MaterialShape.small,
                   shadows: shadows,
+                  shape: M3Shape.small,
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.all(MaterialSpacing.space8),
+                      padding: const EdgeInsets.all(M3Spacing.space8),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
                             levelName,
-                            style: MaterialTypeScale.labelMedium,
+                            style: M3TypeScale.labelMedium,
                           ),
                           Text(
                             '${elevation.toStringAsFixed(0)} dp',
-                            style: MaterialTypeScale.bodySmall,
+                            style: M3TypeScale.bodySmall,
                           ),
                         ],
                       ),
@@ -111,10 +101,10 @@ class _ElevationShowcase extends StatelessWidget {
                     Align(
                       alignment: Alignment.bottomRight,
                       child: Padding(
-                        padding: const EdgeInsets.all(MaterialSpacing.space8),
+                        padding: const EdgeInsets.all(M3Spacing.space8),
                         child: Text(
                           levelPercent,
-                          style: MaterialTypeScale.bodySmall,
+                          style: M3TypeScale.bodySmall,
                         ),
                       ),
                     ),

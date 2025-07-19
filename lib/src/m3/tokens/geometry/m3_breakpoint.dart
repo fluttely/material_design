@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 // Copyright 2024 The Flutter Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
@@ -13,7 +14,8 @@
 /// whether on a small phone or an ultra-wide monitor.
 ///
 /// See the official documentation: https://m3.material.io/foundations/layout/applying-layout/window-size-classes
-abstract final class MaterialBreakpoint {
+@immutable
+abstract final class M3Breakpoint {
   /// **Compact** (0dp to 599dp): The smallest breakpoint, representing the design baseline.
   ///
   /// **Typical Device**: Phones in portrait mode 📱.

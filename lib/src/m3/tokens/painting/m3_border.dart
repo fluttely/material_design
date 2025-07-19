@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart';
+
 /// Defines conventional border width tokens for Material Design.
 ///
 /// While Material Design 3 does not have a formal token scale for border
@@ -6,7 +8,8 @@
 ///
 /// This class provides a set of conventional widths to ensure consistency
 /// when creating bordered components.
-abstract final class MaterialBorder {
+@immutable
+abstract final class M3Border {
   /// The standard thin border width (1dp).
   ///
   /// This is the default for most components like `OutlinedButton`.

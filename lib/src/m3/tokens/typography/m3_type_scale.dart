@@ -10,7 +10,8 @@ import 'package:flutter/material.dart';
 /// from the application's theme (which defaults to "Roboto" in Material).
 ///
 /// Reference: https://m3.material.io/styles/typography/type-scale-tokens
-abstract final class MaterialTypeScale {
+@immutable
+abstract final class M3TypeScale {
   // --- Display ---
   static const TextStyle displayLarge = TextStyle(
     fontSize: 57,

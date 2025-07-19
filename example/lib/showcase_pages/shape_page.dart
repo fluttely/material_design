@@ -9,24 +9,24 @@ class ShapePage extends StatelessWidget {
     final colorScheme = Theme.of(context).colorScheme;
 
     final shapes = [
-      ('None', MaterialShape.none),
-      ('Extra Small', MaterialShape.extraSmall),
-      ('Small', MaterialShape.small),
-      ('Medium', MaterialShape.medium),
-      ('Large', MaterialShape.large),
-      ('Extra Large', MaterialShape.extraLarge),
-      ('Full (Stadium)', MaterialShape.full),
+      ('None', M3Shape.none),
+      ('Extra Small', M3Shape.extraSmall),
+      ('Small', M3Shape.small),
+      ('Medium', M3Shape.medium),
+      ('Large', M3Shape.large),
+      ('Extra Large', M3Shape.extraLarge),
+      ('Full (Stadium)', M3Shape.full),
     ];
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Shape Tokens')),
+      appBar: AppBar(title: const Text('M3Shape Tokens')),
       body: GridView.builder(
-        padding: const EdgeInsets.all(MaterialSpacing.space24),
+        padding: const EdgeInsets.all(M3Spacing.space24),
         gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
           maxCrossAxisExtent: 200,
           childAspectRatio: 1.5,
-          mainAxisSpacing: MaterialSpacing.space16,
-          crossAxisSpacing: MaterialSpacing.space16,
+          mainAxisSpacing: M3Spacing.space16,
+          crossAxisSpacing: M3Spacing.space16,
         ),
         itemCount: shapes.length,
         itemBuilder: (context, index) {
@@ -39,7 +39,7 @@ class ShapePage extends StatelessWidget {
             child: Center(
               child: Text(
                 label,
-                style: MaterialTypeScale.bodyLarge,
+                style: M3TypeScale.bodyLarge,
                 textAlign: TextAlign.center,
               ),
             ),
