@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:material_design/material_design.dart';
 
 class ThemeProvider with ChangeNotifier {
   ThemeMode _themeMode = ThemeMode.light;
@@ -12,6 +13,23 @@ class ThemeProvider with ChangeNotifier {
       seedColor: _seedColor,
       brightness: Brightness.light,
     ),
+    textTheme: TextTheme(
+      displayLarge: M3TypeScale.displayLarge,
+      displayMedium: M3TypeScale.displayMedium,
+      displaySmall: M3TypeScale.displaySmall,
+      headlineLarge: M3TypeScale.headlineLarge,
+      headlineMedium: M3TypeScale.headlineMedium,
+      headlineSmall: M3TypeScale.headlineSmall,
+      titleLarge: M3TypeScale.titleLarge,
+      titleMedium: M3TypeScale.titleMedium,
+      titleSmall: M3TypeScale.titleSmall,
+      bodyLarge: M3TypeScale.bodyLarge,
+      bodyMedium: M3TypeScale.bodyMedium,
+      bodySmall: M3TypeScale.bodySmall,
+      labelLarge: M3TypeScale.labelLarge,
+      labelMedium: M3TypeScale.labelMedium,
+      labelSmall: M3TypeScale.labelSmall,
+    ),
     useMaterial3: true,
   );
 
@@ -19,6 +37,23 @@ class ThemeProvider with ChangeNotifier {
     colorScheme: ColorScheme.fromSeed(
       seedColor: _seedColor,
       brightness: Brightness.dark,
+    ),
+    textTheme: TextTheme(
+      displayLarge: M3TypeScale.displayLarge,
+      displayMedium: M3TypeScale.displayMedium,
+      displaySmall: M3TypeScale.displaySmall,
+      headlineLarge: M3TypeScale.headlineLarge,
+      headlineMedium: M3TypeScale.headlineMedium,
+      headlineSmall: M3TypeScale.headlineSmall,
+      titleLarge: M3TypeScale.titleLarge,
+      titleMedium: M3TypeScale.titleMedium,
+      titleSmall: M3TypeScale.titleSmall,
+      bodyLarge: M3TypeScale.bodyLarge,
+      bodyMedium: M3TypeScale.bodyMedium,
+      bodySmall: M3TypeScale.bodySmall,
+      labelLarge: M3TypeScale.labelLarge,
+      labelMedium: M3TypeScale.labelMedium,
+      labelSmall: M3TypeScale.labelSmall,
     ),
     useMaterial3: true,
   );

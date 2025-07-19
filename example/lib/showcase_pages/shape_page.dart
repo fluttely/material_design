@@ -7,6 +7,7 @@ class ShapePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
+    final textTheme = Theme.of(context).textTheme;
 
     final shapes = [
       ('None', M3Shape.none),
@@ -39,7 +40,7 @@ class ShapePage extends StatelessWidget {
             child: Center(
               child: Text(
                 label,
-                style: M3TypeScale.bodyLarge,
+                style: textTheme.bodyLarge,
                 textAlign: TextAlign.center,
               ),
             ),

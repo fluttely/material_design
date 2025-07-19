@@ -7,6 +7,7 @@ class SpacingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
+    final textTheme = Theme.of(context).textTheme;
 
     final spacings = [
       /// Material Design 3 spacing scale
@@ -71,7 +72,7 @@ class SpacingPage extends StatelessWidget {
                 width: M3Spacing.space112,
                 child: Text(
                   '$label (${height}dp):',
-                  style: M3TypeScale.bodyMedium,
+                  style: textTheme.bodyMedium,
                 ),
               ),
               const SizedBox(width: M3Spacing.space16),

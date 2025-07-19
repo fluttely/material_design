@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:material_design/material_design.dart';
+import 'package:material_design_example/showcase_pages/widgets/launch_url_text.dart';
+import 'package:material_design_example/showcase_pages/widgets/state_layer_opacity_button_example.dart';
 
 class OtherTokensPage extends StatelessWidget {
   const OtherTokensPage({super.key});
@@ -13,7 +15,7 @@ class OtherTokensPage extends StatelessWidget {
         children: [
           _buildBorderSection(context),
           const SizedBox(height: M3Spacing.space32),
-          _buildOpacitySection(context),
+          _buildStateLayerOpacitySection(context),
           const SizedBox(height: M3Spacing.space32),
           _buildBreakpointSection(context),
           const SizedBox(height: M3Spacing.space32),
@@ -26,6 +28,8 @@ class OtherTokensPage extends StatelessWidget {
   }
 
   Widget _buildBreakpointSection(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+
     final breakpoints = [
       ('Compact', M3Breakpoint.compact),
       ('Medium', M3Breakpoint.medium),
@@ -37,7 +41,7 @@ class OtherTokensPage extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('M3Breakpoint Tokens', style: M3TypeScale.titleLarge),
+        Text('M3Breakpoint Tokens', style: textTheme.titleLarge),
         const SizedBox(height: M3Spacing.space16),
         Wrap(
           spacing: M3Spacing.space16,
@@ -54,6 +58,8 @@ class OtherTokensPage extends StatelessWidget {
   }
 
   Widget _buildIconSizeSection(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+
     final iconSizes = [
       ('dense', M3IconSize.dense),
       ('standard', M3IconSize.standard),
@@ -65,7 +71,7 @@ class OtherTokensPage extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('M3IconSize Tokens', style: M3TypeScale.titleLarge),
+        Text('M3IconSize Tokens', style: textTheme.titleLarge),
         const SizedBox(height: M3Spacing.space16),
         Wrap(
           spacing: M3Spacing.space16,
@@ -89,6 +95,7 @@ class OtherTokensPage extends StatelessWidget {
 
   Widget _buildZIndexSection(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
+    final textTheme = Theme.of(context).textTheme;
 
     final zIndexLayers = [
       _ZIndexLayer(
@@ -138,11 +145,11 @@ class OtherTokensPage extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('M3ZIndex Tokens', style: M3TypeScale.titleLarge),
+        Text('M3ZIndex Tokens', style: textTheme.titleLarge),
         const SizedBox(height: M3Spacing.space8),
         Text(
           'Stacking order from bottom to top (lower to higher z-index)',
-          style: M3TypeScale.bodyMedium.copyWith(
+          style: textTheme.bodyMedium?.copyWith(
             color: colorScheme.onSurfaceVariant,
           ),
         ),
@@ -194,7 +201,7 @@ class OtherTokensPage extends StatelessWidget {
                         children: [
                           Text(
                             layer.name,
-                            style: M3TypeScale.titleSmall.copyWith(
+                            style: textTheme.titleSmall?.copyWith(
                               // color: _getTextColor(layer.color, colorScheme),
                               fontWeight: FontWeight.bold,
                             ),
@@ -202,14 +209,14 @@ class OtherTokensPage extends StatelessWidget {
                           const SizedBox(height: M3Spacing.space4),
                           Text(
                             'z: ${layer.zIndex}',
-                            style: M3TypeScale.labelMedium.copyWith(
+                            style: textTheme.labelMedium?.copyWith(
                               // color: _getTextColor(layer.color, colorScheme),
                             ),
                           ),
                           const SizedBox(height: M3Spacing.space4),
                           Text(
                             layer.description,
-                            style: M3TypeScale.bodySmall.copyWith(
+                            style: textTheme.bodySmall?.copyWith(
                               // color: _getTextColor(layer.color, colorScheme),
                             ),
                           ),
@@ -245,11 +252,11 @@ class OtherTokensPage extends StatelessWidget {
                 ),
                 title: Text(
                   layer.name,
-                  style: M3TypeScale.bodyLarge,
+                  style: textTheme.bodyLarge,
                 ),
                 subtitle: Text(
                   layer.description,
-                  style: M3TypeScale.bodyMedium.copyWith(
+                  style: textTheme.bodyMedium?.copyWith(
                     color: colorScheme.onSurfaceVariant,
                   ),
                 ),
@@ -264,7 +271,7 @@ class OtherTokensPage extends StatelessWidget {
                   ),
                   child: Text(
                     '${layer.zIndex}',
-                    style: M3TypeScale.labelMedium.copyWith(
+                    style: textTheme.labelMedium?.copyWith(
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -279,6 +286,7 @@ class OtherTokensPage extends StatelessWidget {
 
   Widget _buildBorderSection(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
+    final textTheme = Theme.of(context).textTheme;
 
     final borders = [
       ('Thin', M3Border.thin),
@@ -287,7 +295,7 @@ class OtherTokensPage extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('M3Border Tokens', style: M3TypeScale.titleLarge),
+        Text('M3Border Tokens', style: textTheme.titleLarge),
         const SizedBox(height: M3Spacing.space16),
         Wrap(
           spacing: M3Spacing.space16,
@@ -307,25 +315,27 @@ class OtherTokensPage extends StatelessWidget {
     );
   }
 
-  Widget _buildOpacitySection(BuildContext context) {
+  Widget _buildStateLayerOpacitySection(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
 
     final opacities = [
-      ('Hover', M3Opacity.hover),
-      ('Focus', M3Opacity.focus),
-      ('Pressed', M3Opacity.pressed),
-      ('Dragged', M3Opacity.dragged),
-      ('Disabled Content', M3Opacity.disabledContent),
-      ('Disabled Container', M3Opacity.disabledContainer),
+      ('Hover', M3StateLayerOpacity.hover),
+      ('Focus', M3StateLayerOpacity.focus),
+      ('Pressed', M3StateLayerOpacity.pressed),
+      ('Dragged', M3StateLayerOpacity.dragged),
+      ('disabledContent', M3StateLayerOpacity.disabledContent),
+      ('disabledContainer', M3StateLayerOpacity.disabledContainer),
     ];
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          'M3Opacity Tokens (State Layers)',
-          style: M3TypeScale.titleLarge,
+        LaunchURLText(
+          title: 'M3StateLayerOpacity Tokens (State Layers)',
+          m3Url:
+              'https://m3.material.io/foundations/interaction/states/overview',
         ),
+        // style: textTheme.titleLarge,
         const SizedBox(height: M3Spacing.space16),
         Wrap(
           spacing: M3Spacing.space16,
@@ -348,6 +358,8 @@ class OtherTokensPage extends StatelessWidget {
             );
           }).toList(),
         ),
+        const SizedBox(height: M3Spacing.space12),
+        M3StateLayerOpacityButtonExample(),
       ],
     );
   }

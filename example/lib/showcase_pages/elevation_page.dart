@@ -36,6 +36,8 @@ class _ElevationShowcase extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+
     final elevationLevels = [
       (M3Elevation.level0, 'Level 0', '0%'),
       (M3Elevation.level1, 'Level 1', '5%'),
@@ -50,7 +52,7 @@ class _ElevationShowcase extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title, style: M3TypeScale.titleLarge),
+          Text(title, style: textTheme.titleLarge),
           const SizedBox(height: M3Spacing.space16),
           Wrap(
             spacing: M3Spacing.space16,
@@ -60,12 +62,12 @@ class _ElevationShowcase extends StatelessWidget {
               final levelName = entry.value.$2;
               final levelPercent = entry.value.$3;
 
-              final surfaceColor = M3TonalColor.fromElevation(
+              final elevationSurfaceColor = M3TonalColor.fromElevation(
                 context,
                 elevation,
               );
 
-              final shadows = useShadow
+              final elevationShadows = useShadow
                   ? M3Shadow.fromElevation(elevation)
                   : <BoxShadow>[];
 
@@ -73,9 +75,9 @@ class _ElevationShowcase extends StatelessWidget {
                 width: double.infinity,
                 height: M3Spacing.space120,
                 decoration: ShapeDecoration(
-                  color: surfaceColor,
-                  shadows: shadows,
                   shape: M3Shape.small,
+                  color: elevationSurfaceColor,
+                  shadows: elevationShadows,
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -88,11 +90,11 @@ class _ElevationShowcase extends StatelessWidget {
                         children: [
                           Text(
                             levelName,
-                            style: M3TypeScale.labelMedium,
+                            style: textTheme.labelMedium,
                           ),
                           Text(
                             '${elevation.toStringAsFixed(0)} dp',
-                            style: M3TypeScale.bodySmall,
+                            style: textTheme.bodySmall,
                           ),
                         ],
                       ),
@@ -104,7 +106,7 @@ class _ElevationShowcase extends StatelessWidget {
                         padding: const EdgeInsets.all(M3Spacing.space8),
                         child: Text(
                           levelPercent,
-                          style: M3TypeScale.bodySmall,
+                          style: textTheme.bodySmall,
                         ),
                       ),
                     ),

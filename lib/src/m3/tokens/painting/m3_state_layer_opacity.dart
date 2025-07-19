@@ -6,9 +6,9 @@ import 'package:flutter/foundation.dart';
 /// State layers are semi-transparent overlays that indicate the state of an
 /// interactive component (e.g., hovered, focused, pressed).
 ///
-/// Reference: https://m3.material.io/styles/states/overview
+/// Reference: https://m3.material.io/foundations/interaction/states/state-layers
 @immutable
-abstract final class M3Opacity {
+abstract final class M3StateLayerOpacity {
   // --- State Layer Opacities ---
 
   /// Opacity for a hovered state layer (+8%).

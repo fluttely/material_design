@@ -7,6 +7,7 @@ class ColorPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
+    final textTheme = Theme.of(context).textTheme;
 
     final keyColors = [
       (
@@ -165,7 +166,7 @@ class ColorPage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Key Colors', style: M3TypeScale.titleLarge),
+                  Text('Key Colors', style: textTheme.titleLarge),
                   const SizedBox(height: M3Spacing.space16),
                   ...keyColors.map(
                     (p) =>
@@ -180,7 +181,7 @@ class ColorPage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Scheme', style: M3TypeScale.titleLarge),
+                  Text('Scheme', style: textTheme.titleLarge),
                   const SizedBox(height: M3Spacing.space16),
                   Wrap(
                     spacing: M3Spacing.space8,
@@ -220,6 +221,8 @@ class _KeyColorChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+
     return Padding(
       padding: const EdgeInsets.only(bottom: M3Spacing.space8),
       child: Container(
@@ -233,11 +236,11 @@ class _KeyColorChip extends StatelessWidget {
           children: [
             Text(
               name,
-              style: M3TypeScale.titleMedium.copyWith(color: onColor),
+              style: textTheme.titleMedium?.copyWith(color: onColor),
             ),
             Text(
               _colorToHex(color),
-              style: M3TypeScale.bodyMedium.copyWith(color: onColor),
+              style: textTheme.bodyMedium?.copyWith(color: onColor),
             ),
           ],
         ),
@@ -262,6 +265,7 @@ class _ColorChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
+    final textTheme = Theme.of(context).textTheme;
 
     return Container(
       width: 150,
@@ -276,11 +280,11 @@ class _ColorChip extends StatelessWidget {
         children: [
           Text(
             name,
-            style: M3TypeScale.labelLarge.copyWith(color: onColor),
+            style: textTheme.labelLarge?.copyWith(color: onColor),
           ),
           Text(
             _colorToHex(color),
-            style: M3TypeScale.labelSmall.copyWith(color: onColor),
+            style: textTheme.labelSmall?.copyWith(color: onColor),
           ),
         ],
       ),
