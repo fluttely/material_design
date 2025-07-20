@@ -13,7 +13,7 @@ Add this line to your project's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  material_design: ^0.5.0
+  material_design: ^0.5.1
 ```
 
 Then run `flutter pub get`.
@@ -137,11 +137,11 @@ Container(
 ),
 ```
 
-### Spacing
+### Spacing & Layout
 
-A granular spacing scale for consistent layouts.
+A granular scale for consistent spacing, margins, and layouts.
 
-- **`M3Spacing`**: Provides spacing values from `none` to `space512`.
+- **`M3Spacing`**: Provides spacing values from `none` to `space128` based on a 4dp grid. Ideal for padding and small gaps between UI elements.
 
 **Example:**
 
@@ -149,6 +149,39 @@ A granular spacing scale for consistent layouts.
 Padding(
   padding: const EdgeInsets.all(M3Spacing.space16), // 16dp padding
   child: Text('Hello, Material!'),
+)
+```
+
+- **`M3Margin`**: Provides semantic margin values for the outer edges of the screen layout.
+
+  - screen (16dp) for compact/medium screens.
+
+  - screenLarge (24dp) for large/extra-large screens.
+
+**Example:**
+
+```dart
+Container(
+  margin: const EdgeInsets.symmetric(horizontal: M3Margin.screen),
+  child: Text('Content with screen margins'),
+)
+```
+
+- **`M3Spacer`**: pane (24dp) for the gap between two content panes.
+
+  - screen (16dp) for compact/medium screens.
+
+  - screenLarge (24dp) for large/extra-large screens.
+
+**Example:**
+
+```dart
+Row(
+  children: [
+    Expanded(child: ContentPane1()),
+    const SizedBox(width: M3Spacer.pane),
+    Expanded(child: ContentPane2()),
+  ],
 )
 ```
 

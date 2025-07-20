@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.5.1
+
+- **BREAKING**: Renamed `M3Margins` to `M3Margin` and `M3Spacers` to `M3Spacer` for better naming consistency.
+- **DOCS**: Updated `README.md` to reflect the new class names and provide clearer examples.
+- **CHORE**: Updated the example app to use the new `M3Margin` and `M3Spacer` classes.
+
 ## 0.5.0
 
 - **BREAKING**: Token classes are now `abstract class` instead of `abstract final class` to allow for extension.

@@ -82,15 +82,15 @@ class SpacingPage extends StatelessWidget {
     ];
 
     final margins = [
-      ('compactScreen', M3Margins.compactScreen),
-      ('mediumScreen', M3Margins.mediumScreen),
-      ('expandedScreen', M3Margins.expandedScreen),
-      ('largeScreen', M3Margins.largeScreen),
-      ('extraLargeScreen', M3Margins.extraLargeScreen),
+      ('compactScreen', M3Margin.compactScreen),
+      ('mediumScreen', M3Margin.mediumScreen),
+      ('expandedScreen', M3Margin.expandedScreen),
+      ('largeScreen', M3Margin.largeScreen),
+      ('extraLargeScreen', M3Margin.extraLargeScreen),
     ];
 
     final spacers = [
-      ('pane', M3Spacers.pane),
+      ('pane', M3Spacer.pane),
     ];
 
     return Scaffold(
