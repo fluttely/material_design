@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 ///
 /// Reference: https://m3.material.io/styles/elevation/tokens
 @immutable
-abstract final class M3Elevation {
+abstract class M3Elevation {
   /// No elevation (0dp) - Used for surfaces at the base level.
   static const double level0 = 0;
 

@@ -15,7 +15,7 @@ import 'package:flutter/foundation.dart';
 ///
 /// See the official documentation: https://m3.material.io/foundations/layout/applying-layout/window-size-classes
 @immutable
-abstract final class M3Breakpoint {
+abstract class M3Breakpoint {
   /// **Compact** (0dp to 599dp): The smallest breakpoint, representing the design baseline.
   ///
   /// **Typical Device**: Phones in portrait mode 📱.

@@ -1,5 +1,5 @@
 /// Barrel file for Material 3 tokens.
-library;
+// library;
 
 export 'animation/motion/m3_motion_duration.dart';
 export 'animation/motion/m3_motion_easing.dart';

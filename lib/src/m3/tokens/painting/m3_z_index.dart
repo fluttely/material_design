@@ -10,7 +10,7 @@ import 'package:flutter/foundation.dart';
 /// These values are not official M3 tokens but are provided as a utility for
 /// developers to ensure consistent layering.
 @immutable
-abstract final class M3ZIndex {
+abstract class M3ZIndex {
   /// The z-index for elements that should be in the background, behind all other content.
   static const int background = 0;
 

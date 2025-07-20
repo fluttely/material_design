@@ -10,9 +10,9 @@ import 'package:material_design/material_design.dart';
 /// Using these shape tokens helps maintain a consistent visual language
 /// across the application.
 ///
-/// Reference: https://m3.material.io/styles/shape/tokens
+/// Reference: https://m3.material.io/styles/shape/corner-radius-scale
 @immutable
-abstract final class M3Shape {
+abstract class M3Shape {
   /// A shape with no corner rounding (0dp).
   static final ShapeBorder none = RoundedRectangleBorder(
     borderRadius: BorderRadius.circular(M3Radius.none),
@@ -38,9 +38,24 @@ abstract final class M3Shape {
     borderRadius: BorderRadius.circular(M3Radius.large),
   );
 
+  /// A shape with an increased large corner rounding (e.g., 20dp).
+  static final ShapeBorder largeIncreased = RoundedRectangleBorder(
+    borderRadius: BorderRadius.circular(M3Radius.largeIncreased),
+  );
+
   /// A shape with extra-large corner rounding (28dp).
   static final ShapeBorder extraLarge = RoundedRectangleBorder(
     borderRadius: BorderRadius.circular(M3Radius.extraLarge),
+  );
+
+  /// A shape with an increased extra-large corner rounding (e.g., 32dp).
+  static final ShapeBorder extraLargeIncreased = RoundedRectangleBorder(
+    borderRadius: BorderRadius.circular(M3Radius.extraLargeIncreased),
+  );
+
+  /// A shape with an extra-extra-large corner rounding (e.g., 48dp).
+  static final ShapeBorder extraExtraLarge = RoundedRectangleBorder(
+    borderRadius: BorderRadius.circular(M3Radius.extraExtraLarge),
   );
 
   /// A fully rounded shape, creating a pill or circular form.

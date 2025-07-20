@@ -6,13 +6,13 @@ import 'package:flutter/foundation.dart';
 /// and large component shape categories from Material 2. These tokens can be
 /// applied to components to affect their corner rounding.
 ///
-/// Reference: https://m3.material.io/styles/shape/tokens
+/// Reference: https://m3.material.io/styles/shape/corner-radius-scale
 @immutable
-abstract final class M3Radius {
+abstract class M3Radius {
   /// No corner radius (0dp).
   static const double none = 0;
 
-  /// Extra-small corner radius (4dp).
+  /// Extra small corner radius (4dp).
   static const double extraSmall = 4;
 
   /// Small corner radius (8dp).
@@ -24,8 +24,17 @@ abstract final class M3Radius {
   /// Large corner radius (16dp).
   static const double large = 16;
 
-  /// Extra-large corner radius (28dp).
+  /// Large increased corner radius (20dp).
+  static const double largeIncreased = 20;
+
+  /// Extra large corner radius (28dp).
   static const double extraLarge = 28;
+
+  /// Extra large increased corner radius (32dp).
+  static const double extraLargeIncreased = 32;
+
+  /// Extra extra large corner radius (48dp).
+  static const double extraExtraLarge = 48;
 
   /// Full corner radius, used for creating pill shapes.
   ///

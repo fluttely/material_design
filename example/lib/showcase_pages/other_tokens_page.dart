@@ -154,9 +154,8 @@ class OtherTokensPage extends StatelessWidget {
           ),
         ),
         const SizedBox(height: M3Spacing.space16),
-
         Container(
-          height: M3Spacing.space512,
+          height: 512,
           padding: const EdgeInsets.all(M3Spacing.space16),
           decoration: BoxDecoration(
             color: colorScheme.surfaceContainerLowest,
@@ -210,15 +209,15 @@ class OtherTokensPage extends StatelessWidget {
                           Text(
                             'z: ${layer.zIndex}',
                             style: textTheme.labelMedium?.copyWith(
-                              // color: _getTextColor(layer.color, colorScheme),
-                            ),
+                                // color: _getTextColor(layer.color, colorScheme),
+                                ),
                           ),
                           const SizedBox(height: M3Spacing.space4),
                           Text(
                             layer.description,
                             style: textTheme.bodySmall?.copyWith(
-                              // color: _getTextColor(layer.color, colorScheme),
-                            ),
+                                // color: _getTextColor(layer.color, colorScheme),
+                                ),
                           ),
                         ],
                       ),
@@ -229,9 +228,7 @@ class OtherTokensPage extends StatelessWidget {
             }).toList(),
           ),
         ),
-
         const SizedBox(height: M3Spacing.space16),
-
         Container(
           decoration: BoxDecoration(
             color: colorScheme.surfaceContainerLow,
@@ -323,19 +320,20 @@ class OtherTokensPage extends StatelessWidget {
       ('Focus', M3StateLayerOpacity.focus),
       ('Pressed', M3StateLayerOpacity.pressed),
       ('Dragged', M3StateLayerOpacity.dragged),
-      ('disabledContent', M3StateLayerOpacity.disabledContent),
-      ('disabledContainer', M3StateLayerOpacity.disabledContainer),
+      // ('disabledContent', M3StateLayerOpacity.disabledContent),
+      // ('disabledContainer', M3StateLayerOpacity.disabledContainer),
+      // ('backdrop', M3StateLayerOpacity.backdrop),
+      // ('divider', M3StateLayerOpacity.divider),
     ];
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         LaunchURLText(
-          title: 'M3StateLayerOpacity Tokens (State Layers)',
+          label: 'M3StateLayerOpacity Tokens',
           m3Url:
               'https://m3.material.io/foundations/interaction/states/overview',
         ),
-        // style: textTheme.titleLarge,
         const SizedBox(height: M3Spacing.space16),
         Wrap(
           spacing: M3Spacing.space16,

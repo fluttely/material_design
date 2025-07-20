@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 /// This class encapsulates the logic for applying a `surfaceTintColor` based on
 /// elevation, as specified by the Material Design guidelines.
 @immutable
-abstract final class M3TonalColor {
+abstract class M3TonalColor {
   /// Calculates the surface color with an elevation-based tint.
   ///
   /// This method is a convenient wrapper around Flutter's

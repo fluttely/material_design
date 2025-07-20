@@ -19,7 +19,13 @@ class _DensityPageState extends State<DensityPage> {
     ];
 
     return Scaffold(
-      appBar: AppBar(title: const Text('M3VisualDensity Tokens')),
+      appBar: AppBar(
+        title: const Text('M3VisualDensity Tokens'),
+        // LaunchURLText(
+        //   label: 'ColorScheme Tokens',
+        //   m3Url: 'https://m3.material.io/styles/color/roles',
+        // ),
+      ),
       body: Column(
         children: [
           Padding(

@@ -5,11 +5,11 @@ import 'package:url_launcher/url_launcher.dart';
 class LaunchURLText extends StatelessWidget {
   const LaunchURLText({
     super.key,
-    required this.title,
+    required this.label,
     required this.m3Url,
   });
 
-  final String title;
+  final String label;
   final String m3Url;
 
   @override
@@ -20,7 +20,7 @@ class LaunchURLText extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: M3Spacing.space16),
       child: Tooltip(
         message: m3Url,
-        child: InkWell(
+        child: GestureDetector(
           onTap: () async {
             await launchUrl(
               Uri.parse(m3Url),
@@ -28,7 +28,7 @@ class LaunchURLText extends StatelessWidget {
             );
           },
           child: Text(
-            title,
+            label,
             style: textTheme.titleLarge?.copyWith(
               color: Colors.blue,
               decoration: TextDecoration.underline,

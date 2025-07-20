@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 ///
 /// Reference: https://m3.material.io/styles/typography/type-scale-tokens
 @immutable
-abstract final class M3TypeScale {
+abstract class M3TypeScale {
   // --- Display ---
   static const TextStyle displayLarge = TextStyle(
     fontSize: 57,
