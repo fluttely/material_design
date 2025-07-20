@@ -18,7 +18,7 @@ import 'package:flutter/material.dart';
 ///
 /// * [M3 guidelines: Duration tokens](https://m3.material.io/styles/motion/easing-and-duration/tokens-specs#c009dec6-f29b-4503-b9f0-482af14a8bbd)
 /// * [M3 guidelines: Applying easing and duration](https://m3.material.io/styles/motion/easing-and-duration/applying-easing-and-duration)
-abstract final class M3MotionDuration {
+abstract class M3MotionDuration {
   /// The short1 duration (50ms) in the Material specification.
   ///
   /// See also:

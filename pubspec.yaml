@@ -1,17 +1,16 @@
 name: material_design
 description: "The fastest path to consistent Material Design UIs in Flutter. Build beautiful apps aligned with official metrics and guidelines using a powerful set of ready-to-use design tokens and helper widgets."
-version: 0.4.1
+version: 0.5.0
 # author: Kevin Kobori <https://www.linkedin.com/in/kevin-kobori/>
 homepage:
 repository: https://github.com/fluttely/material_design
 issue_tracker: https://github.com/fluttely/material_design/issues
 
 environment:
-  sdk: ^3.8.1
-  flutter: ">=1.17.0"
+  sdk: ">=2.17.0 <4.0.0"
+  flutter: ">=3.0.0"
 
 dependencies:
-  equatable: ^2.0.3
   flutter:
     sdk: flutter
 
@@ -19,4 +18,4 @@ dev_dependencies:
   flutter_lints: ^3.0.0
   flutter_test:
     sdk: flutter
-  very_good_analysis: ^9.0.0
+  # very_good_analysis: ^9.0.0

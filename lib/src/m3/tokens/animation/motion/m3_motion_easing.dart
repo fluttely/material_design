@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 /// * [M3 guidelines: Easing tokens](https://m3.material.io/styles/motion/easing-and-duration/tokens-specs#433b1153-2ea3-4fe2-9748-803a47bc97ee)
 /// * [M3 guidelines: Applying easing and duration](https://m3.material.io/styles/motion/easing-and-duration/applying-easing-and-duration)
 /// * [Curves], for a collection of non-Material animation easing curves.
-abstract final class M3MotionEasing {
+abstract class M3MotionEasing {
   /// The emphasizedAccelerate easing curve in the Material specification.
   ///
   /// See also:

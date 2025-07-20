@@ -1,4 +1,4 @@
 /// Barrel file for Material 3 tokens.
-library;
+// library;
 
 export 'tokens/tokens.dart';

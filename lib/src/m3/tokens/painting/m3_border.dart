@@ -9,7 +9,7 @@ import 'package:flutter/foundation.dart';
 /// This class provides a set of conventional widths to ensure consistency
 /// when creating bordered components.
 @immutable
-abstract final class M3Border {
+abstract class M3Border {
   /// The standard thin border width (1dp).
   ///
   /// This is the default for most components like `OutlinedButton`.

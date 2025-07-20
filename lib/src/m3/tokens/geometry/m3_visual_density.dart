@@ -36,7 +36,7 @@ import 'package:flutter/material.dart';
 ///    horizontal density of Material components.
 ///  * [Material design guidance on density](https://material.io/design/layout/applying-density.html).
 @immutable
-abstract final class M3VisualDensity {
+abstract class M3VisualDensity {
   /// The default profile for [VisualDensity] in [ThemeData].
   ///
   /// This default value represents a visual density that is less dense than

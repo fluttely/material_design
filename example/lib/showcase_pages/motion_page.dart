@@ -9,49 +9,50 @@ class MotionPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: LaunchURLText(
-          title: 'M3StateLayerOpacity Tokens (State Layers)',
-          m3Url:
-              'https://m3.material.io/styles/motion/easing-and-duration/applying-easing-and-duration',
-        ),
+        title: Text('Motion'),
       ),
       body: ListView(
         padding: const EdgeInsets.all(M3Spacing.space24),
         children: const [
+          LaunchURLText(
+            label: 'Motion Equals:\nM3MotionDuration + M3MotionEasing',
+            m3Url:
+                'https://m3.material.io/styles/motion/easing-and-duration/applying-easing-and-duration',
+          ),
           _MotionShowcase(
             title: 'Emphasized',
-            duration: M3MotionDuration.long2,
             curve: M3MotionEasing.emphasizedAccelerate,
+            duration: M3MotionDuration.long2,
           ),
           _MotionShowcase(
             title: 'Emphasized Incoming',
-            duration: M3MotionDuration.long1,
             curve: M3MotionEasing.emphasizedDecelerate,
+            duration: M3MotionDuration.long1,
           ),
           _MotionShowcase(
             title: 'Emphasized Outgoing',
-            duration: M3MotionDuration.short3,
             curve: M3MotionEasing.emphasizedAccelerate,
+            duration: M3MotionDuration.short3,
           ),
           _MotionShowcase(
             title: 'Standard',
-            duration: M3MotionDuration.medium2,
             curve: M3MotionEasing.standard,
+            duration: M3MotionDuration.medium2,
           ),
           _MotionShowcase(
             title: 'Standard Incoming',
-            duration: M3MotionDuration.medium1,
             curve: M3MotionEasing.standardDecelerate,
+            duration: M3MotionDuration.medium1,
           ),
           _MotionShowcase(
             title: 'Standard Outgoing',
-            duration: M3MotionDuration.short4,
             curve: M3MotionEasing.standardAccelerate,
+            duration: M3MotionDuration.short4,
           ),
           _MotionShowcase(
             title: 'Linear',
-            duration: M3MotionDuration.short3,
             curve: M3MotionEasing.linear,
+            duration: M3MotionDuration.short3,
           ),
         ],
       ),
@@ -62,13 +63,13 @@ class MotionPage extends StatelessWidget {
 class _MotionShowcase extends StatefulWidget {
   const _MotionShowcase({
     required this.title,
-    required this.duration,
     required this.curve,
+    required this.duration,
   });
 
   final String title;
-  final Duration duration;
   final Curve curve;
+  final Duration duration;
 
   @override
   State<_MotionShowcase> createState() => _MotionShowcaseState();

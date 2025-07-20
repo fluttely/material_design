@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:material_design/material_design.dart';
+import 'package:material_design_example/showcase_pages/widgets/launch_url_text.dart';
 
 class TypographyPage extends StatelessWidget {
   const TypographyPage({super.key});
@@ -25,7 +26,12 @@ class TypographyPage extends StatelessWidget {
     ];
 
     return Scaffold(
-      appBar: AppBar(title: const Text('M3TypeScale Tokens')),
+      appBar: AppBar(
+        title: LaunchURLText(
+          label: 'M3TypeScale Tokens',
+          m3Url: 'https://m3.material.io/styles/typography/type-scale-tokens',
+        ),
+      ),
       body: ListView.builder(
         padding: const EdgeInsets.all(M3Spacing.space16),
         itemCount: textStyles.length,

@@ -1,53 +1,116 @@
 import 'package:flutter/foundation.dart';
 
-/// Semantic spacing scale for Material Design 3.
+/// Provides a comprehensive set of pre-defined, Material 3-compliant
+/// spacing tokens based on a 4dp grid.
+///
+/// This class turns the M3 guideline of using 4dp increments for padding
+/// into a reusable set of named constants. Using these tokens ensures
+/// consistent and rhythmic spacing throughout the UI.
+///
+/// Reference: https://m3.material.io/foundations/layout/understanding-layout/spacing
 @immutable
-abstract final class M3Spacing {
-  /// Material Design 3 spacing scale
+abstract class M3Spacing {
+  /// A value of 0, representing no spacing.
   static const double none = 0;
+
+  /// A value representing infinite spacing.
   static const double infinity = double.infinity;
 
-  // Base spacing scale (4dp increments)
+  // --- Base Spacing Scale (4dp increments) ---
+  // Ideal for padding within components and small layout gaps.
+
+  /// 4dp spacing token.
   static const double space4 = 4;
+
+  /// 8dp spacing token.
   static const double space8 = 8;
+
+  /// 12dp spacing token.
   static const double space12 = 12;
+
+  /// 16dp spacing token.
   static const double space16 = 16;
+
+  /// 20dp spacing token.
   static const double space20 = 20;
+
+  /// 24dp spacing token.
   static const double space24 = 24;
+
+  /// 28dp spacing token.
   static const double space28 = 28;
+
+  /// 32dp spacing token.
   static const double space32 = 32;
+
+  /// 36dp spacing token.
   static const double space36 = 36;
+
+  /// 40dp spacing token.
   static const double space40 = 40;
-  static const double space44 = 44;
+
+  /// 48dp spacing token.
   static const double space48 = 48;
-  static const double space52 = 52;
+
+  /// 56dp spacing token.
   static const double space56 = 56;
-  static const double space60 = 60;
+
+  /// 64dp spacing token.
   static const double space64 = 64;
 
-  // Extended spacing scale (8dp increments for larger spacing)
+  // --- Extended Spacing Scale ---
+  // For larger layout spacing needs.
+
+  /// 72dp spacing token.
   static const double space72 = 72;
+
+  /// 80dp spacing token.
   static const double space80 = 80;
-  static const double space88 = 88;
+
+  /// 96dp spacing token.
   static const double space96 = 96;
-  static const double space104 = 104;
-  static const double space112 = 112;
-  static const double space120 = 120;
+
+  /// 128dp spacing token.
   static const double space128 = 128;
+}
 
-  // Large spacing scale (16dp increments)
-  static const double space144 = 144;
-  static const double space160 = 160;
-  static const double space176 = 176;
-  static const double space192 = 192;
-  static const double space208 = 208;
-  static const double space224 = 224;
-  static const double space240 = 240;
-  static const double space256 = 256;
+/// Provides semantic margin tokens for screen and layout containers.
+///
+/// These tokens represent the space between the edge of a window or screen
+/// and the content within it.
+///
+/// Reference: https://m3.material.io/foundations/layout/applying-layout/pane-layouts
+@immutable
+abstract class M3Margins {
+  /// https://m3.material.io/foundations/layout/applying-layout/compact
+  /// The default margin for compact screen layouts (16dp).
+  static const double compactScreen = 16.0;
 
-  // Extra large spacing for special cases
-  static const double space320 = 320;
-  static const double space384 = 384;
-  static const double space448 = 448;
-  static const double space512 = 512;
+  /// https://m3.material.io/foundations/layout/applying-layout/medium
+  /// The recommended margin for medium screen layouts (24dp).
+  static const double mediumScreen = 24.0;
+
+  /// https://m3.material.io/foundations/layout/applying-layout/expanded
+  /// The recommended margin for expanded layouts (24dp).
+  static const double expandedScreen = 24.0;
+
+  /// https://m3.material.io/foundations/layout/applying-layout/large-extra-large
+  /// The recommended margin for large screen layouts (24dp).
+  static const double largeScreen = 24.0;
+
+  /// https://m3.material.io/foundations/layout/applying-layout/large-extra-large
+  /// The recommended margin for extra-large screen layouts (24dp).
+  static const double extraLargeScreen = 24.0;
+}
+
+/// Provides tokens for spacers used between layout panes.
+///
+/// Spacers are used to separate distinct regions of content, such as in a
+/// split-view layout.
+///
+/// Reference: https://m3.material.io/foundations/layout/understanding-layout/spacing
+@immutable
+abstract class M3Spacers {
+  /// The standard width of a spacer between two content panes (24dp).
+  static const double pane = 24.0;
 }

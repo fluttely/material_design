@@ -15,7 +15,7 @@ import 'package:material_design/material_design.dart';
 ///
 /// Reference: https://m3.material.io/styles/elevation/shadows
 @immutable
-abstract final class M3Shadow {
+abstract class M3Shadow {
   // The color used for M3 shadows is black with a specific opacity.
   // We define it here for reuse.
   static final Color _shadowColor = Colors.black.withValues(alpha: 0.15);

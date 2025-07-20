@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:material_design/material_design.dart';
+import 'package:material_design_example/showcase_pages/widgets/launch_url_text.dart';
 
 class ShapePage extends StatelessWidget {
   const ShapePage({super.key});
@@ -15,12 +16,20 @@ class ShapePage extends StatelessWidget {
       ('Small', M3Shape.small),
       ('Medium', M3Shape.medium),
       ('Large', M3Shape.large),
+      ('Large Increased', M3Shape.largeIncreased),
       ('Extra Large', M3Shape.extraLarge),
+      ('Extra Large Increased', M3Shape.extraLargeIncreased),
+      ('Extra Extra Large', M3Shape.extraExtraLarge),
       ('Full (Stadium)', M3Shape.full),
     ];
 
     return Scaffold(
-      appBar: AppBar(title: const Text('M3Shape Tokens')),
+      appBar: AppBar(
+        title: LaunchURLText(
+          label: 'M3Shape Tokens',
+          m3Url: 'https://m3.material.io/styles/shape/corner-radius-scale',
+        ),
+      ),
       body: GridView.builder(
         padding: const EdgeInsets.all(M3Spacing.space24),
         gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(

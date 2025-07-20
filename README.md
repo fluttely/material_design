@@ -13,7 +13,7 @@ Add this line to your project's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  material_design: ^0.4.1
+  material_design: ^0.5.0
 ```
 
 Then run `flutter pub get`.
@@ -41,18 +41,18 @@ The color system is based on a seed color, which generates a full `ColorScheme` 
 ```dart
 MaterialApp(
   theme: ThemeData(
+    useMaterial3: true,
     colorScheme: ColorScheme.fromSeed(
       seedColor: Colors.blue,
       brightness: Brightness.light,
     ),
-    useMaterial3: true,
   ),
   darkTheme: ThemeData(
+    useMaterial3: true,
     colorScheme: ColorScheme.fromSeed(
       seedColor: Colors.blue,
       brightness: Brightness.dark,
     ),
-    useMaterial3: true,
   ),
 )
 ```
@@ -76,9 +76,24 @@ The full M3 type scale is available via the `M3TypeScale` class.
 **Example:**
 
 ```dart
+MaterialApp(
+  theme: ThemeData(
+    useMaterial3: true,
+    textTheme: TextTheme(
+      displayLarge: M3TypeScale.displayLarge,
+      displayMedium: M3TypeScale.displayMedium,
+      displaySmall: M3TypeScale.displaySmall,
+      ...
+    ),
+  ),
+)
+```
+
+```dart
+final textTheme = Theme.of(context).textTheme;
 Text(
   'Display Large',
-  style: M3TypeScale.displayLarge,
+  style: textTheme.displayLarge,
 )
 ```
 
@@ -197,25 +212,38 @@ The library also includes tokens for various other UI properties.
 
   **Example:**
 
-  ```dart
-  final isHoreved = M3StateLayerOpacity.hover ? null;
-  Container(
-    color: Colors.black.withValues(alpha: M3StateLayerOpacity.hover),
-  )
-  ```
+```dart
+// Apply a state layer overlay for interaction feedback
+final isPressed = true;
+final stateLayerOpacity = isPressed ? M3StateLayerOpacity.pressed : 0.0;
+
+Stack(
+  children: [
+    // Main widget content
+     Positioned.fill(
+      child: AnimatedContainer(
+        duration: M3MotionDuration.short3,
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.primary.withOpacity(stateLayerOpacity),
+        ),
+      ),
+    ),
+  ],
+)
+```
 
 - **`M3Breakpoint`**: Breakpoints for responsive layouts.
 
-  - `compact` (0), `medium` (600), `expanded` (840), `large` (1200), `extraLarge` (1600)
+- `compact` (0), `medium` (600), `expanded` (840), `large` (1200), `extraLarge` (1600)
 
-  **Example:**
+**Example:**
 
-  ```dart
-  final screenWidth = MediaQuery.of(context).size.width;
-  if (screenWidth >= M3Breakpoint.medium) {
-    // Use a two-column layout
-  }
-  ```
+```dart
+final screenWidth = MediaQuery.of(context).size.width;
+if (screenWidth >= M3Breakpoint.medium) {
+  // Use a two-column layout
+}
+```
 
 - **`M3IconSize`**: Standard icon size.
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:material_design/material_design.dart';
+import 'package:material_design_example/showcase_pages/widgets/launch_url_text.dart';
 
 class ElevationPage extends StatelessWidget {
   const ElevationPage({super.key});
@@ -7,10 +8,16 @@ class ElevationPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('M3Elevation Tokens')),
+      appBar: AppBar(
+        title: Text('Elevation'),
+      ),
       body: ListView(
         padding: const EdgeInsets.all(M3Spacing.space24),
         children: const [
+          LaunchURLText(
+            label: 'M3Elevation Tokens',
+            m3Url: 'https://m3.material.io/styles/elevation/tokens',
+          ),
           _ElevationShowcase(
             title: 'Surface Tint Color Only',
             useShadow: false,
@@ -67,13 +74,12 @@ class _ElevationShowcase extends StatelessWidget {
                 elevation,
               );
 
-              final elevationShadows = useShadow
-                  ? M3Shadow.fromElevation(elevation)
-                  : <BoxShadow>[];
+              final elevationShadows =
+                  useShadow ? M3Shadow.fromElevation(elevation) : <BoxShadow>[];
 
               return Container(
                 width: double.infinity,
-                height: M3Spacing.space120,
+                height: 120,
                 decoration: ShapeDecoration(
                   shape: M3Shape.small,
                   color: elevationSurfaceColor,

@@ -4,6 +4,19 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.5.0
+
+- **BREAKING**: Token classes are now `abstract class` instead of `abstract final class` to allow for extension.
+- **BREAKING**: Change dart version from `3.8.1` to `>=2.17.0 <4.0.0` to allow for extension.
+- **BREAKING**: The `equatable` dependency has been removed.
+- **FEAT**: Added `M3Margins` and `M3Spacers` classes for more semantic layout spacing.
+- **FEAT**: Added new radius and shape tokens (`largeIncreased`, `extraLargeIncreased`, `extraExtraLarge`).
+- **FEAT**: The example app has been revamped to better demonstrate the updated tokens, including a new `LaunchURLText` widget.
+- **CHORE**: Lowered the minimum Dart SDK requirement from `3.8.1` to `2.17.0` for wider project compatibility.
+- **CHORE**: As restrições do SDK do Flutter e do Dart foram atualizadas.
+- **CHORE**: `very_good_analysis` has been commented out in `analysis_options.yaml`.
+- **DOCS**: `README.md` has been updated with the latest changes.
+
 ## 0.4.1
 
 - **BREAKING**: Renamed `M3Opacity` to `M3StateLayerOpacity` to better reflect its purpose.

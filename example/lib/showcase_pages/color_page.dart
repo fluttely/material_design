@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:material_design/material_design.dart';
+import 'package:material_design_example/showcase_pages/widgets/launch_url_text.dart';
 
 class ColorPage extends StatelessWidget {
   const ColorPage({super.key});
@@ -156,7 +157,12 @@ class ColorPage extends StatelessWidget {
     ];
 
     return Scaffold(
-      appBar: AppBar(title: const Text('ColorScheme Tokens')),
+      appBar: AppBar(
+        title: LaunchURLText(
+          label: 'ColorScheme Tokens',
+          m3Url: 'https://m3.material.io/styles/color/roles',
+        ),
+      ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(M3Spacing.space24),
         child: Row(

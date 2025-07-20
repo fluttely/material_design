@@ -30,7 +30,7 @@ class TokenShowcaseApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
     return MaterialApp(
-      title: 'Material Design Tokens Showcase',
+      title: 'Material Design 3',
       theme: themeProvider.lightTheme,
       darkTheme: themeProvider.darkTheme,
       themeMode: themeProvider.themeMode,
@@ -48,6 +48,7 @@ class ShowcaseHomePage extends StatefulWidget {
 }
 
 class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   int _selectedIndex = 0;
 
   final List<Widget> _pages = [
@@ -68,9 +69,22 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
 
     if (isSmallScreen) {
       return Scaffold(
-        appBar: AppBar(title: const Text('Material Design 3')),
+        key: _scaffoldKey,
         drawer: _buildScrollableNavigationDrawer(context),
-        body: _pages[_selectedIndex],
+        body: Stack(
+          children: [
+            _pages[_selectedIndex],
+            Positioned(
+              top: M3Spacing.space8,
+              left: M3Spacing.space16,
+              child: IconButton(
+                tooltip: 'Open navigation menu',
+                onPressed: () => _scaffoldKey.currentState?.openDrawer(),
+                icon: Icon(Icons.menu),
+              ),
+            ),
+          ],
+        ),
       );
     }
 
@@ -123,8 +137,16 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
         label: Text('Density'),
       ),
       NavigationRailDestination(
-        icon: Icon(Icons.token_outlined),
-        selectedIcon: Icon(Icons.token),
+        icon: Icon(Icons.more_horiz_outlined),
+        // icon: Icon(Icons.extension_outlined),
+        // icon: Icon(Icons.widgets_outlined),
+        // icon: Icon(Icons.layers_outlined),
+        // icon: Icon(Icons.design_services_outlined),
+        // icon: Icon(Icons.dashboard_customize_outlined),
+        // icon: Icon(Icons.category_outlined),
+        // icon: Icon(Icons.miscellaneous_services_outlined),
+        // icon: Icon(Icons.grid_view_outlined),
+        selectedIcon: Icon(Icons.more_horiz),
         label: Text('Others'),
       ),
     ];
@@ -149,9 +171,11 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
             M3Spacing.space16,
             M3Spacing.space12,
           ),
-          child: Text('M3 Tokens'),
+          child: LaunchURLText(
+            label: 'M3 Tokens',
+            m3Url: 'https://m3.material.io',
+          ),
         ),
-
         const NavigationDrawerDestination(
           icon: Icon(Icons.format_paint),
           label: Text('Color'),
@@ -181,10 +205,9 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
           label: Text('Density'),
         ),
         const NavigationDrawerDestination(
-          icon: Icon(Icons.token_outlined),
+          icon: Icon(Icons.more_horiz_outlined),
           label: Text('Others'),
         ),
-
         const Padding(
           padding: EdgeInsets.fromLTRB(
             M3Spacing.space28,
@@ -241,7 +264,7 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
           child: Row(
             children: [
               LaunchURLText(
-                title: 'M3 Components',
+                label: 'M3 Components',
                 m3Url: 'https://flutterweb-wasm.web.app/',
               ),
             ],
@@ -259,7 +282,7 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
       child: Column(
         children: [
           LaunchURLText(
-            title: 'M3',
+            label: 'M3',
             m3Url: 'https://m3.material.io/',
           ),
           Expanded(
@@ -287,10 +310,7 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
                     indent: M3Spacing.space8,
                     endIndent: M3Spacing.space8,
                   ),
-                  LaunchURLText(
-                    title: 'Demo',
-                    m3Url: 'https://flutterweb-wasm.web.app/',
-                  ),
+                  const SizedBox(height: M3Spacing.space8),
                   Switch(
                     value: themeProvider.themeMode == ThemeMode.dark,
                     onChanged: (isDark) {
@@ -317,7 +337,10 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
                     },
                   ),
                   const Text('Seed Color', style: TextStyle(fontSize: 12)),
-                  const SizedBox(height: M3Spacing.space16),
+                  LaunchURLText(
+                    label: 'Demo',
+                    m3Url: 'https://flutterweb-wasm.web.app/',
+                  ),
                 ],
               ),
             ),

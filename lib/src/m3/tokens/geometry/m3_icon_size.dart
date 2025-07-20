@@ -12,7 +12,7 @@ import 'package:flutter/foundation.dart';
 ///
 /// Reference: https://m3.material.io/styles/icons/designing-icons
 @immutable
-abstract final class M3IconSize {
+abstract class M3IconSize {
   /// Dense icon size (20dp).
   ///
   /// Used in compact layouts or components where the standard 24dp icon
