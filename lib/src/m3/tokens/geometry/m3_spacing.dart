@@ -81,7 +81,7 @@ abstract class M3Spacing {
 ///
 /// Reference: https://m3.material.io/foundations/layout/applying-layout/pane-layouts
 @immutable
-abstract class M3Margins {
+abstract class M3Margin {
   /// https://m3.material.io/foundations/layout/applying-layout/compact
   /// The default margin for compact screen layouts (16dp).
   static const double compactScreen = 16.0;
@@ -110,7 +110,7 @@ abstract class M3Margins {
 ///
 /// Reference: https://m3.material.io/foundations/layout/understanding-layout/spacing
 @immutable
-abstract class M3Spacers {
+abstract class M3Spacer {
   /// The standard width of a spacer between two content panes (24dp).
   static const double pane = 24.0;
 }
