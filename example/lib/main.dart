@@ -1,17 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:material_design/material_design.dart';
-import 'package:material_design_example/showcase_pages/motion_page.dart';
+import 'package:material_design_example/showcase_pages/foundations/border_tokens_page.dart';
+import 'package:material_design_example/showcase_pages/foundations/breakpoint_tokens_page.dart';
+import 'package:material_design_example/showcase_pages/foundations/density_page.dart';
+import 'package:material_design_example/showcase_pages/foundations/icon_size_tokens_page.dart';
+import 'package:material_design_example/showcase_pages/foundations/opacity_tokens_page.dart';
+import 'package:material_design_example/showcase_pages/foundations/spacing_page.dart';
+import 'package:material_design_example/showcase_pages/foundations/z_index_tokens_page.dart'
+    show ZIndexTokensPage;
 import 'package:material_design_example/showcase_pages/widgets/launch_url_text.dart';
 import 'package:provider/provider.dart';
 
 import 'color_picker.dart';
-import 'showcase_pages/color_page.dart';
-import 'showcase_pages/density_page.dart';
-import 'showcase_pages/elevation_page.dart';
-import 'showcase_pages/other_tokens_page.dart';
-import 'showcase_pages/shape_page.dart';
-import 'showcase_pages/spacing_page.dart';
-import 'showcase_pages/typography_page.dart';
+import 'showcase_pages/components/utils_page.dart';
+import 'showcase_pages/foundations/accessibility_page.dart';
+import 'showcase_pages/foundations/adaptive_page.dart';
+import 'showcase_pages/styles/color_page.dart';
+import 'showcase_pages/styles/elevation_page.dart';
+import 'showcase_pages/styles/motion_page.dart';
+import 'showcase_pages/styles/shape_page.dart';
+import 'showcase_pages/styles/typography_page.dart';
 import 'theme_provider.dart';
 
 void main() {
@@ -52,14 +60,26 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
   int _selectedIndex = 0;
 
   final List<Widget> _pages = [
+    // Foundations
+    // const DesignTokensPage(),
+    const SpacingPage(),
+    const DensityPage(),
+    const BreakpointTokensPage(),
+    const ZIndexTokensPage(),
+    const BorderTokensPage(),
+    const IconSizeTokensPage(),
+    const OpacityTokensPage(),
+    const AccessibilityPage(),
+    const AdaptivePage(),
+    // Styles
     const ColorPage(),
     const TypographyPage(),
-    const ShapePage(),
     const ElevationPage(),
-    const SpacingPage(),
+    const ShapePage(),
     const MotionPage(),
-    const DensityPage(),
-    const OtherTokensPage(),
+    // Components
+    // const ComponentsShowcasePage(),
+    const UtilsPage(),
   ];
 
   @override
@@ -80,7 +100,7 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
               child: IconButton(
                 tooltip: 'Open navigation menu',
                 onPressed: () => _scaffoldKey.currentState?.openDrawer(),
-                icon: Icon(Icons.menu),
+                icon: const Icon(Icons.menu),
               ),
             ),
           ],
@@ -99,7 +119,57 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
     );
   }
 
-  List<NavigationRailDestination> _buildNavigationRailDestinations() {
+  List<NavigationRailDestination> _buildFoundationNavigationRailDestinations() {
+    return const [
+      NavigationRailDestination(
+        icon: Icon(Icons.straighten_outlined),
+        selectedIcon: Icon(Icons.straighten),
+        label: Text('Spacing'),
+      ),
+      NavigationRailDestination(
+        icon: Icon(Icons.density_medium_outlined),
+        selectedIcon: Icon(Icons.density_medium),
+        label: Text('Density'),
+      ),
+      NavigationRailDestination(
+        icon: Icon(Icons.aspect_ratio_outlined),
+        selectedIcon: Icon(Icons.aspect_ratio),
+        label: Text('Breakpoints'),
+      ),
+      NavigationRailDestination(
+        icon: Icon(Icons.layers_outlined),
+        selectedIcon: Icon(Icons.layers),
+        label: Text('Z-Indexes'),
+      ),
+      NavigationRailDestination(
+        icon: Icon(Icons.border_style_outlined),
+        selectedIcon: Icon(Icons.border_style),
+        label: Text('Borders'),
+      ),
+      NavigationRailDestination(
+        icon: Icon(Icons.photo_size_select_small_outlined),
+        selectedIcon: Icon(Icons.photo_size_select_small),
+        label: Text('Icon Sizes'),
+      ),
+      NavigationRailDestination(
+        icon: Icon(Icons.opacity_outlined),
+        selectedIcon: Icon(Icons.opacity),
+        label: Text('Opacities'),
+      ),
+      NavigationRailDestination(
+        icon: Icon(Icons.accessibility_outlined),
+        selectedIcon: Icon(Icons.accessibility),
+        label: Text('A11y'),
+      ),
+      NavigationRailDestination(
+        icon: Icon(Icons.devices_outlined),
+        selectedIcon: Icon(Icons.devices),
+        label: Text('Adaptive'),
+      ),
+    ];
+  }
+
+  List<NavigationRailDestination> _buildStylesNavigationRailDestinations() {
     return const [
       NavigationRailDestination(
         icon: Icon(Icons.format_paint_outlined),
@@ -112,48 +182,38 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
         label: Text('Typography'),
       ),
       NavigationRailDestination(
-        icon: Icon(Icons.rounded_corner_outlined),
-        selectedIcon: Icon(Icons.rounded_corner),
-        label: Text('Shape'),
-      ),
-      NavigationRailDestination(
         icon: Icon(Icons.copy_outlined),
         selectedIcon: Icon(Icons.copy),
         label: Text('Elevation'),
       ),
       NavigationRailDestination(
-        icon: Icon(Icons.space_bar_outlined),
-        selectedIcon: Icon(Icons.space_bar),
-        label: Text('Spacing'),
+        icon: Icon(Icons.rounded_corner_outlined),
+        selectedIcon: Icon(Icons.rounded_corner),
+        label: Text('Shape'),
       ),
       NavigationRailDestination(
         icon: Icon(Icons.animation_outlined),
         selectedIcon: Icon(Icons.animation),
         label: Text('Motion'),
       ),
+      // NavigationRailDestination(
+      //   icon: Icon(Icons.widgets_outlined),
+      //   selectedIcon: Icon(Icons.widgets),
+      //   label: Text('Components'),
+      // ),
       NavigationRailDestination(
-        icon: Icon(Icons.density_medium_outlined),
-        selectedIcon: Icon(Icons.density_medium),
-        label: Text('Density'),
-      ),
-      NavigationRailDestination(
-        icon: Icon(Icons.more_horiz_outlined),
-        // icon: Icon(Icons.extension_outlined),
-        // icon: Icon(Icons.widgets_outlined),
-        // icon: Icon(Icons.layers_outlined),
-        // icon: Icon(Icons.design_services_outlined),
-        // icon: Icon(Icons.dashboard_customize_outlined),
-        // icon: Icon(Icons.category_outlined),
-        // icon: Icon(Icons.miscellaneous_services_outlined),
-        // icon: Icon(Icons.grid_view_outlined),
-        selectedIcon: Icon(Icons.more_horiz),
-        label: Text('Others'),
+        icon: Icon(Icons.auto_awesome_outlined),
+        selectedIcon: Icon(Icons.auto_awesome),
+        label: Text('Utils'),
       ),
     ];
   }
 
   Widget _buildScrollableNavigationDrawer(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
+    final textTheme = Theme.of(context).textTheme;
+    final foundationDestinations = _buildFoundationNavigationRailDestinations();
+    final styleDestinations = _buildStylesNavigationRailDestinations();
 
     return NavigationDrawer(
       selectedIndex: _selectedIndex,
@@ -164,62 +224,78 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
         });
       },
       children: [
-        const Padding(
-          padding: EdgeInsets.fromLTRB(
+        Padding(
+          padding: const EdgeInsets.fromLTRB(
             M3Spacing.space28,
             M3Spacing.space16,
             M3Spacing.space16,
             M3Spacing.space12,
           ),
-          child: LaunchURLText(
-            label: 'M3 Tokens',
-            m3Url: 'https://m3.material.io',
+          child: Text(
+            'Material Design 3',
+            style: textTheme.titleSmall,
           ),
-        ),
-        const NavigationDrawerDestination(
-          icon: Icon(Icons.format_paint),
-          label: Text('Color'),
-        ),
-        const NavigationDrawerDestination(
-          icon: Icon(Icons.text_fields_outlined),
-          label: Text('Typography'),
-        ),
-        const NavigationDrawerDestination(
-          icon: Icon(Icons.rounded_corner_outlined),
-          label: Text('Shape'),
-        ),
-        const NavigationDrawerDestination(
-          icon: Icon(Icons.copy_outlined),
-          label: Text('Elevation'),
-        ),
-        const NavigationDrawerDestination(
-          icon: Icon(Icons.space_bar_outlined),
-          label: Text('Spacing'),
-        ),
-        const NavigationDrawerDestination(
-          icon: Icon(Icons.animation),
-          label: Text('Motion'),
-        ),
-        const NavigationDrawerDestination(
-          icon: Icon(Icons.density_medium),
-          label: Text('Density'),
-        ),
-        const NavigationDrawerDestination(
-          icon: Icon(Icons.more_horiz_outlined),
-          label: Text('Others'),
         ),
         const Padding(
-          padding: EdgeInsets.fromLTRB(
-            M3Spacing.space28,
-            M3Spacing.space16,
-            M3Spacing.space28,
-            M3Spacing.space12,
-          ),
+          padding: EdgeInsets.symmetric(horizontal: M3Spacing.space28),
           child: Divider(),
         ),
+
+        // Foundations Section
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: M3Spacing.space28),
-          child: Text('Theme', style: Theme.of(context).textTheme.titleSmall),
+          padding: const EdgeInsets.fromLTRB(
+            M3Spacing.space28,
+            M3Spacing.space16,
+            M3Spacing.space16,
+            M3Spacing.space12,
+          ),
+          child: Text('Foundations', style: textTheme.titleSmall),
+        ),
+        ...foundationDestinations.map(
+          (d) => NavigationDrawerDestination(
+            icon: d.icon,
+            label: d.label,
+            selectedIcon: d.selectedIcon,
+          ),
+        ),
+
+        const Padding(
+          padding: EdgeInsets.symmetric(horizontal: M3Spacing.space28),
+          child: Divider(),
+        ),
+
+        // Styles Section
+        Padding(
+          padding: const EdgeInsets.fromLTRB(
+            M3Spacing.space28,
+            M3Spacing.space16,
+            M3Spacing.space16,
+            M3Spacing.space12,
+          ),
+          child: Text('Styles', style: textTheme.titleSmall),
+        ),
+        ...styleDestinations.map(
+          (d) => NavigationDrawerDestination(
+            icon: d.icon,
+            label: d.label,
+            selectedIcon: d.selectedIcon,
+          ),
+        ),
+
+        const Padding(
+          padding: EdgeInsets.symmetric(horizontal: M3Spacing.space28),
+          child: Divider(),
+        ),
+
+        // Theme Controls
+        Padding(
+          padding: const EdgeInsets.fromLTRB(
+            M3Spacing.space28,
+            M3Spacing.space16,
+            M3Spacing.space16,
+            M3Spacing.space12,
+          ),
+          child: Text('Theme', style: textTheme.titleSmall),
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: M3Spacing.space16),
@@ -229,10 +305,9 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
               const Spacer(),
               Switch(
                 value: themeProvider.themeMode == ThemeMode.dark,
-                onChanged: (isDark) {
+                onChanged: (value) {
                   themeProvider.changeThemeMode(
-                    isDark ? ThemeMode.dark : ThemeMode.light,
-                  );
+                      value ? ThemeMode.dark : ThemeMode.light);
                 },
               ),
             ],
@@ -259,15 +334,12 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
             ],
           ),
         ),
+        const SizedBox(height: M3Spacing.space8),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: M3Spacing.space16),
-          child: Row(
-            children: [
-              LaunchURLText(
-                label: 'M3 Components',
-                m3Url: 'https://flutterweb-wasm.web.app/',
-              ),
-            ],
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: LaunchURLText(
+            label: 'Flutter M3 Demo',
+            m3Url: 'https://flutterweb-wasm.web.app/',
           ),
         ),
       ],
@@ -276,23 +348,59 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
 
   Widget _buildScrollableNavigationRail(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
+    final foundationDestinations = _buildFoundationNavigationRailDestinations();
+    final styleDestinations = _buildStylesNavigationRailDestinations();
+
     return Container(
       width: 80,
       color: Theme.of(context).colorScheme.surface,
       child: Column(
         children: [
-          LaunchURLText(
+          const SizedBox(height: M3Spacing.space8),
+          const LaunchURLText(
             label: 'M3',
             m3Url: 'https://m3.material.io/',
           ),
+          const SizedBox(height: M3Spacing.space8),
           Expanded(
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  ..._buildNavigationRailDestinations().asMap().entries.map((
-                    entry,
-                  ) {
+                  const Divider(
+                    indent: M3Spacing.space8,
+                    endIndent: M3Spacing.space8,
+                  ),
+                  const LaunchURLText(
+                    label: 'Foundations',
+                    fontSize: 12,
+                    m3Url: 'https://m3.material.io/foundations',
+                  ),
+                  ...foundationDestinations.asMap().entries.map((entry) {
                     final index = entry.key;
+                    final destination = entry.value;
+
+                    return _buildNavigationRailItem(
+                      destination: destination,
+                      index: index,
+                      isSelected: _selectedIndex == index,
+                      onTap: () {
+                        setState(() {
+                          _selectedIndex = index;
+                        });
+                      },
+                    );
+                  }),
+                  const Divider(
+                    indent: M3Spacing.space8,
+                    endIndent: M3Spacing.space8,
+                  ),
+                  const LaunchURLText(
+                    label: 'Styles',
+                    fontSize: 12,
+                    m3Url: 'https://m3.material.io/styles',
+                  ),
+                  ...styleDestinations.asMap().entries.map((entry) {
+                    final index = entry.key + foundationDestinations.length;
                     final destination = entry.value;
 
                     return _buildNavigationRailItem(
@@ -337,10 +445,13 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
                     },
                   ),
                   const Text('Seed Color', style: TextStyle(fontSize: 12)),
-                  LaunchURLText(
+                  const SizedBox(height: M3Spacing.space16),
+                  const LaunchURLText(
                     label: 'Demo',
+                    fontSize: 12,
                     m3Url: 'https://flutterweb-wasm.web.app/',
                   ),
+                  const SizedBox(height: M3Spacing.space8),
                 ],
               ),
             ),
@@ -395,6 +506,7 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
                     ? colorScheme.onSurface
                     : colorScheme.onSurfaceVariant,
               ),
+              textAlign: TextAlign.center,
             ),
           ],
         ),

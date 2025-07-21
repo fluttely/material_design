@@ -8,55 +8,49 @@ class ThemeProvider with ChangeNotifier {
   ThemeMode get themeMode => _themeMode;
   Color get seedColor => _seedColor;
 
-  ThemeData get lightTheme => ThemeData(
-    useMaterial3: true,
-    colorScheme: ColorScheme.fromSeed(
-      seedColor: _seedColor,
-      brightness: Brightness.light,
-    ),
-    textTheme: TextTheme(
-      displayLarge: M3TypeScale.displayLarge,
-      displayMedium: M3TypeScale.displayMedium,
-      displaySmall: M3TypeScale.displaySmall,
-      headlineLarge: M3TypeScale.headlineLarge,
-      headlineMedium: M3TypeScale.headlineMedium,
-      headlineSmall: M3TypeScale.headlineSmall,
-      titleLarge: M3TypeScale.titleLarge,
-      titleMedium: M3TypeScale.titleMedium,
-      titleSmall: M3TypeScale.titleSmall,
-      bodyLarge: M3TypeScale.bodyLarge,
-      bodyMedium: M3TypeScale.bodyMedium,
-      bodySmall: M3TypeScale.bodySmall,
-      labelLarge: M3TypeScale.labelLarge,
-      labelMedium: M3TypeScale.labelMedium,
-      labelSmall: M3TypeScale.labelSmall,
-    ),
-  );
+  ThemeData get lightTheme => M3Theme.light(
+        seedColor: _seedColor,
+        visualDensity: VisualDensity.comfortable,
+        textTheme: TextTheme(
+          displayLarge: M3TypeScale.displayLarge,
+          displayMedium: M3TypeScale.displayMedium,
+          displaySmall: M3TypeScale.displaySmall,
+          headlineLarge: M3TypeScale.headlineLarge,
+          headlineMedium: M3TypeScale.headlineMedium,
+          headlineSmall: M3TypeScale.headlineSmall,
+          titleLarge: M3TypeScale.titleLarge,
+          titleMedium: M3TypeScale.titleMedium,
+          titleSmall: M3TypeScale.titleSmall,
+          bodyLarge: M3TypeScale.bodyLarge,
+          bodyMedium: M3TypeScale.bodyMedium,
+          bodySmall: M3TypeScale.bodySmall,
+          labelLarge: M3TypeScale.labelLarge,
+          labelMedium: M3TypeScale.labelMedium,
+          labelSmall: M3TypeScale.labelSmall,
+        ),
+      ).toThemeData();
 
-  ThemeData get darkTheme => ThemeData(
-    useMaterial3: true,
-    colorScheme: ColorScheme.fromSeed(
-      seedColor: _seedColor,
-      brightness: Brightness.dark,
-    ),
-    textTheme: TextTheme(
-      displayLarge: M3TypeScale.displayLarge,
-      displayMedium: M3TypeScale.displayMedium,
-      displaySmall: M3TypeScale.displaySmall,
-      headlineLarge: M3TypeScale.headlineLarge,
-      headlineMedium: M3TypeScale.headlineMedium,
-      headlineSmall: M3TypeScale.headlineSmall,
-      titleLarge: M3TypeScale.titleLarge,
-      titleMedium: M3TypeScale.titleMedium,
-      titleSmall: M3TypeScale.titleSmall,
-      bodyLarge: M3TypeScale.bodyLarge,
-      bodyMedium: M3TypeScale.bodyMedium,
-      bodySmall: M3TypeScale.bodySmall,
-      labelLarge: M3TypeScale.labelLarge,
-      labelMedium: M3TypeScale.labelMedium,
-      labelSmall: M3TypeScale.labelSmall,
-    ),
-  );
+  ThemeData get darkTheme => M3Theme.dark(
+        seedColor: _seedColor,
+        visualDensity: VisualDensity.comfortable,
+        textTheme: TextTheme(
+          displayLarge: M3TypeScale.displayLarge,
+          displayMedium: M3TypeScale.displayMedium,
+          displaySmall: M3TypeScale.displaySmall,
+          headlineLarge: M3TypeScale.headlineLarge,
+          headlineMedium: M3TypeScale.headlineMedium,
+          headlineSmall: M3TypeScale.headlineSmall,
+          titleLarge: M3TypeScale.titleLarge,
+          titleMedium: M3TypeScale.titleMedium,
+          titleSmall: M3TypeScale.titleSmall,
+          bodyLarge: M3TypeScale.bodyLarge,
+          bodyMedium: M3TypeScale.bodyMedium,
+          bodySmall: M3TypeScale.bodySmall,
+          labelLarge: M3TypeScale.labelLarge,
+          labelMedium: M3TypeScale.labelMedium,
+          labelSmall: M3TypeScale.labelSmall,
+        ),
+      ).toThemeData();
 
   void changeThemeMode(ThemeMode newMode) {
     if (newMode == _themeMode) return;

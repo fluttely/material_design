@@ -1,4 +1,4 @@
-import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 // Copyright 2024 The Flutter Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
@@ -49,4 +49,86 @@ abstract class M3Breakpoint {
   /// **Common Use Case**: Allows for fully expansive layouts with multiple content columns,
   /// visible auxiliary tools, and maximum use of horizontal space.
   static const double extraLarge = 1600;
+
+  // --- Utility Methods ---
+
+  /// Gets the current window size class based on screen width.
+  static WindowSizeClass getWindowSizeClass(double width) {
+    if (width < medium) {
+      return WindowSizeClass.compact;
+    } else if (width < expanded) {
+      return WindowSizeClass.medium;
+    } else if (width < large) {
+      return WindowSizeClass.expanded;
+    } else if (width < extraLarge) {
+      return WindowSizeClass.large;
+    } else {
+      return WindowSizeClass.extraLarge;
+    }
+  }
+
+  /// Gets the window size class from a BuildContext.
+  static WindowSizeClass getWindowSizeClassFromContext(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
+    return getWindowSizeClass(width);
+  }
+
+  /// Checks if the current screen is compact.
+  static bool isCompact(BuildContext context) {
+    return getWindowSizeClassFromContext(context) == WindowSizeClass.compact;
+  }
+
+  /// Checks if the current screen is medium.
+  static bool isMedium(BuildContext context) {
+    return getWindowSizeClassFromContext(context) == WindowSizeClass.medium;
+  }
+
+  /// Checks if the current screen is expanded.
+  static bool isExpanded(BuildContext context) {
+    return getWindowSizeClassFromContext(context) == WindowSizeClass.expanded;
+  }
+
+  /// Checks if the current screen is large.
+  static bool isLarge(BuildContext context) {
+    return getWindowSizeClassFromContext(context) == WindowSizeClass.large;
+  }
+
+  /// Checks if the current screen is extra large.
+  static bool isExtraLarge(BuildContext context) {
+    return getWindowSizeClassFromContext(context) == WindowSizeClass.extraLarge;
+  }
+
+  /// Gets the maximum content width for the current breakpoint.
+  static double getMaxContentWidth(WindowSizeClass sizeClass) {
+    switch (sizeClass) {
+      case WindowSizeClass.compact:
+        return double.infinity; // Use full width
+      case WindowSizeClass.medium:
+        return expanded;
+      case WindowSizeClass.expanded:
+        return large;
+      case WindowSizeClass.large:
+        return extraLarge;
+      case WindowSizeClass.extraLarge:
+        return 1920; // Reasonable max for readability
+    }
+  }
+}
+
+/// Window size classes for responsive design.
+enum WindowSizeClass {
+  /// 0dp to 599dp - Phones in portrait
+  compact,
+
+  /// 600dp to 839dp - Phones in landscape, small tablets
+  medium,
+
+  /// 840dp to 1199dp - Large tablets, foldables
+  expanded,
+
+  /// 1200dp to 1599dp - Desktop screens
+  large,
+
+  /// 1600dp and up - Large monitors
+  extraLarge,
 }

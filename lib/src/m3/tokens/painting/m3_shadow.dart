@@ -92,7 +92,7 @@ abstract class M3Shadow {
     ),
   ];
 
-  static final Map<double, List<BoxShadow>> _elevationMap = {
+  static final Map<M3ElevationProfile, List<BoxShadow>> _elevationMap = {
     M3Elevation.level0: level0,
     M3Elevation.level1: level1,
     M3Elevation.level2: level2,
@@ -113,17 +113,18 @@ abstract class M3Shadow {
     }
 
     final elevations = _elevationMap.keys.toList();
-    if (elevation >= elevations.last) {
+    if (elevation >= elevations.last.dp) {
       return _elevationMap[elevations.last]!;
     }
 
-    final upperElevation = elevations.firstWhere((e) => e >= elevation);
+    final upperElevation = elevations.firstWhere((e) => e.dp >= elevation);
     final lowerElevation = elevations[elevations.indexOf(upperElevation) - 1];
 
     final lowerShadows = _elevationMap[lowerElevation]!;
     final upperShadows = _elevationMap[upperElevation]!;
 
-    final t = (elevation - lowerElevation) / (upperElevation - lowerElevation);
+    final t = (elevation - lowerElevation.dp) /
+        (upperElevation.dp - lowerElevation.dp);
 
     final interpolatedShadows = <BoxShadow>[];
     final maxShadows = max(lowerShadows.length, upperShadows.length);

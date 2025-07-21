@@ -9,8 +9,6 @@ import 'package:flutter/foundation.dart';
 /// Reference: https://m3.material.io/foundations/interaction/states/state-layers
 @immutable
 abstract class M3StateLayerOpacity {
-  // --- State Layer Opacities ---
-
   /// Opacity for a hovered state layer (+8%).
   static const double hover = 0.08;
 
@@ -22,25 +20,25 @@ abstract class M3StateLayerOpacity {
 
   /// Opacity for a dragged state layer (+16%).
   static const double dragged = 0.16;
+}
 
-  // --- Disabled State Opacities ---
-
-  /// Opacity for the content (e.g., text, icons) of a disabled component.
-  /// This is applied directly to the content, not as a state layer.
+/// General-purpose opacity values for UI elements like disabled components,
+/// dividers, and backdrops, following Material Design 3 guidelines.
+///
+/// These opacities are typically applied directly to the element's color,
+/// unlike state layers which are overlays.
+@immutable
+abstract class M3Opacity {
+  /// Opacity for the content (e.g., text, icons) of a disabled component (38%).
   static const double disabledContent = 0.38;
 
-  /// Opacity for the container of a disabled component.
-  /// This is applied directly to the container, not as a state layer.
+  /// Opacity for the container of a disabled component (12%).
   static const double disabledContainer = 0.12;
 
-  // --- Other Common Opacities ---
+  /// Opacity for dividers (12%).
+  static const double divider = 0.12;
 
   /// Opacity for a scrim or backdrop, often used with dialogs or modals.
   /// Note: This is not a formal M3 token but a common practice.
   static const double backdrop = 0.5;
-
-  /// Opacity for dividers.
-  /// In M3, divider color is often specified directly, but an opacity-based
-  /// approach on top of a base color is also common.
-  static const double divider = 0.12;
 }
