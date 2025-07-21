@@ -6,10 +6,12 @@ class LaunchURLText extends StatelessWidget {
   const LaunchURLText({
     super.key,
     required this.label,
+    this.fontSize,
     required this.m3Url,
   });
 
   final String label;
+  final double? fontSize;
   final String m3Url;
 
   @override
@@ -30,6 +32,7 @@ class LaunchURLText extends StatelessWidget {
           child: Text(
             label,
             style: textTheme.titleLarge?.copyWith(
+              fontSize: fontSize,
               color: Colors.blue,
               decoration: TextDecoration.underline,
               decorationColor: Colors.blue,

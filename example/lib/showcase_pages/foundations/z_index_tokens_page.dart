@@ -1,95 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:material_design/material_design.dart';
-import 'package:material_design_example/showcase_pages/widgets/launch_url_text.dart';
-import 'package:material_design_example/showcase_pages/widgets/state_layer_opacity_button_example.dart';
 
-class OtherTokensPage extends StatelessWidget {
-  const OtherTokensPage({super.key});
+class ZIndexTokensPage extends StatelessWidget {
+  const ZIndexTokensPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Other Tokens')),
+      appBar:
+          AppBar(title: const Text('Z-Index System')), // TODO(Kevin): fix title
       body: ListView(
         padding: const EdgeInsets.all(M3Spacing.space16),
         children: [
-          _buildBorderSection(context),
-          const SizedBox(height: M3Spacing.space32),
-          _buildStateLayerOpacitySection(context),
-          const SizedBox(height: M3Spacing.space32),
-          _buildBreakpointSection(context),
-          const SizedBox(height: M3Spacing.space32),
-          _buildIconSizeSection(context),
-          const SizedBox(height: M3Spacing.space32),
           _buildZIndexSection(context),
         ],
       ),
-    );
-  }
-
-  Widget _buildBreakpointSection(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-
-    final breakpoints = [
-      ('Compact', M3Breakpoint.compact),
-      ('Medium', M3Breakpoint.medium),
-      ('Expanded', M3Breakpoint.expanded),
-      ('Large', M3Breakpoint.large),
-      ('Extra Large', M3Breakpoint.extraLarge),
-    ];
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text('M3Breakpoint Tokens', style: textTheme.titleLarge),
-        const SizedBox(height: M3Spacing.space16),
-        Wrap(
-          spacing: M3Spacing.space16,
-          runSpacing: M3Spacing.space16,
-          children: breakpoints.map((breakpoint) {
-            final (label, value) = breakpoint;
-            return Chip(
-              label: Text('$label (${value.toInt()}dp)'),
-            );
-          }).toList(),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildIconSizeSection(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-
-    final iconSizes = [
-      ('dense', M3IconSize.dense),
-      ('standard', M3IconSize.standard),
-      ('medium', M3IconSize.medium),
-      ('large', M3IconSize.large),
-      ('extraLarge', M3IconSize.extraLarge),
-    ];
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text('M3IconSize Tokens', style: textTheme.titleLarge),
-        const SizedBox(height: M3Spacing.space16),
-        Wrap(
-          spacing: M3Spacing.space16,
-          runSpacing: M3Spacing.space16,
-          crossAxisAlignment: WrapCrossAlignment.center,
-          children: iconSizes.map((iconSize) {
-            final (label, value) = iconSize;
-            return Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Icon(Icons.directions_boat_filled, size: value),
-                const SizedBox(width: M3Spacing.space8),
-                Text('$label (${value.toInt()}dp)'),
-              ],
-            );
-          }).toList(),
-        ),
-      ],
     );
   }
 
@@ -277,87 +202,6 @@ class OtherTokensPage extends StatelessWidget {
             }).toList(),
           ),
         ),
-      ],
-    );
-  }
-
-  Widget _buildBorderSection(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-    final textTheme = Theme.of(context).textTheme;
-
-    final borders = [
-      ('Thin', M3Border.thin),
-    ];
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text('M3Border Tokens', style: textTheme.titleLarge),
-        const SizedBox(height: M3Spacing.space16),
-        Wrap(
-          spacing: M3Spacing.space16,
-          children: borders.map((border) {
-            final (label, width) = border;
-            return Container(
-              padding: const EdgeInsets.all(M3Spacing.space16),
-              decoration: BoxDecoration(
-                border: Border.all(width: width, color: colorScheme.primary),
-                borderRadius: BorderRadius.circular(M3Radius.small),
-              ),
-              child: Text('$label (${width}dp)'),
-            );
-          }).toList(),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildStateLayerOpacitySection(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-
-    final opacities = [
-      ('Hover', M3StateLayerOpacity.hover),
-      ('Focus', M3StateLayerOpacity.focus),
-      ('Pressed', M3StateLayerOpacity.pressed),
-      ('Dragged', M3StateLayerOpacity.dragged),
-      // ('disabledContent', M3StateLayerOpacity.disabledContent),
-      // ('disabledContainer', M3StateLayerOpacity.disabledContainer),
-      // ('backdrop', M3StateLayerOpacity.backdrop),
-      // ('divider', M3StateLayerOpacity.divider),
-    ];
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        LaunchURLText(
-          label: 'M3StateLayerOpacity Tokens',
-          m3Url:
-              'https://m3.material.io/foundations/interaction/states/overview',
-        ),
-        const SizedBox(height: M3Spacing.space16),
-        Wrap(
-          spacing: M3Spacing.space16,
-          runSpacing: M3Spacing.space16,
-          children: opacities.map((opacity) {
-            final (label, value) = opacity;
-            return Container(
-              width: 120,
-              height: 80,
-              decoration: BoxDecoration(
-                color: colorScheme.primary.withValues(alpha: value),
-                borderRadius: BorderRadius.circular(M3Radius.small),
-              ),
-              child: Center(
-                child: Text(
-                  '$label\n($value)',
-                  textAlign: TextAlign.center,
-                ),
-              ),
-            );
-          }).toList(),
-        ),
-        const SizedBox(height: M3Spacing.space12),
-        M3StateLayerOpacityButtonExample(),
       ],
     );
   }

@@ -1,0 +1,186 @@
+import 'package:flutter/material.dart';
+import 'package:material_design/material_design.dart';
+
+/// Page demonstrating the enhanced M3 theme system.
+class EnhancedThemePage extends StatelessWidget {
+  const EnhancedThemePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Enhanced M3Theme'),
+        automaticallyImplyLeading: false,
+      ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(M3Spacing.space16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'M3Theme Showcase',
+              style: Theme.of(context).textTheme.headlineLarge,
+            ),
+            const SizedBox(height: M3Spacing.space16),
+
+            // Display styles
+            _buildSection(
+              context,
+              'Typography Styles',
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Display Large',
+                      style: Theme.of(context).textTheme.displayLarge),
+                  Text('Display Medium',
+                      style: Theme.of(context).textTheme.displayMedium),
+                  Text('Display Small',
+                      style: Theme.of(context).textTheme.displaySmall),
+                  Text('Headline Large',
+                      style: Theme.of(context).textTheme.headlineLarge),
+                  Text('Headline Medium',
+                      style: Theme.of(context).textTheme.headlineMedium),
+                  Text('Headline Small',
+                      style: Theme.of(context).textTheme.headlineSmall),
+                  Text('Title Large',
+                      style: Theme.of(context).textTheme.titleLarge),
+                  Text('Title Medium',
+                      style: Theme.of(context).textTheme.titleMedium),
+                  Text('Title Small',
+                      style: Theme.of(context).textTheme.titleSmall),
+                  Text('Body Large',
+                      style: Theme.of(context).textTheme.bodyLarge),
+                  Text('Body Medium',
+                      style: Theme.of(context).textTheme.bodyMedium),
+                  Text('Body Small',
+                      style: Theme.of(context).textTheme.bodySmall),
+                  Text('Label Large',
+                      style: Theme.of(context).textTheme.labelLarge),
+                  Text('Label Medium',
+                      style: Theme.of(context).textTheme.labelMedium),
+                  Text('Label Small',
+                      style: Theme.of(context).textTheme.labelSmall),
+                ],
+              ),
+            ),
+
+            const SizedBox(height: M3Spacer.pane),
+
+            // // Cards with different elevations
+            // _buildSection(
+            //   context,
+            //   'Cards with Elevation',
+            //   Column(
+            //     children: [
+            //       Card(
+            //         elevation: M3Elevation.card,
+            //         child: Padding(
+            //           padding: const EdgeInsets.all(M3Spacing.space16),
+            //           child: SizedBox(
+            //             width: double.infinity,
+            //             child: Text(
+            //               'Standard Card (${M3Elevation.card}dp)',
+            //               style: Theme.of(context).textTheme.titleMedium,
+            //             ),
+            //           ),
+            //         ),
+            //       ),
+            //       const SizedBox(height: M3Spacing.space8),
+            //       Card(
+            //         elevation: M3Elevation.appBar,
+            //         child: Padding(
+            //           padding: const EdgeInsets.all(M3Spacing.space16),
+            //           child: SizedBox(
+            //             width: double.infinity,
+            //             child: Text(
+            //               'Elevated appBar (${M3Elevation.appBar}dp)',
+            //               style: Theme.of(context).textTheme.titleMedium,
+            //             ),
+            //           ),
+            //         ),
+            //       ),
+            //       const SizedBox(height: M3Spacing.space8),
+            //       Card(
+            //         elevation: M3Elevation.level5,
+            //         child: Padding(
+            //           padding: const EdgeInsets.all(M3Spacing.space16),
+            //           child: SizedBox(
+            //             width: double.infinity,
+            //             child: Text(
+            //               'High Elevation Card (${M3Elevation.level5}dp)',
+            //               style: Theme.of(context).textTheme.titleMedium,
+            //             ),
+            //           ),
+            //         ),
+            //       ),
+            //     ],
+            //   ),
+            // ),
+
+            const SizedBox(height: M3Spacer.pane),
+
+            // Color roles showcase
+            _buildSection(
+              context,
+              'Color Roles',
+              Column(
+                children: [
+                  _buildColorRoleCard(
+                    'Primary Container',
+                    Theme.of(context).colorScheme.primaryContainer,
+                    Theme.of(context).colorScheme.onPrimaryContainer,
+                  ),
+                  const SizedBox(height: M3Spacing.space8),
+                  _buildColorRoleCard(
+                    'Secondary Container',
+                    Theme.of(context).colorScheme.secondaryContainer,
+                    Theme.of(context).colorScheme.onSecondaryContainer,
+                  ),
+                  const SizedBox(height: M3Spacing.space8),
+                  _buildColorRoleCard(
+                    'Tertiary Container',
+                    Theme.of(context).colorScheme.tertiaryContainer,
+                    Theme.of(context).colorScheme.onTertiaryContainer,
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSection(BuildContext context, String title, Widget content) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          title,
+          style: Theme.of(context).textTheme.headlineSmall,
+        ),
+        const SizedBox(height: M3Spacing.space12),
+        content,
+      ],
+    );
+  }
+
+  Widget _buildColorRoleCard(
+      String label, Color backgroundColor, Color textColor) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(M3Spacing.space16),
+      decoration: BoxDecoration(
+        color: backgroundColor,
+        borderRadius: BorderRadius.circular(M3Radius.medium),
+      ),
+      child: Text(
+        label,
+        style: TextStyle(
+          color: textColor,
+          fontWeight: FontWeight.w500,
+        ),
+      ),
+    );
+  }
+}

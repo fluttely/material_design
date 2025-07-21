@@ -76,7 +76,7 @@ class _CustomButtonState extends State<CustomButton> {
   Color _getBackgroundColor(ColorScheme colorScheme) {
     if (!_isEnabled) {
       return colorScheme.onSurface.withValues(
-        alpha: M3StateLayerOpacity.disabledContainer,
+        alpha: M3Opacity.disabledContainer,
       );
     }
 
@@ -89,7 +89,7 @@ class _CustomButtonState extends State<CustomButton> {
   Color _getContentColor(ColorScheme colorScheme) {
     if (!_isEnabled) {
       return colorScheme.onSurface.withValues(
-        alpha: M3StateLayerOpacity.disabledContent,
+        alpha: M3Opacity.disabledContent,
       );
     }
     return colorScheme.primary;
@@ -112,9 +112,8 @@ class _CustomButtonState extends State<CustomButton> {
     return MouseRegion(
       onEnter: (_) => setState(() => _isHovered = true),
       onExit: (_) => setState(() => _isHovered = false),
-      cursor: _isEnabled
-          ? SystemMouseCursors.click
-          : SystemMouseCursors.forbidden,
+      cursor:
+          _isEnabled ? SystemMouseCursors.click : SystemMouseCursors.forbidden,
       child: GestureDetector(
         onTapDown: (_) => setState(() => _isPressed = true),
         onTapUp: (_) => setState(() => _isPressed = false),
@@ -146,7 +145,6 @@ class _CustomButtonState extends State<CustomButton> {
                     ),
                   ),
                 ),
-
                 Positioned.fill(
                   child: AnimatedContainer(
                     duration: M3MotionDuration.short3,

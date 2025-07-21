@@ -4,6 +4,33 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.6.0
+
+### New Features
+
+- **Complete M3 Theme System**: Introduced `M3Theme`, an integrated theme builder that generates a complete `ThemeData` from a seed color, with full support for light, dark, and high-contrast modes.
+- **Comprehensive Accessibility Utilities**: Added the `M3Accessibility` class, providing a suite of tools for building WCAG-compliant UIs, including accessible form fields, focus indicators, contrast checking, and touch target enforcement.
+- **Adaptive Design System**: Implemented the `M3Adaptive` class with helpers for responsive layouts (`M3Adaptive.responsiveLayout`), adaptive navigation (`M3AdaptiveScaffold`), and adaptive components that adjust to different screen sizes and platforms.
+- **Advanced Token Utilities**: Added new utility classes for enhanced token functionality:
+  - `M3TypeScale`: Responsive and accessible typography helpers.
+  - `M3ColorUtils`: Color manipulation and contrast validation.
+  - `M3ShapeUtils`: Responsive and brand-specific shape generation.
+  - `M3MotionUtils`: Contextual animation patterns (fade, slide, scale).
+
+### Breaking Changes
+
+- **Token Architecture Refactor**: The entire token system has been restructured to follow the official Material Design 3 hierarchy:
+  - **Reference Tokens (Ref)**: Foundational values (e.g., `M3RefPalette`, `M3RefDuration`).
+  - **System Tokens (Sys)**: Semantic roles (e.g., `M3SysColor`).
+  - **Component Tokens (Comp)**: Component-specific values (e.g., `M3CompButton`).
+- The old token structure is now considered legacy and will be deprecated in a future version.
+
+### Enhancements & Fixes
+
+- **Example App Overhaul**: The example app has been completely reorganized into `Foundations`, `Styles`, and `Components` sections to provide a comprehensive showcase of all new features and the new token architecture.
+- **Documentation**: Massively updated `README.md` and added `ENHANCED_FEATURES.md` to document the new capabilities.
+- **Code Quality**: Refactored numerous widgets and classes for better organization, consistency, and adherence to M3 specifications.
+
 ## 0.5.1
 
 - **BREAKING**: Renamed `M3Margins` to `M3Margin` and `M3Spacers` to `M3Spacer` for better naming consistency.

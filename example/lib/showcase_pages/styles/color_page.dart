@@ -164,7 +164,7 @@ class ColorPage extends StatelessWidget {
         ),
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(M3Spacing.space24),
+        padding: const EdgeInsets.all(M3Margin.mediumScreen),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -181,7 +181,7 @@ class ColorPage extends StatelessWidget {
                 ],
               ),
             ),
-            const SizedBox(width: M3Spacing.space24),
+            const SizedBox(width: M3Spacer.pane),
             Expanded(
               flex: 2,
               child: Column(
