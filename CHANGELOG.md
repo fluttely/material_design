@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.6.1
+
+### Refinements and Internationalization
+
+- **Refactored README**: Simplified the documentation to focus on core features and improve clarity.
+- **Internationalized Example App**: All user-facing strings in the accessibility showcase are now in English, making the example more accessible to a global audience.
+- **Code Cleanup**: Minor code cleanup and refactoring in the example app for better readability and maintenance.
+
 ## 0.6.0
 
 ### New Features
