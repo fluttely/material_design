@@ -44,7 +44,6 @@ class _AccessibilityPageState extends State<AccessibilityPage>
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    final textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
       appBar: AppBar(
@@ -67,75 +66,57 @@ class _AccessibilityPageState extends State<AccessibilityPage>
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Intro Card
             _buildIntroCard(),
             const SizedBox(height: M3Spacing.space24),
-
-            // Touch Targets
             _buildSection(
               icon: Icons.touch_app,
               title: 'Touch Targets & Sizing',
               subtitle:
-                  'Minimum 48x48dp touch targets for all interactive elements',
+                  'Minimum 48x48dp touch targets for all interactive elements.',
               content: _buildTouchTargetsShowcase(),
             ),
-
-            // Semantic Labels
             _buildSection(
               icon: Icons.label,
               title: 'Semantic Labels',
-              subtitle: 'Clear descriptions for screen readers',
+              subtitle: 'Clear descriptions for screen readers.',
               content: _buildSemanticsShowcase(),
             ),
-
-            // Color Contrast
             _buildSection(
               icon: Icons.contrast,
               title: 'Color Contrast',
-              subtitle: 'WCAG AA (4.5:1) and AAA (7:1) compliance examples',
+              subtitle: 'WCAG AA (4.5:1) and AAA (7:1) compliance examples.',
               content: _buildContrastShowcase(),
             ),
-
-            // Focus Management
             _buildSection(
               icon: Icons.center_focus_strong,
               title: 'Focus Management',
-              subtitle: 'Visual focus indicators and keyboard navigation',
+              subtitle: 'Visual focus indicators and keyboard navigation.',
               content: _buildFocusShowcase(),
             ),
-
-            // Text Scaling
             _buildSection(
               icon: Icons.text_fields,
               title: 'Text Scaling Support',
-              subtitle: 'Responsive text that adapts to user preferences',
+              subtitle: 'Responsive text that adapts to user preferences.',
               content: _buildTextScalingShowcase(),
             ),
-
-            // Form Accessibility
             _buildSection(
               icon: Icons.edit_note,
               title: 'Accessible Forms',
-              subtitle: 'Proper labels, hints, and error handling',
+              subtitle: 'Proper labels, hints, and error handling.',
               content: _buildFormShowcase(),
             ),
-
-            // System Settings
             _buildSection(
               icon: Icons.settings_accessibility,
               title: 'System Accessibility Settings',
-              subtitle: 'How your app responds to system preferences',
+              subtitle: 'How your app responds to system preferences.',
               content: _buildSystemSettingsShowcase(),
             ),
-
-            // Motion & Animations
             _buildSection(
               icon: Icons.animation,
               title: 'Motion & Animations',
-              subtitle: 'Respecting reduced motion preferences',
+              subtitle: 'Respecting reduced motion preferences.',
               content: _buildMotionShowcase(),
             ),
-
             const SizedBox(height: M3Spacing.space32),
           ],
         ),
@@ -143,7 +124,7 @@ class _AccessibilityPageState extends State<AccessibilityPage>
     );
   }
 
-  // --- New Comprehensive Showcase Widgets ---
+  // --- Showcase Widgets ---
 
   Widget _buildIntroCard() {
     final colorScheme = Theme.of(context).colorScheme;
@@ -175,8 +156,8 @@ class _AccessibilityPageState extends State<AccessibilityPage>
             ),
             const SizedBox(height: M3Spacing.space16),
             Text(
-              'Esta página demonstra como implementar recursos de acessibilidade seguindo as diretrizes WCAG 2.1 AA. '
-              'Cada seção mostra exemplos práticos e comparações entre implementações acessíveis e não acessíveis.',
+              'This page demonstrates how to implement accessibility features following the WCAG 2.1 AA guidelines. '
+              'Each section shows practical examples and comparisons between accessible and non-accessible implementations.',
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                     color: colorScheme.onPrimaryContainer,
                   ),
@@ -207,9 +188,9 @@ class _AccessibilityPageState extends State<AccessibilityPage>
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.2),
+        color: color.withOpacity(0.2),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: color.withValues(alpha: 0.5)),
+        border: Border.all(color: color.withOpacity(0.5)),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -234,14 +215,12 @@ class _AccessibilityPageState extends State<AccessibilityPage>
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Todos os elementos interativos devem ter pelo menos 48x48dp para facilitar o toque.',
+          'All interactive elements should have a minimum touch target of at least 48x48dp for easier interaction.',
           style: Theme.of(context).textTheme.bodyMedium,
         ),
         const SizedBox(height: M3Spacing.space16),
-
-        // Good Example
         _buildComparisonExample(
-          title: '✅ Correto - Touch Target 48x48dp',
+          title: '✅ Correct - 48x48dp Touch Target',
           isGood: true,
           child: Container(
             width: 48,
@@ -251,20 +230,16 @@ class _AccessibilityPageState extends State<AccessibilityPage>
               borderRadius: BorderRadius.circular(8),
             ),
             child: IconButton(
-              onPressed: () => _showSnackBar('Touch target adequado!'),
+              onPressed: () => _showSnackBar('Adequate touch target!'),
               icon: const Icon(Icons.thumb_up, size: 24),
-              tooltip: 'Botão com touch target adequado',
+              tooltip: 'Button with an adequate touch target',
             ),
           ),
-          description:
-              'Touch target de 48x48dp - fácil de tocar para todos os usuários',
+          description: '48x48dp touch target - easy to tap for all users.',
         ),
-
         const SizedBox(height: M3Spacing.space16),
-
-        // Bad Example
         _buildComparisonExample(
-          title: '❌ Incorreto - Touch Target Pequeno',
+          title: '❌ Incorrect - Small Touch Target',
           isGood: false,
           child: Container(
             width: 24,
@@ -274,30 +249,26 @@ class _AccessibilityPageState extends State<AccessibilityPage>
               borderRadius: BorderRadius.circular(4),
             ),
             child: InkWell(
-              onTap: () => _showSnackBar('Difícil de tocar!'),
+              onTap: () => _showSnackBar('Hard to tap!'),
               child: const Icon(Icons.thumb_down, size: 16),
             ),
           ),
           description:
-              'Touch target de apenas 24x24dp - difícil de tocar com precisão',
+              'Only a 24x24dp touch target - difficult to tap accurately.',
         ),
-
         const SizedBox(height: M3Spacing.space20),
-
-        // Interactive Demo
         _buildInteractiveDemo(
-          title: 'Teste Interativo',
+          title: 'Interactive Test',
           child: Column(
             children: [
               Text(
-                'Tente tocar nos botões abaixo e perceba a diferença:',
+                'Try tapping the buttons below and notice the difference:',
                 style: Theme.of(context).textTheme.bodySmall,
               ),
               const SizedBox(height: M3Spacing.space12),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  // Small target
                   Container(
                     width: 32,
                     height: 32,
@@ -306,12 +277,11 @@ class _AccessibilityPageState extends State<AccessibilityPage>
                       borderRadius: BorderRadius.circular(16),
                     ),
                     child: InkWell(
-                      onTap: () => _showSnackBar('32dp - Pequeno demais!'),
+                      onTap: () => _showSnackBar('32dp - Too small!'),
                       borderRadius: BorderRadius.circular(16),
                       child: const Icon(Icons.close, size: 16),
                     ),
                   ),
-                  // Adequate target
                   Container(
                     width: 48,
                     height: 48,
@@ -320,12 +290,11 @@ class _AccessibilityPageState extends State<AccessibilityPage>
                       borderRadius: BorderRadius.circular(24),
                     ),
                     child: InkWell(
-                      onTap: () => _showSnackBar('48dp - Perfeito!'),
+                      onTap: () => _showSnackBar('48dp - Perfect!'),
                       borderRadius: BorderRadius.circular(24),
                       child: const Icon(Icons.check, size: 24),
                     ),
                   ),
-                  // Large target
                   Container(
                     width: 56,
                     height: 56,
@@ -334,7 +303,7 @@ class _AccessibilityPageState extends State<AccessibilityPage>
                       borderRadius: BorderRadius.circular(28),
                     ),
                     child: InkWell(
-                      onTap: () => _showSnackBar('56dp - Excelente!'),
+                      onTap: () => _showSnackBar('56dp - Excellent!'),
                       borderRadius: BorderRadius.circular(28),
                       child: const Icon(Icons.star, size: 28),
                     ),
@@ -345,10 +314,10 @@ class _AccessibilityPageState extends State<AccessibilityPage>
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Text('32dp\n(Pequeno)',
+                  Text('32dp\n(Small)',
                       textAlign: TextAlign.center,
                       style: Theme.of(context).textTheme.bodySmall),
-                  Text('48dp\n(Mínimo)',
+                  Text('48dp\n(Minimum)',
                       textAlign: TextAlign.center,
                       style: Theme.of(context).textTheme.bodySmall),
                   Text('56dp\n(Ideal)',
@@ -368,73 +337,61 @@ class _AccessibilityPageState extends State<AccessibilityPage>
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Labels semânticos ajudam leitores de tela a entender o propósito de cada elemento.',
+          'Semantic labels help screen readers understand the purpose of each element.',
           style: Theme.of(context).textTheme.bodyMedium,
         ),
         const SizedBox(height: M3Spacing.space16),
-
-        // Good semantic example
         _buildComparisonExample(
-          title: '✅ Com Label Semântico',
+          title: '✅ With Semantic Label',
           isGood: true,
           child: Semantics(
-            label: 'Adicionar produto aos favoritos',
-            hint: 'Toque duas vezes para adicionar',
+            label: 'Add product to favorites',
+            hint: 'Double-tap to add',
             child: IconButton(
-              onPressed: () => _showSnackBar('Adicionado aos favoritos!'),
+              onPressed: () => _showSnackBar('Added to favorites!'),
               icon: const Icon(Icons.favorite_border),
-              tooltip: 'Adicionar aos favoritos',
+              tooltip: 'Add to favorites',
             ),
           ),
           description:
-              'Screen reader lerá: "Adicionar produto aos favoritos, toque duas vezes para adicionar"',
+              'Screen reader will read: "Add product to favorites, button, double-tap to add".',
         ),
-
         const SizedBox(height: M3Spacing.space16),
-
-        // Bad semantic example
         _buildComparisonExample(
-          title: '❌ Sem Label Semântico',
+          title: '❌ Without Semantic Label',
           isGood: false,
           child: IconButton(
-            onPressed: () => _showSnackBar('Função desconhecida'),
+            onPressed: () => _showSnackBar('Unknown function'),
             icon: const Icon(Icons.favorite_border),
           ),
           description:
-              'Screen reader lerá apenas: "Botão" - não é claro qual a função',
+              'Screen reader will only read: "Button" - the function is unclear.',
         ),
-
         const SizedBox(height: M3Spacing.space20),
-
-        // More semantic examples
         _buildInteractiveDemo(
-          title: 'Exemplos Variados',
+          title: 'Varied Examples',
           child: Column(
             children: [
-              // Progress indicator with semantics
               Semantics(
-                label: 'Carregando dados do usuário',
-                value: '75% completo',
+                label: 'Loading user data',
+                value: '75% complete',
                 child: Column(
                   children: [
                     const LinearProgressIndicator(value: 0.75),
                     const SizedBox(height: M3Spacing.space8),
-                    Text('Carregando... 75%',
+                    Text('Loading... 75%',
                         style: Theme.of(context).textTheme.bodySmall),
                   ],
                 ),
               ),
-
               const SizedBox(height: M3Spacing.space16),
-
-              // Toggle with clear state
               Semantics(
                 label: _enableNotifications
-                    ? 'Notificações ativadas'
-                    : 'Notificações desativadas',
-                hint: 'Toque duas vezes para alternar',
+                    ? 'Notifications enabled'
+                    : 'Notifications disabled',
+                hint: 'Double-tap to toggle',
                 child: SwitchListTile(
-                  title: const Text('Notificações'),
+                  title: const Text('Notifications'),
                   value: _enableNotifications,
                   onChanged: (value) =>
                       setState(() => _enableNotifications = value),
@@ -501,7 +458,7 @@ class _AccessibilityPageState extends State<AccessibilityPage>
             ),
             const SizedBox(width: M3Spacing.space8),
             M3Accessibility.focusIndicator(
-              // isCircle: true,
+              // isCircle: true, // TODO(kevin): now
               child: IconButton(
                 icon: const Icon(Icons.share),
                 onPressed: () {},
@@ -530,8 +487,7 @@ class _AccessibilityPageState extends State<AccessibilityPage>
         _buildContrastCard(
           label: 'Low Contrast (Fail)',
           backgroundColor: colorScheme.surfaceContainer,
-          // Using a color that typically fails contrast checks.
-          textColor: colorScheme.onSurfaceVariant.withValues(alpha: 0.5),
+          textColor: colorScheme.onSurfaceVariant.withOpacity(0.5),
         ),
       ],
     );
@@ -587,6 +543,162 @@ class _AccessibilityPageState extends State<AccessibilityPage>
           icon: Icons.motion_photos_off_rounded,
           settingName: 'Disable Animations',
           settingValue: mediaQuery.disableAnimations.toString(),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildTextScalingShowcase() {
+    final mediaQuery = MediaQuery.of(context);
+    final textTheme = Theme.of(context).textTheme;
+    final textScale = mediaQuery.textScaler.scale(1.0);
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'The app should adapt to the user\'s text size preferences.',
+          style: Theme.of(context).textTheme.bodyMedium,
+        ),
+        const SizedBox(height: M3Spacing.space16),
+        _buildInteractiveDemo(
+          title: 'Text Scaling Demonstration',
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Current scale factor: ${textScale.toStringAsFixed(2)}x',
+                style: textTheme.bodyMedium?.copyWith(
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              const SizedBox(height: M3Spacing.space16),
+              for (final scale in [0.8, 1.0, 1.2, 1.4, 1.8]) ...[
+                Container(
+                  padding: const EdgeInsets.all(M3Spacing.space12),
+                  margin: const EdgeInsets.only(bottom: M3Spacing.space8),
+                  decoration: BoxDecoration(
+                    color: scale == textScale
+                        ? Theme.of(context).colorScheme.primaryContainer
+                        : Theme.of(context).colorScheme.surfaceContainer,
+                    borderRadius: BorderRadius.circular(M3Radius.small),
+                  ),
+                  child: Row(
+                    children: [
+                      SizedBox(
+                        width: 60,
+                        child: Text(
+                          '${scale}x',
+                          style: textTheme.labelSmall,
+                        ),
+                      ),
+                      Expanded(
+                        child: Text(
+                          'Example of scaled text',
+                          style: textTheme.bodyMedium?.copyWith(
+                            fontSize: textTheme.bodyMedium!.fontSize! * scale,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+              const SizedBox(height: M3Spacing.space12),
+              Text(
+                'Go to Settings > Accessibility > Font Size to test different scales.',
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      color: Theme.of(context).colorScheme.onSurfaceVariant,
+                    ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildMotionShowcase() {
+    final mediaQuery = MediaQuery.of(context);
+    final disableAnimations = mediaQuery.disableAnimations;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'The app should respect the user\'s preference for reduced animations.',
+          style: Theme.of(context).textTheme.bodyMedium,
+        ),
+        const SizedBox(height: M3Spacing.space16),
+        _buildInteractiveDemo(
+          title: 'Motion Demonstration',
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  Icon(
+                    disableAnimations
+                        ? Icons.animation_outlined
+                        : Icons.animation,
+                    color: disableAnimations
+                        ? Theme.of(context).colorScheme.outline
+                        : Theme.of(context).colorScheme.primary,
+                  ),
+                  const SizedBox(width: M3Spacing.space8),
+                  Expanded(
+                    child: Text(
+                      'Animations ${disableAnimations ? 'disabled' : 'enabled'} by the system',
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: M3Spacing.space20),
+              AnimatedBuilder(
+                animation: _pulseController,
+                builder: (context, child) {
+                  final animationValue = disableAnimations
+                      ? 1.0
+                      : (0.8 + 0.2 * _pulseController.value);
+
+                  return Transform.scale(
+                    scale: animationValue,
+                    child: Container(
+                      width: 100,
+                      height: 100,
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).colorScheme.primaryContainer,
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                      child: Icon(
+                        Icons.favorite,
+                        color: Theme.of(context).colorScheme.onPrimaryContainer,
+                        size: M3IconSize.large,
+                      ),
+                    ),
+                  );
+                },
+              ),
+              const SizedBox(height: M3Spacing.space16),
+              Text(
+                disableAnimations
+                    ? 'Animations are disabled - the element remains static.'
+                    : 'Animations are enabled - the element pulses gently.',
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      color: Theme.of(context).colorScheme.onSurfaceVariant,
+                    ),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: M3Spacing.space12),
+              Text(
+                'Go to Settings > Accessibility > Remove animations to test this feature.',
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      color: Theme.of(context).colorScheme.onSurfaceVariant,
+                    ),
+                textAlign: TextAlign.center,
+              ),
+            ],
+          ),
         ),
       ],
     );
@@ -653,8 +765,8 @@ class _AccessibilityPageState extends State<AccessibilityPage>
       padding: const EdgeInsets.all(M3Spacing.space16),
       decoration: BoxDecoration(
         color: isGood
-            ? colorScheme.secondaryContainer.withValues(alpha: 0.3)
-            : colorScheme.errorContainer.withValues(alpha: 0.3),
+            ? colorScheme.secondaryContainer.withOpacity(0.3)
+            : colorScheme.errorContainer.withOpacity(0.3),
         borderRadius: BorderRadius.circular(M3Radius.medium),
         border: Border.all(
           color: isGood ? colorScheme.secondary : colorScheme.error,
@@ -697,7 +809,7 @@ class _AccessibilityPageState extends State<AccessibilityPage>
         color: colorScheme.surfaceContainer,
         borderRadius: BorderRadius.circular(M3Radius.large),
         border: Border.all(
-          color: colorScheme.outline.withValues(alpha: 0.5),
+          color: colorScheme.outline.withOpacity(0.5),
         ),
       ),
       child: Column(
@@ -782,203 +894,37 @@ class _AccessibilityPageState extends State<AccessibilityPage>
     );
   }
 
-  Widget _buildTextScalingShowcase() {
-    final mediaQuery = MediaQuery.of(context);
-    final textTheme = Theme.of(context).textTheme;
-    final textScale = mediaQuery.textScaler.scale(1.0);
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'O app deve se adaptar às preferências de tamanho de texto do usuário.',
-          style: Theme.of(context).textTheme.bodyMedium,
-        ),
-        const SizedBox(height: M3Spacing.space16),
-        _buildInteractiveDemo(
-          title: 'Demonstração de Escalas de Texto',
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Fator de escala atual: ${textScale.toStringAsFixed(2)}x',
-                style: textTheme.bodyMedium?.copyWith(
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              const SizedBox(height: M3Spacing.space16),
-
-              // Different text scales demonstration
-              for (final scale in [0.8, 1.0, 1.2, 1.4, 1.8]) ...[
-                Container(
-                  padding: const EdgeInsets.all(M3Spacing.space12),
-                  margin: const EdgeInsets.only(bottom: M3Spacing.space8),
-                  decoration: BoxDecoration(
-                    color: scale == textScale
-                        ? Theme.of(context).colorScheme.primaryContainer
-                        : Theme.of(context).colorScheme.surfaceContainer,
-                    borderRadius: BorderRadius.circular(M3Radius.small),
-                  ),
-                  child: Row(
-                    children: [
-                      SizedBox(
-                        width: 60,
-                        child: Text(
-                          '${scale}x',
-                          style: textTheme.labelSmall,
-                        ),
-                      ),
-                      Expanded(
-                        child: Text(
-                          'Exemplo de texto escalado',
-                          style: textTheme.bodyMedium?.copyWith(
-                            fontSize: textTheme.bodyMedium!.fontSize! * scale,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-
-              const SizedBox(height: M3Spacing.space12),
-              Text(
-                'Vá até Configurações > Acessibilidade > Tamanho da fonte para testar diferentes escalas.',
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: Theme.of(context).colorScheme.onSurfaceVariant,
-                    ),
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildMotionShowcase() {
-    final mediaQuery = MediaQuery.of(context);
-    final disableAnimations = mediaQuery.disableAnimations;
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'O app deve respeitar a preferência do usuário para animações reduzidas.',
-          style: Theme.of(context).textTheme.bodyMedium,
-        ),
-        const SizedBox(height: M3Spacing.space16),
-        _buildInteractiveDemo(
-          title: 'Demonstração de Movimento',
-          child: Column(
-            children: [
-              Row(
-                children: [
-                  Icon(
-                    disableAnimations
-                        ? Icons.animation_outlined
-                        : Icons.animation,
-                    color: disableAnimations
-                        ? Theme.of(context).colorScheme.outline
-                        : Theme.of(context).colorScheme.primary,
-                  ),
-                  const SizedBox(width: M3Spacing.space8),
-                  Expanded(
-                    child: Text(
-                      'Animações ${disableAnimations ? 'desabilitadas' : 'habilitadas'} pelo sistema',
-                      style: Theme.of(context).textTheme.bodyMedium,
-                    ),
-                  ),
-                ],
-              ),
-
-              const SizedBox(height: M3Spacing.space20),
-
-              // Animated demonstration
-              AnimatedBuilder(
-                animation: _pulseController,
-                builder: (context, child) {
-                  final animationValue = disableAnimations
-                      ? 1.0
-                      : (0.8 + 0.2 * _pulseController.value);
-
-                  return Transform.scale(
-                    scale: animationValue,
-                    child: Container(
-                      width: 100,
-                      height: 100,
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.primaryContainer,
-                        borderRadius: BorderRadius.circular(50),
-                      ),
-                      child: Icon(
-                        Icons.favorite,
-                        color: Theme.of(context).colorScheme.onPrimaryContainer,
-                        size: M3IconSize.large,
-                      ),
-                    ),
-                  );
-                },
-              ),
-
-              const SizedBox(height: M3Spacing.space16),
-
-              Text(
-                disableAnimations
-                    ? 'Animações estão desabilitadas - o elemento permanece estático'
-                    : 'Animações estão habilitadas - o elemento pulsa suavemente',
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: Theme.of(context).colorScheme.onSurfaceVariant,
-                    ),
-                textAlign: TextAlign.center,
-              ),
-
-              const SizedBox(height: M3Spacing.space12),
-
-              Text(
-                'Vá até Configurações > Acessibilidade > Remover animações para testar.',
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: Theme.of(context).colorScheme.onSurfaceVariant,
-                    ),
-                textAlign: TextAlign.center,
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-
   void _showAccessibilityInfo() {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Sobre Acessibilidade'),
+        title: const Text('About Accessibility'),
         content: const SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                'Esta página demonstra implementações práticas de acessibilidade seguindo as diretrizes WCAG 2.1 AA.',
+                'This page demonstrates practical accessibility implementations following the WCAG 2.1 AA guidelines.',
               ),
               SizedBox(height: M3Spacing.space16),
-              Text('Funcionalidades demonstradas:'),
+              Text('Features demonstrated:'),
               SizedBox(height: M3Spacing.space8),
-              Text('• Touch targets mínimos de 48x48dp'),
-              Text('• Labels semânticos para leitores de tela'),
-              Text('• Contraste de cores adequado'),
-              Text('• Indicadores de foco visíveis'),
-              Text('• Suporte a escalas de texto'),
-              Text('• Formulários acessíveis'),
-              Text('• Adaptação às configurações do sistema'),
-              Text('• Respeito às preferências de movimento'),
+              Text('• Minimum 48x48dp touch targets'),
+              Text('• Semantic labels for screen readers'),
+              Text('• Adequate color contrast'),
+              Text('• Visible focus indicators'),
+              Text('• Text scaling support'),
+              Text('• Accessible forms'),
+              Text('• Adapting to system settings'),
+              Text('• Respecting motion preferences'),
             ],
           ),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: const Text('Entendi'),
+            child: const Text('Got It'),
           ),
         ],
       ),
