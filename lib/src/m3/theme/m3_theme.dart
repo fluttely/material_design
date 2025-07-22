@@ -113,7 +113,7 @@ class M3Theme {
         ),
         elevation: M3ComponentElevation.card.dp,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(M3Radius.medium),
+          borderRadius: M3BorderRadius.medium,
         ),
         shadowColor: colorScheme.shadow,
         surfaceTintColor: colorScheme.surfaceTint,
@@ -126,7 +126,7 @@ class M3Theme {
           foregroundColor: colorScheme.onPrimary,
           elevation: M3ComponentElevation.elevatedButton.dp,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(M3Radius.large),
+            borderRadius: M3BorderRadius.large,
           ),
           textStyle: textTheme.labelLarge,
           padding: const EdgeInsets.symmetric(
@@ -145,7 +145,7 @@ class M3Theme {
             width: M3Border.thin,
           ),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(M3Radius.large),
+            borderRadius: M3BorderRadius.large,
           ),
           textStyle: textTheme.labelLarge,
           padding: const EdgeInsets.symmetric(
@@ -160,7 +160,7 @@ class M3Theme {
         style: TextButton.styleFrom(
           foregroundColor: colorScheme.primary,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(M3Radius.large),
+            borderRadius: M3BorderRadius.large,
           ),
           textStyle: textTheme.labelLarge,
           padding: const EdgeInsets.symmetric(
@@ -176,7 +176,7 @@ class M3Theme {
         foregroundColor: colorScheme.onPrimaryContainer,
         elevation: M3ComponentElevation.fab.dp,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(M3Radius.large),
+          borderRadius: M3BorderRadius.large,
         ),
       ),
 
@@ -185,28 +185,28 @@ class M3Theme {
         filled: true,
         fillColor: colorScheme.surfaceContainerHighest,
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(M3Radius.extraSmall),
+          borderRadius: M3BorderRadius.extraSmall,
           borderSide: BorderSide(
             color: colorScheme.outline,
             width: M3Border.thin,
           ),
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(M3Radius.extraSmall),
+          borderRadius: M3BorderRadius.extraSmall,
           borderSide: BorderSide(
             color: colorScheme.outline,
             width: M3Border.thin,
           ),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(M3Radius.extraSmall),
+          borderRadius: M3BorderRadius.extraSmall,
           borderSide: BorderSide(
             color: colorScheme.primary,
             width: M3Border.thick,
           ),
         ),
         errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(M3Radius.extraSmall),
+          borderRadius: M3BorderRadius.extraSmall,
           borderSide: BorderSide(
             color: colorScheme.error,
             width: M3Border.thick,
@@ -225,7 +225,7 @@ class M3Theme {
         backgroundColor: colorScheme.surface,
         elevation: M3ComponentElevation.dialog.dp,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(M3Radius.extraLarge),
+          borderRadius: M3BorderRadius.extraLarge,
         ),
         titleTextStyle: textTheme.headlineSmall?.copyWith(
           color: colorScheme.onSurface,
@@ -241,7 +241,7 @@ class M3Theme {
         elevation: M3ComponentElevation.bottomSheet.dp,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(
-            top: Radius.circular(M3Radius.large),
+            top: M3Radius.large,
           ),
         ),
       ),
@@ -254,7 +254,7 @@ class M3Theme {
         ),
         elevation: M3ComponentElevation.snackbar.dp,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(M3Radius.extraSmall),
+          borderRadius: M3BorderRadius.extraSmall,
         ),
       ),
 
@@ -279,7 +279,7 @@ class M3Theme {
         elevation: M3Elevation.level0.dp,
         pressElevation: M3Elevation.level1.dp,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(M3Radius.small),
+          borderRadius: M3BorderRadius.small,
         ),
       ),
 

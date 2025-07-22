@@ -31,7 +31,8 @@ migrate_working_dir/
 build/
 
 .gemini-cli/
-documentation/
+.claude-cli
 .env
 utils.js
-.claude-cli
+documentation/
+lib/src/md

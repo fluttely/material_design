@@ -19,45 +19,45 @@ abstract class M3ShapeUtils {
       case 'button':
         switch (size?.toLowerCase()) {
           case 'small':
-            return BorderRadius.circular(M3Radius.extraSmall);
+            return M3BorderRadius.extraSmall;
           case 'large':
-            return BorderRadius.circular(M3Radius.medium);
+            return M3BorderRadius.medium;
           default:
-            return BorderRadius.circular(M3Radius.small);
+            return M3BorderRadius.small;
         }
 
       case 'fab':
         return variant == 'extended'
-            ? BorderRadius.circular(M3Radius.large)
-            : BorderRadius.circular(M3Radius.large);
+            ? M3BorderRadius.large
+            : M3BorderRadius.large;
 
       case 'card':
-        return BorderRadius.circular(M3Radius.medium);
+        return M3BorderRadius.medium;
 
       case 'textfield':
         return variant == 'outlined'
-            ? BorderRadius.circular(M3Radius.extraSmall)
-            : BorderRadius.circular(M3Radius.extraSmall);
+            ? M3BorderRadius.extraSmall
+            : M3BorderRadius.extraSmall;
 
       case 'chip':
-        return BorderRadius.circular(M3Radius.small);
+        return M3BorderRadius.small;
 
       case 'bottomsheet':
         return const BorderRadius.vertical(
-          top: Radius.circular(M3Radius.large),
+          top: M3Radius.large,
         );
 
       case 'dialog':
-        return BorderRadius.circular(M3Radius.extraLarge);
+        return M3BorderRadius.extraLarge;
 
       case 'menu':
-        return BorderRadius.circular(M3Radius.extraSmall);
+        return M3BorderRadius.extraSmall;
 
       case 'snackbar':
-        return BorderRadius.circular(M3Radius.extraSmall);
+        return M3BorderRadius.extraSmall;
 
       case 'searchbar':
-        return BorderRadius.circular(M3Radius.full);
+        return M3BorderRadius.full;
 
       default:
         return BorderRadius.zero;
@@ -150,11 +150,11 @@ abstract class M3ShapeUtils {
     final screenWidth = MediaQuery.of(context).size.width;
 
     if (screenWidth < M3Breakpoint.medium) {
-      return small ?? BorderRadius.circular(M3Radius.small);
+      return small ?? M3BorderRadius.small;
     } else if (screenWidth < M3Breakpoint.large) {
-      return medium ?? BorderRadius.circular(M3Radius.medium);
+      return medium ?? M3BorderRadius.medium;
     } else {
-      return large ?? BorderRadius.circular(M3Radius.large);
+      return large ?? M3BorderRadius.large;
     }
   }
 

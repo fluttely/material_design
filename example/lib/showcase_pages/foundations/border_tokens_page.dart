@@ -38,7 +38,7 @@ class BorderTokensPage extends StatelessWidget {
               padding: const EdgeInsets.all(M3Spacing.space16),
               decoration: BoxDecoration(
                 border: Border.all(width: width, color: colorScheme.primary),
-                borderRadius: BorderRadius.circular(M3Radius.small),
+                borderRadius: M3BorderRadius.small,
               ),
               child: Text('$label (${width}dp)'),
             );

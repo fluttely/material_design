@@ -481,11 +481,11 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
             Container(
               width: 56,
               height: 32,
-              decoration: BoxDecoration(
+              decoration: ShapeDecoration(
                 color: isSelected
                     ? colorScheme.secondaryContainer
                     : Colors.transparent,
-                borderRadius: BorderRadius.circular(16),
+                shape: M3Shape.large,
               ),
               child: Icon(
                 isSelected
@@ -514,3 +514,59 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
     );
   }
 }
+
+// Export component-specific tokens when you implement them
+// export 'button/comp_button_tokens.dart';
+// export 'card/comp_card_tokens.dart';
+// etc.
+
+// ============================================================================
+// Usage example in your app:
+/*
+import 'package:your_app/material_design.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'M3 App',
+      theme: SysColorTheme.fromSysColorScheme(
+        SysColorScheme.light(),
+      ),
+      darkTheme: SysColorTheme.fromSysColorScheme(
+        SysColorScheme.dark(),
+      ),
+      home: MyHomePage(),
+    );
+  }
+}
+
+class MyHomePage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    // Access standard colors
+    final colors = Theme.of(context).colorScheme;
+    
+    // Access extended surface colors
+    final surfaces = Theme.of(context).extension<SysSurfaceColors>()!;
+    
+    // Access reference palettes directly if needed
+    final customColor = RefPalette.primary.interpolate(45);
+    
+    return Scaffold(
+      backgroundColor: surfaces.surfaceContainerLow,
+      body: Container(
+        color: surfaces.surfaceContainer,
+        child: Text(
+          'Hello M3',
+          style: TextStyle(color: colors.onSurface),
+        ),
+      ),
+    );
+  }
+}
+*/

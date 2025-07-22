@@ -8,57 +8,76 @@ import 'package:material_design/material_design.dart';
 @immutable
 abstract class M3MotionUtils {
   // --- Context-Aware Duration Selection ---
-  
+
   /// Gets the appropriate duration for a component animation.
   static Duration durationForComponent(
-    String componentType, 
+    String componentType,
     String animationType,
   ) {
     switch (componentType.toLowerCase()) {
       case 'button':
         switch (animationType.toLowerCase()) {
-          case 'press': return M3MotionDuration.short1;
-          case 'hover': return M3MotionDuration.short2;
-          case 'focus': return M3MotionDuration.short2;
-          default: return M3MotionDuration.short4;
+          case 'press':
+            return M3MotionDuration.short1;
+          case 'hover':
+            return M3MotionDuration.short2;
+          case 'focus':
+            return M3MotionDuration.short2;
+          default:
+            return M3MotionDuration.short4;
         }
-        
+
       case 'card':
         switch (animationType.toLowerCase()) {
-          case 'elevation': return M3MotionDuration.short4;
-          case 'expand': return M3MotionDuration.medium2;
-          case 'collapse': return M3MotionDuration.medium1;
-          default: return M3MotionDuration.medium1;
+          case 'elevation':
+            return M3MotionDuration.short4;
+          case 'expand':
+            return M3MotionDuration.medium2;
+          case 'collapse':
+            return M3MotionDuration.medium1;
+          default:
+            return M3MotionDuration.medium1;
         }
-        
+
       case 'dialog':
         switch (animationType.toLowerCase()) {
-          case 'enter': return M3MotionDuration.medium3;
-          case 'exit': return M3MotionDuration.medium1;
-          default: return M3MotionDuration.medium2;
+          case 'enter':
+            return M3MotionDuration.medium3;
+          case 'exit':
+            return M3MotionDuration.medium1;
+          default:
+            return M3MotionDuration.medium2;
         }
-        
+
       case 'bottomsheet':
         switch (animationType.toLowerCase()) {
-          case 'enter': return M3MotionDuration.long1;
-          case 'exit': return M3MotionDuration.medium2;
-          case 'drag': return M3MotionDuration.short1;
-          default: return M3MotionDuration.long2;
+          case 'enter':
+            return M3MotionDuration.long1;
+          case 'exit':
+            return M3MotionDuration.medium2;
+          case 'drag':
+            return M3MotionDuration.short1;
+          default:
+            return M3MotionDuration.long2;
         }
-        
+
       case 'navigation':
         switch (animationType.toLowerCase()) {
-          case 'page': return M3MotionDuration.medium4;
-          case 'tab': return M3MotionDuration.medium1;
-          case 'drawer': return M3MotionDuration.long1;
-          default: return M3MotionDuration.medium2;
+          case 'page':
+            return M3MotionDuration.medium4;
+          case 'tab':
+            return M3MotionDuration.medium1;
+          case 'drawer':
+            return M3MotionDuration.long1;
+          default:
+            return M3MotionDuration.medium2;
         }
-        
+
       default:
         return M3MotionDuration.medium1;
     }
   }
-  
+
   /// Gets duration based on travel distance (for spatial animations).
   static Duration durationForDistance(double distance) {
     if (distance < 100) return M3MotionDuration.short2;
@@ -66,7 +85,7 @@ abstract class M3MotionUtils {
     if (distance < 500) return M3MotionDuration.medium3;
     return M3MotionDuration.long2;
   }
-  
+
   /// Gets duration based on complexity (number of animated elements).
   static Duration durationForComplexity(int elementCount) {
     if (elementCount <= 1) return M3MotionDuration.short4;
@@ -74,9 +93,9 @@ abstract class M3MotionUtils {
     if (elementCount <= 5) return M3MotionDuration.medium4;
     return M3MotionDuration.long2;
   }
-  
+
   // --- Context-Aware Easing Selection ---
-  
+
   /// Gets the appropriate easing curve for entering elements.
   static Curve easingForEntering(String elementType) {
     switch (elementType.toLowerCase()) {
@@ -92,7 +111,7 @@ abstract class M3MotionUtils {
         return M3MotionEasing.standardDecelerate;
     }
   }
-  
+
   /// Gets the appropriate easing curve for exiting elements.
   static Curve easingForExiting(String elementType) {
     switch (elementType.toLowerCase()) {
@@ -108,9 +127,9 @@ abstract class M3MotionUtils {
         return M3MotionEasing.standardAccelerate;
     }
   }
-  
+
   // --- Animation Builders ---
-  
+
   /// Creates a fade-in animation builder.
   static Widget fadeIn({
     required Widget child,
@@ -132,7 +151,7 @@ abstract class M3MotionUtils {
       child: child,
     );
   }
-  
+
   /// Creates a slide-up animation builder.
   static Widget slideUp({
     required Widget child,
@@ -153,7 +172,7 @@ abstract class M3MotionUtils {
       child: child,
     );
   }
-  
+
   /// Creates a scale-in animation builder.
   static Widget scaleIn({
     required Widget child,
@@ -175,7 +194,7 @@ abstract class M3MotionUtils {
       child: child,
     );
   }
-  
+
   /// Creates a slide and fade animation builder.
   static Widget slideAndFade({
     required Widget child,
@@ -199,9 +218,9 @@ abstract class M3MotionUtils {
       child: child,
     );
   }
-  
+
   // --- State Animation Helpers ---
-  
+
   /// Creates an elevation animation that responds to interaction states.
   static Widget elevationAnimation({
     required Widget child,
@@ -224,20 +243,22 @@ abstract class M3MotionUtils {
       ),
     );
   }
-  
+
   /// Checks if animations should be reduced based on user preferences.
   static bool shouldReduceAnimations(BuildContext context) {
     return MediaQuery.of(context).disableAnimations;
   }
-  
+
   /// Returns a reduced duration if animations should be reduced.
-  static Duration adaptiveDuration(BuildContext context, Duration normalDuration) {
+  static Duration adaptiveDuration(
+      BuildContext context, Duration normalDuration) {
     if (shouldReduceAnimations(context)) {
-      return Duration(milliseconds: (normalDuration.inMilliseconds * 0.3).round());
+      return Duration(
+          milliseconds: (normalDuration.inMilliseconds * 0.3).round());
     }
     return normalDuration;
   }
-  
+
   /// Returns a linear curve if animations should be reduced.
   static Curve adaptiveCurve(BuildContext context, Curve normalCurve) {
     if (shouldReduceAnimations(context)) {
@@ -245,4 +266,79 @@ abstract class M3MotionUtils {
     }
     return normalCurve;
   }
+
+  // --- Duration Categories ---
+
+  /// Micro-interaction durations for immediate feedback.
+  static const List<Duration> microInteractions = [
+    M3MotionDuration.short1,
+    M3MotionDuration.short2,
+    M3MotionDuration.short3,
+    M3MotionDuration.short4,
+  ];
+
+  /// State change durations for component states.
+  static const List<Duration> stateChanges = [
+    M3MotionDuration.medium1,
+    M3MotionDuration.medium2,
+    M3MotionDuration.medium3,
+    M3MotionDuration.medium4,
+  ];
+
+  /// Standard transition durations for most animations.
+  static const List<Duration> standardTransitions = [
+    M3MotionDuration.long1,
+    M3MotionDuration.long2,
+    M3MotionDuration.long3,
+    M3MotionDuration.long4,
+  ];
+
+  /// Complex animation durations for sophisticated sequences.
+  static const List<Duration> complexAnimations = [
+    M3MotionDuration.extralong1,
+    M3MotionDuration.extralong2,
+    M3MotionDuration.extralong3,
+    M3MotionDuration.extralong4,
+  ];
+
+  // --- Duration Utilities ---
+
+  /// Get duration by category and intensity (0.0 to 1.0).
+  static Duration getDuration(List<Duration> category, double intensity) {
+    final clampedIntensity = intensity.clamp(0.0, 1.0);
+    final index = (clampedIntensity * (category.length - 1)).round();
+    return category[index];
+  }
+
+  /// Check if duration is within M3 recommended ranges.
+  static bool isRecommendedDuration(Duration duration) {
+    final milliseconds = duration.inMilliseconds;
+    return milliseconds >= 50 && milliseconds <= 1000;
+  }
+
+  // --- Common Duration Aliases ---
+
+  /// Instant feedback duration for micro-interactions.
+  static const Duration instant = M3MotionDuration.short1;
+
+  /// Quick interaction duration.
+  static const Duration quick = M3MotionDuration.short4;
+
+  /// Standard animation duration.
+  static const Duration standard = M3MotionDuration.medium1;
+
+  /// Emphasis animation duration.
+  static const Duration emphasis = M3MotionDuration.medium2;
+
+  /// Entering element duration.
+  static const Duration entering = M3MotionDuration.medium2;
+
+  /// Exiting element duration.
+  static const Duration exiting = M3MotionDuration.short4;
+
+  /// Complex transition duration.
+  static const Duration complex = M3MotionDuration.long1;
+
+  /// Page transition duration.
+  static const Duration pageTransition = M3MotionDuration.extralong1;
 }

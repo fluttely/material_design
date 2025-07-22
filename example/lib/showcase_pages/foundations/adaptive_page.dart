@@ -221,9 +221,9 @@ class _AdaptivePageState extends State<AdaptivePage> {
       ),
       itemCount: 6,
       itemBuilder: (context, index) => Container(
-        decoration: BoxDecoration(
+        decoration: ShapeDecoration(
           color: Theme.of(context).colorScheme.primaryContainer,
-          borderRadius: BorderRadius.circular(M3Radius.small),
+          shape: M3Shape.small,
         ),
         child: Center(
           child: Text(
@@ -290,9 +290,9 @@ class _CompactLayoutDemo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
+      decoration: ShapeDecoration(
         color: Theme.of(context).colorScheme.primaryContainer,
-        borderRadius: BorderRadius.circular(M3Radius.medium),
+        shape: M3Shape.medium,
       ),
       child: Center(
         child: Column(
@@ -324,9 +324,9 @@ class _MediumLayoutDemo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
+      decoration: ShapeDecoration(
         color: Theme.of(context).colorScheme.secondaryContainer,
-        borderRadius: BorderRadius.circular(M3Radius.medium),
+        shape: M3Shape.medium,
       ),
       child: Center(
         child: Column(
@@ -358,9 +358,9 @@ class _ExpandedLayoutDemo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
+      decoration: ShapeDecoration(
         color: Theme.of(context).colorScheme.tertiaryContainer,
-        borderRadius: BorderRadius.circular(M3Radius.medium),
+        shape: M3Shape.medium,
       ),
       child: Center(
         child: Column(

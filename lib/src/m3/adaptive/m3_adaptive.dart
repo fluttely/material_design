@@ -225,11 +225,7 @@ abstract class M3Adaptive {
         context: context,
         isDismissible: isDismissible,
         isScrollControlled: true,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(
-            top: Radius.circular(M3Radius.large),
-          ),
-        ),
+        shape: M3Shape.large,
         builder: (context) => DraggableScrollableSheet(
           initialChildSize: 0.6,
           minChildSize: 0.3,
@@ -272,11 +268,9 @@ abstract class M3Adaptive {
               child: Container(
                 width: 320,
                 height: double.infinity,
-                decoration: BoxDecoration(
+                decoration: ShapeDecoration(
                   color: Theme.of(context).colorScheme.surface,
-                  borderRadius: const BorderRadius.horizontal(
-                    left: Radius.circular(M3Radius.large),
-                  ),
+                  shape: M3Shape.large,
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

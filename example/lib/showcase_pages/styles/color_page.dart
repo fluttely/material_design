@@ -235,7 +235,7 @@ class _KeyColorChip extends StatelessWidget {
         padding: const EdgeInsets.all(M3Spacing.space16),
         decoration: BoxDecoration(
           color: color,
-          borderRadius: BorderRadius.circular(M3Radius.medium),
+          borderRadius: M3BorderRadius.medium,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -278,7 +278,7 @@ class _ColorChip extends StatelessWidget {
       padding: const EdgeInsets.all(M3Spacing.space8),
       decoration: BoxDecoration(
         color: color,
-        borderRadius: BorderRadius.circular(M3Radius.small),
+        borderRadius: M3BorderRadius.small,
         border: Border.all(color: colorScheme.outlineVariant),
       ),
       child: Column(

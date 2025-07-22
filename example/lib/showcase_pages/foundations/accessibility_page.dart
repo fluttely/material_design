@@ -272,9 +272,9 @@ class _AccessibilityPageState extends State<AccessibilityPage>
                   Container(
                     width: 32,
                     height: 32,
-                    decoration: BoxDecoration(
+                    decoration: ShapeDecoration(
                       color: Theme.of(context).colorScheme.errorContainer,
-                      borderRadius: BorderRadius.circular(16),
+                      shape: M3Shape.large,
                     ),
                     child: InkWell(
                       onTap: () => _showSnackBar('32dp - Too small!'),
@@ -285,9 +285,9 @@ class _AccessibilityPageState extends State<AccessibilityPage>
                   Container(
                     width: 48,
                     height: 48,
-                    decoration: BoxDecoration(
+                    decoration: ShapeDecoration(
                       color: Theme.of(context).colorScheme.primaryContainer,
-                      borderRadius: BorderRadius.circular(24),
+                      shape: M3Shape.largeIncreased,
                     ),
                     child: InkWell(
                       onTap: () => _showSnackBar('48dp - Perfect!'),
@@ -298,9 +298,9 @@ class _AccessibilityPageState extends State<AccessibilityPage>
                   Container(
                     width: 56,
                     height: 56,
-                    decoration: BoxDecoration(
+                    decoration: ShapeDecoration(
                       color: Theme.of(context).colorScheme.secondaryContainer,
-                      borderRadius: BorderRadius.circular(28),
+                      shape: M3Shape.extraLarge,
                     ),
                     child: InkWell(
                       onTap: () => _showSnackBar('56dp - Excellent!'),
@@ -512,11 +512,11 @@ class _AccessibilityPageState extends State<AccessibilityPage>
           settingValue: mediaQuery.highContrast.toString(),
           demo: Container(
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-            decoration: BoxDecoration(
+            decoration: ShapeDecoration(
               color: mediaQuery.highContrast
                   ? Colors.black
                   : Theme.of(context).colorScheme.primary,
-              borderRadius: BorderRadius.circular(4),
+              shape: M3Shape.extraSmall,
             ),
             child: Text(
               'Demo',
@@ -577,11 +577,11 @@ class _AccessibilityPageState extends State<AccessibilityPage>
                 Container(
                   padding: const EdgeInsets.all(M3Spacing.space12),
                   margin: const EdgeInsets.only(bottom: M3Spacing.space8),
-                  decoration: BoxDecoration(
+                  decoration: ShapeDecoration(
                     color: scale == textScale
                         ? Theme.of(context).colorScheme.primaryContainer
                         : Theme.of(context).colorScheme.surfaceContainer,
-                    borderRadius: BorderRadius.circular(M3Radius.small),
+                    shape: M3Shape.small,
                   ),
                   child: Row(
                     children: [
@@ -666,9 +666,9 @@ class _AccessibilityPageState extends State<AccessibilityPage>
                     child: Container(
                       width: 100,
                       height: 100,
-                      decoration: BoxDecoration(
+                      decoration: ShapeDecoration(
                         color: Theme.of(context).colorScheme.primaryContainer,
-                        borderRadius: BorderRadius.circular(50),
+                        shape: M3Shape.extraExtraLarge,
                       ),
                       child: Icon(
                         Icons.favorite,
@@ -765,9 +765,9 @@ class _AccessibilityPageState extends State<AccessibilityPage>
       padding: const EdgeInsets.all(M3Spacing.space16),
       decoration: BoxDecoration(
         color: isGood
-            ? colorScheme.secondaryContainer.withOpacity(0.3)
-            : colorScheme.errorContainer.withOpacity(0.3),
-        borderRadius: BorderRadius.circular(M3Radius.medium),
+            ? colorScheme.secondaryContainer.withValues(alpha: 0.3)
+            : colorScheme.errorContainer.withValues(alpha: 0.3),
+        borderRadius: M3BorderRadius.medium,
         border: Border.all(
           color: isGood ? colorScheme.secondary : colorScheme.error,
           width: 1,
@@ -807,7 +807,7 @@ class _AccessibilityPageState extends State<AccessibilityPage>
       padding: const EdgeInsets.all(M3Spacing.space20),
       decoration: BoxDecoration(
         color: colorScheme.surfaceContainer,
-        borderRadius: BorderRadius.circular(M3Radius.large),
+        borderRadius: M3BorderRadius.large,
         border: Border.all(
           color: colorScheme.outline.withOpacity(0.5),
         ),
@@ -852,7 +852,7 @@ class _AccessibilityPageState extends State<AccessibilityPage>
       color: backgroundColor,
       elevation: M3Elevation.level0.dp,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(M3Radius.medium),
+        borderRadius: M3BorderRadius.medium,
         side: BorderSide(color: Theme.of(context).colorScheme.outlineVariant),
       ),
       child: Padding(
@@ -936,9 +936,7 @@ class _AccessibilityPageState extends State<AccessibilityPage>
       SnackBar(
         content: Text(message),
         behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(M3Radius.small),
-        ),
+        shape: M3Shape.small,
       ),
     );
   }

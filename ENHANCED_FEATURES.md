@@ -48,10 +48,10 @@ Text(
 ```dart
 // Using pre-defined color roles
 Container(
-  color: M3ColorRoles.primaryContainer,
+  color: M3SysColor.primaryContainer,
   child: Text(
     'Text in primary container',
-    style: TextStyle(color: M3ColorRoles.onPrimaryContainer),
+    style: TextStyle(color: M3SysColor.onPrimaryContainer),
   ),
 )
 
