@@ -207,7 +207,7 @@
 //   Widget _buildStatChip(String label, IconData icon, Color color) {
 //     return Container(
 //       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-//       decoration: BoxDecoration(
+//       decoration: ShapeDecoration(
 //         color: color.withOpacity(0.2),
 //         borderRadius: BorderRadius.circular(12),
 //         border: Border.all(color: color.withOpacity(0.5)),
@@ -247,7 +247,7 @@
 //           child: Container(
 //             width: 48,
 //             height: 48,
-//             decoration: BoxDecoration(
+//             decoration: ShapeDecoration(
 //               border: Border.all(color: Colors.green, width: 2),
 //               borderRadius: BorderRadius.circular(8),
 //             ),
@@ -269,7 +269,7 @@
 //           child: Container(
 //             width: 24,
 //             height: 24,
-//             decoration: BoxDecoration(
+//             decoration: ShapeDecoration(
 //               border: Border.all(color: Colors.red, width: 2),
 //               borderRadius: BorderRadius.circular(4),
 //             ),
@@ -300,7 +300,7 @@
 //                   Container(
 //                     width: 32,
 //                     height: 32,
-//                     decoration: BoxDecoration(
+//                     decoration: ShapeDecoration(
 //                       color: Theme.of(context).colorScheme.errorContainer,
 //                       borderRadius: BorderRadius.circular(16),
 //                     ),
@@ -314,7 +314,7 @@
 //                   Container(
 //                     width: 48,
 //                     height: 48,
-//                     decoration: BoxDecoration(
+//                     decoration: ShapeDecoration(
 //                       color: Theme.of(context).colorScheme.primaryContainer,
 //                       borderRadius: BorderRadius.circular(24),
 //                     ),
@@ -328,7 +328,7 @@
 //                   Container(
 //                     width: 56,
 //                     height: 56,
-//                     decoration: BoxDecoration(
+//                     decoration: ShapeDecoration(
 //                       color: Theme.of(context).colorScheme.secondaryContainer,
 //                       borderRadius: BorderRadius.circular(28),
 //                     ),
@@ -541,7 +541,7 @@
 //           settingValue: mediaQuery.highContrast.toString(),
 //           demo: Container(
 //             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-//             decoration: BoxDecoration(
+//             decoration: ShapeDecoration(
 //               color: mediaQuery.highContrast
 //                   ? Colors.black
 //                   : Theme.of(context).colorScheme.primary,

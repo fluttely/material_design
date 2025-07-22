@@ -114,9 +114,7 @@ abstract class M3Accessibility {
           minSize ?? minTouchTargetMobile,
           minSize ?? minTouchTargetMobile,
         ),
-        shape: RoundedRectangleBorder(
-          borderRadius: borderRadius ?? BorderRadius.circular(M3Radius.large),
-        ),
+        shape: M3Shape.large,
       ),
       child: child,
     );
@@ -294,9 +292,8 @@ abstract class M3Accessibility {
               labelText: label,
               hintText: hint,
               errorText: error,
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(M3Radius.extraSmall),
-              ),
+              border:
+                  OutlineInputBorder(borderRadius: M3BorderRadius.extraSmall),
             ),
           ),
         ),
@@ -314,7 +311,7 @@ abstract class M3Accessibility {
     double? minSize,
   }) {
     final targetSize = minSize ?? minTouchTargetMobile;
-    
+
     return ensureMinTouchTarget(
       minSize: targetSize,
       child: Row(
@@ -338,7 +335,8 @@ abstract class M3Accessibility {
             child: GestureDetector(
               onTap: onChanged != null ? () => onChanged(!value) : null,
               child: Semantics(
-                label: semanticLabel ?? (required ? '$label (required)' : label),
+                label:
+                    semanticLabel ?? (required ? '$label (required)' : label),
                 excludeSemantics: true,
                 child: Text(
                   label,

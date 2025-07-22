@@ -13,7 +13,7 @@ Add this line to your project's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  material_design: ^0.5.1
+  material_design: ^0.6.2
 ```
 
 Then run `flutter pub get`.
@@ -97,22 +97,84 @@ Text(
 )
 ```
 
-### Shape & Radius
+### Shape & Corner Radius
 
-Define corner shapes using radius and shape tokens.
+Apply shapes and rounded corners to your widgets using a three-tiered token system: `M3Shape`, `M3BorderRadius`, and `M3Radius`. This structure provides everything from ready-to-use `RoundedRectangleBorder` objects to raw `Radius` values for advanced customizations.
 
-- **`M3Radius`**: Provides radius values from `none` (0dp) to `extraLarge` (28dp) and `full`.
-- **`M3Shape`**: Provides `ShapeBorder` objects like `extraSmall`, `medium`, `large`, etc.
+---
+
+### `M3Shape` (High-Level)
+
+Use `M3Shape` for the most direct application of shapes. This class provides pre-defined `RoundedRectangleBorder` objects that can be used directly in the `shape` property of widgets like `Card`, `Material`, or `ShapeDecoration`.
+
+**Available tokens:** `none`, `extraSmall`, `small`, `medium`, `large`, `largeIncreased`, `extraLarge`, `extraLargeIncreased`, `extraExtraLarge`, and `full` (`StadiumBorder`).
+
+**When to use:** This is the ideal choice in most cases, whenever you need to apply a standard Material 3 shape to a widget.
 
 **Example:**
 
-```dart
+Dart
+
+```
 Container(
   decoration: ShapeDecoration(
-    shape: M3Shape.medium, // 12dp corner radius
+    shape: M3Shape.large, // 16dp circular RoundedRectangleBorder
   ),
 )
 ```
+
+---
+
+### `M3BorderRadius` (Mid-Level)
+
+Use `M3BorderRadius` when you need a `BorderRadius` object to apply the same radius to all corners. It's perfect for the `borderRadius` property of a `BoxDecoration` or for clipping widgets like `ClipRRect`.
+
+**When to use:** In a `BoxDecoration` or to control the rounding of an `InkWell` splash effect or a `ClipRRect`.
+
+**Example:**
+
+Dart
+
+```
+Container(
+  decoration: BoxDecoration(
+    borderRadius: M3BorderRadius.large, // 16dp circular BorderRadius
+  ),
+)
+```
+
+---
+
+### `M3Radius` (Low-Level)
+
+`M3Radius` provides the raw `Radius` values. Use this class for custom scenarios where you need to define different radii for specific corners of a widget.
+
+**When to use:** For creating complex or asymmetrical shapes using `BorderRadius.only()` or `BorderRadius.vertical()`/`horizontal()`.
+
+**Example:**
+
+Dart
+
+```
+Container(
+  decoration: BoxDecoration(
+    borderRadius: BorderRadius.only(
+      topLeft: M3Radius.extraLarge, // 28dp circular Radius
+      bottomRight: M3Radius.extraLarge, // 28dp circular Radius
+    ),
+  ),
+)
+```
+
+---
+
+### Summary: Which One to Use?
+
+| Class                | Returns                  | Primary Use Case                                                    |
+| -------------------- | ------------------------ | ------------------------------------------------------------------- |
+| **`M3Shape`**        | `RoundedRectangleBorder` | `shape` property of `Card`, `Material`, `ShapeDecoration`.          |
+| **`M3BorderRadius`** | `BorderRadius`           | `borderRadius` property of `BoxDecoration`, `InkWell`, `ClipRRect`. |
+| **`M3Radius`**       | `Radius`                 | For custom corner `radii`.                                          |
 
 ### Elevation
 

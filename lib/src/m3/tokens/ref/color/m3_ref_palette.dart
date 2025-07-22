@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 /// Material Design 3 Reference Color Palette
-/// 
+///
 /// Contains the base color palettes used to generate the M3 color system.
 /// These are the foundation colors from which all semantic colors are derived.
-/// 
+///
 /// Based on: https://m3.material.io/styles/color/the-color-system/tokens
 abstract class M3RefPalette {
   /// Primary color palette (13 tones from 0-100)
@@ -118,14 +118,14 @@ abstract class M3RefPalette {
   static Color interpolateTone(Map<int, Color> palette, double tone) {
     final lowerTone = (tone / 10).floor() * 10;
     final upperTone = lowerTone + 10;
-    
+
     if (lowerTone == tone.toInt()) {
       return palette[tone.toInt()] ?? palette[50]!;
     }
 
     final lowerColor = palette[lowerTone];
     final upperColor = palette[upperTone];
-    
+
     if (lowerColor == null || upperColor == null) {
       return palette[50]!;
     }

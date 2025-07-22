@@ -379,7 +379,7 @@
 //                   const SizedBox(height: M3Spacing.space16),
 //                   Container(
 //                     height: 80,
-//                     decoration: BoxDecoration(
+//                     decoration: ShapeDecoration(
 //                       color: Theme.of(context).colorScheme.surfaceContainerHighest,
 //                       borderRadius: BorderRadius.circular(M3Radius.medium),
 //                     ),
@@ -415,7 +415,7 @@
 //                       Container(
 //                         width: 80,
 //                         height: 200,
-//                         decoration: BoxDecoration(
+//                         decoration: ShapeDecoration(
 //                           color: Theme.of(context).colorScheme.surfaceContainerHighest,
 //                           borderRadius: BorderRadius.circular(M3Radius.medium),
 //                         ),
@@ -433,7 +433,7 @@
 //                       Expanded(
 //                         child: Container(
 //                           height: 200,
-//                           decoration: BoxDecoration(
+//                           decoration: ShapeDecoration(
 //                             color: Theme.of(context).colorScheme.surface,
 //                             borderRadius:
 //                                 BorderRadius.circular(M3Radius.medium),
@@ -521,7 +521,7 @@
 //       children: [
 //         Container(
 //           padding: const EdgeInsets.all(8),
-//           decoration: BoxDecoration(
+//           decoration: ShapeDecoration(
 //             color: isSelected
 //                 ? Theme.of(context).colorScheme.secondaryContainer
 //                 : null,
@@ -552,7 +552,7 @@
 //     return Container(
 //       width: 56,
 //       height: 32,
-//       decoration: BoxDecoration(
+//       decoration: ShapeDecoration(
 //         color: isSelected
 //             ? Theme.of(context).colorScheme.secondaryContainer
 //             : null,

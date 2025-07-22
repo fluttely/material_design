@@ -77,9 +77,9 @@ class _UtilsPageState extends State<UtilsPage> {
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(M3Spacing.space12),
-          decoration: BoxDecoration(
+          decoration: ShapeDecoration(
             color: Theme.of(context).colorScheme.surfaceContainer,
-            borderRadius: BorderRadius.circular(M3Radius.small),
+            shape: M3Shape.small,
           ),
           child: Text(
             'function total(items) => items.reduce((a, b) => a + b.price, 0);',
@@ -121,10 +121,10 @@ class _UtilsPageState extends State<UtilsPage> {
         AnimatedContainer(
           duration: M3MotionDuration.medium2,
           curve: M3MotionEasing.standard,
-          decoration: BoxDecoration(
+          decoration: ShapeDecoration(
             color: M3TonalColor.surfaceAt(context, _elevation),
-            borderRadius: BorderRadius.circular(M3Radius.large),
-            boxShadow: M3Shadow.fromElevation(_elevation),
+            shape: M3Shape.large,
+            shadows: M3Shadow.fromElevation(_elevation),
           ),
           child: ListTile(
             leading: const Icon(Icons.layers),
@@ -187,15 +187,16 @@ class _UtilsPageState extends State<UtilsPage> {
       runSpacing: M3Spacing.space8,
       alignment: WrapAlignment.center,
       children: [
+        // TODO(kevin): enhance this feature
         _buildShapeExample('None', M3ShapeUtils.squared()),
-        _buildShapeExample('XS', M3ShapeUtils.rounded(M3Radius.extraSmall)),
-        _buildShapeExample('Small', M3ShapeUtils.rounded(M3Radius.small)),
-        _buildShapeExample('Medium', M3ShapeUtils.rounded(M3Radius.medium)),
-        _buildShapeExample('Large', M3ShapeUtils.rounded(M3Radius.large)),
-        _buildShapeExample('XL', M3ShapeUtils.rounded(M3Radius.extraLarge)),
-        _buildShapeExample('Top', M3ShapeUtils.topRounded(M3Radius.large)),
+        _buildShapeExample('XS', M3ShapeUtils.rounded(M3Radius.extraSmall.x)),
+        _buildShapeExample('Small', M3ShapeUtils.rounded(M3Radius.small.x)),
+        _buildShapeExample('Medium', M3ShapeUtils.rounded(M3Radius.medium.x)),
+        _buildShapeExample('Large', M3ShapeUtils.rounded(M3Radius.large.x)),
+        _buildShapeExample('XL', M3ShapeUtils.rounded(M3Radius.extraLarge.x)),
+        _buildShapeExample('Top', M3ShapeUtils.topRounded(M3Radius.large.x)),
         _buildShapeExample(
-            'Bottom', M3ShapeUtils.bottomRounded(M3Radius.large)),
+            'Bottom', M3ShapeUtils.bottomRounded(M3Radius.large.x)),
       ],
     );
   }
@@ -256,7 +257,7 @@ class _UtilsPageState extends State<UtilsPage> {
       height: 80,
       decoration: BoxDecoration(
         color: M3TonalColor.surfaceAt(context, elevation),
-        borderRadius: BorderRadius.circular(M3Radius.medium),
+        borderRadius: M3BorderRadius.medium,
         border: elevation == 0
             ? Border.all(color: Theme.of(context).colorScheme.outlineVariant)
             : null,
@@ -277,9 +278,9 @@ class _UtilsPageState extends State<UtilsPage> {
         horizontal: M3Spacing.space16,
         vertical: M3Spacing.space12,
       ),
-      decoration: BoxDecoration(
+      decoration: ShapeDecoration(
         color: colorScheme.secondaryContainer,
-        borderRadius: BorderRadius.circular(M3Radius.medium),
+        shape: M3Shape.medium,
       ),
       child: Row(
         children: [

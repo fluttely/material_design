@@ -170,9 +170,9 @@ class EnhancedThemePage extends StatelessWidget {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(M3Spacing.space16),
-      decoration: BoxDecoration(
+      decoration: ShapeDecoration(
         color: backgroundColor,
-        borderRadius: BorderRadius.circular(M3Radius.medium),
+        shape: M3Shape.medium,
       ),
       child: Text(
         label,
