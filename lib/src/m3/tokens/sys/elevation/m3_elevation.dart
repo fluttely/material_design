@@ -4,11 +4,11 @@ import 'package:material_design/material_design.dart';
 /// Defines the contract for all Material 3 elevation tokens.
 ///
 /// Any enum implementing this interface will provide elevation properties
-/// like [dp] and [hasShadow], along with utility methods to get
+/// like [value] and [hasShadow], along with utility methods to get
 /// shadows and surface colors.
 abstract class IM3ElevationToken {
   /// The elevation value in logical pixels (dp).
-  double get dp;
+  double get value;
 
   /// Whether this elevation profile should cast a shadow.
   bool get hasShadow;
@@ -18,7 +18,7 @@ abstract class IM3ElevationToken {
   /// Returns `null` if [hasShadow] is `false`.
   List<BoxShadow>? get shadows;
 
-  /// Calculates the surface color based on this elevation's [dp] value
+  /// Calculates the surface color based on this elevation's [value] value
   /// and the application's [ColorScheme].
   Color surfaceColor(BuildContext context);
 }
@@ -33,19 +33,20 @@ enum M3ElevationToken implements IM3ElevationToken {
   level5(12);
 
   @override
-  final double dp;
+  final double value;
 
   @override
   get hasShadow => true;
 
-  const M3ElevationToken(this.dp);
+  const M3ElevationToken(this.value);
 
   @override
-  List<BoxShadow>? get shadows => hasShadow ? M3Shadow.fromElevation(dp) : null;
+  List<BoxShadow>? get shadows =>
+      hasShadow ? M3Shadow.fromElevation(value) : null;
 
   @override
   Color surfaceColor(BuildContext context) =>
-      M3TonalColor.fromElevation(context, dp);
+      M3TonalColor.fromElevation(context, value);
 }
 
 /// Defines the default, resting-state elevation for specific Material 3 components.
@@ -68,19 +69,20 @@ enum M3ComponentElevationToken implements IM3ElevationToken {
   chip(0);
 
   @override
-  final double dp;
+  final double value;
 
   @override
   final bool hasShadow;
 
-  const M3ComponentElevationToken(this.dp, {this.hasShadow = true});
+  const M3ComponentElevationToken(this.value, {this.hasShadow = true});
 
   @override
-  List<BoxShadow>? get shadows => hasShadow ? M3Shadow.fromElevation(dp) : null;
+  List<BoxShadow>? get shadows =>
+      hasShadow ? M3Shadow.fromElevation(value) : null;
 
   @override
   Color surfaceColor(BuildContext context) =>
-      M3TonalColor.fromElevation(context, dp);
+      M3TonalColor.fromElevation(context, value);
 }
 
 /// Defines elevation profiles for Material 3 components in interactive states.
@@ -103,17 +105,18 @@ enum M3StateElevationToken implements IM3ElevationToken {
   navigationRailIndicatorFocus(3);
 
   @override
-  final double dp;
+  final double value;
 
   @override
   get hasShadow => true;
 
-  const M3StateElevationToken(this.dp);
+  const M3StateElevationToken(this.value);
 
   @override
-  List<BoxShadow>? get shadows => hasShadow ? M3Shadow.fromElevation(dp) : null;
+  List<BoxShadow>? get shadows =>
+      hasShadow ? M3Shadow.fromElevation(value) : null;
 
   @override
   Color surfaceColor(BuildContext context) =>
-      M3TonalColor.fromElevation(context, dp);
+      M3TonalColor.fromElevation(context, value);
 }

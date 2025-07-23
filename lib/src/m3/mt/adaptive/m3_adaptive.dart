@@ -160,8 +160,9 @@ abstract class M3Adaptive {
       actions: actions,
       leading: leading,
       automaticallyImplyLeading: automaticallyImplyLeading,
-      elevation:
-          isCompact ? M3ElevationToken.level0.dp : M3ElevationToken.level1.dp,
+      elevation: isCompact
+          ? M3ElevationToken.level0.value
+          : M3ElevationToken.level1.value,
     );
   }
 
@@ -265,7 +266,7 @@ abstract class M3Adaptive {
           return Align(
             alignment: Alignment.centerRight,
             child: Material(
-              elevation: M3ComponentElevationToken.dialog.dp,
+              elevation: M3ComponentElevationToken.dialog.value,
               child: Container(
                 width: 320,
                 height: double.infinity,

@@ -198,14 +198,14 @@ class _ElevationCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
 
-    // // The surface color is calculated using `profile.dp`.
+    // // The surface color is calculated using `profile.value`.
     // final elevationSurfaceColor = M3TonalColor.fromElevation(
     //   context,
-    //   elevation.dp,
+    //   elevation.value,
     // );
-    // // The shadows are applied based on `profile.hasShadow` and `profile.dp`.
+    // // The shadows are applied based on `profile.hasShadow` and `profile.value`.
     // final elevationShadows =
-    //     elevation.hasShadow ? M3Shadow.fromElevation(elevation.dp) : null;
+    //     elevation.hasShadow ? M3Shadow.fromElevation(elevation.value) : null;
 
     return Container(
       width: 160,
@@ -228,7 +228,7 @@ class _ElevationCard extends StatelessWidget {
             ),
             SizedBox(height: M3SpacingToken.space4.value),
             Text(
-              '${elevation.dp.toStringAsFixed(0)} dp',
+              '${elevation.value.toStringAsFixed(0)} dp',
               style: textTheme.bodySmall,
             ),
             const Spacer(),
