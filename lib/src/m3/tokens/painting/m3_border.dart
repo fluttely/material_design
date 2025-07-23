@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 /// Material Design 3 border width tokens for consistent component styling.
 ///
 /// This enum defines conventional border width values for Material Design
@@ -12,11 +10,11 @@ import 'package:flutter/material.dart';
 /// indication while maintaining the clean, minimal aesthetic of Material Design.
 ///
 /// ## Usage
-/// 
+///
 /// ```dart
 /// // Get standard border width
 /// double borderWidth = M3BorderToken.thin.value; // 1.0
-/// 
+///
 /// // Use in decorations
 /// Container(
 ///   decoration: BoxDecoration(
@@ -26,7 +24,7 @@ import 'package:flutter/material.dart';
 ///     ),
 ///   ),
 /// )
-/// 
+///
 /// // Use with utility methods
 /// Border border = M3BorderToken.outline(
 ///   color: Colors.blue,
@@ -35,7 +33,7 @@ import 'package:flutter/material.dart';
 /// ```
 ///
 /// ## Width Guidelines
-/// 
+///
 /// - **None (0dp)**: No border, invisible boundaries
 /// - **Thin (1dp)**: Standard borders, default components
 /// - **Thick (2dp)**: Emphasis, selected states, focus indicators
@@ -104,83 +102,84 @@ enum M3BorderToken {
   /// The border width value in density-independent pixels (dp).
   final double value;
 
-  // --- Border Utilities ---
+  // TODO(kevin): put it into material_toolkit
+  // // --- Border Utilities ---
 
-  /// Creates a standard outline border with the given color and width.
-  static Border outline({
-    required Color color,
-    M3BorderToken width = M3BorderToken.thin,
-  }) {
-    return Border.all(color: color, width: width.value);
-  }
+  // /// Creates a standard outline border with the given color and width.
+  // static Border outline({
+  //   required Color color,
+  //   M3BorderToken width = M3BorderToken.thin,
+  // }) {
+  //   return Border.all(color: color, width: width.value);
+  // }
 
-  /// Creates a bottom border only.
-  static Border bottom({
-    required Color color,
-    M3BorderToken width = M3BorderToken.thin,
-  }) {
-    return Border(
-      bottom: BorderSide(color: color, width: width.value),
-    );
-  }
+  // /// Creates a bottom border only.
+  // static Border bottom({
+  //   required Color color,
+  //   M3BorderToken width = M3BorderToken.thin,
+  // }) {
+  //   return Border(
+  //     bottom: BorderSide(color: color, width: width.value),
+  //   );
+  // }
 
-  /// Creates a top border only.
-  static Border top({
-    required Color color,
-    M3BorderToken width = M3BorderToken.thin,
-  }) {
-    return Border(
-      top: BorderSide(color: color, width: width.value),
-    );
-  }
+  // /// Creates a top border only.
+  // static Border top({
+  //   required Color color,
+  //   M3BorderToken width = M3BorderToken.thin,
+  // }) {
+  //   return Border(
+  //     top: BorderSide(color: color, width: width.value),
+  //   );
+  // }
 
-  /// Creates left and right borders only.
-  static Border vertical({
-    required Color color,
-    M3BorderToken width = M3BorderToken.thin,
-  }) {
-    return Border(
-      left: BorderSide(color: color, width: width.value),
-      right: BorderSide(color: color, width: width.value),
-    );
-  }
+  // /// Creates left and right borders only.
+  // static Border vertical({
+  //   required Color color,
+  //   M3BorderToken width = M3BorderToken.thin,
+  // }) {
+  //   return Border(
+  //     left: BorderSide(color: color, width: width.value),
+  //     right: BorderSide(color: color, width: width.value),
+  //   );
+  // }
 
-  /// Creates top and bottom borders only.
-  static Border horizontal({
-    required Color color,
-    M3BorderToken width = M3BorderToken.thin,
-  }) {
-    return Border(
-      top: BorderSide(color: color, width: width.value),
-      bottom: BorderSide(color: color, width: width.value),
-    );
-  }
+  // /// Creates top and bottom borders only.
+  // static Border horizontal({
+  //   required Color color,
+  //   M3BorderToken width = M3BorderToken.thin,
+  // }) {
+  //   return Border(
+  //     top: BorderSide(color: color, width: width.value),
+  //     bottom: BorderSide(color: color, width: width.value),
+  //   );
+  // }
 
-  /// Creates a focus border with enhanced visibility.
-  static Border focus({
-    required Color color,
-    M3BorderToken width = M3BorderToken.thick,
-  }) {
-    return Border.all(color: color, width: width.value);
-  }
+  // /// Creates a focus border with enhanced visibility.
+  // static Border focus({
+  //   required Color color,
+  //   M3BorderToken width = M3BorderToken.thick,
+  // }) {
+  //   return Border.all(color: color, width: width.value);
+  // }
 
-  /// Creates an error border for form validation.
-  static Border error({
-    required Color color,
-    M3BorderToken width = M3BorderToken.thick,
-  }) {
-    return Border.all(color: color, width: width.value);
-  }
+  // /// Creates an error border for form validation.
+  // static Border error({
+  //   required Color color,
+  //   M3BorderToken width = M3BorderToken.thick,
+  // }) {
+  //   return Border.all(color: color, width: width.value);
+  // }
 
-  /// Creates a disabled border with reduced opacity.
-  static Border disabled({
-    required Color color,
-    M3BorderToken width = M3BorderToken.thin,
-    double opacity = 0.38,
-  }) {
-    return Border.all(
-      color: color.withValues(alpha: opacity),
-      width: width.value,
-    );
-  }
+  // /// Creates a disabled border with reduced opacity.
+  // static Border disabled({
+  //   required Color color,
+  //   M3BorderToken width = M3BorderToken.thin,
+  //   double opacity = 0.38,
+  // }) {
+  //   return Border.all(
+  //     color: color.withValues(alpha: opacity),
+  //     width: width.value,
+  //   );
+  // }
 }

@@ -83,7 +83,7 @@ class OpacityTokensPage extends StatelessWidget {
               label: token.label,
               value: token.token.value,
               // Applies the opacity to the section's base color.
-              color: baseColor.withOpacity(token.token.value),
+              color: baseColor.withValues(alpha: token.token.value),
               // The text color is the base color without opacity, to ensure contrast.
               textColor: baseColor,
             );
@@ -107,7 +107,7 @@ class OpacityTokensPage extends StatelessWidget {
       decoration: BoxDecoration(
         color: color,
         borderRadius: M3BorderRadiusToken.medium.value,
-        border: Border.all(color: textColor.withOpacity(0.2)),
+        border: Border.all(color: textColor.withValues(alpha: 0.2)),
       ),
       child: Center(
         child: Text(

@@ -237,8 +237,8 @@ class _ElevationCard extends StatelessWidget {
               alignment: Alignment.bottomRight,
               child: Icon(
                 elevation.hasShadow ? Icons.visibility : Icons.visibility_off,
-                size: 16,
-                color: textTheme.bodySmall?.color?.withOpacity(0.75),
+                size: M3IconSizeToken.dense.value,
+                color: textTheme.bodySmall?.color?.withValues(alpha: 0.75),
               ),
             ),
           ],

@@ -190,9 +190,9 @@ class _AccessibilityPageState extends State<AccessibilityPage>
           horizontal: M3SpacingToken.space8.value,
           vertical: M3SpacingToken.space4.value),
       decoration: BoxDecoration(
-        color: color.withOpacity(0.2),
+        color: color.withValues(alpha: 0.2),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: color.withOpacity(0.5)),
+        border: Border.all(color: color.withValues(alpha: 0.5)),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -489,7 +489,7 @@ class _AccessibilityPageState extends State<AccessibilityPage>
         _buildContrastCard(
           label: 'Low Contrast (Fail)',
           backgroundColor: colorScheme.surfaceContainer,
-          textColor: colorScheme.onSurfaceVariant.withOpacity(0.5),
+          textColor: colorScheme.onSurfaceVariant.withValues(alpha: 0.5),
         ),
       ],
     );
@@ -811,7 +811,7 @@ class _AccessibilityPageState extends State<AccessibilityPage>
         color: colorScheme.surfaceContainer,
         borderRadius: M3BorderRadiusToken.large.value,
         border: Border.all(
-          color: colorScheme.outline.withOpacity(0.5),
+          color: colorScheme.outline.withValues(alpha: 0.5),
         ),
       ),
       child: Column(
