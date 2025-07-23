@@ -23,7 +23,7 @@ abstract class IM3OpacityToken {
 /// // Apply to container overlays
 /// Container(
 ///   decoration: BoxDecoration(
-///     color: Colors.blue.withOpacity(
+///     color: Colors.blue.withValues(alpha:
 ///       M3StateLayerOpacityToken.pressed.value,
 ///     ),
 ///   ),
@@ -148,7 +148,7 @@ enum M3StateLayerOpacityToken implements IM3OpacityToken {
 /// Text(
 ///   'Disabled Text',
 ///   style: TextStyle(
-///     color: Colors.black.withOpacity(
+///     color: Colors.black.withValues(alpha:
 ///       M3Opacity.disabledContent.value,
 ///     ),
 ///   ),
@@ -157,7 +157,7 @@ enum M3StateLayerOpacityToken implements IM3OpacityToken {
 /// // Use for disabled containers
 /// Container(
 ///   decoration: BoxDecoration(
-///     color: Colors.blue.withOpacity(
+///     color: Colors.blue.withValues(alpha:
 ///       M3Opacity.disabledContainer.value,
 ///     ),
 ///   ),
