@@ -4,6 +4,75 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.7.4
+
+### CI/CD & Deployment
+
+- **GitHub Actions Workflow**: Added automated deployment workflow for demo application
+  - Introduced `.github/workflows/deploy-demo.yml` with GitHub Pages deployment
+  - Supports both push-to-main and manual workflow dispatch triggers
+  - Automated Flutter web build with proper base href configuration
+- **Custom Domain Setup**: Added CNAME file for custom domain deployment at `material-design.fluttely.com`
+- **Local Deployment Script**: Created `demo/deploy.sh` script for manual deployment workflows
+- **Deploy Status Badge**: Added GitHub Actions deploy status badge to README.md
+
+### Bug Fixes
+
+- **Color Display Enhancement**: Fixed color picker button styling in example application
+  - Added outline border to color circles for better visibility
+  - Improved color hex code display with robust string formatting
+  - Replaced dynamic spacing token with fixed spacing value for stability
+
+### Documentation
+
+- **README Updates**: Updated package version references from `0.7.3` to `0.7.4` across documentation
+- **Version Consistency**: Synchronized version numbers across all package files and dependencies
+
+### Development
+
+- **Dependency Updates**: Updated pubspec.lock files in both demo and example applications
+- **Version Alignment**: Maintained consistent versioning across the project structure
+
+## 0.7.3
+
+### Features
+
+- **New Simplified Demo Application**: Added a complete new `demo/` directory containing a streamlined, single-file demonstration of the Material Design library
+  - Consolidated all key library features into one scrollable page for easier user onboarding
+  - Features comprehensive showcase of foundations (spacing, visual density, opacity, borders), styles (colors, typography, shapes, elevation), and components (buttons, cards, chips)
+  - Interactive theme controls with dark/light mode toggle and seed color picker with 8 preset colors
+  - Live breakpoint detection and adaptive layout behavior
+  - Fully localized in English for global accessibility
+  - Cross-platform support (Android, iOS, Web, Windows, macOS, Linux)
+
+### Enhanced Developer Experience
+
+- **Improved Example Navigation**: The original complex example application has been refined with better navigation structure
+- **Better Library Accessibility**: Users now have two options:
+  - `demo/` - Simple, single-file showcase for quick library evaluation and testing
+  - `example/` - Comprehensive, detailed showcase for in-depth exploration of advanced features
+- **Reduced Complexity**: New developers can now easily understand and test the library features without navigating through complex multi-page structures
+
+### Documentation
+
+- **Updated README.md**: Enhanced documentation to reflect the new demo structure and improved library presentation
+- **Analysis Configuration**: Updated `analysis_options.yaml` for better code quality and consistency
+
+### Migration Guide
+
+For users upgrading from v0.7.2:
+
+- No breaking changes to the core library APIs
+- The original `example/` app remains fully functional with all existing features
+- The new `demo/` app provides an alternative, simplified entry point for library evaluation
+- All existing code using the library tokens and utilities will continue to work without modification
+
+### Development
+
+- **Multi-Platform Support**: Both demo and example applications support all Flutter target platforms
+- **Dependency Management**: Proper dependency isolation between demo and example applications
+- **Build Configuration**: Complete build configurations for all supported platforms in the new demo app
+
 ## 0.7.2
 
 ### Features

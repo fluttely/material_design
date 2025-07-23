@@ -16,7 +16,7 @@ Add this line to your project's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  material_design: ^0.7.2
+  material_design: ^0.7.4
 ```
 
 Then run `flutter pub get`.
@@ -136,13 +136,6 @@ MaterialApp(
 )
 ```
 
-```dart
-Text(
-  'Display Large',
-  style: M3TypeScaleToken.displayLarge.value,
-)
-```
-
 ### Shape & Corner Radius
 
 Apply shapes and rounded corners to your widgets using a three-tiered token system: `M3ShapeToken`, `M3BorderRadiusToken`, and `M3RadiusToken`. This structure provides everything from ready-to-use `RoundedRectangleBorder` objects to raw `Radius` values for advanced customizations.
@@ -162,7 +155,7 @@ Use `M3ShapeToken` for the most direct application of shapes. This class provide
 ```dart
 Container(
   decoration: ShapeDecoration(
-    shape: M3ShapeToken.large.value, // 16dp circular RoundedRectangleBorder
+    shape: M3ShapeToken.extraLarge.value, // 16dp circular RoundedRectangleBorder
   ),
 )
 ```
@@ -200,7 +193,7 @@ Container(
   decoration: BoxDecoration(
     borderRadius: BorderRadius.only(
       topLeft: M3RadiusToken.extraLarge.value, // 28dp circular Radius
-      bottomRight: M3RadiusToken.extraLarge.value, // 28dp circular Radius
+      bottomRight: M3RadiusToken.small.value, // 28dp circular Radius
     ),
   ),
 )
@@ -442,7 +435,7 @@ flutter run
 
 ## 📚 Additional Resources
 
-- **Live Demo**: [Material Design 3 Flutter Showcase](https://flutterweb-wasm.web.app/)
+- **Aditional Live Demo**: [Material Design 3 Flutter Showcase](https://flutterweb-wasm.web.app/)
 - **Material Design 3 Guidelines**: [Official M3 Documentation](https://m3.material.io/)
 - **Flutter Material 3**: [Flutter's M3 Support](https://docs.flutter.dev/ui/design/material)
 
@@ -453,3 +446,5 @@ We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) f
 ## 📄 License
 
 This project is licensed under the BSD License - see the [LICENSE](/LICENSE) file for details.
+
+![Deploy Status](https://github.com/seu-usuario/repo/actions/workflows/deploy-demo.yml/badge.svg)
