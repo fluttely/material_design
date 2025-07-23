@@ -1,39 +1,147 @@
-import 'package:flutter/foundation.dart';
 
-/// Defines a conventional z-index scale for managing the stacking order of UI components.
+/// Material Design 3 z-index tokens for consistent component layering.
 ///
-/// While Material Design 3 focuses on an elevation system (tonal and shadow elevation)
-/// to express depth, it does not provide explicit z-index tokens. This class
-/// offers a practical and conventional scale for managing stacking contexts,
-/// which is a common requirement in complex UIs.
+/// This enum defines a conventional z-index scale for managing the stacking
+/// order of UI components. While Material Design 3 primarily focuses on an
+/// elevation system (tonal and shadow elevation) to express depth, z-index
+/// values are essential for managing stacking contexts in complex UIs.
 ///
-/// These values are not official M3 tokens but are provided as a utility for
-/// developers to ensure consistent layering.
-@immutable
-abstract class M3ZIndex {
-  /// The z-index for elements that should be in the background, behind all other content.
-  static const int background = 0;
+/// These values provide a practical and standardized approach to component
+/// layering, ensuring predictable visual hierarchy and proper user interaction
+/// across different interface elements.
+///
+/// ## Usage
+/// 
+/// ```dart
+/// // Get z-index for modal components
+/// int zIndex = M3ZIndexToken.modal.value; // 1000
+/// 
+/// // Use in positioned widgets
+/// Positioned(
+///   top: 0,
+///   left: 0,
+///   child: Container(
+///     // Custom implementation for z-index
+///   ),
+/// )
+/// 
+/// // Use for overlay ordering
+/// showDialog(
+///   context: context,
+///   builder: (context) => Dialog(
+///     // Will appear at modal z-index level
+///   ),
+/// );
+/// ```
+///
+/// ## Layering Hierarchy
+/// 
+/// - **Background (0)**: Base layer, behind all content
+/// - **Content (1)**: Default content and interface elements
+/// - **Floating (10)**: FABs and floating components
+/// - **Drawer (100)**: Navigation drawers and side panels
+/// - **Modal (1000)**: Dialogs, bottom sheets, overlays
+/// - **Snackbar (2000)**: Toast messages and notifications  
+/// - **Tooltip (9999)**: Contextual help and information
+///
+/// **Note**: These are conventional values, not official M3 tokens, but provide
+/// consistent layering for complex interface hierarchies.
+enum M3ZIndexToken {
+  /// Background layer z-index (0).
+  ///
+  /// The foundational layer for elements that should appear behind all other
+  /// content. This includes background images, base containers, and elements
+  /// that form the visual foundation of the interface.
+  ///
+  /// **Ideal use cases**:
+  /// - Background images and patterns
+  /// - Base container elements
+  /// - Foundational layout structures
+  /// - Elements meant to be behind all other content
+  background(0),
 
-  /// The default z-index for base content elements.
-  static const int content = 1;
+  /// Default content z-index (1).
+  ///
+  /// The standard layer for most interface content and interactive elements.
+  /// This represents the primary content layer where users interact with
+  /// the main application functionality.
+  ///
+  /// **Ideal use cases**:
+  /// - Primary content areas
+  /// - Standard buttons and form controls
+  /// - List items and card components
+  /// - Basic interactive elements
+  /// - Main application content
+  content(1),
 
-  /// The z-index for floating components that sit above content, such as a
-  /// floating action button (FAB).
-  static const int floating = 10;
+  /// Floating component z-index (10).
+  ///
+  /// For components that need to appear above standard content but below
+  /// navigation and modal elements. This creates a subtle elevation that
+  /// indicates special functionality without overwhelming the interface.
+  ///
+  /// **Ideal use cases**:
+  /// - Floating Action Buttons (FABs)
+  /// - Hover cards and preview tooltips
+  /// - Floating panels and mini-overlays
+  /// - Elements that need subtle prominence
+  floating(10),
 
-  /// The z-index for temporary, overlaying UI like navigation drawers or menus
-  /// that appear above floating elements.
-  static const int drawer = 100;
+  /// Navigation drawer z-index (100).
+  ///
+  /// For temporary overlaying UI elements like navigation drawers, side menus,
+  /// and contextual panels that need to appear above floating elements but
+  /// below critical modal content.
+  ///
+  /// **Ideal use cases**:
+  /// - Navigation drawers and side panels
+  /// - Context menus and dropdown menus
+  /// - Slide-out panels and sheets
+  /// - Temporary overlay navigation
+  drawer(100),
 
-  /// The z-index for modal components like dialogs or bottom sheets that must
-  /// appear above all other app content, including drawers.
-  static const int modal = 1000;
+  /// Modal component z-index (1000).
+  ///
+  /// For modal components that must appear above all other application content,
+  /// creating a clear separation between the modal and the underlying interface.
+  /// This ensures user focus is directed to the modal content.
+  ///
+  /// **Ideal use cases**:
+  /// - Dialog boxes and modal windows
+  /// - Bottom sheets and action sheets
+  /// - Full-screen overlays and lightboxes
+  /// - Alert dialogs and confirmation prompts
+  modal(1000),
 
-  /// The z-index for the most critical, top-level elements like snackbars or
-  /// banners that must be visible above modals.
-  static const int snackbar = 2000;
+  /// Snackbar z-index (2000).
+  ///
+  /// For the most critical top-level elements that must be visible above all
+  /// other content, including modals. These elements provide system-level
+  /// feedback and should never be obscured.
+  ///
+  /// **Ideal use cases**:
+  /// - Snackbars and toast messages
+  /// - System notifications and banners
+  /// - Critical alert messages
+  /// - Global status indicators
+  snackbar(2000),
 
-  /// The z-index for tooltips, which should appear above everything else to
-  /// avoid being obscured.
-  static const int tooltip = 9999;
+  /// Tooltip z-index (9999).
+  ///
+  /// The highest standard z-index for contextual help elements that should
+  /// appear above everything else to ensure visibility. Tooltips provide
+  /// essential user guidance and must never be hidden.
+  ///
+  /// **Ideal use cases**:
+  /// - Contextual tooltips and help text
+  /// - Interactive guidance overlays
+  /// - Accessibility information panels
+  /// - Critical user assistance elements
+  tooltip(9999);
+
+  /// Creates a z-index token with the specified value.
+  const M3ZIndexToken(this.value);
+
+  /// The z-index value for component layering.
+  final int value;
 }

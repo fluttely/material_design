@@ -3,20 +3,8 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:material_design/material_design.dart';
 
-/// Defines the text styles for the Material Design 3 type scale.
-///
-/// The M3 type scale includes 15 standard styles, each with a specific
-/// font size, weight, and letter spacing. These styles are designed to
-/// create a clear and readable typographic hierarchy.
-///
-/// The default font family is not specified here, allowing it to be inherited
-/// from the application's theme (which defaults to "Roboto" in Material).
-///
-/// Reference: https://m3.material.io/styles/typography/type-scale-tokens
-@immutable
-abstract class M3TypeScale {
-  // --- Font Families ---
-
+/// Material Design 3 type scale font family constants.
+class M3TypeScaleFonts {
   /// Primary Material Design font family.
   static const String roboto = 'Roboto';
 
@@ -41,109 +29,138 @@ abstract class M3TypeScale {
     'Courier New',
     'monospace',
   ];
-  // --- Display ---
-  static const TextStyle displayLarge = TextStyle(
+}
+
+/// Material Design 3 type scale tokens for consistent typography.
+enum M3TypeScaleToken {
+  /// Display Large text style (57sp).
+  displayLarge(TextStyle(
     fontSize: 57,
     fontWeight: FontWeight.w400,
     letterSpacing: -0.25,
     height: 64 / 57,
-  );
-  static const TextStyle displayMedium = TextStyle(
+  )),
+
+  /// Display Medium text style (45sp).
+  displayMedium(TextStyle(
     fontSize: 45,
     fontWeight: FontWeight.w400,
     letterSpacing: 0,
     height: 52 / 45,
-  );
-  static const TextStyle displaySmall = TextStyle(
+  )),
+
+  /// Display Small text style (36sp).
+  displaySmall(TextStyle(
     fontSize: 36,
     fontWeight: FontWeight.w400,
     letterSpacing: 0,
     height: 44 / 36,
-  );
+  )),
 
-  // --- Headline ---
-  static const TextStyle headlineLarge = TextStyle(
+  /// Headline Large text style (32sp).
+  headlineLarge(TextStyle(
     fontSize: 32,
     fontWeight: FontWeight.w400,
     letterSpacing: 0,
     height: 40 / 32,
-  );
-  static const TextStyle headlineMedium = TextStyle(
+  )),
+
+  /// Headline Medium text style (28sp).
+  headlineMedium(TextStyle(
     fontSize: 28,
     fontWeight: FontWeight.w400,
     letterSpacing: 0,
     height: 36 / 28,
-  );
-  static const TextStyle headlineSmall = TextStyle(
+  )),
+
+  /// Headline Small text style (24sp).
+  headlineSmall(TextStyle(
     fontSize: 24,
     fontWeight: FontWeight.w400,
     letterSpacing: 0,
     height: 32 / 24,
-  );
+  )),
 
-  // --- Title ---
-  static const TextStyle titleLarge = TextStyle(
+  /// Title Large text style (22sp).
+  titleLarge(TextStyle(
     fontSize: 22,
     fontWeight: FontWeight.w400,
     letterSpacing: 0,
     height: 28 / 22,
-  );
-  static const TextStyle titleMedium = TextStyle(
+  )),
+
+  /// Title Medium text style (16sp).
+  titleMedium(TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.w500,
     letterSpacing: 0.15,
     height: 24 / 16,
-  );
-  static const TextStyle titleSmall = TextStyle(
+  )),
+
+  /// Title Small text style (14sp).
+  titleSmall(TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.w500,
     letterSpacing: 0.1,
     height: 20 / 14,
-  );
+  )),
 
-  // --- Body ---
-  static const TextStyle bodyLarge = TextStyle(
+  /// Body Large text style (16sp).
+  bodyLarge(TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.w400,
     letterSpacing: 0.5,
     height: 24 / 16,
-  );
-  static const TextStyle bodyMedium = TextStyle(
+  )),
+
+  /// Body Medium text style (14sp).
+  bodyMedium(TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.w400,
     letterSpacing: 0.25,
     height: 20 / 14,
-  );
-  static const TextStyle bodySmall = TextStyle(
+  )),
+
+  /// Body Small text style (12sp).
+  bodySmall(TextStyle(
     fontSize: 12,
     fontWeight: FontWeight.w400,
     letterSpacing: 0.4,
     height: 16 / 12,
-  );
+  )),
 
-  // --- Label ---
-  static const TextStyle labelLarge = TextStyle(
+  /// Label Large text style (14sp).
+  labelLarge(TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.w500,
     letterSpacing: 0.1,
     height: 20 / 14,
-  );
-  static const TextStyle labelMedium = TextStyle(
+  )),
+
+  /// Label Medium text style (12sp).
+  labelMedium(TextStyle(
     fontSize: 12,
     fontWeight: FontWeight.w500,
     letterSpacing: 0.5,
     height: 16 / 12,
-  );
-  static const TextStyle labelSmall = TextStyle(
+  )),
+
+  /// Label Small text style (11sp).
+  labelSmall(TextStyle(
     fontSize: 11,
     fontWeight: FontWeight.w500,
     letterSpacing: 0.5,
     height: 16 / 11,
-  );
+  ));
+
+  /// Creates a type scale token with the specified value.
+  const M3TypeScaleToken(this.value);
+
+  /// The text style value.
+  final TextStyle value;
 
   // --- Utility Methods ---
 
-  // TODO(Kevin): create a "adaptive" example
   /// Creates an adaptive text style that scales with user preferences.
   static TextStyle adaptive({
     required TextStyle baseStyle,
@@ -182,12 +199,12 @@ abstract class M3TypeScale {
   static TextStyle responsiveDisplay(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
 
-    if (screenWidth < M3Breakpoint.medium) {
-      return displaySmall;
-    } else if (screenWidth < M3Breakpoint.large) {
-      return displayMedium;
+    if (screenWidth < M3BreakpointToken.medium.value) {
+      return M3TypeScaleToken.displaySmall.value;
+    } else if (screenWidth < M3BreakpointToken.large.value) {
+      return M3TypeScaleToken.displayMedium.value;
     } else {
-      return displayLarge;
+      return M3TypeScaleToken.displayLarge.value;
     }
   }
 
@@ -221,7 +238,8 @@ abstract class M3TypeScale {
   }) {
     return baseStyle.copyWith(
       fontFamily: fontFamily,
-      fontFamilyFallback: fontFamilyFallback ?? systemFontStack,
+      fontFamilyFallback:
+          fontFamilyFallback ?? M3TypeScaleFonts.systemFontStack,
     );
   }
 
@@ -229,7 +247,7 @@ abstract class M3TypeScale {
   static TextStyle monoVariant(TextStyle baseStyle) {
     return baseStyle.copyWith(
       fontFamily: 'Roboto Mono',
-      fontFamilyFallback: monoFontStack,
+      fontFamilyFallback: M3TypeScaleFonts.monoFontStack,
       letterSpacing: 0,
     );
   }

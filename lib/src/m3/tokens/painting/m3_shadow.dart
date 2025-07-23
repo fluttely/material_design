@@ -92,13 +92,13 @@ abstract class M3Shadow {
     ),
   ];
 
-  static final Map<M3ElevationProfile, List<BoxShadow>> _elevationMap = {
-    M3Elevation.level0: level0,
-    M3Elevation.level1: level1,
-    M3Elevation.level2: level2,
-    M3Elevation.level3: level3,
-    M3Elevation.level4: level4,
-    M3Elevation.level5: level5,
+  static final Map<M3ElevationToken, List<BoxShadow>> _elevationMap = {
+    M3ElevationToken.level0: level0,
+    M3ElevationToken.level1: level1,
+    M3ElevationToken.level2: level2,
+    M3ElevationToken.level3: level3,
+    M3ElevationToken.level4: level4,
+    M3ElevationToken.level5: level5,
   };
 
   /// Generates a Material 3-compliant shadow list by interpolating between

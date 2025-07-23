@@ -15,43 +15,43 @@ class _SpacingPageState extends State<SpacingPage> {
     final textTheme = Theme.of(context).textTheme;
 
     final spacings = [
-      ('none', M3Spacing.none),
-      ('infinity', M3Spacing.infinity),
+      ('none', M3SpacingToken.none),
+      ('infinity', M3SpacingToken.infinity),
 
       // --- Base Spacing Scale (4dp increments) ---
       // Ideal for padding within components and small layout gaps.
-      ('space4', M3Spacing.space4),
-      ('space8', M3Spacing.space8),
-      ('space12', M3Spacing.space12),
-      ('space16', M3Spacing.space16),
-      ('space20', M3Spacing.space20),
-      ('space24', M3Spacing.space24),
-      ('space28', M3Spacing.space28),
-      ('space32', M3Spacing.space32),
-      ('space36', M3Spacing.space36),
-      ('space40', M3Spacing.space40),
-      ('space48', M3Spacing.space48),
-      ('space56', M3Spacing.space56),
-      ('space64', M3Spacing.space64),
+      ('space4', M3SpacingToken.space4),
+      ('space8', M3SpacingToken.space8),
+      ('space12', M3SpacingToken.space12),
+      ('space16', M3SpacingToken.space16),
+      ('space20', M3SpacingToken.space20),
+      ('space24', M3SpacingToken.space24),
+      ('space28', M3SpacingToken.space28),
+      ('space32', M3SpacingToken.space32),
+      ('space36', M3SpacingToken.space36),
+      ('space40', M3SpacingToken.space40),
+      ('space48', M3SpacingToken.space48),
+      ('space56', M3SpacingToken.space56),
+      ('space64', M3SpacingToken.space64),
 
       // --- Extended Spacing Scale ---
       // For larger layout spacing needs.
-      ('space72', M3Spacing.space72),
-      ('space80', M3Spacing.space80),
-      ('space96', M3Spacing.space96),
-      ('space128', M3Spacing.space128),
+      ('space72', M3SpacingToken.space72),
+      ('space80', M3SpacingToken.space80),
+      ('space96', M3SpacingToken.space96),
+      ('space128', M3SpacingToken.space128),
     ];
 
     final margins = [
-      ('compactScreen', M3Margin.compactScreen),
-      ('mediumScreen', M3Margin.mediumScreen),
-      ('expandedScreen', M3Margin.expandedScreen),
-      ('largeScreen', M3Margin.largeScreen),
-      ('extraLargeScreen', M3Margin.extraLargeScreen),
+      ('compactScreen', M3MarginToken.compactScreen),
+      ('mediumScreen', M3MarginToken.mediumScreen),
+      ('expandedScreen', M3MarginToken.expandedScreen),
+      ('largeScreen', M3MarginToken.largeScreen),
+      ('extraLargeScreen', M3MarginToken.extraLargeScreen),
     ];
 
     final spacers = [
-      ('pane', M3Spacer.pane),
+      ('pane', M3SpacerToken.pane),
     ];
 
     return Scaffold(
@@ -59,7 +59,7 @@ class _SpacingPageState extends State<SpacingPage> {
         title: const Text('Spacing System'),
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(M3Spacing.space16),
+        padding: EdgeInsets.all(M3SpacingToken.space16.value),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -68,28 +68,28 @@ class _SpacingPageState extends State<SpacingPage> {
               m3Url:
                   'https://m3.material.io/foundations/layout/understanding-layout/spacing',
             ),
-            const SizedBox(height: M3Spacing.space8),
+            SizedBox(height: M3SpacingToken.space8.value),
             Text(
               'Material Design uses a 4dp base unit for spacing. This creates visual rhythm and hierarchy.',
               style: textTheme.bodyMedium,
             ),
-            const SizedBox(height: M3Spacing.space16),
+            SizedBox(height: M3SpacingToken.space16.value),
             ...spacings.map((token) => _buildSpacingDemo(token.$1, token.$2)),
-            const SizedBox(height: M3Spacing.space32),
+            SizedBox(height: M3SpacingToken.space32.value),
             const LaunchURLText(
               label: 'M3Margin Tokens (by screen sizes)',
               m3Url:
                   'https://m3.material.io/foundations/layout/applying-layout/compact',
             ),
-            const SizedBox(height: M3Spacing.space8),
+            SizedBox(height: M3SpacingToken.space8.value),
             ...margins.map((margin) => _buildSpacingDemo(margin.$1, margin.$2)),
-            const SizedBox(height: M3Spacing.space32),
+            SizedBox(height: M3SpacingToken.space32.value),
             const LaunchURLText(
               label: 'M3Spacer Tokens (between two panes)',
               m3Url:
                   'https://m3.material.io/foundations/layout/understanding-layout/spacing',
             ),
-            const SizedBox(height: M3Spacing.space8),
+            SizedBox(height: M3SpacingToken.space8.value),
             ...spacers.map((spacer) => _buildSpacingDemo(spacer.$1, spacer.$2)),
           ],
         ),
@@ -97,14 +97,14 @@ class _SpacingPageState extends State<SpacingPage> {
     );
   }
 
-  Widget _buildSpacingDemo(String label, double value) {
+  Widget _buildSpacingDemo(String label, IM3SpacingToken token) {
     final textTheme = Theme.of(context).textTheme;
     final colorScheme = Theme.of(context).colorScheme;
     // FIX: Check if the value is infinity to avoid calling .toInt() on it.
-    final isInfinity = value == double.infinity;
+    final isInfinity = token.value == double.infinity;
 
     return Padding(
-      padding: const EdgeInsets.only(bottom: M3Spacing.space16),
+      padding: EdgeInsets.only(bottom: M3SpacingToken.space16.value),
       child: Row(
         children: [
           SizedBox(
@@ -118,13 +118,13 @@ class _SpacingPageState extends State<SpacingPage> {
             width: 48,
             child: Text(
               // FIX: Display '∞' for infinity, otherwise display the integer value.
-              isInfinity ? '∞' : '${value.toInt()}dp',
+              isInfinity ? '∞' : '${token.value.toInt()}dp',
               style: textTheme.bodyMedium?.copyWith(
                 color: colorScheme.onSurfaceVariant,
               ),
             ),
           ),
-          const SizedBox(width: M3Spacing.space16),
+          SizedBox(width: M3SpacingToken.space16.value),
           // FIX: Conditionally render the container or a text label for infinity.
           if (isInfinity)
             Text(
@@ -137,7 +137,7 @@ class _SpacingPageState extends State<SpacingPage> {
           else
             Container(
               height: 24,
-              width: value,
+              width: token.value,
               color: colorScheme.primary,
             ),
         ],

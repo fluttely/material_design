@@ -9,7 +9,7 @@ class BorderTokensPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text('Borders')),
       body: ListView(
-        padding: const EdgeInsets.all(M3Spacing.space16),
+        padding: EdgeInsets.all(M3SpacingToken.space16.value),
         children: [
           _buildBorderSection(context),
         ],
@@ -22,25 +22,28 @@ class BorderTokensPage extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
 
     final borders = [
-      ('Thin', M3Border.thin),
+      ('Thin', M3BorderToken.thin),
+      ('Thick', M3BorderToken.thick),
+      ('Extra Thick', M3BorderToken.extraThick),
     ];
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text('M3Border Tokens', style: textTheme.titleLarge),
-        const SizedBox(height: M3Spacing.space16),
+        SizedBox(height: M3SpacingToken.space16.value),
         Wrap(
-          spacing: M3Spacing.space16,
+          spacing: M3SpacingToken.space16.value,
           children: borders.map((border) {
             final (label, width) = border;
             return Container(
-              padding: const EdgeInsets.all(M3Spacing.space16),
+              padding: EdgeInsets.all(M3SpacingToken.space16.value),
               decoration: BoxDecoration(
-                border: Border.all(width: width, color: colorScheme.primary),
-                borderRadius: M3BorderRadius.small,
+                border:
+                    Border.all(width: width.value, color: colorScheme.primary),
+                borderRadius: M3BorderRadiusToken.small.value,
               ),
-              child: Text('$label (${width}dp)'),
+              child: Text('$label (${width.value}dp)'),
             );
           }).toList(),
         ),

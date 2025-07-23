@@ -164,7 +164,7 @@ class ColorPage extends StatelessWidget {
         ),
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(M3Margin.mediumScreen),
+        padding: EdgeInsets.all(M3MarginToken.mediumScreen.value),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -173,7 +173,7 @@ class ColorPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text('Key Colors', style: textTheme.titleLarge),
-                  const SizedBox(height: M3Spacing.space16),
+                  SizedBox(height: M3SpacingToken.space16.value),
                   ...keyColors.map(
                     (p) =>
                         _KeyColorChip(name: p.$1, color: p.$2, onColor: p.$3),
@@ -181,17 +181,17 @@ class ColorPage extends StatelessWidget {
                 ],
               ),
             ),
-            const SizedBox(width: M3Spacer.pane),
+            SizedBox(width: M3SpacerToken.pane.value),
             Expanded(
               flex: 2,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text('Scheme', style: textTheme.titleLarge),
-                  const SizedBox(height: M3Spacing.space16),
+                  SizedBox(height: M3SpacingToken.space16.value),
                   Wrap(
-                    spacing: M3Spacing.space8,
-                    runSpacing: M3Spacing.space8,
+                    spacing: M3SpacingToken.space8.value,
+                    runSpacing: M3SpacingToken.space8.value,
                     children: allColors
                         .map(
                           (p) => _ColorChip(
@@ -230,12 +230,12 @@ class _KeyColorChip extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
 
     return Padding(
-      padding: const EdgeInsets.only(bottom: M3Spacing.space8),
+      padding: EdgeInsets.only(bottom: M3SpacingToken.space8.value),
       child: Container(
-        padding: const EdgeInsets.all(M3Spacing.space16),
+        padding: EdgeInsets.all(M3SpacingToken.space16.value),
         decoration: BoxDecoration(
           color: color,
-          borderRadius: M3BorderRadius.medium,
+          borderRadius: M3BorderRadiusToken.medium.value,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -275,10 +275,10 @@ class _ColorChip extends StatelessWidget {
 
     return Container(
       width: 150,
-      padding: const EdgeInsets.all(M3Spacing.space8),
+      padding: EdgeInsets.all(M3SpacingToken.space8.value),
       decoration: BoxDecoration(
         color: color,
-        borderRadius: M3BorderRadius.small,
+        borderRadius: M3BorderRadiusToken.small.value,
         border: Border.all(color: colorScheme.outlineVariant),
       ),
       child: Column(

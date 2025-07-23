@@ -11,14 +11,14 @@ class M3StateLayerOpacityButtonExample extends StatelessWidget {
     return Column(
       children: [
         Text(title),
-        const SizedBox(height: M3Spacing.space12),
+        SizedBox(height: M3SpacingToken.space12.value),
         CustomButton(
           onPressed: onPressed,
-          child: const Row(
+          child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
               Icon(Icons.add_shopping_cart),
-              SizedBox(width: M3Spacing.space8),
+              SizedBox(width: M3SpacingToken.space8.value),
               Text('Add to Cart'),
             ],
           ),
@@ -32,7 +32,7 @@ class M3StateLayerOpacityButtonExample extends StatelessWidget {
     return Wrap(
       children: [
         _buildButtonArea(title: 'Enabled State:', onPressed: () {}),
-        SizedBox(width: M3Spacing.space12),
+        SizedBox(width: M3SpacingToken.space12.value),
         _buildButtonArea(title: 'Disabled State:', onPressed: null),
       ],
     );
@@ -68,15 +68,15 @@ class _CustomButtonState extends State<CustomButton> {
 
   double get _stateLayerOpacity {
     if (!_isEnabled) return 0.0;
-    if (_isPressed) return M3StateLayerOpacity.pressed;
-    if (_isHovered) return M3StateLayerOpacity.hover;
+    if (_isPressed) return M3StateLayerOpacityToken.pressed.value;
+    if (_isHovered) return M3StateLayerOpacityToken.hover.value;
     return 0.0;
   }
 
   Color _getBackgroundColor(ColorScheme colorScheme) {
     if (!_isEnabled) {
       return colorScheme.onSurface.withValues(
-        alpha: M3Opacity.disabledContainer,
+        alpha: M3Opacity.disabledContainer.value,
       );
     }
 
@@ -89,7 +89,7 @@ class _CustomButtonState extends State<CustomButton> {
   Color _getContentColor(ColorScheme colorScheme) {
     if (!_isEnabled) {
       return colorScheme.onSurface.withValues(
-        alpha: M3Opacity.disabledContent,
+        alpha: M3Opacity.disabledContent.value,
       );
     }
     return colorScheme.primary;
@@ -120,7 +120,7 @@ class _CustomButtonState extends State<CustomButton> {
         onTapCancel: () => setState(() => _isPressed = false),
         onTap: widget.onPressed,
         child: AnimatedContainer(
-          duration: M3MotionDuration.short3,
+          duration: M3MotionDurationToken.short3.value,
           child: Material(
             type: MaterialType.canvas,
             elevation: _elevation,
@@ -138,7 +138,7 @@ class _CustomButtonState extends State<CustomButton> {
                     data: IconThemeData(color: contentColor, size: 18),
                     child: Padding(
                       padding: EdgeInsets.symmetric(
-                        horizontal: M3Spacing.space24,
+                        horizontal: M3SpacingToken.space24.value,
                         vertical: 6,
                       ),
                       child: widget.child,
@@ -147,7 +147,7 @@ class _CustomButtonState extends State<CustomButton> {
                 ),
                 Positioned.fill(
                   child: AnimatedContainer(
-                    duration: M3MotionDuration.short3,
+                    duration: M3MotionDurationToken.short3.value,
                     decoration: BoxDecoration(
                       color: stateLayerColor.withValues(
                         alpha: _stateLayerOpacity,

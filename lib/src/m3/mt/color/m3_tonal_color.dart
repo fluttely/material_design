@@ -1,5 +1,6 @@
-import 'package:flutter/material.dart';
 import 'dart:math' as math;
+
+import 'package:flutter/material.dart';
 
 /// A utility class to handle Material 3 surface color calculations.
 ///
@@ -28,7 +29,7 @@ abstract class M3TonalColor {
       elevation,
     );
   }
-  
+
   /// Calculates surface color with custom tint color and elevation.
   static Color calculateSurfaceColor({
     required Color surface,
@@ -36,25 +37,25 @@ abstract class M3TonalColor {
     required double elevation,
   }) {
     if (elevation <= 0) return surface;
-    
+
     // Calculate tint opacity based on elevation using M3 formula
     final tintOpacity = _calculateTintOpacity(elevation);
-    
+
     return Color.alphaBlend(
       surfaceTint.withValues(alpha: tintOpacity),
       surface,
     );
   }
-  
+
   /// Calculates the tint opacity for a given elevation.
   static double _calculateTintOpacity(double elevation) {
     if (elevation <= 0) return 0.0;
     if (elevation >= 24) return 0.12;
-    
+
     // Exponential curve for natural progression
     return 0.12 * (1 - math.exp(-elevation / 8));
   }
-  
+
   /// Gets surface color at specific elevation level.
   static Color surfaceAt(BuildContext context, double elevation) {
     final colorScheme = Theme.of(context).colorScheme;
@@ -64,14 +65,14 @@ abstract class M3TonalColor {
       elevation: elevation,
     );
   }
-  
+
   /// Predefined surface levels for common use cases.
   static Color surface1(BuildContext context) => surfaceAt(context, 1);
   static Color surface2(BuildContext context) => surfaceAt(context, 3);
   static Color surface3(BuildContext context) => surfaceAt(context, 6);
   static Color surface4(BuildContext context) => surfaceAt(context, 8);
   static Color surface5(BuildContext context) => surfaceAt(context, 12);
-  
+
   /// Creates a high contrast surface color for accessibility.
   static Color highContrastSurface({
     required Color surface,
@@ -79,7 +80,7 @@ abstract class M3TonalColor {
     required double elevation,
   }) {
     if (elevation <= 0) return surface;
-    
+
     // Enhanced tinting for high contrast
     final tintOpacity = math.min(_calculateTintOpacity(elevation) * 1.5, 0.2);
     return Color.alphaBlend(

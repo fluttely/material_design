@@ -13,6 +13,8 @@
 /// - `M3TypeScale.headlineLarge`
 /// - `M3Shadow.level2`
 // library;
+// export 'src/ds/ds.dart';
+// export 'src/mt/mt.dart';
 
 export 'src/m3/m3.dart';
-export 'src/md/md.dart';
+// export 'src/md/md.dart';
