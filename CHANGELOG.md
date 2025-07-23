@@ -1,5 +1,56 @@
 # Changelog
 
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## 0.7.2
+
+### Features
+
+- **Enhanced Documentation**: Completely revamped README.md with improved structure, clearer value proposition, and comprehensive feature highlights
+- **Professional Presentation**: Added visual emoji indicators, popularity badge, and enhanced package description for better discoverability
+- **Better Developer Experience**: Improved code examples with proper formatting, better context, and clearer inline documentation
+- **Resource Organization**: Added dedicated sections for additional resources, contributing guidelines, and license information
+- **Elevation System Enhancement**: Improved elevation token interface with clearer property naming and better shadow interpolation
+
+### Refactor
+
+- **Token Organization**: Major reorganization of the token system for better structure and maintainability:
+  - Moved button component tokens to `lib/src/m3/tokens/comp/button/` for better component organization
+  - Relocated shadow tokens to `lib/src/m3/tokens/sys/elevation/` to align with elevation system
+  - Moved geometry tokens (`border`, `breakpoint`, `icon_size`, `z_index`) to `lib/src/m3/tokens/sys/geometry/` for better categorization
+  - Relocated visual density token to `lib/src/m3/tokens/sys/interaction/` to align with interaction patterns
+- **Import Structure**: Updated main export file (`m3.dart`) to reflect new token organization and maintain backward compatibility
+- **Elevation Token Improvements**:
+  - Renamed `dp` property to `value` across all elevation tokens for consistency with other token patterns
+  - Enhanced shadow interpolation algorithm for smoother transitions between elevation levels
+  - Improved elevation interface documentation and method signatures
+
+### Documentation
+
+- **README Improvements**:
+  - Added compelling tagline and clear value proposition
+  - Introduced comprehensive "Key Features" section highlighting type safety, completeness, and production readiness
+  - Enhanced code examples with better formatting and clearer explanations
+  - Fixed inconsistent example formatting and corrected token usage patterns
+  - Added proper installation instructions and usage examples
+  - Included dedicated sections for additional resources and community contributions
+  - Updated migration guide with more comprehensive examples showing the evolution from v0.6.1 to v0.7.0+
+
+### Fix
+
+- **Example App Updates**:
+  - Fixed elevation token usage throughout example app to use new `.value` property
+  - Updated accessibility showcase to use correct elevation values
+  - Improved code formatting and consistency across showcase pages
+  - Removed obsolete commented code and examples for cleaner codebase
+
+### Chore
+
+- **Example Dependencies**: Updated example app's pubspec.lock to reflect new version
+- **Code Cleanup**: Removed unused example code and improved formatting consistency
+
 ## 0.7.1
 
 ### Fix
@@ -14,10 +65,6 @@
 ### Chore
 
 - Removed duplicated and unused files from the example application.
-
-All notable changes to this project will be documented in this file.
-
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## 0.7.0
 

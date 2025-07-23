@@ -2,10 +2,13 @@
 
 [![pub version](https://img.shields.io/pub/v/material_design.svg)](https://pub.dev/packages/material_design)
 [![license](https://img.shields.io/badge/license-BSD-blue.svg)](/LICENSE)
+[![popularity](https://img.shields.io/pub/popularity/material_design)](https://pub.dev/packages/material_design)
 
-A comprehensive toolkit for implementing Material Design 3 in Flutter. Build beautiful and consistent UIs aligned with official metrics and guidelines using a powerful set of design tokens and ready-to-use helper widgets.
+🎨 **The most complete Material Design 3 implementation for Flutter**
 
-This package encapsulates the [Material 3](https://m3.material.io/) guidelines into easy-to-use tokens, allowing you to focus on your app logic while maintaining visual fidelity.
+A comprehensive, type-safe toolkit that brings the full power of Material Design 3 to Flutter apps. Build pixel-perfect UIs with enhanced developer experience through enum-based design tokens, comprehensive documentation, and zero learning curve.
+
+Transform your Flutter development with production-ready design tokens that eliminate guesswork and ensure consistency across your entire application.
 
 ## Installation
 
@@ -13,10 +16,20 @@ Add this line to your project's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  material_design: ^0.7.1
+  material_design: ^0.7.2
 ```
 
 Then run `flutter pub get`.
+
+## ✨ Key Features
+
+- 🔐 **Type-Safe Design Tokens**: Enum-based architecture prevents errors and improves IntelliSense
+- 🎨 **Complete M3 Implementation**: All official Material Design 3 tokens and guidelines
+- 🚀 **Zero Learning Curve**: Intuitive `.value` pattern across all tokens
+- 📱 **Responsive Ready**: Built-in breakpoints and adaptive layouts
+- 🌙 **Dark Mode Native**: Full light/dark theme support out of the box
+- 🎯 **Production Ready**: Used in real-world applications with comprehensive testing
+- 📖 **Comprehensive Docs**: Inline documentation for every token and method
 
 ## Usage
 
@@ -36,18 +49,20 @@ Starting from version 0.7.0, all design tokens have been converted from static c
 
 ```dart
 // Old API - Direct access
-Padding(padding: EdgeInsets.all(M3SpacingToken.space16))
-Text('Hello', style: M3TypeScaleToken.headlineMedium)
-AnimatedContainer(duration: M3MotionDurationToken.short2)
+Card(elevation: M3Elevation.level5)
+Padding(padding: EdgeInsets.all(M3Spacing.space16))
+AnimatedContainer(duration: M3MotionDuration.short2)
+Icon(Icons.directions_boat_filled, size: M3IconSize.dense),
 ```
 
 **After (v0.7.0+):**
 
 ```dart
 // New API - Access via .value property
+Card(elevation: M3ElevationToken.level5.value)
 Padding(padding: EdgeInsets.all(M3SpacingToken.space16.value))
-Text('Hello', style: M3TypeScaleToken.headlineMedium.value)
 AnimatedContainer(duration: M3MotionDurationToken.short2.value)
+Icon(Icons.directions_boat_filled, size: M3IconSizeToken.dense.value),
 ```
 
 ### Benefits of the New API
@@ -144,12 +159,10 @@ Use `M3ShapeToken` for the most direct application of shapes. This class provide
 
 **Example:**
 
-Dart
-
 ```dart
 Container(
   decoration: ShapeDecoration(
-    shape: M3ShapeToken.value.large, // 16dp circular RoundedRectangleBorder
+    shape: M3ShapeToken.large.value, // 16dp circular RoundedRectangleBorder
   ),
 )
 ```
@@ -163,8 +176,6 @@ Use `M3BorderRadiusToken` when you need a `BorderRadius` object to apply the sam
 **When to use:** In a `BoxDecoration` or to control the rounding of an `InkWell` splash effect or a `ClipRRect`.
 
 **Example:**
-
-Dart
 
 ```dart
 Container(
@@ -183,8 +194,6 @@ Container(
 **When to use:** For creating complex or asymmetrical shapes using `BorderRadius.only()` or `BorderRadius.vertical()`/`horizontal()`.
 
 **Example:**
-
-Dart
 
 ```dart
 Container(
@@ -217,15 +226,12 @@ Use elevation tokens for surface depth and shadow tokens for casting shadows.
 **Example:**
 
 ```dart
-final useShadow = true;
-final elevation = M3ElevationToken.level5.value;
-final elevationSurfaceColor = M3TonalColor.fromElevation(context, elevation);
-final elevationShadows = useShadow ? M3Shadow.fromElevation(elevation) : <BoxShadow>[];
+final elevation = M3ElevationToken.level5;
 Container(
   decoration: ShapeDecoration(
     shape: M3ShapeToken.small.value,
-    color: elevationSurfaceColor,
-    shadows: elevationShadows,
+    color: elevation.surfaceColor(context),
+    shadows: elevation.shadows,
   ),
 ),
 ```
@@ -282,12 +288,14 @@ Row(
 
 Adjust component density for different interaction models.
 
-- **`VisualDensity`**: An class with `standard`, `comfortable`, `compact` and `adaptivePlatformDensity` values.
+- **`M3VisualDensityToken`**: An enum with `standard`, `comfortable`, `compact` and `adaptivePlatformDensity` values.
 
 **Example:**
 
 ```dart
-// In your State class, have a variable: VisualDensity _density = VisualDensity.standard;
+// In your State class
+VisualDensity _density = M3VisualDensityToken.standard.value;
+
 return Theme(
   data: Theme.of(context).copyWith(visualDensity: _density),
   child: Scaffold(
@@ -295,13 +303,16 @@ return Theme(
       title: const Text('Density Example'),
       actions: [
         TextButton(
-          onPressed: () => setState(() => _density =
-              _density == VisualDensity.standard ? VisualDensity.compact : VisualDensity.standard),
+          onPressed: () => setState(() => _density = _density == M3VisualDensityToken.standard.value
+              ? M3VisualDensityToken.compact.value
+              : M3VisualDensityToken.standard.value),
           child: const Text('Toggle', style: TextStyle(color: Colors.white)),
         ),
       ],
     ),
-    body: const Center(child: Card(child: ListTile(title: Text('List Item')))),
+    body: const Center(
+      child: Card(child: ListTile(title: Text('List Item'))),
+    ),
   ),
 );
 ```
@@ -331,41 +342,45 @@ The library also includes enum-based tokens for various other UI properties. All
 
   - `none` (0dp), `thin` (1dp), `thick` (2dp), `extraThick` (4dp)
 
-  **Example:**
+**Example:**
 
-  ```dart
-  Container(
-    decoration: BoxDecoration(
-      border: Border.all(width: M3BorderToken.thin.value),
-    ),
-  )
-  ```
+```dart
+Container(
+  decoration: BoxDecoration(
+    border: Border.all(width: M3BorderToken.thin.value),
+  ),
+)
+```
 
 - **`M3StateLayerOpacityToken`** & **`M3Opacity`**: Opacity values for interactive states and UI elements.
 
-  **State Layer Opacities:**
+**State Layer Opacities:**
 
-  - `hover` (0.08), `focus` (0.10), `pressed` (0.10), `dragged` (0.16)
+- `hover` (0.08), `focus` (0.10), `pressed` (0.10), `dragged` (0.16)
 
-  **General Opacities:**
+**General Opacities:**
 
-  - `disabledContent` (0.38), `disabledContainer` (0.12), `divider` (0.12), `backdrop` (0.5)
+- `disabledContent` (0.38), `disabledContainer` (0.12), `divider` (0.12), `backdrop` (0.5)
 
-  **Example:**
+**Example:**
 
 ```dart
 // Apply a state layer overlay for interaction feedback
 final isPressed = true;
-final stateLayerOpacity = isPressed ? M3StateLayerOpacityToken.pressed.value : 0.0;
+final stateLayerOpacity = isPressed
+    ? M3StateLayerOpacityToken.pressed.value
+    : 0.0;
 
 Stack(
   children: [
-    // Main widget content
-     Positioned.fill(
+    // Your main widget content here
+    Positioned.fill(
       child: AnimatedContainer(
         duration: M3MotionDurationToken.short3.value,
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.primary.withValues(alpha: stateLayerOpacity),
+          color: Theme.of(context).colorScheme.primary.withValues(
+            alpha: stateLayerOpacity,
+          ),
         ),
       ),
     ),
@@ -395,31 +410,46 @@ if (M3BreakpointToken.isLarge(context)) {
 
   - `dense` (20dp), `standard` (24dp), `medium` (32dp), `large` (40dp), `extraLarge` (48dp)
 
-  **Example:**
+**Example:**
 
-  ```dart
-  Icon(
-    Icons.favorite,
-    size: M3IconSizeToken.standard.value,
-  )
-  ```
+```dart
+Icon(
+  Icons.favorite,
+  size: M3IconSizeToken.standard.value,
+)
+```
 
 - **`M3ZIndexToken`**: Conventional z-index values for layering.
 
   - `background` (0), `content` (1), `floating` (10), `drawer` (100), `modal` (1000), `snackbar` (2000), `tooltip` (9999)
 
-  **Example:**
+**Example:**
 
-  ```dart
-  // Note: Flutter doesn't have direct z-index support, but you can use these values
-  // for ordering in Stack widgets or for custom implementations
-  final modalZIndex = M3ZIndexToken.modal.value; // 1000
-  ```
+```dart
+// Note: Flutter doesn't have direct z-index support, but you can use these values
+// for ordering in Stack widgets or for custom implementations
+final modalZIndex = M3ZIndexToken.modal.value; // 1000
+```
 
 ## Example App
 
-The included example app serves as a complete visual style guide, showcasing all tokens available in this package. Explore it to see the tokens in action.
+The included example app serves as a complete visual style guide, showcasing all tokens available in this package. Run the example to see the tokens in action and understand how to implement them in your own projects.
 
-### More content
+```bash
+cd example
+flutter run
+```
 
-[https://flutterweb-wasm.web.app/](https://flutterweb-wasm.web.app/)
+## 📚 Additional Resources
+
+- **Live Demo**: [Material Design 3 Flutter Showcase](https://flutterweb-wasm.web.app/)
+- **Material Design 3 Guidelines**: [Official M3 Documentation](https://m3.material.io/)
+- **Flutter Material 3**: [Flutter's M3 Support](https://docs.flutter.dev/ui/design/material)
+
+## 🤝 Contributing
+
+We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
+
+## 📄 License
+
+This project is licensed under the BSD License - see the [LICENSE](/LICENSE) file for details.

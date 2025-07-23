@@ -113,18 +113,18 @@ abstract class M3Shadow {
     }
 
     final elevations = _elevationMap.keys.toList();
-    if (elevation >= elevations.last.dp) {
+    if (elevation >= elevations.last.value) {
       return _elevationMap[elevations.last]!;
     }
 
-    final upperElevation = elevations.firstWhere((e) => e.dp >= elevation);
+    final upperElevation = elevations.firstWhere((e) => e.value >= elevation);
     final lowerElevation = elevations[elevations.indexOf(upperElevation) - 1];
 
     final lowerShadows = _elevationMap[lowerElevation]!;
     final upperShadows = _elevationMap[upperElevation]!;
 
-    final t = (elevation - lowerElevation.dp) /
-        (upperElevation.dp - lowerElevation.dp);
+    final t = (elevation - lowerElevation.value) /
+        (upperElevation.value - lowerElevation.value);
 
     final interpolatedShadows = <BoxShadow>[];
     final maxShadows = max(lowerShadows.length, upperShadows.length);

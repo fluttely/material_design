@@ -852,7 +852,7 @@ class _AccessibilityPageState extends State<AccessibilityPage>
 
     return Card(
       color: backgroundColor,
-      elevation: M3ElevationToken.level0.dp,
+      elevation: M3ElevationToken.level0.value,
       shape: RoundedRectangleBorder(
         borderRadius: M3BorderRadiusToken.medium.value,
         side: BorderSide(color: Theme.of(context).colorScheme.outlineVariant),

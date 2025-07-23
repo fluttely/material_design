@@ -236,7 +236,8 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
           ),
         ),
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: M3SpacingToken.space28.value),
+          padding:
+              EdgeInsets.symmetric(horizontal: M3SpacingToken.space28.value),
           child: Divider(),
         ),
 
@@ -259,7 +260,8 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
         ),
 
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: M3SpacingToken.space28.value),
+          padding:
+              EdgeInsets.symmetric(horizontal: M3SpacingToken.space28.value),
           child: Divider(),
         ),
 
@@ -282,7 +284,8 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
         ),
 
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: M3SpacingToken.space28.value),
+          padding:
+              EdgeInsets.symmetric(horizontal: M3SpacingToken.space28.value),
           child: Divider(),
         ),
 
@@ -515,57 +518,3 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
     );
   }
 }
-
-// Export component-specific tokens when you implement them
-// etc.
-
-// ============================================================================
-// Usage example in your app:
-/*
-import 'package:your_app/material_design.dart';
-
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'M3 App',
-      theme: SysColorTheme.fromSysColorScheme(
-        SysColorScheme.light(),
-      ),
-      darkTheme: SysColorTheme.fromSysColorScheme(
-        SysColorScheme.dark(),
-      ),
-      home: MyHomePage(),
-    );
-  }
-}
-
-class MyHomePage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    // Access standard colors
-    final colors = Theme.of(context).colorScheme;
-    
-    // Access extended surface colors
-    final surfaces = Theme.of(context).extension<SysSurfaceColors>()!;
-    
-    // Access reference palettes directly if needed
-    final customColor = RefPalette.primary.interpolate(45);
-    
-    return Scaffold(
-      backgroundColor: surfaces.surfaceContainerLow,
-      body: Container(
-        color: surfaces.surfaceContainer,
-        child: Text(
-          'Hello M3',
-          style: TextStyle(color: colors.onSurface),
-        ),
-      ),
-    );
-  }
-}
-*/
