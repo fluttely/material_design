@@ -9,6 +9,7 @@ class ThemeProvider with ChangeNotifier {
   Color get seedColor => _seedColor;
 
   ThemeData get lightTheme => ThemeData(
+        useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(
           seedColor: _seedColor,
           brightness: Brightness.light,
@@ -34,6 +35,7 @@ class ThemeProvider with ChangeNotifier {
       );
 
   ThemeData get darkTheme => ThemeData(
+        useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(
           seedColor: _seedColor,
           brightness: Brightness.dark,

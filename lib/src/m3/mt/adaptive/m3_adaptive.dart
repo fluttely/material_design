@@ -21,15 +21,15 @@ abstract class M3Adaptive {
     final sizeClass = M3BreakpointToken.getWindowSizeClassFromContext(context);
 
     switch (sizeClass) {
-      case WindowSizeClass.compact:
+      case M3WindowSizeClass.compact:
         return compact;
-      case WindowSizeClass.medium:
+      case M3WindowSizeClass.medium:
         return medium ?? compact;
-      case WindowSizeClass.expanded:
+      case M3WindowSizeClass.expanded:
         return expanded ?? medium ?? compact;
-      case WindowSizeClass.large:
+      case M3WindowSizeClass.large:
         return large ?? expanded ?? medium ?? compact;
-      case WindowSizeClass.extraLarge:
+      case M3WindowSizeClass.extraLarge:
         return extraLarge ?? large ?? expanded ?? medium ?? compact;
     }
   }
@@ -46,15 +46,15 @@ abstract class M3Adaptive {
     final sizeClass = M3BreakpointToken.getWindowSizeClassFromContext(context);
 
     switch (sizeClass) {
-      case WindowSizeClass.compact:
+      case M3WindowSizeClass.compact:
         return compact;
-      case WindowSizeClass.medium:
+      case M3WindowSizeClass.medium:
         return medium ?? compact;
-      case WindowSizeClass.expanded:
+      case M3WindowSizeClass.expanded:
         return expanded ?? medium ?? compact;
-      case WindowSizeClass.large:
+      case M3WindowSizeClass.large:
         return large ?? expanded ?? medium ?? compact;
-      case WindowSizeClass.extraLarge:
+      case M3WindowSizeClass.extraLarge:
         return extraLarge ?? large ?? expanded ?? medium ?? compact;
     }
   }
@@ -101,14 +101,14 @@ abstract class M3Adaptive {
     final sizeClass = M3BreakpointToken.getWindowSizeClassFromContext(context);
 
     switch (sizeClass) {
-      case WindowSizeClass.compact:
+      case M3WindowSizeClass.compact:
         return NavigationBar(
           destinations: destinations,
           selectedIndex: selectedIndex,
           onDestinationSelected: onDestinationSelected,
         );
 
-      case WindowSizeClass.medium:
+      case M3WindowSizeClass.medium:
         return NavigationRail(
           destinations: destinations
               .map((d) => NavigationRailDestination(
@@ -123,9 +123,9 @@ abstract class M3Adaptive {
           trailing: trailing,
         );
 
-      case WindowSizeClass.expanded:
-      case WindowSizeClass.large:
-      case WindowSizeClass.extraLarge:
+      case M3WindowSizeClass.expanded:
+      case M3WindowSizeClass.large:
+      case M3WindowSizeClass.extraLarge:
         return NavigationDrawer(
           children: [
             if (leading != null) leading,
@@ -511,7 +511,7 @@ class M3AdaptiveScaffold extends StatelessWidget {
     final sizeClass = M3BreakpointToken.getWindowSizeClassFromContext(context);
 
     // For compact screens, use standard scaffold with bottom navigation
-    if (sizeClass == WindowSizeClass.compact) {
+    if (sizeClass == M3WindowSizeClass.compact) {
       return Scaffold(
         appBar: appBar,
         body: body,
@@ -527,7 +527,7 @@ class M3AdaptiveScaffold extends StatelessWidget {
     }
 
     // For medium screens, use navigation rail
-    if (sizeClass == WindowSizeClass.medium) {
+    if (sizeClass == M3WindowSizeClass.medium) {
       return Scaffold(
         appBar: appBar,
         body: Row(

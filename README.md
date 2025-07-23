@@ -10,13 +10,31 @@ A comprehensive, type-safe toolkit that brings the full power of Material Design
 
 Transform your Flutter development with production-ready design tokens that eliminate guesswork and ensure consistency across your entire application.
 
+## 🚀 Live Demo & Examples
+
+**[🌟 View Interactive Demo](https://fluttely.github.io/material_design/)** - Explore all design tokens and components in action with live, interactive examples.
+
+The demo showcases:
+
+- All design tokens with visual examples
+- Interactive components and their usage
+- Real-time theme switching (light/dark mode)
+- Responsive design patterns
+- Complete implementation examples
+
+## 📚 Additional Resources
+
+- **Additional Live Demo**: [Material Design 3 Flutter Showcase](https://flutterweb-wasm.web.app/)
+- **Material Design 3 Guidelines**: [Official M3 Documentation](https://m3.material.io/)
+- **Flutter Material 3**: [Flutter's M3 Support](https://docs.flutter.dev/ui/design/material)
+
 ## Installation
 
 Add this line to your project's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  material_design: ^0.7.4
+  material_design: ^0.7.5
 ```
 
 Then run `flutter pub get`.
@@ -432,12 +450,6 @@ The included example app serves as a complete visual style guide, showcasing all
 cd example
 flutter run
 ```
-
-## 📚 Additional Resources
-
-- **Aditional Live Demo**: [Material Design 3 Flutter Showcase](https://flutterweb-wasm.web.app/)
-- **Material Design 3 Guidelines**: [Official M3 Documentation](https://m3.material.io/)
-- **Flutter Material 3**: [Flutter's M3 Support](https://docs.flutter.dev/ui/design/material)
 
 ## 🤝 Contributing
 

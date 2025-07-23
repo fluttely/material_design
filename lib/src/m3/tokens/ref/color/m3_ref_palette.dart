@@ -5,9 +5,35 @@
 // /// Contains the base color palettes used to generate the M3 color system.
 // /// These are the foundation colors from which all semantic colors are derived.
 // ///
-// /// Based on: https://m3.material.io/styles/color/the-color-system/tokens
+// /// Reference tokens represent the primitive values in your design system.
+// /// They are raw atomic values that form the foundation from which all other
+// /// tokens are derived. These palettes follow the Material You dynamic color
+// /// system with 13 tones from 0 (darkest) to 100 (lightest).
+// ///
+// /// ## Usage
+// ///
+// /// ```dart
+// /// // Get specific tone from a palette
+// /// Color primaryColor = M3RefPalette.getColor(M3RefPalette.primary, 40);
+// /// 
+// /// // Interpolate between tones
+// /// Color customTone = M3RefPalette.interpolateTone(M3RefPalette.primary, 35.5);
+// /// ```
+// ///
+// /// ## Color Palette Structure
+// ///
+// /// Each palette contains 13 key tones:
+// /// - **0**: Pure black/darkest
+// /// - **10-90**: Graduated tones in 10-step increments
+// /// - **95, 99**: Near-white tones for surface colors
+// /// - **100**: Pure white/lightest
+// ///
+// /// Reference: https://m3.material.io/styles/color/the-color-system/tokens
 // abstract class M3RefPalette {
 //   /// Primary color palette (13 tones from 0-100)
+//   ///
+//   /// The primary palette is the main brand color and is used for key components
+//   /// like primary buttons, active states, and prominent UI elements.
 //   static const Map<int, Color> primary = {
 //     0: Color(0xFF000000),
 //     10: Color(0xFF21005D),
@@ -25,6 +51,9 @@
 //   };
 
 //   /// Secondary color palette (13 tones from 0-100)
+//   ///
+//   /// Secondary colors provide accent and complementary coloring to support
+//   /// and enhance the primary color, used for secondary buttons and UI elements.
 //   static const Map<int, Color> secondary = {
 //     0: Color(0xFF000000),
 //     10: Color(0xFF1D192B),
@@ -42,6 +71,9 @@
 //   };
 
 //   /// Tertiary color palette (13 tones from 0-100)
+//   ///
+//   /// Tertiary colors are used to derive contrasting accents for UI elements
+//   /// and to balance primary and secondary colors with additional visual interest.
 //   static const Map<int, Color> tertiary = {
 //     0: Color(0xFF000000),
 //     10: Color(0xFF31111D),
@@ -59,6 +91,9 @@
 //   };
 
 //   /// Error color palette (13 tones from 0-100)
+//   ///
+//   /// Error colors are used to indicate errors, warnings, and destructive
+//   /// actions throughout the UI. They should be used sparingly and with intention.
 //   static const Map<int, Color> error = {
 //     0: Color(0xFF000000),
 //     10: Color(0xFF410E0B),
@@ -76,6 +111,9 @@
 //   };
 
 //   /// Neutral color palette (13 tones from 0-100)
+//   ///
+//   /// Neutral colors are used for text, backgrounds, and subtle UI elements.
+//   /// They provide the foundation for readable and accessible interfaces.
 //   static const Map<int, Color> neutral = {
 //     0: Color(0xFF000000),
 //     10: Color(0xFF1C1B1F),
@@ -93,6 +131,9 @@
 //   };
 
 //   /// Neutral variant color palette (13 tones from 0-100)
+//   ///
+//   /// Neutral variant colors provide subtle variations of neutral tones,
+//   /// used for surface variants, outlines, and secondary text elements.
 //   static const Map<int, Color> neutralVariant = {
 //     0: Color(0xFF000000),
 //     10: Color(0xFF1D1A22),
@@ -110,11 +151,24 @@
 //   };
 
 //   /// Get a specific tone from any palette
+//   ///
+//   /// Returns the color for the specified tone, falling back to tone 50 if not found.
+//   /// 
+//   /// Parameters:
+//   /// - [palette]: The color palette to get the tone from
+//   /// - [tone]: The tone value (0-100)
 //   static Color getColor(Map<int, Color> palette, int tone) {
 //     return palette[tone] ?? palette[50]!;
 //   }
 
 //   /// Generate intermediate tones between defined ones
+//   ///
+//   /// This method allows you to get colors at fractional tone values by
+//   /// interpolating between the nearest defined tones.
+//   ///
+//   /// Parameters:
+//   /// - [palette]: The color palette to interpolate from
+//   /// - [tone]: The exact tone value (can be fractional, e.g., 35.5)
 //   static Color interpolateTone(Map<int, Color> palette, double tone) {
 //     final lowerTone = (tone / 10).floor() * 10;
 //     final upperTone = lowerTone + 10;
