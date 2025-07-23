@@ -4,6 +4,63 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.7.5
+
+### Enhanced Demo Experience
+
+- **Live Demo Integration**: Added prominent live demo section to README.md with direct link to interactive showcase
+  - Featured interactive demo at `https://fluttely.github.io/material_design/` with comprehensive token visualization
+  - Reorganized README structure with dedicated demo section for better user onboarding
+  - Added links to additional resources including Material Design 3 guidelines and Flutter M3 documentation
+
+### Major Demo Application Improvements
+
+- **Comprehensive Documentation**: Added extensive inline documentation throughout the demo application
+
+  - Complete component and class documentation with detailed feature descriptions
+  - Enhanced code comments explaining Material Design 3 implementation patterns
+  - Improved developer experience with clear architectural explanations
+
+- **Enhanced Navigation Experience**:
+
+  - Custom NavigationRail implementation with Material Design 3 hover animations and state layer effects
+  - Improved mobile navigation with floating hamburger menu and proper M3 specifications
+  - Better visual hierarchy with organized Foundation, Styles, and Components sections
+  - Fixed bottom controls layout with proper spacing and alignment
+
+- **Material Design 3 Compliance**:
+  - Updated `WindowSizeClass` references to use `M3WindowSizeClass` for proper M3 alignment
+  - Enhanced theme implementation with proper Material 3 color schemes and component theming
+  - Added `useMaterial3: true` flag to theme configurations for full M3 compliance
+  - Improved adaptive layouts following M3 responsive navigation patterns
+
+### Example Application Enhancements
+
+- **Advanced Theme System**: Enhanced example application with sophisticated theming capabilities
+
+  - Added smooth theme transition animations with AnimationController
+  - Comprehensive Material 3 component theme implementations for both light and dark modes
+  - Enhanced AppBar, Card, and Button theming with proper M3 specifications
+  - Improved color scheme generation with dynamic seed color support
+
+- **Better Code Organization**: Restructured example application with improved architecture
+  - Enhanced documentation with detailed class and method descriptions
+  - Better separation of concerns with dedicated theme building methods
+  - Improved code readability and maintenance
+
+### User Experience Improvements
+
+- **Updated Application Titles**: Changed demo app title to "Material Design 3 Token Showcase" for better clarity
+- **Enhanced Visual Design**: Improved navigation item styling with proper M3 indicators and hover effects
+- **Better Resource Links**: Updated and reorganized links to Material Design documentation and resources
+- **Improved Accessibility**: Enhanced touch targets and navigation patterns following M3 accessibility guidelines
+
+### Development Experience
+
+- **Code Quality**: Extensive code documentation and architectural improvements
+- **Better Examples**: Enhanced example implementations demonstrating proper M3 patterns
+- **Maintainability**: Improved code organization and separation of concerns
+
 ## 0.7.4
 
 ### CI/CD & Deployment

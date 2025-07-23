@@ -1,10 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:material_design/material_design.dart';
 
+/// Entry point of the Material Design 3 Demo application.
+///
+/// This demo showcases the comprehensive Material Design 3 token system,
+/// including foundations, styles, and components with proper responsive
+/// design patterns and adaptive theming capabilities.
 void main() {
   runApp(const MaterialDesignDemo());
 }
 
+/// Root application widget that demonstrates Material Design 3 capabilities.
+///
+/// Features:
+/// - Dynamic color theming with seed color customization
+/// - Light/dark mode switching with proper M3 color schemes
+/// - Responsive layout patterns following M3 breakpoint guidelines
+/// - Comprehensive showcase of M3 tokens, components, and patterns
 class MaterialDesignDemo extends StatefulWidget {
   const MaterialDesignDemo({super.key});
 
@@ -12,17 +24,44 @@ class MaterialDesignDemo extends StatefulWidget {
   State<MaterialDesignDemo> createState() => _MaterialDesignDemoState();
 }
 
-class _MaterialDesignDemoState extends State<MaterialDesignDemo> {
+class _MaterialDesignDemoState extends State<MaterialDesignDemo>
+    with TickerProviderStateMixin {
+  /// Current theme mode (light/dark)
   ThemeMode _themeMode = ThemeMode.light;
+
+  /// Seed color for dynamic color generation
   Color _seedColor = Colors.blue;
 
+  /// Animation controller for theme transitions
+  late AnimationController _themeAnimationController;
+
+  @override
+  void initState() {
+    super.initState();
+    _themeAnimationController = AnimationController(
+      duration: const Duration(milliseconds: 300),
+      vsync: this,
+    );
+  }
+
+  @override
+  void dispose() {
+    _themeAnimationController.dispose();
+    super.dispose();
+  }
+
+  /// Toggles between light and dark theme with smooth animation
   void _toggleTheme() {
     setState(() {
       _themeMode =
           _themeMode == ThemeMode.light ? ThemeMode.dark : ThemeMode.light;
     });
+    _themeAnimationController.forward().then((_) {
+      _themeAnimationController.reverse();
+    });
   }
 
+  /// Changes the seed color for dynamic theming
   void _changeSeedColor(Color color) {
     setState(() {
       _seedColor = color;
@@ -31,36 +70,110 @@ class _MaterialDesignDemoState extends State<MaterialDesignDemo> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Material Design 3 Demo',
-      theme: ThemeData.from(
-        colorScheme: ColorScheme.fromSeed(seedColor: _seedColor),
-        useMaterial3: true,
+    return AnimatedBuilder(
+      animation: _themeAnimationController,
+      builder: (context, child) {
+        return MaterialApp(
+          title: 'Material Design 3 Demo',
+          theme: _buildLightTheme(),
+          darkTheme: _buildDarkTheme(),
+          themeMode: _themeMode,
+          debugShowCheckedModeBanner: false,
+          home: DemoHomePage(
+            onThemeToggle: _toggleTheme,
+            onSeedColorChange: _changeSeedColor,
+            currentSeedColor: _seedColor,
+            isDark: _themeMode == ThemeMode.dark,
+            themeAnimationValue: _themeAnimationController.value,
+          ),
+        );
+      },
+    );
+  }
+
+  /// Builds the light theme with M3 specifications
+  ThemeData _buildLightTheme() {
+    final colorScheme = ColorScheme.fromSeed(
+      seedColor: _seedColor,
+      brightness: Brightness.light,
+    );
+
+    return ThemeData.from(
+      colorScheme: colorScheme,
+      useMaterial3: true,
+    ).copyWith(
+      // Enhanced M3 component themes
+      appBarTheme: AppBarTheme(
+        backgroundColor: colorScheme.surfaceContainer,
+        foregroundColor: colorScheme.onSurface,
+        elevation: 0,
+        scrolledUnderElevation: 1,
       ),
-      darkTheme: ThemeData.from(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: _seedColor,
-          brightness: Brightness.dark,
+      cardTheme: CardThemeData(
+        elevation: 1,
+        shape: RoundedRectangleBorder(
+          borderRadius: M3BorderRadiusToken.medium.value,
         ),
-        useMaterial3: true,
       ),
-      themeMode: _themeMode,
-      debugShowCheckedModeBanner: false,
-      home: DemoHomePage(
-        onThemeToggle: _toggleTheme,
-        onSeedColorChange: _changeSeedColor,
-        currentSeedColor: _seedColor,
-        isDark: _themeMode == ThemeMode.dark,
+      filledButtonTheme: FilledButtonThemeData(
+        style: FilledButton.styleFrom(
+          shape: RoundedRectangleBorder(
+            borderRadius: M3BorderRadiusToken.full.value,
+          ),
+        ),
+      ),
+    );
+  }
+
+  /// Builds the dark theme with M3 specifications
+  ThemeData _buildDarkTheme() {
+    final colorScheme = ColorScheme.fromSeed(
+      seedColor: _seedColor,
+      brightness: Brightness.dark,
+    );
+
+    return ThemeData.from(
+      colorScheme: colorScheme,
+      useMaterial3: true,
+    ).copyWith(
+      // Enhanced M3 component themes for dark mode
+      appBarTheme: AppBarTheme(
+        backgroundColor: colorScheme.surfaceContainer,
+        foregroundColor: colorScheme.onSurface,
+        elevation: 0,
+        scrolledUnderElevation: 1,
+      ),
+      cardTheme: CardThemeData(
+        elevation: 1,
+        shape: RoundedRectangleBorder(
+          borderRadius: M3BorderRadiusToken.medium.value,
+        ),
+      ),
+      filledButtonTheme: FilledButtonThemeData(
+        style: FilledButton.styleFrom(
+          shape: RoundedRectangleBorder(
+            borderRadius: M3BorderRadiusToken.full.value,
+          ),
+        ),
       ),
     );
   }
 }
 
+/// Main demo page showcasing Material Design 3 tokens and components.
+///
+/// Implements responsive design patterns following M3 breakpoint guidelines:
+/// - Compact: < 600dp (mobile portrait)
+/// - Medium: 600-839dp (mobile landscape, small tablet)
+/// - Expanded: 840-1199dp (tablet, small desktop)
+/// - Large: 1200-1599dp (desktop)
+/// - Extra Large: ≥ 1600dp (large desktop)
 class DemoHomePage extends StatefulWidget {
   final VoidCallback onThemeToggle;
   final Function(Color) onSeedColorChange;
   final Color currentSeedColor;
   final bool isDark;
+  final double themeAnimationValue;
 
   const DemoHomePage({
     super.key,
@@ -68,56 +181,302 @@ class DemoHomePage extends StatefulWidget {
     required this.onSeedColorChange,
     required this.currentSeedColor,
     required this.isDark,
+    required this.themeAnimationValue,
   });
 
   @override
   State<DemoHomePage> createState() => _DemoHomePageState();
 }
 
-class _DemoHomePageState extends State<DemoHomePage> {
+class _DemoHomePageState extends State<DemoHomePage>
+    with TickerProviderStateMixin {
+  /// Current elevation value for demonstration
   double _elevation = 1.0;
+
+  /// Current visual density setting
   VisualDensity _visualDensity = VisualDensity.standard;
+
+  /// Animation controller for page transitions
+  late AnimationController _pageAnimationController;
+
+  /// Animation controller for component demonstrations
+  late AnimationController _componentAnimationController;
+
+  /// Current selected navigation index
+  int _selectedIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _pageAnimationController = AnimationController(
+      duration: const Duration(milliseconds: 300),
+      vsync: this,
+    );
+    _componentAnimationController = AnimationController(
+      duration: const Duration(milliseconds: 200),
+      vsync: this,
+    );
+
+    // Start with a subtle entrance animation
+    _pageAnimationController.forward();
+  }
+
+  @override
+  void dispose() {
+    _pageAnimationController.dispose();
+    _componentAnimationController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    final textTheme = Theme.of(context).textTheme;
-    final screenWidth = MediaQuery.of(context).size.width;
-    final isCompact = screenWidth < M3BreakpointToken.medium.value;
+    final screenSize = MediaQuery.of(context).size;
+    final breakpoint = _getCurrentBreakpoint(screenSize.width);
 
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Material Design 3 Demo'),
-        backgroundColor: colorScheme.surfaceContainer,
-        actions: [
-          IconButton(
+    return AnimatedBuilder(
+      animation: _pageAnimationController,
+      builder: (context, child) {
+        return Scaffold(
+          appBar: _buildAppBar(context, colorScheme),
+          body: _buildResponsiveBody(context, breakpoint),
+          floatingActionButton: _buildFloatingActionButton(context),
+          bottomNavigationBar: breakpoint == M3WindowSizeClass.compact
+              ? _buildBottomNavigationBar(context)
+              : null,
+        );
+      },
+    );
+  }
+
+  /// Determines the current M3 breakpoint based on screen width
+  M3WindowSizeClass _getCurrentBreakpoint(double width) {
+    if (width < M3BreakpointToken.medium.value)
+      return M3WindowSizeClass.compact;
+    if (width < M3BreakpointToken.expanded.value)
+      return M3WindowSizeClass.medium;
+    if (width < M3BreakpointToken.large.value)
+      return M3WindowSizeClass.expanded;
+    if (width < M3BreakpointToken.extraLarge.value)
+      return M3WindowSizeClass.large;
+    return M3WindowSizeClass.extraLarge;
+  }
+
+  /// Builds the responsive app bar with M3 specifications
+  PreferredSizeWidget _buildAppBar(
+      BuildContext context, ColorScheme colorScheme) {
+    return AppBar(
+      title: AnimatedOpacity(
+        opacity: 1.0 - (widget.themeAnimationValue * 0.3),
+        duration: const Duration(milliseconds: 300),
+        child: const Text('Material Design 3 Demo'),
+      ),
+      actions: [
+        AnimatedRotation(
+          turns: widget.themeAnimationValue * 0.5,
+          duration: const Duration(milliseconds: 300),
+          child: IconButton(
             icon: Icon(widget.isDark ? Icons.light_mode : Icons.dark_mode),
             onPressed: widget.onThemeToggle,
-            tooltip: 'Toggle theme',
+            tooltip: 'Toggle theme mode',
           ),
-          _ColorPickerButton(
-            currentColor: widget.currentSeedColor,
-            onColorChanged: widget.onSeedColorChange,
-          ),
-        ],
-      ),
-      body: SingleChildScrollView(
-        padding: EdgeInsets.all(M3SpacingToken.space16.value),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildInfoCard(context),
-            SizedBox(height: M3SpacingToken.space24.value),
-            _buildFoundationsSection(context, isCompact),
-            SizedBox(height: M3SpacingToken.space24.value),
-            _buildStylesSection(context, colorScheme, textTheme),
-            SizedBox(height: M3SpacingToken.space24.value),
-            _buildComponentsSection(context, colorScheme),
-            SizedBox(height: M3SpacingToken.space24.value),
-            _buildInteractiveSection(context, colorScheme),
-          ],
+        ),
+        _ColorPickerButton(
+          currentColor: widget.currentSeedColor,
+          onColorChanged: widget.onSeedColorChange,
+        ),
+        SizedBox(width: M3SpacingToken.space8.value),
+      ],
+    );
+  }
+
+  /// Builds the responsive body layout based on current breakpoint
+  Widget _buildResponsiveBody(
+      BuildContext context, M3WindowSizeClass breakpoint) {
+    switch (breakpoint) {
+      case M3WindowSizeClass.compact:
+        return _buildCompactLayout(context);
+      case M3WindowSizeClass.medium:
+      case M3WindowSizeClass.expanded:
+        return _buildMediumLayout(context);
+      case M3WindowSizeClass.large:
+      case M3WindowSizeClass.extraLarge:
+        return _buildLargeLayout(context);
+    }
+  }
+
+  /// Compact layout for mobile devices
+  Widget _buildCompactLayout(BuildContext context) {
+    return _buildMainContent(context, padding: M3SpacingToken.space16.value);
+  }
+
+  /// Medium layout for tablets and small desktops
+  Widget _buildMediumLayout(BuildContext context) {
+    return Row(
+      children: [
+        _buildNavigationRail(context),
+        const VerticalDivider(thickness: 1, width: 1),
+        Expanded(
+          child:
+              _buildMainContent(context, padding: M3SpacingToken.space24.value),
+        ),
+      ],
+    );
+  }
+
+  /// Large layout for desktop devices
+  Widget _buildLargeLayout(BuildContext context) {
+    return Row(
+      children: [
+        _buildNavigationRail(context),
+        const VerticalDivider(thickness: 1, width: 1),
+        Expanded(
+          flex: 2,
+          child:
+              _buildMainContent(context, padding: M3SpacingToken.space32.value),
+        ),
+        const VerticalDivider(thickness: 1, width: 1),
+        Expanded(
+          child: _buildSidePanel(context),
+        ),
+      ],
+    );
+  }
+
+  /// Builds the navigation rail for larger screens
+  Widget _buildNavigationRail(BuildContext context) {
+    return NavigationRail(
+      selectedIndex: _selectedIndex,
+      onDestinationSelected: (index) {
+        setState(() {
+          _selectedIndex = index;
+        });
+      },
+      labelType: NavigationRailLabelType.selected,
+      destinations: const [
+        NavigationRailDestination(
+          icon: Icon(Icons.foundation_outlined),
+          selectedIcon: Icon(Icons.foundation),
+          label: Text('Foundations'),
+        ),
+        NavigationRailDestination(
+          icon: Icon(Icons.style_outlined),
+          selectedIcon: Icon(Icons.style),
+          label: Text('Styles'),
+        ),
+        NavigationRailDestination(
+          icon: Icon(Icons.widgets_outlined),
+          selectedIcon: Icon(Icons.widgets),
+          label: Text('Components'),
+        ),
+        NavigationRailDestination(
+          icon: Icon(Icons.tune_outlined),
+          selectedIcon: Icon(Icons.tune),
+          label: Text('Interactive'),
+        ),
+      ],
+    );
+  }
+
+  /// Builds the bottom navigation bar for compact screens
+  Widget _buildBottomNavigationBar(BuildContext context) {
+    return NavigationBar(
+      selectedIndex: _selectedIndex,
+      onDestinationSelected: (index) {
+        setState(() {
+          _selectedIndex = index;
+        });
+      },
+      destinations: const [
+        NavigationDestination(
+          icon: Icon(Icons.foundation_outlined),
+          selectedIcon: Icon(Icons.foundation),
+          label: 'Foundations',
+        ),
+        NavigationDestination(
+          icon: Icon(Icons.style_outlined),
+          selectedIcon: Icon(Icons.style),
+          label: 'Styles',
+        ),
+        NavigationDestination(
+          icon: Icon(Icons.widgets_outlined),
+          selectedIcon: Icon(Icons.widgets),
+          label: 'Components',
+        ),
+        NavigationDestination(
+          icon: Icon(Icons.tune_outlined),
+          selectedIcon: Icon(Icons.tune),
+          label: 'Interactive',
+        ),
+      ],
+    );
+  }
+
+  /// Builds the main content area
+  Widget _buildMainContent(BuildContext context, {required double padding}) {
+    return SingleChildScrollView(
+      padding: EdgeInsets.all(padding),
+      child: FadeTransition(
+        opacity: _pageAnimationController,
+        child: SlideTransition(
+          position: Tween<Offset>(
+            begin: const Offset(0, 0.1),
+            end: Offset.zero,
+          ).animate(CurvedAnimation(
+            parent: _pageAnimationController,
+            curve: Curves.easeOutCubic,
+          )),
+          child: _buildSelectedSection(),
         ),
       ),
+    );
+  }
+
+  /// Builds the selected section based on navigation index
+  Widget _buildSelectedSection() {
+    switch (_selectedIndex) {
+      case 0:
+        return _buildFoundationsContent();
+      case 1:
+        return _buildStylesContent();
+      case 2:
+        return _buildComponentsContent();
+      case 3:
+        return _buildInteractiveContent();
+      default:
+        return _buildFoundationsContent();
+    }
+  }
+
+  /// Builds the side panel for large screens
+  Widget _buildSidePanel(BuildContext context) {
+    return SingleChildScrollView(
+      padding: EdgeInsets.all(M3SpacingToken.space16.value),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _buildInfoCard(context),
+          SizedBox(height: M3SpacingToken.space16.value),
+          _buildQuickActions(context),
+        ],
+      ),
+    );
+  }
+
+  /// Builds the floating action button with M3 styling
+  Widget? _buildFloatingActionButton(BuildContext context) {
+    return FloatingActionButton.extended(
+      onPressed: () {
+        _componentAnimationController.forward().then((_) {
+          _componentAnimationController.reverse();
+        });
+      },
+      icon: AnimatedRotation(
+        turns: _componentAnimationController.value,
+        duration: const Duration(milliseconds: 200),
+        child: const Icon(Icons.refresh),
+      ),
+      label: const Text('Refresh Demo'),
     );
   }
 
@@ -147,7 +506,7 @@ class _DemoHomePageState extends State<DemoHomePage> {
                   avatar: const Icon(Icons.aspect_ratio, size: 16),
                 ),
                 Chip(
-                  label: Text('Breakpoint: ${_getCurrentBreakpoint()}'),
+                  label: Text('Breakpoint: ${_getCurrentBreakpointName()}'),
                   avatar: const Icon(Icons.devices, size: 16),
                 ),
               ],
@@ -158,7 +517,7 @@ class _DemoHomePageState extends State<DemoHomePage> {
     );
   }
 
-  String _getCurrentBreakpoint() {
+  String _getCurrentBreakpointName() {
     final width = MediaQuery.of(context).size.width;
     if (width < M3BreakpointToken.medium.value) return 'Compact';
     if (width < M3BreakpointToken.expanded.value) return 'Medium';
@@ -173,22 +532,6 @@ class _DemoHomePageState extends State<DemoHomePage> {
     if (density == VisualDensity.compact) return 'Compact';
     if (density == VisualDensity.adaptivePlatformDensity) return 'Adaptive';
     return 'Custom';
-  }
-
-  Widget _buildFoundationsSection(BuildContext context, bool isCompact) {
-    return _SectionCard(
-      title: 'Foundations',
-      subtitle: 'Design tokens and system foundations',
-      children: [
-        _buildSpacingDemo(),
-        SizedBox(height: M3SpacingToken.space16.value),
-        _buildVisualDensityDemo(),
-        SizedBox(height: M3SpacingToken.space16.value),
-        _buildOpacityDemo(),
-        SizedBox(height: M3SpacingToken.space16.value),
-        _buildBorderDemo(),
-      ],
-    );
   }
 
   Widget _buildSpacingDemo() {
@@ -241,12 +584,15 @@ class _DemoHomePageState extends State<DemoHomePage> {
               .toList(),
         ),
         SizedBox(height: M3SpacingToken.space8.value),
-        ListTile(
-          title:
-              Text('List item with ${_getDensityName(_visualDensity)} density'),
-          subtitle: Text('Density value: $_visualDensity'),
-          leading: const Icon(Icons.density_medium),
-          visualDensity: _visualDensity,
+        Card(
+          color: Theme.of(context).colorScheme.onPrimary,
+          child: ListTile(
+            title: Text(
+                'List item with ${_getDensityName(_visualDensity)} density'),
+            subtitle: Text('Density value: $_visualDensity'),
+            leading: const Icon(Icons.density_medium),
+            visualDensity: _visualDensity,
+          ),
         ),
       ],
     );
@@ -259,15 +605,16 @@ class _DemoHomePageState extends State<DemoHomePage> {
         Text('Opacity Tokens', style: Theme.of(context).textTheme.titleMedium),
         SizedBox(height: M3SpacingToken.space8.value),
         Row(
+          spacing: M3SpacingToken.space16.value,
           children: [
             _OpacityExample(
                 token: M3StateLayerOpacityToken.hover, label: 'Hover'),
-            SizedBox(width: M3SpacingToken.space16.value),
             _OpacityExample(
                 token: M3StateLayerOpacityToken.focus, label: 'Focus'),
-            SizedBox(width: M3SpacingToken.space16.value),
             _OpacityExample(
                 token: M3StateLayerOpacityToken.pressed, label: 'Pressed'),
+            _OpacityExample(
+                token: M3StateLayerOpacityToken.dragged, label: 'Dragged'),
           ],
         ),
       ],
@@ -281,6 +628,7 @@ class _DemoHomePageState extends State<DemoHomePage> {
         Text('Border Tokens', style: Theme.of(context).textTheme.titleMedium),
         SizedBox(height: M3SpacingToken.space8.value),
         Row(
+          spacing: M3SpacingToken.space16.value,
           children: [
             M3BorderToken.thin,
             M3BorderToken.thick,
@@ -288,8 +636,6 @@ class _DemoHomePageState extends State<DemoHomePage> {
           ]
               .map((token) => Expanded(
                     child: Container(
-                      margin: EdgeInsets.symmetric(
-                          horizontal: M3SpacingToken.space4.value),
                       padding: EdgeInsets.all(M3SpacingToken.space12.value),
                       decoration: BoxDecoration(
                         border: Border.all(
@@ -307,23 +653,6 @@ class _DemoHomePageState extends State<DemoHomePage> {
                   ))
               .toList(),
         ),
-      ],
-    );
-  }
-
-  Widget _buildStylesSection(
-      BuildContext context, ColorScheme colorScheme, TextTheme textTheme) {
-    return _SectionCard(
-      title: 'Styles',
-      subtitle: 'Colors, typography, shapes, and elevation',
-      children: [
-        _buildColorDemo(colorScheme),
-        SizedBox(height: M3SpacingToken.space16.value),
-        _buildTypographyDemo(textTheme),
-        SizedBox(height: M3SpacingToken.space16.value),
-        _buildShapeDemo(),
-        SizedBox(height: M3SpacingToken.space16.value),
-        _buildElevationDemo(),
       ],
     );
   }
@@ -380,6 +709,7 @@ class _DemoHomePageState extends State<DemoHomePage> {
         Text('Shape Tokens', style: Theme.of(context).textTheme.titleMedium),
         SizedBox(height: M3SpacingToken.space8.value),
         Row(
+          spacing: M3SpacingToken.space16.value,
           children: [
             M3ShapeToken.none,
             M3ShapeToken.small,
@@ -389,8 +719,6 @@ class _DemoHomePageState extends State<DemoHomePage> {
           ]
               .map((token) => Expanded(
                     child: Container(
-                      margin: EdgeInsets.symmetric(
-                          horizontal: M3SpacingToken.space4.value),
                       height: 60,
                       decoration: BoxDecoration(
                         color: Theme.of(context).colorScheme.surfaceContainer,
@@ -435,21 +763,6 @@ class _DemoHomePageState extends State<DemoHomePage> {
             child: Text('Card with elevation ${_elevation.toInt()}'),
           ),
         ),
-      ],
-    );
-  }
-
-  Widget _buildComponentsSection(
-      BuildContext context, ColorScheme colorScheme) {
-    return _SectionCard(
-      title: 'Components',
-      subtitle: 'Material Design 3 components showcase',
-      children: [
-        _buildButtonsDemo(),
-        SizedBox(height: M3SpacingToken.space16.value),
-        _buildCardsDemo(),
-        SizedBox(height: M3SpacingToken.space16.value),
-        _buildChipsDemo(),
       ],
     );
   }
@@ -577,11 +890,66 @@ class _DemoHomePageState extends State<DemoHomePage> {
     );
   }
 
-  Widget _buildInteractiveSection(
-      BuildContext context, ColorScheme colorScheme) {
-    return _SectionCard(
-      title: 'Interactive Demo',
-      subtitle: 'Test theme switching and adaptive behavior',
+  Widget _buildNavigationDemo() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('Navigation', style: Theme.of(context).textTheme.titleMedium),
+        SizedBox(height: M3SpacingToken.space8.value),
+        const Text('Navigation components adapt based on screen size:'),
+        SizedBox(height: M3SpacingToken.space8.value),
+        Wrap(
+          spacing: M3SpacingToken.space8.value,
+          runSpacing: M3SpacingToken.space8.value,
+          children: [
+            const Chip(
+              label: Text('NavigationRail (≥ Medium)'),
+              avatar: Icon(Icons.view_sidebar, size: 16),
+            ),
+            const Chip(
+              label: Text('NavigationBar (Compact)'),
+              avatar: Icon(Icons.navigation, size: 16),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget _buildQuickActions(BuildContext context) {
+    return Card(
+      child: Padding(
+        padding: EdgeInsets.all(M3SpacingToken.space16.value),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('Quick Actions',
+                style: Theme.of(context).textTheme.titleMedium),
+            SizedBox(height: M3SpacingToken.space12.value),
+            FilledButton.icon(
+              onPressed: widget.onThemeToggle,
+              icon: Icon(widget.isDark ? Icons.light_mode : Icons.dark_mode),
+              label: Text(widget.isDark ? 'Light Mode' : 'Dark Mode'),
+            ),
+            SizedBox(height: M3SpacingToken.space8.value),
+            OutlinedButton.icon(
+              onPressed: () {
+                _componentAnimationController.forward().then((_) {
+                  _componentAnimationController.reverse();
+                });
+              },
+              icon: const Icon(Icons.refresh),
+              label: const Text('Animate'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildThemeControls() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text('Theme Controls', style: Theme.of(context).textTheme.titleMedium),
         SizedBox(height: M3SpacingToken.space8.value),
@@ -591,7 +959,14 @@ class _DemoHomePageState extends State<DemoHomePage> {
           value: widget.isDark,
           onChanged: (value) => widget.onThemeToggle(),
         ),
-        SizedBox(height: M3SpacingToken.space16.value),
+      ],
+    );
+  }
+
+  Widget _buildSeedColorPicker(ColorScheme colorScheme) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
         Text('Seed Colors', style: Theme.of(context).textTheme.titleMedium),
         SizedBox(height: M3SpacingToken.space8.value),
         Wrap(
@@ -604,22 +979,125 @@ class _DemoHomePageState extends State<DemoHomePage> {
             Colors.orange,
             Colors.teal,
           ]
-              .map((color) => GestureDetector(
+              .map((color) => _AnimatedColorSwatch(
+                    color: color,
+                    isSelected: widget.currentSeedColor == color,
                     onTap: () => widget.onSeedColorChange(color),
-                    child: Container(
-                      width: 40,
-                      height: 40,
-                      decoration: BoxDecoration(
-                        color: color,
-                        shape: BoxShape.circle,
-                        border: widget.currentSeedColor == color
-                            ? Border.all(color: colorScheme.outline, width: 3)
-                            : null,
-                      ),
-                    ),
+                    outlineColor: colorScheme.outline,
                   ))
               .toList(),
         ),
+      ],
+    );
+  }
+
+  Widget _buildAnimationDemo() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('Animations', style: Theme.of(context).textTheme.titleMedium),
+        SizedBox(height: M3SpacingToken.space8.value),
+        AnimatedBuilder(
+          animation: _componentAnimationController,
+          builder: (context, child) {
+            return Transform.scale(
+              scale: 1.0 + (_componentAnimationController.value * 0.1),
+              child: Card(
+                child: Padding(
+                  padding: EdgeInsets.all(M3SpacingToken.space16.value),
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.animation,
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                      SizedBox(width: M3SpacingToken.space8.value),
+                      const Text('Animated component demo'),
+                    ],
+                  ),
+                ),
+              ),
+            );
+          },
+        ),
+      ],
+    );
+  }
+
+  /// Builds the foundations content section
+  Widget _buildFoundationsContent() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _buildInfoCard(context),
+        SizedBox(height: M3SpacingToken.space24.value),
+        _SectionCard(
+          title: 'Foundations',
+          subtitle: 'Design tokens and system foundations',
+          children: [
+            _buildSpacingDemo(),
+            SizedBox(height: M3SpacingToken.space16.value),
+            _buildVisualDensityDemo(),
+            SizedBox(height: M3SpacingToken.space16.value),
+            _buildOpacityDemo(),
+            SizedBox(height: M3SpacingToken.space16.value),
+            _buildBorderDemo(),
+          ],
+        ),
+      ],
+    );
+  }
+
+  /// Builds the styles content section
+  Widget _buildStylesContent() {
+    final colorScheme = Theme.of(context).colorScheme;
+    final textTheme = Theme.of(context).textTheme;
+
+    return _SectionCard(
+      title: 'Styles',
+      subtitle: 'Colors, typography, shapes, and elevation',
+      children: [
+        _buildColorDemo(colorScheme),
+        SizedBox(height: M3SpacingToken.space16.value),
+        _buildTypographyDemo(textTheme),
+        SizedBox(height: M3SpacingToken.space16.value),
+        _buildShapeDemo(),
+        SizedBox(height: M3SpacingToken.space16.value),
+        _buildElevationDemo(),
+      ],
+    );
+  }
+
+  /// Builds the components content section
+  Widget _buildComponentsContent() {
+    return _SectionCard(
+      title: 'Components',
+      subtitle: 'Material Design 3 components showcase',
+      children: [
+        _buildButtonsDemo(),
+        SizedBox(height: M3SpacingToken.space16.value),
+        _buildCardsDemo(),
+        SizedBox(height: M3SpacingToken.space16.value),
+        _buildChipsDemo(),
+        SizedBox(height: M3SpacingToken.space16.value),
+        _buildNavigationDemo(),
+      ],
+    );
+  }
+
+  /// Builds the interactive content section
+  Widget _buildInteractiveContent() {
+    final colorScheme = Theme.of(context).colorScheme;
+
+    return _SectionCard(
+      title: 'Interactive Demo',
+      subtitle: 'Test theme switching and adaptive behavior',
+      children: [
+        _buildThemeControls(),
+        SizedBox(height: M3SpacingToken.space16.value),
+        _buildSeedColorPicker(colorScheme),
+        SizedBox(height: M3SpacingToken.space16.value),
+        _buildAnimationDemo(),
       ],
     );
   }
@@ -651,6 +1129,139 @@ class _SectionCard extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class _AnimatedColorSwatch extends StatefulWidget {
+  final Color color;
+  final bool isSelected;
+  final VoidCallback onTap;
+  final Color outlineColor;
+
+  const _AnimatedColorSwatch({
+    required this.color,
+    required this.isSelected,
+    required this.onTap,
+    required this.outlineColor,
+  });
+
+  @override
+  State<_AnimatedColorSwatch> createState() => _AnimatedColorSwatchState();
+}
+
+class _AnimatedColorSwatchState extends State<_AnimatedColorSwatch>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _animationController;
+  late Animation<double> _scaleAnimation;
+  bool _isHovered = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _animationController = AnimationController(
+      duration: const Duration(milliseconds: 150),
+      vsync: this,
+    );
+    _scaleAnimation = Tween<double>(
+      begin: 1.0,
+      end: 1.1,
+    ).animate(CurvedAnimation(
+      parent: _animationController,
+      curve: Curves.easeInOut,
+    ));
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
+
+  void _handleHover(bool isHovered) {
+    setState(() {
+      _isHovered = isHovered;
+    });
+
+    if (isHovered) {
+      _animationController.forward();
+    } else {
+      _animationController.reverse();
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      onEnter: (_) => _handleHover(true),
+      onExit: (_) => _handleHover(false),
+      child: GestureDetector(
+        onTap: widget.onTap,
+        child: AnimatedBuilder(
+          animation: _scaleAnimation,
+          builder: (context, child) {
+            return Transform.scale(
+              scale: _scaleAnimation.value,
+              child: AnimatedContainer(
+                duration: const Duration(milliseconds: 200),
+                width: 40,
+                height: 40,
+                decoration: BoxDecoration(
+                  color: widget.color,
+                  shape: BoxShape.circle,
+                  border: widget.isSelected
+                      ? Border.all(color: widget.outlineColor, width: 3)
+                      : _isHovered
+                          ? Border.all(color: widget.outlineColor, width: 1)
+                          : null,
+                  boxShadow: _isHovered || widget.isSelected
+                      ? [
+                          BoxShadow(
+                            color: widget.color.withValues(alpha: 0.3),
+                            blurRadius: 8,
+                            spreadRadius: 2,
+                          ),
+                        ]
+                      : null,
+                ),
+              ),
+            );
+          },
+        ),
+      ),
+    );
+  }
+}
+
+class _ColorSwatch extends StatelessWidget {
+  final Color color;
+  final String label;
+
+  const _ColorSwatch({required this.color, required this.label});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Container(
+          width: 60,
+          height: 40,
+          decoration: BoxDecoration(
+            color: color,
+            borderRadius: M3BorderRadiusToken.small.value,
+            border: Border.all(
+              color:
+                  Theme.of(context).colorScheme.outline.withValues(alpha: 0.2),
+            ),
+          ),
+        ),
+        SizedBox(height: M3SpacingToken.space4.value),
+        Text(
+          label,
+          textAlign: TextAlign.center,
+          style: Theme.of(context).textTheme.bodySmall,
+        ),
+      ],
     );
   }
 }
@@ -715,39 +1326,6 @@ class _OpacityExample extends StatelessWidget {
   }
 }
 
-class _ColorSwatch extends StatelessWidget {
-  final Color color;
-  final String label;
-
-  const _ColorSwatch({required this.color, required this.label});
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          width: 60,
-          height: 40,
-          decoration: BoxDecoration(
-            color: color,
-            borderRadius: M3BorderRadiusToken.small.value,
-            border: Border.all(
-              color:
-                  Theme.of(context).colorScheme.outline.withValues(alpha: 0.2),
-            ),
-          ),
-        ),
-        SizedBox(height: M3SpacingToken.space4.value),
-        Text(
-          label,
-          textAlign: TextAlign.center,
-          style: Theme.of(context).textTheme.bodySmall,
-        ),
-      ],
-    );
-  }
-}
-
 class _ColorPickerButton extends StatelessWidget {
   final Color currentColor;
   final Function(Color) onColorChanged;
@@ -789,11 +1367,9 @@ class _ColorPickerButton extends StatelessWidget {
                         ),
                       ),
                     ),
-                    const SizedBox(
-                        width: 12.0), // Use um valor fixo ou um token válido
-                    // ✅ CORREÇÃO: Maneira robusta de obter o valor hexadecimal da cor.
+                    const SizedBox(width: 12.0),
                     Text(
-                      '#${color.value.toRadixString(16).substring(2).toUpperCase()}',
+                      '#${color.value.toRadixString(16).padLeft(8, '0').substring(2).toUpperCase()}',
                     ),
                   ],
                 ),

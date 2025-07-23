@@ -21,6 +21,11 @@ import 'showcase_pages/styles/shape_page.dart';
 import 'showcase_pages/styles/typography_page.dart';
 import 'theme_provider.dart';
 
+/// Entry point of the Material Design 3 Token Showcase application.
+///
+/// This app demonstrates the implementation of Material Design 3 tokens,
+/// foundations, and styles using a responsive navigation pattern that
+/// adapts between NavigationDrawer (mobile) and NavigationRail (desktop).
 void main() {
   runApp(
     ChangeNotifierProvider(
@@ -30,6 +35,13 @@ void main() {
   );
 }
 
+/// Main application widget that configures the Material Design 3 theme
+/// and provides the showcase interface.
+///
+/// Features:
+/// - Dynamic theme switching (light/dark mode)
+/// - Custom seed color support with dynamic color generation
+/// - Material Design 3 token demonstration
 class TokenShowcaseApp extends StatelessWidget {
   const TokenShowcaseApp({super.key});
 
@@ -37,7 +49,7 @@ class TokenShowcaseApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
     return MaterialApp(
-      title: 'Material Design 3',
+      title: 'Material Design 3 Token Showcase',
       theme: themeProvider.lightTheme,
       darkTheme: themeProvider.darkTheme,
       themeMode: themeProvider.themeMode,
@@ -47,6 +59,14 @@ class TokenShowcaseApp extends StatelessWidget {
   }
 }
 
+/// Home page of the Material Design 3 showcase that demonstrates
+/// adaptive navigation patterns following M3 guidelines.
+///
+/// The page automatically adapts its layout based on screen size:
+/// - Small screens (< 600dp): Uses NavigationDrawer with hamburger menu
+/// - Large screens (≥ 600dp): Uses NavigationRail with persistent navigation
+///
+/// This follows Material Design 3 responsive navigation patterns.
 class ShowcaseHomePage extends StatefulWidget {
   const ShowcaseHomePage({super.key});
 
@@ -55,12 +75,20 @@ class ShowcaseHomePage extends StatefulWidget {
 }
 
 class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
+  /// Key for controlling the Scaffold drawer on mobile layouts
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  /// Currently selected navigation destination index
   int _selectedIndex = 0;
 
+  /// Pages corresponding to each navigation destination.
+  ///
+  /// Organized by Material Design 3 categories:
+  /// - Foundations: Basic building blocks (spacing, density, etc.)
+  /// - Styles: Visual styling elements (color, typography, etc.)
+  /// - Components: Interactive UI elements (buttons, cards, etc.)
   final List<Widget> _pages = [
-    // Foundations
-    // const DesignTokensPage(),
+    // Foundations - Core design tokens and layout principles
     const SpacingPage(),
     const VisualDensityPage(),
     const BreakpointTokensPage(),
@@ -70,22 +98,25 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
     const OpacityTokensPage(),
     const AccessibilityPage(),
     const AdaptivePage(),
-    // Styles
+
+    // Styles - Visual design elements
     const ColorPage(),
     const TypographyPage(),
     const ElevationPage(),
     const ShapePage(),
     const MotionPage(),
-    // Components
-    // const ComponentsShowcasePage(),
+
+    // Components and Utilities
     const UtilsPage(),
   ];
 
   @override
   Widget build(BuildContext context) {
+    // Use Material Design 3 medium breakpoint (600dp) for responsive layout
     final isSmallScreen =
         MediaQuery.of(context).size.width < M3BreakpointToken.medium.value;
 
+    // Mobile layout: NavigationDrawer with hamburger menu
     if (isSmallScreen) {
       return Scaffold(
         key: _scaffoldKey,
@@ -93,6 +124,7 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
         body: Stack(
           children: [
             _pages[_selectedIndex],
+            // Floating hamburger menu button positioned according to M3 specs
             Positioned(
               top: M3SpacingToken.space8.value,
               left: M3SpacingToken.space16.value,
@@ -100,6 +132,13 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
                 tooltip: 'Open navigation menu',
                 onPressed: () => _scaffoldKey.currentState?.openDrawer(),
                 icon: const Icon(Icons.menu),
+                style: IconButton.styleFrom(
+                  backgroundColor: Theme.of(context)
+                      .colorScheme
+                      .surface
+                      .withValues(alpha: 0.8),
+                  foregroundColor: Theme.of(context).colorScheme.onSurface,
+                ),
               ),
             ),
           ],
@@ -107,6 +146,7 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
       );
     }
 
+    // Desktop layout: NavigationRail with persistent navigation
     return Scaffold(
       body: Row(
         children: [
@@ -118,6 +158,11 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
     );
   }
 
+  /// Creates navigation destinations for Material Design 3 Foundation tokens.
+  ///
+  /// These represent the core building blocks of the design system:
+  /// spacing, density, breakpoints, elevation layers, borders, icons,
+  /// opacity values, accessibility features, and adaptive design patterns.
   List<NavigationRailDestination> _buildFoundationNavigationRailDestinations() {
     return const [
       NavigationRailDestination(
@@ -168,6 +213,11 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
     ];
   }
 
+  /// Creates navigation destinations for Material Design 3 Style tokens.
+  ///
+  /// These represent the visual styling elements of the design system:
+  /// color palettes, typography scales, elevation shadows, shape tokens,
+  /// and motion/animation specifications.
   List<NavigationRailDestination> _buildStylesNavigationRailDestinations() {
     return const [
       NavigationRailDestination(
@@ -208,6 +258,13 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
     ];
   }
 
+  /// Builds a scrollable NavigationDrawer for mobile layouts.
+  ///
+  /// Features Material Design 3 specifications:
+  /// - Organized sections with dividers
+  /// - Theme controls at the bottom
+  /// - Proper spacing using M3 tokens
+  /// - Links to official Material Design documentation
   Widget _buildScrollableNavigationDrawer(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
     final textTheme = Theme.of(context).textTheme;
@@ -341,7 +398,7 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
         SizedBox(height: M3SpacingToken.space8.value),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: LaunchURLText(
+          child: const LaunchURLText(
             label: 'Flutter M3 Demo',
             m3Url: 'https://flutterweb-wasm.web.app/',
           ),
@@ -350,6 +407,14 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
     );
   }
 
+  /// Builds a custom scrollable NavigationRail for desktop layouts.
+  ///
+  /// This implementation provides:
+  /// - Scrollable content area for many navigation items
+  /// - Fixed header and footer sections
+  /// - Custom M3-compliant navigation items with indicators
+  /// - Theme controls positioned at the bottom
+  /// - Links to Material Design documentation
   Widget _buildScrollableNavigationRail(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
     final foundationDestinations = _buildFoundationNavigationRailDestinations();
@@ -359,30 +424,33 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
       width: 80,
       color: Theme.of(context).colorScheme.surface,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SizedBox(height: M3SpacingToken.space8.value),
+          // Header with M3 link - Fixed at top
           const LaunchURLText(
             label: 'M3',
             m3Url: 'https://m3.material.io/',
           ),
-          SizedBox(height: M3SpacingToken.space8.value),
+
+          // Scrollable content area
           Expanded(
             child: SingleChildScrollView(
               child: Column(
                 children: [
+                  // Foundations section
                   Divider(
-                    indent: M3SpacingToken.space8.value,
-                    endIndent: M3SpacingToken.space8.value,
-                  ),
+                      indent: M3SpacingToken.space8.value,
+                      endIndent: M3SpacingToken.space8.value),
                   const LaunchURLText(
                     label: 'Foundations',
                     fontSize: 12,
                     m3Url: 'https://m3.material.io/foundations',
                   ),
+
+                  // Foundations navigation items
                   ...foundationDestinations.asMap().entries.map((entry) {
                     final index = entry.key;
                     final destination = entry.value;
-
                     return _buildNavigationRailItem(
                       destination: destination,
                       index: index,
@@ -394,19 +462,22 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
                       },
                     );
                   }),
+
                   Divider(
-                    indent: M3SpacingToken.space8.value,
-                    endIndent: M3SpacingToken.space8.value,
-                  ),
+                      indent: M3SpacingToken.space8.value,
+                      endIndent: M3SpacingToken.space8.value),
+
+                  // Styles section
                   const LaunchURLText(
                     label: 'Styles',
                     fontSize: 12,
                     m3Url: 'https://m3.material.io/styles',
                   ),
+
+                  // Styles navigation items
                   ...styleDestinations.asMap().entries.map((entry) {
                     final index = entry.key + foundationDestinations.length;
                     final destination = entry.value;
-
                     return _buildNavigationRailItem(
                       destination: destination,
                       index: index,
@@ -418,46 +489,82 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
                       },
                     );
                   }),
-                  Divider(
-                    indent: M3SpacingToken.space8.value,
-                    endIndent: M3SpacingToken.space8.value,
-                  ),
-                  SizedBox(height: M3SpacingToken.space8.value),
-                  Switch(
-                    value: themeProvider.themeMode == ThemeMode.dark,
-                    onChanged: (isDark) {
-                      themeProvider.changeThemeMode(
-                        isDark ? ThemeMode.dark : ThemeMode.light,
-                      );
-                    },
-                  ),
-                  const Text('Dark Mode', style: TextStyle(fontSize: 12)),
-                  SizedBox(height: M3SpacingToken.space16.value),
-                  IconButton(
-                    icon: Icon(
-                      Icons.color_lens,
-                      color: themeProvider.seedColor,
-                    ),
-                    onPressed: () async {
-                      final newColor = await showColorPickerDialog(
-                        context,
-                        themeProvider.seedColor,
-                      );
-                      if (newColor != null) {
-                        themeProvider.changeSeedColor(newColor);
-                      }
-                    },
-                  ),
-                  const Text('Seed Color', style: TextStyle(fontSize: 12)),
-                  SizedBox(height: M3SpacingToken.space16.value),
-                  const LaunchURLText(
-                    label: 'Demo',
-                    fontSize: 12,
-                    m3Url: 'https://flutterweb-wasm.web.app/',
-                  ),
-                  SizedBox(height: M3SpacingToken.space8.value),
+
+                  const SizedBox(height: 24),
                 ],
               ),
+            ),
+          ),
+
+          // Fixed bottom controls
+          Container(
+            padding: const EdgeInsets.symmetric(vertical: 8),
+            child: Column(
+              children: [
+                Divider(
+                    indent: M3SpacingToken.space8.value,
+                    endIndent: M3SpacingToken.space8.value),
+
+                // Dark mode switch
+                Column(
+                  children: [
+                    Switch(
+                      value: themeProvider.themeMode == ThemeMode.dark,
+                      onChanged: (isDark) {
+                        themeProvider.changeThemeMode(
+                          isDark ? ThemeMode.dark : ThemeMode.light,
+                        );
+                      },
+                    ),
+                    const SizedBox(height: 4),
+                    const Text(
+                      'Dark Mode',
+                      style: TextStyle(fontSize: 10),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
+
+                const SizedBox(height: 12),
+
+                // Color picker
+                Column(
+                  children: [
+                    IconButton(
+                      icon: Icon(
+                        Icons.color_lens,
+                        color: themeProvider.seedColor,
+                        size: 20,
+                      ),
+                      onPressed: () async {
+                        final newColor = await showColorPickerDialog(
+                          context,
+                          themeProvider.seedColor,
+                        );
+                        if (newColor != null) {
+                          themeProvider.changeSeedColor(newColor);
+                        }
+                      },
+                    ),
+                    const Text(
+                      'Color',
+                      style: TextStyle(fontSize: 10),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
+
+                const SizedBox(height: 12),
+
+                // Demo link
+                const LaunchURLText(
+                  label: 'Demo',
+                  fontSize: 10,
+                  m3Url: 'https://flutterweb-wasm.web.app/',
+                ),
+
+                const SizedBox(height: 8),
+              ],
             ),
           ),
         ],
@@ -465,54 +572,157 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
     );
   }
 
+  /// Builds a custom navigation rail item following Material Design 3 specifications.
+  ///
+  /// Features:
+  /// - M3-compliant visual indicator for selected state
+  /// - Hover animation with state layer overlay
+  /// - Proper color theming with primary/secondary containers
+  /// - 56dp touch target height as per M3 guidelines
+  /// - Rounded 16dp corners following M3 shape tokens
+  /// - Semantic icon and label positioning
   Widget _buildNavigationRailItem({
     required NavigationRailDestination destination,
     required int index,
     required bool isSelected,
     required VoidCallback onTap,
   }) {
+    return _NavigationRailItem(
+      destination: destination,
+      index: index,
+      isSelected: isSelected,
+      onTap: onTap,
+    );
+  }
+}
+
+/// Custom NavigationRail item with Material Design 3 hover animations.
+///
+/// This stateful widget provides proper hover feedback matching the official
+/// Material Design specifications, including state layer animations.
+class _NavigationRailItem extends StatefulWidget {
+  final NavigationRailDestination destination;
+  final int index;
+  final bool isSelected;
+  final VoidCallback onTap;
+
+  const _NavigationRailItem({
+    required this.destination,
+    required this.index,
+    required this.isSelected,
+    required this.onTap,
+  });
+
+  @override
+  State<_NavigationRailItem> createState() => _NavigationRailItemState();
+}
+
+class _NavigationRailItemState extends State<_NavigationRailItem>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _animationController;
+  late Animation<double> _hoverAnimation;
+  bool _isHovered = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _animationController = AnimationController(
+      duration: const Duration(milliseconds: 200),
+      vsync: this,
+    );
+    _hoverAnimation = Tween<double>(
+      begin: 0.0,
+      end: 1.0,
+    ).animate(CurvedAnimation(
+      parent: _animationController,
+      curve: Curves.easeInOut,
+    ));
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
+
+  void _handleHover(bool isHovered) {
+    if (_isHovered != isHovered) {
+      setState(() {
+        _isHovered = isHovered;
+      });
+
+      if (isHovered) {
+        _animationController.forward();
+      } else {
+        _animationController.reverse();
+      }
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
 
-    return InkWell(
-      onTap: onTap,
-      child: Container(
-        width: 80,
-        height: 72,
-        padding: EdgeInsets.symmetric(vertical: M3SpacingToken.space4.value),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              width: 56,
-              height: 32,
-              decoration: ShapeDecoration(
-                // color: isSelected
-                //     ? colorScheme.secondaryContainer
-                //     : Colors.transparent,
-                shape: M3ShapeToken.medium.value,
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4),
+      child: GestureDetector(
+        onTap: widget.onTap,
+        child: SizedBox(
+          width: 72,
+          height: 56,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              // Icon container with M3 indicator and hover
+              MouseRegion(
+                onEnter: (_) => _handleHover(true),
+                onExit: (_) => _handleHover(false),
+                child: AnimatedBuilder(
+                  animation: _hoverAnimation,
+                  builder: (context, child) {
+                    return Container(
+                      width: 56,
+                      height: 32,
+                      decoration: BoxDecoration(
+                        color: widget.isSelected
+                            ? colorScheme.secondaryContainer
+                            : !widget.isSelected
+                                ? colorScheme.onSurface.withValues(
+                                    alpha: 0.08 * _hoverAnimation.value,
+                                  )
+                                : Colors.transparent,
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      child: Icon(
+                        widget.isSelected
+                            ? (widget.destination.selectedIcon as Icon).icon
+                            : (widget.destination.icon as Icon).icon,
+                        color: widget.isSelected
+                            ? colorScheme.onSecondaryContainer
+                            : colorScheme.onSurfaceVariant,
+                        size: 24,
+                      ),
+                    );
+                  },
+                ),
               ),
-              child: Icon(
-                isSelected
-                    ? (destination.selectedIcon as Icon).icon
-                    : (destination.icon as Icon).icon,
-                color: isSelected
-                    ? colorScheme.onSecondaryContainer
-                    : colorScheme.onSurfaceVariant,
-                size: 24,
+              const SizedBox(height: 4),
+              // Label
+              Text(
+                (widget.destination.label as Text).data!,
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500,
+                  color: widget.isSelected
+                      ? colorScheme.onSurface
+                      : colorScheme.onSurfaceVariant,
+                ),
+                textAlign: TextAlign.center,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
               ),
-            ),
-            const SizedBox(height: 4),
-            Text(
-              (destination.label as Text).data!,
-              style: TextStyle(
-                fontSize: 12,
-                color: isSelected
-                    ? colorScheme.onSurface
-                    : colorScheme.onSurfaceVariant,
-              ),
-              textAlign: TextAlign.center,
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

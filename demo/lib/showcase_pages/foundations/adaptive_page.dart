@@ -240,15 +240,15 @@ class _AdaptivePageState extends State<AdaptivePage> {
   String _getWindowSizeClassName(BuildContext context) {
     final sizeClass = M3BreakpointToken.getWindowSizeClassFromContext(context);
     switch (sizeClass) {
-      case WindowSizeClass.compact:
+      case M3WindowSizeClass.compact:
         return 'Compact';
-      case WindowSizeClass.medium:
+      case M3WindowSizeClass.medium:
         return 'Medium';
-      case WindowSizeClass.expanded:
+      case M3WindowSizeClass.expanded:
         return 'Expanded';
-      case WindowSizeClass.large:
+      case M3WindowSizeClass.large:
         return 'Large';
-      case WindowSizeClass.extraLarge:
+      case M3WindowSizeClass.extraLarge:
         return 'Extra Large';
     }
   }
