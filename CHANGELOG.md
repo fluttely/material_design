@@ -4,6 +4,35 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.7.4
+
+### CI/CD & Deployment
+
+- **GitHub Actions Workflow**: Added automated deployment workflow for demo application
+  - Introduced `.github/workflows/deploy-demo.yml` with GitHub Pages deployment
+  - Supports both push-to-main and manual workflow dispatch triggers
+  - Automated Flutter web build with proper base href configuration
+- **Custom Domain Setup**: Added CNAME file for custom domain deployment at `material-design.fluttely.com`
+- **Local Deployment Script**: Created `demo/deploy.sh` script for manual deployment workflows
+- **Deploy Status Badge**: Added GitHub Actions deploy status badge to README.md
+
+### Bug Fixes
+
+- **Color Display Enhancement**: Fixed color picker button styling in example application
+  - Added outline border to color circles for better visibility
+  - Improved color hex code display with robust string formatting
+  - Replaced dynamic spacing token with fixed spacing value for stability
+
+### Documentation
+
+- **README Updates**: Updated package version references from `0.7.3` to `0.7.4` across documentation
+- **Version Consistency**: Synchronized version numbers across all package files and dependencies
+
+### Development
+
+- **Dependency Updates**: Updated pubspec.lock files in both demo and example applications
+- **Version Alignment**: Maintained consistent versioning across the project structure
+
 ## 0.7.3
 
 ### Features

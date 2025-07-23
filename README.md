@@ -16,7 +16,7 @@ Add this line to your project's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  material_design: ^0.7.3
+  material_design: ^0.7.4
 ```
 
 Then run `flutter pub get`.
@@ -446,3 +446,5 @@ We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) f
 ## 📄 License
 
 This project is licensed under the BSD License - see the [LICENSE](/LICENSE) file for details.
+
+![Deploy Status](https://github.com/seu-usuario/repo/actions/workflows/deploy-demo.yml/badge.svg)
