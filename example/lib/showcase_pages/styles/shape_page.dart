@@ -11,16 +11,16 @@ class ShapePage extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
 
     final shapes = [
-      ('None', M3Shape.none),
-      ('Extra Small', M3Shape.extraSmall),
-      ('Small', M3Shape.small),
-      ('Medium', M3Shape.medium),
-      ('Large', M3Shape.large),
-      ('Large Increased', M3Shape.largeIncreased),
-      ('Extra Large', M3Shape.extraLarge),
-      ('Extra Large Increased', M3Shape.extraLargeIncreased),
-      ('Extra Extra Large', M3Shape.extraExtraLarge),
-      ('Full (Stadium)', M3Shape.full),
+      ('None', M3ShapeToken.none.value),
+      ('Extra Small', M3ShapeToken.extraSmall.value),
+      ('Small', M3ShapeToken.small.value),
+      ('Medium', M3ShapeToken.medium.value),
+      ('Large', M3ShapeToken.large.value),
+      ('Large Increased', M3ShapeToken.largeIncreased.value),
+      ('Extra Large', M3ShapeToken.extraLarge.value),
+      ('Extra Large Increased', M3ShapeToken.extraLargeIncreased.value),
+      ('Extra Extra Large', M3ShapeToken.extraExtraLarge.value),
+      ('Full (Stadium)', M3ShapeToken.full.value),
     ];
 
     return Scaffold(
@@ -31,12 +31,12 @@ class ShapePage extends StatelessWidget {
         ),
       ),
       body: GridView.builder(
-        padding: const EdgeInsets.all(M3Margin.mediumScreen),
-        gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+        padding: EdgeInsets.all(M3MarginToken.mediumScreen.value),
+        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
           maxCrossAxisExtent: 200,
           childAspectRatio: 1.5,
-          mainAxisSpacing: M3Spacing.space16,
-          crossAxisSpacing: M3Spacing.space16,
+          mainAxisSpacing: M3SpacingToken.space16.value,
+          crossAxisSpacing: M3SpacingToken.space16.value,
         ),
         itemCount: shapes.length,
         itemBuilder: (context, index) {

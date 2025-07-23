@@ -20,7 +20,7 @@ class _UtilsPageState extends State<UtilsPage> {
         title: const Text('M3 Utilities Showcase'),
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(M3Spacing.space16),
+        padding: EdgeInsets.all(M3SpacingToken.space16.value),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -64,26 +64,26 @@ class _UtilsPageState extends State<UtilsPage> {
       children: [
         Text(
           'Responsive Display Text',
-          style: M3TypeScale.responsiveDisplay(context),
+          style: M3TypeScaleToken.responsiveDisplay(context),
         ),
-        const SizedBox(height: M3Spacing.space8),
+        SizedBox(height: M3SpacingToken.space8.value),
         Text(
           'This text has enhanced readability for better accessibility.',
-          style: M3TypeScale.enhancedReadability(textTheme.bodyLarge!),
+          style: M3TypeScaleToken.enhancedReadability(textTheme.bodyLarge!),
         ),
-        const SizedBox(height: M3Spacing.space16),
+        SizedBox(height: M3SpacingToken.space16.value),
         _buildHighContrastShowcase(textTheme),
-        const SizedBox(height: M3Spacing.space16),
+        SizedBox(height: M3SpacingToken.space16.value),
         Container(
           width: double.infinity,
-          padding: const EdgeInsets.all(M3Spacing.space12),
+          padding: EdgeInsets.all(M3SpacingToken.space12.value),
           decoration: ShapeDecoration(
             color: Theme.of(context).colorScheme.surfaceContainer,
-            shape: M3Shape.small,
+            shape: M3ShapeToken.small.value,
           ),
           child: Text(
             'function total(items) => items.reduce((a, b) => a + b.price, 0);',
-            style: M3TypeScale.monoVariant(textTheme.bodyMedium!),
+            style: M3TypeScaleToken.monoVariant(textTheme.bodyMedium!),
           ),
         ),
       ],
@@ -94,9 +94,9 @@ class _UtilsPageState extends State<UtilsPage> {
     return Row(
       children: [
         Expanded(child: _buildSurfaceCard('Surface', 0)),
-        const SizedBox(width: M3Spacing.space8),
+        SizedBox(width: M3SpacingToken.space8.value),
         Expanded(child: _buildSurfaceCard('Surface+1', 1)),
-        const SizedBox(width: M3Spacing.space8),
+        SizedBox(width: M3SpacingToken.space8.value),
         Expanded(child: _buildSurfaceCard('Surface+3', 3)),
       ],
     );
@@ -117,13 +117,13 @@ class _UtilsPageState extends State<UtilsPage> {
           label: '${_elevation.round()}dp',
           onChanged: (value) => setState(() => _elevation = value),
         ),
-        const SizedBox(height: M3Spacing.space8),
+        SizedBox(height: M3SpacingToken.space8.value),
         AnimatedContainer(
-          duration: M3MotionDuration.medium2,
-          curve: M3MotionEasing.standard,
+          duration: M3MotionDurationToken.medium2.value,
+          curve: M3MotionEasingToken.standard.value,
           decoration: ShapeDecoration(
             color: M3TonalColor.surfaceAt(context, _elevation),
-            shape: M3Shape.large,
+            shape: M3ShapeToken.large.value,
             shadows: M3Shadow.fromElevation(_elevation),
           ),
           child: ListTile(
@@ -137,8 +137,8 @@ class _UtilsPageState extends State<UtilsPage> {
   }
 
   Widget _buildMotionPatternsShowcase() {
-    const animationDuration = M3MotionDuration.long1;
-    final animationCurve = M3MotionEasing.emphasizedDecelerate;
+    const animationDuration = M3MotionDurationToken.long1;
+    final animationCurve = M3MotionEasingToken.emphasizedDecelerate;
     return Column(
       children: [
         ElevatedButton.icon(
@@ -146,33 +146,33 @@ class _UtilsPageState extends State<UtilsPage> {
           icon: Icon(_runAnimations ? Icons.visibility_off : Icons.visibility),
           label: Text(_runAnimations ? 'Hide' : 'Animate'),
         ),
-        const SizedBox(height: M3Spacing.space16),
+        SizedBox(height: M3SpacingToken.space16.value),
         AnimatedOpacity(
           opacity: _runAnimations ? 1.0 : 0.0,
-          duration: animationDuration,
-          curve: animationCurve,
+          duration: animationDuration.value,
+          curve: animationCurve.value,
           child: _buildMotionCard('Fade In', Icons.opacity),
         ),
-        const SizedBox(height: M3Spacing.space8),
+        SizedBox(height: M3SpacingToken.space8.value),
         AnimatedSlide(
           offset: _runAnimations ? Offset.zero : const Offset(0, 0.5),
-          duration: animationDuration,
-          curve: animationCurve,
+          duration: animationDuration.value,
+          curve: animationCurve.value,
           child: AnimatedOpacity(
             opacity: _runAnimations ? 1.0 : 0.0,
-            duration: animationDuration,
+            duration: animationDuration.value,
             curve: Curves.easeIn,
             child: _buildMotionCard('Slide Up', Icons.arrow_upward_rounded),
           ),
         ),
-        const SizedBox(height: M3Spacing.space8),
+        SizedBox(height: M3SpacingToken.space8.value),
         AnimatedScale(
           scale: _runAnimations ? 1.0 : 0.8,
-          duration: animationDuration,
-          curve: animationCurve,
+          duration: animationDuration.value,
+          curve: animationCurve.value,
           child: AnimatedOpacity(
             opacity: _runAnimations ? 1.0 : 0.0,
-            duration: M3MotionDuration.medium2,
+            duration: M3MotionDurationToken.medium2.value,
             curve: Curves.easeIn,
             child: _buildMotionCard('Scale In', Icons.zoom_in_rounded),
           ),
@@ -183,20 +183,26 @@ class _UtilsPageState extends State<UtilsPage> {
 
   Widget _buildShapeShowcase() {
     return Wrap(
-      spacing: M3Spacing.space8,
-      runSpacing: M3Spacing.space8,
+      spacing: M3SpacingToken.space8.value,
+      runSpacing: M3SpacingToken.space8.value,
       alignment: WrapAlignment.center,
       children: [
         // TODO(kevin): enhance this feature
         _buildShapeExample('None', M3ShapeUtils.squared()),
-        _buildShapeExample('XS', M3ShapeUtils.rounded(M3Radius.extraSmall.x)),
-        _buildShapeExample('Small', M3ShapeUtils.rounded(M3Radius.small.x)),
-        _buildShapeExample('Medium', M3ShapeUtils.rounded(M3Radius.medium.x)),
-        _buildShapeExample('Large', M3ShapeUtils.rounded(M3Radius.large.x)),
-        _buildShapeExample('XL', M3ShapeUtils.rounded(M3Radius.extraLarge.x)),
-        _buildShapeExample('Top', M3ShapeUtils.topRounded(M3Radius.large.x)),
         _buildShapeExample(
-            'Bottom', M3ShapeUtils.bottomRounded(M3Radius.large.x)),
+            'XS', M3ShapeUtils.rounded(M3RadiusToken.extraSmall.value.x)),
+        _buildShapeExample(
+            'Small', M3ShapeUtils.rounded(M3RadiusToken.small.value.x)),
+        _buildShapeExample(
+            'Medium', M3ShapeUtils.rounded(M3RadiusToken.medium.value.x)),
+        _buildShapeExample(
+            'Large', M3ShapeUtils.rounded(M3RadiusToken.large.value.x)),
+        _buildShapeExample(
+            'XL', M3ShapeUtils.rounded(M3RadiusToken.extraLarge.value.x)),
+        _buildShapeExample(
+            'Top', M3ShapeUtils.topRounded(M3RadiusToken.large.value.x)),
+        _buildShapeExample(
+            'Bottom', M3ShapeUtils.bottomRounded(M3RadiusToken.large.value.x)),
       ],
     );
   }
@@ -213,7 +219,7 @@ class _UtilsPageState extends State<UtilsPage> {
         ),
         Text(
           'High Contrast',
-          style: M3TypeScale.highContrast(textTheme.titleMedium!),
+          style: M3TypeScaleToken.highContrast(textTheme.titleMedium!),
         ),
       ],
     );
@@ -225,9 +231,9 @@ class _UtilsPageState extends State<UtilsPage> {
     required Widget content,
   }) {
     return Card(
-      margin: const EdgeInsets.only(bottom: M3Spacing.space16),
+      margin: EdgeInsets.only(bottom: M3SpacingToken.space16.value),
       child: Padding(
-        padding: const EdgeInsets.all(M3Spacing.space16),
+        padding: EdgeInsets.all(M3SpacingToken.space16.value),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -237,14 +243,14 @@ class _UtilsPageState extends State<UtilsPage> {
                   icon,
                   color: Theme.of(context).colorScheme.primary,
                 ),
-                const SizedBox(width: M3Spacing.space12),
+                SizedBox(width: M3SpacingToken.space12.value),
                 Text(
                   title,
                   style: Theme.of(context).textTheme.headlineSmall,
                 ),
               ],
             ),
-            const SizedBox(height: M3Spacing.space16),
+            SizedBox(height: M3SpacingToken.space16.value),
             content,
           ],
         ),
@@ -257,7 +263,7 @@ class _UtilsPageState extends State<UtilsPage> {
       height: 80,
       decoration: BoxDecoration(
         color: M3TonalColor.surfaceAt(context, elevation),
-        borderRadius: M3BorderRadius.medium,
+        borderRadius: M3ShapeToken.medium.value.borderRadius,
         border: elevation == 0
             ? Border.all(color: Theme.of(context).colorScheme.outlineVariant)
             : null,
@@ -274,18 +280,18 @@ class _UtilsPageState extends State<UtilsPage> {
   Widget _buildMotionCard(String label, IconData icon) {
     final colorScheme = Theme.of(context).colorScheme;
     return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: M3Spacing.space16,
-        vertical: M3Spacing.space12,
+      padding: EdgeInsets.symmetric(
+        horizontal: M3SpacingToken.space16.value,
+        vertical: M3SpacingToken.space12.value,
       ),
       decoration: ShapeDecoration(
         color: colorScheme.secondaryContainer,
-        shape: M3Shape.medium,
+        shape: M3ShapeToken.medium.value,
       ),
       child: Row(
         children: [
           Icon(icon, color: colorScheme.onSecondaryContainer),
-          const SizedBox(width: M3Spacing.space12),
+          SizedBox(width: M3SpacingToken.space12.value),
           Text(
             label,
             style: Theme.of(context)

@@ -9,7 +9,7 @@ class IconSizeTokensPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text('Icon Sizes')),
       body: ListView(
-        padding: const EdgeInsets.all(M3Spacing.space16),
+        padding: EdgeInsets.all(M3SpacingToken.space16.value),
         children: [
           _buildIconSizeSection(context),
         ],
@@ -21,21 +21,21 @@ class IconSizeTokensPage extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
 
     final iconSizes = [
-      ('dense', M3IconSize.dense),
-      ('standard', M3IconSize.standard),
-      ('medium', M3IconSize.medium),
-      ('large', M3IconSize.large),
-      ('extraLarge', M3IconSize.extraLarge),
+      ('dense', M3IconSizeToken.dense.value),
+      ('standard', M3IconSizeToken.standard.value),
+      ('medium', M3IconSizeToken.medium.value),
+      ('large', M3IconSizeToken.large.value),
+      ('extraLarge', M3IconSizeToken.extraLarge.value),
     ];
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text('M3IconSize Tokens', style: textTheme.titleLarge),
-        const SizedBox(height: M3Spacing.space16),
+        SizedBox(height: M3SpacingToken.space16.value),
         Wrap(
-          spacing: M3Spacing.space16,
-          runSpacing: M3Spacing.space16,
+          spacing: M3SpacingToken.space16.value,
+          runSpacing: M3SpacingToken.space16.value,
           crossAxisAlignment: WrapCrossAlignment.center,
           children: iconSizes.map((iconSize) {
             final (label, value) = iconSize;
@@ -43,7 +43,7 @@ class IconSizeTokensPage extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Icon(Icons.directions_boat_filled, size: value),
-                const SizedBox(width: M3Spacing.space8),
+                SizedBox(width: M3SpacingToken.space8.value),
                 Text('$label (${value.toInt()}dp)'),
               ],
             );

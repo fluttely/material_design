@@ -9,19 +9,27 @@ class BreakpointTokensPage extends StatelessWidget {
   static const _breakpoints = [
     (
       label: 'Compact',
-      min: M3Breakpoint.compact,
+      min: M3BreakpointToken.compact,
       icon: Icons.phone_iphone_rounded
     ),
-    (label: 'Medium', min: M3Breakpoint.medium, icon: Icons.tablet_mac_rounded),
+    (
+      label: 'Medium',
+      min: M3BreakpointToken.medium,
+      icon: Icons.tablet_mac_rounded
+    ),
     (
       label: 'Expanded',
-      min: M3Breakpoint.expanded,
+      min: M3BreakpointToken.expanded,
       icon: Icons.laptop_mac_rounded
     ),
-    (label: 'Large', min: M3Breakpoint.large, icon: Icons.desktop_mac_rounded),
+    (
+      label: 'Large',
+      min: M3BreakpointToken.large,
+      icon: Icons.desktop_mac_rounded
+    ),
     (
       label: 'Extra Large',
-      min: M3Breakpoint.extraLarge,
+      min: M3BreakpointToken.extraLarge,
       icon: Icons.tv_rounded
     ),
   ];
@@ -35,11 +43,11 @@ class BreakpointTokensPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text('Responsive Breakpoints')),
       body: ListView(
-        padding: const EdgeInsets.all(M3Spacing.space16),
+        padding: EdgeInsets.all(M3SpacingToken.space16.value),
         children: [
           Card(
             child: Padding(
-              padding: const EdgeInsets.all(M3Spacing.space16),
+              padding: EdgeInsets.all(M3SpacingToken.space16.value),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -47,19 +55,19 @@ class BreakpointTokensPage extends StatelessWidget {
                     'Live Breakpoint Demo',
                     style: textTheme.headlineSmall,
                   ),
-                  const SizedBox(height: M3Spacing.space8),
+                  SizedBox(height: M3SpacingToken.space8.value),
                   Text(
                     'Your current screen width is ${currentWidth.toInt()}dp. The active breakpoint is highlighted below.',
                     style: textTheme.bodyMedium,
                   ),
-                  const SizedBox(height: M3Spacing.space40),
+                  SizedBox(height: M3SpacingToken.space40.value),
                   _BreakpointVisualizer(
                     breakpoints: _breakpoints,
                     currentWidth: currentWidth,
                   ),
-                  const SizedBox(height: M3Spacing.space16),
+                  SizedBox(height: M3SpacingToken.space16.value),
                   const Divider(),
-                  const SizedBox(height: M3Spacing.space16),
+                  SizedBox(height: M3SpacingToken.space16.value),
                   // Generate the list of breakpoints from the single source of truth.
                   ..._buildBreakpointList(context, currentWidth),
                 ],
@@ -77,16 +85,16 @@ class BreakpointTokensPage extends StatelessWidget {
       final current = _breakpoints[index];
       // Determine the max width by looking at the start of the next breakpoint.
       final double max = (index < _breakpoints.length - 1)
-          ? _breakpoints[index + 1].min - 1
+          ? _breakpoints[index + 1].min.value - 1
           : double.infinity;
       // Check if the current screen width falls into this breakpoint's range.
-      final bool isActive = currentWidth >= current.min &&
+      final bool isActive = currentWidth >= current.min.value &&
           (max == double.infinity || currentWidth <= max);
 
       return _BreakpointInfoRow(
         label: current.label,
         icon: current.icon,
-        min: current.min,
+        min: current.min.value,
         max: max,
         isActive: isActive,
       );
@@ -119,7 +127,7 @@ class _BreakpointInfoRow extends StatelessWidget {
         : '${min.toInt()}dp - ${max.toInt()}dp';
 
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: M3Spacing.space8),
+      padding: EdgeInsets.symmetric(vertical: M3SpacingToken.space8.value),
       child: Row(
         children: [
           Icon(
@@ -128,7 +136,7 @@ class _BreakpointInfoRow extends StatelessWidget {
                 ? colorScheme.primary
                 : colorScheme.surfaceContainerHighest,
           ),
-          const SizedBox(width: M3Spacing.space16),
+          SizedBox(width: M3SpacingToken.space16.value),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -162,7 +170,8 @@ class _BreakpointVisualizer extends StatelessWidget {
     required this.currentWidth,
   });
 
-  final List<({String label, IconData icon, double min})> breakpoints;
+  final List<({String label, IconData icon, M3BreakpointToken min})>
+      breakpoints;
   final double currentWidth;
 
   @override
@@ -184,17 +193,17 @@ class _BreakpointVisualizer extends StatelessWidget {
             // The main bar showing breakpoint ranges.
             Container(
               height: 32,
-              decoration: ShapeDecoration(shape: M3Shape.full),
+              decoration: ShapeDecoration(shape: M3ShapeToken.full.value),
               clipBehavior: Clip.antiAlias,
               child: Row(
                 children: List.generate(breakpoints.length, (index) {
                   final current = breakpoints[index];
                   final nextMin = (index < breakpoints.length - 1)
-                      ? breakpoints[index + 1].min
+                      ? breakpoints[index + 1].min.value
                       : visualizationMaxWidth;
-                  final rangeWidth = nextMin - current.min;
-                  final bool isActive =
-                      currentWidth >= current.min && currentWidth < nextMin;
+                  final rangeWidth = nextMin - current.min.value;
+                  final bool isActive = currentWidth >= current.min.value &&
+                      currentWidth < nextMin;
 
                   return Expanded(
                     flex: rangeWidth.round(),

@@ -2,14 +2,14 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design/material_design.dart'; // Assuming this is your local package
 
-class DensityPage extends StatefulWidget {
-  const DensityPage({super.key});
+class VisualDensityPage extends StatefulWidget {
+  const VisualDensityPage({super.key});
 
   @override
-  State<DensityPage> createState() => _DensityPageState();
+  State<VisualDensityPage> createState() => _VisualDensityPageState();
 }
 
-class _DensityPageState extends State<DensityPage> {
+class _VisualDensityPageState extends State<VisualDensityPage> {
   // The initial state now uses a value from our constants list.
   VisualDensity _selectedDensity = VisualDensity.adaptivePlatformDensity;
 
@@ -68,9 +68,9 @@ class _DensityPageState extends State<DensityPage> {
   /// Builds an informative card about adaptive density.
   Widget _buildPlatformInfo() {
     return Card(
-      margin: const EdgeInsets.symmetric(
-        vertical: M3Spacing.space8,
-        horizontal: M3Spacing.space16,
+      margin: EdgeInsets.symmetric(
+        vertical: M3SpacingToken.space8.value,
+        horizontal: M3SpacingToken.space16.value,
       ),
       child: ListTile(
         leading: const Icon(Icons.info_outline),
@@ -85,7 +85,7 @@ class _DensityPageState extends State<DensityPage> {
   /// Builds the density selector with segmented buttons.
   Widget _buildDensitySelector() {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: M3Spacing.space8),
+      padding: EdgeInsets.symmetric(vertical: M3SpacingToken.space8.value),
       child: SegmentedButton<VisualDensity>(
         segments: _densityOptions
             .map(
@@ -126,15 +126,15 @@ class _DensityPageState extends State<DensityPage> {
   /// Builds the example list to visualize the density.
   Widget _buildDemoList() {
     return ListView.builder(
-      padding: const EdgeInsets.symmetric(
-        horizontal: M3Spacing.space16,
-        vertical: M3Spacing.space16,
+      padding: EdgeInsets.symmetric(
+        horizontal: M3SpacingToken.space16.value,
+        vertical: M3SpacingToken.space16.value,
       ),
       itemCount: 6,
       itemBuilder: (context, index) {
         return Card(
           child: Padding(
-            padding: const EdgeInsets.all(M3Spacing.space16),
+            padding: EdgeInsets.all(M3SpacingToken.space16.value),
             child: Column(
               children: [
                 ListTile(
@@ -143,12 +143,12 @@ class _DensityPageState extends State<DensityPage> {
                   subtitle: const Text('Item subtitle'),
                   trailing: Switch(value: index.isEven, onChanged: (_) {}),
                 ),
-                const SizedBox(height: M3Spacing.space8),
+                SizedBox(height: M3SpacingToken.space8.value),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     TextButton(onPressed: () {}, child: const Text('Action 1')),
-                    const SizedBox(width: M3Spacing.space8),
+                    SizedBox(width: M3SpacingToken.space8.value),
                     ElevatedButton(
                         onPressed: () {}, child: const Text('Action 2')),
                   ],

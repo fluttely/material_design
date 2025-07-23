@@ -18,7 +18,7 @@ abstract class M3Adaptive {
     Widget? large,
     Widget? extraLarge,
   }) {
-    final sizeClass = M3Breakpoint.getWindowSizeClassFromContext(context);
+    final sizeClass = M3BreakpointToken.getWindowSizeClassFromContext(context);
 
     switch (sizeClass) {
       case WindowSizeClass.compact:
@@ -43,7 +43,7 @@ abstract class M3Adaptive {
     T? large,
     T? extraLarge,
   }) {
-    final sizeClass = M3Breakpoint.getWindowSizeClassFromContext(context);
+    final sizeClass = M3BreakpointToken.getWindowSizeClassFromContext(context);
 
     switch (sizeClass) {
       case WindowSizeClass.compact:
@@ -64,11 +64,11 @@ abstract class M3Adaptive {
     return EdgeInsets.all(
       responsiveValue<double>(
         context: context,
-        compact: M3Margin.compactScreen,
-        medium: M3Margin.mediumScreen,
-        expanded: M3Margin.expandedScreen,
-        large: M3Margin.largeScreen,
-        extraLarge: M3Margin.extraLargeScreen,
+        compact: M3MarginToken.compactScreen.value,
+        medium: M3MarginToken.mediumScreen.value,
+        expanded: M3MarginToken.expandedScreen.value,
+        large: M3MarginToken.largeScreen.value,
+        extraLarge: M3MarginToken.extraLargeScreen.value,
       ),
     );
   }
@@ -78,11 +78,11 @@ abstract class M3Adaptive {
     return EdgeInsets.symmetric(
       horizontal: responsiveValue<double>(
         context: context,
-        compact: M3Margin.compactScreen,
-        medium: M3Margin.mediumScreen,
-        expanded: M3Margin.expandedScreen,
-        large: M3Margin.largeScreen,
-        extraLarge: M3Margin.extraLargeScreen,
+        compact: M3MarginToken.compactScreen.value,
+        medium: M3MarginToken.mediumScreen.value,
+        expanded: M3MarginToken.expandedScreen.value,
+        large: M3MarginToken.largeScreen.value,
+        extraLarge: M3MarginToken.extraLargeScreen.value,
       ),
     );
   }
@@ -98,7 +98,7 @@ abstract class M3Adaptive {
     Widget? leading,
     Widget? trailing,
   }) {
-    final sizeClass = M3Breakpoint.getWindowSizeClassFromContext(context);
+    final sizeClass = M3BreakpointToken.getWindowSizeClassFromContext(context);
 
     switch (sizeClass) {
       case WindowSizeClass.compact:
@@ -152,7 +152,7 @@ abstract class M3Adaptive {
     Widget? leading,
     bool automaticallyImplyLeading = true,
   }) {
-    final isCompact = M3Breakpoint.isCompact(context);
+    final isCompact = M3BreakpointToken.isCompact(context);
 
     return AppBar(
       title: Text(title),
@@ -160,7 +160,8 @@ abstract class M3Adaptive {
       actions: actions,
       leading: leading,
       automaticallyImplyLeading: automaticallyImplyLeading,
-      elevation: isCompact ? M3Elevation.level0.dp : M3Elevation.level1.dp,
+      elevation:
+          isCompact ? M3ElevationToken.level0.dp : M3ElevationToken.level1.dp,
     );
   }
 
@@ -174,7 +175,7 @@ abstract class M3Adaptive {
     List<Widget>? actions,
     bool barrierDismissible = true,
   }) {
-    final isCompact = M3Breakpoint.isCompact(context);
+    final isCompact = M3BreakpointToken.isCompact(context);
 
     if (isCompact) {
       // Full-screen dialog for compact screens
@@ -218,14 +219,14 @@ abstract class M3Adaptive {
     String? title,
     bool isDismissible = true,
   }) {
-    final isCompact = M3Breakpoint.isCompact(context);
+    final isCompact = M3BreakpointToken.isCompact(context);
 
     if (isCompact) {
       return showModalBottomSheet<T>(
         context: context,
         isDismissible: isDismissible,
         isScrollControlled: true,
-        shape: M3Shape.large,
+        shape: M3ShapeToken.large.value,
         builder: (context) => DraggableScrollableSheet(
           initialChildSize: 0.6,
           minChildSize: 0.3,
@@ -235,7 +236,7 @@ abstract class M3Adaptive {
               children: [
                 if (title != null) ...[
                   Padding(
-                    padding: const EdgeInsets.all(M3Spacing.space16),
+                    padding: EdgeInsets.all(M3SpacingToken.space16.value),
                     child: Text(
                       title,
                       style: Theme.of(context).textTheme.headlineSmall,
@@ -264,20 +265,20 @@ abstract class M3Adaptive {
           return Align(
             alignment: Alignment.centerRight,
             child: Material(
-              elevation: M3ComponentElevation.dialog.dp,
+              elevation: M3ComponentElevationToken.dialog.dp,
               child: Container(
                 width: 320,
                 height: double.infinity,
                 decoration: ShapeDecoration(
                   color: Theme.of(context).colorScheme.surface,
-                  shape: M3Shape.large,
+                  shape: M3ShapeToken.large.value,
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     if (title != null) ...[
                       Padding(
-                        padding: const EdgeInsets.all(M3Spacing.space16),
+                        padding: EdgeInsets.all(M3SpacingToken.space16.value),
                         child: Row(
                           children: [
                             Expanded(
@@ -315,12 +316,12 @@ abstract class M3Adaptive {
               end: Offset.zero,
             ).animate(CurvedAnimation(
               parent: animation,
-              curve: M3MotionEasing.emphasizedDecelerate,
+              curve: M3MotionEasingToken.emphasizedDecelerate.value,
             )),
             child: child,
           );
         },
-        transitionDuration: M3MotionDuration.long1,
+        transitionDuration: M3MotionDurationToken.long1.value,
       );
     }
   }
@@ -331,8 +332,8 @@ abstract class M3Adaptive {
   static Widget adaptiveGrid({
     required BuildContext context,
     required List<Widget> children,
-    double spacing = M3Spacing.space16,
-    double runSpacing = M3Spacing.space16,
+    double spacing = 16,
+    double runSpacing = 16,
     double? childAspectRatio,
   }) {
     final columns = responsiveValue<int>(
@@ -364,8 +365,8 @@ abstract class M3Adaptive {
     EdgeInsetsGeometry? margin,
     Decoration? decoration,
   }) {
-    final maxWidth = M3Breakpoint.getMaxContentWidth(
-      M3Breakpoint.getWindowSizeClassFromContext(context),
+    final maxWidth = M3BreakpointToken.getMaxContentWidth(
+      M3BreakpointToken.getWindowSizeClassFromContext(context),
     );
 
     return Container(
@@ -405,7 +406,7 @@ abstract class M3Adaptive {
     bool isExtended = false,
     String? label,
   }) {
-    final isCompact = M3Breakpoint.isCompact(context);
+    final isCompact = M3BreakpointToken.isCompact(context);
 
     if (isExtended && !isCompact) {
       return FloatingActionButton.extended(
@@ -506,7 +507,7 @@ class M3AdaptiveScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final sizeClass = M3Breakpoint.getWindowSizeClassFromContext(context);
+    final sizeClass = M3BreakpointToken.getWindowSizeClassFromContext(context);
 
     // For compact screens, use standard scaffold with bottom navigation
     if (sizeClass == WindowSizeClass.compact) {

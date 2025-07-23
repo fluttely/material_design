@@ -3,64 +3,175 @@ import 'package:flutter/material.dart';
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-/// Defines the canonical Material Design 3 breakpoints, known as "window size classes".
+/// Material Design 3 breakpoint tokens for responsive window size classes.
 ///
-/// These values are not arbitrary; they are based on extensive research by Google
+/// This enum defines the canonical Material Design 3 breakpoints, known as
+/// "window size classes". These values are based on extensive research by Google
 /// on the most common screen sizes across the device ecosystem. They function
-/// as lower bounds that categorize the available UI space, allowing layouts
-/// to adapt consistently and ergonomically.
+/// as lower bounds that categorize available UI space, enabling layouts to
+/// adapt consistently and ergonomically across different devices.
 ///
-/// The goal is to ensure the application provides the best possible user experience,
-/// whether on a small phone or an ultra-wide monitor.
+/// The breakpoint system ensures applications provide optimal user experience
+/// from small phones to ultra-wide monitors, with each breakpoint representing
+/// a significant shift in available space and interaction patterns.
 ///
-/// See the official documentation: https://m3.material.io/foundations/layout/applying-layout/window-size-classes
-@immutable
-abstract class M3Breakpoint {
-  /// **Compact** (0dp to 599dp): The smallest breakpoint, representing the design baseline.
+/// ## Usage
+/// 
+/// ```dart
+/// // Get medium breakpoint value
+/// double breakpoint = M3BreakpointToken.medium.value; // 600.0
+/// 
+/// // Use in responsive layouts
+/// Widget buildResponsiveLayout(BuildContext context) {
+///   final width = MediaQuery.of(context).size.width;
+///   
+///   if (width >= M3BreakpointToken.large.value) {
+///     return DesktopLayout();
+///   } else if (width >= M3BreakpointToken.medium.value) {
+///     return TabletLayout();
+///   } else {
+///     return MobileLayout();
+///   }
+/// }
+/// 
+/// // Use utility methods
+/// final sizeClass = M3BreakpointToken.getWindowSizeClass(screenWidth);
+/// final isCompact = M3BreakpointToken.isCompact(context);
+/// ```
+///
+/// ## Breakpoint Guidelines
+/// 
+/// - **Compact (0-599dp)**: Phones in portrait - single column layouts
+/// - **Medium (600-839dp)**: Phones in landscape, small tablets - dual pane capable
+/// - **Expanded (840-1199dp)**: Large tablets, foldables - complex multi-pane layouts
+/// - **Large (1200-1599dp)**: Desktop screens - rich information architecture
+/// - **Extra Large (1600dp+)**: Large monitors - expansive multi-column layouts
+///
+/// Reference: https://m3.material.io/foundations/layout/applying-layout/window-size-classes
+enum M3BreakpointToken {
+  /// Compact breakpoint (0dp to 599dp).
   ///
-  /// **Typical Device**: Phones in portrait mode 📱.
-  /// **Common Use Case**: Interfaces focused on a single column, using a bottom navigation bar or a drawer.
-  static const double compact = 0;
+  /// The smallest breakpoint representing the design baseline for constrained
+  /// interfaces. This breakpoint optimizes for single-column layouts and
+  /// touch-first interaction patterns.
+  ///
+  /// **Typical devices**: Phones in portrait mode 📱
+  /// 
+  /// **Design characteristics**:
+  /// - Single-column content layout
+  /// - Bottom navigation or navigation drawer
+  /// - Touch-optimized component sizing
+  /// - Minimal whitespace for content density
+  /// - Stacked interface elements
+  ///
+  /// **Common use cases**:
+  /// - Mobile-first responsive designs
+  /// - Single-focus task interfaces
+  /// - Touch-optimized interactions
+  /// - Content-dense layouts
+  compact(0),
 
-  /// **Medium** (600dp to 839dp): The first adaptation point for larger screens.
+  /// Medium breakpoint (600dp to 839dp).
   ///
-  /// **Typical Device**: Phones in landscape mode and small tablets (like iPad Minis) ↔️.
-  /// **Common Use Case**: Allows for introducing secondary panes, such as side-by-side list/detail views,
-  /// or using navigation rails instead of bottom navigation bars.
-  static const double medium = 600;
+  /// The first adaptation point for larger screens, enabling enhanced layouts
+  /// with secondary content areas and improved navigation patterns.
+  ///
+  /// **Typical devices**: Phones in landscape, small tablets (iPad Mini) ↔️
+  /// 
+  /// **Design characteristics**:
+  /// - Dual-pane layouts possible
+  /// - Navigation rails over bottom navigation
+  /// - Side-by-side content arrangements
+  /// - Enhanced component spacing
+  /// - Improved information density
+  ///
+  /// **Common use cases**:
+  /// - Master-detail interfaces
+  /// - Side-by-side list/detail views
+  /// - Enhanced navigation patterns
+  /// - Improved content browsing
+  medium(600),
 
-  /// **Expanded** (840dp to 1199dp): The breakpoint for screens that offer more horizontal space.
+  /// Expanded breakpoint (840dp to 1199dp).
   ///
-  /// **Typical Device**: Larger tablets in landscape mode (like iPad Pros) and foldable notebooks 💻.
-  /// **Common Use Case**: Ideal for more complex layouts with multiple panes, or for displaying
-  /// content that benefits from more space, such as dashboards and editing tools.
-  static const double expanded = 840;
+  /// Designed for screens with substantial horizontal space, enabling complex
+  /// multi-pane layouts and advanced interface patterns.
+  ///
+  /// **Typical devices**: Large tablets in landscape (iPad Pro), foldables 💻
+  /// 
+  /// **Design characteristics**:
+  /// - Multi-pane layout capabilities
+  /// - Complex navigation structures
+  /// - Rich content presentation
+  /// - Advanced interaction patterns
+  /// - Substantial whitespace utilization
+  ///
+  /// **Common use cases**:
+  /// - Dashboard interfaces
+  /// - Content editing tools
+  /// - Multi-column layouts
+  /// - Complex data visualization
+  expanded(840),
 
-  /// **Large** (1200dp to 1599dp): Optimized for the desktop experience.
+  /// Large breakpoint (1200dp to 1599dp).
   ///
-  /// **Typical Device**: Standard notebook and desktop screens 🖥️.
-  /// **Common Use Case**: Layouts that can display fixed panels (like a persistently visible navigation drawer)
-  /// without compromising the main content area. The space allows for information-rich interfaces.
-  static const double large = 1200;
+  /// Optimized for desktop experiences with persistent UI elements and
+  /// information-rich interfaces that maximize available screen space.
+  ///
+  /// **Typical devices**: Desktop monitors, laptops 🖥️
+  /// 
+  /// **Design characteristics**:
+  /// - Persistent navigation panels
+  /// - Fixed sidebar layouts
+  /// - Rich information architecture
+  /// - Desktop interaction patterns
+  /// - Multiple simultaneous content areas
+  ///
+  /// **Common use cases**:
+  /// - Desktop applications
+  /// - Professional tools and dashboards
+  /// - Content management systems
+  /// - Multi-tasking interfaces
+  large(1200),
 
-  /// **Extra-large** (1600dp and up): For the largest available screen sizes.
+  /// Extra large breakpoint (1600dp and above).
   ///
-  /// **Typical Device**: Large and ultra-wide monitors 🖥️✨.
-  /// **Common Use Case**: Allows for fully expansive layouts with multiple content columns,
-  /// visible auxiliary tools, and maximum use of horizontal space.
-  static const double extraLarge = 1600;
+  /// For the largest screens, enabling fully expansive layouts with maximum
+  /// horizontal space utilization and advanced multi-column arrangements.
+  ///
+  /// **Typical devices**: Large monitors, ultra-wide displays 🖥️✨
+  /// 
+  /// **Design characteristics**:
+  /// - Expansive multi-column layouts
+  /// - Maximum information density
+  /// - Advanced spatial organization
+  /// - Ultra-wide optimizations
+  /// - Specialized large-screen patterns
+  ///
+  /// **Common use cases**:
+  /// - Professional workspaces
+  /// - Multi-monitor setups
+  /// - Data-intensive applications
+  /// - Creative and design tools
+  extraLarge(1600);
+
+  /// Creates a breakpoint token with the specified value.
+  const M3BreakpointToken(this.value);
+
+  /// The breakpoint value in density-independent pixels (dp).
+  final double value;
 
   // --- Utility Methods ---
 
   /// Gets the current window size class based on screen width.
   static WindowSizeClass getWindowSizeClass(double width) {
-    if (width < medium) {
+    if (width < M3BreakpointToken.medium.value) {
       return WindowSizeClass.compact;
-    } else if (width < expanded) {
+    } else if (width < M3BreakpointToken.expanded.value) {
       return WindowSizeClass.medium;
-    } else if (width < large) {
+    } else if (width < M3BreakpointToken.large.value) {
       return WindowSizeClass.expanded;
-    } else if (width < extraLarge) {
+    } else if (width < M3BreakpointToken.extraLarge.value) {
       return WindowSizeClass.large;
     } else {
       return WindowSizeClass.extraLarge;
@@ -104,11 +215,11 @@ abstract class M3Breakpoint {
       case WindowSizeClass.compact:
         return double.infinity; // Use full width
       case WindowSizeClass.medium:
-        return expanded;
+        return M3BreakpointToken.expanded.value;
       case WindowSizeClass.expanded:
-        return large;
+        return M3BreakpointToken.large.value;
       case WindowSizeClass.large:
-        return extraLarge;
+        return M3BreakpointToken.extraLarge.value;
       case WindowSizeClass.extraLarge:
         return 1920; // Reasonable max for readability
     }

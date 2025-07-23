@@ -36,3 +36,6 @@ build/
 utils.js
 documentation/
 lib/src/md
+lib/src/ds
+lib/src/mt
+lib/src/m3/trash

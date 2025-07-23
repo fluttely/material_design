@@ -4,6 +4,32 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.7.0
+
+### BREAKING CHANGES
+
+- **Tokens:** The Material 3 token system has been completely refactored for better organization and clarity.
+  - System tokens are now organized under `lib/src/m3/tokens/sys/`. This includes `Color`, `Elevation`, `Motion`, `Shape`, `Spacing`, and `Typography`.
+  - Many token files have been moved, renamed, or consolidated. Please refer to the updated documentation for the new token structure.
+  - The `M3Theme` class has been removed as part of this refactoring.
+
+### Features
+
+- **Components:** Added a new Material 3 Button component (`M3CompButton`).
+- **Tokens:** Introduced new system tokens for `Elevation`, `Motion`, `Shape`, `Spacing`, and `StateLayerOpacity`.
+
+### Refactor
+
+- Refactored the entire token system to align more closely with the official Material Design 3 specifications.
+- Renamed and moved several internal utilities and classes to a new `mt` (Material Toolkit) namespace for better internal structure.
+- Updated the example application to reflect all the latest changes and new APIs.
+- Renamed the "Density" showcase page to "Visual Density" for clarity.
+
+### Chores
+
+- Updated `.gitignore` to exclude new generated files.
+- Updated `README.md` with the latest information.
+
 ## 0.6.2
 
 ### Major Refactoring: Token System Overhaul

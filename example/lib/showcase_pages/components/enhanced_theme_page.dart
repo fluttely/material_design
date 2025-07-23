@@ -13,7 +13,7 @@ class EnhancedThemePage extends StatelessWidget {
         automaticallyImplyLeading: false,
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(M3Spacing.space16),
+        padding: EdgeInsets.all(M3SpacingToken.space16.value),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -21,7 +21,7 @@ class EnhancedThemePage extends StatelessWidget {
               'M3Theme Showcase',
               style: Theme.of(context).textTheme.headlineLarge,
             ),
-            const SizedBox(height: M3Spacing.space16),
+            SizedBox(height: M3SpacingToken.space16.value),
 
             // Display styles
             _buildSection(
@@ -64,7 +64,7 @@ class EnhancedThemePage extends StatelessWidget {
               ),
             ),
 
-            const SizedBox(height: M3Spacer.pane),
+            SizedBox(height: M3SpacerToken.pane.value),
 
             // // Cards with different elevations
             // _buildSection(
@@ -117,7 +117,7 @@ class EnhancedThemePage extends StatelessWidget {
             //   ),
             // ),
 
-            const SizedBox(height: M3Spacer.pane),
+            SizedBox(height: M3SpacerToken.pane.value),
 
             // Color roles showcase
             _buildSection(
@@ -130,13 +130,13 @@ class EnhancedThemePage extends StatelessWidget {
                     Theme.of(context).colorScheme.primaryContainer,
                     Theme.of(context).colorScheme.onPrimaryContainer,
                   ),
-                  const SizedBox(height: M3Spacing.space8),
+                  SizedBox(height: M3SpacingToken.space8.value),
                   _buildColorRoleCard(
                     'Secondary Container',
                     Theme.of(context).colorScheme.secondaryContainer,
                     Theme.of(context).colorScheme.onSecondaryContainer,
                   ),
-                  const SizedBox(height: M3Spacing.space8),
+                  SizedBox(height: M3SpacingToken.space8.value),
                   _buildColorRoleCard(
                     'Tertiary Container',
                     Theme.of(context).colorScheme.tertiaryContainer,
@@ -159,7 +159,7 @@ class EnhancedThemePage extends StatelessWidget {
           title,
           style: Theme.of(context).textTheme.headlineSmall,
         ),
-        const SizedBox(height: M3Spacing.space12),
+        SizedBox(height: M3SpacingToken.space12.value),
         content,
       ],
     );
@@ -169,10 +169,10 @@ class EnhancedThemePage extends StatelessWidget {
       String label, Color backgroundColor, Color textColor) {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.all(M3Spacing.space16),
+      padding: EdgeInsets.all(M3SpacingToken.space16.value),
       decoration: ShapeDecoration(
         color: backgroundColor,
-        shape: M3Shape.medium,
+        shape: M3ShapeToken.medium.value,
       ),
       child: Text(
         label,

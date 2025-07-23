@@ -8,21 +8,21 @@ class TypographyPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textStyles = [
-      ('Display Large', M3TypeScale.displayLarge),
-      ('Display Medium', M3TypeScale.displayMedium),
-      ('Display Small', M3TypeScale.displaySmall),
-      ('Headline Large', M3TypeScale.headlineLarge),
-      ('Headline Medium', M3TypeScale.headlineMedium),
-      ('Headline Small', M3TypeScale.headlineSmall),
-      ('Title Large', M3TypeScale.titleLarge),
-      ('Title Medium', M3TypeScale.titleMedium),
-      ('Title Small', M3TypeScale.titleSmall),
-      ('Body Large', M3TypeScale.bodyLarge),
-      ('Body Medium', M3TypeScale.bodyMedium),
-      ('Body Small', M3TypeScale.bodySmall),
-      ('Label Large', M3TypeScale.labelLarge),
-      ('Label Medium', M3TypeScale.labelMedium),
-      ('Label Small', M3TypeScale.labelSmall),
+      ('Display Large', M3TypeScaleToken.displayLarge),
+      ('Display Medium', M3TypeScaleToken.displayMedium),
+      ('Display Small', M3TypeScaleToken.displaySmall),
+      ('Headline Large', M3TypeScaleToken.headlineLarge),
+      ('Headline Medium', M3TypeScaleToken.headlineMedium),
+      ('Headline Small', M3TypeScaleToken.headlineSmall),
+      ('Title Large', M3TypeScaleToken.titleLarge),
+      ('Title Medium', M3TypeScaleToken.titleMedium),
+      ('Title Small', M3TypeScaleToken.titleSmall),
+      ('Body Large', M3TypeScaleToken.bodyLarge),
+      ('Body Medium', M3TypeScaleToken.bodyMedium),
+      ('Body Small', M3TypeScaleToken.bodySmall),
+      ('Label Large', M3TypeScaleToken.labelLarge),
+      ('Label Medium', M3TypeScaleToken.labelMedium),
+      ('Label Small', M3TypeScaleToken.labelSmall),
     ];
 
     return Scaffold(
@@ -33,13 +33,13 @@ class TypographyPage extends StatelessWidget {
         ),
       ),
       body: ListView.builder(
-        padding: const EdgeInsets.all(M3Spacing.space16),
+        padding: EdgeInsets.all(M3SpacingToken.space16.value),
         itemCount: textStyles.length,
         itemBuilder: (context, index) {
           final (label, style) = textStyles[index];
           return Padding(
-            padding: const EdgeInsets.only(bottom: M3Spacing.space16),
-            child: Text(label, style: style),
+            padding: EdgeInsets.only(bottom: M3SpacingToken.space16.value),
+            child: Text(label, style: style.value),
           );
         },
       ),
