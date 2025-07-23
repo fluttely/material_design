@@ -783,14 +783,18 @@ class _ColorPickerButton extends StatelessWidget {
                       decoration: BoxDecoration(
                         color: color,
                         shape: BoxShape.circle,
+                        border: Border.all(
+                          color: Theme.of(context).colorScheme.outlineVariant,
+                          width: 1,
+                        ),
                       ),
                     ),
-                    SizedBox(width: M3SpacingToken.space8.value),
-                    Text(color
-                        .toString()
-                        .split('(0x')[1]
-                        .split(')')[0]
-                        .toUpperCase()),
+                    const SizedBox(
+                        width: 12.0), // Use um valor fixo ou um token válido
+                    // ✅ CORREÇÃO: Maneira robusta de obter o valor hexadecimal da cor.
+                    Text(
+                      '#${color.value.toRadixString(16).substring(2).toUpperCase()}',
+                    ),
                   ],
                 ),
               ))
