@@ -2,6 +2,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+import 'package:material_design/material_design.dart';
+
 /// Material Design 3 icon size tokens for consistent iconography.
 ///
 /// This enum defines standard icon sizes based on the Material Design 3
@@ -13,17 +15,17 @@
 /// throughout the interface, supporting both functional and decorative icon usage.
 ///
 /// ## Usage
-/// 
+///
 /// ```dart
 /// // Get standard icon size
 /// double iconSize = M3IconSizeToken.standard.value; // 24.0
-/// 
+///
 /// // Use in Icon widgets
 /// Icon(
 ///   Icons.home,
 ///   size: M3IconSizeToken.standard.value,
 /// )
-/// 
+///
 /// // Use with IconButton
 /// IconButton(
 ///   iconSize: M3IconSizeToken.medium.value,
@@ -33,15 +35,15 @@
 /// ```
 ///
 /// ## Size Guidelines
-/// 
+///
 /// - **Dense (20dp)**: Compact layouts, dense lists, chips
 /// - **Standard (24dp)**: Default UI icons, buttons, navigation
-/// - **Medium (32dp)**: Prominent icons, enhanced visibility  
+/// - **Medium (32dp)**: Prominent icons, enhanced visibility
 /// - **Large (40dp)**: Display icons, dialogs, empty states
 /// - **Extra Large (48dp)**: Key visual elements, avatars
 ///
 /// Reference: https://m3.material.io/styles/icons/designing-icons
-enum M3IconSizeToken {
+enum M3IconSizeToken implements IM3Token<double> {
   /// Dense icon size (20dp).
   ///
   /// Optimized for compact layouts and high-density interfaces where space
@@ -50,7 +52,7 @@ enum M3IconSizeToken {
   ///
   /// **Ideal use cases**:
   /// - Dense list items and table rows
-  /// - Chip components and tags  
+  /// - Chip components and tags
   /// - Compact navigation elements
   /// - Toolbar icons in constrained spaces
   /// - Mobile interfaces with limited screen real estate
@@ -92,7 +94,7 @@ enum M3IconSizeToken {
   ///
   /// **Ideal use cases**:
   /// - Dialog and modal headers
-  /// - Empty state illustrations  
+  /// - Empty state illustrations
   /// - Large list item indicators
   /// - Feature introduction screens
   /// - Primary action buttons in spacious layouts
@@ -116,5 +118,6 @@ enum M3IconSizeToken {
   const M3IconSizeToken(this.value);
 
   /// The icon size value in density-independent pixels (dp).
+  @override
   final double value;
 }

@@ -1,3 +1,4 @@
+import 'package:material_design/material_design.dart';
 
 /// Material Design 3 z-index tokens for consistent component layering.
 ///
@@ -11,11 +12,11 @@
 /// across different interface elements.
 ///
 /// ## Usage
-/// 
+///
 /// ```dart
 /// // Get z-index for modal components
 /// int zIndex = M3ZIndexToken.modal.value; // 1000
-/// 
+///
 /// // Use in positioned widgets
 /// Positioned(
 ///   top: 0,
@@ -24,7 +25,7 @@
 ///     // Custom implementation for z-index
 ///   ),
 /// )
-/// 
+///
 /// // Use for overlay ordering
 /// showDialog(
 ///   context: context,
@@ -35,18 +36,18 @@
 /// ```
 ///
 /// ## Layering Hierarchy
-/// 
+///
 /// - **Background (0)**: Base layer, behind all content
 /// - **Content (1)**: Default content and interface elements
 /// - **Floating (10)**: FABs and floating components
 /// - **Drawer (100)**: Navigation drawers and side panels
 /// - **Modal (1000)**: Dialogs, bottom sheets, overlays
-/// - **Snackbar (2000)**: Toast messages and notifications  
+/// - **Snackbar (2000)**: Toast messages and notifications
 /// - **Tooltip (9999)**: Contextual help and information
 ///
 /// **Note**: These are conventional values, not official M3 tokens, but provide
 /// consistent layering for complex interface hierarchies.
-enum M3ZIndexToken {
+enum M3ZIndexToken implements IM3Token<int> {
   /// Background layer z-index (0).
   ///
   /// The foundational layer for elements that should appear behind all other
@@ -143,5 +144,6 @@ enum M3ZIndexToken {
   const M3ZIndexToken(this.value);
 
   /// The z-index value for component layering.
+  @override
   final int value;
 }

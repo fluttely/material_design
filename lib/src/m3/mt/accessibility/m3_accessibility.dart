@@ -6,7 +6,7 @@ import 'package:material_design/material_design.dart';
 /// Provides tools and helpers to ensure your Material Design 3 implementation
 /// meets accessibility standards and best practices.
 @immutable
-abstract class M3Accessibility {
+abstract interface class M3Accessibility {
   // --- Minimum Touch Target Sizes ---
 
   /// Minimum touch target size for mobile (48dp).

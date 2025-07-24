@@ -1,6 +1,4 @@
-abstract class IM3OpacityToken {
-  double get value;
-}
+import 'package:material_design/material_design.dart';
 
 /// Material Design 3 state layer opacity tokens for interactive components.
 ///
@@ -49,7 +47,7 @@ abstract class IM3OpacityToken {
 /// - **Dragged (16%)**: Drag operation state
 ///
 /// Reference: https://m3.material.io/foundations/interaction/states/state-layers
-enum M3StateLayerOpacityToken implements IM3OpacityToken {
+enum M3StateLayerOpacityToken implements IM3Token<double> {
   /// Hover state layer opacity (8%).
   ///
   /// Applied when a user hovers over an interactive element with a pointing
@@ -172,7 +170,7 @@ enum M3StateLayerOpacityToken implements IM3OpacityToken {
 /// - **Backdrop (50%)**: Modal backdrops and scrims
 ///
 /// Reference: Material Design 3 accessibility and component guidelines
-enum M3Opacity implements IM3OpacityToken {
+enum M3Opacity implements IM3Token<double> {
   /// Opacity for disabled component content (38%).
   ///
   /// Applied to text, icons, and other content elements when components

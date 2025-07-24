@@ -6,7 +6,7 @@ import 'package:material_design/material_design.dart';
 /// Provides responsive layouts, navigation patterns, and component adaptations
 /// that work seamlessly across different screen sizes and device types.
 @immutable
-abstract class M3Adaptive {
+abstract interface class M3Adaptive {
   // --- Layout Utilities ---
 
   /// Creates a responsive layout that adapts to screen size.

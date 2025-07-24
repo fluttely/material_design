@@ -1,3 +1,5 @@
+import 'package:material_design/material_design.dart';
+
 /// Material Design 3 border width tokens for consistent component styling.
 ///
 /// This enum defines conventional border width values for Material Design
@@ -40,7 +42,7 @@
 /// - **Extra Thick (4dp)**: High emphasis, error states, special cases
 ///
 /// Reference: Material Design 3 component specifications
-enum M3BorderToken {
+enum M3BorderToken implements IM3Token<double> {
   /// No border width (0dp).
   ///
   /// Used when borders need to be completely removed or made invisible.
@@ -100,9 +102,10 @@ enum M3BorderToken {
   const M3BorderToken(this.value);
 
   /// The border width value in density-independent pixels (dp).
+  @override
   final double value;
 
-  // TODO(kevin): put it into material_toolkit
+  // TODO(fluttely): put it into material_toolkit
   // // --- Border Utilities ---
 
   // /// Creates a standard outline border with the given color and width.

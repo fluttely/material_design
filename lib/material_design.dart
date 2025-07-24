@@ -11,7 +11,7 @@
 ///
 /// Then, you can access all the tokens, such as:
 /// - `M3TypeScale.headlineLarge`
-/// - `M3Shadow.level2`
+/// - `M3ShadowToken.level2`
 // library;
 // export 'src/ds/ds.dart';
 // export 'src/mt/mt.dart';

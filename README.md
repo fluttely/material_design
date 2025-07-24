@@ -1,4 +1,4 @@
-# Material Design 3 Only
+# Material Design 3
 
 [![pub version](https://img.shields.io/pub/v/material_design.svg)](https://pub.dev/packages/material_design)
 [![license](https://img.shields.io/badge/license-BSD-blue.svg)](/LICENSE)
@@ -34,7 +34,7 @@ Add this line to your project's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  material_design: ^0.7.5
+  material_design: ^0.8.0
 ```
 
 Then run `flutter pub get`.
@@ -119,16 +119,6 @@ MaterialApp(
       brightness: Brightness.dark,
     ),
   ),
-)
-```
-
-- **`M3TonalColor.fromElevation(context, elevation)`**: Calculates the surface color with an elevation-based tint, crucial for M3's tonal elevation.
-
-**Example:**
-
-```dart
-Container(
-  color: M3TonalColor.fromElevation(context, M3ElevationToken.level2.value),
 )
 ```
 
@@ -232,7 +222,6 @@ Container(
 Use elevation tokens for surface depth and shadow tokens for casting shadows.
 
 - **`M3ElevationToken`**: Defines 6 elevation levels from `level0` (0dp) to `level5` (12dp).
-- **`M3Shadow`**: Provides `BoxShadow` lists for each elevation level (`level0` to `level5`).
 
 **Example:**
 

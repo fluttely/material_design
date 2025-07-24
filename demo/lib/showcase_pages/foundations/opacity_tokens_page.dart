@@ -67,7 +67,7 @@ class OpacityTokensPage extends StatelessWidget {
     required BuildContext context,
     required String title,
     required String url,
-    required List<({String label, IM3OpacityToken token})> tokens,
+    required List<({String label, IM3Token token})> tokens,
     required Color baseColor,
   }) {
     return Column(

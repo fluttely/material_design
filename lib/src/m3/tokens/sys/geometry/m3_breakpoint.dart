@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:material_design/material_design.dart';
 
 /// Material Design 3 breakpoint tokens for responsive window size classes.
 ///
@@ -45,7 +46,7 @@ import 'package:flutter/material.dart';
 /// - **Extra Large (1600dp+)**: Large monitors - expansive multi-column layouts
 ///
 /// Reference: https://m3.material.io/foundations/layout/applying-layout/window-size-classes
-enum M3BreakpointToken {
+enum M3BreakpointToken implements IM3Token<double> {
   /// Compact breakpoint (0dp to 599dp).
   ///
   /// The smallest breakpoint representing the design baseline for constrained
@@ -156,6 +157,7 @@ enum M3BreakpointToken {
   const M3BreakpointToken(this.value);
 
   /// The breakpoint value in density-independent pixels (dp).
+  @override
   final double value;
 
   // --- Utility Methods ---
@@ -241,12 +243,12 @@ enum M3BreakpointToken {
   static double getGutterWidth(M3WindowSizeClass sizeClass) {
     switch (sizeClass) {
       case M3WindowSizeClass.compact:
-        return 16.0;
+        return 16;
       case M3WindowSizeClass.medium:
       case M3WindowSizeClass.expanded:
       case M3WindowSizeClass.large:
       case M3WindowSizeClass.extraLarge:
-        return 24.0;
+        return 24;
     }
   }
 
@@ -254,13 +256,13 @@ enum M3BreakpointToken {
   static double getMargin(M3WindowSizeClass sizeClass) {
     switch (sizeClass) {
       case M3WindowSizeClass.compact:
-        return 16.0;
+        return 16;
       case M3WindowSizeClass.medium:
       case M3WindowSizeClass.expanded:
-        return 24.0;
+        return 24;
       case M3WindowSizeClass.large:
       case M3WindowSizeClass.extraLarge:
-        return 24.0;
+        return 24;
     }
   }
 
@@ -271,11 +273,11 @@ enum M3BreakpointToken {
       case M3WindowSizeClass.medium:
         return null; // Full width
       case M3WindowSizeClass.expanded:
-        return 840.0;
+        return 840;
       case M3WindowSizeClass.large:
-        return 1040.0;
+        return 1040;
       case M3WindowSizeClass.extraLarge:
-        return 1040.0;
+        return 1040;
     }
   }
 
@@ -285,11 +287,11 @@ enum M3BreakpointToken {
       case M3WindowSizeClass.compact:
         return double.infinity; // Full width
       case M3WindowSizeClass.medium:
-        return 360.0;
+        return 360;
       case M3WindowSizeClass.expanded:
       case M3WindowSizeClass.large:
       case M3WindowSizeClass.extraLarge:
-        return 360.0;
+        return 360;
     }
   }
 }
@@ -393,8 +395,8 @@ extension M3WindowSizeClassExtension on M3WindowSizeClass {
 class M3ResponsiveBuilder extends StatelessWidget {
   /// Creates a responsive builder widget.
   const M3ResponsiveBuilder({
-    super.key,
     required this.builder,
+    super.key,
   });
 
   /// The builder function that receives the current window size class.
@@ -432,13 +434,13 @@ class M3ResponsiveBuilder extends StatelessWidget {
 class M3ResponsiveValue<T> extends StatelessWidget {
   /// Creates a responsive value widget.
   const M3ResponsiveValue({
+    required this.builder,
     super.key,
     this.compact,
     this.medium,
     this.expanded,
     this.large,
     this.extraLarge,
-    required this.builder,
   });
 
   /// Value for compact window size class.
@@ -498,9 +500,9 @@ class M3ResponsiveValue<T> extends StatelessWidget {
 class M3ResponsiveVisibility extends StatelessWidget {
   /// Creates a responsive visibility widget.
   const M3ResponsiveVisibility({
-    super.key,
     required this.visibleOn,
     required this.child,
+    super.key,
     this.replacement = const SizedBox.shrink(),
   });
 
@@ -533,6 +535,16 @@ class M3ResponsiveGridConfig {
     this.maxWidth,
   });
 
+  /// Gets the appropriate grid configuration for the given window size class.
+  factory M3ResponsiveGridConfig.forSizeClass(M3WindowSizeClass sizeClass) {
+    return M3ResponsiveGridConfig(
+      columns: M3BreakpointToken.getRecommendedColumns(sizeClass),
+      gutter: M3BreakpointToken.getGutterWidth(sizeClass),
+      margin: M3BreakpointToken.getMargin(sizeClass),
+      maxWidth: M3BreakpointToken.getBodyWidth(sizeClass),
+    );
+  }
+
   /// Number of columns in the grid.
   final int columns;
 
@@ -544,16 +556,6 @@ class M3ResponsiveGridConfig {
 
   /// Maximum width of the grid (optional).
   final double? maxWidth;
-
-  /// Gets the appropriate grid configuration for the given window size class.
-  factory M3ResponsiveGridConfig.forSizeClass(M3WindowSizeClass sizeClass) {
-    return M3ResponsiveGridConfig(
-      columns: M3BreakpointToken.getRecommendedColumns(sizeClass),
-      gutter: M3BreakpointToken.getGutterWidth(sizeClass),
-      margin: M3BreakpointToken.getMargin(sizeClass),
-      maxWidth: M3BreakpointToken.getBodyWidth(sizeClass),
-    );
-  }
 }
 
 /// A responsive grid widget that follows Material Design 3 guidelines.
@@ -563,8 +565,8 @@ class M3ResponsiveGridConfig {
 class M3ResponsiveGrid extends StatelessWidget {
   /// Creates a responsive grid widget.
   const M3ResponsiveGrid({
-    super.key,
     required this.children,
+    super.key,
     this.crossAxisSpacing,
     this.mainAxisSpacing,
     this.childAspectRatio = 1.0,
@@ -657,11 +659,11 @@ enum M3NavigationType {
 class M3ResponsiveScaffold extends StatelessWidget {
   /// Creates a responsive scaffold.
   const M3ResponsiveScaffold({
-    super.key,
     required this.body,
     required this.destinations,
     required this.selectedIndex,
     required this.onDestinationSelected,
+    super.key,
     this.appBar,
     this.floatingActionButton,
     this.floatingActionButtonLocation,

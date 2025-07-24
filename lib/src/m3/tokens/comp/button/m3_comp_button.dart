@@ -43,7 +43,7 @@
 // /// ```
 // ///
 // /// Reference: https://m3.material.io/components/buttons/specs
-// abstract class M3CompButton {
+// abstract interface class M3CompButton {
 //   // === CONTAINER HEIGHTS ===
 //   /// Small button height (32dp) - Compact layouts
 //   static const double heightSmall = 32.0;
@@ -169,7 +169,7 @@
 // /// - Rounded corners for friendly appearance
 // ///
 // /// Reference: https://m3.material.io/components/buttons/specs#elevated-button
-// abstract class M3CompElevatedButton extends M3CompButton {
+// abstract interface class M3CompElevatedButton extends M3CompButton {
 //   /// Container height for elevated buttons
 //   static const double containerHeight = M3CompButton.heightMedium;
   
@@ -204,7 +204,7 @@
 // /// - High contrast with background
 // ///
 // /// Reference: https://m3.material.io/components/buttons/specs#filled-button
-// abstract class M3CompFilledButton extends M3CompButton {
+// abstract interface class M3CompFilledButton extends M3CompButton {
 //   /// Container height for filled buttons
 //   static const double containerHeight = M3CompButton.heightMedium;
   
@@ -230,7 +230,7 @@
 // /// - Clear visual hierarchy
 // ///
 // /// Reference: https://m3.material.io/components/buttons/specs#outlined-button
-// abstract class M3CompOutlinedButton extends M3CompButton {
+// abstract interface class M3CompOutlinedButton extends M3CompButton {
 //   /// Container height for outlined buttons
 //   static const double containerHeight = M3CompButton.heightMedium;
   
@@ -259,7 +259,7 @@
 // /// - Minimal visual weight
 // ///
 // /// Reference: https://m3.material.io/components/buttons/specs#text-button
-// abstract class M3CompTextButton extends M3CompButton {
+// abstract interface class M3CompTextButton extends M3CompButton {
 //   /// Container height for text buttons
 //   static const double containerHeight = M3CompButton.heightMedium;
   

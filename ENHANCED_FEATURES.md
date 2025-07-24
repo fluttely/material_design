@@ -57,7 +57,7 @@ Container(
 
 // Surface colors with elevation
 Container(
-  color: M3TonalColor.surface3(context), // 6dp elevation
+  color: M3ElevationToken.level3.surfaceColor(context), // 6dp elevation
   child: const Text('Elevated Surface'),
 )
 
@@ -77,17 +77,14 @@ final hasGoodContrast = M3ColorUtils.meetsWCAGAA(
 
 ```dart
 // Contextual elevation by component
-final cardElevation = M3Elevation.forComponent('card', state: 'hover');
-
-// Interpolated shadows
-final shadows = M3Shadow.fromElevation(4.5); // Interpolates between levels
+final elevation = 3;
 
 // Container with animated elevation
 AnimatedContainer(
   duration: M3MotionDuration.short4,
-  decoration: BoxDecoration(
-    color: M3TonalColor.surfaceAt(context, elevation),
-    boxShadow: M3Shadow.fromElevation(elevation),
+  decoration:  BoxDecoration(
+    color: M3ElevationToken.fromValue(elevation).surfaceColor(context),
+    boxShadow: M3ElevationToken.fromValue(elevation).shadows,
   ),
   child: child,
 )

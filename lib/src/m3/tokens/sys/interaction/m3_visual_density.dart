@@ -36,7 +36,7 @@
 // ///    horizontal density of Material components.
 // ///  * [Material design guidance on density](https://material.io/design/layout/applying-density.html).
 // @immutable
-// abstract class M3VisualDensity {
+// abstract interface class M3VisualDensity {
 //   /// The default profile for [VisualDensity] in [ThemeData].
 //   ///
 //   /// This default value represents a visual density that is less dense than
@@ -64,7 +64,7 @@
 //   /// It corresponds to a density value of -2 in both axes.
 //   static const VisualDensity compact = VisualDensity.compact;
 
-//   // TODO(Kevin): documentation
+//   // TODO(fluttely): documentation
 //   static VisualDensity get adaptivePlatformDensity =>
 //       VisualDensity.adaptivePlatformDensity;
 // }
