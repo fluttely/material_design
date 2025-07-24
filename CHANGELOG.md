@@ -4,6 +4,52 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.8.1
+
+### 📚 Major Documentation System
+
+- **Comprehensive Documentation Portal**: Added complete Obsidian-based documentation system with bilingual support (English/Portuguese)
+  - **Structured Documentation**: Organized into Foundations, Styles, Components, and Implementation sections
+  - **Interactive Navigation**: Component maps, token maps, and implementation guides with cross-references
+  - **Bilingual Support**: Full documentation available in both English (`en_US`) and Portuguese (`pt_BR`)
+  - **Visual Documentation**: Mermaid diagrams and structured navigation for better understanding
+
+### 🗂️ Documentation Architecture
+
+- **Foundations Section**:
+  - Design Tokens hierarchical system (ref/sys/comp)
+  - Accessibility guidelines and WCAG compliance
+  - Adaptive design patterns and responsive utilities
+- **Styles Section**:
+  - Typography system (complete 15-level type scale)
+  - Elevation system (6 levels with shadows)
+  - Motion system (durations and easing curves)
+  - Shape system (complete corner radius system)
+- **Implementation Section**:
+  - Flutter integration guides
+  - Token structure documentation
+  - Theme system implementation
+  - Best practices and usage examples
+
+### ✨ Enhanced Developer Experience
+
+- **Interactive Maps**: Component map, token map, and implementation map for visual navigation
+- **Status Indicators**: Clear marking of implemented vs. planned features
+- **External Links**: Comprehensive links to official Material Design 3 resources
+- **Code Examples**: Practical implementation examples throughout documentation
+
+### 🧹 Code Organization
+
+- **Cleaned Documentation**: Removed `ENHANCED_FEATURES.md` file to consolidate documentation structure
+- **Updated README**: Restructured README.md with better organization and clearer API migration guides
+- **Gitignore Updates**: Removed documentation folder from gitignore to include new documentation system
+
+### 🔧 Configuration Updates
+
+- **Obsidian Integration**: Added complete Obsidian vault configuration for seamless documentation editing
+- **Workspace Setup**: Pre-configured workspace with proper graph view and navigation settings
+- **Core Plugins**: Enabled essential plugins for documentation workflow (file explorer, search, graph, backlinks)
+
 ## 0.8.0
 
 ### 🔄 BREAKING CHANGES
@@ -68,14 +114,6 @@ Container(
 
 ```dart
 // New unified API
-Container(
-  decoration: BoxDecoration(
-    color: M3ElevationToken.level3.surfaceColor(context),
-    boxShadow: M3ElevationToken.level3.shadows,
-  ),
-)
-
-// Or for custom elevation values
 final elevation = M3ElevationToken.fromValue(4.5);
 Container(
   decoration: BoxDecoration(
