@@ -4,6 +4,109 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.8.0
+
+### 🔄 BREAKING CHANGES
+
+- **Elevation System Overhaul**: Complete refactor of the elevation token system with improved type safety and API consistency
+  - **Removed `M3TonalColor` class**: Replaced with internal `_M3TonalColor` implementation accessed through elevation tokens
+  - **Removed `M3Shadow` class**: Replaced with internal `_M3ShadowToken` implementation accessed through elevation tokens
+  - **New Unified API**: All elevation-related functionality now accessed through `M3ElevationToken.levelX.shadows` and `M3ElevationToken.levelX.surfaceColor(context)`
+
+### ✨ Major Features
+
+- **New Token Interface System**: Introduced `IM3Token<T>` interface for consistent token architecture across the library
+- **Enhanced Elevation Tokens**:
+  - Added `M3ElevationToken` enum with 6 predefined levels (level0-level5)
+  - Added `M3ComponentElevationToken` enum for component-specific elevations (card, button, fab, appBar, etc.)
+  - Added `M3StateElevationToken` enum for interactive state elevations (hover, pressed, focus, etc.)
+- **Improved Type Safety**: All elevation tokens now implement `IM3ElevationToken` interface with consistent `value` and `hasShadow` properties
+- **Advanced Extension Methods**: Added `IM3ElevationTokenVisuals` and `IM3ElevationTokenComparison` extensions for enhanced functionality
+
+### 🎯 Enhanced Developer Experience
+
+- **Simplified API**: Unified access pattern for shadows and surface colors through elevation tokens
+- **Better Documentation**: Comprehensive inline documentation with Material 3 specification references
+- **Component-Specific Tokens**: Predefined elevation values for all major Material 3 components
+- **State-Aware Elevations**: Built-in support for interactive states (hover, pressed, focus, drag)
+
+### 🏗️ Architectural Improvements
+
+- **Modular Design**: Elevation system split into focused modules (`_m3_shadow_token.dart`, `_m3_tonal_color.dart`)
+- **Consistent Naming**: All elevation-related classes follow unified naming conventions
+- **Better Abstraction**: Internal implementation details hidden behind clean public APIs
+- **Enhanced Performance**: Optimized shadow and surface color calculations
+
+### 🐛 Bug Fixes
+
+- **Demo Application**: Fixed incorrect elevation token usage in demo surface cards
+- **Documentation**: Corrected widget references and improved code examples
+- **Code Quality**: Updated analysis configuration to use `very_good_analysis` for stricter linting
+
+### 📚 Documentation Updates
+
+- **README.md**: Updated examples to use new elevation token API
+- **ENHANCED_FEATURES.md**: Refreshed elevation examples with current API patterns
+- **Inline Documentation**: Added comprehensive documentation throughout the elevation system
+- **Example Applications**: Updated demo and example apps to showcase new elevation capabilities
+
+### 🔧 Migration Guide
+
+**Before (v0.7.5):**
+
+```dart
+// Old API - no longer available
+Container(
+  decoration: BoxDecoration(
+    color: M3TonalColor.surface3(context),
+    boxShadow: M3ShadowToken.fromElevation(4.5),
+  ),
+)
+```
+
+**After (v0.8.0):**
+
+```dart
+// New unified API
+Container(
+  decoration: BoxDecoration(
+    color: M3ElevationToken.level3.surfaceColor(context),
+    boxShadow: M3ElevationToken.level3.shadows,
+  ),
+)
+
+// Or for custom elevation values
+final elevation = M3ElevationToken.fromValue(4.5);
+Container(
+  decoration: BoxDecoration(
+    color: elevation.surfaceColor(context),
+    boxShadow: elevation.shadows,
+  ),
+)
+```
+
+### 🎨 Component Usage Examples
+
+```dart
+// Component-specific elevations
+Card(
+  elevation: M3ComponentElevationToken.card.value,
+  surfaceTintColor: Theme.of(context).colorScheme.surfaceTint,
+)
+
+// State-aware elevations
+AnimatedContainer(
+  decoration: BoxDecoration(
+    color: isHovered
+      ? M3StateElevationToken.cardHover.surfaceColor(context)
+      : M3ComponentElevationToken.card.surfaceColor(context),
+    boxShadow: isHovered
+      ? M3StateElevationToken.cardHover.shadows
+      : M3ComponentElevationToken.card.shadows,
+  ),
+)
+```
+
 ## 0.7.5
 
 ### Enhanced Demo Experience

@@ -97,7 +97,7 @@ class _SpacingPageState extends State<SpacingPage> {
     );
   }
 
-  Widget _buildSpacingDemo(String label, IM3SpacingToken token) {
+  Widget _buildSpacingDemo(String label, IM3Token token) {
     final textTheme = Theme.of(context).textTheme;
     final colorScheme = Theme.of(context).colorScheme;
     // FIX: Check if the value is infinity to avoid calling .toInt() on it.

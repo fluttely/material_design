@@ -198,15 +198,6 @@ class _ElevationCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
 
-    // // The surface color is calculated using `profile.value`.
-    // final elevationSurfaceColor = M3TonalColor.fromElevation(
-    //   context,
-    //   elevation.value,
-    // );
-    // // The shadows are applied based on `profile.hasShadow` and `profile.value`.
-    // final elevationShadows =
-    //     elevation.hasShadow ? M3Shadow.fromElevation(elevation.value) : null;
-
     return Container(
       width: 160,
       height: 120,

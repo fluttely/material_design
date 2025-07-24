@@ -1,7 +1,4 @@
-abstract class IM3SpacingToken {
-  /// The spacing value in density-independent pixels (dp).
-  double get value;
-}
+import 'package:material_design/material_design.dart';
 
 /// Material Design 3 spacing tokens based on a 4dp grid system.
 ///
@@ -34,7 +31,7 @@ abstract class IM3SpacingToken {
 /// - **Special Values**: none (0dp) and infinity for edge cases
 ///
 /// Reference: https://m3.material.io/foundations/layout/understanding-layout/spacing
-enum M3SpacingToken implements IM3SpacingToken {
+enum M3SpacingToken implements IM3Token<double> {
   /// No spacing (0dp).
   ///
   /// Used when you need to explicitly remove spacing or create tight layouts.
@@ -189,7 +186,7 @@ enum M3SpacingToken implements IM3SpacingToken {
 /// - **Extra Large (1600dp+)**: Large monitors - 24dp margin
 ///
 /// Reference: https://m3.material.io/foundations/layout/applying-layout/pane-layouts
-enum M3MarginToken implements IM3SpacingToken {
+enum M3MarginToken implements IM3Token<double> {
   /// Margin for compact screen layouts (16dp).
   ///
   /// Optimal for phones in portrait mode and other compact interfaces.
@@ -199,7 +196,7 @@ enum M3MarginToken implements IM3SpacingToken {
   /// **Typical devices**: Phones in portrait orientation
   ///
   /// Reference: https://m3.material.io/foundations/layout/applying-layout/compact
-  compactScreen(16.0),
+  compactScreen(16),
 
   /// Margin for medium screen layouts (24dp).
   ///
@@ -209,7 +206,7 @@ enum M3MarginToken implements IM3SpacingToken {
   /// **Typical devices**: Phones in landscape, small tablets (iPad Mini)
   ///
   /// Reference: https://m3.material.io/foundations/layout/applying-layout/medium
-  mediumScreen(24.0),
+  mediumScreen(24),
 
   /// Margin for expanded screen layouts (24dp).
   ///
@@ -219,7 +216,7 @@ enum M3MarginToken implements IM3SpacingToken {
   /// **Typical devices**: Large tablets, foldable devices (iPad Pro)
   ///
   /// Reference: https://m3.material.io/foundations/layout/applying-layout/expanded
-  expandedScreen(24.0),
+  expandedScreen(24),
 
   /// Margin for large screen layouts (24dp).
   ///
@@ -229,7 +226,7 @@ enum M3MarginToken implements IM3SpacingToken {
   /// **Typical devices**: Desktop monitors, laptops
   ///
   /// Reference: https://m3.material.io/foundations/layout/applying-layout/large-extra-large
-  largeScreen(24.0),
+  largeScreen(24),
 
   /// Margin for extra-large screen layouts (24dp).
   ///
@@ -239,7 +236,7 @@ enum M3MarginToken implements IM3SpacingToken {
   /// **Typical devices**: Large monitors, ultra-wide displays
   ///
   /// Reference: https://m3.material.io/foundations/layout/applying-layout/large-extra-large
-  extraLargeScreen(24.0);
+  extraLargeScreen(24);
 
   /// Creates a margin token with the specified value.
   const M3MarginToken(this.value);
@@ -282,7 +279,7 @@ enum M3MarginToken implements IM3SpacingToken {
 /// multi-pane layouts and responsive design scenarios.
 ///
 /// Reference: https://m3.material.io/foundations/layout/understanding-layout/spacing
-enum M3SpacerToken implements IM3SpacingToken {
+enum M3SpacerToken implements IM3Token<double> {
   /// Standard spacer width between content panes (24dp).
   ///
   /// This value provides optimal visual separation between distinct content
@@ -299,7 +296,7 @@ enum M3SpacerToken implements IM3SpacingToken {
   /// - Master-detail interfaces
   /// - Navigation panel separation
   /// - Multi-column content areas
-  pane(24.0);
+  pane(24);
 
   /// Creates a spacer token with the specified value.
   const M3SpacerToken(this.value);

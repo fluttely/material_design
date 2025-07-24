@@ -11,7 +11,7 @@
 /// Base atomic values that form the foundation of the design system.
 /// These are the raw values from which all other tokens derive.
 ///
-/// ### System Tokens  
+/// ### System Tokens
 /// Semantic tokens that map reference tokens to specific design intentions,
 /// providing meaning and context to the base reference values.
 ///
@@ -23,18 +23,19 @@
 ///
 /// ```dart
 /// import 'package:material_design/m3/m3.dart';
-/// 
+///
 /// // Use system color tokens
 /// final primaryColor = M3SysColor.primary;
-/// 
+///
 /// // Use typography tokens
 /// final headlineStyle = M3TypeScaleToken.headlineLarge.value;
-/// 
+///
 /// // Use component tokens
 /// final buttonHeight = M3CompButton.heightMedium;
 /// ```
 ///
 /// For more information, visit: https://m3.material.io/foundations/design-tokens
+library;
 
 // === UTILITIES ===
 // Material Toolkit utilities for enhanced M3 functionality
@@ -47,17 +48,13 @@ export 'mt/adaptive/m3_adaptive.dart';
 
 /// Color utilities and tonal color system
 export 'mt/color/m3_color_utils.dart';
-export 'mt/color/m3_tonal_color.dart';
 
 /// Shape utilities
 export 'mt/sys/m3_shape_utils.dart';
 
-// === COMPONENT TOKENS ===
-
 /// Component tokens for buttons
 export 'tokens/comp/button/m3_comp_button.dart';
-
-// === REFERENCE TOKENS ===
+export 'tokens/interfaces/m3_token.dart';
 
 /// Reference color tokens - base atomic color values
 export 'tokens/ref/color/m3_ref_opacity.dart';
@@ -70,8 +67,6 @@ export 'tokens/ref/color/m3_ref_opacity.dart';
 export 'tokens/ref/color/m3_ref_palette.dart';
 export 'tokens/ref/typography/m3_ref_typeface.dart';
 
-// === SYSTEM TOKENS ===
-
 /// System Tokens
 ///
 /// Semantic tokens that map reference tokens to specific design intentions.
@@ -82,7 +77,6 @@ export 'tokens/sys/color/m3_sys_color.dart';
 
 /// System elevation tokens - shadow and depth
 export 'tokens/sys/elevation/m3_elevation.dart';
-export 'tokens/sys/elevation/m3_shadow.dart';
 
 /// System geometry tokens - borders, breakpoints, sizing
 export 'tokens/sys/geometry/m3_border.dart';

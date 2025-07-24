@@ -29,7 +29,7 @@
 // /// guidelines while providing clear visual hierarchy and interaction feedback.
 // /// 
 // /// Reference: https://m3.material.io/styles/color/the-color-system/tokens
-// abstract class M3RefOpacity {
+// abstract interface class M3RefOpacity {
 //   /// Level 1 opacity (8%) - Very subtle, for hover states on low emphasis elements
 //   ///
 //   /// Used for subtle hover effects that provide feedback without being
@@ -137,7 +137,7 @@
 //   /// - [elevation]: The elevation level in dp
 //   ///
 //   /// Returns: The appropriate tint opacity for the given elevation
-//   static double getElevationTintOpacity(double elevation) {
+//   static double getElevationTintOpacity(IM3ElevationToken elevation) {
 //     // Handle exact matches first
 //     if (elevationTint.containsKey(elevation)) {
 //       return elevationTint[elevation]!;

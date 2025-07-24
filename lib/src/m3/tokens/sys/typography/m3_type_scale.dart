@@ -31,132 +31,149 @@ class M3TypeScaleFonts {
   ];
 }
 
+const TextStyle _kM3TypeScaleDisplayLarge = TextStyle(
+  fontSize: 57,
+  fontWeight: FontWeight.w400,
+  letterSpacing: -0.25,
+  height: 64 / 57,
+);
+const TextStyle _kM3TypeScaleDisplayMedium = TextStyle(
+  fontSize: 45,
+  fontWeight: FontWeight.w400,
+  letterSpacing: 0,
+  height: 52 / 45,
+);
+const TextStyle _kM3TypeScaleDisplaySmall = TextStyle(
+  fontSize: 36,
+  fontWeight: FontWeight.w400,
+  letterSpacing: 0,
+  height: 44 / 36,
+);
+const TextStyle _kM3TypeScaleHeadlineLarge = TextStyle(
+  fontSize: 32,
+  fontWeight: FontWeight.w400,
+  letterSpacing: 0,
+  height: 40 / 32,
+);
+const TextStyle _kM3TypeScaleHeadlineMedium = TextStyle(
+  fontSize: 28,
+  fontWeight: FontWeight.w400,
+  letterSpacing: 0,
+  height: 36 / 28,
+);
+const TextStyle _kM3TypeScaleHeadlineSmall = TextStyle(
+  fontSize: 24,
+  fontWeight: FontWeight.w400,
+  letterSpacing: 0,
+  height: 32 / 24,
+);
+const TextStyle _kM3TypeScaleTitleLarge = TextStyle(
+  fontSize: 22,
+  fontWeight: FontWeight.w400,
+  letterSpacing: 0,
+  height: 28 / 22,
+);
+const TextStyle _kM3TypeScaleTitleMedium = TextStyle(
+  fontSize: 16,
+  fontWeight: FontWeight.w500,
+  letterSpacing: 0.15,
+  height: 24 / 16,
+);
+const TextStyle _kM3TypeScaleTitleSmall = TextStyle(
+  fontSize: 14,
+  fontWeight: FontWeight.w500,
+  letterSpacing: 0.1,
+  height: 20 / 14,
+);
+const TextStyle _kM3TypeScaleBodyLarge = TextStyle(
+  fontSize: 16,
+  fontWeight: FontWeight.w400,
+  letterSpacing: 0.5,
+  height: 24 / 16,
+);
+const TextStyle _kM3TypeScaleBodyMedium = TextStyle(
+  fontSize: 14,
+  fontWeight: FontWeight.w400,
+  letterSpacing: 0.25,
+  height: 20 / 14,
+);
+const TextStyle _kM3TypeScaleBodySmall = TextStyle(
+  fontSize: 12,
+  fontWeight: FontWeight.w400,
+  letterSpacing: 0.4,
+  height: 16 / 12,
+);
+const TextStyle _kM3TypeScaleLabelLarge = TextStyle(
+  fontSize: 14,
+  fontWeight: FontWeight.w500,
+  letterSpacing: 0.1,
+  height: 20 / 14,
+);
+const TextStyle _kM3TypeScaleLabelMedium = TextStyle(
+  fontSize: 12,
+  fontWeight: FontWeight.w500,
+  letterSpacing: 0.5,
+  height: 16 / 12,
+);
+const TextStyle _kM3TypeScaleLabelSmall = TextStyle(
+  fontSize: 11,
+  fontWeight: FontWeight.w500,
+  letterSpacing: 0.5,
+  height: 16 / 11,
+);
+
 /// Material Design 3 type scale tokens for consistent typography.
-enum M3TypeScaleToken {
+enum M3TypeScaleToken implements IM3Token<TextStyle> {
   /// Display Large text style (57sp).
-  displayLarge(TextStyle(
-    fontSize: 57,
-    fontWeight: FontWeight.w400,
-    letterSpacing: -0.25,
-    height: 64 / 57,
-  )),
+  displayLarge(_kM3TypeScaleDisplayLarge),
 
   /// Display Medium text style (45sp).
-  displayMedium(TextStyle(
-    fontSize: 45,
-    fontWeight: FontWeight.w400,
-    letterSpacing: 0,
-    height: 52 / 45,
-  )),
+  displayMedium(_kM3TypeScaleDisplayMedium),
 
   /// Display Small text style (36sp).
-  displaySmall(TextStyle(
-    fontSize: 36,
-    fontWeight: FontWeight.w400,
-    letterSpacing: 0,
-    height: 44 / 36,
-  )),
+  displaySmall(_kM3TypeScaleDisplaySmall),
 
   /// Headline Large text style (32sp).
-  headlineLarge(TextStyle(
-    fontSize: 32,
-    fontWeight: FontWeight.w400,
-    letterSpacing: 0,
-    height: 40 / 32,
-  )),
+  headlineLarge(_kM3TypeScaleHeadlineLarge),
 
   /// Headline Medium text style (28sp).
-  headlineMedium(TextStyle(
-    fontSize: 28,
-    fontWeight: FontWeight.w400,
-    letterSpacing: 0,
-    height: 36 / 28,
-  )),
+  headlineMedium(_kM3TypeScaleHeadlineMedium),
 
   /// Headline Small text style (24sp).
-  headlineSmall(TextStyle(
-    fontSize: 24,
-    fontWeight: FontWeight.w400,
-    letterSpacing: 0,
-    height: 32 / 24,
-  )),
+  headlineSmall(_kM3TypeScaleHeadlineSmall),
 
   /// Title Large text style (22sp).
-  titleLarge(TextStyle(
-    fontSize: 22,
-    fontWeight: FontWeight.w400,
-    letterSpacing: 0,
-    height: 28 / 22,
-  )),
+  titleLarge(_kM3TypeScaleTitleLarge),
 
   /// Title Medium text style (16sp).
-  titleMedium(TextStyle(
-    fontSize: 16,
-    fontWeight: FontWeight.w500,
-    letterSpacing: 0.15,
-    height: 24 / 16,
-  )),
+  titleMedium(_kM3TypeScaleTitleMedium),
 
   /// Title Small text style (14sp).
-  titleSmall(TextStyle(
-    fontSize: 14,
-    fontWeight: FontWeight.w500,
-    letterSpacing: 0.1,
-    height: 20 / 14,
-  )),
+  titleSmall(_kM3TypeScaleTitleSmall),
 
   /// Body Large text style (16sp).
-  bodyLarge(TextStyle(
-    fontSize: 16,
-    fontWeight: FontWeight.w400,
-    letterSpacing: 0.5,
-    height: 24 / 16,
-  )),
+  bodyLarge(_kM3TypeScaleBodyLarge),
 
   /// Body Medium text style (14sp).
-  bodyMedium(TextStyle(
-    fontSize: 14,
-    fontWeight: FontWeight.w400,
-    letterSpacing: 0.25,
-    height: 20 / 14,
-  )),
+  bodyMedium(_kM3TypeScaleBodyMedium),
 
   /// Body Small text style (12sp).
-  bodySmall(TextStyle(
-    fontSize: 12,
-    fontWeight: FontWeight.w400,
-    letterSpacing: 0.4,
-    height: 16 / 12,
-  )),
+  bodySmall(_kM3TypeScaleBodySmall),
 
   /// Label Large text style (14sp).
-  labelLarge(TextStyle(
-    fontSize: 14,
-    fontWeight: FontWeight.w500,
-    letterSpacing: 0.1,
-    height: 20 / 14,
-  )),
+  labelLarge(_kM3TypeScaleLabelLarge),
 
   /// Label Medium text style (12sp).
-  labelMedium(TextStyle(
-    fontSize: 12,
-    fontWeight: FontWeight.w500,
-    letterSpacing: 0.5,
-    height: 16 / 12,
-  )),
+  labelMedium(_kM3TypeScaleLabelMedium),
 
   /// Label Small text style (11sp).
-  labelSmall(TextStyle(
-    fontSize: 11,
-    fontWeight: FontWeight.w500,
-    letterSpacing: 0.5,
-    height: 16 / 11,
-  ));
+  labelSmall(_kM3TypeScaleLabelSmall);
 
   /// Creates a type scale token with the specified value.
   const M3TypeScaleToken(this.value);
 
   /// The text style value.
+  @override
   final TextStyle value;
 
   // --- Utility Methods ---
@@ -172,7 +189,7 @@ enum M3TypeScaleToken {
     final textScaler = mediaQuery.textScaler;
 
     // Calculate adaptive font size
-    double adaptiveFontSize = textScaler.scale(baseStyle.fontSize!);
+    var adaptiveFontSize = textScaler.scale(baseStyle.fontSize!);
 
     // Apply constraints
     if (minFontSize != null) {

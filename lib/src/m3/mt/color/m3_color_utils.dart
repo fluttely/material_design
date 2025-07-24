@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 /// Provides color manipulation, accessibility checking, and state color
 /// calculations according to Material Design 3 specifications.
 @immutable
-abstract class M3ColorUtils {
+abstract interface class M3ColorUtils {
   // --- Color Manipulation ---
 
   /// Blends two colors together with a given ratio.

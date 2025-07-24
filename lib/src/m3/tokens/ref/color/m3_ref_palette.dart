@@ -29,7 +29,7 @@
 // /// - **100**: Pure white/lightest
 // ///
 // /// Reference: https://m3.material.io/styles/color/the-color-system/tokens
-// abstract class M3RefPalette {
+// abstract interface class M3RefPalette {
 //   /// Primary color palette (13 tones from 0-100)
 //   ///
 //   /// The primary palette is the main brand color and is used for key components

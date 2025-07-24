@@ -6,7 +6,7 @@ import 'package:material_design/material_design.dart';
 /// Provides component-specific shape mapping, shape manipulation,
 /// and responsive shape utilities.
 @immutable
-abstract class M3ShapeUtils {
+abstract interface class M3ShapeUtils {
   // --- Component Shape Mapping ---
 
   /// Gets the appropriate shape for a component type and variant.

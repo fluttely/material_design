@@ -4,7 +4,7 @@
 // /// Defines font families, weights, and other typographic foundations.
 // /// 
 // /// Based on: https://m3.material.io/styles/typography/type-scale-tokens
-// abstract class M3RefTypeface {
+// abstract interface class M3RefTypeface {
 //   /// Primary font family - Default for most text
 //   static const String brand = 'Roboto';
   

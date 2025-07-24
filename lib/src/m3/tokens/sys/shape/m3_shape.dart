@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:material_design/material_design.dart';
 
 const _none = Radius.circular(0);
 const _extraSmall = Radius.circular(4);
@@ -23,7 +24,7 @@ const _full = Radius.circular(9999);
 /// `final myRadius = M3Radius.medium.value; // Returns a Radius.circular(12)`
 ///
 /// Reference: https://m3.material.io/styles/shape/corner-radius-scale
-enum M3RadiusToken {
+enum M3RadiusToken implements IM3Token<Radius> {
   /// No corner radius (0dp).
   none(_none),
 
@@ -54,9 +55,11 @@ enum M3RadiusToken {
   /// Full corner radius, used for creating pill shapes.
   full(_full);
 
-  /// The final `Radius` object.
-  final Radius value;
   const M3RadiusToken(this.value);
+
+  /// The final `Radius` object.
+  @override
+  final Radius value;
 }
 
 /// Defines the border radius values (`BorderRadius`) for shape tokens according to Material Design 3.
@@ -68,40 +71,42 @@ enum M3RadiusToken {
 /// `final myBorderRadius = M3BorderRadii.large.value;`
 ///
 /// Reference: https://m3.material.io/styles/shape/corner-radius-scale
-enum M3BorderRadiusToken {
+enum M3BorderRadiusToken implements IM3Token<BorderRadius> {
   /// No border radius (0dp).
-  none(const BorderRadius.all(_none)),
+  none(BorderRadius.all(_none)),
 
   /// Extra small border radius (4dp).
-  extraSmall(const BorderRadius.all(_extraSmall)),
+  extraSmall(BorderRadius.all(_extraSmall)),
 
   /// Small border radius (8dp).
-  small(const BorderRadius.all(_small)),
+  small(BorderRadius.all(_small)),
 
   /// Medium border radius (12dp).
-  medium(const BorderRadius.all(_medium)),
+  medium(BorderRadius.all(_medium)),
 
   /// Large border radius (16dp).
-  large(const BorderRadius.all(_large)),
+  large(BorderRadius.all(_large)),
 
   /// Large increased border radius (20dp).
-  largeIncreased(const BorderRadius.all(_largeIncreased)),
+  largeIncreased(BorderRadius.all(_largeIncreased)),
 
   /// Extra large border radius (28dp).
-  extraLarge(const BorderRadius.all(_extraLarge)),
+  extraLarge(BorderRadius.all(_extraLarge)),
 
   /// Extra large increased border radius (32dp).
-  extraLargeIncreased(const BorderRadius.all(_extraLargeIncreased)),
+  extraLargeIncreased(BorderRadius.all(_extraLargeIncreased)),
 
   /// Extra extra large border radius (48dp).
-  extraExtraLarge(const BorderRadius.all(_extraExtraLarge)),
+  extraExtraLarge(BorderRadius.all(_extraExtraLarge)),
 
   /// Full border radius, used for creating pill shapes.
-  full(const BorderRadius.all(_full));
+  full(BorderRadius.all(_full));
+
+  const M3BorderRadiusToken(this.value);
 
   /// The final `BorderRadius` object.
+  @override
   final BorderRadius value;
-  const M3BorderRadiusToken(this.value);
 }
 
 /// Provides pre-defined, Material 3-compliant shape tokens (`ShapeBorder`).
@@ -121,45 +126,47 @@ enum M3BorderRadiusToken {
 /// )
 /// ```
 /// Reference: https://m3.material.io/styles/shape/corner-radius-scale
-enum M3ShapeToken {
+enum M3ShapeToken implements IM3Token<RoundedRectangleBorder> {
   /// A shape with no corner rounding (0dp).
-  none(const RoundedRectangleBorder(borderRadius: BorderRadius.all(_none))),
+  none(RoundedRectangleBorder()),
 
   /// A shape with extra-small corner rounding (4dp).
-  extraSmall(const RoundedRectangleBorder(
-      borderRadius: BorderRadius.all(_extraSmall))),
+  extraSmall(
+      RoundedRectangleBorder(borderRadius: BorderRadius.all(_extraSmall))),
 
   /// A shape with small corner rounding (8dp).
-  small(const RoundedRectangleBorder(borderRadius: BorderRadius.all(_small))),
+  small(RoundedRectangleBorder(borderRadius: BorderRadius.all(_small))),
 
   /// A shape with medium corner rounding (12dp).
-  medium(const RoundedRectangleBorder(borderRadius: BorderRadius.all(_medium))),
+  medium(RoundedRectangleBorder(borderRadius: BorderRadius.all(_medium))),
 
   /// A shape with large corner rounding (16dp).
-  large(const RoundedRectangleBorder(borderRadius: BorderRadius.all(_large))),
+  large(RoundedRectangleBorder(borderRadius: BorderRadius.all(_large))),
 
   /// A shape with an increased large corner rounding (e.g., 20dp).
-  largeIncreased(const RoundedRectangleBorder(
-      borderRadius: BorderRadius.all(_largeIncreased))),
+  largeIncreased(
+      RoundedRectangleBorder(borderRadius: BorderRadius.all(_largeIncreased))),
 
   /// A shape with extra-large corner rounding (28dp).
-  extraLarge(const RoundedRectangleBorder(
-      borderRadius: BorderRadius.all(_extraLarge))),
+  extraLarge(
+      RoundedRectangleBorder(borderRadius: BorderRadius.all(_extraLarge))),
 
   /// A shape with an increased extra-large corner rounding (e.g., 32dp).
-  extraLargeIncreased(const RoundedRectangleBorder(
+  extraLargeIncreased(RoundedRectangleBorder(
       borderRadius: BorderRadius.all(_extraLargeIncreased))),
 
   /// A shape with an extra-extra-large corner rounding (e.g., 48dp).
-  extraExtraLarge(const RoundedRectangleBorder(
-      borderRadius: BorderRadius.all(_extraExtraLarge))),
+  extraExtraLarge(
+      RoundedRectangleBorder(borderRadius: BorderRadius.all(_extraExtraLarge))),
 
   /// A fully rounded shape, creating a pill or circular form.
   ///
   /// This is equivalent to using a `StadiumBorder`.
-  full(const RoundedRectangleBorder(borderRadius: BorderRadius.all(_full)));
+  full(RoundedRectangleBorder(borderRadius: BorderRadius.all(_full)));
+
+  const M3ShapeToken(this.value);
 
   /// The final `ShapeBorder` object.
+  @override
   final RoundedRectangleBorder value;
-  const M3ShapeToken(this.value);
 }
