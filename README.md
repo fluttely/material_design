@@ -2,7 +2,6 @@
 
 [![pub version](https://img.shields.io/pub/v/material_design.svg)](https://pub.dev/packages/material_design)
 [![license](https://img.shields.io/badge/license-BSD-blue.svg)](/LICENSE)
-[![popularity](https://img.shields.io/pub/popularity/material_design)](https://pub.dev/packages/material_design)
 
 🎨 **The most complete Material Design 3 implementation for Flutter**
 
@@ -34,7 +33,7 @@ Add this line to your project's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  material_design: ^0.8.0
+  material_design: ^0.8.1
 ```
 
 Then run `flutter pub get`.
@@ -56,40 +55,6 @@ Import the package to start using the tokens:
 ```dart
 import 'package:material_design/material_design.dart';
 ```
-
-## ⚡ API Changes (v0.7.0+)
-
-Starting from version 0.7.0, all design tokens have been converted from static classes to **enums with `.value` properties** for improved type safety, better IntelliSense, and enhanced developer experience.
-
-### Migration Guide
-
-**Before (v0.6.1 and earlier):**
-
-```dart
-// Old API - Direct access
-Card(elevation: M3Elevation.level5)
-Padding(padding: EdgeInsets.all(M3Spacing.space16))
-AnimatedContainer(duration: M3MotionDuration.short2)
-Icon(Icons.directions_boat_filled, size: M3IconSize.dense),
-```
-
-**After (v0.7.0+):**
-
-```dart
-// New API - Access via .value property
-Card(elevation: M3ElevationToken.level5.value)
-Padding(padding: EdgeInsets.all(M3SpacingToken.space16.value))
-AnimatedContainer(duration: M3MotionDurationToken.short2.value)
-Icon(Icons.directions_boat_filled, size: M3IconSizeToken.dense.value),
-```
-
-### Benefits of the New API
-
-- ✅ **Better Type Safety**: Enums prevent invalid token usage
-- ✅ **Enhanced IntelliSense**: Improved autocomplete and documentation
-- ✅ **Consistent Pattern**: All tokens follow the same `.value` pattern
-- ✅ **Professional Documentation**: Comprehensive inline docs for each token
-- ✅ **Interface Contracts**: Tokens implement interfaces for extensibility
 
 ## Core Tokens
 
@@ -439,6 +404,65 @@ The included example app serves as a complete visual style guide, showcasing all
 cd example
 flutter run
 ```
+
+## ⚡ API Changes (v0.7.0+)
+
+Starting from version 0.7.0, all design tokens have been converted from static classes to **enums with `.value` properties** for improved type safety, better IntelliSense, and enhanced developer experience.
+
+### 🔧 Migration Guide
+
+**Before (v0.6.1 and earlier):**
+
+```dart
+// Old API - Direct access
+Card(elevation: M3Elevation.level5)
+Padding(padding: EdgeInsets.all(M3Spacing.space16))
+AnimatedContainer(duration: M3MotionDuration.short2)
+Icon(Icons.directions_boat_filled, size: M3IconSize.dense),
+```
+
+**After (v0.7.0+):**
+
+```dart
+// New API - Access via .value property
+Card(elevation: M3ElevationToken.level5.value)
+Padding(padding: EdgeInsets.all(M3SpacingToken.space16.value))
+AnimatedContainer(duration: M3MotionDurationToken.short2.value)
+Icon(Icons.directions_boat_filled, size: M3IconSizeToken.dense.value),
+```
+
+**Before (v0.7.5):**
+
+```dart
+// Old API - no longer available
+Container(
+  decoration: BoxDecoration(
+    color: M3TonalColor.surface3(context),
+    boxShadow: M3ShadowToken.fromElevation(4.5),
+  ),
+)
+```
+
+**After (v0.8.0):**
+
+```dart
+// New unified API
+final elevation = M3ElevationToken.fromValue(4.5);
+Container(
+  decoration: BoxDecoration(
+    color: elevation.surfaceColor(context),
+    boxShadow: elevation.shadows,
+  ),
+)
+```
+
+### Benefits of the New API
+
+- ✅ **Better Type Safety**: Enums prevent invalid token usage
+- ✅ **Enhanced IntelliSense**: Improved autocomplete and documentation
+- ✅ **Consistent Pattern**: All tokens follow the same `.value` pattern
+- ✅ **Professional Documentation**: Comprehensive inline docs for each token
+- ✅ **Interface Contracts**: Tokens implement interfaces for extensibility
 
 ## 🤝 Contributing
 
