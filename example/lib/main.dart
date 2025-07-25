@@ -194,7 +194,7 @@ class _DemoHomePageState extends State<DemoHomePage>
   double _elevation = 1.0;
 
   /// Current visual density setting
-  VisualDensity _visualDensity = VisualDensity.standard;
+  VisualDensity _visualDensity = M3VisualDensityToken.standard.value;
 
   /// Animation controller for page transitions
   late AnimationController _pageAnimationController;
@@ -527,10 +527,11 @@ class _DemoHomePageState extends State<DemoHomePage>
   }
 
   String _getDensityName(VisualDensity density) {
-    if (density == VisualDensity.standard) return 'Standard';
-    if (density == VisualDensity.comfortable) return 'Comfortable';
-    if (density == VisualDensity.compact) return 'Compact';
-    if (density == VisualDensity.adaptivePlatformDensity) return 'Adaptive';
+    if (density == M3VisualDensityToken.standard.value) return 'Standard';
+    if (density == M3VisualDensityToken.comfortable.value) return 'Comfortable';
+    if (density == M3VisualDensityToken.compact.value) return 'Compact';
+    if (density == M3VisualDensityToken.adaptivePlatformDensity.value)
+      return 'Adaptive';
     return 'Custom';
   }
 
@@ -565,18 +566,18 @@ class _DemoHomePageState extends State<DemoHomePage>
         Wrap(
           spacing: M3SpacingToken.space8.value,
           children: [
-            VisualDensity.standard,
-            VisualDensity.comfortable,
-            VisualDensity.compact,
-            VisualDensity.adaptivePlatformDensity,
+            M3VisualDensityToken.standard,
+            M3VisualDensityToken.comfortable,
+            M3VisualDensityToken.compact,
+            M3VisualDensityToken.adaptivePlatformDensity,
           ]
               .map(
                 (density) => FilterChip(
-                  label: Text(_getDensityName(density)),
-                  selected: _visualDensity == density,
+                  label: Text(_getDensityName(density.value)),
+                  selected: _visualDensity == density.value,
                   onSelected: (selected) {
                     if (selected) {
-                      setState(() => _visualDensity = density);
+                      setState(() => _visualDensity = density.value);
                     }
                   },
                 ),

@@ -73,41 +73,41 @@ class EnhancedThemePage extends StatelessWidget {
             //   Column(
             //     children: [
             //       Card(
-            //         elevation: M3Elevation.card,
+            //         elevation: M3ElevationToken.card,
             //         child: Padding(
-            //           padding: const EdgeInsets.all(M3Spacing.space16),
+            //           padding: const EdgeInsets.all(M3SpacingToken.space16),
             //           child: SizedBox(
             //             width: double.infinity,
             //             child: Text(
-            //               'Standard Card (${M3Elevation.card}dp)',
+            //               'Standard Card (${M3ElevationToken.card}dp)',
             //               style: Theme.of(context).textTheme.titleMedium,
             //             ),
             //           ),
             //         ),
             //       ),
-            //       const SizedBox(height: M3Spacing.space8),
+            //       const SizedBox(height: M3SpacingToken.space8),
             //       Card(
-            //         elevation: M3Elevation.appBar,
+            //         elevation: M3ElevationToken.appBar,
             //         child: Padding(
-            //           padding: const EdgeInsets.all(M3Spacing.space16),
+            //           padding: const EdgeInsets.all(M3SpacingToken.space16),
             //           child: SizedBox(
             //             width: double.infinity,
             //             child: Text(
-            //               'Elevated appBar (${M3Elevation.appBar}dp)',
+            //               'Elevated appBar (${M3ElevationToken.appBar}dp)',
             //               style: Theme.of(context).textTheme.titleMedium,
             //             ),
             //           ),
             //         ),
             //       ),
-            //       const SizedBox(height: M3Spacing.space8),
+            //       const SizedBox(height: M3SpacingToken.space8),
             //       Card(
-            //         elevation: M3Elevation.level5,
+            //         elevation: M3ElevationToken.level5,
             //         child: Padding(
-            //           padding: const EdgeInsets.all(M3Spacing.space16),
+            //           padding: const EdgeInsets.all(M3SpacingToken.space16),
             //           child: SizedBox(
             //             width: double.infinity,
             //             child: Text(
-            //               'High Elevation Card (${M3Elevation.level5}dp)',
+            //               'High Elevation Card (${M3ElevationToken.level5}dp)',
             //               style: Theme.of(context).textTheme.titleMedium,
             //             ),
             //           ),

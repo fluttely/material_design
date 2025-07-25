@@ -4,6 +4,89 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.9.0
+
+### 🔄 BREAKING CHANGES
+
+- **Token System Standardization**: Massive refactoring to standardize all token class names with "Token" suffix for better consistency and clarity
+
+  - **Renamed Core Token Classes**:
+
+    - `M3Spacing` → `M3SpacingToken`
+    - `M3Elevation` → `M3ElevationToken`
+    - `M3Shape` → `M3ShapeToken`
+    - `M3Motion` → `M3MotionToken`
+    - `M3MotionDuration` → `M3MotionDurationToken`
+    - `M3MotionEasing` → `M3MotionEasingToken`
+    - `M3Border` → `M3BorderToken`
+    - `M3Breakpoint` → `M3BreakpointToken`
+    - `M3IconSize` → `M3IconSizeToken`
+    - `M3ZIndex` → `M3ZIndexToken`
+    - `M3VisualDensity` → `M3VisualDensityToken`
+    - `M3StateLayerOpacity` → `M3StateLayerOpacityToken`
+    - `M3Opacity` → `M3OpacityToken`
+    - `M3TypeScale` → `M3TypeScaleToken`
+
+  - **Removed Legacy System Classes**:
+    - `M3SysColor` → Replaced with `M3ColorSchemeToken`
+    - `M3TypeScale` → Consolidated into `M3TypeScaleToken`
+    - `M3VisualDensity` → Renamed to `M3VisualDensityToken`
+
+### ✨ Enhanced Token Architecture
+
+- **Improved Token Consistency**: All token classes now follow a unified naming convention with "Token" suffix
+- **Better API Clarity**: The "Token" suffix makes it clear that these are design token classes rather than utility classes
+- **Streamlined Color System**: Introduced `M3ColorSchemeToken` as a more organized approach to color tokens
+- **Enhanced State System**: Added `M3OpacityToken` for general opacity values alongside the existing state layer opacities
+
+### 📚 Documentation Updates
+
+- **Comprehensive Documentation Refresh**: Updated all documentation files (both English and Portuguese) to reflect new token naming
+- **Implementation Guide Updates**: All implementation examples now use the new token class names
+- **Component Map Updates**: Updated component mapping documentation with new token references
+- **README Updates**: Main README.md updated with new API examples and migration guidance
+
+### 🎯 Demo & Example Applications
+
+- **Complete Demo Application Update**: All demo showcase pages updated to use new token naming conventions
+- **Enhanced Theme Integration**: Theme examples updated to demonstrate proper usage of renamed tokens
+- **Interactive Examples**: All interactive widgets and examples updated with new token class names
+- **Comprehensive Showcases**: Typography, spacing, motion, shape, and component showcases all updated
+
+### 🔧 Migration Guide
+
+**Before (v0.8.1):**
+
+```dart
+// Old token naming
+Card(elevation: M3Elevation.level2.value)
+Padding(padding: EdgeInsets.all(M3Spacing.space16.value))
+AnimatedContainer(duration: M3MotionDuration.short2.value)
+Text('Title', style: M3TypeScale.headlineMedium)
+```
+
+**After (v0.9.0):**
+
+```dart
+// New standardized naming with "Token" suffix
+Card(elevation: M3ElevationToken.level2.value)
+Padding(padding: EdgeInsets.all(M3SpacingToken.space16.value))
+AnimatedContainer(duration: M3MotionDurationToken.short2.value)
+Text('Title', style: M3TypeScaleToken.headlineMedium)
+```
+
+### 🏗️ File Structure Improvements
+
+- **Token File Reorganization**: All token implementation files renamed to include "\_token" suffix for better organization
+- **Cleaner Export Structure**: Main library exports updated to expose new token class names
+- **Consistent Internal Structure**: Internal token files follow consistent naming patterns
+
+### 🐛 Compatibility Notes
+
+- **No Functional Changes**: All token values and functionality remain identical - only class names have changed
+- **Import Structure Unchanged**: Main package imports (`import 'package:material_design/material_design.dart'`) remain the same
+- **Enum Values Preserved**: All enum values and properties maintain their existing names and functionality
+
 ## 0.8.1
 
 ### 📚 Major Documentation System

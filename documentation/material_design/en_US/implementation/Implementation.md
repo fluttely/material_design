@@ -19,19 +19,19 @@ graph TD
     I --> TS[Token Structure]
     I --> TH[Theme System]
     I --> BP[Best Practices]
-    
+
     FI --> FI1[MaterialApp Setup]
     FI --> FI2[Widget Integration]
     FI --> FI3[Theme Configuration]
-    
+
     TS --> TS1[Ref/Sys/Comp Organization]
     TS --> TS2[Barrel Files]
     TS --> TS3[Export Structure]
-    
+
     TH --> TH1[Light/Dark Themes]
     TH --> TH2[Dynamic Colors]
     TH --> TH3[Custom Themes]
-    
+
     BP --> BP1[Code Organization]
     BP --> BP2[Performance]
     BP --> BP3[Accessibility]
@@ -56,12 +56,12 @@ class MyApp extends StatelessWidget {
       home: const HomePage(),
     );
   }
-  
+
   ThemeData _buildLightTheme() {
     return ThemeData(
       useMaterial3: true,
       colorScheme: M3SysColor.toColorScheme(),
-      textTheme: M3TypeScale.material3TextTheme,
+      textTheme: M3TypeScaleToken.material3TextTheme,
       // Automatic component configurations
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
@@ -73,12 +73,12 @@ class MyApp extends StatelessWidget {
       ),
     );
   }
-  
+
   ThemeData _buildDarkTheme() {
     return ThemeData(
       useMaterial3: true,
       colorScheme: M3SysColorDark.toColorScheme(),
-      textTheme: M3TypeScale.material3TextTheme,
+      textTheme: M3TypeScaleToken.material3TextTheme,
     );
   }
 }
@@ -99,22 +99,22 @@ class ExampleCard extends StatelessWidget {
         color: M3SysColor.surfaceContainer,
         borderRadius: M3CompCard.shape,
         // Using elevation system
-        boxShadow: M3Shadow.fromElevation(M3Elevation.level1.dp),
+        boxShadow: M3ShadowToken.fromElevation(M3ElevationToken.level1.value),
       ),
       child: Column(
         children: [
           // Using typography scale
           Text(
             'Card Title',
-            style: M3TypeScale.titleMedium.copyWith(
+            style: M3TypeScaleToken.titleMedium.copyWith(
               color: M3SysColor.onSurface,
             ),
           ),
           // Using spacing tokens
-          SizedBox(height: M3Spacing.space8),
+          SizedBox(height: M3SpacingToken.space8),
           Text(
             'Card description text',
-            style: M3TypeScale.bodyMedium.copyWith(
+            style: M3TypeScaleToken.bodyMedium.copyWith(
               color: M3SysColor.onSurfaceVariant,
             ),
           ),
@@ -142,7 +142,7 @@ lib/src/m3/
 │   │   └── motion/
 │   │       └── m3_ref_duration.dart
 │   │
-│   ├── sys/                    # System Tokens  
+│   ├── sys/                    # System Tokens
 │   │   ├── sys.dart           # Barrel file
 │   │   └── color/
 │   │       └── m3_sys_color.dart
@@ -166,7 +166,7 @@ lib/src/m3/
 ```dart
 // tokens/tokens.dart - Exports everything
 export 'ref/ref.dart';
-export 'sys/sys.dart';  
+export 'sys/sys.dart';
 export 'comp/comp.dart';
 // Legacy tokens for compatibility
 export 'color/m3_tonal_color.dart';
@@ -181,7 +181,7 @@ export 'motion/m3_ref_duration.dart';
 // sys/sys.dart - System tokens
 export 'color/m3_sys_color.dart';
 
-// comp/comp.dart - Component tokens  
+// comp/comp.dart - Component tokens
 export 'button/m3_comp_button.dart';
 export 'card/m3_comp_card.dart';
 ```
@@ -207,45 +207,45 @@ class M3Theme {
   /// Builds light theme with optional seed color
   static ThemeData light({
     Color? seedColor,
-    VisualDensity? visualDensity,
+    M3VisualDensityToken? visualDensity,
   }) {
     final colorScheme = seedColor != null
         ? ColorScheme.fromSeed(seedColor: seedColor, brightness: Brightness.light)
         : M3SysColor.toColorScheme();
-    
+
     return ThemeData(
       useMaterial3: true,
       brightness: Brightness.light,
       colorScheme: colorScheme,
-      visualDensity: visualDensity ?? VisualDensity.adaptivePlatformDensity,
-      
+      visualDensity: visualDensity ?? M3VisualDensityToken.adaptivePlatformDensity.value,
+
       // Typography
-      textTheme: M3TypeScale.material3TextTheme,
-      
+      textTheme: M3TypeScaleToken.material3TextTheme,
+
       // Components
       elevatedButtonTheme: _buildElevatedButtonTheme(colorScheme),
       cardTheme: _buildCardTheme(colorScheme),
       appBarTheme: _buildAppBarTheme(colorScheme),
     );
   }
-  
+
   /// Builds dark theme
   static ThemeData dark({Color? seedColor}) {
     final colorScheme = seedColor != null
         ? ColorScheme.fromSeed(seedColor: seedColor, brightness: Brightness.dark)
         : M3SysColorDark.toColorScheme();
-    
+
     return light(seedColor: seedColor).copyWith(
       brightness: Brightness.dark,
       colorScheme: colorScheme,
     );
   }
-  
+
   /// High contrast theme
   static ThemeData highContrast() {
     return light().copyWith(
       // Enhanced contrast adjustments
-      textTheme: M3TypeScale.material3TextTheme.apply(
+      textTheme: M3TypeScaleToken.material3TextTheme.apply(
         displayColor: Colors.black,
         bodyColor: Colors.black,
       ),
@@ -263,7 +263,7 @@ ElevatedButtonThemeData _buildElevatedButtonTheme(ColorScheme colorScheme) {
         borderRadius: M3CompButton.shapeMedium,
       ),
       elevation: M3CompButton.elevationRested,
-      animationDuration: M3MotionDuration.short4,
+      animationDuration: M3MotionDurationToken.short4,
     ),
   );
 }
@@ -274,22 +274,22 @@ ElevatedButtonThemeData _buildElevatedButtonTheme(ColorScheme colorScheme) {
 ```dart
 class DynamicTheme extends StatefulWidget {
   final Widget child;
-  
+
   const DynamicTheme({Key? key, required this.child}) : super(key: key);
-  
+
   @override
   State<DynamicTheme> createState() => _DynamicThemeState();
 }
 
 class _DynamicThemeState extends State<DynamicTheme> {
   ColorScheme? _dynamicColorScheme;
-  
+
   @override
   void initState() {
     super.initState();
     _loadDynamicColors();
   }
-  
+
   Future<void> _loadDynamicColors() async {
     try {
       final corePalette = await DynamicColorPlugin.getCorePalette();
@@ -303,7 +303,7 @@ class _DynamicThemeState extends State<DynamicTheme> {
       debugPrint('Dynamic colors not available: $e');
     }
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -326,7 +326,7 @@ class _DynamicThemeState extends State<DynamicTheme> {
 ```dart
 // ✅ Good - Use semantic tokens
 Container(
-  padding: EdgeInsets.all(M3Spacing.space16),
+  padding: EdgeInsets.all(M3SpacingToken.space16),
   decoration: BoxDecoration(
     color: M3SysColor.primaryContainer,
     borderRadius: BorderRadius.circular(M3Radius.medium),
@@ -357,13 +357,13 @@ ElevatedButton(
 ### 2. Performance
 
 ```dart
-// ✅ Good - Cache theme data  
+// ✅ Good - Cache theme data
 class MyWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
-    
+
     return Container(
       color: colorScheme.primaryContainer,
       child: Text('Text', style: textTheme.titleMedium),
@@ -378,7 +378,7 @@ class BadWidget extends StatelessWidget {
     return Container(
       color: Theme.of(context).colorScheme.primaryContainer,
       child: Text(
-        'Text', 
+        'Text',
         style: Theme.of(context).textTheme.titleMedium,
       ),
     );
@@ -427,7 +427,7 @@ class TokenShowcaseApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
-    
+
     return MaterialApp(
       title: 'Material Design 3',
       theme: M3Theme.light(seedColor: themeProvider.seedColor),
@@ -448,26 +448,29 @@ Page demonstrating tokens in action:
 
 ```dart
 // Spacing demonstration
-_buildSpacingDemo('M3Spacing.space16', M3Spacing.space16);
+_buildSpacingDemo('M3SpacingToken.space16', M3SpacingToken.space16);
 
-// Density demonstration  
-_buildDensityDemo('Standard', VisualDensity.standard);
+// Density demonstration
+_buildDensityDemo('Standard', M3VisualDensityToken.standard);
 
 // Breakpoints demonstration
-_buildBreakpointDemo('M3Breakpoint.medium', M3Breakpoint.medium);
+_buildBreakpointDemo('M3BreakpointToken.medium', M3BreakpointToken.medium);
 ```
 
 ## 🔗 Connections
 
 ### To [[../foundations/Foundations|Foundations]]
+
 - **[[../foundations/Design Tokens]]** → **Token Structure**
 - **[[../foundations/Accessibility]]** → **Best Practices**
 
-### To [[../styles/Styles|Styles]]  
+### To [[../styles/Styles|Styles]]
+
 - **[[../styles/Color System]]** → **Theme System**
 - **[[../styles/Typography]]** → **Flutter Integration**
 
 ### To [[../components/Components|Components]]
+
 - **Component Tokens** → **Widget Integration**
 - **Theme Configuration** → **Component Styling**
 
@@ -478,7 +481,7 @@ _buildBreakpointDemo('M3Breakpoint.medium', M3Breakpoint.medium);
 ## 🔍 See Also
 
 - **[[../Material Design 3|🏠 Material Design 3 Home]]**
-- **[[../examples/Showcase App|📱 Showcase App]]**  
+- **[[../examples/Showcase App|📱 Showcase App]]**
 - **[[../maps/Implementation Map|🗺️ Implementation Map]]**
 
 ---

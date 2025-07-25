@@ -26,7 +26,7 @@ class ShapePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: LaunchURLText(
-          label: 'M3Shape Tokens',
+          label: 'M3ShapeToken',
           m3Url: 'https://m3.material.io/styles/shape/corner-radius-scale',
         ),
       ),

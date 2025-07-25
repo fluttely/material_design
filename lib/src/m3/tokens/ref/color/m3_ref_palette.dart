@@ -15,7 +15,7 @@
 // /// ```dart
 // /// // Get specific tone from a palette
 // /// Color primaryColor = M3RefPalette.getColor(M3RefPalette.primary, 40);
-// /// 
+// ///
 // /// // Interpolate between tones
 // /// Color customTone = M3RefPalette.interpolateTone(M3RefPalette.primary, 35.5);
 // /// ```
@@ -153,7 +153,7 @@
 //   /// Get a specific tone from any palette
 //   ///
 //   /// Returns the color for the specified tone, falling back to tone 50 if not found.
-//   /// 
+//   ///
 //   /// Parameters:
 //   /// - [palette]: The color palette to get the tone from
 //   /// - [tone]: The tone value (0-100)

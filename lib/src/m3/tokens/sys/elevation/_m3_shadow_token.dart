@@ -1,4 +1,4 @@
-part of 'm3_elevation.dart';
+part of 'm3_elevation_token.dart';
 
 const int _kM3ShadowColorValue = 0x26000000;
 const List<BoxShadow> _kM3ShadowLevel0 = [];

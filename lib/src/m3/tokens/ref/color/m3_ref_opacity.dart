@@ -13,7 +13,7 @@
 // /// ```dart
 // /// // Use for state layer overlays
 // /// Container(
-// ///   color: Colors.blue.withOpacity(M3RefOpacity.hover),
+// ///   color: Colors.blue.withValues(alpha:M3RefOpacity.hover),
 // /// )
 // /// 
 // /// // Use for disabled elements

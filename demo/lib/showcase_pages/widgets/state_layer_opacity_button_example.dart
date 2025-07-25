@@ -76,7 +76,7 @@ class _CustomButtonState extends State<CustomButton> {
   Color _getBackgroundColor(ColorScheme colorScheme) {
     if (!_isEnabled) {
       return colorScheme.onSurface.withValues(
-        alpha: M3Opacity.disabledContainer.value,
+        alpha: M3OpacityToken.disabledContainer.value,
       );
     }
 
@@ -86,7 +86,7 @@ class _CustomButtonState extends State<CustomButton> {
   Color _getContentColor(ColorScheme colorScheme) {
     if (!_isEnabled) {
       return colorScheme.onSurface.withValues(
-        alpha: M3Opacity.disabledContent.value,
+        alpha: M3OpacityToken.disabledContent.value,
       );
     }
     return colorScheme.primary;

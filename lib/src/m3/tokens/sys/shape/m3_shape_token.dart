@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:material_design/material_design.dart';
 
-const _none = Radius.circular(0);
+const Radius _none = Radius.zero;
 const _extraSmall = Radius.circular(4);
 const _small = Radius.circular(8);
 const _medium = Radius.circular(12);
@@ -73,7 +73,7 @@ enum M3RadiusToken implements IM3Token<Radius> {
 /// Reference: https://m3.material.io/styles/shape/corner-radius-scale
 enum M3BorderRadiusToken implements IM3Token<BorderRadius> {
   /// No border radius (0dp).
-  none(BorderRadius.all(_none)),
+  none(BorderRadius.zero),
 
   /// Extra small border radius (4dp).
   extraSmall(BorderRadius.all(_extraSmall)),

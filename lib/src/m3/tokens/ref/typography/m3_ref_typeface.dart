@@ -1,16 +1,16 @@
 // /// Material Design 3 Reference Typeface
-// /// 
+// ///
 // /// Contains the base typeface configuration used throughout the M3 design system.
 // /// Defines font families, weights, and other typographic foundations.
-// /// 
+// ///
 // /// Based on: https://m3.material.io/styles/typography/type-scale-tokens
 // abstract interface class M3RefTypeface {
 //   /// Primary font family - Default for most text
 //   static const String brand = 'Roboto';
-  
+
 //   /// Plain font family - For body text and reading
 //   static const String plain = 'Roboto';
-  
+
 //   /// Default font families list with fallbacks
 //   static const List<String> fontFamilies = [
 //     brand,
@@ -43,7 +43,7 @@
 
 //   /// Letter spacing values (in em units)
 //   static const double letterSpacingTight = -0.025;
-//   static const double letterSpacingNormal = 0.0;
+//   static const double letterSpacingNormal = 0;
 //   static const double letterSpacingWide = 0.025;
 //   static const double letterSpacingExtraWide = 0.05;
 
@@ -63,6 +63,6 @@
 //   /// Font variation settings for variable fonts
 //   static const Map<String, double> fontVariations = {
 //     'wght': 400.0, // Weight
-//     'opsz': 14.0,  // Optical size
+//     'opsz': 14.0, // Optical size
 //   };
 // }

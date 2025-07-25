@@ -16,10 +16,10 @@ class OpacityTokensPage extends StatelessWidget {
   ];
 
   static const _generalOpacities = [
-    (label: 'Disabled Content', token: M3Opacity.disabledContent),
-    (label: 'Disabled Container', token: M3Opacity.disabledContainer),
-    (label: 'Divider', token: M3Opacity.divider),
-    (label: 'Backdrop', token: M3Opacity.backdrop),
+    (label: 'Disabled Content', token: M3OpacityToken.disabledContent),
+    (label: 'Disabled Container', token: M3OpacityToken.disabledContainer),
+    (label: 'Divider', token: M3OpacityToken.divider),
+    (label: 'Backdrop', token: M3OpacityToken.backdrop),
   ];
 
   @override
@@ -27,14 +27,14 @@ class OpacityTokensPage extends StatelessWidget {
     final colorScheme = Theme.of(context).colorScheme;
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Opacity Tokens')),
+      appBar: AppBar(title: const Text('M3 Opacity')),
       body: ListView(
         padding: EdgeInsets.all(M3SpacingToken.space16.value),
         children: [
           // Section for state layer opacities.
           _buildSection(
             context: context,
-            title: 'M3StateLayerOpacity Tokens',
+            title: 'M3StateLayerOpacityToken',
             url:
                 'https://m3.material.io/foundations/interaction/states/state-layers',
             tokens: _stateLayerOpacities,
@@ -43,7 +43,7 @@ class OpacityTokensPage extends StatelessWidget {
           // Section for other common opacities.
           _buildSection(
             context: context,
-            title: 'M3Opacity Tokens',
+            title: 'M3OpacityToken',
             // The official link for states, which covers the "disabled" state.
             url:
                 'https://m3.material.io/foundations/interaction/states/overview',
