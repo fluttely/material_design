@@ -163,134 +163,133 @@ enum M3BreakpointToken implements IM3Token<double> {
   // --- Utility Methods ---
 
   /// Gets the current window size class based on screen width.
-  static M3WindowSizeClass getWindowSizeClass(double width) {
+  static M3ScreenSize getWindowSizeClass(double width) {
     if (width < M3BreakpointToken.medium.value) {
-      return M3WindowSizeClass.compact;
+      return M3ScreenSize.compact;
     } else if (width < M3BreakpointToken.expanded.value) {
-      return M3WindowSizeClass.medium;
+      return M3ScreenSize.medium;
     } else if (width < M3BreakpointToken.large.value) {
-      return M3WindowSizeClass.expanded;
+      return M3ScreenSize.expanded;
     } else if (width < M3BreakpointToken.extraLarge.value) {
-      return M3WindowSizeClass.large;
+      return M3ScreenSize.large;
     } else {
-      return M3WindowSizeClass.extraLarge;
+      return M3ScreenSize.extraLarge;
     }
   }
 
   /// Gets the window size class from a BuildContext.
-  static M3WindowSizeClass getWindowSizeClassFromContext(BuildContext context) {
+  static M3ScreenSize getWindowSizeClassFromContext(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     return getWindowSizeClass(width);
   }
 
   /// Checks if the current screen is compact.
   static bool isCompact(BuildContext context) {
-    return getWindowSizeClassFromContext(context) == M3WindowSizeClass.compact;
+    return getWindowSizeClassFromContext(context) == M3ScreenSize.compact;
   }
 
   /// Checks if the current screen is medium.
   static bool isMedium(BuildContext context) {
-    return getWindowSizeClassFromContext(context) == M3WindowSizeClass.medium;
+    return getWindowSizeClassFromContext(context) == M3ScreenSize.medium;
   }
 
   /// Checks if the current screen is expanded.
   static bool isExpanded(BuildContext context) {
-    return getWindowSizeClassFromContext(context) == M3WindowSizeClass.expanded;
+    return getWindowSizeClassFromContext(context) == M3ScreenSize.expanded;
   }
 
   /// Checks if the current screen is large.
   static bool isLarge(BuildContext context) {
-    return getWindowSizeClassFromContext(context) == M3WindowSizeClass.large;
+    return getWindowSizeClassFromContext(context) == M3ScreenSize.large;
   }
 
   /// Checks if the current screen is extra large.
   static bool isExtraLarge(BuildContext context) {
-    return getWindowSizeClassFromContext(context) ==
-        M3WindowSizeClass.extraLarge;
+    return getWindowSizeClassFromContext(context) == M3ScreenSize.extraLarge;
   }
 
   /// Gets the maximum content width for the current breakpoint.
-  static double getMaxContentWidth(M3WindowSizeClass sizeClass) {
+  static double getMaxContentWidth(M3ScreenSize sizeClass) {
     switch (sizeClass) {
-      case M3WindowSizeClass.compact:
+      case M3ScreenSize.compact:
         return double.infinity; // Use full width
-      case M3WindowSizeClass.medium:
+      case M3ScreenSize.medium:
         return M3BreakpointToken.expanded.value;
-      case M3WindowSizeClass.expanded:
+      case M3ScreenSize.expanded:
         return M3BreakpointToken.large.value;
-      case M3WindowSizeClass.large:
+      case M3ScreenSize.large:
         return M3BreakpointToken.extraLarge.value;
-      case M3WindowSizeClass.extraLarge:
+      case M3ScreenSize.extraLarge:
         return 1920; // Reasonable max for readability
     }
   }
 
   /// Gets the recommended number of columns for the current breakpoint.
-  static int getRecommendedColumns(M3WindowSizeClass sizeClass) {
+  static int getRecommendedColumns(M3ScreenSize sizeClass) {
     switch (sizeClass) {
-      case M3WindowSizeClass.compact:
+      case M3ScreenSize.compact:
         return 4;
-      case M3WindowSizeClass.medium:
+      case M3ScreenSize.medium:
         return 8;
-      case M3WindowSizeClass.expanded:
-      case M3WindowSizeClass.large:
-      case M3WindowSizeClass.extraLarge:
+      case M3ScreenSize.expanded:
+      case M3ScreenSize.large:
+      case M3ScreenSize.extraLarge:
         return 12;
     }
   }
 
   /// Gets the recommended gutter width for the current breakpoint.
-  static double getGutterWidth(M3WindowSizeClass sizeClass) {
+  static double getGutterWidth(M3ScreenSize sizeClass) {
     switch (sizeClass) {
-      case M3WindowSizeClass.compact:
+      case M3ScreenSize.compact:
         return 16;
-      case M3WindowSizeClass.medium:
-      case M3WindowSizeClass.expanded:
-      case M3WindowSizeClass.large:
-      case M3WindowSizeClass.extraLarge:
+      case M3ScreenSize.medium:
+      case M3ScreenSize.expanded:
+      case M3ScreenSize.large:
+      case M3ScreenSize.extraLarge:
         return 24;
     }
   }
 
   /// Gets the recommended margin for the current breakpoint.
-  static double getMargin(M3WindowSizeClass sizeClass) {
+  static double getMargin(M3ScreenSize sizeClass) {
     switch (sizeClass) {
-      case M3WindowSizeClass.compact:
+      case M3ScreenSize.compact:
         return 16;
-      case M3WindowSizeClass.medium:
-      case M3WindowSizeClass.expanded:
+      case M3ScreenSize.medium:
+      case M3ScreenSize.expanded:
         return 24;
-      case M3WindowSizeClass.large:
-      case M3WindowSizeClass.extraLarge:
+      case M3ScreenSize.large:
+      case M3ScreenSize.extraLarge:
         return 24;
     }
   }
 
   /// Gets the recommended body width for the current breakpoint.
-  static double? getBodyWidth(M3WindowSizeClass sizeClass) {
+  static double? getBodyWidth(M3ScreenSize sizeClass) {
     switch (sizeClass) {
-      case M3WindowSizeClass.compact:
-      case M3WindowSizeClass.medium:
+      case M3ScreenSize.compact:
+      case M3ScreenSize.medium:
         return null; // Full width
-      case M3WindowSizeClass.expanded:
+      case M3ScreenSize.expanded:
         return 840;
-      case M3WindowSizeClass.large:
+      case M3ScreenSize.large:
         return 1040;
-      case M3WindowSizeClass.extraLarge:
+      case M3ScreenSize.extraLarge:
         return 1040;
     }
   }
 
   /// Gets the recommended pane width for the current breakpoint.
-  static double getPaneWidth(M3WindowSizeClass sizeClass) {
+  static double getPaneWidth(M3ScreenSize sizeClass) {
     switch (sizeClass) {
-      case M3WindowSizeClass.compact:
+      case M3ScreenSize.compact:
         return double.infinity; // Full width
-      case M3WindowSizeClass.medium:
+      case M3ScreenSize.medium:
         return 360;
-      case M3WindowSizeClass.expanded:
-      case M3WindowSizeClass.large:
-      case M3WindowSizeClass.extraLarge:
+      case M3ScreenSize.expanded:
+      case M3ScreenSize.large:
+      case M3ScreenSize.extraLarge:
         return 360;
     }
   }
@@ -300,7 +299,7 @@ enum M3BreakpointToken implements IM3Token<double> {
 ///
 /// These classes represent the canonical Material Design 3 window size
 /// classifications used for building adaptive layouts.
-enum M3WindowSizeClass {
+enum M3ScreenSize {
   /// 0dp to 599dp - Phones in portrait
   compact,
 
@@ -318,40 +317,40 @@ enum M3WindowSizeClass {
 }
 
 /// Extension on M3WindowSizeClass to add convenience methods.
-extension M3WindowSizeClassExtension on M3WindowSizeClass {
+extension M3WindowSizeClassExtension on M3ScreenSize {
   /// Returns true if this size class is at least as large as the given size class.
-  bool isAtLeast(M3WindowSizeClass other) {
+  bool isAtLeast(M3ScreenSize other) {
     return index >= other.index;
   }
 
   /// Returns true if this size class is at most as large as the given size class.
-  bool isAtMost(M3WindowSizeClass other) {
+  bool isAtMost(M3ScreenSize other) {
     return index <= other.index;
   }
 
   /// Returns true if this is a mobile size class (compact or medium).
   bool get isMobile =>
-      this == M3WindowSizeClass.compact || this == M3WindowSizeClass.medium;
+      this == M3ScreenSize.compact || this == M3ScreenSize.medium;
 
   /// Returns true if this is a tablet size class (expanded).
-  bool get isTablet => this == M3WindowSizeClass.expanded;
+  bool get isTablet => this == M3ScreenSize.expanded;
 
   /// Returns true if this is a desktop size class (large or extraLarge).
   bool get isDesktop =>
-      this == M3WindowSizeClass.large || this == M3WindowSizeClass.extraLarge;
+      this == M3ScreenSize.large || this == M3ScreenSize.extraLarge;
 
   /// Returns the display name for this size class.
   String get displayName {
     switch (this) {
-      case M3WindowSizeClass.compact:
+      case M3ScreenSize.compact:
         return 'Compact';
-      case M3WindowSizeClass.medium:
+      case M3ScreenSize.medium:
         return 'Medium';
-      case M3WindowSizeClass.expanded:
+      case M3ScreenSize.expanded:
         return 'Expanded';
-      case M3WindowSizeClass.large:
+      case M3ScreenSize.large:
         return 'Large';
-      case M3WindowSizeClass.extraLarge:
+      case M3ScreenSize.extraLarge:
         return 'Extra Large';
     }
   }
@@ -359,15 +358,15 @@ extension M3WindowSizeClassExtension on M3WindowSizeClass {
   /// Returns the typical device description for this size class.
   String get deviceDescription {
     switch (this) {
-      case M3WindowSizeClass.compact:
+      case M3ScreenSize.compact:
         return 'Phone (Portrait)';
-      case M3WindowSizeClass.medium:
+      case M3ScreenSize.medium:
         return 'Phone (Landscape) / Small Tablet';
-      case M3WindowSizeClass.expanded:
+      case M3ScreenSize.expanded:
         return 'Large Tablet / Foldable';
-      case M3WindowSizeClass.large:
+      case M3ScreenSize.large:
         return 'Desktop / Laptop';
-      case M3WindowSizeClass.extraLarge:
+      case M3ScreenSize.extraLarge:
         return 'Large Monitor / Ultra-wide Display';
     }
   }
@@ -400,8 +399,7 @@ class M3ResponsiveBuilder extends StatelessWidget {
   });
 
   /// The builder function that receives the current window size class.
-  final Widget Function(BuildContext context, M3WindowSizeClass sizeClass)
-      builder;
+  final Widget Function(BuildContext context, M3ScreenSize sizeClass) builder;
 
   @override
   Widget build(BuildContext context) {
@@ -462,17 +460,17 @@ class M3ResponsiveValue<T> extends StatelessWidget {
   final Widget Function(BuildContext context, T value) builder;
 
   /// Gets the value for the current window size class.
-  T _getValue(M3WindowSizeClass sizeClass) {
+  T _getValue(M3ScreenSize sizeClass) {
     switch (sizeClass) {
-      case M3WindowSizeClass.compact:
+      case M3ScreenSize.compact:
         return compact ?? medium ?? expanded ?? large ?? extraLarge!;
-      case M3WindowSizeClass.medium:
+      case M3ScreenSize.medium:
         return medium ?? expanded ?? large ?? extraLarge ?? compact!;
-      case M3WindowSizeClass.expanded:
+      case M3ScreenSize.expanded:
         return expanded ?? large ?? extraLarge ?? medium ?? compact!;
-      case M3WindowSizeClass.large:
+      case M3ScreenSize.large:
         return large ?? extraLarge ?? expanded ?? medium ?? compact!;
-      case M3WindowSizeClass.extraLarge:
+      case M3ScreenSize.extraLarge:
         return extraLarge ?? large ?? expanded ?? medium ?? compact!;
     }
   }
@@ -507,7 +505,7 @@ class M3ResponsiveVisibility extends StatelessWidget {
   });
 
   /// List of window size classes where the child should be visible.
-  final List<M3WindowSizeClass> visibleOn;
+  final List<M3ScreenSize> visibleOn;
 
   /// The widget to display when visible.
   final Widget child;
@@ -536,7 +534,7 @@ class M3ResponsiveGridConfig {
   });
 
   /// Gets the appropriate grid configuration for the given window size class.
-  factory M3ResponsiveGridConfig.forSizeClass(M3WindowSizeClass sizeClass) {
+  factory M3ResponsiveGridConfig.forSizeClass(M3ScreenSize sizeClass) {
     return M3ResponsiveGridConfig(
       columns: M3BreakpointToken.getRecommendedColumns(sizeClass),
       gutter: M3BreakpointToken.getGutterWidth(sizeClass),
@@ -616,22 +614,22 @@ class M3ResponsiveGrid extends StatelessWidget {
 /// that adapt to different window size classes.
 class M3ResponsiveNavigation {
   /// Determines the appropriate navigation type for the current window size class.
-  static M3NavigationType getNavigationType(M3WindowSizeClass sizeClass) {
+  static M3NavigationType getNavigationType(M3ScreenSize sizeClass) {
     switch (sizeClass) {
-      case M3WindowSizeClass.compact:
+      case M3ScreenSize.compact:
         return M3NavigationType.bottom;
-      case M3WindowSizeClass.medium:
-      case M3WindowSizeClass.expanded:
+      case M3ScreenSize.medium:
+      case M3ScreenSize.expanded:
         return M3NavigationType.rail;
-      case M3WindowSizeClass.large:
-      case M3WindowSizeClass.extraLarge:
+      case M3ScreenSize.large:
+      case M3ScreenSize.extraLarge:
         return M3NavigationType.drawer;
     }
   }
 
   /// Determines if a navigation rail should be extended.
-  static bool shouldExtendRail(M3WindowSizeClass sizeClass) {
-    return sizeClass.isAtLeast(M3WindowSizeClass.large);
+  static bool shouldExtendRail(M3ScreenSize sizeClass) {
+    return sizeClass.isAtLeast(M3ScreenSize.large);
   }
 
   /// Gets the recommended navigation rail width.

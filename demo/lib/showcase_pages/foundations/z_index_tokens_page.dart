@@ -84,7 +84,7 @@ class ZIndexTokensPage extends StatelessWidget {
           padding: EdgeInsets.all(M3SpacingToken.space16.value),
           decoration: BoxDecoration(
             color: colorScheme.surfaceContainerLowest,
-            borderRadius: M3BorderRadiusToken.medium.value,
+            borderRadius: M3ShapeToken.medium.borderRadius,
             border: Border.all(color: colorScheme.outlineVariant),
           ),
           child: Stack(
@@ -105,7 +105,7 @@ class ZIndexTokensPage extends StatelessWidget {
                     height: 120,
                     decoration: BoxDecoration(
                       color: layer.color,
-                      borderRadius: M3BorderRadiusToken.small.value,
+                      borderRadius: M3ShapeToken.small.borderRadius,
                       border: Border.all(
                         color: layer.borderColor,
                         width: 2,
@@ -157,7 +157,7 @@ class ZIndexTokensPage extends StatelessWidget {
         Container(
           decoration: BoxDecoration(
             color: colorScheme.surfaceContainerLow,
-            borderRadius: M3BorderRadiusToken.medium.value,
+            borderRadius: M3ShapeToken.medium.borderRadius,
             border: Border.all(color: colorScheme.outlineVariant),
           ),
           child: Column(
@@ -189,7 +189,7 @@ class ZIndexTokensPage extends StatelessWidget {
                   ),
                   decoration: BoxDecoration(
                     color: colorScheme.surfaceContainerHighest,
-                    borderRadius: M3BorderRadiusToken.small.value,
+                    borderRadius: M3ShapeToken.small.borderRadius,
                   ),
                   child: Text(
                     '${layer.zIndex}',

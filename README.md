@@ -33,7 +33,7 @@ Add this line to your project's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  material_design: ^0.9.2
+  material_design: ^0.10.0
 ```
 
 Then run `flutter pub get`.

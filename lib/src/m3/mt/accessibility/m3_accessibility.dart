@@ -293,7 +293,7 @@ abstract interface class M3Accessibility {
               hintText: hint,
               errorText: error,
               border: OutlineInputBorder(
-                  borderRadius: M3BorderRadiusToken.extraSmall.value),
+                  borderRadius: M3ShapeToken.extraSmall.borderRadius),
             ),
           ),
         ),

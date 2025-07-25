@@ -13,9 +13,9 @@ import 'package:material_design/material_design.dart';
 /// providing excellent readability and visual hierarchy across different
 /// platforms and screen sizes.
 /// {@endtemplate}
-class M3TypeScaleFonts {
+class _M3TypeScaleFonts {
   /// Primary Material Design font family.
-  static const String roboto = 'Roboto';
+  // static const String roboto = 'Roboto';
 
   /// System font stack with fallbacks.
   static const List<String> systemFontStack = [
@@ -278,7 +278,7 @@ enum M3TextStyleToken implements IM3Token<TextStyle> {
     return baseStyle.copyWith(
       fontFamily: fontFamily,
       fontFamilyFallback:
-          fontFamilyFallback ?? M3TypeScaleFonts.systemFontStack,
+          fontFamilyFallback ?? _M3TypeScaleFonts.systemFontStack,
     );
   }
 
@@ -286,7 +286,7 @@ enum M3TextStyleToken implements IM3Token<TextStyle> {
   static TextStyle monoVariant(TextStyle baseStyle) {
     return baseStyle.copyWith(
       fontFamily: 'Roboto Mono',
-      fontFamilyFallback: M3TypeScaleFonts.monoFontStack,
+      fontFamilyFallback: _M3TypeScaleFonts.monoFontStack,
       letterSpacing: 0,
     );
   }
@@ -348,7 +348,7 @@ enum M3TypeScaleCategory {
 }
 
 /// Provides utility methods for working with type scale tokens.
-extension M3TypeScaleTokenUtils on M3TextStyleToken {
+extension M3TextStyleTokenUtils on M3TextStyleToken {
   /// Gets the semantic category this token belongs to.
   M3TypeScaleCategory get category => switch (this) {
         M3TextStyleToken.displayLarge ||
@@ -415,7 +415,7 @@ extension M3TypeScaleTokenUtils on M3TextStyleToken {
   TextStyle withFontFamily(String family, {List<String>? fallbacks}) =>
       value.copyWith(
         fontFamily: family,
-        fontFamilyFallback: fallbacks ?? M3TypeScaleFonts.systemFontStack,
+        fontFamilyFallback: fallbacks ?? _M3TypeScaleFonts.systemFontStack,
       );
 
   /// Creates an adaptive text style that scales with user preferences.
@@ -494,7 +494,7 @@ extension M3TypeScaleTokenUtils on M3TextStyleToken {
 }
 
 /// Provides comparison utilities for type scale tokens.
-extension M3TypeScaleTokenComparison on M3TextStyleToken {
+extension M3TextStyleTokenComparison on M3TextStyleToken {
   /// Returns the token with the larger font size.
   M3TextStyleToken max(M3TextStyleToken other) =>
       fontSize >= other.fontSize ? this : other;

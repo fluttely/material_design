@@ -132,65 +132,66 @@ enum M3VisualDensityToken implements IM3VisualDensityToken {
   }
 
   /// Gets the recommended density token based on screen size category.
-  static M3VisualDensityToken forScreenSize(ScreenSize screenSize) {
+  static M3VisualDensityToken forScreenSize(M3ScreenSize screenSize) {
     switch (screenSize) {
-      case ScreenSize.small:
+      case M3ScreenSize.compact:
         return compact; // Maximize content on small screens
-      case ScreenSize.medium:
+      case M3ScreenSize.medium:
         return standard; // Balanced approach
-      case ScreenSize.large:
-      case ScreenSize.extraLarge:
+      case M3ScreenSize.expanded:
+      case M3ScreenSize.large:
+      case M3ScreenSize.extraLarge:
         return comfortable; // More spacing on large screens
     }
   }
 }
 
-/// {@template m3_component_visual_density_token}
-/// Defines component-specific visual density adjustments.
-///
-/// These tokens provide overrides for specific components that may require a
-/// different density from the global theme setting for optimal layout.
-/// {@endtemplate}
-enum M3ComponentVisualDensityToken implements IM3VisualDensityToken {
-  /// Dense list items for information-heavy lists.
-  listItemDense(-1, -2, description: 'Dense spacing for list items'),
+// /// {@template m3_component_visual_density_token}
+// /// Defines component-specific visual density adjustments.
+// ///
+// /// These tokens provide overrides for specific components that may require a
+// /// different density from the global theme setting for optimal layout.
+// /// {@endtemplate}
+// enum _M3ComponentVisualDensityToken implements IM3VisualDensityToken {
+//   /// Dense list items for information-heavy lists.
+//   listItemDense(-1, -2, description: 'Dense spacing for list items'),
 
-  /// Comfortable button spacing for better touch targets.
-  buttonComfortable(-0.5, -0.5, description: 'Comfortable button spacing'),
+//   /// Comfortable button spacing for better touch targets.
+//   buttonComfortable(-0.5, -0.5, description: 'Comfortable button spacing'),
 
-  /// Compact form field spacing for dense forms.
-  formFieldCompact(-1.5, -1.5, description: 'Compact form field spacing'),
+//   /// Compact form field spacing for dense forms.
+//   formFieldCompact(-1.5, -1.5, description: 'Compact form field spacing'),
 
-  /// Dense chip spacing for tag-like interfaces.
-  chipDense(-1, -1, description: 'Dense chip spacing'),
+//   /// Dense chip spacing for tag-like interfaces.
+//   chipDense(-1, -1, description: 'Dense chip spacing'),
 
-  /// Comfortable navigation item spacing.
-  navigationComfortable(-0.5, -1,
-      description: 'Comfortable navigation spacing');
+//   /// Comfortable navigation item spacing.
+//   navigationComfortable(-0.5, -1,
+//       description: 'Comfortable navigation spacing');
 
-  /// Creates a component-specific visual density token.
-  const M3ComponentVisualDensityToken(
-    this.horizontal,
-    this.vertical, {
-    required this.description,
-  });
+//   /// Creates a component-specific visual density token.
+//   const _M3ComponentVisualDensityToken(
+//     this.horizontal,
+//     this.vertical, {
+//     required this.description,
+//   });
 
-  @override
-  final double horizontal;
+//   @override
+//   final double horizontal;
 
-  @override
-  final double vertical;
+//   @override
+//   final double vertical;
 
-  @override
-  final String description;
+//   @override
+//   final String description;
 
-  @override
-  bool get isAdaptive => false;
+//   @override
+//   bool get isAdaptive => false;
 
-  @override
-  VisualDensity get value =>
-      VisualDensity(horizontal: horizontal, vertical: vertical);
-}
+//   @override
+//   VisualDensity get value =>
+//       VisualDensity(horizontal: horizontal, vertical: vertical);
+// }
 
 /// Provides utility methods for working with any [IM3VisualDensityToken].
 extension IM3VisualDensityTokenUtils on IM3VisualDensityToken {
@@ -256,19 +257,4 @@ extension IM3VisualDensityContext on BuildContext {
   ThemeData withVisualDensity(IM3VisualDensityToken densityToken) {
     return Theme.of(this).copyWith(visualDensity: densityToken.value);
   }
-}
-
-/// Screen size categories for density selection.
-enum ScreenSize {
-  /// Small screens (phones in portrait, small tablets).
-  small,
-
-  /// Medium screens (phones in landscape, medium tablets).
-  medium,
-
-  /// Large screens (large tablets, small desktops).
-  large,
-
-  /// Extra large screens (large desktops, TVs).
-  extraLarge,
 }

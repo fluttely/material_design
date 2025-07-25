@@ -24,7 +24,7 @@ const _full = Radius.circular(9999);
 /// `final myRadius = M3Radius.medium.value; // Returns a Radius.circular(12)`
 ///
 /// Reference: https://m3.material.io/styles/shape/corner-radius-scale
-enum M3RadiusToken implements IM3Token<Radius> {
+enum _M3RadiusToken implements IM3Token<Radius> {
   /// No corner radius (0dp).
   none(_none),
 
@@ -55,7 +55,7 @@ enum M3RadiusToken implements IM3Token<Radius> {
   /// Full corner radius, used for creating pill shapes.
   full(_full);
 
-  const M3RadiusToken(this.value);
+  const _M3RadiusToken(this.value);
 
   /// The final `Radius` object.
   @override
@@ -64,14 +64,14 @@ enum M3RadiusToken implements IM3Token<Radius> {
 
 /// Defines the border radius values (`BorderRadius`) for shape tokens according to Material Design 3.
 ///
-/// This enum uses [M3RadiusToken] tokens to build `BorderRadius` objects, which
+/// This enum uses [_M3RadiusToken] tokens to build `BorderRadius` objects, which
 /// can be applied to components to affect their border rounding.
 ///
 /// ### Usage:
 /// `final myBorderRadius = M3BorderRadii.large.value;`
 ///
 /// Reference: https://m3.material.io/styles/shape/corner-radius-scale
-enum M3BorderRadiusToken implements IM3Token<BorderRadius> {
+enum _M3BorderRadiusToken implements IM3Token<BorderRadius> {
   /// No border radius (0dp).
   none(BorderRadius.zero),
 
@@ -102,11 +102,36 @@ enum M3BorderRadiusToken implements IM3Token<BorderRadius> {
   /// Full border radius, used for creating pill shapes.
   full(BorderRadius.all(_full));
 
-  const M3BorderRadiusToken(this.value);
+  const _M3BorderRadiusToken(this.value);
 
   /// The final `BorderRadius` object.
   @override
   final BorderRadius value;
+
+  /// Returns the corresponding [_M3RadiusToken] for this border radius.
+  ///
+  /// This getter provides access to the underlying radius token, allowing
+  /// for consistent radius values across different shape abstractions.
+  ///
+  /// Example:
+  /// ```dart
+  /// final radius = M3BorderRadiusToken.medium.radius; // Returns M3RadiusToken.medium
+  /// ```
+  _M3RadiusToken get radius {
+    return switch (this) {
+      _M3BorderRadiusToken.none => _M3RadiusToken.none,
+      _M3BorderRadiusToken.extraSmall => _M3RadiusToken.extraSmall,
+      _M3BorderRadiusToken.small => _M3RadiusToken.small,
+      _M3BorderRadiusToken.medium => _M3RadiusToken.medium,
+      _M3BorderRadiusToken.large => _M3RadiusToken.large,
+      _M3BorderRadiusToken.largeIncreased => _M3RadiusToken.largeIncreased,
+      _M3BorderRadiusToken.extraLarge => _M3RadiusToken.extraLarge,
+      _M3BorderRadiusToken.extraLargeIncreased =>
+        _M3RadiusToken.extraLargeIncreased,
+      _M3BorderRadiusToken.extraExtraLarge => _M3RadiusToken.extraExtraLarge,
+      _M3BorderRadiusToken.full => _M3RadiusToken.full,
+    };
+  }
 }
 
 /// Provides pre-defined, Material 3-compliant shape tokens (`ShapeBorder`).
@@ -169,4 +194,56 @@ enum M3ShapeToken implements IM3Token<RoundedRectangleBorder> {
   /// The final `ShapeBorder` object.
   @override
   final RoundedRectangleBorder value;
+
+  /// Returns the corresponding [_M3BorderRadiusToken] for this shape.
+  ///
+  /// This getter provides access to the underlying border radius token,
+  /// allowing for consistent border radius values across different shape
+  /// abstractions.
+  ///
+  /// Example:
+  /// ```dart
+  /// final borderRadius = M3ShapeToken.medium.borderRadius; // Returns M3BorderRadiusToken.medium
+  /// ```
+  BorderRadius get borderRadius {
+    return switch (this) {
+      M3ShapeToken.none => _M3BorderRadiusToken.none.value,
+      M3ShapeToken.extraSmall => _M3BorderRadiusToken.extraSmall.value,
+      M3ShapeToken.small => _M3BorderRadiusToken.small.value,
+      M3ShapeToken.medium => _M3BorderRadiusToken.medium.value,
+      M3ShapeToken.large => _M3BorderRadiusToken.large.value,
+      M3ShapeToken.largeIncreased => _M3BorderRadiusToken.largeIncreased.value,
+      M3ShapeToken.extraLarge => _M3BorderRadiusToken.extraLarge.value,
+      M3ShapeToken.extraLargeIncreased =>
+        _M3BorderRadiusToken.extraLargeIncreased.value,
+      M3ShapeToken.extraExtraLarge =>
+        _M3BorderRadiusToken.extraExtraLarge.value,
+      M3ShapeToken.full => _M3BorderRadiusToken.full.value,
+    };
+  }
+
+  /// Returns the corresponding [_M3RadiusToken] for this border radius.
+  ///
+  /// This getter provides access to the underlying radius token, allowing
+  /// for consistent radius values across different shape abstractions.
+  ///
+  /// Example:
+  /// ```dart
+  /// final radius = M3ShapeToken.medium.radius; // Returns M3RadiusToken.medium
+  /// ```
+  Radius get radius {
+    return switch (this) {
+      M3ShapeToken.none => _M3RadiusToken.none.value,
+      M3ShapeToken.extraSmall => _M3RadiusToken.extraSmall.value,
+      M3ShapeToken.small => _M3RadiusToken.small.value,
+      M3ShapeToken.medium => _M3RadiusToken.medium.value,
+      M3ShapeToken.large => _M3RadiusToken.large.value,
+      M3ShapeToken.largeIncreased => _M3RadiusToken.largeIncreased.value,
+      M3ShapeToken.extraLarge => _M3RadiusToken.extraLarge.value,
+      M3ShapeToken.extraLargeIncreased =>
+        _M3RadiusToken.extraLargeIncreased.value,
+      M3ShapeToken.extraExtraLarge => _M3RadiusToken.extraExtraLarge.value,
+      M3ShapeToken.full => _M3RadiusToken.full.value,
+    };
+  }
 }

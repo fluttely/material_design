@@ -19,45 +19,45 @@ abstract interface class M3ShapeUtils {
       case 'button':
         switch (size?.toLowerCase()) {
           case 'small':
-            return M3BorderRadiusToken.extraSmall.value;
+            return M3ShapeToken.extraSmall.borderRadius;
           case 'large':
-            return M3BorderRadiusToken.medium.value;
+            return M3ShapeToken.medium.borderRadius;
           default:
-            return M3BorderRadiusToken.small.value;
+            return M3ShapeToken.small.borderRadius;
         }
 
       case 'fab':
         return variant == 'extended'
-            ? M3BorderRadiusToken.large.value
-            : M3BorderRadiusToken.large.value;
+            ? M3ShapeToken.large.borderRadius
+            : M3ShapeToken.large.borderRadius;
 
       case 'card':
-        return M3BorderRadiusToken.medium.value;
+        return M3ShapeToken.medium.borderRadius;
 
       case 'textfield':
         return variant == 'outlined'
-            ? M3BorderRadiusToken.extraSmall.value
-            : M3BorderRadiusToken.extraSmall.value;
+            ? M3ShapeToken.extraSmall.borderRadius
+            : M3ShapeToken.extraSmall.borderRadius;
 
       case 'chip':
-        return M3BorderRadiusToken.small.value;
+        return M3ShapeToken.small.borderRadius;
 
       case 'bottomsheet':
         return BorderRadius.vertical(
-          top: M3RadiusToken.large.value,
+          top: M3ShapeToken.extraSmall.radius,
         );
 
       case 'dialog':
-        return M3BorderRadiusToken.extraLarge.value;
+        return M3ShapeToken.extraLarge.borderRadius;
 
       case 'menu':
-        return M3BorderRadiusToken.extraSmall.value;
+        return M3ShapeToken.extraSmall.borderRadius;
 
       case 'snackbar':
-        return M3BorderRadiusToken.extraSmall.value;
+        return M3ShapeToken.extraSmall.borderRadius;
 
       case 'searchbar':
-        return M3BorderRadiusToken.full.value;
+        return M3ShapeToken.full.borderRadius;
 
       default:
         return BorderRadius.zero;
@@ -150,11 +150,11 @@ abstract interface class M3ShapeUtils {
     final screenWidth = MediaQuery.of(context).size.width;
 
     if (screenWidth < M3BreakpointToken.medium.value) {
-      return small ?? M3BorderRadiusToken.small.value;
+      return small ?? M3ShapeToken.small.borderRadius;
     } else if (screenWidth < M3BreakpointToken.large.value) {
-      return medium ?? M3BorderRadiusToken.medium.value;
+      return medium ?? M3ShapeToken.medium.borderRadius;
     } else {
-      return large ?? M3BorderRadiusToken.large.value;
+      return large ?? M3ShapeToken.large.borderRadius;
     }
   }
 

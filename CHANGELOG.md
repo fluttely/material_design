@@ -4,6 +4,75 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adherves to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.10.0
+
+### 💥 BREAKING CHANGES
+
+- **Major Token System Refactor**: The token system has been significantly refactored to improve consistency, remove redundancy, and align more closely with a unified design system architecture.
+  - **Unified Shape Tokens**: `M3BorderRadiusToken` and `M3RadiusToken` are now internal (`_M3BorderRadiusToken`, `_M3RadiusToken`). All shape properties should be accessed directly through `M3ShapeToken`.
+    - **Before**: `M3BorderRadiusToken.medium.value`
+    - **After**: `M3ShapeToken.medium.borderRadius`
+  - **Screen Size Enum Renamed**: `M3WindowSizeClass` has been renamed to `M3ScreenSize` for better clarity and to avoid conflicts with Flutter's own window size classes.
+  - **Private Component/State Tokens**: `M3ComponentElevationToken` and `M3StateElevationToken` have been made private (`_M3ComponentElevationToken`, `_M3StateElevationToken`) as they are intended for internal use within the system.
+  - **Simplified Motion API**: `M3MotionToken` now includes `duration` and `easing` getters, simplifying animation definitions.
+
+### ✨ Enhancements
+
+- **Improved API Consistency**: The token API is now more consistent and predictable. Accessing related values (like radius from a shape) is more intuitive.
+- **Streamlined Architecture**: By removing redundant and reference-level tokens, the public API is smaller, cleaner, and easier to learn.
+- **Enhanced Readability**: The new patterns (`M3ShapeToken.medium.borderRadius`) make the code more declarative and easier to read.
+
+### 🗑️ Deprecations & Removals
+
+- **Removed Reference Tokens**: The `M3Ref...` token files (`M3RefPalette`, `M3RefOpacity`, `M3RefTypeface`) have been removed from the public API. Their values are now integrated directly into the system tokens where needed.
+- **Removed Component-Specific Button Tokens**: `M3CompButton` has been removed. Use standard Flutter `ButtonStyle` with system tokens for customization.
+- **Removed `M3ColorSchemeToken`**: This has been removed as part of the color system simplification. Use `Theme.of(context).colorScheme` for semantic color access.
+- **Removed Demo Component Showcase**: The `components_showcase_page.dart` file has been deleted from the demo application as part of a broader demo simplification effort.
+
+### 🔧 Migration Guide
+
+**Shape and Radius:**
+
+Update all references to `M3BorderRadiusToken` to use the new `M3ShapeToken` accessors.
+
+**Before (v0.9.2):**
+```dart
+Container(
+  decoration: BoxDecoration(
+    borderRadius: M3BorderRadiusToken.medium.value,
+  ),
+)
+```
+
+**After (v0.10.0):**
+```dart
+Container(
+  decoration: BoxDecoration(
+    borderRadius: M3ShapeToken.medium.borderRadius,
+  ),
+)
+```
+
+**Adaptive Layouts:**
+
+Update all references from `M3WindowSizeClass` to the new `M3ScreenSize`.
+
+**Before (v0.9.2):**
+```dart
+final sizeClass = M3BreakpointToken.getWindowSizeClassFromContext(context);
+if (sizeClass == M3WindowSizeClass.compact) {
+  // ...
+}
+```
+
+**After (v0.10.0):**
+```dart
+final sizeClass = M3BreakpointToken.getWindowSizeClassFromContext(context);
+if (sizeClass == M3ScreenSize.compact) {
+  // ...
+}
+```
+
 ## 0.9.2
 
 ### 🔄 BREAKING CHANGES
