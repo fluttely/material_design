@@ -5,6 +5,7 @@
 ## ⚠️ Current Implementation Status
 
 ### ✅ **Active & Working Systems**
+
 - **Typography Tokens** - Complete type scale system
 - **Spacing Tokens** - 4dp grid system (space4 to space128)
 - **Elevation Tokens** - 6 elevation levels with shadows
@@ -14,6 +15,7 @@
 - **Breakpoint Tokens** - Responsive design utilities
 
 ### ❌ **Currently Not Active** (Commented Out)
+
 - **M3RefPalette** - Color palettes system
 - **M3RefOpacity** - Reference opacity values
 - **M3RefTypeface** - Reference typography specs
@@ -21,6 +23,7 @@
 - **M3CompButton** - Component specifications
 
 ### 🔄 **Planned Implementation**
+
 - Full color system activation
 - Component token completion
 - Reference token activation
@@ -41,13 +44,13 @@ Material Design 3 organizes tokens into three hierarchical levels:
 ```mermaid
 graph TD
     A[Design Tokens] --> B[Reference Tokens]
-    A --> C[System Tokens]  
+    A --> C[System Tokens]
     A --> D[Component Tokens]
-    
+
     B --> B1[Atomic Values<br/>Primitive decisions]
     C --> C1[Semantic Values<br/>Contextual meaning]
     D --> D1[Component Values<br/>Specific application]
-    
+
     B --> B2["M3RefPalette<br/>M3RefOpacity<br/>M3RefTypeface"]
     C --> C2["M3SysColor<br/>M3SysColorDark"]
     D --> D2["M3CompButton<br/>M3CompCard"]
@@ -58,6 +61,7 @@ graph TD
 > **⚠️ Warning:** All reference tokens are currently commented out in the implementation. The examples below show the planned architecture but are not functional.
 
 #### 🎨 M3RefPalette - ❌ **Commented Out**
+
 ```dart
 // ❌ This code is not currently active
 // Color palettes with 13 tones (0-100)
@@ -77,6 +81,7 @@ static const Map<int, Color> primary = {
 ```
 
 #### 🌫️ M3RefOpacity - ❌ **Commented Out**
+
 ```dart
 // ❌ This code is not currently active
 /*
@@ -87,10 +92,11 @@ static const double disabled = 0.38;
 */
 
 // ❌ Usage (not functional)
-// final hoverOverlay = baseColor.withOpacity(M3RefOpacity.hover);
+// final hoverOverlay = baseColor.withValues(alpha:M3RefOpacity.hover);
 ```
 
 #### ✏️ M3RefTypeface - ❌ **Commented Out**
+
 ```dart
 // ❌ This code is not currently active
 /*
@@ -108,6 +114,7 @@ static const int bodyWeight = 400;
 **Semantic values** that map reference tokens to specific design intentions.
 
 #### 🎨 M3SysColor & M3SysColorDark - ❌ **Commented Out**
+
 ```dart
 // ❌ Color system is not currently active
 /*
@@ -115,7 +122,7 @@ class M3SysColor {
   static Color get primary => M3RefPalette.getColor(M3RefPalette.primary, 40);
   static Color get primaryContainer => M3RefPalette.getColor(M3RefPalette.primary, 90);
   static Color get onPrimaryContainer => M3RefPalette.getColor(M3RefPalette.primary, 10);
-  
+
   static ColorScheme toColorScheme() => ColorScheme.light(
     primary: primary,
     primaryContainer: primaryContainer,
@@ -128,16 +135,17 @@ class M3SysColor {
 #### ✅ **ACTIVE System Tokens**
 
 **Typography System** - Fully functional:
+
 ```dart
 // ✅ Active and working
-class M3TypeScale {
+class M3TypeScaleToken {
   static const TextStyle displayLarge = TextStyle(
     fontSize: 57,
     fontWeight: FontWeight.w400,
     letterSpacing: -0.25,
     height: 1.12,
   );
-  
+
   static const TextStyle headlineMedium = TextStyle(
     fontSize: 28,
     fontWeight: FontWeight.w400,
@@ -149,22 +157,24 @@ class M3TypeScale {
 ```
 
 **Spacing System** - Fully functional:
+
 ```dart
 // ✅ Active and working
-enum M3Spacing {
+enum M3SpacingToken {
   space4(4.0),
   space8(8.0),
   space16(16.0),
   space24(24.0),
   space32(32.0),
   // ... up to space128
-  
-  const M3Spacing(this.value);
+
+  const M3SpacingToken(this.value);
   final double value;
 }
 ```
 
 **Elevation System** - Fully functional:
+
 ```dart
 // ✅ Active and working
 enum M3Elevation {
@@ -174,7 +184,7 @@ enum M3Elevation {
   level3(6.0),
   level4(8.0),
   level5(12.0);
-  
+
   const M3Elevation(this.value);
   final double value;
 }
@@ -185,6 +195,7 @@ enum M3Elevation {
 > **⚠️ Warning:** All component tokens are currently commented out. The examples below show planned architecture but are not functional.
 
 #### 🔘 M3CompButton - ❌ **Commented Out**
+
 ```dart
 // ❌ This code is not currently active
 /*
@@ -193,19 +204,19 @@ abstract class M3CompButton {
   static const double heightSmall = 32.0;
   static const double heightMedium = 40.0;
   static const double heightLarge = 48.0;
-  
+
   // Shapes
   static const BorderRadius shapeSmall = BorderRadius.all(Radius.circular(8.0));
   static const BorderRadius shapeMedium = BorderRadius.all(Radius.circular(12.0));
-  
+
   // Elevations
   static const double elevationRested = 1.0;
   static const double elevationHover = 3.0;
   static const double elevationPressed = 1.0;
-  
+
   // Padding
   static const EdgeInsets paddingMedium = EdgeInsets.symmetric(
-    horizontal: 16.0, 
+    horizontal: 16.0,
     vertical: 8.0,
   );
 }
@@ -234,12 +245,12 @@ ElevatedButton(
   style: ElevatedButton.styleFrom(
     minimumSize: Size.fromHeight(40.0), // Direct value
     padding: EdgeInsets.symmetric(
-      horizontal: M3Spacing.space16.value, // ✅ Active spacing
+      horizontal: M3SpacingToken.space16.value, // ✅ Active spacing
     ),
     shape: RoundedRectangleBorder(
       borderRadius: M3Shape.medium.value, // ✅ Active shape
     ),
-    elevation: M3Elevation.level1.value, // ✅ Active elevation
+    elevation: M3ElevationToken.level1.value, // ✅ Active elevation
   ),
   child: Text('Button'),
 )
@@ -274,7 +285,7 @@ graph LR
     A[Reference] --> B[System]
     B --> C[Component]
     C --> D[Flutter Widget]
-    
+
     A1[M3RefPalette.primary.40] --> B1[M3SysColor.primary]
     B1 --> C1[M3CompButton colors]
     C1 --> D1[ElevatedButton theme]
@@ -285,6 +296,7 @@ graph LR
 ### Creating New Tokens
 
 #### 1. Reference Token
+
 ```dart
 // m3_ref_spacing.dart
 abstract class M3RefSpacing {
@@ -295,8 +307,9 @@ abstract class M3RefSpacing {
 ```
 
 #### 2. System Token
+
 ```dart
-// m3_sys_spacing.dart  
+// m3_sys_spacing.dart
 abstract class M3SysSpacing {
   static double get small => M3RefSpacing.scale2x;   // 8dp
   static double get medium => M3RefSpacing.scale4x;  // 16dp
@@ -305,6 +318,7 @@ abstract class M3SysSpacing {
 ```
 
 #### 3. Component Token
+
 ```dart
 // m3_comp_card.dart
 abstract class M3CompCard {
@@ -324,15 +338,15 @@ ThemeData buildM3Theme() {
   return ThemeData(
     useMaterial3: true,
     // ❌ colorScheme: M3SysColor.toColorScheme(), // Not active
-    
+
     // ✅ Use active typography tokens
     textTheme: TextTheme(
-      displayLarge: M3TypeScale.displayLarge,
-      headlineMedium: M3TypeScale.headlineMedium,
-      bodyLarge: M3TypeScale.bodyLarge,
+      displayLarge: M3TypeScaleToken.displayLarge,
+      headlineMedium: M3TypeScaleToken.headlineMedium,
+      bodyLarge: M3TypeScaleToken.bodyLarge,
       // ... other text styles
     ),
-    
+
     // ✅ Use active token systems for components
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
@@ -340,7 +354,7 @@ ThemeData buildM3Theme() {
         shape: RoundedRectangleBorder(
           borderRadius: M3Shape.medium.value, // ✅ Active shape token
         ),
-        elevation: M3Elevation.level1.value, // ✅ Active elevation token
+        elevation: M3ElevationToken.level1.value, // ✅ Active elevation token
       ),
     ),
   );
@@ -353,28 +367,31 @@ See practical implementation in **[[../examples/Design Tokens Page|DesignTokensP
 
 ```dart
 // Spacing tokens demonstration
-_buildSpacingDemo('M3Spacing.space16', M3Spacing.space16);
+_buildSpacingDemo('M3SpacingToken.space16', M3SpacingToken.space16);
 
 // Density demonstration
-_buildDensityDemo('Standard', VisualDensity.standard);
+_buildDensityDemo('Standard', M3VisualDensityToken.standard);
 
-// Breakpoints demonstration  
-_buildBreakpointDemo('M3Breakpoint.medium', M3Breakpoint.medium);
+// Breakpoints demonstration
+_buildBreakpointDemo('M3BreakpointToken.medium', M3BreakpointToken.medium);
 ```
 
 ## 🔗 Connections
 
 ### To [[../styles/Styles|Styles]]
+
 - **[[../styles/Color System]]** uses **M3RefPalette** and **M3SysColor**
 - **[[../styles/Typography]]** uses **M3RefTypeface**
 - **[[../styles/Motion]]** uses **M3RefDuration**
 
-### To [[../components/Components|Components]]  
+### To [[../components/Components|Components]]
+
 - **[[../components/Buttons]]** uses **M3CompButton**
 - **[[../components/Cards]]** uses elevation and shape tokens
 - **[[../components/Navigation]]** uses adaptive tokens
 
 ### To [[../implementation/Implementation|Implementation]]
+
 - **[[../implementation/Token Structure]]** - How to organize tokens
 - **[[../implementation/Flutter Integration]]** - How to integrate with Flutter
 - **[[../implementation/Theme System]]** - How to use in themes
@@ -386,7 +403,7 @@ _buildBreakpointDemo('M3Breakpoint.medium', M3Breakpoint.medium);
 ## 🔍 See Also
 
 - **[[Foundations|🏗️ Foundations]]**
-- **[[../styles/Color System|🎨 Color System]]**  
+- **[[../styles/Color System|🎨 Color System]]**
 - **[[../implementation/Token Structure|⚙️ Token Structure]]**
 - **[[../maps/Token Map|🗺️ Token Map]]**
 

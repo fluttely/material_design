@@ -28,7 +28,7 @@ class TypographyPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: LaunchURLText(
-          label: 'M3TypeScale Tokens',
+          label: 'M3TypeScaleToken',
           m3Url: 'https://m3.material.io/styles/typography/type-scale-tokens',
         ),
       ),

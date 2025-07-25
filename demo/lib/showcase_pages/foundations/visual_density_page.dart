@@ -11,30 +11,32 @@ class VisualDensityPage extends StatefulWidget {
 
 class _VisualDensityPageState extends State<VisualDensityPage> {
   // The initial state now uses a value from our constants list.
-  VisualDensity _selectedDensity = VisualDensity.adaptivePlatformDensity;
+  VisualDensity _selectedDensity =
+      M3VisualDensityToken.adaptivePlatformDensity.value;
 
   // The list of options is defined as a static constant for better performance.
   // We added an icon for each option, making the configuration more centralized.
-  static final List<({String label, VisualDensity density, IconData icon})>
+  static final List<
+          ({String label, M3VisualDensityToken density, IconData icon})>
       _densityOptions = [
     (
       label: 'Standard',
-      density: VisualDensity.standard,
+      density: M3VisualDensityToken.standard,
       icon: Icons.density_medium
     ),
     (
       label: 'Comfortable',
-      density: VisualDensity.comfortable,
+      density: M3VisualDensityToken.comfortable,
       icon: Icons.format_line_spacing
     ),
     (
       label: 'Compact',
-      density: VisualDensity.compact,
+      density: M3VisualDensityToken.compact,
       icon: Icons.density_small
     ),
     (
       label: 'Adaptive',
-      density: VisualDensity.adaptivePlatformDensity,
+      density: M3VisualDensityToken.adaptivePlatformDensity,
       icon: Icons.tune
     ),
   ];
@@ -52,7 +54,7 @@ class _VisualDensityPageState extends State<VisualDensityPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('VisualDensity'),
+        title: const Text('M3VisualDensityToken'),
       ),
       // The body is now composed of methods that build each part of the UI.
       body: Column(
@@ -90,7 +92,7 @@ class _VisualDensityPageState extends State<VisualDensityPage> {
         segments: _densityOptions
             .map(
               (option) => ButtonSegment<VisualDensity>(
-                value: option.density,
+                value: option.density.value,
                 label: Text(option.label),
                 icon: Icon(option.icon),
               ),

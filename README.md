@@ -33,7 +33,7 @@ Add this line to your project's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  material_design: ^0.8.1
+  material_design: ^0.9.0
 ```
 
 Then run `flutter pub get`.
@@ -317,7 +317,7 @@ Container(
 )
 ```
 
-- **`M3StateLayerOpacityToken`** & **`M3Opacity`**: Opacity values for interactive states and UI elements.
+- **`M3StateLayerOpacityToken`** & **`M3OpacityToken`**: Opacity values for interactive states and UI elements.
 
 **State Layer Opacities:**
 
@@ -415,9 +415,9 @@ Starting from version 0.7.0, all design tokens have been converted from static c
 
 ```dart
 // Old API - Direct access
-Card(elevation: M3Elevation.level5)
-Padding(padding: EdgeInsets.all(M3Spacing.space16))
-AnimatedContainer(duration: M3MotionDuration.short2)
+Card(elevation: M3ElevationToken.level5)
+Padding(padding: EdgeInsets.all(M3SpacingToken.space16))
+AnimatedContainer(duration: M3MotionDurationToken.short2)
 Icon(Icons.directions_boat_filled, size: M3IconSize.dense),
 ```
 

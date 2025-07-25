@@ -18,13 +18,13 @@ O Material Design 3 organiza tokens em três níveis hierárquicos:
 ```mermaid
 graph TD
     A[Design Tokens] --> B[Reference Tokens]
-    A --> C[System Tokens]  
+    A --> C[System Tokens]
     A --> D[Component Tokens]
-    
+
     B --> B1[Atomic Values<br/>Primitive decisions]
     C --> C1[Semantic Values<br/>Contextual meaning]
     D --> D1[Component Values<br/>Specific application]
-    
+
     B --> B2["M3RefPalette<br/>M3RefOpacity<br/>M3RefTypeface"]
     C --> C2["M3SysColor<br/>M3SysColorDark"]
     D --> D2["M3CompButton<br/>M3CompCard"]
@@ -35,6 +35,7 @@ graph TD
 **Valores atômicos fundamentais** que definem as decisões básicas de design.
 
 #### [[../implementation/Flutter Integration#M3RefPalette|🎨 M3RefPalette]]
+
 ```dart
 // Paletas de cores com 13 tons (0-100)
 static const Map<int, Color> primary = {
@@ -51,6 +52,7 @@ final primaryColor = M3RefPalette.getColor(M3RefPalette.primary, 40);
 ```
 
 #### 🌫️ M3RefOpacity
+
 ```dart
 // Opacidades fundamentais para estados
 static const double hover = 0.08;
@@ -59,10 +61,11 @@ static const double pressed = 0.16;
 static const double disabled = 0.38;
 
 // Uso
-final hoverOverlay = baseColor.withOpacity(M3RefOpacity.hover);
+final hoverOverlay = baseColor.withValues(alpha:M3RefOpacity.hover);
 ```
 
 #### ✏️ M3RefTypeface
+
 ```dart
 // Definições tipográficas fundamentais
 static const String brand = 'Roboto';
@@ -78,13 +81,14 @@ final fontFamily = M3RefTypeface.brand;
 **Valores semânticos** que mapeiam reference tokens para intenções específicas de design.
 
 #### [[../styles/Color System|🎨 M3SysColor]] & M3SysColorDark
+
 ```dart
 // Light theme colors
 class M3SysColor {
   static Color get primary => M3RefPalette.getColor(M3RefPalette.primary, 40);
   static Color get primaryContainer => M3RefPalette.getColor(M3RefPalette.primary, 90);
   static Color get onPrimaryContainer => M3RefPalette.getColor(M3RefPalette.primary, 10);
-  
+
   // Conversão para Flutter ColorScheme
   static ColorScheme toColorScheme() => ColorScheme.light(
     primary: primary,
@@ -106,25 +110,26 @@ class M3SysColorDark {
 **Valores específicos** para componentes individuais, definindo suas características precisas.
 
 #### [[../components/Buttons|🔘 M3CompButton]]
+
 ```dart
 abstract class M3CompButton {
   // Alturas
   static const double heightSmall = 32.0;
   static const double heightMedium = 40.0;
   static const double heightLarge = 48.0;
-  
+
   // Formas
   static const BorderRadius shapeSmall = BorderRadius.all(Radius.circular(8.0));
   static const BorderRadius shapeMedium = BorderRadius.all(Radius.circular(12.0));
-  
+
   // Elevações
   static const double elevationRested = 1.0;
   static const double elevationHover = 3.0;
   static const double elevationPressed = 1.0;
-  
+
   // Padding
   static const EdgeInsets paddingMedium = EdgeInsets.symmetric(
-    horizontal: 16.0, 
+    horizontal: 16.0,
     vertical: 8.0,
   );
 }
@@ -169,7 +174,7 @@ graph LR
     A[Reference] --> B[System]
     B --> C[Component]
     C --> D[Flutter Widget]
-    
+
     A1[M3RefPalette.primary.40] --> B1[M3SysColor.primary]
     B1 --> C1[M3CompButton colors]
     C1 --> D1[ElevatedButton theme]
@@ -180,6 +185,7 @@ graph LR
 ### Criando Novos Tokens
 
 #### 1. Reference Token
+
 ```dart
 // m3_ref_spacing.dart
 abstract class M3RefSpacing {
@@ -190,8 +196,9 @@ abstract class M3RefSpacing {
 ```
 
 #### 2. System Token
+
 ```dart
-// m3_sys_spacing.dart  
+// m3_sys_spacing.dart
 abstract class M3SysSpacing {
   static double get small => M3RefSpacing.scale2x;   // 8dp
   static double get medium => M3RefSpacing.scale4x;  // 16dp
@@ -200,6 +207,7 @@ abstract class M3SysSpacing {
 ```
 
 #### 3. Component Token
+
 ```dart
 // m3_comp_card.dart
 abstract class M3CompCard {
@@ -235,28 +243,31 @@ Veja a implementação prática em **[[../examples/Design Tokens Page|DesignToke
 
 ```dart
 // Demonstração de spacing tokens
-_buildSpacingDemo('M3Spacing.space16', M3Spacing.space16);
+_buildSpacingDemo('M3SpacingToken.space16', M3SpacingToken.space16);
 
 // Demonstração de density
-_buildDensityDemo('Standard', VisualDensity.standard);
+_buildDensityDemo('Standard', M3VisualDensityToken.standard);
 
-// Demonstração de breakpoints  
-_buildBreakpointDemo('M3Breakpoint.medium', M3Breakpoint.medium);
+// Demonstração de breakpoints
+_buildBreakpointDemo('M3BreakpointToken.medium', M3BreakpointToken.medium);
 ```
 
 ## 🔗 Conexões
 
 ### Para [[Styles|Styles]]
+
 - **[[../styles/Color System]]** usa **M3RefPalette** e **M3SysColor**
 - **[[../styles/Typography]]** usa **M3RefTypeface**
 - **[[../styles/Motion]]** usa **M3RefDuration**
 
-### Para [[../components/Components|Components]]  
+### Para [[../components/Components|Components]]
+
 - **[[../components/Buttons]]** usa **M3CompButton**
 - **[[../components/Cards]]** usa tokens de elevation e shape
 - **[[../components/Navigation]]** usa tokens adaptativos
 
 ### Para [[Implementation|Implementation]]
+
 - **[[../implementation/Token Structure]]** - Como organizar tokens
 - **[[../implementation/Flutter Integration]]** - Como integrar com Flutter
 - **[[../implementation/Theme System]]** - Como usar em temas
@@ -268,7 +279,7 @@ _buildBreakpointDemo('M3Breakpoint.medium', M3Breakpoint.medium);
 ## 🔍 Ver Também
 
 - **[[Foundations|🏗️ Foundations]]**
-- **[[../styles/Color System|🎨 Color System]]**  
+- **[[../styles/Color System|🎨 Color System]]**
 - **[[../implementation/Token Structure|⚙️ Token Structure]]**
 - **[[Token Map|🗺️ Token Map]]**
 

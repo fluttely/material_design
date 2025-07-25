@@ -70,7 +70,7 @@
 
 //   Widget _buildButtonsShowcase() {
 //     return SingleChildScrollView(
-//       padding: const EdgeInsets.all(M3Spacing.space16),
+//       padding: const EdgeInsets.all(M3SpacingToken.space16),
 //       child: Column(
 //         crossAxisAlignment: CrossAxisAlignment.start,
 //         children: [
@@ -120,8 +120,8 @@
 //           // Icon buttons
 //           _buildSectionHeader('Icon Buttons', 'Various icon button styles'),
 //           Wrap(
-//             spacing: M3Spacing.space8,
-//             runSpacing: M3Spacing.space8,
+//             spacing: M3SpacingToken.space8,
+//             runSpacing: M3SpacingToken.space8,
 //             children: [
 //               IconButton(onPressed: () {}, icon: const Icon(Icons.favorite)),
 //               IconButton.filled(onPressed: () {}, icon: const Icon(Icons.star)),
@@ -132,13 +132,13 @@
 //             ],
 //           ),
 
-//           const SizedBox(height: M3Spacing.space24),
+//           const SizedBox(height: M3SpacingToken.space24),
 
 //           // FAB
 //           _buildSectionHeader('Floating Action Buttons', 'FAB variations'),
 //           Wrap(
-//             spacing: M3Spacing.space16,
-//             runSpacing: M3Spacing.space16,
+//             spacing: M3SpacingToken.space16,
+//             runSpacing: M3SpacingToken.space16,
 //             children: [
 //               FloatingActionButton.small(
 //                 onPressed: () {},
@@ -162,7 +162,7 @@
 
 //   Widget _buildCardsShowcase() {
 //     return SingleChildScrollView(
-//       padding: const EdgeInsets.all(M3Spacing.space16),
+//       padding: const EdgeInsets.all(M3SpacingToken.space16),
 //       child: Column(
 //         crossAxisAlignment: CrossAxisAlignment.start,
 //         children: [
@@ -172,13 +172,13 @@
 //           // Basic cards
 //           Card(
 //             child: Padding(
-//               padding: const EdgeInsets.all(M3Spacing.space16),
+//               padding: const EdgeInsets.all(M3SpacingToken.space16),
 //               child: Column(
 //                 crossAxisAlignment: CrossAxisAlignment.start,
 //                 children: [
 //                   Text('Basic Card',
 //                       style: Theme.of(context).textTheme.titleMedium),
-//                   const SizedBox(height: M3Spacing.space8),
+//                   const SizedBox(height: M3SpacingToken.space8),
 //                   Text(
 //                       'This is a basic card with default elevation and styling.',
 //                       style: Theme.of(context).textTheme.bodyMedium),
@@ -187,19 +187,19 @@
 //             ),
 //           ),
 
-//           const SizedBox(height: M3Spacing.space16),
+//           const SizedBox(height: M3SpacingToken.space16),
 
 //           // Elevated card
 //           Card(
 //             elevation: 6.0,
 //             child: Padding(
-//               padding: const EdgeInsets.all(M3Spacing.space16),
+//               padding: const EdgeInsets.all(M3SpacingToken.space16),
 //               child: Column(
 //                 crossAxisAlignment: CrossAxisAlignment.start,
 //                 children: [
 //                   Text('Elevated Card',
 //                       style: Theme.of(context).textTheme.titleMedium),
-//                   const SizedBox(height: M3Spacing.space8),
+//                   const SizedBox(height: M3SpacingToken.space8),
 //                   Text('This card has higher elevation (6dp) for emphasis.',
 //                       style: Theme.of(context).textTheme.bodyMedium),
 //                 ],
@@ -207,7 +207,7 @@
 //             ),
 //           ),
 
-//           const SizedBox(height: M3Spacing.space16),
+//           const SizedBox(height: M3SpacingToken.space16),
 
 //           // Interactive card with actions
 //           Card(
@@ -215,13 +215,13 @@
 //               crossAxisAlignment: CrossAxisAlignment.start,
 //               children: [
 //                 Padding(
-//                   padding: const EdgeInsets.all(M3Spacing.space16),
+//                   padding: const EdgeInsets.all(M3SpacingToken.space16),
 //                   child: Column(
 //                     crossAxisAlignment: CrossAxisAlignment.start,
 //                     children: [
 //                       Text('Interactive Card',
 //                           style: Theme.of(context).textTheme.titleMedium),
-//                       const SizedBox(height: M3Spacing.space8),
+//                       const SizedBox(height: M3SpacingToken.space8),
 //                       Text(
 //                           'Cards can contain actions and interactive elements.',
 //                           style: Theme.of(context).textTheme.bodyMedium),
@@ -239,7 +239,7 @@
 //             ),
 //           ),
 
-//           const SizedBox(height: M3Spacing.space24),
+//           const SizedBox(height: M3SpacingToken.space24),
 
 //           // List cards
 //           _buildSectionHeader('List Cards', 'Cards with list items'),
@@ -279,7 +279,7 @@
 
 //   Widget _buildInputsShowcase() {
 //     return SingleChildScrollView(
-//       padding: const EdgeInsets.all(M3Spacing.space16),
+//       padding: const EdgeInsets.all(M3SpacingToken.space16),
 //       child: Column(
 //         crossAxisAlignment: CrossAxisAlignment.start,
 //         children: [
@@ -293,7 +293,7 @@
 //             ),
 //           ),
 
-//           const SizedBox(height: M3Spacing.space16),
+//           const SizedBox(height: M3SpacingToken.space16),
 
 //           const TextField(
 //             decoration: InputDecoration(
@@ -303,7 +303,7 @@
 //             ),
 //           ),
 
-//           const SizedBox(height: M3Spacing.space16),
+//           const SizedBox(height: M3SpacingToken.space16),
 
 //           const TextField(
 //             decoration: InputDecoration(
@@ -313,7 +313,7 @@
 //             ),
 //           ),
 
-//           const SizedBox(height: M3Spacing.space24),
+//           const SizedBox(height: M3SpacingToken.space24),
 
 //           _buildSectionHeader('Selections', 'Checkboxes, switches, and chips'),
 
@@ -331,11 +331,11 @@
 //             onChanged: (value) {},
 //           ),
 
-//           const SizedBox(height: M3Spacing.space16),
+//           const SizedBox(height: M3SpacingToken.space16),
 
 //           // Chips
 //           Wrap(
-//             spacing: M3Spacing.space8,
+//             spacing: M3SpacingToken.space8,
 //             children: [
 //               Chip(
 //                 label: const Text('Chip'),
@@ -360,7 +360,7 @@
 
 //   Widget _buildNavigationShowcase() {
 //     return SingleChildScrollView(
-//       padding: const EdgeInsets.all(M3Spacing.space16),
+//       padding: const EdgeInsets.all(M3SpacingToken.space16),
 //       child: Column(
 //         crossAxisAlignment: CrossAxisAlignment.start,
 //         children: [
@@ -370,13 +370,13 @@
 //           // Bottom navigation preview
 //           Card(
 //             child: Padding(
-//               padding: const EdgeInsets.all(M3Spacing.space16),
+//               padding: const EdgeInsets.all(M3SpacingToken.space16),
 //               child: Column(
 //                 crossAxisAlignment: CrossAxisAlignment.start,
 //                 children: [
 //                   Text('Bottom Navigation Bar',
 //                       style: Theme.of(context).textTheme.titleMedium),
-//                   const SizedBox(height: M3Spacing.space16),
+//                   const SizedBox(height: M3SpacingToken.space16),
 //                   Container(
 //                     height: 80,
 //                     decoration: ShapeDecoration(
@@ -398,18 +398,18 @@
 //             ),
 //           ),
 
-//           const SizedBox(height: M3Spacing.space16),
+//           const SizedBox(height: M3SpacingToken.space16),
 
 //           // Navigation rail preview
 //           Card(
 //             child: Padding(
-//               padding: const EdgeInsets.all(M3Spacing.space16),
+//               padding: const EdgeInsets.all(M3SpacingToken.space16),
 //               child: Column(
 //                 crossAxisAlignment: CrossAxisAlignment.start,
 //                 children: [
 //                   Text('Navigation Rail',
 //                       style: Theme.of(context).textTheme.titleMedium),
-//                   const SizedBox(height: M3Spacing.space16),
+//                   const SizedBox(height: M3SpacingToken.space16),
 //                   Row(
 //                     children: [
 //                       Container(
@@ -429,7 +429,7 @@
 //                           ],
 //                         ),
 //                       ),
-//                       const SizedBox(width: M3Spacing.space16),
+//                       const SizedBox(width: M3SpacingToken.space16),
 //                       Expanded(
 //                         child: Container(
 //                           height: 200,
@@ -452,18 +452,18 @@
 //             ),
 //           ),
 
-//           const SizedBox(height: M3Spacing.space16),
+//           const SizedBox(height: M3SpacingToken.space16),
 
 //           // Breadcrumbs
 //           Card(
 //             child: Padding(
-//               padding: const EdgeInsets.all(M3Spacing.space16),
+//               padding: const EdgeInsets.all(M3SpacingToken.space16),
 //               child: Column(
 //                 crossAxisAlignment: CrossAxisAlignment.start,
 //                 children: [
 //                   Text('Breadcrumbs',
 //                       style: Theme.of(context).textTheme.titleMedium),
-//                   const SizedBox(height: M3Spacing.space16),
+//                   const SizedBox(height: M3SpacingToken.space16),
 //                   Row(
 //                     children: [
 //                       TextButton(onPressed: () {}, child: const Text('Home')),
@@ -489,12 +489,12 @@
 //       crossAxisAlignment: CrossAxisAlignment.start,
 //       children: [
 //         Text(title, style: Theme.of(context).textTheme.headlineSmall),
-//         const SizedBox(height: M3Spacing.space4),
+//         const SizedBox(height: M3SpacingToken.space4),
 //         Text(description,
 //             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
 //                   color: Theme.of(context).colorScheme.onSurfaceVariant,
 //                 )),
-//         const SizedBox(height: M3Spacing.space16),
+//         const SizedBox(height: M3SpacingToken.space16),
 //       ],
 //     );
 //   }
@@ -504,13 +504,13 @@
 //       crossAxisAlignment: CrossAxisAlignment.start,
 //       children: [
 //         Text(title, style: Theme.of(context).textTheme.titleMedium),
-//         const SizedBox(height: M3Spacing.space12),
+//         const SizedBox(height: M3SpacingToken.space12),
 //         Wrap(
-//           spacing: M3Spacing.space8,
-//           runSpacing: M3Spacing.space8,
+//           spacing: M3SpacingToken.space8,
+//           runSpacing: M3SpacingToken.space8,
 //           children: buttons,
 //         ),
-//         const SizedBox(height: M3Spacing.space24),
+//         const SizedBox(height: M3SpacingToken.space24),
 //       ],
 //     );
 //   }

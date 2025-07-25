@@ -73,31 +73,32 @@ export 'tokens/ref/typography/m3_ref_typeface.dart';
 /// These provide meaning and context to the base reference values.
 
 /// System color tokens - semantic color roles
-export 'tokens/sys/color/m3_sys_color.dart';
+export 'tokens/sys/color/m3_color_scheme_token.dart';
 
 /// System elevation tokens - shadow and depth
-export 'tokens/sys/elevation/m3_elevation.dart';
+export 'tokens/sys/elevation/m3_elevation_token.dart';
 
 /// System geometry tokens - borders, breakpoints, sizing
-export 'tokens/sys/geometry/m3_border.dart';
-export 'tokens/sys/geometry/m3_breakpoint.dart';
-export 'tokens/sys/geometry/m3_icon_size.dart';
-export 'tokens/sys/geometry/m3_z_index.dart';
+export 'tokens/sys/geometry/m3_border_token.dart';
+export 'tokens/sys/geometry/m3_breakpoint_token.dart';
+export 'tokens/sys/geometry/m3_icon_size_token.dart';
+export 'tokens/sys/geometry/m3_z_index_token.dart';
 
 /// System interaction tokens - visual density and feedback
-export 'tokens/sys/interaction/m3_visual_density.dart';
+export 'tokens/sys/interaction/m3_visual_density_token.dart';
 
 /// System motion tokens - animations and transitions
-export 'tokens/sys/motion/m3_motion.dart';
+export 'tokens/sys/motion/m3_motion_token.dart';
 
 /// System shape tokens - corner radii and borders
-export 'tokens/sys/shape/m3_shape.dart';
+export 'tokens/sys/shape/m3_shape_token.dart';
 
 /// System spacing tokens - margins, padding, gaps
-export 'tokens/sys/spacing/m3_spacing.dart';
+export 'tokens/sys/spacing/m3_spacing_token.dart';
 
 /// System state tokens - interaction states and opacity
-export 'tokens/sys/state/m3_state_layer_opacity.dart';
+export 'tokens/sys/state/m3_opacity_token.dart';
+export 'tokens/sys/state/m3_state_layer_opacity_token.dart';
 
 /// System typography tokens - text styles and scales
-export 'tokens/sys/typography/m3_type_scale.dart';
+export 'tokens/sys/typography/m3_type_scale_token.dart';

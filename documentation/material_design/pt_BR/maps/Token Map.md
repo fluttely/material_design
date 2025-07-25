@@ -14,38 +14,38 @@ graph TD
     A --> C[System Tokens]
     A --> D[Component Tokens]
     A --> E[Legacy Tokens]
-    
+
     B --> B1[M3RefPalette]
     B --> B2[M3RefOpacity]
     B --> B3[M3RefTypeface]
     B --> B4[M3RefDuration]
-    
+
     C --> C1[M3SysColor]
     C --> C2[M3SysColorDark]
-    
+
     D --> D1[M3CompButton]
     D --> D2[M3CompCard]
     D --> D3[M3CompDialog]
-    
-    E --> E1[M3TypeScale]
+
+    E --> E1[M3TypeScaleToken]
     E --> E2[M3TonalColor]
     E --> E3[M3Elevation]
-    E --> E4[M3Spacing]
-    E --> E5[M3MotionDuration]
-    E --> E6[M3MotionEasing]
+    E --> E4[M3SpacingToken]
+    E --> E5[M3MotionDurationToken]
+    E --> E6[M3MotionEasingToken]
     E --> E7[M3Radius]
-    E --> E8[M3Shadow]
-    
+    E --> E8[M3ShadowToken]
+
     %% Conexões de dependência
     B1 --> C1
     B1 --> C2
     B2 --> D1
     B3 --> E1
     B4 --> E5
-    
+
     C1 --> D1
     C1 --> D2
-    
+
     E3 --> E8
     E7 --> D1
 ```
@@ -53,10 +53,11 @@ graph TD
 ## 🎨 Reference Tokens - Fundação
 
 ### [[Design Tokens#M3RefPalette|🌈 M3RefPalette]]
+
 ```dart
 // Paletas com 13 tons (0-100)
 primary: {0→100}     // Violeta padrão M3
-secondary: {0→100}   // Neutro violeta 
+secondary: {0→100}   // Neutro violeta
 tertiary: {0→100}    // Rosa complementar
 error: {0→100}       // Vermelho de erro
 neutral: {0→100}     // Cinzas neutros
@@ -66,10 +67,11 @@ neutralVariant: {0→100} // Cinzas coloridos
 **Fluxo:** `M3RefPalette` → `M3SysColor` → `ColorScheme` → `ThemeData`
 
 ### 🌫️ M3RefOpacity
+
 ```dart
 // Estados de interação
 hover: 0.08
-focus: 0.12  
+focus: 0.12
 pressed: 0.16
 selected: 0.24
 disabled: 0.38
@@ -83,7 +85,8 @@ scrim: 0.32
 **Fluxo:** `M3RefOpacity` → `M3CompButton` → `ButtonStyle`
 
 ### ✏️ M3RefTypeface
-```dart  
+
+```dart
 // Famílias de fonte
 brand: 'Roboto'
 plain: 'Roboto'
@@ -91,23 +94,25 @@ fontWeights: {100→900}
 letterSpacing: {-0.025→0.05}
 ```
 
-**Fluxo:** `M3RefTypeface` → `M3TypeScale` → `TextTheme`
+**Fluxo:** `M3RefTypeface` → `M3TypeScaleToken` → `TextTheme`
 
 ### ⏱️ M3RefDuration
+
 ```dart
 // Categorias de duração
 extraShort: 50→200ms    // Micro-interações
 short: 250→400ms        // Estado changes
-medium: 450→600ms       // Transições padrão  
+medium: 450→600ms       // Transições padrão
 long: 700→1000ms        // Complexas
 extraLong: 1200→1800ms  // Página transitions
 ```
 
-**Fluxo:** `M3RefDuration` → `M3MotionDuration` → `AnimationController`
+**Fluxo:** `M3RefDuration` → `M3MotionDurationToken` → `AnimationController`
 
 ## 🎯 System Tokens - Semântica
 
 ### [[../styles/Color System|🎨 M3SysColor]] (Light Theme)
+
 ```dart
 // Mapeamento semântico do M3RefPalette
 primary         ← M3RefPalette.primary.40
@@ -125,6 +130,7 @@ surfaceContainer ← M3RefPalette.neutral.94
 ```
 
 ### 🌙 M3SysColorDark (Dark Theme)
+
 ```dart
 // Versão escura com tons invertidos
 primary         ← M3RefPalette.primary.80  // Tom mais claro
@@ -141,6 +147,7 @@ onSurface       ← M3RefPalette.neutral.90  // Texto claro
 ## 🧩 Component Tokens - Específicos
 
 ### [[../components/Buttons|🔘 M3CompButton]]
+
 ```dart
 // Dimensões
 heightSmall: 32.0    ← Design requirement
@@ -163,6 +170,7 @@ stateLayerPressed ← M3RefOpacity.pressed
 ```
 
 **Aplicação:**
+
 ```dart
 ElevatedButton(
   style: ElevatedButton.styleFrom(
@@ -176,28 +184,30 @@ ElevatedButton(
 ```
 
 ### 🗃️ M3CompCard
+
 ```dart
 // Elevação contextual
-elevationDefault: M3Elevation.level1  // 1dp
-elevationHover: M3Elevation.level2    // 3dp
-elevationDragged: M3Elevation.level4  // 8dp
+elevationDefault: M3ElevationToken.level1  // 1dp
+elevationHover: M3ElevationToken.level2    // 3dp
+elevationDragged: M3ElevationToken.level4  // 8dp
 
 // Forma padrão
 shape: M3Radius.medium  // 12dp
 
 // Padding interno
-contentPadding: M3Spacing.space16  // 16dp
+contentPadding: M3SpacingToken.space16  // 16dp
 ```
 
 ## 🔗 Legacy Tokens - Compatibilidade
 
 Tokens existentes mantidos para compatibilidade, gradualmente migrados para nova estrutura:
 
-### [[../styles/Typography|✏️ M3TypeScale]]
+### [[../styles/Typography|✏️ M3TypeScaleToken]]
+
 ```dart
 // 15 estilos tipográficos
 displayLarge: 57px/64px, weight: 400
-displayMedium: 45px/52px, weight: 400  
+displayMedium: 45px/52px, weight: 400
 displaySmall: 36px/44px, weight: 400
 
 headlineLarge: 32px/40px, weight: 400
@@ -205,7 +215,7 @@ headlineMedium: 28px/36px, weight: 400
 headlineSmall: 24px/32px, weight: 400
 
 titleLarge: 22px/28px, weight: 400
-titleMedium: 16px/24px, weight: 500  
+titleMedium: 16px/24px, weight: 500
 titleSmall: 14px/20px, weight: 500
 
 bodyLarge: 16px/24px, weight: 400
@@ -218,26 +228,28 @@ labelSmall: 11px/16px, weight: 500
 ```
 
 ### [[../styles/Elevation|📐 M3Elevation]]
+
 ```dart
 // 6 níveis principais + contextuais
 level0: 0dp   // Surface
-level1: 1dp   // Cards at rest  
+level1: 1dp   // Cards at rest
 level2: 3dp   // Buttons, switches
 level3: 6dp   // FAB at rest, chips
 level4: 8dp   // Bottom navigation
 level5: 12dp  // App bars, bottom sheets
 
-// Contextuais  
+// Contextuais
 dialog: 24dp
 navigationDrawer: 16dp
 modal: 16dp
 ```
 
-### [[../foundations/Adaptive Design#Breakpoints|📱 M3Breakpoint]]
+### [[../foundations/Adaptive Design#Breakpoints|📱 M3BreakpointToken]]
+
 ```dart
 // Window size classes
 compact: 0→599dp      // Phones
-medium: 600→839dp     // Tablets  
+medium: 600→839dp     // Tablets
 expanded: 840→1199dp  // Small desktops
 large: 1200→1599dp    // Medium desktops
 extraLarge: 1600dp+   // Large desktops
@@ -246,6 +258,7 @@ extraLarge: 1600dp+   // Large desktops
 ## 🔄 Fluxos de Dependência
 
 ### 1. Color Flow
+
 ```mermaid
 graph LR
     A[M3RefPalette<br/>13-tone palettes] --> B[M3SysColor<br/>Semantic roles]
@@ -254,15 +267,17 @@ graph LR
     D --> E[Widget<br/>Visual result]
 ```
 
-### 2. Typography Flow  
+### 2. Typography Flow
+
 ```mermaid
 graph LR
-    A[M3RefTypeface<br/>Font families] --> B[M3TypeScale<br/>15 text styles]
+    A[M3RefTypeface<br/>Font families] --> B[M3TypeScaleToken<br/>15 text styles]
     B --> C[TextTheme<br/>Flutter native]
     C --> D[Text Widget<br/>Styled text]
 ```
 
 ### 3. Component Flow
+
 ```mermaid
 graph LR
     A[M3RefOpacity<br/>State values] --> B[M3CompButton<br/>Button specs]
@@ -273,13 +288,15 @@ graph LR
 ## 📊 Usage Statistics
 
 ### Mais Usados
-1. **M3Spacing** - Sistema de espaçamento (usado em 95% dos widgets)
-2. **M3TypeScale** - Tipografia (usado em 90% dos textos)  
+
+1. **M3SpacingToken** - Sistema de espaçamento (usado em 95% dos widgets)
+2. **M3TypeScaleToken** - Tipografia (usado em 90% dos textos)
 3. **M3SysColor** - Cores sistemáticas (usado em 85% dos containers)
 4. **M3Elevation** - Elevação (usado em 75% dos cards/surfaces)
 5. **M3Radius** - Formas (usado em 70% dos containers)
 
 ### Por Categoria
+
 ```mermaid
 pie title Token Usage Distribution
     "Spacing" : 35
@@ -294,32 +311,34 @@ pie title Token Usage Distribution
 ## 🛠️ Implementação no Showcase
 
 ### [[../examples/Design Tokens Page|📱 DesignTokensPage]]
+
 Demonstra todos os tokens organizados por categoria:
 
-- **Tab 1: Spacing** - `M3Spacing.*` visual demos
-- **Tab 2: Density** - `VisualDensity.*` comparisons  
-- **Tab 3: Breakpoints** - `M3Breakpoint.*` responsive behavior
+- **Tab 1: Spacing** - `M3SpacingToken.*` visual demos
+- **Tab 2: Density** - `M3VisualDensityToken.*` comparisons
+- **Tab 3: Breakpoints** - `M3BreakpointToken.*` responsive behavior
 - **Tab 4: Others** - Icon sizes, z-index, opacities
 
 ### Token Usage Examples
+
 ```dart
 // Spacing demonstration
 Container(
-  padding: EdgeInsets.all(M3Spacing.space16), // 16dp
+  padding: EdgeInsets.all(M3SpacingToken.space16), // 16dp
   child: Text('Spaced content'),
 )
 
-// Breakpoint demonstration  
+// Breakpoint demonstration
 final columns = M3Adaptive.responsiveValue<int>(
   context: context,
-  compact: 1,    // M3Breakpoint.compact
-  medium: 2,     // M3Breakpoint.medium  
-  expanded: 3,   // M3Breakpoint.expanded
+  compact: 1,    // M3BreakpointToken.compact
+  medium: 2,     // M3BreakpointToken.medium
+  expanded: 3,   // M3BreakpointToken.expanded
 );
 
 // Typography demonstration
-Text('Display Large', style: M3TypeScale.displayLarge),
-Text('Body Medium', style: M3TypeScale.bodyMedium),
+Text('Display Large', style: M3TypeScaleToken.displayLarge),
+Text('Body Medium', style: M3TypeScaleToken.bodyMedium),
 ```
 
 ## 🏷️ Tags

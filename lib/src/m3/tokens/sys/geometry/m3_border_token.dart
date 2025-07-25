@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:material_design/material_design.dart';
 
 /// Material Design 3 border width tokens for consistent component styling.
@@ -104,85 +105,57 @@ enum M3BorderToken implements IM3Token<double> {
   /// The border width value in density-independent pixels (dp).
   @override
   final double value;
+}
 
-  // TODO(fluttely): put it into material_toolkit
-  // // --- Border Utilities ---
+// TODO(fluttely):
+/// Provides utility methods for working with border tokens.
+extension M3BorderTokenUtils on M3BorderToken {
+  /// Creates a [BorderSide] with this token's width.
+  ///
+  /// This is a convenient way to create a [BorderSide] for use in
+  /// various Flutter widgets.
+  ///
+  /// - [color]: The color of the border side.
+  /// - [style]: The style of the border side, defaults to solid.
+  BorderSide toSide({
+    required Color color,
+    BorderStyle style = BorderStyle.solid,
+  }) {
+    return BorderSide(
+      color: color,
+      width: value,
+      style: style,
+    );
+  }
 
-  // /// Creates a standard outline border with the given color and width.
-  // static Border outline({
-  //   required Color color,
-  //   M3BorderToken width = M3BorderToken.thin,
-  // }) {
-  //   return Border.all(color: color, width: width.value);
-  // }
+  /// Checks if this border width is thicker than another.
+  bool isThickerThan(M3BorderToken other) => value > other.value;
 
-  // /// Creates a bottom border only.
-  // static Border bottom({
-  //   required Color color,
-  //   M3BorderToken width = M3BorderToken.thin,
-  // }) {
-  //   return Border(
-  //     bottom: BorderSide(color: color, width: width.value),
-  //   );
-  // }
+  /// Checks if this border width is thinner than another.
+  bool isThinnerThan(M3BorderToken other) => value < other.value;
 
-  // /// Creates a top border only.
-  // static Border top({
-  //   required Color color,
-  //   M3BorderToken width = M3BorderToken.thin,
-  // }) {
-  //   return Border(
-  //     top: BorderSide(color: color, width: width.value),
-  //   );
-  // }
+  /// Returns the difference in width between this and another border token.
+  double differenceFrom(M3BorderToken other) => (value - other.value).abs();
 
-  // /// Creates left and right borders only.
-  // static Border vertical({
-  //   required Color color,
-  //   M3BorderToken width = M3BorderToken.thin,
-  // }) {
-  //   return Border(
-  //     left: BorderSide(color: color, width: width.value),
-  //     right: BorderSide(color: color, width: width.value),
-  //   );
-  // }
+  /// Creates a BorderRadius with this token's width as the radius.
+  BorderRadius asRadius() => BorderRadius.circular(value);
 
-  // /// Creates top and bottom borders only.
-  // static Border horizontal({
-  //   required Color color,
-  //   M3BorderToken width = M3BorderToken.thin,
-  // }) {
-  //   return Border(
-  //     top: BorderSide(color: color, width: width.value),
-  //     bottom: BorderSide(color: color, width: width.value),
-  //   );
-  // }
+  /// Creates a Radius with this token's width.
+  Radius get radius => Radius.circular(value);
 
-  // /// Creates a focus border with enhanced visibility.
-  // static Border focus({
-  //   required Color color,
-  //   M3BorderToken width = M3BorderToken.thick,
-  // }) {
-  //   return Border.all(color: color, width: width.value);
-  // }
+  /// Checks if this border is visible (has width > 0).
+  bool get isVisible => value > 0;
 
-  // /// Creates an error border for form validation.
-  // static Border error({
-  //   required Color color,
-  //   M3BorderToken width = M3BorderToken.thick,
-  // }) {
-  //   return Border.all(color: color, width: width.value);
-  // }
-
-  // /// Creates a disabled border with reduced opacity.
-  // static Border disabled({
-  //   required Color color,
-  //   M3BorderToken width = M3BorderToken.thin,
-  //   double opacity = 0.38,
-  // }) {
-  //   return Border.all(
-  //     color: color.withValues(alpha: opacity),
-  //     width: width.value,
-  //   );
-  // }
+  /// Creates an animated BorderSide that can transition between states.
+  BorderSide animatedSide({
+    required Color color,
+    required Animation<double> animation,
+    BorderStyle style = BorderStyle.solid,
+  }) {
+    return BorderSide(
+      color: color,
+      width: value * animation.value,
+      style: style,
+    );
+  }
 }

@@ -1,4 +1,4 @@
-part of 'm3_elevation.dart';
+part of 'm3_elevation_token.dart';
 
 /// A utility class to handle Material 3 surface color calculations.
 ///
