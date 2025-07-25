@@ -34,7 +34,7 @@ build/
 .claude-cli
 .env
 utils.js
-lib/src/md
-lib/src/ds
-lib/src/mt
-lib/src/trash
+# lib/src/md
+# lib/src/ds
+# lib/src/mt
+# lib/src/trash
