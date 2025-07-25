@@ -33,7 +33,7 @@ Add this line to your project's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  material_design: ^0.9.1
+  material_design: ^0.9.2
 ```
 
 Then run `flutter pub get`.
@@ -89,9 +89,9 @@ MaterialApp(
 
 ### Typography
 
-The full M3 type scale is available via the `M3TypeScaleToken` enum.
+The full M3 type scale is available via the `M3TextStyleToken` enum.
 
-- **`M3TypeScaleToken`**: Provides 15 `TextStyle` tokens, from `displayLarge` to `labelSmall`. Each token contains a `.value` property that returns the `TextStyle`.
+- **`M3TextStyleToken`**: Provides 15 `TextStyle` tokens, from `displayLarge` to `labelSmall`. Each token contains a `.value` property that returns the `TextStyle`.
 
 **Example:**
 
@@ -100,9 +100,17 @@ MaterialApp(
   theme: ThemeData(
     useMaterial3: true,
     textTheme: TextTheme(
-      displayLarge: M3TypeScaleToken.displayLarge.value,
-      displayMedium: M3TypeScaleToken.displayMedium.value,
-      displaySmall: M3TypeScaleToken.displaySmall.value,
+      displayLarge: M3TextStyleToken.displayLarge.value.copyWith(
+        fontSize: 64,
+      ),
+      ...
+      headlineMedium: M3TextStyleToken.headlineMedium.value.copyWith(
+        fontWeight: FontWeight.w500,
+      ),
+      ...
+      titleSmall: M3TextStyleToken.titleSmall.value.copyWith(
+        letterSpacing: 1,
+      ),
       ...
     ),
   ),

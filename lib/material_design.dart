@@ -10,7 +10,7 @@
 /// ```
 ///
 /// Then, you can access all the tokens, such as:
-/// - `M3TypeScaleToken.headlineLarge`
+/// - `M3TextStyleToken.headlineLarge`
 /// - `M3ShadowToken.level2`
 library;
 // library;

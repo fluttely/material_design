@@ -138,7 +138,7 @@ class M3SysColor {
 
 ```dart
 // ✅ Active and working
-class M3TypeScaleToken {
+class M3TextStyleToken {
   static const TextStyle displayLarge = TextStyle(
     fontSize: 57,
     fontWeight: FontWeight.w400,
@@ -341,9 +341,9 @@ ThemeData buildM3Theme() {
 
     // ✅ Use active typography tokens
     textTheme: TextTheme(
-      displayLarge: M3TypeScaleToken.displayLarge,
-      headlineMedium: M3TypeScaleToken.headlineMedium,
-      bodyLarge: M3TypeScaleToken.bodyLarge,
+      displayLarge: M3TextStyleToken.displayLarge,
+      headlineMedium: M3TextStyleToken.headlineMedium,
+      bodyLarge: M3TextStyleToken.bodyLarge,
       // ... other text styles
     ),
 

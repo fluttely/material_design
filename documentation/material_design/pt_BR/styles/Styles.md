@@ -89,29 +89,29 @@ Baseado na **escala de 15 estilos** do Material Design 3:
 
 ```dart
 // Display - Texto grande e proeminente
-Text('Display Large', style: M3TypeScaleToken.displayLarge),   // 57px
-Text('Display Medium', style: M3TypeScaleToken.displayMedium), // 45px
-Text('Display Small', style: M3TypeScaleToken.displaySmall),   // 36px
+Text('Display Large', style: M3TextStyleToken.displayLarge),   // 57px
+Text('Display Medium', style: M3TextStyleToken.displayMedium), // 45px
+Text('Display Small', style: M3TextStyleToken.displaySmall),   // 36px
 
 // Headlines - Alta ênfase
-Text('Headline Large', style: M3TypeScaleToken.headlineLarge), // 32px
-Text('Headline Medium', style: M3TypeScaleToken.headlineMedium), // 28px
-Text('Headline Small', style: M3TypeScaleToken.headlineSmall), // 24px
+Text('Headline Large', style: M3TextStyleToken.headlineLarge), // 32px
+Text('Headline Medium', style: M3TextStyleToken.headlineMedium), // 28px
+Text('Headline Small', style: M3TextStyleToken.headlineSmall), // 24px
 
 // Titles - Média ênfase
-Text('Title Large', style: M3TypeScaleToken.titleLarge),       // 22px
-Text('Title Medium', style: M3TypeScaleToken.titleMedium),     // 16px
-Text('Title Small', style: M3TypeScaleToken.titleSmall),       // 14px
+Text('Title Large', style: M3TextStyleToken.titleLarge),       // 22px
+Text('Title Medium', style: M3TextStyleToken.titleMedium),     // 16px
+Text('Title Small', style: M3TextStyleToken.titleSmall),       // 14px
 
 // Body - Leitura de conteúdo
-Text('Body Large', style: M3TypeScaleToken.bodyLarge),         // 16px
-Text('Body Medium', style: M3TypeScaleToken.bodyMedium),       // 14px
-Text('Body Small', style: M3TypeScaleToken.bodySmall),         // 12px
+Text('Body Large', style: M3TextStyleToken.bodyLarge),         // 16px
+Text('Body Medium', style: M3TextStyleToken.bodyMedium),       // 14px
+Text('Body Small', style: M3TextStyleToken.bodySmall),         // 12px
 
 // Labels - UI e legendas
-Text('Label Large', style: M3TypeScaleToken.labelLarge),       // 14px
-Text('Label Medium', style: M3TypeScaleToken.labelMedium),     // 12px
-Text('Label Small', style: M3TypeScaleToken.labelSmall),       // 11px
+Text('Label Large', style: M3TextStyleToken.labelLarge),       // 14px
+Text('Label Medium', style: M3TextStyleToken.labelMedium),     // 12px
+Text('Label Small', style: M3TextStyleToken.labelSmall),       // 11px
 ```
 
 **Responsive Typography:**
@@ -120,13 +120,13 @@ Text('Label Small', style: M3TypeScaleToken.labelSmall),       // 11px
 // Tipografia que se adapta ao tamanho da tela
 Text(
   'Responsive Title',
-  style: M3TypeScaleToken.responsiveDisplay(context),
+  style: M3TextStyleToken.responsiveDisplay(context),
 )
 
 // Texto com legibilidade aprimorada
 Text(
   'Enhanced Readability',
-  style: M3TypeScaleToken.enhancedReadability(M3TypeScaleToken.bodyLarge),
+  style: M3TextStyleToken.enhancedReadability(M3TextStyleToken.bodyLarge),
 )
 ```
 
@@ -297,7 +297,7 @@ ThemeData buildM3Theme({Color? seedColor}) {
   return ThemeData(
     useMaterial3: true,
     colorScheme: colorScheme,
-    textTheme: M3TypeScaleToken.material3TextTheme,
+    textTheme: M3TextStyleToken.material3TextTheme,
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         elevation: M3ElevationToken.level1.value,
@@ -331,8 +331,8 @@ Card(
     child: Column(
       children: [
         // Typography
-        Text('Title', style: M3TypeScaleToken.titleMedium),
-        Text('Description', style: M3TypeScaleToken.bodyMedium),
+        Text('Title', style: M3TextStyleToken.titleMedium),
+        Text('Description', style: M3TextStyleToken.bodyMedium),
       ],
     ),
   ),

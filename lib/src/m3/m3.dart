@@ -28,7 +28,7 @@
 /// final primaryColor = M3SysColor.primary;
 ///
 /// // Use typography tokens
-/// final headlineStyle = M3TypeScaleToken.headlineLarge.value;
+/// final headlineStyle = M3TextStyleToken.headlineLarge.value;
 ///
 /// // Use component tokens
 /// final buttonHeight = M3CompButton.heightMedium;

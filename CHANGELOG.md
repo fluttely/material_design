@@ -4,6 +4,65 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adherves to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.9.2
+
+### 🔄 BREAKING CHANGES
+
+- **Typography Token Naming**: Renamed `M3TypeScaleToken` to `M3TextStyleToken` throughout the entire codebase for better semantic clarity and consistency with Material Design 3 nomenclature
+  - All references to `M3TypeScaleToken` in code, documentation, and examples have been updated to `M3TextStyleToken`
+  - The class provides the same 15 `TextStyle` tokens (displayLarge to labelSmall) with identical functionality
+  - Enhanced README examples showing `copyWith()` usage for customizing text styles
+
+### ✨ Enhancements
+
+- **Improved API Semantics**: The new `M3TextStyleToken` name better reflects that these are complete text style definitions rather than just type scale values
+- **Enhanced Documentation**: Updated all documentation files (English and Portuguese) to use the new token naming convention
+- **Better Code Examples**: Improved README with more comprehensive typography examples showing real-world usage patterns
+- **Consistent Token Interface**: All typography-related utility methods (responsiveDisplay, enhancedReadability, monoVariant, highContrast) maintained under the new class name
+
+### 📚 Documentation Updates
+
+- **Comprehensive Naming Updates**: Updated all documentation files in both English (`en_US`) and Portuguese (`pt_BR`) directories
+- **Implementation Guide Updates**: Refreshed implementation examples and component mappings with new token references
+- **README Enhancement**: Added better typography examples showing advanced usage with `copyWith()` method
+- **Demo Application Updates**: Updated showcase pages to demonstrate the new `M3TextStyleToken` API
+
+### 🎯 Demo & Example Applications
+
+- **Complete Demo Update**: All demo showcase pages updated to use `M3TextStyleToken`
+- **Theme Integration**: Updated theme provider to use new typography token naming
+- **Interactive Examples**: Enhanced typography page and utility examples with new token references
+
+### 🔧 Migration Guide
+
+**Before (v0.9.1):**
+```dart
+Text('Title', style: M3TypeScaleToken.headlineMedium.value)
+textTheme: TextTheme(
+  displayLarge: M3TypeScaleToken.displayLarge.value,
+  bodyMedium: M3TypeScaleToken.bodyMedium.value,
+)
+```
+
+**After (v0.9.2):**
+```dart
+Text('Title', style: M3TextStyleToken.headlineMedium.value)
+textTheme: TextTheme(
+  displayLarge: M3TextStyleToken.displayLarge.value,
+  bodyMedium: M3TextStyleToken.bodyMedium.value,
+)
+```
+
+### 🐛 Compatibility Notes
+
+- **No Functional Changes**: All text style values and functionality remain identical - only the class name has changed
+- **Same API Structure**: All properties (.value, .responsiveDisplay, .enhancedReadability, etc.) maintain the same interface
+- **Import Structure Unchanged**: Main package imports continue to work as before
+
+### Recommended Version Bump: **MINOR** (0.9.1 → 0.9.2)
+
+This release contains a breaking change in class naming but maintains API compatibility and adds semantic improvements to the typography system.
+
 ## 0.9.1
 
 ### 🐛 Bug Fixes
