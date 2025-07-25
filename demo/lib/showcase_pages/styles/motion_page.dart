@@ -22,38 +22,38 @@ class MotionPage extends StatelessWidget {
           ),
           _MotionShowcase(
             title: 'Emphasized',
-            curve: M3MotionEasingToken.emphasizedAccelerate.value,
-            duration: M3MotionDurationToken.long2.value,
+            easing: M3MotionEasingToken.emphasizedAccelerate,
+            duration: M3MotionDurationToken.long2,
           ),
           _MotionShowcase(
             title: 'Emphasized Incoming',
-            curve: M3MotionEasingToken.emphasizedDecelerate.value,
-            duration: M3MotionDurationToken.long1.value,
+            easing: M3MotionEasingToken.emphasizedDecelerate,
+            duration: M3MotionDurationToken.long1,
           ),
           _MotionShowcase(
             title: 'Emphasized Outgoing',
-            curve: M3MotionEasingToken.emphasizedAccelerate.value,
-            duration: M3MotionDurationToken.short3.value,
+            easing: M3MotionEasingToken.emphasizedAccelerate,
+            duration: M3MotionDurationToken.short3,
           ),
           _MotionShowcase(
             title: 'Standard',
-            curve: M3MotionEasingToken.standard.value,
-            duration: M3MotionDurationToken.medium2.value,
+            easing: M3MotionEasingToken.standard,
+            duration: M3MotionDurationToken.medium2,
           ),
           _MotionShowcase(
             title: 'Standard Incoming',
-            curve: M3MotionEasingToken.standardDecelerate.value,
-            duration: M3MotionDurationToken.medium1.value,
+            easing: M3MotionEasingToken.standardDecelerate,
+            duration: M3MotionDurationToken.medium1,
           ),
           _MotionShowcase(
             title: 'Standard Outgoing',
-            curve: M3MotionEasingToken.standardAccelerate.value,
-            duration: M3MotionDurationToken.short4.value,
+            easing: M3MotionEasingToken.standardAccelerate,
+            duration: M3MotionDurationToken.short4,
           ),
           _MotionShowcase(
             title: 'Linear',
-            curve: M3MotionEasingToken.linear.value,
-            duration: M3MotionDurationToken.short3.value,
+            easing: M3MotionEasingToken.linear,
+            duration: M3MotionDurationToken.short3,
           ),
         ],
       ),
@@ -64,13 +64,13 @@ class MotionPage extends StatelessWidget {
 class _MotionShowcase extends StatefulWidget {
   const _MotionShowcase({
     required this.title,
-    required this.curve,
+    required this.easing,
     required this.duration,
   });
 
   final String title;
-  final Curve curve;
-  final Duration duration;
+  final M3MotionEasingToken easing;
+  final M3MotionDurationToken duration;
 
   @override
   State<_MotionShowcase> createState() => _MotionShowcaseState();
@@ -85,13 +85,13 @@ class _MotionShowcaseState extends State<_MotionShowcase>
   void initState() {
     super.initState();
     _controller = AnimationController(
-      duration: widget.duration,
+      duration: widget.duration.value,
       vsync: this,
     );
     _animation = Tween<double>(
       begin: 0.0,
       end: 1.0,
-    ).chain(CurveTween(curve: widget.curve)).animate(_controller);
+    ).chain(CurveTween(curve: widget.easing.value)).animate(_controller);
     _controller.repeat(reverse: true);
   }
 
@@ -119,7 +119,7 @@ class _MotionShowcaseState extends State<_MotionShowcase>
               return CustomPaint(
                 painter: _MotionPainter(
                   animationValue: _animation.value,
-                  curve: widget.curve,
+                  easing: widget.easing,
                   color: colorScheme.primary,
                 ),
                 child: SizedBox(
@@ -138,12 +138,12 @@ class _MotionShowcaseState extends State<_MotionShowcase>
 class _MotionPainter extends CustomPainter {
   _MotionPainter({
     required this.animationValue,
-    required this.curve,
+    required this.easing,
     required this.color,
   });
 
   final double animationValue;
-  final Curve curve;
+  final M3MotionEasingToken easing;
   final Color color;
 
   @override
@@ -157,14 +157,15 @@ class _MotionPainter extends CustomPainter {
     path.moveTo(0, size.height);
 
     for (double t = 0; t <= 1.0; t += 0.01) {
-      final y = size.height - curve.transform(t) * size.height;
+      final y = size.height - easing.value.transform(t) * size.height;
       path.lineTo(t * size.width, y);
     }
     canvas.drawPath(path, paint);
 
     final circlePaint = Paint()..color = color;
     final circleX = animationValue * size.width;
-    final circleY = size.height - curve.transform(animationValue) * size.height;
+    final circleY =
+        size.height - easing.value.transform(animationValue) * size.height;
     canvas.drawCircle(Offset(circleX, circleY), 6, circlePaint);
   }
 

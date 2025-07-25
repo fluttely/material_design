@@ -9,7 +9,7 @@
 - **Typography Tokens** - M3TypeScaleToken (15 text styles)
 - **Spacing Tokens** - M3SpacingToken (4dp grid system)
 - **Elevation Tokens** - M3Elevation (6 levels)
-- **Shape Tokens** - M3Shape (border radius system)
+- **Shape Tokens** - M3ShapeToken (border radius system)
 - **Motion Tokens** - M3MotionDurationToken & M3MotionEasingToken
 - **State Tokens** - M3StateLayerOpacity
 - **Breakpoint Tokens** - M3BreakpointToken (responsive)
@@ -50,7 +50,7 @@ graph TD
     E --> E3[M3SpacingToken ✅]
     E --> E4[M3MotionDurationToken ✅]
     E --> E5[M3MotionEasingToken ✅]
-    E --> E6[M3Shape ✅]
+    E --> E6[M3ShapeToken ✅]
     E --> E7[M3StateLayerOpacity ✅]
     E --> E8[M3BreakpointToken ✅]
 
@@ -199,7 +199,7 @@ ElevatedButton(
   style: ElevatedButton.styleFrom(
     minimumSize: Size.fromHeight(40.0), // Direct value
     shape: RoundedRectangleBorder(
-      borderRadius: M3Shape.medium.value, // ✅ Active shape token
+      borderRadius: M3ShapeToken.medium.value, // ✅ Active shape token
     ),
     elevation: M3ElevationToken.level1.value, // ✅ Active elevation token
   ),
@@ -215,7 +215,7 @@ ElevatedButton(
 Card(
   elevation: M3ElevationToken.level1.value,     // ✅ Active elevation
   shape: RoundedRectangleBorder(
-    borderRadius: M3Shape.medium.value,    // ✅ Active shape
+    borderRadius: M3ShapeToken.medium.value,    // ✅ Active shape
   ),
   child: Padding(
     padding: EdgeInsets.all(M3SpacingToken.space16.value), // ✅ Active spacing
@@ -281,7 +281,7 @@ large: 1200→1599dp    // Medium desktops
 extraLarge: 1600dp+   // Large desktops
 ```
 
-### 🔷 M3Shape - ✅ **Fully Active**
+### 🔷 M3ShapeToken - ✅ **Fully Active**
 
 ```dart
 // ✅ Complete shape system - all functional
@@ -338,7 +338,7 @@ graph LR
 1. **M3SpacingToken** - Spacing system (used in 95% of widgets) ✅
 2. **M3TypeScaleToken** - Typography (used in 90% of texts) ✅
 3. **M3Elevation** - Elevation (used in 75% of cards/surfaces) ✅
-4. **M3Shape** - Shapes (used in 70% of containers) ✅
+4. **M3ShapeToken** - Shapes (used in 70% of containers) ✅
 5. **M3MotionToken** - Animation durations and easing ✅
 
 ### By Category

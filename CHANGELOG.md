@@ -2,7 +2,37 @@
 
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adherves to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## 0.9.1
+
+### 🐛 Bug Fixes
+
+- **Visual Density Token**: Fixed critical StackOverflowError in `M3VisualDensityToken.adaptivePlatform` by removing recursive call and directly returning `VisualDensity.adaptivePlatformDensity`
+- **Motion Tokens API**: Updated motion showcase to use direct token properties instead of `.value` accessor for better consistency
+- **Shape Token References**: Updated all documentation and demo references from `M3Shape` to `M3ShapeToken` for consistency
+
+### ✨ Enhancements
+
+- **Enhanced Visual Density Documentation**: Improved inline documentation with clearer property descriptions and usage examples
+- **Better Type Safety**: Enhanced visual density token implementation with proper typing and clearer API contracts
+- **Motion Token Consistency**: Standardized motion token usage pattern across demo application
+
+### 📚 Documentation Updates
+
+- **Token Reference Updates**: Updated all documentation files to reflect correct `M3ShapeToken` naming
+- **API Documentation**: Enhanced visual density token documentation with detailed property descriptions
+- **Usage Examples**: Updated code examples throughout documentation to use correct token references
+
+### 🔧 Code Quality
+
+- **Gitignore Cleanup**: Updated `.gitignore` to use more generic trash directory pattern (`lib/src/trash` instead of `lib/src/m3/trash`)
+- **Code Organization**: Improved visual density token file structure and removed redundant utility methods
+- **Better Error Handling**: Eliminated potential runtime errors through proper token implementation
+
+### Recommended Version Bump: **PATCH** (0.9.0 → 0.9.1)
+
+This release contains bug fixes and documentation improvements without breaking changes to the public API.
 
 ## 0.9.0
 
