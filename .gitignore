@@ -30,8 +30,8 @@ migrate_working_dir/
 .flutter-plugins-dependencies
 build/
 
-.gemini-cli/
-.claude-cli
+# .gemini-cli/
+# .claude-cli
 .env
 utils.js
 # lib/src/md
