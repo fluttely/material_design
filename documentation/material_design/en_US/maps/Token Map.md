@@ -217,7 +217,7 @@ Card(
   shape: RoundedRectangleBorder(
     borderRadius: M3ShapeToken.medium.value,    // ✅ Active shape
   ),
-  child: Padding(
+  child: M3Padding(
     padding: EdgeInsets.all(M3SpacingToken.space16.value), // ✅ Active spacing
     child: content,
   ),

@@ -20,12 +20,12 @@ class ElevationPage extends StatelessWidget {
     ];
 
     final elevationsWithoutShadow = [
-      (M3ElevationToken.level0, false, 'Level 0 Without Shadow'),
-      (M3ElevationToken.level1, false, 'Level 1 Without Shadow'),
-      (M3ElevationToken.level2, false, 'Level 2 Without Shadow'),
-      (M3ElevationToken.level3, false, 'Level 3 Without Shadow'),
-      (M3ElevationToken.level4, false, 'Level 4 Without Shadow'),
-      (M3ElevationToken.level5, false, 'Level 5 Without Shadow'),
+      (M3ElevationToken.level0, false, 'Level 0'),
+      (M3ElevationToken.level1, false, 'Level 1'),
+      (M3ElevationToken.level2, false, 'Level 2'),
+      (M3ElevationToken.level3, false, 'Level 3'),
+      (M3ElevationToken.level4, false, 'Level 4'),
+      (M3ElevationToken.level5, false, 'Level 5'),
     ];
 
     // final componentElevations = [
@@ -101,27 +101,27 @@ class ElevationPage extends StatelessWidget {
             'Elevation in M3 is a combination of a surface tint and, for some components, a shadow. Below, the cards are rendered according to the official rules defined in the M3Elevation token class.',
             style: textTheme.bodyMedium,
           ),
-          SizedBox(height: M3SpacingToken.space16.value),
+          const M3Gap(M3SpacingToken.space16),
           _ElevationGrid(
-            title: 'M3Elevation Tokens (Levels)',
+            title: 'M3ElevationToken (Surface Tint Color and Shadow Color)',
             m3Link: 'https://m3.material.io/styles/elevation/overview',
             elevations: elevations,
           ),
-          SizedBox(height: M3SpacingToken.space32.value),
+          const M3Gap(M3SpacingToken.space32),
           _ElevationGrid(
-            title: 'M3Elevation Tokens (Levels Without Shadow)',
+            title: 'M3ElevationToken (Surface Tint Color Only)',
             m3Link: 'https://m3.material.io/styles/elevation/overview',
             elevations: elevationsWithoutShadow,
           ),
-          // SizedBox(height: M3SpacingToken.space32.value),
+          // const M3Gap(M3SpacingToken.space32),
           // _ElevationGrid(
-          //   title: 'M3ComponentElevation Tokens  true,(Elevation by Component)',
+          //   title: 'M3ComponentElevationToken true,(Elevation by Component)',
           //   m3Link: 'https://m3.material.io/styles/elevation/overview',
           //   elevations: componentElevations,
           // ),
-          // SizedBox(height: M3SpacingToken.space32.value),
+          // const M3Gap(M3SpacingToken.space32),
           // _ElevationGrid(
-          //   title: 'M3StateElevation Tokens (Interactive State Elevation)',
+          //   title: 'M3StateElevationToken (Interactive State Elevation)',
           //   m3Link:
           //       'https://m3.material.io/foundations/interaction/states/overview',
           //   elevations: interactiveStateElevations,
@@ -157,13 +157,13 @@ class _ElevationGrid extends StatelessWidget {
           label: title,
           m3Url: m3Link,
         ),
-        SizedBox(height: M3SpacingToken.space16.value),
+        const M3Gap(M3SpacingToken.space16),
         if (subtitle != null) ...[
           Text(
             subtitle!,
             style: textTheme.bodyMedium,
           ),
-          SizedBox(height: M3SpacingToken.space16.value),
+          const M3Gap(M3SpacingToken.space16),
         ],
         Wrap(
           spacing: M3SpacingToken.space16.value,
@@ -206,8 +206,8 @@ class _ElevationCard extends StatelessWidget {
         color: elevation.surfaceColor(context),
         shadows: useShadows ? elevation.shadows : null,
       ),
-      child: Padding(
-        padding: EdgeInsets.all(M3SpacingToken.space12.value),
+      child: M3Padding.all(
+        M3SpacingToken.space12,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -217,7 +217,7 @@ class _ElevationCard extends StatelessWidget {
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
             ),
-            SizedBox(height: M3SpacingToken.space4.value),
+            const M3Gap(M3SpacingToken.space4),
             Text(
               '${elevation.value.toStringAsFixed(0)} dp',
               style: textTheme.bodySmall,

@@ -4,6 +4,24 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adherves to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.11.0
+
+### New Features
+
+- **Introduced `M3Padding` Widget**: A new token-driven widget that replaces the standard `Padding` to enforce the use of `M3SpacingToken` for consistent padding across the application. It provides convenient constructors like `M3Padding.all`, `M3Padding.only`, and `M3Padding.symmetric`.
+- **Introduced `M3Gap` Widget**: A direct, token-based replacement for `SizedBox` used for creating space between widgets. `M3Gap` simplifies creating consistent spacing in `Row`s and `Column`s by using `M3SpacingToken`.
+- **Introduced `M3EdgeInsets` Utility**: A new utility class to create `EdgeInsets` exclusively from `M3SpacingToken`, ensuring all spacing values adhere to the Material Design system's defined scale.
+
+### Refactoring
+
+- **Adopted New Spacing Widgets**: Refactored the entire demo application, examples, and internal library widgets to use the new `M3Padding` and `M3Gap` widgets. This removes direct dependency on Flutter's `Padding` and `SizedBox` for spacing tasks, promoting design system consistency.
+- **Simplified Token API**: Updated the API for spacing tokens. It's no longer necessary to call `.value` on tokens when using them with the new spacing widgets (e.g., `M3Padding.all(M3SpacingToken.space16)`).
+- **Improved Code Organization**: Relocated core utility files from the `lib/src/m3/mt/` directory to a more semantically correct `lib/src/m3/utils/` directory, improving the project's structure.
+
+### Documentation
+
+- **Updated All Examples**: Revised all documentation, including `README.md`, implementation guides, and inline code comments, to reflect the new spacing widgets and strongly recommend their usage over standard Flutter widgets for spacing.
+
 ## 0.10.0
 
 ### 💥 BREAKING CHANGES
@@ -36,6 +54,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 Update all references to `M3BorderRadiusToken` to use the new `M3ShapeToken` accessors.
 
 **Before (v0.9.2):**
+
 ```dart
 Container(
   decoration: BoxDecoration(
@@ -45,6 +64,7 @@ Container(
 ```
 
 **After (v0.10.0):**
+
 ```dart
 Container(
   decoration: BoxDecoration(
@@ -58,6 +78,7 @@ Container(
 Update all references from `M3WindowSizeClass` to the new `M3ScreenSize`.
 
 **Before (v0.9.2):**
+
 ```dart
 final sizeClass = M3BreakpointToken.getWindowSizeClassFromContext(context);
 if (sizeClass == M3WindowSizeClass.compact) {
@@ -66,6 +87,7 @@ if (sizeClass == M3WindowSizeClass.compact) {
 ```
 
 **After (v0.10.0):**
+
 ```dart
 final sizeClass = M3BreakpointToken.getWindowSizeClassFromContext(context);
 if (sizeClass == M3ScreenSize.compact) {
@@ -105,6 +127,7 @@ if (sizeClass == M3ScreenSize.compact) {
 ### 🔧 Migration Guide
 
 **Before (v0.9.1):**
+
 ```dart
 Text('Title', style: M3TypeScaleToken.headlineMedium.value)
 textTheme: TextTheme(
@@ -114,6 +137,7 @@ textTheme: TextTheme(
 ```
 
 **After (v0.9.2):**
+
 ```dart
 Text('Title', style: M3TextStyleToken.headlineMedium.value)
 textTheme: TextTheme(

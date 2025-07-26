@@ -21,7 +21,7 @@ class EnhancedThemePage extends StatelessWidget {
               'M3Theme Showcase',
               style: Theme.of(context).textTheme.headlineLarge,
             ),
-            SizedBox(height: M3SpacingToken.space16.value),
+            const M3Gap(M3SpacingToken.space16),
 
             // Display styles
             _buildSection(
@@ -64,7 +64,7 @@ class EnhancedThemePage extends StatelessWidget {
               ),
             ),
 
-            SizedBox(height: M3SpacerToken.pane.value),
+            const M3Gap(M3SpacerToken.pane),
 
             // // Cards with different elevations
             // _buildSection(
@@ -74,7 +74,7 @@ class EnhancedThemePage extends StatelessWidget {
             //     children: [
             //       Card(
             //         elevation: M3ElevationToken.card,
-            //         child: Padding(
+            //         child: M3Padding(
             //           padding: const EdgeInsets.all(M3SpacingToken.space16),
             //           child: SizedBox(
             //             width: double.infinity,
@@ -85,10 +85,10 @@ class EnhancedThemePage extends StatelessWidget {
             //           ),
             //         ),
             //       ),
-            //       const SizedBox(height: M3SpacingToken.space8),
+            //       const const M3Gap(M3SpacingToken.space8),
             //       Card(
             //         elevation: M3ElevationToken.appBar,
-            //         child: Padding(
+            //         child: M3Padding(
             //           padding: const EdgeInsets.all(M3SpacingToken.space16),
             //           child: SizedBox(
             //             width: double.infinity,
@@ -99,10 +99,10 @@ class EnhancedThemePage extends StatelessWidget {
             //           ),
             //         ),
             //       ),
-            //       const SizedBox(height: M3SpacingToken.space8),
+            //       const const M3Gap(M3SpacingToken.space8),
             //       Card(
             //         elevation: M3ElevationToken.level5,
-            //         child: Padding(
+            //         child: M3Padding(
             //           padding: const EdgeInsets.all(M3SpacingToken.space16),
             //           child: SizedBox(
             //             width: double.infinity,
@@ -117,7 +117,7 @@ class EnhancedThemePage extends StatelessWidget {
             //   ),
             // ),
 
-            SizedBox(height: M3SpacerToken.pane.value),
+            const M3Gap(M3SpacerToken.pane),
 
             // Color roles showcase
             _buildSection(
@@ -130,13 +130,13 @@ class EnhancedThemePage extends StatelessWidget {
                     Theme.of(context).colorScheme.primaryContainer,
                     Theme.of(context).colorScheme.onPrimaryContainer,
                   ),
-                  SizedBox(height: M3SpacingToken.space8.value),
+                  const M3Gap(M3SpacingToken.space8),
                   _buildColorRoleCard(
                     'Secondary Container',
                     Theme.of(context).colorScheme.secondaryContainer,
                     Theme.of(context).colorScheme.onSecondaryContainer,
                   ),
-                  SizedBox(height: M3SpacingToken.space8.value),
+                  const M3Gap(M3SpacingToken.space8),
                   _buildColorRoleCard(
                     'Tertiary Container',
                     Theme.of(context).colorScheme.tertiaryContainer,
@@ -159,7 +159,7 @@ class EnhancedThemePage extends StatelessWidget {
           title,
           style: Theme.of(context).textTheme.headlineSmall,
         ),
-        SizedBox(height: M3SpacingToken.space12.value),
+        const M3Gap(M3SpacingToken.space12),
         content,
       ],
     );

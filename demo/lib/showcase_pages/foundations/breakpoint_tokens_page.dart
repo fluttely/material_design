@@ -46,8 +46,8 @@ class BreakpointTokensPage extends StatelessWidget {
         padding: EdgeInsets.all(M3SpacingToken.space16.value),
         children: [
           Card(
-            child: Padding(
-              padding: EdgeInsets.all(M3SpacingToken.space16.value),
+            child: M3Padding.all(
+              M3SpacingToken.space16,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -55,19 +55,19 @@ class BreakpointTokensPage extends StatelessWidget {
                     'Live Breakpoint Demo',
                     style: textTheme.headlineSmall,
                   ),
-                  SizedBox(height: M3SpacingToken.space8.value),
+                  const M3Gap(M3SpacingToken.space8),
                   Text(
                     'Your current screen width is ${currentWidth.toInt()}dp. The active breakpoint is highlighted below.',
                     style: textTheme.bodyMedium,
                   ),
-                  SizedBox(height: M3SpacingToken.space40.value),
+                  const M3Gap(M3SpacingToken.space40),
                   _BreakpointVisualizer(
                     breakpoints: _breakpoints,
                     currentWidth: currentWidth,
                   ),
-                  SizedBox(height: M3SpacingToken.space16.value),
+                  const M3Gap(M3SpacingToken.space16),
                   const Divider(),
-                  SizedBox(height: M3SpacingToken.space16.value),
+                  const M3Gap(M3SpacingToken.space16),
                   // Generate the list of breakpoints from the single source of truth.
                   ..._buildBreakpointList(context, currentWidth),
                 ],
@@ -126,8 +126,8 @@ class _BreakpointInfoRow extends StatelessWidget {
         ? '${min.toInt()}dp+'
         : '${min.toInt()}dp - ${max.toInt()}dp';
 
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: M3SpacingToken.space8.value),
+    return M3Padding.symmetric(
+      vertical: M3SpacingToken.space8,
       child: Row(
         children: [
           Icon(
@@ -136,7 +136,7 @@ class _BreakpointInfoRow extends StatelessWidget {
                 ? colorScheme.primary
                 : colorScheme.surfaceContainerHighest,
           ),
-          SizedBox(width: M3SpacingToken.space16.value),
+          const M3Gap(M3SpacingToken.space16),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

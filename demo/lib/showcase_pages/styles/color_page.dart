@@ -173,7 +173,7 @@ class ColorPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text('Key Colors', style: textTheme.titleLarge),
-                  SizedBox(height: M3SpacingToken.space16.value),
+                  const M3Gap(M3SpacingToken.space16),
                   ...keyColors.map(
                     (p) =>
                         _KeyColorChip(name: p.$1, color: p.$2, onColor: p.$3),
@@ -181,14 +181,14 @@ class ColorPage extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(width: M3SpacerToken.pane.value),
+            const M3Gap(M3SpacerToken.pane),
             Expanded(
               flex: 2,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text('Scheme', style: textTheme.titleLarge),
-                  SizedBox(height: M3SpacingToken.space16.value),
+                  const M3Gap(M3SpacingToken.space16),
                   Wrap(
                     spacing: M3SpacingToken.space8.value,
                     runSpacing: M3SpacingToken.space8.value,
@@ -229,8 +229,8 @@ class _KeyColorChip extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
 
-    return Padding(
-      padding: EdgeInsets.only(bottom: M3SpacingToken.space8.value),
+    return M3Padding.only(
+      bottom: M3SpacingToken.space8,
       child: Container(
         padding: EdgeInsets.all(M3SpacingToken.space16.value),
         decoration: BoxDecoration(

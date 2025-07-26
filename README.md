@@ -33,7 +33,7 @@ Add this line to your project's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  material_design: ^0.10.0
+  material_design: ^0.11.0
 ```
 
 Then run `flutter pub get`.
@@ -218,7 +218,7 @@ A granular scale for consistent spacing, margins, and layouts using enum-based t
 **Example:**
 
 ```dart
-Padding(
+M3Padding(
   padding: EdgeInsets.all(M3SpacingToken.space16.value), // 16dp padding
   child: Text('Hello, Material!'),
 )
@@ -251,7 +251,7 @@ Container(
 Row(
   children: [
     Expanded(child: ContentPane1()),
-    SizedBox(width: M3SpacerToken.pane.value),
+    const M3Gap(M3SpacerToken.pane),
     Expanded(child: ContentPane2()),
   ],
 )
@@ -424,7 +424,7 @@ Starting from version 0.7.0, all design tokens have been converted from static c
 ```dart
 // Old API - Direct access
 Card(elevation: M3ElevationToken.level5)
-Padding(padding: EdgeInsets.all(M3SpacingToken.space16))
+M3Padding(padding: EdgeInsets.all(M3SpacingToken.space16))
 AnimatedContainer(duration: M3MotionDurationToken.short2)
 Icon(Icons.directions_boat_filled, size: M3IconSize.dense),
 ```
@@ -434,7 +434,7 @@ Icon(Icons.directions_boat_filled, size: M3IconSize.dense),
 ```dart
 // New API - Access via .value property
 Card(elevation: M3ElevationToken.level5.value)
-Padding(padding: EdgeInsets.all(M3SpacingToken.space16.value))
+M3Padding(padding: EdgeInsets.all(M3SpacingToken.space16.value))
 AnimatedContainer(duration: M3MotionDurationToken.short2.value)
 Icon(Icons.directions_boat_filled, size: M3IconSizeToken.dense.value),
 ```

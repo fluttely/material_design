@@ -41,16 +41,16 @@ library;
 // Material Toolkit utilities for enhanced M3 functionality
 
 /// Accessibility utilities for inclusive design
-export 'mt/accessibility/m3_accessibility.dart';
+export 'utils/accessibility/m3_accessibility.dart';
 
 /// Adaptive design utilities for responsive layouts
-export 'mt/adaptive/m3_adaptive.dart';
+export 'utils/adaptive/m3_adaptive.dart';
 
 /// Color utilities and tonal color system
-export 'mt/color/m3_color_utils.dart';
+export 'utils/color/m3_color_utils.dart';
 
 /// Shape utilities
-export 'mt/sys/m3_shape_utils.dart';
+export 'utils/sys/m3_shape_utils.dart';
 
 /// Component tokens for buttons
 export 'tokens/sys/interfaces/m3_token.dart';
@@ -96,3 +96,7 @@ export 'tokens/sys/state/m3_state_layer_opacity_token.dart';
 
 /// System typography tokens - text styles and scales
 export 'tokens/sys/typography/m3_text_style_token.dart';
+
+export 'widgets/layout/m3_edge_insets.dart';
+export 'widgets/layout/m3_gap.dart';
+export 'widgets/layout/m3_padding.dart';

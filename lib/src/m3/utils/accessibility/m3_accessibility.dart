@@ -330,7 +330,7 @@ abstract interface class M3Accessibility {
               ),
             ),
           ),
-          SizedBox(width: M3SpacingToken.space8.value),
+          const M3Gap(M3SpacingToken.space8),
           Expanded(
             child: GestureDetector(
               onTap: onChanged != null ? () => onChanged(!value) : null,

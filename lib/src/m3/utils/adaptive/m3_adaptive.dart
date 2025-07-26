@@ -236,8 +236,8 @@ abstract interface class M3Adaptive {
             return Column(
               children: [
                 if (title != null) ...[
-                  Padding(
-                    padding: EdgeInsets.all(M3SpacingToken.space16.value),
+                  M3Padding.all(
+                    M3SpacingToken.space16,
                     child: Text(
                       title,
                       style: Theme.of(context).textTheme.headlineSmall,
@@ -278,8 +278,8 @@ abstract interface class M3Adaptive {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     if (title != null) ...[
-                      Padding(
-                        padding: EdgeInsets.all(M3SpacingToken.space16.value),
+                      M3Padding.all(
+                        M3SpacingToken.space16,
                         child: Row(
                           children: [
                             Expanded(

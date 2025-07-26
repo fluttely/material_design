@@ -422,7 +422,7 @@ class M3ResponsiveBuilder extends StatelessWidget {
 ///   large: 40.0,
 ///   extraLarge: 48.0,
 ///   builder: (context, value) {
-///     return Padding(
+///     return M3Padding(
 ///       padding: EdgeInsets.all(value),
 ///       child: Text('Responsive padding'),
 ///     );
@@ -744,7 +744,7 @@ class M3ResponsiveScaffold extends StatelessWidget {
                     selectedIndex: selectedIndex,
                     onDestinationSelected: onDestinationSelected,
                     children: [
-                      const SizedBox(height: 12),
+                      const M3Gap(M3SpacingToken.space12),
                       ...destinations.map((dest) {
                         return NavigationDrawerDestination(
                           icon: dest.icon,

@@ -11,11 +11,7 @@
 ///
 /// Then, you can access all the tokens, such as:
 /// - `M3TextStyleToken.headlineLarge`
-/// - `M3ShadowToken.level2`
+/// - `M3ElevationToken.level5`
 library;
-// library;
-// export 'src/ds/ds.dart';
-// export 'src/mt/mt.dart';
 
 export 'src/m3/m3.dart';
-// export 'src/md/md.dart';

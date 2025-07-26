@@ -1,4 +1,8 @@
+import 'package:flutter/foundation.dart';
 import 'package:material_design/material_design.dart';
+
+@immutable
+abstract interface class IM3SpacingToken implements IM3Token<double> {}
 
 /// Material Design 3 spacing tokens based on a 4dp grid system.
 ///
@@ -18,7 +22,7 @@ import 'package:material_design/material_design.dart';
 /// double spacing = M3SpacingToken.space16.value; // 16.0
 ///
 /// // Use in widgets
-/// Padding(
+/// M3Padding(
 ///   padding: EdgeInsets.all(M3SpacingToken.space16.value),
 ///   child: Text('Hello World'),
 /// )
@@ -31,7 +35,7 @@ import 'package:material_design/material_design.dart';
 /// - **Special Values**: none (0dp) and infinity for edge cases
 ///
 /// Reference: https://m3.material.io/foundations/layout/understanding-layout/spacing
-enum M3SpacingToken implements IM3Token<double> {
+enum M3SpacingToken implements IM3SpacingToken {
   /// No spacing (0dp).
   ///
   /// Used when you need to explicitly remove spacing or create tight layouts.
@@ -186,7 +190,7 @@ enum M3SpacingToken implements IM3Token<double> {
 /// - **Extra Large (1600dp+)**: Large monitors - 24dp margin
 ///
 /// Reference: https://m3.material.io/foundations/layout/applying-layout/pane-layouts
-enum M3MarginToken implements IM3Token<double> {
+enum M3MarginToken implements IM3SpacingToken {
   /// Margin for compact screen layouts (16dp).
   ///
   /// Optimal for phones in portrait mode and other compact interfaces.
@@ -260,13 +264,13 @@ enum M3MarginToken implements IM3Token<double> {
 ///
 /// ```dart
 /// // Create spacing between panes
-/// double spacing = M3SpacerToken.pane.value; // 24.0
+/// double spacing = M3SpacerToken.pane; // 24.0
 ///
 /// // Use in split layouts
 /// Row(
 ///   children: [
 ///     Expanded(child: primaryContent),
-///     SizedBox(width: M3SpacerToken.pane.value),
+///     const M3Gap(M3SpacerToken.pane),
 ///     Expanded(child: secondaryContent),
 ///   ],
 /// )
@@ -279,7 +283,7 @@ enum M3MarginToken implements IM3Token<double> {
 /// multi-pane layouts and responsive design scenarios.
 ///
 /// Reference: https://m3.material.io/foundations/layout/understanding-layout/spacing
-enum M3SpacerToken implements IM3Token<double> {
+enum M3SpacerToken implements IM3SpacingToken {
   /// Standard spacer width between content panes (24dp).
   ///
   /// This value provides optimal visual separation between distinct content

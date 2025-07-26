@@ -111,7 +111,7 @@ class ExampleCard extends StatelessWidget {
             ),
           ),
           // Usando spacing tokens
-          SizedBox(height: M3SpacingToken.space8),
+          const M3Gap(M3SpacingToken.space8),
           Text(
             'Card description text',
             style: M3TextStyleToken.bodyMedium.copyWith(

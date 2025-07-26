@@ -86,8 +86,8 @@ class _VisualDensityPageState extends State<VisualDensityPage> {
 
   /// Builds the density selector with segmented buttons.
   Widget _buildDensitySelector() {
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: M3SpacingToken.space8.value),
+    return M3Padding.symmetric(
+      vertical: M3SpacingToken.space8,
       child: SegmentedButton<VisualDensity>(
         segments: _densityOptions
             .map(
@@ -135,8 +135,8 @@ class _VisualDensityPageState extends State<VisualDensityPage> {
       itemCount: 6,
       itemBuilder: (context, index) {
         return Card(
-          child: Padding(
-            padding: EdgeInsets.all(M3SpacingToken.space16.value),
+          child: M3Padding.all(
+            M3SpacingToken.space16,
             child: Column(
               children: [
                 ListTile(
@@ -145,12 +145,12 @@ class _VisualDensityPageState extends State<VisualDensityPage> {
                   subtitle: const Text('Item subtitle'),
                   trailing: Switch(value: index.isEven, onChanged: (_) {}),
                 ),
-                SizedBox(height: M3SpacingToken.space8.value),
+                const M3Gap(M3SpacingToken.space8),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     TextButton(onPressed: () {}, child: const Text('Action 1')),
-                    SizedBox(width: M3SpacingToken.space8.value),
+                    const M3Gap(M3SpacingToken.space8),
                     ElevatedButton(
                         onPressed: () {}, child: const Text('Action 2')),
                   ],

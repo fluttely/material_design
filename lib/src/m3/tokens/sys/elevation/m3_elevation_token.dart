@@ -26,13 +26,6 @@ const double _kM3ElevationLevel5 = 12;
 /// {@endtemplate}
 @immutable
 abstract interface class IM3ElevationToken implements IM3Token<double> {
-  /// The elevation value in logical pixels (dp).
-  ///
-  /// This value determines the perceived distance between surfaces and is the
-  /// basis for calculating shadow intensity and surface tint color.
-  @override
-  double get value;
-
   /// Determines whether this elevation profile should cast a shadow.
   ///
   /// While most elevated surfaces cast shadows, some components like [AppBar]
@@ -67,6 +60,10 @@ enum M3ElevationToken implements IM3ElevationToken {
 
   const M3ElevationToken(this.value);
 
+  /// The elevation value in logical pixels (dp).
+  ///
+  /// This value determines the perceived distance between surfaces and is the
+  /// basis for calculating shadow intensity and surface tint color.
   @override
   final double value;
 

@@ -31,7 +31,7 @@ class BorderTokensPage extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text('M3Border Tokens', style: textTheme.titleLarge),
-        SizedBox(height: M3SpacingToken.space16.value),
+        const M3Gap(M3SpacingToken.space16),
         Wrap(
           spacing: M3SpacingToken.space16.value,
           children: borders.map((border) {
