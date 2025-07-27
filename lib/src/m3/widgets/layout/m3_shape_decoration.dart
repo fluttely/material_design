@@ -79,12 +79,12 @@ class M3ShapeDecoration extends ShapeDecoration {
   /// Creates a ShapeDecoration with a Material Design 3 shape token.
   M3ShapeDecoration({
     required M3ShapeToken shape,
+    M3BoxShadowToken? shadows,
     super.color,
     super.image,
     super.gradient,
-    IM3ElevationToken? elevation,
   }) : super(
-          shadows: elevation?.shadows,
+          shadows: shadows?.value,
           shape: shape.value,
         );
 
@@ -396,47 +396,45 @@ extension M3ShapeDecorationExtensions on ShapeDecoration {
     );
   }
 
-  /// Converts ShapeDecoration to the nearest Material Design 3 shape token.
-  ///
-  /// This method analyzes the current shape and returns the closest
-  /// M3ShapeToken that matches the border radius.
-  ///
-  /// Returns null if the shape is not a RoundedRectangleBorder or if
-  /// no close match is found.
-  M3ShapeToken? toM3ShapeToken() {
-    if (shape is! RoundedRectangleBorder) return null;
+  // /// Converts ShapeDecoration to the nearest Material Design 3 shape token.
+  // ///
+  // /// This method analyzes the current shape and returns the closest
+  // /// M3ShapeToken that matches the border radius.
+  // ///
+  // /// Returns null if the shape is not a RoundedRectangleBorder or if
+  // /// no close match is found.
+  // M3ShapeToken? toM3ShapeToken() {
+  //   if (shape is! RoundedRectangleBorder) return null;
 
-    final roundedShape = shape as RoundedRectangleBorder;
-    final borderRadius = roundedShape.borderRadius;
+  //   final roundedShape = shape as RoundedRectangleBorder;
+  //   final borderRadius = roundedShape.borderRadius;
 
-    // Check if it's a uniform border radius
-    if (borderRadius is! BorderRadius) return null;
+  //   // Check if it's a uniform border radius
+  //   if (borderRadius is! BorderRadius) return null;
 
-    final uniformRadius = borderRadius;
-    final topLeft = uniformRadius.topLeft;
+  //   final uniformRadius = borderRadius;
+  //   final topLeft = uniformRadius.topLeft;
 
-    // Find the nearest M3ShapeToken
-    return _findNearestShapeToken(topLeft.x);
-  }
+  //   // Find the nearest M3ShapeToken
+  //   return _findNearestShapeToken(topLeft.x);
+  // }
 
-  /// Finds the nearest M3ShapeToken for a given radius value.
-  M3ShapeToken _findNearestShapeToken(double radiusValue) {
-    const tokens = M3ShapeToken.values;
-    var nearest = tokens.first;
-    var minDifference =
-        (radiusValue - tokens.first.borderRadius.radius.value.x).abs();
+  // /// Finds the nearest M3ShapeToken for a given radius value.
+  // M3RadiusToken _findNearestShapeToken(double radiusValue) {
+  //   const tokens = M3RadiusToken.values;
+  //   var nearest = tokens.first;
+  //   var minDifference = (radiusValue - tokens.first.dp).abs();
 
-    for (final token in tokens) {
-      final difference =
-          (radiusValue - token.borderRadius.radius.value.x).abs();
-      if (difference < minDifference) {
-        minDifference = difference;
-        nearest = token;
-      }
-    }
+  //   for (final token in tokens) {
+  //     final difference = (radiusValue - token.dp).abs();
+  //     if (difference < minDifference) {
+  //       minDifference = difference;
+  //       nearest = token;
+  //     }
+  //   }
 
-    return nearest;
-  }
+  //   return nearest;
+  // }
 }
 
 // /// Utility class for common ShapeDecoration patterns with Material Design 3 tokens.

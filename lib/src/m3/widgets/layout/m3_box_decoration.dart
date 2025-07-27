@@ -4,20 +4,19 @@ part of '../../../../../material_design.dart';
 class M3BoxDecoration extends BoxDecoration {
   /// Creates a box decoration using Material Design 3 shape tokens.
   M3BoxDecoration({
-    M3ShapeToken? shape,
-    // M3BorderWidthToken? borderWidth,
+    M3BorderRadiusToken? borderRadius,
     M3Border? border,
-    M3ElevationToken? elevation,
+    M3BoxShadowToken? boxShadow,
     super.color,
     super.image,
     super.gradient,
     super.backgroundBlendMode,
   }) : super(
-          borderRadius: shape?.borderRadius.value,
-          shape:
-              shape == M3ShapeToken.full ? BoxShape.circle : BoxShape.rectangle,
-          // border: M3Border.all(borderWidth),
+          borderRadius: borderRadius?.value,
+          shape: borderRadius == M3BorderRadiusToken.full
+              ? BoxShape.circle
+              : BoxShape.rectangle,
           border: border,
-          boxShadow: elevation?.shadows,
+          boxShadow: boxShadow?.value,
         );
 }

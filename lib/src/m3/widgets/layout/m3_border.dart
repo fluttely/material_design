@@ -94,14 +94,28 @@ class M3Border extends Border {
   ///   color: Colors.grey,
   /// );
   /// ```
-  M3Border.all(
-    M3BorderSideToken? side,
-  ) : super(
+  M3Border.all(M3BorderSideToken? side)
+      : super(
           top: side?.value ?? BorderSide.none,
           right: side?.value ?? BorderSide.none,
           bottom: side?.value ?? BorderSide.none,
           left: side?.value ?? BorderSide.none,
         );
+
+  // factory Border.all({
+  //   Color color = const Color(0xFF000000),
+  //   double width = 1.0,
+  //   BorderStyle style = BorderStyle.solid,
+  //   double strokeAlign = BorderSide.strokeAlignInside,
+  // }) {
+  //   final BorderSide side = BorderSide(
+  //     color: color,
+  //     width: width,
+  //     style: style,
+  //     strokeAlign: strokeAlign,
+  //   );
+  //   return Border.fromBorderSide(side);
+  // }
 
 //   // factory M3Border.all({
 //   //   required M3BorderWidthToken width,

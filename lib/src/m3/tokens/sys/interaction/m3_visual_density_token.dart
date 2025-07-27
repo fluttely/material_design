@@ -226,7 +226,7 @@ enum M3VisualDensityToken implements IM3VisualDensityToken {
 // /// These tokens provide overrides for specific components that may require a
 // /// different density from the global theme setting for optimal layout.
 // /// {@endtemplate}
-// enum _M3ComponentVisualDensityToken implements IM3VisualDensityToken {
+// enum M3ComponentVisualDensityToken implements IM3VisualDensityToken {
 //   /// Dense list items for information-heavy lists.
 //   listItemDense(-1, -2, description: 'Dense spacing for list items'),
 

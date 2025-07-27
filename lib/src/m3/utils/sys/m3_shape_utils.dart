@@ -41,7 +41,7 @@
 
 //       case 'bottomsheet':
 //         return BorderRadius.vertical(
-//           top: M3ShapeToken.extraSmall.borderRadius.radius.value,
+//           top: M3RadiusToken.extraSmall.value,
 //         );
 
 //       case 'dialog':

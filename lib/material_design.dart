@@ -22,9 +22,10 @@ import 'package:flutter/material.dart';
 /// **Elevation System**: Tonal elevation and shadow tokens.
 /// Implements Material Design 3's primary depth indication system using
 /// surface tinting combined with complementary shadow effects for natural depth perception.
-part 'src/m3/tokens/sys/elevation/_m3_shadow_token.dart';
-part 'src/m3/tokens/sys/elevation/_m3_tonal_color.dart';
+part 'src/m3/tokens/sys/elevation/m3_box_shadow_token.dart';
 part 'src/m3/tokens/sys/elevation/m3_elevation_token.dart';
+part 'src/m3/tokens/sys/elevation/m3_surface_color_token.dart';
+part 'src/m3/tokens/sys/elevation/m3_surface_tint.dart';
 
 /// **Geometry Tokens**: Spatial and dimensional design tokens.
 /// Comprehensive geometric system including borders, breakpoints, icon sizing, and z-index layering.
@@ -118,6 +119,7 @@ part 'src/m3/widgets/layout/m3_border_radius.dart';
 
 /// Custom box decoration that enforces Material Design 3 tokens.
 part 'src/m3/widgets/layout/m3_box_decoration.dart';
+part 'src/m3/widgets/layout/m3_container.dart';
 
 /// Material Design 3 EdgeInsets utility with comprehensive token integration.
 /// Provides token-enforced edge insets with responsive calculations, accessibility

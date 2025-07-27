@@ -176,8 +176,8 @@ abstract class M3Elevation {
 // Surface with elevation-based color
 Container(
   decoration: M3BoxDecoration(
-    color: M3TonalColor.surfaceAt(context, 6.0),
-    boxShadow: M3ShadowToken.fromElevation(6.0),
+    color: M3SurfaceTint.surfaceAt(context, 6.0),
+    boxShadow: M3BoxShadowToken.fromElevation(6.0),
   ),
   child: content,
 )
@@ -190,8 +190,8 @@ Container(
 AnimatedContainer(
   duration: M3MotionDurationToken.short4,
   decoration: M3BoxDecoration(
-    color: M3TonalColor.surfaceAt(context, isPressed ? 1.0 : 3.0),
-    boxShadow: M3ShadowToken.fromElevation(isPressed ? 1.0 : 3.0),
+    color: M3SurfaceTint.surfaceAt(context, isPressed ? 1.0 : 3.0),
+    boxShadow: M3BoxShadowToken.fromElevation(isPressed ? 1.0 : 3.0),
   ),
 )
 ```

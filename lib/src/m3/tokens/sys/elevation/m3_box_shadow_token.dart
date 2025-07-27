@@ -167,7 +167,7 @@ const List<BoxShadow> _kM3ShadowLevel5 = [
 ///
 /// ```dart
 /// // Get shadows for elevation level
-/// final shadows = _M3ShadowToken.fromElevation(M3ElevationToken.level3);
+/// final shadows = M3BoxShadowToken.fromElevation(M3ElevationToken.level3);
 ///
 /// // Apply to container
 /// Container(
@@ -189,7 +189,7 @@ const List<BoxShadow> _kM3ShadowLevel5 = [
 ///
 /// Reference: https://m3.material.io/styles/elevation/shadows
 /// {@endtemplate}
-enum _M3ShadowToken implements IM3Token<List<BoxShadow>> {
+enum M3BoxShadowToken implements IM3Token<List<BoxShadow>> {
   /// Level 0: No shadow.
   level0(_kM3ShadowLevel0),
 
@@ -208,7 +208,7 @@ enum _M3ShadowToken implements IM3Token<List<BoxShadow>> {
   /// Level 5 (12dp): The strongest shadows for maximum elevation.
   level5(_kM3ShadowLevel5);
 
-  const _M3ShadowToken(this.value);
+  const M3BoxShadowToken(this.value);
 
   /// The shadows for this elevation level.
   @override
@@ -220,12 +220,12 @@ enum _M3ShadowToken implements IM3Token<List<BoxShadow>> {
 
   /// Returns a shadow token for a given M3ElevationToken.
   /// This method now delegates the logic to [fromElevationValue].
-  factory _M3ShadowToken.fromElevation(IM3ElevationToken elevation) =>
-      _M3ShadowToken.fromElevationValue(elevation.value);
+  factory M3BoxShadowToken.fromElevation(IM3ElevationToken elevation) =>
+      M3BoxShadowToken.fromElevationValue(elevation.value);
 
   /// Returns a shadow token for a given elevation value in dp.
   /// This method contains the core logic and is the single source of truth.
-  factory _M3ShadowToken.fromElevationValue(double value) => switch (value) {
+  factory M3BoxShadowToken.fromElevationValue(double value) => switch (value) {
         >= 12 => level5,
         >= 8 => level4,
         >= 6 => level3,

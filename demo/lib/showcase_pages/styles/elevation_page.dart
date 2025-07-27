@@ -203,7 +203,10 @@ class _ElevationCard extends StatelessWidget {
       height: 120,
       decoration: ShapeDecoration(
         shape: M3ShapeToken.small.value,
-        color: elevation.surfaceColor(context),
+        color:
+            // elevation.surfaceColor(context),
+            // M3SurfaceColorToken.level0.value(context),
+            M3SurfaceColorToken.fromElevation(elevation).value(context),
         shadows: useShadows ? elevation.shadows : null,
       ),
       child: M3Padding.all(

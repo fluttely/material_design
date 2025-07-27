@@ -28,13 +28,13 @@ graph TD
     D --> D3[M3CompDialog]
 
     E --> E1[M3TextStyleToken]
-    E --> E2[M3TonalColor]
+    E --> E2[M3SurfaceTint]
     E --> E3[M3Elevation]
     E --> E4[M3SpacingToken]
     E --> E5[M3MotionDurationToken]
     E --> E6[M3MotionEasingToken]
     E --> E7[M3Radius]
-    E --> E8[M3ShadowToken]
+    E --> E8[M3BoxShadowToken]
 
     %% Conexões de dependência
     B1 --> C1

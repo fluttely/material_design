@@ -82,7 +82,7 @@ enum M3ElevationToken implements IM3ElevationToken {
 // /// Each value maps directly to a specific component type, ensuring consistent
 // /// styling across an application.
 // /// {@endtemplate}
-// enum _M3ComponentElevationToken implements IM3ElevationToken {
+// enum M3ComponentElevationToken implements IM3ElevationToken {
 //   /// Resting elevation for [Card] (1 dp).
 //   card(_kM3ElevationLevel1),
 
@@ -146,7 +146,7 @@ enum M3ElevationToken implements IM3ElevationToken {
 // /// These elevations provide visual feedback for user interactions like hover,
 // /// focus, press, and drag.
 // /// {@endtemplate}
-// enum _M3StateElevationToken implements IM3ElevationToken {
+// enum M3StateElevationToken implements IM3ElevationToken {
 //   /// Elevation for a [Card] in a hovered state (3 dp).
 //   cardHover(_kM3ElevationLevel2),
 
@@ -211,21 +211,21 @@ enum M3ElevationToken implements IM3ElevationToken {
 extension IM3ElevationTokenVisuals on IM3ElevationToken {
   /// The list of [BoxShadow]s that represent this elevation level.
   List<BoxShadow> get shadows => hasShadow
-      ? _M3ShadowToken.fromElevation(this).value
-      : _M3ShadowToken.level0.value;
+      ? M3BoxShadowToken.fromElevation(this).value
+      : M3BoxShadowToken.level0.value;
 
   /// Calculates the surface color using Flutter's default tint overlay.
   Color surfaceColor(BuildContext context) =>
-      _M3TonalColor.fromElevation(context, this);
+      M3SurfaceTint.fromElevation(context, this);
 
   /// Calculates surface color with a custom formula and tint color.
   ///
-  /// This is a convenience method that delegates its logic to [_M3TonalColor.calculateSurfaceColor].
+  /// This is a convenience method that delegates its logic to [M3SurfaceTint.calculateSurfaceColor].
   Color calculateSurfaceColor({
     required Color surface,
     required Color surfaceTint,
   }) =>
-      _M3TonalColor.calculateSurfaceColor(
+      M3SurfaceTint.calculateSurfaceColor(
         surface: surface,
         surfaceTint: surfaceTint,
         elevation: this,
@@ -233,12 +233,12 @@ extension IM3ElevationTokenVisuals on IM3ElevationToken {
 
   /// Creates a high contrast surface color for accessibility.
   ///
-  /// This is a convenience method that delegates its logic to [_M3TonalColor.highContrastSurface].
+  /// This is a convenience method that delegates its logic to [M3SurfaceTint.highContrastSurface].
   Color highContrastSurface({
     required Color surface,
     required Color surfaceTint,
   }) =>
-      _M3TonalColor.highContrastSurface(
+      M3SurfaceTint.highContrastSurface(
         surface: surface,
         surfaceTint: surfaceTint,
         elevation: this,

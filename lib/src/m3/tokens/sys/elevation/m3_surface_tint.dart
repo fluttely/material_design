@@ -38,7 +38,7 @@ part of '../../../../../material_design.dart';
 /// Reference: https://m3.material.io/styles/elevation/applying-elevation
 /// {@endtemplate}
 @immutable
-abstract interface class _M3TonalColor {
+abstract interface class M3SurfaceTint {
   /// Calculates the surface color with an elevation-based tint.
   ///
   /// This method is a convenient wrapper around Flutter's

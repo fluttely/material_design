@@ -18,10 +18,19 @@ jobs:
         with:
           channel: "stable"
 
-      - name: Build web
+      - name: Install dependencies
         run: |
           cd demo
           flutter pub get
+
+      - name: Run tests
+        run: |
+          cd demo
+          flutter test
+
+      - name: Build web
+        run: |
+          cd demo
           flutter build web --release --base-href="/${{ github.event.repository.name }}/"
 
       - name: Deploy to GitHub Pages

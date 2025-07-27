@@ -4,6 +4,146 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adherves to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.15.0
+
+### 🔄 BREAKING CHANGES
+
+- **Shape System Refactoring**: Introduced a comprehensive three-tiered shape token system for more granular control and better developer experience
+
+  - **New Three-Tier System**: `M3ShapeToken` (high-level), `M3BorderRadiusToken` (mid-level), and `M3RadiusToken` (low-level)
+  - **Enhanced Usage Patterns**: Each tier serves specific use cases for maximum flexibility and semantic clarity
+  - **Improved API Ergonomics**: More intuitive property access patterns and better type safety
+
+- **Elevation System API Improvements**: Major refactoring of elevation-related classes for better clarity and consistency
+  - **`_M3ShadowToken` → `M3BoxShadowToken`**: Shadow token class is now public and properly named
+  - **`_M3TonalColor` → `M3SurfaceTint`**: Tonal color utility renamed for better semantic clarity
+  - **New `M3SurfaceColorToken`**: Dedicated token for surface color management with elevation integration
+  - **Enhanced Elevation Integration**: Better integration between elevation, shadows, and surface colors
+
+### 🏗️ Enhanced Widget System
+
+- **New `M3Container` Widget**: Advanced container widget with built-in Material Design 3 token enforcement
+
+  - Seamless integration with elevation and surface color systems
+  - Enhanced type safety and consistent API patterns
+  - Simplified common container styling workflows
+
+- **Shape Token Architecture Enhancement**: Complete reorganization of shape-related tokens
+  - **`M3ShapeToken`**: High-level shapes returning `RoundedRectangleBorder` for direct widget usage
+  - **`M3BorderRadiusToken`**: Mid-level tokens returning `BorderRadius` for decoration usage
+  - **`M3RadiusToken`**: Low-level tokens returning `Radius` for custom corner configurations
+
+### 🎯 Developer Experience Improvements
+
+- **Comprehensive Documentation Overhaul**: Extensive README.md updates with new API patterns
+
+  - Detailed three-tier shape system explanation with usage guidelines
+  - Enhanced elevation examples showing multiple implementation approaches
+  - Clear decision matrix for choosing appropriate token levels
+  - Updated spacing and layout examples with corrected API usage
+
+- **Improved API Consistency**: Unified access patterns across all shape and elevation tokens
+  - Consistent `.value` property access across all token types
+  - Clear semantic separation between different abstraction levels
+  - Enhanced IntelliSense support with better type definitions
+
+### 📱 Complete Application Migration
+
+- **Demo Application Overhaul**: Full migration to use new shape and elevation APIs
+
+  - All showcase pages updated to demonstrate three-tier shape system
+  - Enhanced elevation examples with new `M3SurfaceColorToken` integration
+  - Improved visual consistency across all demo components
+
+- **Example Application Updates**: Comprehensive refactoring of example applications
+  - Theme configurations updated to use new shape token system
+  - Interactive components migrated to new elevation API patterns
+  - Enhanced accessibility examples with new token implementations
+
+### 🧹 Code Organization & Architecture
+
+- **Token File Restructuring**: Better organization of elevation and shape token files
+
+  - Moved private implementation files to public API with proper naming
+  - Enhanced file organization with clearer dependency relationships
+  - Improved internal documentation and code structure
+
+- **Enhanced Library Exports**: Streamlined export structure for better developer experience
+  - Cleaner main library file with comprehensive token exposure
+  - Better separation between public and internal APIs
+  - Enhanced type definitions and interface contracts
+
+### 🔧 Migration Guide
+
+**Three-Tier Shape System:**
+
+```dart
+// Before (v0.14.x) - Single shape approach
+Container(
+  decoration: M3BoxDecoration(
+    shape: M3ShapeToken.medium,
+  ),
+)
+
+// After (v0.15.0) - Three-tier system
+// High-level: For shape property of widgets
+Card(shape: M3ShapeToken.large.value)
+
+// Mid-level: For borderRadius in BoxDecoration
+Container(
+  decoration: BoxDecoration(
+    borderRadius: M3BorderRadiusToken.large.value,
+  ),
+)
+
+// Low-level: For custom corner configurations
+Container(
+  decoration: BoxDecoration(
+    borderRadius: BorderRadius.only(
+      topLeft: M3RadiusToken.extraLarge.value,
+      bottomRight: M3RadiusToken.small.value,
+    ),
+  ),
+)
+```
+
+**Elevation System Updates:**
+
+```dart
+// Before (v0.14.x) - Private classes
+final shadows = _M3ShadowToken.fromElevation(elevation);
+final surfaceColor = _M3TonalColor.surfaceAt(context, elevation);
+
+// After (v0.15.0) - Public API with better naming
+final shadows = M3BoxShadowToken.fromElevation(elevation);
+final surfaceColor = M3SurfaceTint.surfaceAt(context, elevation);
+// or
+final surfaceColor = M3SurfaceColorToken.fromElevation(elevation).value(context);
+```
+
+**Container Widget:**
+
+```dart
+// New M3Container widget for enhanced functionality
+M3Container(
+  elevation: M3ElevationToken.level3,
+  // Automatically applies elevation, shadows, and surface colors
+  child: content,
+)
+```
+
+### 📊 Impact Summary
+
+- **Files Modified**: 25+ files updated across core library, demo, and example applications
+- **API Enhancement**: Three-tier shape system providing better granular control
+- **Developer Experience**: Simplified common use cases while enabling advanced customization
+- **Documentation**: Comprehensive updates with clear usage guidelines and decision matrices
+- **Type Safety**: Enhanced type safety and better IntelliSense support throughout
+
+**Recommended Version Bump: MINOR (0.14.0 → 0.15.0)**
+
+This release introduces significant API improvements and architectural enhancements to the shape and elevation systems, comprehensive documentation updates, and enhanced developer experience through the new three-tier shape token architecture while maintaining Material Design 3 compliance.
+
 ## 0.14.0-dev
 
 ### 🔄 BREAKING CHANGES

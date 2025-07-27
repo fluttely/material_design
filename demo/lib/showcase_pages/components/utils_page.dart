@@ -198,31 +198,31 @@ class _UtilsPageState extends State<UtilsPage> {
   //       _buildShapeExample(
   //           'XS',
   //           M3ShapeUtils.rounded(
-  //               M3ShapeToken.extraSmall.borderRadius.radius.value.x)),
+  //               M3RadiusToken.extraSmall.value.dp)),
   //       _buildShapeExample(
   //           'Small',
   //           M3ShapeUtils.rounded(
-  //               M3ShapeToken.small.borderRadius.radius.value.x)),
+  //               M3RadiusToken.small.value.dp)),
   //       _buildShapeExample(
   //           'Medium',
   //           M3ShapeUtils.rounded(
-  //               M3ShapeToken.medium.borderRadius.radius.value.x)),
+  //               M3RadiusToken.medium.value.dp)),
   //       _buildShapeExample(
   //           'Large',
   //           M3ShapeUtils.rounded(
-  //               M3ShapeToken.large.borderRadius.radius.value.x)),
+  //               M3RadiusToken.large.value.dp)),
   //       _buildShapeExample(
   //           'XL',
   //           M3ShapeUtils.rounded(
-  //               M3ShapeToken.extraLarge.borderRadius.radius.value.x)),
+  //               M3BorderRadiusToken.extraLarge.radius.value.dp)),
   //       _buildShapeExample(
   //           'Top',
   //           M3ShapeUtils.topRounded(
-  //               M3ShapeToken.large.borderRadius.radius.value.x)),
+  //               M3RadiusToken.large.value.dp)),
   //       _buildShapeExample(
   //           'Bottom',
   //           M3ShapeUtils.bottomRounded(
-  //               M3ShapeToken.large.borderRadius.radius.value.x)),
+  //               M3RadiusToken.large.value.dp)),
   //     ],
   //   );
   // }
@@ -285,7 +285,7 @@ class _UtilsPageState extends State<UtilsPage> {
       height: 80,
       decoration: BoxDecoration(
         color: elevation.surfaceColor(context),
-        borderRadius: M3ShapeToken.medium.borderRadius.value,
+        borderRadius: M3BorderRadiusToken.medium.value,
         border: elevation.value == 0
             ? Border.all(color: Theme.of(context).colorScheme.outlineVariant)
             : null,
