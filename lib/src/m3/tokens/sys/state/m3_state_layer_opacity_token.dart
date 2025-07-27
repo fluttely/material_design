@@ -20,7 +20,7 @@ part of '../../../../../material_design.dart';
 ///
 /// // Apply to container overlays
 /// Container(
-///   decoration: BoxDecoration(
+///   decoration: M3BoxDecoration(
 ///     color: Colors.blue.withValues(alpha:
 ///       M3StateLayerOpacityToken.pressed.value,
 ///     ),

@@ -71,23 +71,19 @@ abstract interface class M3Accessibility {
   static Widget focusIndicator({
     required Widget child,
     Color? focusColor,
-    double borderWidth = 2.0,
-    BorderRadius? borderRadius,
+    M3BorderSideToken borderSide = M3BorderSideToken.thick,
+    M3ShapeToken? shape,
   }) {
     return Focus(
       child: Builder(
         builder: (context) {
           final hasFocus = Focus.of(context).hasFocus;
-          final color = focusColor ?? Theme.of(context).colorScheme.primary;
 
           return Container(
             decoration: hasFocus
-                ? BoxDecoration(
-                    border: Border.all(
-                      color: color,
-                      width: borderWidth,
-                    ),
-                    borderRadius: borderRadius,
+                ? M3BoxDecoration(
+                    border: M3Border.all(borderSide),
+                    shape: shape,
                   )
                 : null,
             child: child,
@@ -291,8 +287,7 @@ abstract interface class M3Accessibility {
               labelText: label,
               hintText: hint,
               errorText: error,
-              border: OutlineInputBorder(
-                  borderRadius: M3ShapeToken.extraSmall.borderRadius.value),
+              // border: const OutlineInputBorder(shape: M3ShapeToken.extraSmall), // TODO(fluttely)
             ),
           ),
         ),

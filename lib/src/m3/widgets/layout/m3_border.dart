@@ -33,7 +33,7 @@ part of '../../../../../material_design.dart';
 /// ```dart
 /// // Outlined container
 /// Container(
-///   decoration: BoxDecoration(
+///   decoration: M3BoxDecoration(
 ///     border: M3Border.all(
 ///       width: M3BorderWidthToken.thin,
 ///       color: Theme.of(context).colorScheme.outline,
@@ -43,7 +43,7 @@ part of '../../../../../material_design.dart';
 ///
 /// // Focus indicator
 /// Container(
-///   decoration: BoxDecoration(
+///   decoration: M3BoxDecoration(
 ///     border: M3Border.all(
 ///       width: M3BorderWidthToken.thick,
 ///       color: Theme.of(context).colorScheme.primary,
@@ -75,7 +75,7 @@ part of '../../../../../material_design.dart';
 ///
 /// M3Border is fully compatible with all Flutter widgets that accept a
 /// Border, including Container, DecoratedBox, and any custom widgets
-/// using BoxDecoration.
+/// using M3BoxDecoration.
 class M3Border extends Border {
   /// Creates a border with all sides using the same Material Design 3 token.
   ///
@@ -83,7 +83,7 @@ class M3Border extends Border {
   /// The width parameter must be a Material Design 3 border token to ensure
   /// consistent styling.
   ///
-  /// [width] - The M3BorderWidthToken defining the border width
+  /// [side] - The M3BorderWidthToken defining the border width
   /// [color] - The color of the border
   /// [style] - The style of the border (defaults to solid)
   ///
@@ -94,12 +94,14 @@ class M3Border extends Border {
   ///   color: Colors.grey,
   /// );
   /// ```
-  static Border all(
-    M3BorderWidthToken? width,
-  ) =>
-      Border.all(
-        width: width?.value ?? 1,
-      );
+  M3Border.all(
+    M3BorderSideToken? side,
+  ) : super(
+          top: side?.value ?? BorderSide.none,
+          right: side?.value ?? BorderSide.none,
+          bottom: side?.value ?? BorderSide.none,
+          left: side?.value ?? BorderSide.none,
+        );
 
 //   // factory M3Border.all({
 //   //   required M3BorderWidthToken width,

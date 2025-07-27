@@ -110,7 +110,7 @@ part 'src/m3/utils/color/m3_color_utils.dart';
 /// Advanced shape manipulation and component-specific shape utilities.
 /// Includes responsive shapes, brand shape styles, accessibility enhancements,
 /// and animation-ready shape transformations.
-part 'src/m3/utils/sys/m3_shape_utils.dart';
+// part 'src/m3/utils/sys/m3_shape_utils.dart';
 
 /// Custom BorderRadius that enforces Material Design 3 tokens.
 part 'src/m3/widgets/layout/m3_border.dart';

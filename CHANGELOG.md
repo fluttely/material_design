@@ -4,6 +4,136 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adherves to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.14.0-dev
+
+### 🔄 BREAKING CHANGES
+
+- **API Unification and Simplification**: Major refactoring to unify the decoration and shape API for better consistency and developer experience
+  - **`BoxDecoration` → `M3BoxDecoration`**: All `BoxDecoration` usage replaced with new `M3BoxDecoration` widget for token enforcement
+    - **Before**: `BoxDecoration(borderRadius: M3ShapeToken.medium.borderRadius.value)`
+    - **After**: `M3BoxDecoration(shape: M3ShapeToken.medium)`
+  - **`BorderRadius` → `shape` property**: Simplified shape application through dedicated `shape` parameter
+    - **Before**: `borderRadius: M3ShapeToken.large.borderRadius.value`
+    - **After**: `shape: M3ShapeToken.large`
+  - **`Border.all()` → `M3Border.all()`**: Unified border creation through `M3Border` utility
+    - **Before**: `Border.all(width: M3BorderWidthToken.thin.value)`
+    - **After**: `M3Border.all(width: M3BorderWidthToken.thin.value)`
+
+### 🏗️ Enhanced Widget System
+
+- **New `M3BoxDecoration` Widget**: Comprehensive replacement for `BoxDecoration` with built-in Material Design 3 token enforcement
+  - Automatic shape token integration through `shape` parameter
+  - Enhanced type safety and token validation
+  - Simplified API for common decoration patterns
+  - Backward compatible with standard `BoxDecoration` properties
+- **Enhanced `M3Border` Utility**: Advanced border creation system with M3 token integration
+  - Consistent API for all border types (`all`, `symmetric`, `only`)
+  - Built-in token validation and type safety
+  - Improved developer experience with clear method signatures
+
+### 🎯 Developer Experience Improvements
+
+- **Simplified Shape Application**: Streamlined the process of applying shapes to components
+  - Direct token application without complex property chains
+  - Consistent pattern across all shape-related widgets
+  - Reduced boilerplate code for common styling patterns
+- **Documentation Updates**: Comprehensive updates to all documentation reflecting the new API patterns
+  - Updated README.md with new API examples
+  - Refreshed implementation guides in both English and Portuguese
+  - Enhanced inline code documentation throughout the library
+
+### 📱 Complete Demo Migration
+
+- **Demo Application Overhaul**: Full migration of demo application to use new API patterns
+  - All showcase pages updated to demonstrate `M3BoxDecoration` usage
+  - Enhanced examples showing simplified shape and decoration patterns
+  - Improved visual consistency across demo components
+- **Example Application Updates**: Complete refactoring of example app to use new decoration system
+  - Theme examples updated to use `M3BoxDecoration`
+  - Interactive components migrated to new shape API
+  - Enhanced accessibility examples with new decoration patterns
+
+### 🧹 Code Organization
+
+- **Temporary Shape Utils Disabled**: Disabled `M3ShapeUtils` temporarily during refactoring process
+  - Commented out in main export to prevent breaking changes
+  - Will be re-enabled with enhanced functionality in upcoming patch releases
+- **Enhanced Library Structure**: Improved organization of widget and utility classes
+  - Better separation between layout and decoration utilities
+  - Cleaner import structure with reduced complexity
+
+### 🔧 Migration Guide
+
+**BoxDecoration to M3BoxDecoration:**
+
+```dart
+// Before (v0.13.x)
+Container(
+  decoration: BoxDecoration(
+    color: M3SysColor.surfaceContainer,
+    borderRadius: M3ShapeToken.medium.borderRadius.value,
+    border: Border.all(width: M3BorderWidthToken.thin.value),
+  ),
+)
+
+// After (v0.14.0)
+Container(
+  decoration: M3BoxDecoration(
+    color: M3SysColor.surfaceContainer,
+    shape: M3ShapeToken.medium,
+    border: M3Border.all(width: M3BorderWidthToken.thin.value),
+  ),
+)
+```
+
+**Shape Token Application:**
+
+```dart
+// Before (v0.13.x)
+Card(
+  shape: RoundedRectangleBorder(
+    borderRadius: M3ShapeToken.large.borderRadius.value,
+  ),
+)
+
+// After (v0.14.0)
+Card(
+  shape: RoundedRectangleBorder(
+    shape: M3ShapeToken.large,
+  ),
+)
+```
+
+**Theme Configuration:**
+
+```dart
+// Before (v0.13.x)
+ElevatedButton.styleFrom(
+  shape: RoundedRectangleBorder(
+    borderRadius: M3ShapeToken.medium.borderRadius.value,
+  ),
+)
+
+// After (v0.14.0)
+ElevatedButton.styleFrom(
+  shape: RoundedRectangleBorder(
+    shape: M3ShapeToken.medium,
+  ),
+)
+```
+
+### 📊 Impact Summary
+
+- **Files Modified**: 30+ files updated across documentation, demo, and example applications
+- **API Consistency**: Unified decoration and shape API across entire library
+- **Developer Experience**: Simplified common styling patterns with reduced boilerplate
+- **Documentation**: Comprehensive updates in both English and Portuguese
+- **Backward Compatibility**: Maintained compatibility with existing token values while improving API ergonomics
+
+**Recommended Version Bump: MINOR (0.13.0 → 0.14.0)**
+
+This release contains significant API improvements and breaking changes to decoration and shape systems, extensive documentation updates, and enhanced developer experience through simplified APIs while maintaining full Material Design 3 compliance.
+
 ## 0.13.0-dev
 
 ### 🔄 BREAKING CHANGES

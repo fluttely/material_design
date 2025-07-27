@@ -145,7 +145,7 @@ class _CustomButtonState extends State<CustomButton> {
                 Positioned.fill(
                   child: AnimatedContainer(
                     duration: M3MotionDurationToken.short3.value,
-                    decoration: BoxDecoration(
+                    decoration: M3BoxDecoration(
                       color: stateLayerColor.withValues(
                         alpha: _stateLayerOpacity,
                       ),

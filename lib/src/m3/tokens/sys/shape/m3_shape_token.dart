@@ -244,7 +244,7 @@ enum M3ShapeToken implements IM3Token<RoundedRectangleBorder> {
   ///
   /// Example:
   /// ```dart
-  /// final borderRadius = M3ShapeToken.medium.borderRadius.value; // Returns M3BorderRadiusToken.medium
+  /// final borderRadius = M3ShapeToken.medium; // Returns M3BorderRadiusToken.medium
   /// ```
   _M3BorderRadiusToken get borderRadius {
     return switch (this) {

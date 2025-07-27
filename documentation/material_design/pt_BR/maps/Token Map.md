@@ -176,7 +176,7 @@ ElevatedButton(
   style: ElevatedButton.styleFrom(
     minimumSize: Size.fromHeight(M3CompButton.heightMedium), // 40dp
     shape: RoundedRectangleBorder(
-      borderRadius: M3CompButton.shapeMedium, // 12dp
+      shape: M3CompButton.shapeMedium, // 12dp
     ),
     elevation: M3CompButton.elevationRested, // 1dp
   ),

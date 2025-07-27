@@ -1307,12 +1307,12 @@ class _OpacityExample extends StatelessWidget {
         Container(
           width: 60,
           height: 40,
-          decoration: BoxDecoration(
+          decoration: M3BoxDecoration(
             color: Theme.of(context)
                 .colorScheme
                 .primary
                 .withValues(alpha: stateLayerOpacity.value),
-            borderRadius: M3ShapeToken.small.borderRadius.value,
+            shape: M3ShapeToken.small,
           ),
         ),
         const M3Gap(M3SpacingToken.space4),
@@ -1363,7 +1363,7 @@ class _ColorPickerButton extends StatelessWidget {
                         shape: BoxShape.circle,
                         border: Border.all(
                           color: Theme.of(context).colorScheme.outlineVariant,
-                          width: 1,
+                          width: M3BorderWidthToken.thin.value,
                         ),
                       ),
                     ),

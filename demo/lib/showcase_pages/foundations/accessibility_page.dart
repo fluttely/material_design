@@ -192,7 +192,7 @@ class _AccessibilityPageState extends State<AccessibilityPage>
       ),
       decoration: BoxDecoration(
         color: color.withValues(alpha: 0.2),
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: M3ShapeToken.medium.borderRadius.value,
         border: Border.all(color: color.withValues(alpha: 0.5)),
       ),
       child: Row(

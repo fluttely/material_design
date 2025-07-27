@@ -44,11 +44,11 @@ class _UtilsPageState extends State<UtilsPage> {
               icon: Icons.animation_rounded,
               content: _buildMotionPatternsShowcase(),
             ),
-            _buildSection(
-              title: 'Shape System',
-              icon: Icons.rounded_corner_rounded,
-              content: _buildShapeShowcase(),
-            ),
+            // _buildSection(
+            //   title: 'Shape System',
+            //   icon: Icons.rounded_corner_rounded,
+            //   content: _buildShapeShowcase(),
+            // ),
           ],
         ),
       ),
@@ -187,45 +187,45 @@ class _UtilsPageState extends State<UtilsPage> {
     );
   }
 
-  Widget _buildShapeShowcase() {
-    return Wrap(
-      spacing: M3SpacingToken.space8.value,
-      runSpacing: M3SpacingToken.space8.value,
-      alignment: WrapAlignment.center,
-      children: [
-        // TODO(kevin): enhance this feature
-        _buildShapeExample('None', M3ShapeUtils.squared()),
-        _buildShapeExample(
-            'XS',
-            M3ShapeUtils.rounded(
-                M3ShapeToken.extraSmall.borderRadius.radius.value.x)),
-        _buildShapeExample(
-            'Small',
-            M3ShapeUtils.rounded(
-                M3ShapeToken.small.borderRadius.radius.value.x)),
-        _buildShapeExample(
-            'Medium',
-            M3ShapeUtils.rounded(
-                M3ShapeToken.medium.borderRadius.radius.value.x)),
-        _buildShapeExample(
-            'Large',
-            M3ShapeUtils.rounded(
-                M3ShapeToken.large.borderRadius.radius.value.x)),
-        _buildShapeExample(
-            'XL',
-            M3ShapeUtils.rounded(
-                M3ShapeToken.extraLarge.borderRadius.radius.value.x)),
-        _buildShapeExample(
-            'Top',
-            M3ShapeUtils.topRounded(
-                M3ShapeToken.large.borderRadius.radius.value.x)),
-        _buildShapeExample(
-            'Bottom',
-            M3ShapeUtils.bottomRounded(
-                M3ShapeToken.large.borderRadius.radius.value.x)),
-      ],
-    );
-  }
+  // Widget _buildShapeShowcase() {
+  //   return Wrap(
+  //     spacing: M3SpacingToken.space8.value,
+  //     runSpacing: M3SpacingToken.space8.value,
+  //     alignment: WrapAlignment.center,
+  //     children: [
+  //       // TODO(kevin): enhance this feature
+  //       _buildShapeExample('None', M3ShapeUtils.squared()),
+  //       _buildShapeExample(
+  //           'XS',
+  //           M3ShapeUtils.rounded(
+  //               M3ShapeToken.extraSmall.borderRadius.radius.value.x)),
+  //       _buildShapeExample(
+  //           'Small',
+  //           M3ShapeUtils.rounded(
+  //               M3ShapeToken.small.borderRadius.radius.value.x)),
+  //       _buildShapeExample(
+  //           'Medium',
+  //           M3ShapeUtils.rounded(
+  //               M3ShapeToken.medium.borderRadius.radius.value.x)),
+  //       _buildShapeExample(
+  //           'Large',
+  //           M3ShapeUtils.rounded(
+  //               M3ShapeToken.large.borderRadius.radius.value.x)),
+  //       _buildShapeExample(
+  //           'XL',
+  //           M3ShapeUtils.rounded(
+  //               M3ShapeToken.extraLarge.borderRadius.radius.value.x)),
+  //       _buildShapeExample(
+  //           'Top',
+  //           M3ShapeUtils.topRounded(
+  //               M3ShapeToken.large.borderRadius.radius.value.x)),
+  //       _buildShapeExample(
+  //           'Bottom',
+  //           M3ShapeUtils.bottomRounded(
+  //               M3ShapeToken.large.borderRadius.radius.value.x)),
+  //     ],
+  //   );
+  // }
 
   // --- Helper Widgets ---
 

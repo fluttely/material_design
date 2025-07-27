@@ -233,9 +233,9 @@ class _KeyColorChip extends StatelessWidget {
       bottom: M3SpacingToken.space8,
       child: Container(
         padding: M3EdgeInsets.all(M3SpacingToken.space16),
-        decoration: BoxDecoration(
+        decoration: M3BoxDecoration(
           color: color,
-          borderRadius: M3ShapeToken.medium.borderRadius.value,
+          shape: M3ShapeToken.medium,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

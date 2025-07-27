@@ -187,9 +187,9 @@ class ZIndexTokensPage extends StatelessWidget {
                     horizontal: M3SpacingToken.space8,
                     vertical: M3SpacingToken.space4,
                   ),
-                  decoration: BoxDecoration(
+                  decoration: M3BoxDecoration(
                     color: colorScheme.surfaceContainerHighest,
-                    borderRadius: M3ShapeToken.small.borderRadius.value,
+                    shape: M3ShapeToken.small,
                   ),
                   child: Text(
                     '${layer.zIndex}',

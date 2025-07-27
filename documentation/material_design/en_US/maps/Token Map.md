@@ -199,7 +199,7 @@ ElevatedButton(
   style: ElevatedButton.styleFrom(
     minimumSize: Size.fromHeight(40.0), // Direct value
     shape: RoundedRectangleBorder(
-      borderRadius: M3ShapeToken.medium.value, // ✅ Active shape token
+      shape: M3ShapeToken.medium.value, // ✅ Active shape token
     ),
     elevation: M3ElevationToken.level1.value, // ✅ Active elevation token
   ),
@@ -215,7 +215,7 @@ ElevatedButton(
 Card(
   elevation: M3ElevationToken.level1.value,     // ✅ Active elevation
   shape: RoundedRectangleBorder(
-    borderRadius: M3ShapeToken.medium.value,    // ✅ Active shape
+    shape: M3ShapeToken.medium.value,    // ✅ Active shape
   ),
   child: M3Padding(
     padding: M3EdgeInsets.all(M3SpacingToken.space16), // ✅ Active spacing

@@ -175,7 +175,7 @@ abstract class M3Elevation {
 ```dart
 // Surface with elevation-based color
 Container(
-  decoration: BoxDecoration(
+  decoration: M3BoxDecoration(
     color: M3TonalColor.surfaceAt(context, 6.0),
     boxShadow: M3ShadowToken.fromElevation(6.0),
   ),
@@ -189,7 +189,7 @@ Container(
 // Elevation that responds to interactions
 AnimatedContainer(
   duration: M3MotionDurationToken.short4,
-  decoration: BoxDecoration(
+  decoration: M3BoxDecoration(
     color: M3TonalColor.surfaceAt(context, isPressed ? 1.0 : 3.0),
     boxShadow: M3ShadowToken.fromElevation(isPressed ? 1.0 : 3.0),
   ),
@@ -270,22 +270,22 @@ abstract class M3Radius {
 ```dart
 // Basic shapes
 Container(
-  decoration: BoxDecoration(
-    borderRadius: M3ShapeUtils.rounded(M3Radius.medium), // 12dp
+  decoration: M3BoxDecoration(
+    shape: M3ShapeUtils.rounded(M3Radius.medium), // 12dp
   ),
 )
 
 // Directional shapes
 Container(
-  decoration: BoxDecoration(
-    borderRadius: M3ShapeUtils.topRounded(M3Radius.large), // Top only
+  decoration: M3BoxDecoration(
+    shape: M3ShapeUtils.topRounded(M3Radius.large), // Top only
   ),
 )
 
 // Component-specific shapes
 Card(
   shape: RoundedRectangleBorder(
-    borderRadius: BorderRadius.circular(M3Radius.medium), // 12dp for cards
+    shape: BorderRadius.circular(M3Radius.medium), // 12dp for cards
   ),
 )
 ```
@@ -323,7 +323,7 @@ ThemeData buildM3Theme({Color? seedColor}) {
       style: ElevatedButton.styleFrom(
         elevation: M3ElevationToken.level1.value,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(M3Radius.medium),
+          shape: BorderRadius.circular(M3Radius.medium),
         ),
         animationDuration: M3MotionDurationToken.short4,
       ),
@@ -339,7 +339,7 @@ ThemeData buildM3Theme({Color? seedColor}) {
 Card(
   // Shape
   shape: RoundedRectangleBorder(
-    borderRadius: BorderRadius.circular(M3Radius.medium),
+    shape: BorderRadius.circular(M3Radius.medium),
   ),
   // Elevation
   elevation: M3ElevationToken.level1.value,

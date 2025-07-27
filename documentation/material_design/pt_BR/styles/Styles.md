@@ -154,7 +154,7 @@ abstract class M3Elevation {
 ```dart
 // Superfície com cor baseada na elevação
 Container(
-  decoration: BoxDecoration(
+  decoration: M3BoxDecoration(
     color: M3TonalColor.surfaceAt(context, 6.0),
     boxShadow: M3ShadowToken.fromElevation(6.0),
   ),
@@ -168,7 +168,7 @@ Container(
 // Elevação que responde a interações
 AnimatedContainer(
   duration: M3MotionDurationToken.short4,
-  decoration: BoxDecoration(
+  decoration: M3BoxDecoration(
     color: M3TonalColor.surfaceAt(context, isPressed ? 1.0 : 3.0),
     boxShadow: M3ShadowToken.fromElevation(isPressed ? 1.0 : 3.0),
   ),
@@ -249,22 +249,22 @@ abstract class M3Radius {
 ```dart
 // Formas básicas
 Container(
-  decoration: BoxDecoration(
-    borderRadius: M3ShapeUtils.rounded(M3Radius.medium), // 12dp
+  decoration: M3BoxDecoration(
+    shape: M3ShapeUtils.rounded(M3Radius.medium), // 12dp
   ),
 )
 
 // Formas direcionais
 Container(
-  decoration: BoxDecoration(
-    borderRadius: M3ShapeUtils.topRounded(M3Radius.large), // Apenas topo
+  decoration: M3BoxDecoration(
+    shape: M3ShapeUtils.topRounded(M3Radius.large), // Apenas topo
   ),
 )
 
 // Formas de componente específico
 Card(
   shape: RoundedRectangleBorder(
-    borderRadius: BorderRadius.circular(M3Radius.medium), // 12dp para cards
+    shape: BorderRadius.circular(M3Radius.medium), // 12dp para cards
   ),
 )
 ```
@@ -302,7 +302,7 @@ ThemeData buildM3Theme({Color? seedColor}) {
       style: ElevatedButton.styleFrom(
         elevation: M3ElevationToken.level1.value,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(M3Radius.medium),
+          shape: BorderRadius.circular(M3Radius.medium),
         ),
         animationDuration: M3MotionDurationToken.short4,
       ),
@@ -318,7 +318,7 @@ ThemeData buildM3Theme({Color? seedColor}) {
 Card(
   // Shape
   shape: RoundedRectangleBorder(
-    borderRadius: BorderRadius.circular(M3Radius.medium),
+    shape: BorderRadius.circular(M3Radius.medium),
   ),
   // Elevation
   elevation: M3ElevationToken.level1.value,

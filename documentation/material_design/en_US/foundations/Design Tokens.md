@@ -228,7 +228,7 @@ ElevatedButton(
   style: ElevatedButton.styleFrom(
     minimumSize: Size.fromHeight(M3CompButton.heightMedium),
     padding: M3CompButton.paddingMedium,
-    shape: RoundedRectangleBorder(borderRadius: M3CompButton.shapeMedium),
+    shape: RoundedRectangleBorder(shape: M3CompButton.shapeMedium),
   ),
   child: Text('Button'),
 )
@@ -248,7 +248,7 @@ ElevatedButton(
       horizontal: M3SpacingToken.space16.value, // ✅ Active spacing
     ),
     shape: RoundedRectangleBorder(
-      borderRadius: M3ShapeToken.medium.value, // ✅ Active shape
+      shape: M3ShapeToken.medium.value, // ✅ Active shape
     ),
     elevation: M3ElevationToken.level1.value, // ✅ Active elevation
   ),
@@ -352,7 +352,7 @@ ThemeData buildM3Theme() {
       style: ElevatedButton.styleFrom(
         minimumSize: Size.fromHeight(40.0),
         shape: RoundedRectangleBorder(
-          borderRadius: M3ShapeToken.medium.value, // ✅ Active shape token
+          shape: M3ShapeToken.medium.value, // ✅ Active shape token
         ),
         elevation: M3ElevationToken.level1.value, // ✅ Active elevation token
       ),

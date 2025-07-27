@@ -119,10 +119,6 @@ MaterialApp(
 
 ### Shape & Corner Radius
 
-Apply shapes and rounded corners to your widgets using a three-tiered token system: `M3ShapeToken`, `M3BorderRadiusToken`, and `M3RadiusToken`. This structure provides everything from ready-to-use `RoundedRectangleBorder` objects to raw `Radius` values for advanced customizations.
-
----
-
 ### `M3ShapeToken` (High-Level)
 
 Use `M3ShapeToken` for the most direct application of shapes. This class provides pre-defined `RoundedRectangleBorder` objects that can be used directly in the `shape` property of widgets like `Card`, `Material`, or `ShapeDecoration`.
@@ -140,55 +136,6 @@ Container(
   ),
 )
 ```
-
----
-
-### `M3BorderRadiusToken` (Mid-Level)
-
-Use `M3BorderRadiusToken` when you need a `BorderRadius` object to apply the same radius to all corners. It's perfect for the `borderRadius` property of a `BoxDecoration` or for clipping widgets like `ClipRRect`.
-
-**When to use:** In a `BoxDecoration` or to control the rounding of an `InkWell` splash effect or a `ClipRRect`.
-
-**Example:**
-
-```dart
-Container(
-  decoration: BoxDecoration(
-    borderRadius: M3ShapeToken.large.borderRadius.value, // 16dp circular BorderRadius
-  ),
-)
-```
-
----
-
-### `M3RadiusToken` (Low-Level)
-
-`M3RadiusToken` provides the raw `Radius` values. Use this class for custom scenarios where you need to define different radii for specific corners of a widget.
-
-**When to use:** For creating complex or asymmetrical shapes using `BorderRadius.only()` or `BorderRadius.vertical()`/`horizontal()`.
-
-**Example:**
-
-```dart
-Container(
-  decoration: BoxDecoration(
-    borderRadius: BorderRadius.only(
-      topLeft: M3ShapeToken.extraLarge.borderRadius.radius.value, // 28dp circular Radius
-      bottomRight: M3ShapeToken.small.borderRadius.radius.value, // 28dp circular Radius
-    ),
-  ),
-)
-```
-
----
-
-### Summary: Which One to Use?
-
-| Class                     | Returns                  | Primary Use Case                                                    |
-| ------------------------- | ------------------------ | ------------------------------------------------------------------- |
-| **`M3ShapeToken`**        | `RoundedRectangleBorder` | `shape` property of `Card`, `Material`, `ShapeDecoration`.          |
-| **`M3BorderRadiusToken`** | `BorderRadius`           | `borderRadius` property of `BoxDecoration`, `InkWell`, `ClipRRect`. |
-| **`M3RadiusToken`**       | `Radius`                 | For custom corner `radii`.                                          |
 
 ### Elevation
 
@@ -319,8 +266,8 @@ The library also includes enum-based tokens for various other UI properties. All
 
 ```dart
 Container(
-  decoration: BoxDecoration(
-    border: Border.all(width: M3BorderWidthToken.thin.value),
+  decoration: M3BoxDecoration(
+    border: M3Border.all(width: M3BorderWidthToken.thin.value),
   ),
 )
 ```
@@ -350,7 +297,7 @@ Stack(
     Positioned.fill(
       child: AnimatedContainer(
         duration: M3MotionDurationToken.short3.value,
-        decoration: BoxDecoration(
+        decoration: M3BoxDecoration(
           color: Theme.of(context).colorScheme.primary.withValues(
             alpha: stateLayerOpacity,
           ),
@@ -445,7 +392,7 @@ Icon(Icons.directions_boat_filled, size: M3IconSizeToken.dense.value),
 // Old API - no longer available
 final elevation = M3ElevationToken.level5;
 Container(
-  decoration: BoxDecoration(
+  decoration: M3BoxDecoration(
     color: M3TonalColor.fromElevation(context, elevation),
     boxShadow: M3ShadowToken.fromElevation(elevation),
   ),
@@ -458,7 +405,7 @@ Container(
 // New unified API
 final elevation = M3ElevationToken.level5;
 Container(
-  decoration: BoxDecoration(
+  decoration: M3BoxDecoration(
     color: elevation.surfaceColor(context),
     boxShadow: elevation.shadows,
   ),

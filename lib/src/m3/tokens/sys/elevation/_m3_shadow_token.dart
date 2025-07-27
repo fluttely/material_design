@@ -171,7 +171,7 @@ const List<BoxShadow> _kM3ShadowLevel5 = [
 ///
 /// // Apply to container
 /// Container(
-///   decoration: BoxDecoration(
+///   decoration: M3BoxDecoration(
 ///     color: surfaceColor,
 ///     boxShadow: shadows.value,
 ///   ),

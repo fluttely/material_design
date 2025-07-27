@@ -67,7 +67,7 @@ class MyApp extends StatelessWidget {
         style: ElevatedButton.styleFrom(
           minimumSize: Size.fromHeight(M3CompButton.heightMedium),
           shape: RoundedRectangleBorder(
-            borderRadius: M3CompButton.shapeMedium,
+            shape: M3CompButton.shapeMedium,
           ),
         ),
       ),
@@ -94,10 +94,10 @@ class ExampleCard extends StatelessWidget {
       // Usando component tokens diretamente
       padding: M3CompCard.padding,
       margin: M3CompCard.margin,
-      decoration: BoxDecoration(
+      decoration: M3BoxDecoration(
         // Usando system colors
         color: M3SysColor.surfaceContainer,
-        borderRadius: M3CompCard.shape,
+        shape: M3CompCard.shape,
         // Usando elevation system
         boxShadow: M3ShadowToken.fromElevation(M3ElevationToken.level1.value),
       ),
@@ -260,7 +260,7 @@ ElevatedButtonThemeData _buildElevatedButtonTheme(ColorScheme colorScheme) {
       minimumSize: Size.fromHeight(M3CompButton.heightMedium),
       padding: M3CompButton.paddingMedium,
       shape: RoundedRectangleBorder(
-        borderRadius: M3CompButton.shapeMedium,
+        shape: M3CompButton.shapeMedium,
       ),
       elevation: M3CompButton.elevationRested,
       animationDuration: M3MotionDurationToken.short4,
@@ -327,18 +327,18 @@ class _DynamicThemeState extends State<DynamicTheme> {
 // ✅ Bom - Use tokens semânticos
 Container(
   padding: M3EdgeInsets.all(M3SpacingToken.space16),
-  decoration: BoxDecoration(
+  decoration: M3BoxDecoration(
     color: M3SysColor.primaryContainer,
-    borderRadius: BorderRadius.circular(M3Radius.medium),
+    shape: BorderRadius.circular(M3Radius.medium),
   ),
 )
 
 // ❌ Ruim - Valores hard-coded
 Container(
   padding: M3EdgeInsets.all(16.0),
-  decoration: BoxDecoration(
+  decoration: M3BoxDecoration(
     color: Color(0xFFEADDFF),
-    borderRadius: BorderRadius.circular(12.0),
+    shape: BorderRadius.circular(12.0),
   ),
 )
 
@@ -347,7 +347,7 @@ ElevatedButton(
   style: ElevatedButton.styleFrom(
     minimumSize: Size.fromHeight(M3CompButton.heightMedium),
     shape: RoundedRectangleBorder(
-      borderRadius: M3CompButton.shapeMedium,
+      shape: M3CompButton.shapeMedium,
     ),
   ),
   child: Text('Button'),
