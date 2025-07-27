@@ -1,8 +1,4 @@
-// Copyright 2024 The Flutter Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-
-import 'package:material_design/material_design.dart';
+part of '../../../../../material_design.dart';
 
 /// Material Design 3 icon size tokens for consistent iconography.
 ///

@@ -1,4 +1,4 @@
-part of 'm3_elevation_token.dart';
+part of '../../../../../material_design.dart';
 
 /// {@template m3_tonal_color}
 /// Internal utility class for Material Design 3 surface tint calculations.

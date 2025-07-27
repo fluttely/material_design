@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:material_design/material_design.dart';
+part of '../../../../../material_design.dart';
 
 /// Utility functions for working with Material Design 3 shapes.
 ///
@@ -19,45 +18,45 @@ abstract interface class M3ShapeUtils {
       case 'button':
         switch (size?.toLowerCase()) {
           case 'small':
-            return M3ShapeToken.extraSmall.borderRadius;
+            return M3ShapeToken.extraSmall.borderRadius.value;
           case 'large':
-            return M3ShapeToken.medium.borderRadius;
+            return M3ShapeToken.medium.borderRadius.value;
           default:
-            return M3ShapeToken.small.borderRadius;
+            return M3ShapeToken.small.borderRadius.value;
         }
 
       case 'fab':
         return variant == 'extended'
-            ? M3ShapeToken.large.borderRadius
-            : M3ShapeToken.large.borderRadius;
+            ? M3ShapeToken.large.borderRadius.value
+            : M3ShapeToken.large.borderRadius.value;
 
       case 'card':
-        return M3ShapeToken.medium.borderRadius;
+        return M3ShapeToken.medium.borderRadius.value;
 
       case 'textfield':
         return variant == 'outlined'
-            ? M3ShapeToken.extraSmall.borderRadius
-            : M3ShapeToken.extraSmall.borderRadius;
+            ? M3ShapeToken.extraSmall.borderRadius.value
+            : M3ShapeToken.extraSmall.borderRadius.value;
 
       case 'chip':
-        return M3ShapeToken.small.borderRadius;
+        return M3ShapeToken.small.borderRadius.value;
 
       case 'bottomsheet':
         return BorderRadius.vertical(
-          top: M3ShapeToken.extraSmall.radius,
+          top: M3ShapeToken.extraSmall.borderRadius.radius.value,
         );
 
       case 'dialog':
-        return M3ShapeToken.extraLarge.borderRadius;
+        return M3ShapeToken.extraLarge.borderRadius.value;
 
       case 'menu':
-        return M3ShapeToken.extraSmall.borderRadius;
+        return M3ShapeToken.extraSmall.borderRadius.value;
 
       case 'snackbar':
-        return M3ShapeToken.extraSmall.borderRadius;
+        return M3ShapeToken.extraSmall.borderRadius.value;
 
       case 'searchbar':
-        return M3ShapeToken.full.borderRadius;
+        return M3ShapeToken.full.borderRadius.value;
 
       default:
         return BorderRadius.zero;
@@ -150,11 +149,11 @@ abstract interface class M3ShapeUtils {
     final screenWidth = MediaQuery.of(context).size.width;
 
     if (screenWidth < M3BreakpointToken.medium.value) {
-      return small ?? M3ShapeToken.small.borderRadius;
+      return small ?? M3ShapeToken.small.borderRadius.value;
     } else if (screenWidth < M3BreakpointToken.large.value) {
-      return medium ?? M3ShapeToken.medium.borderRadius;
+      return medium ?? M3ShapeToken.medium.borderRadius.value;
     } else {
-      return large ?? M3ShapeToken.large.borderRadius;
+      return large ?? M3ShapeToken.large.borderRadius.value;
     }
   }
 
@@ -250,8 +249,6 @@ abstract interface class M3ShapeUtils {
       case BrandShapeStyle.modern:
         return asymmetric(
           topLeft: primary,
-          topRight: 0,
-          bottomLeft: 0,
           bottomRight: primary,
         );
 

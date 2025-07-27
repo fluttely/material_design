@@ -22,9 +22,9 @@ class BorderTokensPage extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
 
     final borders = [
-      ('Thin', M3BorderToken.thin),
-      ('Thick', M3BorderToken.thick),
-      ('Extra Thick', M3BorderToken.extraThick),
+      ('Thin', M3BorderWidthToken.thin),
+      ('Thick', M3BorderWidthToken.thick),
+      ('Extra Thick', M3BorderWidthToken.extraThick),
     ];
 
     return Column(
@@ -41,7 +41,7 @@ class BorderTokensPage extends StatelessWidget {
               decoration: BoxDecoration(
                 border:
                     Border.all(width: width.value, color: colorScheme.primary),
-                borderRadius: M3ShapeToken.small.borderRadius,
+                borderRadius: M3ShapeToken.small.borderRadius.value,
               ),
               child: Text('$label (${width.value}dp)'),
             );

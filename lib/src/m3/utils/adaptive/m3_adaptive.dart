@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:material_design/material_design.dart';
+part of '../../../../../material_design.dart';
 
 /// Comprehensive adaptive design utilities for Material Design 3.
 ///

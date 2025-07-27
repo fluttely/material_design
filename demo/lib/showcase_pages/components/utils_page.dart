@@ -196,19 +196,33 @@ class _UtilsPageState extends State<UtilsPage> {
         // TODO(kevin): enhance this feature
         _buildShapeExample('None', M3ShapeUtils.squared()),
         _buildShapeExample(
-            'XS', M3ShapeUtils.rounded(M3ShapeToken.extraSmall.radius.x)),
+            'XS',
+            M3ShapeUtils.rounded(
+                M3ShapeToken.extraSmall.borderRadius.radius.value.x)),
         _buildShapeExample(
-            'Small', M3ShapeUtils.rounded(M3ShapeToken.small.radius.x)),
+            'Small',
+            M3ShapeUtils.rounded(
+                M3ShapeToken.small.borderRadius.radius.value.x)),
         _buildShapeExample(
-            'Medium', M3ShapeUtils.rounded(M3ShapeToken.medium.radius.x)),
+            'Medium',
+            M3ShapeUtils.rounded(
+                M3ShapeToken.medium.borderRadius.radius.value.x)),
         _buildShapeExample(
-            'Large', M3ShapeUtils.rounded(M3ShapeToken.large.radius.x)),
+            'Large',
+            M3ShapeUtils.rounded(
+                M3ShapeToken.large.borderRadius.radius.value.x)),
         _buildShapeExample(
-            'XL', M3ShapeUtils.rounded(M3ShapeToken.extraLarge.radius.x)),
+            'XL',
+            M3ShapeUtils.rounded(
+                M3ShapeToken.extraLarge.borderRadius.radius.value.x)),
         _buildShapeExample(
-            'Top', M3ShapeUtils.topRounded(M3ShapeToken.large.radius.x)),
+            'Top',
+            M3ShapeUtils.topRounded(
+                M3ShapeToken.large.borderRadius.radius.value.x)),
         _buildShapeExample(
-            'Bottom', M3ShapeUtils.bottomRounded(M3ShapeToken.large.radius.x)),
+            'Bottom',
+            M3ShapeUtils.bottomRounded(
+                M3ShapeToken.large.borderRadius.radius.value.x)),
       ],
     );
   }
@@ -271,7 +285,7 @@ class _UtilsPageState extends State<UtilsPage> {
       height: 80,
       decoration: BoxDecoration(
         color: elevation.surfaceColor(context),
-        borderRadius: M3ShapeToken.medium.value.borderRadius,
+        borderRadius: M3ShapeToken.medium.borderRadius.value,
         border: elevation.value == 0
             ? Border.all(color: Theme.of(context).colorScheme.outlineVariant)
             : null,

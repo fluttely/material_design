@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:material_design/material_design.dart';
+part of '../../../../../material_design.dart';
 
 /// Material Design 3 border width tokens for consistent component styling.
 ///
@@ -16,22 +15,22 @@ import 'package:material_design/material_design.dart';
 ///
 /// ```dart
 /// // Get standard border width
-/// double borderWidth = M3BorderToken.thin.value; // 1.0
+/// double borderWidth = M3BorderWidthToken.thin.value; // 1.0
 ///
 /// // Use in decorations
 /// Container(
 ///   decoration: BoxDecoration(
 ///     border: Border.all(
-///       width: M3BorderToken.thin.value,
+///       width: M3BorderWidthToken.thin.value,
 ///       color: Colors.grey,
 ///     ),
 ///   ),
 /// )
 ///
 /// // Use with utility methods
-/// Border border = M3BorderToken.outline(
+/// Border border = M3BorderWidthToken.outline(
 ///   color: Colors.blue,
-///   width: M3BorderToken.thick.value,
+///   width: M3BorderWidthToken.thick.value,
 /// );
 /// ```
 ///
@@ -43,7 +42,7 @@ import 'package:material_design/material_design.dart';
 /// - **Extra Thick (4dp)**: High emphasis, error states, special cases
 ///
 /// Reference: Material Design 3 component specifications
-enum M3BorderToken implements IM3Token<double> {
+enum M3BorderWidthToken implements IM3Token<double> {
   /// No border width (0dp).
   ///
   /// Used when borders need to be completely removed or made invisible.
@@ -100,7 +99,7 @@ enum M3BorderToken implements IM3Token<double> {
   extraThick(4);
 
   /// Creates a border token with the specified value.
-  const M3BorderToken(this.value);
+  const M3BorderWidthToken(this.value);
 
   /// The border width value in density-independent pixels (dp).
   @override
@@ -109,7 +108,7 @@ enum M3BorderToken implements IM3Token<double> {
 
 // TODO(fluttely):
 /// Provides utility methods for working with border tokens.
-extension M3BorderTokenUtils on M3BorderToken {
+extension M3BorderWidthTokenUtils on M3BorderWidthToken {
   /// Creates a [BorderSide] with this token's width.
   ///
   /// This is a convenient way to create a [BorderSide] for use in
@@ -129,13 +128,14 @@ extension M3BorderTokenUtils on M3BorderToken {
   }
 
   /// Checks if this border width is thicker than another.
-  bool isThickerThan(M3BorderToken other) => value > other.value;
+  bool isThickerThan(M3BorderWidthToken other) => value > other.value;
 
   /// Checks if this border width is thinner than another.
-  bool isThinnerThan(M3BorderToken other) => value < other.value;
+  bool isThinnerThan(M3BorderWidthToken other) => value < other.value;
 
   /// Returns the difference in width between this and another border token.
-  double differenceFrom(M3BorderToken other) => (value - other.value).abs();
+  double differenceFrom(M3BorderWidthToken other) =>
+      (value - other.value).abs();
 
   /// Creates a BorderRadius with this token's width as the radius.
   BorderRadius asRadius() => BorderRadius.circular(value);

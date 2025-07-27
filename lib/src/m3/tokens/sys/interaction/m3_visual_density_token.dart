@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
-// Assuming IM3Token and ScreenSize are defined elsewhere in your project.
-import 'package:material_design/material_design.dart';
+part of '../../../../../material_design.dart';
 
 /// {@template im3_visual_density_token}
 /// Represents the contract for a Material 3 visual density token.
@@ -59,7 +57,7 @@ abstract interface class IM3VisualDensityToken
 /// ## Density Levels and Use Cases
 ///
 /// - **Comfortable (-1, -1)**: Touch-optimized interfaces, accessibility focus
-/// - **Standard (0, 0)**: Balanced approach, Material Design baseline  
+/// - **Standard (0, 0)**: Balanced approach, Material Design baseline
 /// - **Compact (-2, -2)**: Information-dense interfaces, desktop optimization
 /// - **Adaptive Platform**: Automatically adjusts based on platform conventions
 ///

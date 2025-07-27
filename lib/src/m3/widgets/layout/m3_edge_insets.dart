@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:material_design/material_design.dart';
+part of '../../../../../material_design.dart';
 
 /// Material Design 3 EdgeInsets utility with design token integration.
 ///
@@ -66,21 +65,42 @@ import 'package:material_design/material_design.dart';
 /// M3EdgeInsets methods are lightweight and have no performance overhead
 /// compared to Flutter's EdgeInsets. The token enforcement happens at
 /// compile time through the type system.
-class M3EdgeInsets {
-  /// Private constructor to prevent instantiation.
-  M3EdgeInsets._();
+class M3EdgeInsets extends EdgeInsets {
+  /// Private constructor to prevent direct instantiation.
+  const M3EdgeInsets._(
+    double? left,
+    double? top,
+    double? right,
+    double? bottom,
+  ) : super.fromLTRB(
+          left ?? 0,
+          top ?? 0,
+          right ?? 0,
+          bottom ?? 0,
+        );
+
+  /// Private constructor to prevent direct instantiation.
+  M3EdgeInsets.fromLTRB(
+    IM3SpacingToken? left,
+    IM3SpacingToken? top,
+    IM3SpacingToken? right,
+    IM3SpacingToken? bottom,
+  ) : super.fromLTRB(
+          left?.value ?? 0,
+          top?.value ?? 0,
+          right?.value ?? 0,
+          bottom?.value ?? 0,
+        );
 
   /// Creates EdgeInsets with uniform spacing from a Material Design 3 token.
   ///
-  /// [token] - The spacing token to apply to all sides
+  /// [spacing] - The spacing token to apply to all sides
   ///
   /// Example:
   /// ```dart
   /// final insets = M3EdgeInsets.all(M3SpacingToken.space16);
   /// ```
-  static EdgeInsets all(IM3SpacingToken token) {
-    return EdgeInsets.all(token.value);
-  }
+  M3EdgeInsets.all(IM3SpacingToken spacing) : super.all(spacing.value);
 
   /// Creates EdgeInsets with directional spacing from Material Design 3 tokens.
   ///
@@ -100,19 +120,17 @@ class M3EdgeInsets {
   ///   bottom: M3SpacingToken.space16,
   /// );
   /// ```
-  static EdgeInsets only({
+  M3EdgeInsets.only({
     IM3SpacingToken? left,
     IM3SpacingToken? top,
     IM3SpacingToken? right,
     IM3SpacingToken? bottom,
-  }) {
-    return EdgeInsets.only(
-      left: left?.value ?? 0,
-      top: top?.value ?? 0,
-      right: right?.value ?? 0,
-      bottom: bottom?.value ?? 0,
-    );
-  }
+  }) : super.only(
+          left: left?.value ?? 0,
+          top: top?.value ?? 0,
+          right: right?.value ?? 0,
+          bottom: bottom?.value ?? 0,
+        );
 
   /// Creates EdgeInsets with symmetric spacing from Material Design 3 tokens.
   ///
@@ -126,15 +144,13 @@ class M3EdgeInsets {
   ///   vertical: M3SpacingToken.space12,
   /// );
   /// ```
-  static EdgeInsets symmetric({
+  M3EdgeInsets.symmetric({
     IM3SpacingToken? horizontal,
     IM3SpacingToken? vertical,
-  }) {
-    return EdgeInsets.symmetric(
-      horizontal: horizontal?.value ?? 0,
-      vertical: vertical?.value ?? 0,
-    );
-  }
+  }) : super.symmetric(
+          horizontal: horizontal?.value ?? 0,
+          vertical: vertical?.value ?? 0,
+        );
 
   // /// Creates EdgeInsets with horizontal spacing only.
   // ///
@@ -144,8 +160,8 @@ class M3EdgeInsets {
   // /// ```dart
   // /// final insets = M3EdgeInsets.horizontal(M3SpacingToken.space16);
   // /// ```
-  // static EdgeInsets horizontal(IM3SpacingToken token) {
-  //   return EdgeInsets.symmetric(horizontal: token.value);
+  // static EdgeInsets horizontal(IM3SpacingToken spacing) {
+  //   return EdgeInsets.symmetric(horizontal: spacing.value);
   // }
 
   // /// Creates EdgeInsets with vertical spacing only.
@@ -156,36 +172,36 @@ class M3EdgeInsets {
   // /// ```dart
   // /// final insets = M3EdgeInsets.vertical(M3SpacingToken.space12);
   // /// ```
-  // static EdgeInsets vertical(IM3SpacingToken token) {
-  //   return EdgeInsets.symmetric(vertical: token.value);
+  // static EdgeInsets vertical(IM3SpacingToken spacing) {
+  //   return EdgeInsets.symmetric(vertical: spacing.value);
   // }
 
   // /// Creates EdgeInsets with left spacing only.
   // ///
   // /// [token] - The spacing token for the left side
-  // static EdgeInsets left(IM3SpacingToken token) {
-  //   return EdgeInsets.only(left: token.value);
+  // static EdgeInsets left(IM3SpacingToken spacing) {
+  //   return EdgeInsets.only(left: spacing.value);
   // }
 
   // /// Creates EdgeInsets with top spacing only.
   // ///
   // /// [token] - The spacing token for the top side
-  // static EdgeInsets top(IM3SpacingToken token) {
-  //   return EdgeInsets.only(top: token.value);
+  // static EdgeInsets top(IM3SpacingToken spacing) {
+  //   return EdgeInsets.only(top: spacing.value);
   // }
 
   // /// Creates EdgeInsets with right spacing only.
   // ///
   // /// [token] - The spacing token for the right side
-  // static EdgeInsets right(IM3SpacingToken token) {
-  //   return EdgeInsets.only(right: token.value);
+  // static EdgeInsets right(IM3SpacingToken spacing) {
+  //   return EdgeInsets.only(right: spacing.value);
   // }
 
   // /// Creates EdgeInsets with bottom spacing only.
   // ///
   // /// [token] - The spacing token for the bottom side
-  // static EdgeInsets bottom(IM3SpacingToken token) {
-  //   return EdgeInsets.only(bottom: token.value);
+  // static EdgeInsets bottom(IM3SpacingToken spacing) {
+  //   return EdgeInsets.only(bottom: spacing.value);
   // }
 
   // // Convenience methods for common spacing patterns
@@ -227,21 +243,23 @@ class M3EdgeInsets {
   ///   factor: 1.5,
   /// );
   /// ```
-  static EdgeInsets forScreenWidth(double screenWidth, {double factor = 1.0}) {
-    late M3SpacingToken token;
+  static M3EdgeInsets forScreenWidth(double screenWidth,
+      {double factor = 1.0}) {
+    late M3SpacingToken spacing;
 
     if (screenWidth < M3BreakpointToken.medium.value) {
       // Compact screens (phones in portrait)
-      token = M3SpacingToken.space16;
+      spacing = M3SpacingToken.space16;
     } else if (screenWidth < M3BreakpointToken.expanded.value) {
       // Medium screens (phones in landscape, small tablets)
-      token = M3SpacingToken.space24;
+      spacing = M3SpacingToken.space24;
     } else {
       // Expanded screens and larger
-      token = M3SpacingToken.space32;
+      spacing = M3SpacingToken.space32;
     }
 
-    return EdgeInsets.all(token.value * factor);
+    final value = spacing.value * factor;
+    return M3EdgeInsets._(value, value, value, value);
   }
 
   /// Gets appropriate EdgeInsets based on visual density.
@@ -251,18 +269,19 @@ class M3EdgeInsets {
   ///
   /// [density] - The visual density level
   /// [factor] - Optional multiplier for the spacing (default: 1.0)
-  static EdgeInsets forDensity(VisualDensity density, {double factor = 1.0}) {
-    late M3SpacingToken token;
+  static M3EdgeInsets forDensity(VisualDensity density, {double factor = 1.0}) {
+    late M3SpacingToken spacing;
 
     if (density == VisualDensity.compact) {
-      token = M3SpacingToken.space8;
+      spacing = M3SpacingToken.space8;
     } else if (density == VisualDensity.comfortable) {
-      token = M3SpacingToken.space16;
+      spacing = M3SpacingToken.space16;
     } else {
-      token = M3SpacingToken.space24;
+      spacing = M3SpacingToken.space24;
     }
 
-    return EdgeInsets.all(token.value * factor);
+    final value = spacing.value * factor;
+    return M3EdgeInsets._(value, value, value, value);
   }
 
   // // Margin-specific methods using M3MarginToken
@@ -293,17 +312,22 @@ class M3EdgeInsets {
   /// based on screen size breakpoints.
   ///
   /// [screenWidth] - The screen width in logical pixels
-  static EdgeInsets marginForScreenWidth(double screenWidth) {
+  static M3EdgeInsets marginForScreenWidth(double screenWidth) {
     if (screenWidth < M3BreakpointToken.medium.value) {
-      return EdgeInsets.all(M3MarginToken.compactScreen.value);
+      final value = M3MarginToken.compactScreen.value;
+      return M3EdgeInsets._(value, value, value, value);
     } else if (screenWidth < M3BreakpointToken.expanded.value) {
-      return EdgeInsets.all(M3MarginToken.mediumScreen.value);
+      final value = M3MarginToken.mediumScreen.value;
+      return M3EdgeInsets._(value, value, value, value);
     } else if (screenWidth < M3BreakpointToken.large.value) {
-      return EdgeInsets.all(M3MarginToken.expandedScreen.value);
+      final value = M3MarginToken.expandedScreen.value;
+      return M3EdgeInsets._(value, value, value, value);
     } else if (screenWidth < M3BreakpointToken.extraLarge.value) {
-      return EdgeInsets.all(M3MarginToken.largeScreen.value);
+      final value = M3MarginToken.largeScreen.value;
+      return M3EdgeInsets._(value, value, value, value);
     } else {
-      return EdgeInsets.all(M3MarginToken.extraLargeScreen.value);
+      final value = M3MarginToken.extraLargeScreen.value;
+      return M3EdgeInsets._(value, value, value, value);
     }
   }
 }
@@ -315,19 +339,19 @@ class M3EdgeInsets {
 extension M3EdgeInsetsExtensions on EdgeInsets {
   /// Adds Material Design 3 spacing to existing EdgeInsets.
   ///
-  /// [token] - The spacing token to add to all sides
+  /// [spacing] - The spacing token to add to all sides
   ///
   /// Example:
   /// ```dart
   /// final insets = EdgeInsets.all(8.0);
   /// final enhanced = insets.addM3Spacing(M3SpacingToken.space8);
   /// ```
-  EdgeInsets addM3Spacing(IM3SpacingToken token) {
+  EdgeInsets addM3Spacing(IM3SpacingToken spacing) {
     return EdgeInsets.only(
-      left: left + token.value,
-      top: top + token.value,
-      right: right + token.value,
-      bottom: bottom + token.value,
+      left: left + spacing.value,
+      top: top + spacing.value,
+      right: right + spacing.value,
+      bottom: bottom + spacing.value,
     );
   }
 
@@ -431,30 +455,31 @@ class M3EdgeInsetsPatterns {
   // Card and Surface Patterns
 
   /// Standard card padding following Material Design 3 guidelines.
-  static EdgeInsets get card => M3EdgeInsets.all(M3SpacingToken.space16);
+  static M3EdgeInsets get card => M3EdgeInsets.all(M3SpacingToken.space16);
 
   /// Compact card padding for dense layouts.
-  static EdgeInsets get cardCompact => M3EdgeInsets.all(M3SpacingToken.space12);
+  static M3EdgeInsets get cardCompact =>
+      M3EdgeInsets.all(M3SpacingToken.space12);
 
   /// Large card padding for prominent surfaces.
-  static EdgeInsets get cardLarge => M3EdgeInsets.all(M3SpacingToken.space24);
+  static M3EdgeInsets get cardLarge => M3EdgeInsets.all(M3SpacingToken.space24);
 
   // List Item Patterns
 
   /// Standard list item padding.
-  static EdgeInsets get listItem => M3EdgeInsets.symmetric(
+  static M3EdgeInsets get listItem => M3EdgeInsets.symmetric(
         horizontal: M3SpacingToken.space16,
         vertical: M3SpacingToken.space12,
       );
 
   /// Compact list item padding for dense lists.
-  static EdgeInsets get listItemCompact => M3EdgeInsets.symmetric(
+  static M3EdgeInsets get listItemCompact => M3EdgeInsets.symmetric(
         horizontal: M3SpacingToken.space16,
         vertical: M3SpacingToken.space8,
       );
 
   /// List item padding with leading icon.
-  static EdgeInsets get listItemWithIcon => M3EdgeInsets.only(
+  static M3EdgeInsets get listItemWithIcon => M3EdgeInsets.only(
         left: M3SpacingToken.space16,
         top: M3SpacingToken.space12,
         right: M3SpacingToken.space16,
@@ -464,19 +489,19 @@ class M3EdgeInsetsPatterns {
   // Button Patterns
 
   /// Standard button padding.
-  static EdgeInsets get button => M3EdgeInsets.symmetric(
+  static M3EdgeInsets get button => M3EdgeInsets.symmetric(
         horizontal: M3SpacingToken.space24,
         vertical: M3SpacingToken.space12,
       );
 
   /// Compact button padding.
-  static EdgeInsets get buttonCompact => M3EdgeInsets.symmetric(
+  static M3EdgeInsets get buttonCompact => M3EdgeInsets.symmetric(
         horizontal: M3SpacingToken.space16,
         vertical: M3SpacingToken.space8,
       );
 
   /// Large button padding.
-  static EdgeInsets get buttonLarge => M3EdgeInsets.symmetric(
+  static M3EdgeInsets get buttonLarge => M3EdgeInsets.symmetric(
         horizontal: M3SpacingToken.space32,
         vertical: M3SpacingToken.space16,
       );
@@ -484,11 +509,11 @@ class M3EdgeInsetsPatterns {
   // Dialog Patterns
 
   /// Standard dialog content padding.
-  static EdgeInsets get dialogContent =>
+  static M3EdgeInsets get dialogContent =>
       M3EdgeInsets.all(M3SpacingToken.space24);
 
   /// Dialog title padding.
-  static EdgeInsets get dialogTitle => M3EdgeInsets.only(
+  static M3EdgeInsets get dialogTitle => M3EdgeInsets.only(
         left: M3SpacingToken.space24,
         top: M3SpacingToken.space24,
         right: M3SpacingToken.space24,
@@ -496,7 +521,7 @@ class M3EdgeInsetsPatterns {
       );
 
   /// Dialog actions padding.
-  static EdgeInsets get dialogActions => M3EdgeInsets.only(
+  static M3EdgeInsets get dialogActions => M3EdgeInsets.only(
         left: M3SpacingToken.space24,
         top: M3SpacingToken.space16,
         right: M3SpacingToken.space24,
@@ -506,19 +531,19 @@ class M3EdgeInsetsPatterns {
   // Screen Layout Patterns
 
   /// Standard screen padding for mobile devices.
-  static EdgeInsets get screenMobile =>
+  static M3EdgeInsets get screenMobile =>
       M3EdgeInsets.all(M3SpacingToken.space16);
 
   /// Screen padding for tablet devices.
-  static EdgeInsets get screenTablet =>
+  static M3EdgeInsets get screenTablet =>
       M3EdgeInsets.all(M3SpacingToken.space24);
 
   /// Screen padding for desktop devices.
-  static EdgeInsets get screenDesktop =>
+  static M3EdgeInsets get screenDesktop =>
       M3EdgeInsets.all(M3SpacingToken.space32);
 
   /// Responsive screen padding based on screen width.
-  static EdgeInsets screenResponsive(double screenWidth) {
+  static M3EdgeInsets screenResponsive(double screenWidth) {
     return M3EdgeInsets.forScreenWidth(screenWidth);
   }
 }

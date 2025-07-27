@@ -33,7 +33,7 @@ Add this line to your project's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  material_design: ^0.12.1
+  material_design: ^last-version
 ```
 
 Then run `flutter pub get`.
@@ -154,7 +154,7 @@ Use `M3BorderRadiusToken` when you need a `BorderRadius` object to apply the sam
 ```dart
 Container(
   decoration: BoxDecoration(
-    borderRadius: M3ShapeToken.large.borderRadius, // 16dp circular BorderRadius
+    borderRadius: M3ShapeToken.large.borderRadius.value, // 16dp circular BorderRadius
   ),
 )
 ```
@@ -173,8 +173,8 @@ Container(
 Container(
   decoration: BoxDecoration(
     borderRadius: BorderRadius.only(
-      topLeft: M3ShapeToken.extraLarge.radius, // 28dp circular Radius
-      bottomRight: M3ShapeToken.small.radius, // 28dp circular Radius
+      topLeft: M3ShapeToken.extraLarge.borderRadius.radius.value, // 28dp circular Radius
+      bottomRight: M3ShapeToken.small.borderRadius.radius.value, // 28dp circular Radius
     ),
   ),
 )
@@ -311,7 +311,7 @@ AnimatedContainer(
 
 The library also includes enum-based tokens for various other UI properties. All tokens use the `.value` property to access their underlying values.
 
-- **`M3BorderToken`**: Standard border widths with utility methods.
+- **`M3BorderWidthToken`**: Standard border widths with utility methods.
 
   - `none` (0dp), `thin` (1dp), `thick` (2dp), `extraThick` (4dp)
 
@@ -320,7 +320,7 @@ The library also includes enum-based tokens for various other UI properties. All
 ```dart
 Container(
   decoration: BoxDecoration(
-    border: Border.all(width: M3BorderToken.thin.value),
+    border: Border.all(width: M3BorderWidthToken.thin.value),
   ),
 )
 ```

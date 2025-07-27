@@ -1,4 +1,4 @@
-part of 'm3_elevation_token.dart';
+part of '../../../../../material_design.dart';
 
 /// {@template m3_shadow_color}
 /// The standard shadow color for Material Design 3 elevation system.
@@ -12,6 +12,7 @@ part of 'm3_elevation_token.dart';
 /// content for attention.
 /// {@endtemplate}
 const Color _kM3ShadowColor = Color(0x26000000);
+
 /// {@template m3_shadow_level_0}
 /// Level 0 shadow: No shadow (empty list).
 ///
@@ -167,7 +168,7 @@ const List<BoxShadow> _kM3ShadowLevel5 = [
 /// ```dart
 /// // Get shadows for elevation level
 /// final shadows = _M3ShadowToken.fromElevation(M3ElevationToken.level3);
-/// 
+///
 /// // Apply to container
 /// Container(
 ///   decoration: BoxDecoration(

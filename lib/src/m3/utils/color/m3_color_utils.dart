@@ -1,6 +1,4 @@
-import 'dart:math' as math;
-
-import 'package:flutter/material.dart';
+part of '../../../../../material_design.dart';
 
 /// Utility functions for working with Material Design 3 colors.
 ///
@@ -136,8 +134,8 @@ abstract interface class M3ColorUtils {
     final shouldLighten = backgroundLuminance > 0.5;
 
     // Binary search for the optimal lightness
-    double minL = 0.0;
-    double maxL = 1.0;
+    double minL = 0;
+    double maxL = 1;
 
     while (maxL - minL > 0.01) {
       final testL = (minL + maxL) / 2;

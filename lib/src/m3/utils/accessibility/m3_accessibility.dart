@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:material_design/material_design.dart';
+part of '../../../../../material_design.dart';
 
 /// Comprehensive accessibility utilities for Material Design 3.
 ///
@@ -10,13 +9,13 @@ abstract interface class M3Accessibility {
   // --- Minimum Touch Target Sizes ---
 
   /// Minimum touch target size for mobile (48dp).
-  static const double minTouchTargetMobile = 48.0;
+  static const double minTouchTargetMobile = 48;
 
   /// Minimum touch target size for desktop (32dp).
-  static const double minTouchTargetDesktop = 32.0;
+  static const double minTouchTargetDesktop = 32;
 
   /// Recommended comfortable touch target size (56dp).
-  static const double recommendedTouchTarget = 56.0;
+  static const double recommendedTouchTarget = 56;
 
   // --- Text Contrast Requirements ---
 
@@ -24,10 +23,10 @@ abstract interface class M3Accessibility {
   static const double minContrastNormal = 4.5;
 
   /// Minimum contrast ratio for large text (WCAG AA).
-  static const double minContrastLarge = 3.0;
+  static const double minContrastLarge = 3;
 
   /// Enhanced contrast ratio for better accessibility (WCAG AAA).
-  static const double enhancedContrast = 7.0;
+  static const double enhancedContrast = 7;
 
   // --- Touch Target Utilities ---
 
@@ -237,7 +236,7 @@ abstract interface class M3Accessibility {
     bool isHeading = false,
     int? headingLevel,
   }) {
-    Widget textWidget = Text(text, style: style);
+    final Widget textWidget = Text(text, style: style);
 
     return Semantics(
       label: semanticLabel ?? text,
@@ -293,7 +292,7 @@ abstract interface class M3Accessibility {
               hintText: hint,
               errorText: error,
               border: OutlineInputBorder(
-                  borderRadius: M3ShapeToken.extraSmall.borderRadius),
+                  borderRadius: M3ShapeToken.extraSmall.borderRadius.value),
             ),
           ),
         ),
@@ -315,7 +314,6 @@ abstract interface class M3Accessibility {
     return ensureMinTouchTarget(
       minSize: targetSize,
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Semantics(
             label: semanticLabel ?? (required ? '$label (required)' : label),
@@ -442,8 +440,8 @@ abstract interface class M3Accessibility {
     final shouldLighten = backgroundLuminance > 0.5;
 
     // Binary search for the optimal lightness
-    double minL = 0.0;
-    double maxL = 1.0;
+    double minL = 0;
+    double maxL = 1;
 
     while (maxL - minL > 0.01) {
       final testL = (minL + maxL) / 2;
@@ -472,21 +470,6 @@ abstract interface class M3Accessibility {
 
 /// Accessibility configuration for the app.
 class M3AccessibilityConfig {
-  /// Whether high contrast mode is enabled.
-  final bool highContrast;
-
-  /// Whether reduced motion is enabled.
-  final bool reducedMotion;
-
-  /// Whether large text is enabled.
-  final bool largeText;
-
-  /// Whether dyslexia-friendly features are enabled.
-  final bool dyslexiaFriendly;
-
-  /// Custom text scale factor.
-  final double textScaleFactor;
-
   const M3AccessibilityConfig({
     this.highContrast = false,
     this.reducedMotion = false,
@@ -503,13 +486,28 @@ class M3AccessibilityConfig {
       highContrast: mediaQuery.highContrast,
       reducedMotion: mediaQuery.disableAnimations,
       largeText: mediaQuery.textScaler.scale(16) > 20,
-      textScaleFactor: mediaQuery.textScaler.scale(1.0),
+      textScaleFactor: mediaQuery.textScaler.scale(1),
     );
   }
 
+  /// Whether high contrast mode is enabled.
+  final bool highContrast;
+
+  /// Whether reduced motion is enabled.
+  final bool reducedMotion;
+
+  /// Whether large text is enabled.
+  final bool largeText;
+
+  /// Whether dyslexia-friendly features are enabled.
+  final bool dyslexiaFriendly;
+
+  /// Custom text scale factor.
+  final double textScaleFactor;
+
   /// Applies accessibility settings to a theme.
   ThemeData applyToTheme(ThemeData base) {
-    ThemeData theme = base;
+    var theme = base;
 
     if (highContrast) {
       theme = theme.copyWith(

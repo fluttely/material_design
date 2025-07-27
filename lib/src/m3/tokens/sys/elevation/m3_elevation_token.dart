@@ -1,13 +1,4 @@
-/// M3ElevationToken
-library;
-
-import 'dart:math' as math;
-
-import 'package:flutter/material.dart';
-import 'package:material_design/material_design.dart';
-
-part '_m3_shadow_token.dart';
-part '_m3_tonal_color.dart';
+part of '../../../../../material_design.dart';
 
 /// Constants >>>
 const double _kM3ElevationLevel0 = 0;

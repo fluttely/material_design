@@ -97,11 +97,11 @@ class _SpacingPageState extends State<SpacingPage> {
     );
   }
 
-  Widget _buildSpacingDemo(String label, IM3Token token) {
+  Widget _buildSpacingDemo(String label, IM3Token spacing) {
     final textTheme = Theme.of(context).textTheme;
     final colorScheme = Theme.of(context).colorScheme;
     // FIX: Check if the value is infinity to avoid calling .toInt() on it.
-    final isInfinity = token.value == double.infinity;
+    final isInfinity = spacing.value == double.infinity;
 
     return M3Padding.only(
       bottom: M3SpacingToken.space16,
@@ -118,7 +118,7 @@ class _SpacingPageState extends State<SpacingPage> {
             width: 48,
             child: Text(
               // FIX: Display '∞' for infinity, otherwise display the integer value.
-              isInfinity ? '∞' : '${token.value.toInt()}dp',
+              isInfinity ? '∞' : '${spacing.value.toInt()}dp',
               style: textTheme.bodyMedium?.copyWith(
                 color: colorScheme.onSurfaceVariant,
               ),
@@ -137,7 +137,7 @@ class _SpacingPageState extends State<SpacingPage> {
           else
             Container(
               height: 24,
-              width: token.value,
+              width: spacing.value,
               color: colorScheme.primary,
             ),
         ],

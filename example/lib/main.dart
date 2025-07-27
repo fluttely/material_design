@@ -112,13 +112,13 @@ class _MaterialDesignDemoState extends State<MaterialDesignDemo>
       cardTheme: CardThemeData(
         elevation: 1,
         shape: RoundedRectangleBorder(
-          borderRadius: M3ShapeToken.medium.borderRadius,
+          borderRadius: M3ShapeToken.medium.borderRadius.value,
         ),
       ),
       filledButtonTheme: FilledButtonThemeData(
         style: FilledButton.styleFrom(
           shape: RoundedRectangleBorder(
-            borderRadius: M3ShapeToken.full.borderRadius,
+            borderRadius: M3ShapeToken.full.borderRadius.value,
           ),
         ),
       ),
@@ -146,13 +146,13 @@ class _MaterialDesignDemoState extends State<MaterialDesignDemo>
       cardTheme: CardThemeData(
         elevation: 1,
         shape: RoundedRectangleBorder(
-          borderRadius: M3ShapeToken.medium.borderRadius,
+          borderRadius: M3ShapeToken.medium.borderRadius.value,
         ),
       ),
       filledButtonTheme: FilledButtonThemeData(
         style: FilledButton.styleFrom(
           shape: RoundedRectangleBorder(
-            borderRadius: M3ShapeToken.full.borderRadius,
+            borderRadius: M3ShapeToken.full.borderRadius.value,
           ),
         ),
       ),
@@ -545,7 +545,7 @@ class _DemoHomePageState extends State<DemoHomePage>
             M3SpacingToken.space16,
             M3SpacingToken.space24,
             M3SpacingToken.space32,
-          ].map((token) => _SpacingExample(token: token)).toList(),
+          ].map((token) => _SpacingExample(spacing: token)).toList(),
         ),
       ],
     );
@@ -603,13 +603,17 @@ class _DemoHomePageState extends State<DemoHomePage>
           spacing: M3SpacingToken.space16.value,
           children: [
             _OpacityExample(
-                token: M3StateLayerOpacityToken.hover, label: 'Hover'),
+                stateLayerOpacity: M3StateLayerOpacityToken.hover,
+                label: 'Hover'),
             _OpacityExample(
-                token: M3StateLayerOpacityToken.focus, label: 'Focus'),
+                stateLayerOpacity: M3StateLayerOpacityToken.focus,
+                label: 'Focus'),
             _OpacityExample(
-                token: M3StateLayerOpacityToken.pressed, label: 'Pressed'),
+                stateLayerOpacity: M3StateLayerOpacityToken.pressed,
+                label: 'Pressed'),
             _OpacityExample(
-                token: M3StateLayerOpacityToken.dragged, label: 'Dragged'),
+                stateLayerOpacity: M3StateLayerOpacityToken.dragged,
+                label: 'Dragged'),
           ],
         ),
       ],
@@ -625,9 +629,9 @@ class _DemoHomePageState extends State<DemoHomePage>
         Row(
           spacing: M3SpacingToken.space16.value,
           children: [
-            M3BorderToken.thin,
-            M3BorderToken.thick,
-            M3BorderToken.extraThick,
+            M3BorderWidthToken.thin,
+            M3BorderWidthToken.thick,
+            M3BorderWidthToken.extraThick,
           ]
               .map((token) => Expanded(
                     child: Container(
@@ -637,7 +641,7 @@ class _DemoHomePageState extends State<DemoHomePage>
                           width: token.value,
                           color: Theme.of(context).colorScheme.outline,
                         ),
-                        borderRadius: M3ShapeToken.small.borderRadius,
+                        borderRadius: M3ShapeToken.small.borderRadius.value,
                       ),
                       child: Text(
                         '${token.name}\n${token.value}px',
@@ -719,7 +723,8 @@ class _DemoHomePageState extends State<DemoHomePage>
                         color: Theme.of(context).colorScheme.surfaceContainer,
                         borderRadius: M3ShapeToken.values
                             .firstWhere((r) => r.name == token.name)
-                            .borderRadius,
+                            .borderRadius
+                            .value,
                       ),
                       child: Center(
                         child: Text(
@@ -1243,7 +1248,7 @@ class _ColorSwatch extends StatelessWidget {
           height: 40,
           decoration: BoxDecoration(
             color: color,
-            borderRadius: M3ShapeToken.small.borderRadius,
+            borderRadius: M3ShapeToken.small.borderRadius.value,
             border: Border.all(
               color:
                   Theme.of(context).colorScheme.outline.withValues(alpha: 0.2),
@@ -1262,16 +1267,16 @@ class _ColorSwatch extends StatelessWidget {
 }
 
 class _SpacingExample extends StatelessWidget {
-  final M3SpacingToken token;
+  final M3SpacingToken spacing;
 
-  const _SpacingExample({required this.token});
+  const _SpacingExample({required this.spacing});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         Container(
-          width: token.value,
+          width: spacing.value,
           height: 20,
           decoration: BoxDecoration(
             color: Theme.of(context).colorScheme.primary,
@@ -1280,7 +1285,7 @@ class _SpacingExample extends StatelessWidget {
         ),
         const M3Gap(M3SpacingToken.space4),
         Text(
-          '${token.name}\n${token.value}px',
+          '${spacing.name}\n${spacing.value}px',
           textAlign: TextAlign.center,
           style: Theme.of(context).textTheme.bodySmall,
         ),
@@ -1290,10 +1295,10 @@ class _SpacingExample extends StatelessWidget {
 }
 
 class _OpacityExample extends StatelessWidget {
-  final M3StateLayerOpacityToken token;
+  final M3StateLayerOpacityToken stateLayerOpacity;
   final String label;
 
-  const _OpacityExample({required this.token, required this.label});
+  const _OpacityExample({required this.stateLayerOpacity, required this.label});
 
   @override
   Widget build(BuildContext context) {
@@ -1306,13 +1311,13 @@ class _OpacityExample extends StatelessWidget {
             color: Theme.of(context)
                 .colorScheme
                 .primary
-                .withValues(alpha: token.value),
-            borderRadius: M3ShapeToken.small.borderRadius,
+                .withValues(alpha: stateLayerOpacity.value),
+            borderRadius: M3ShapeToken.small.borderRadius.value,
           ),
         ),
         const M3Gap(M3SpacingToken.space4),
         Text(
-          '$label\n${(token.value * 100).toInt()}%',
+          '$label\n${(stateLayerOpacity.value * 100).toInt()}%',
           textAlign: TextAlign.center,
           style: Theme.of(context).textTheme.bodySmall,
         ),

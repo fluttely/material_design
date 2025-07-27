@@ -4,6 +4,93 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adherves to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.13.0-dev
+
+### 🔄 BREAKING CHANGES
+
+- **Shape Token API Refactoring**: Major changes to the shape token system requiring property chain updates
+  - **Before**: `M3ShapeToken.medium.borderRadius` → **After**: `M3ShapeToken.medium.borderRadius.value`
+  - **Before**: `M3ShapeToken.large.radius` → **After**: `M3ShapeToken.large.borderRadius.radius.value`
+  - All shape token access now requires `.value` at the end for consistent API patterns
+- **Border Token Renaming**: `M3BorderToken` has been renamed to `M3BorderWidthToken` for better semantic clarity
+  - Update all `M3BorderToken.thin` → `M3BorderWidthToken.thin`
+  - Affects all border width references throughout the codebase
+
+### 🗂️ Library Architecture Overhaul
+
+- **Consolidated Main Export**: Removed the separate `m3.dart` file and consolidated all exports into the main `material_design.dart` library file
+  - All imports now use: `import 'package:material_design/material_design.dart'`
+  - Improved library structure with comprehensive inline documentation for all token systems
+- **Enhanced Widget System**: Added new layout widgets with Material Design 3 token enforcement
+  - **`M3Border`**: Custom border widget that enforces M3 design tokens (465+ lines of implementation)
+  - **`M3BorderRadius`**: Custom border radius utility with token validation
+  - **`M3BoxDecoration`**: Token-enforced box decoration for consistent styling
+  - **`M3ShapeDecoration`**: Advanced shape decoration with M3 compliance (591+ lines of implementation)
+
+### 🏗️ Enhanced Shape System
+
+- **Complete Shape Token Refactoring**: Redesigned the shape token system with 270+ lines of additional functionality
+  - Added comprehensive internal constants for all radius values
+  - Implemented wrapper classes for better type safety and API consistency
+  - Enhanced border radius utilities with validation and helper methods
+- **Improved Type Safety**: All shape-related tokens now have consistent access patterns and validation
+
+### 🎨 Enhanced Layout Utilities
+
+- **Improved M3EdgeInsets**: Significant enhancements to the EdgeInsets utility (179 lines updated)
+- **Streamlined M3Padding**: Simplified and optimized padding implementation (183 lines reduced)
+- **Enhanced Layout Widgets**: Better integration with the Material Design 3 token system
+
+### 📱 Demo and Example Updates
+
+- **Complete API Migration**: Updated entire demo application and examples to use the new token access patterns
+- **Enhanced Examples**: All showcase pages now demonstrate the new API structure
+- **Better Documentation**: Improved inline comments and examples throughout demo and example applications
+
+### 🔧 Migration Guide
+
+**Shape and Border Radius:**
+
+```dart
+// Before (v0.11.0)
+Container(
+  decoration: BoxDecoration(
+    borderRadius: M3ShapeToken.medium.borderRadius,
+  ),
+)
+
+// After (v0.12.0)
+Container(
+  decoration: BoxDecoration(
+    borderRadius: M3ShapeToken.medium.borderRadius.value,
+  ),
+)
+```
+
+**Border Tokens:**
+
+```dart
+// Before (v0.11.0)
+Border.all(width: M3BorderToken.thin.value)
+
+// After (v0.12.0)
+Border.all(width: M3BorderWidthToken.thin.value)
+```
+
+**Library Import:**
+
+```dart
+// Before (v0.11.0)
+import 'package:material_design/src/m3/m3.dart';
+
+// After (v0.12.0)
+import 'package:material_design/material_design.dart';
+```
+
+**Recommended Version Bump: MINOR (0.11.0 → 0.12.0)**
+
+This release contains significant breaking changes to the shape and border token APIs, extensive library architecture improvements, and new widget implementations that substantially enhance the Material Design 3 token system.
+
 ## 0.12.1
 
 ### Documentation

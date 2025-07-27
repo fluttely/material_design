@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+part of '../../../../../material_design.dart';
 
 /// Base interface for all Material Design 3 design tokens.
 ///
@@ -23,7 +23,7 @@ import 'package:flutter/material.dart';
 /// ## Usage
 ///
 /// Typically, you won't implement this interface directly. Instead, use it
-/// through concrete token enums like [M3SpacingToken] or [M3BorderToken]:
+/// through concrete token enums like [M3SpacingToken] or [M3BorderWidthToken]:
 ///
 /// ```dart
 /// // System tokens implement this interface

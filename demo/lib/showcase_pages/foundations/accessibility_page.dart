@@ -776,7 +776,7 @@ class _AccessibilityPageState extends State<AccessibilityPage>
         color: isGood
             ? colorScheme.secondaryContainer.withValues(alpha: 0.3)
             : colorScheme.errorContainer.withValues(alpha: 0.3),
-        borderRadius: M3ShapeToken.medium.borderRadius,
+        borderRadius: M3ShapeToken.medium.borderRadius.value,
         border: Border.all(
           color: isGood ? colorScheme.secondary : colorScheme.error,
           width: 1,
@@ -816,7 +816,7 @@ class _AccessibilityPageState extends State<AccessibilityPage>
       padding: M3EdgeInsets.all(M3SpacingToken.space20),
       decoration: BoxDecoration(
         color: colorScheme.surfaceContainer,
-        borderRadius: M3ShapeToken.large.borderRadius,
+        borderRadius: M3ShapeToken.large.borderRadius.value,
         border: Border.all(
           color: colorScheme.outline.withValues(alpha: 0.5),
         ),
@@ -861,7 +861,7 @@ class _AccessibilityPageState extends State<AccessibilityPage>
       color: backgroundColor,
       elevation: M3ElevationToken.level0.value,
       shape: RoundedRectangleBorder(
-        borderRadius: M3ShapeToken.medium.borderRadius,
+        borderRadius: M3ShapeToken.medium.borderRadius.value,
         side: BorderSide(color: Theme.of(context).colorScheme.outlineVariant),
       ),
       child: M3Padding.all(

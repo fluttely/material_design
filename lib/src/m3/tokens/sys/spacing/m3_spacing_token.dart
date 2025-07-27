@@ -1,5 +1,4 @@
-import 'package:flutter/foundation.dart';
-import 'package:material_design/material_design.dart';
+part of '../../../../../material_design.dart';
 
 @immutable
 abstract interface class IM3SpacingToken implements IM3Token<double> {}
