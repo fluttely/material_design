@@ -225,7 +225,7 @@ class M3LightTheme {
       colorScheme: colorScheme,
 
       // Typography
-      textTheme: M3TypeScaleToken.material3TextTheme,
+      textTheme: M3TextStyleToken.material3TextTheme,
 
       // Component themes
       appBarTheme: _buildAppBarTheme(colorScheme),
@@ -249,7 +249,7 @@ class M3LightTheme {
       surfaceTintColor: colorScheme.surfaceTint,
       backgroundColor: colorScheme.surface,
       foregroundColor: colorScheme.onSurface,
-      titleTextStyle: M3TypeScaleToken.titleLarge.copyWith(
+      titleTextStyle: M3TextStyleToken.titleLarge.copyWith(
         color: colorScheme.onSurface,
       ),
     );

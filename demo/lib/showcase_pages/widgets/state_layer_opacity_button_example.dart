@@ -11,14 +11,14 @@ class M3StateLayerOpacityButtonExample extends StatelessWidget {
     return Column(
       children: [
         Text(title),
-        SizedBox(height: M3SpacingToken.space12.value),
+        const M3Gap(M3SpacingToken.space12),
         CustomButton(
           onPressed: onPressed,
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
               Icon(Icons.add_shopping_cart),
-              SizedBox(width: M3SpacingToken.space8.value),
+              const M3Gap(M3SpacingToken.space8),
               Text('Add to Cart'),
             ],
           ),
@@ -32,7 +32,7 @@ class M3StateLayerOpacityButtonExample extends StatelessWidget {
     return Wrap(
       children: [
         _buildButtonArea(title: 'Enabled State:', onPressed: () {}),
-        SizedBox(width: M3SpacingToken.space12.value),
+        const M3Gap(M3SpacingToken.space12),
         _buildButtonArea(title: 'Disabled State:', onPressed: null),
       ],
     );

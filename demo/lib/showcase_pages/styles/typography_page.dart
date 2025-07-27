@@ -8,27 +8,27 @@ class TypographyPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textStyles = [
-      ('Display Large', M3TypeScaleToken.displayLarge),
-      ('Display Medium', M3TypeScaleToken.displayMedium),
-      ('Display Small', M3TypeScaleToken.displaySmall),
-      ('Headline Large', M3TypeScaleToken.headlineLarge),
-      ('Headline Medium', M3TypeScaleToken.headlineMedium),
-      ('Headline Small', M3TypeScaleToken.headlineSmall),
-      ('Title Large', M3TypeScaleToken.titleLarge),
-      ('Title Medium', M3TypeScaleToken.titleMedium),
-      ('Title Small', M3TypeScaleToken.titleSmall),
-      ('Body Large', M3TypeScaleToken.bodyLarge),
-      ('Body Medium', M3TypeScaleToken.bodyMedium),
-      ('Body Small', M3TypeScaleToken.bodySmall),
-      ('Label Large', M3TypeScaleToken.labelLarge),
-      ('Label Medium', M3TypeScaleToken.labelMedium),
-      ('Label Small', M3TypeScaleToken.labelSmall),
+      ('Display Large', M3TextStyleToken.displayLarge),
+      ('Display Medium', M3TextStyleToken.displayMedium),
+      ('Display Small', M3TextStyleToken.displaySmall),
+      ('Headline Large', M3TextStyleToken.headlineLarge),
+      ('Headline Medium', M3TextStyleToken.headlineMedium),
+      ('Headline Small', M3TextStyleToken.headlineSmall),
+      ('Title Large', M3TextStyleToken.titleLarge),
+      ('Title Medium', M3TextStyleToken.titleMedium),
+      ('Title Small', M3TextStyleToken.titleSmall),
+      ('Body Large', M3TextStyleToken.bodyLarge),
+      ('Body Medium', M3TextStyleToken.bodyMedium),
+      ('Body Small', M3TextStyleToken.bodySmall),
+      ('Label Large', M3TextStyleToken.labelLarge),
+      ('Label Medium', M3TextStyleToken.labelMedium),
+      ('Label Small', M3TextStyleToken.labelSmall),
     ];
 
     return Scaffold(
       appBar: AppBar(
         title: LaunchURLText(
-          label: 'M3TypeScaleToken',
+          label: 'M3TextStyleToken',
           m3Url: 'https://m3.material.io/styles/typography/type-scale-tokens',
         ),
       ),
@@ -37,8 +37,8 @@ class TypographyPage extends StatelessWidget {
         itemCount: textStyles.length,
         itemBuilder: (context, index) {
           final (label, style) = textStyles[index];
-          return Padding(
-            padding: EdgeInsets.only(bottom: M3SpacingToken.space16.value),
+          return M3Padding.only(
+            bottom: M3SpacingToken.space16,
             child: Text(label, style: style.value),
           );
         },

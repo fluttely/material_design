@@ -252,8 +252,36 @@ enum M3MotionToken implements IM3Token<M3MotionScheme> {
   @override
   final M3MotionScheme value;
 
+  Duration get duration {
+    return switch (this) {
+      M3MotionToken.emphasized => M3MotionDurationToken.long2.value,
+      M3MotionToken.emphasizedIncoming => M3MotionDurationToken.long1.value,
+      M3MotionToken.emphasizedOutgoing => M3MotionDurationToken.short3.value,
+      M3MotionToken.standard => M3MotionDurationToken.medium2.value,
+      M3MotionToken.standardIncoming => M3MotionDurationToken.medium1.value,
+      M3MotionToken.standardOutgoing => M3MotionDurationToken.short4.value,
+      M3MotionToken.linear => M3MotionDurationToken.short3.value,
+    };
+  }
+
+  Curve get easing {
+    return switch (this) {
+      M3MotionToken.emphasized => M3MotionEasingToken.emphasized.value,
+      M3MotionToken.emphasizedIncoming =>
+        M3MotionEasingToken.emphasizedDecelerate.value,
+      M3MotionToken.emphasizedOutgoing =>
+        M3MotionEasingToken.emphasizedAccelerate.value,
+      M3MotionToken.standard => M3MotionEasingToken.standard.value,
+      M3MotionToken.standardIncoming =>
+        M3MotionEasingToken.standardDecelerate.value,
+      M3MotionToken.standardOutgoing =>
+        M3MotionEasingToken.standardAccelerate.value,
+      M3MotionToken.linear => M3MotionEasingToken.linear.value,
+    };
+  }
+
   /// Get appropriate duration based on distance or complexity.
-  static Duration getDuration(MotionDistance distance) {
+  static Duration getDurationByDistance(MotionDistance distance) {
     switch (distance) {
       case MotionDistance.short:
         return M3MotionDurationToken.short2.value;
@@ -267,7 +295,7 @@ enum M3MotionToken implements IM3Token<M3MotionScheme> {
   }
 
   /// Get appropriate easing based on motion type.
-  static Curve getEasing(MotionType type) {
+  static Curve getEasingByType(MotionType type) {
     switch (type) {
       case MotionType.incoming:
         return M3MotionEasingToken.emphasizedDecelerate.value;

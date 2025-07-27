@@ -32,7 +32,7 @@ class IconSizeTokensPage extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text('M3IconSize Tokens', style: textTheme.titleLarge),
-        SizedBox(height: M3SpacingToken.space16.value),
+        const M3Gap(M3SpacingToken.space16),
         Wrap(
           spacing: M3SpacingToken.space16.value,
           runSpacing: M3SpacingToken.space16.value,
@@ -43,7 +43,7 @@ class IconSizeTokensPage extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Icon(Icons.directions_boat_filled, size: value),
-                SizedBox(width: M3SpacingToken.space8.value),
+                const M3Gap(M3SpacingToken.space8),
                 Text('$label (${value.toInt()}dp)'),
               ],
             );

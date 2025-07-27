@@ -71,20 +71,20 @@ class ZIndexTokensPage extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text('M3ZIndex Tokens', style: textTheme.titleLarge),
-        SizedBox(height: M3SpacingToken.space8.value),
+        const M3Gap(M3SpacingToken.space8),
         Text(
           'Stacking order from bottom to top (lower to higher z-index)',
           style: textTheme.bodyMedium?.copyWith(
             color: colorScheme.onSurfaceVariant,
           ),
         ),
-        SizedBox(height: M3SpacingToken.space16.value),
+        const M3Gap(M3SpacingToken.space16),
         Container(
           height: 512,
           padding: EdgeInsets.all(M3SpacingToken.space16.value),
           decoration: BoxDecoration(
             color: colorScheme.surfaceContainerLowest,
-            borderRadius: M3BorderRadiusToken.medium.value,
+            borderRadius: M3ShapeToken.medium.borderRadius,
             border: Border.all(color: colorScheme.outlineVariant),
           ),
           child: Stack(
@@ -105,7 +105,7 @@ class ZIndexTokensPage extends StatelessWidget {
                     height: 120,
                     decoration: BoxDecoration(
                       color: layer.color,
-                      borderRadius: M3BorderRadiusToken.small.value,
+                      borderRadius: M3ShapeToken.small.borderRadius,
                       border: Border.all(
                         color: layer.borderColor,
                         width: 2,
@@ -118,8 +118,8 @@ class ZIndexTokensPage extends StatelessWidget {
                         ),
                       ],
                     ),
-                    child: Padding(
-                      padding: EdgeInsets.all(M3SpacingToken.space12.value),
+                    child: M3Padding.all(
+                      M3SpacingToken.space12,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -130,14 +130,14 @@ class ZIndexTokensPage extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          SizedBox(height: M3SpacingToken.space4.value),
+                          const M3Gap(M3SpacingToken.space4),
                           Text(
                             'z: ${layer.zIndex}',
                             style: textTheme.labelMedium?.copyWith(
                                 // color: _getTextColor(layer.color, colorScheme),
                                 ),
                           ),
-                          SizedBox(height: M3SpacingToken.space4.value),
+                          const M3Gap(M3SpacingToken.space4),
                           Text(
                             layer.description,
                             style: textTheme.bodySmall?.copyWith(
@@ -153,11 +153,11 @@ class ZIndexTokensPage extends StatelessWidget {
             }).toList(),
           ),
         ),
-        SizedBox(height: M3SpacingToken.space16.value),
+        const M3Gap(M3SpacingToken.space16),
         Container(
           decoration: BoxDecoration(
             color: colorScheme.surfaceContainerLow,
-            borderRadius: M3BorderRadiusToken.medium.value,
+            borderRadius: M3ShapeToken.medium.borderRadius,
             border: Border.all(color: colorScheme.outlineVariant),
           ),
           child: Column(
@@ -189,7 +189,7 @@ class ZIndexTokensPage extends StatelessWidget {
                   ),
                   decoration: BoxDecoration(
                     color: colorScheme.surfaceContainerHighest,
-                    borderRadius: M3BorderRadiusToken.small.value,
+                    borderRadius: M3ShapeToken.small.borderRadius,
                   ),
                   child: Text(
                     '${layer.zIndex}',

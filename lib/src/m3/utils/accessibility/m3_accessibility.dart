@@ -177,21 +177,21 @@ abstract interface class M3Accessibility {
   /// Creates high contrast text styles.
   static TextTheme highContrastTextTheme(TextTheme base) {
     return base.copyWith(
-      displayLarge: M3TypeScaleToken.highContrast(base.displayLarge!),
-      displayMedium: M3TypeScaleToken.highContrast(base.displayMedium!),
-      displaySmall: M3TypeScaleToken.highContrast(base.displaySmall!),
-      headlineLarge: M3TypeScaleToken.highContrast(base.headlineLarge!),
-      headlineMedium: M3TypeScaleToken.highContrast(base.headlineMedium!),
-      headlineSmall: M3TypeScaleToken.highContrast(base.headlineSmall!),
-      titleLarge: M3TypeScaleToken.highContrast(base.titleLarge!),
-      titleMedium: M3TypeScaleToken.highContrast(base.titleMedium!),
-      titleSmall: M3TypeScaleToken.highContrast(base.titleSmall!),
-      bodyLarge: M3TypeScaleToken.highContrast(base.bodyLarge!),
-      bodyMedium: M3TypeScaleToken.highContrast(base.bodyMedium!),
-      bodySmall: M3TypeScaleToken.highContrast(base.bodySmall!),
-      labelLarge: M3TypeScaleToken.highContrast(base.labelLarge!),
-      labelMedium: M3TypeScaleToken.highContrast(base.labelMedium!),
-      labelSmall: M3TypeScaleToken.highContrast(base.labelSmall!),
+      displayLarge: M3TextStyleToken.highContrast(base.displayLarge!),
+      displayMedium: M3TextStyleToken.highContrast(base.displayMedium!),
+      displaySmall: M3TextStyleToken.highContrast(base.displaySmall!),
+      headlineLarge: M3TextStyleToken.highContrast(base.headlineLarge!),
+      headlineMedium: M3TextStyleToken.highContrast(base.headlineMedium!),
+      headlineSmall: M3TextStyleToken.highContrast(base.headlineSmall!),
+      titleLarge: M3TextStyleToken.highContrast(base.titleLarge!),
+      titleMedium: M3TextStyleToken.highContrast(base.titleMedium!),
+      titleSmall: M3TextStyleToken.highContrast(base.titleSmall!),
+      bodyLarge: M3TextStyleToken.highContrast(base.bodyLarge!),
+      bodyMedium: M3TextStyleToken.highContrast(base.bodyMedium!),
+      bodySmall: M3TextStyleToken.highContrast(base.bodySmall!),
+      labelLarge: M3TextStyleToken.highContrast(base.labelLarge!),
+      labelMedium: M3TextStyleToken.highContrast(base.labelMedium!),
+      labelSmall: M3TextStyleToken.highContrast(base.labelSmall!),
     );
   }
 
@@ -293,7 +293,7 @@ abstract interface class M3Accessibility {
               hintText: hint,
               errorText: error,
               border: OutlineInputBorder(
-                  borderRadius: M3BorderRadiusToken.extraSmall.value),
+                  borderRadius: M3ShapeToken.extraSmall.borderRadius),
             ),
           ),
         ),
@@ -330,7 +330,7 @@ abstract interface class M3Accessibility {
               ),
             ),
           ),
-          SizedBox(width: M3SpacingToken.space8.value),
+          const M3Gap(M3SpacingToken.space8),
           Expanded(
             child: GestureDetector(
               onTap: onChanged != null ? () => onChanged(!value) : null,
@@ -391,7 +391,7 @@ abstract interface class M3Accessibility {
 
   /// Creates dyslexia-friendly text styles.
   static TextStyle dyslexiaFriendlyText(TextStyle base) {
-    return M3TypeScaleToken.enhancedReadability(base);
+    return M3TextStyleToken.enhancedReadability(base);
   }
 
   /// Creates a dyslexia-friendly theme.

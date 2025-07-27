@@ -55,7 +55,7 @@ class OpacityTokensPage extends StatelessWidget {
             'Practical Example',
             style: Theme.of(context).textTheme.titleLarge,
           ),
-          SizedBox(height: M3SpacingToken.space12.value),
+          const M3Gap(M3SpacingToken.space12),
           const M3StateLayerOpacityButtonExample(),
         ],
       ),
@@ -74,7 +74,7 @@ class OpacityTokensPage extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         LaunchURLText(label: title, m3Url: url),
-        SizedBox(height: M3SpacingToken.space16.value),
+        const M3Gap(M3SpacingToken.space16),
         Wrap(
           spacing: M3SpacingToken.space16.value,
           runSpacing: M3SpacingToken.space16.value,
@@ -89,7 +89,7 @@ class OpacityTokensPage extends StatelessWidget {
             );
           }).toList(),
         ),
-        SizedBox(height: M3SpacingToken.space32.value),
+        const M3Gap(M3SpacingToken.space32),
       ],
     );
   }
@@ -106,7 +106,7 @@ class OpacityTokensPage extends StatelessWidget {
       height: 90,
       decoration: BoxDecoration(
         color: color,
-        borderRadius: M3BorderRadiusToken.medium.value,
+        borderRadius: M3ShapeToken.medium.borderRadius,
         border: Border.all(color: textColor.withValues(alpha: 0.2)),
       ),
       child: Center(

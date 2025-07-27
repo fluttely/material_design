@@ -68,28 +68,28 @@ class _SpacingPageState extends State<SpacingPage> {
               m3Url:
                   'https://m3.material.io/foundations/layout/understanding-layout/spacing',
             ),
-            SizedBox(height: M3SpacingToken.space8.value),
+            const M3Gap(M3SpacingToken.space8),
             Text(
               'Material Design uses a 4dp base unit for spacing. This creates visual rhythm and hierarchy.',
               style: textTheme.bodyMedium,
             ),
-            SizedBox(height: M3SpacingToken.space16.value),
+            const M3Gap(M3SpacingToken.space16),
             ...spacings.map((token) => _buildSpacingDemo(token.$1, token.$2)),
-            SizedBox(height: M3SpacingToken.space32.value),
+            const M3Gap(M3SpacingToken.space32),
             const LaunchURLText(
               label: 'M3MarginToken (by screen sizes)',
               m3Url:
                   'https://m3.material.io/foundations/layout/applying-layout/compact',
             ),
-            SizedBox(height: M3SpacingToken.space8.value),
+            const M3Gap(M3SpacingToken.space8),
             ...margins.map((margin) => _buildSpacingDemo(margin.$1, margin.$2)),
-            SizedBox(height: M3SpacingToken.space32.value),
+            const M3Gap(M3SpacingToken.space32),
             const LaunchURLText(
               label: 'M3SpacerToken (between two panes)',
               m3Url:
                   'https://m3.material.io/foundations/layout/understanding-layout/spacing',
             ),
-            SizedBox(height: M3SpacingToken.space8.value),
+            const M3Gap(M3SpacingToken.space8),
             ...spacers.map((spacer) => _buildSpacingDemo(spacer.$1, spacer.$2)),
           ],
         ),
@@ -103,8 +103,8 @@ class _SpacingPageState extends State<SpacingPage> {
     // FIX: Check if the value is infinity to avoid calling .toInt() on it.
     final isInfinity = token.value == double.infinity;
 
-    return Padding(
-      padding: EdgeInsets.only(bottom: M3SpacingToken.space16.value),
+    return M3Padding.only(
+      bottom: M3SpacingToken.space16,
       child: Row(
         children: [
           SizedBox(
@@ -124,7 +124,7 @@ class _SpacingPageState extends State<SpacingPage> {
               ),
             ),
           ),
-          SizedBox(width: M3SpacingToken.space16.value),
+          const M3Gap(M3SpacingToken.space16),
           // FIX: Conditionally render the container or a text label for infinity.
           if (isInfinity)
             Text(
@@ -156,7 +156,7 @@ class _SpacingPageState extends State<SpacingPage> {
 
   //   final isInfinity = value == double.infinity;
 
-  //   return Padding(
+  //   return M3Padding(
   //     padding: const EdgeInsets.symmetric(vertical: 4.0),
   //     child: Row(
   //       children: [
@@ -169,7 +169,7 @@ class _SpacingPageState extends State<SpacingPage> {
   //             overflow: TextOverflow.ellipsis,
   //           ),
   //         ),
-  //         const SizedBox(width: M3SpacingToken.space16),
+  //         const M3Gap(M3SpacingToken.space16),
   //         Expanded(
   //           child: isInfinity
   //               ? Text(
@@ -183,7 +183,7 @@ class _SpacingPageState extends State<SpacingPage> {
   //                   height: value,
   //                   decoration: ShapeDecoration(
   //                     color: colorScheme.secondaryContainer,
-  //                     shape: M3Shape.extraSmall,
+  //                     shape: M3ShapeToken.extraSmall,
   //                   ),
   //                 ),
   //         ),

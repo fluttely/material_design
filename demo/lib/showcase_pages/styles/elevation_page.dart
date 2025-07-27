@@ -20,75 +20,75 @@ class ElevationPage extends StatelessWidget {
     ];
 
     final elevationsWithoutShadow = [
-      (M3ElevationToken.level0, false, 'Level 0 Without Shadow'),
-      (M3ElevationToken.level1, false, 'Level 1 Without Shadow'),
-      (M3ElevationToken.level2, false, 'Level 2 Without Shadow'),
-      (M3ElevationToken.level3, false, 'Level 3 Without Shadow'),
-      (M3ElevationToken.level4, false, 'Level 4 Without Shadow'),
-      (M3ElevationToken.level5, false, 'Level 5 Without Shadow'),
+      (M3ElevationToken.level0, false, 'Level 0'),
+      (M3ElevationToken.level1, false, 'Level 1'),
+      (M3ElevationToken.level2, false, 'Level 2'),
+      (M3ElevationToken.level3, false, 'Level 3'),
+      (M3ElevationToken.level4, false, 'Level 4'),
+      (M3ElevationToken.level5, false, 'Level 5'),
     ];
 
-    final componentElevations = [
-      (M3ComponentElevationToken.card, true, 'card'),
-      (M3ComponentElevationToken.button, true, 'button'),
-      (M3ComponentElevationToken.elevatedButton, true, 'elevatedButton'),
-      (M3ComponentElevationToken.fab, true, 'fab'),
-      (M3ComponentElevationToken.appBar, true, 'appBar'),
-      (M3ComponentElevationToken.bottomAppBar, true, 'bottomAppBar'),
-      (M3ComponentElevationToken.drawer, true, 'drawer'),
-      (M3ComponentElevationToken.bottomSheet, true, 'bottomSheet'),
-      (M3ComponentElevationToken.dialog, true, 'dialog'),
-      (M3ComponentElevationToken.snackbar, true, 'snackbar'),
-      (M3ComponentElevationToken.tooltip, true, 'tooltip'),
-      (M3ComponentElevationToken.menu, true, 'menu'),
-      (M3ComponentElevationToken.navigationBar, true, 'navigationBar'),
-      (M3ComponentElevationToken.navigationRail, true, 'navigationRail'),
-      (M3ComponentElevationToken.searchBar, true, 'searchBar'),
-      (M3ComponentElevationToken.chip, true, 'chip'),
-    ];
+    // final componentElevations = [
+    //   (_M3ComponentElevationToken.card, true, 'card'),
+    //   (_M3ComponentElevationToken.button, true, 'button'),
+    //   (_M3ComponentElevationToken.elevatedButton, true, 'elevatedButton'),
+    //   (_M3ComponentElevationToken.fab, true, 'fab'),
+    //   (_M3ComponentElevationToken.appBar, true, 'appBar'),
+    //   (_M3ComponentElevationToken.bottomAppBar, true, 'bottomAppBar'),
+    //   (_M3ComponentElevationToken.drawer, true, 'drawer'),
+    //   (_M3ComponentElevationToken.bottomSheet, true, 'bottomSheet'),
+    //   (_M3ComponentElevationToken.dialog, true, 'dialog'),
+    //   (_M3ComponentElevationToken.snackbar, true, 'snackbar'),
+    //   (_M3ComponentElevationToken.tooltip, true, 'tooltip'),
+    //   (_M3ComponentElevationToken.menu, true, 'menu'),
+    //   (_M3ComponentElevationToken.navigationBar, true, 'navigationBar'),
+    //   (_M3ComponentElevationToken.navigationRail, true, 'navigationRail'),
+    //   (_M3ComponentElevationToken.searchBar, true, 'searchBar'),
+    //   (_M3ComponentElevationToken.chip, true, 'chip'),
+    // ];
 
-    final interactiveStateElevations = [
-      (M3StateElevationToken.cardHover, true, 'cardHover'),
-      (M3StateElevationToken.cardPressed, true, 'cardPressed'),
-      (M3StateElevationToken.buttonHover, true, 'buttonHover'),
-      (M3StateElevationToken.buttonPressed, true, 'buttonPressed'),
-      (M3StateElevationToken.fabHover, true, 'fabHover'),
-      (M3StateElevationToken.fabPressed, true, 'fabPressed'),
-      (
-        M3StateElevationToken.filledIconButtonHover,
-        true,
-        'filledIconButtonHover'
-      ),
-      (
-        M3StateElevationToken.filledIconButtonPressed,
-        true,
-        'filledIconButtonPressed'
-      ),
-      (M3StateElevationToken.chipDragged, true, 'chipDragged'),
-      (M3StateElevationToken.switchThumbRest, true, 'switchThumbRest'),
-      (M3StateElevationToken.switchThumbHover, true, 'switchThumbHover'),
-      (M3StateElevationToken.switchThumbPressed, true, 'switchThumbPressed'),
-      (
-        M3StateElevationToken.navigationBarIndicatorHover,
-        true,
-        'navigationBarIndicatorHover'
-      ),
-      (
-        M3StateElevationToken.navigationBarIndicatorFocus,
-        true,
-        'navigationBarIndicatorFocus'
-      ),
-      (
-        M3StateElevationToken.navigationRailIndicatorHover,
-        true,
-        'navigationRailIndicatorHover'
-      ),
-      (
-        M3StateElevationToken.navigationRailIndicatorFocus,
-        true,
-        'navigationRailIndicatorFocus'
-      ),
-    ];
+    // final interactiveStateElevations = [
+    //   (_M3StateElevationToken.cardHover, true, 'cardHover'),
+    //   (_M3StateElevationToken.cardPressed, true, 'cardPressed'),
+    //   (_M3StateElevationToken.buttonHover, true, 'buttonHover'),
+    //   (_M3StateElevationToken.buttonPressed, true, 'buttonPressed'),
+    //   (_M3StateElevationToken.fabHover, true, 'fabHover'),
+    //   (_M3StateElevationToken.fabPressed, true, 'fabPressed'),
+    //   (
+    //     _M3StateElevationToken.filledIconButtonHover,
+    //     true,
+    //     'filledIconButtonHover'
+    //   ),
+    //   (
+    //     _M3StateElevationToken.filledIconButtonPressed,
+    //     true,
+    //     'filledIconButtonPressed'
+    //   ),
+    //   (_M3StateElevationToken.chipDragged, true, 'chipDragged'),
+    //   (_M3StateElevationToken.switchThumbRest, true, 'switchThumbRest'),
+    //   (_M3StateElevationToken.switchThumbHover, true, 'switchThumbHover'),
+    //   (_M3StateElevationToken.switchThumbPressed, true, 'switchThumbPressed'),
+    //   (
+    //     _M3StateElevationToken.navigationBarIndicatorHover,
+    //     true,
+    //     'navigationBarIndicatorHover'
+    //   ),
+    //   (
+    //     _M3StateElevationToken.navigationBarIndicatorFocus,
+    //     true,
+    //     'navigationBarIndicatorFocus'
+    //   ),
+    //   (
+    //     _M3StateElevationToken.navigationRailIndicatorHover,
+    //     true,
+    //     'navigationRailIndicatorHover'
+    //   ),
+    //   (
+    //     _M3StateElevationToken.navigationRailIndicatorFocus,
+    //     true,
+    //     'navigationRailIndicatorFocus'
+    //   ),
+    // ];
 
     return Scaffold(
       appBar: AppBar(
@@ -101,31 +101,31 @@ class ElevationPage extends StatelessWidget {
             'Elevation in M3 is a combination of a surface tint and, for some components, a shadow. Below, the cards are rendered according to the official rules defined in the M3Elevation token class.',
             style: textTheme.bodyMedium,
           ),
-          SizedBox(height: M3SpacingToken.space16.value),
+          const M3Gap(M3SpacingToken.space16),
           _ElevationGrid(
-            title: 'M3Elevation Tokens (Levels)',
+            title: 'M3ElevationToken (Surface Tint Color and Shadow Color)',
             m3Link: 'https://m3.material.io/styles/elevation/overview',
             elevations: elevations,
           ),
-          SizedBox(height: M3SpacingToken.space32.value),
+          const M3Gap(M3SpacingToken.space32),
           _ElevationGrid(
-            title: 'M3Elevation Tokens (Levels Without Shadow)',
+            title: 'M3ElevationToken (Surface Tint Color Only)',
             m3Link: 'https://m3.material.io/styles/elevation/overview',
             elevations: elevationsWithoutShadow,
           ),
-          SizedBox(height: M3SpacingToken.space32.value),
-          _ElevationGrid(
-            title: 'M3ComponentElevation Tokens  true,(Elevation by Component)',
-            m3Link: 'https://m3.material.io/styles/elevation/overview',
-            elevations: componentElevations,
-          ),
-          SizedBox(height: M3SpacingToken.space32.value),
-          _ElevationGrid(
-            title: 'M3StateElevation Tokens (Interactive State Elevation)',
-            m3Link:
-                'https://m3.material.io/foundations/interaction/states/overview',
-            elevations: interactiveStateElevations,
-          ),
+          // const M3Gap(M3SpacingToken.space32),
+          // _ElevationGrid(
+          //   title: 'M3ComponentElevationToken true,(Elevation by Component)',
+          //   m3Link: 'https://m3.material.io/styles/elevation/overview',
+          //   elevations: componentElevations,
+          // ),
+          // const M3Gap(M3SpacingToken.space32),
+          // _ElevationGrid(
+          //   title: 'M3StateElevationToken (Interactive State Elevation)',
+          //   m3Link:
+          //       'https://m3.material.io/foundations/interaction/states/overview',
+          //   elevations: interactiveStateElevations,
+          // ),
         ],
       ),
     );
@@ -157,13 +157,13 @@ class _ElevationGrid extends StatelessWidget {
           label: title,
           m3Url: m3Link,
         ),
-        SizedBox(height: M3SpacingToken.space16.value),
+        const M3Gap(M3SpacingToken.space16),
         if (subtitle != null) ...[
           Text(
             subtitle!,
             style: textTheme.bodyMedium,
           ),
-          SizedBox(height: M3SpacingToken.space16.value),
+          const M3Gap(M3SpacingToken.space16),
         ],
         Wrap(
           spacing: M3SpacingToken.space16.value,
@@ -206,8 +206,8 @@ class _ElevationCard extends StatelessWidget {
         color: elevation.surfaceColor(context),
         shadows: useShadows ? elevation.shadows : null,
       ),
-      child: Padding(
-        padding: EdgeInsets.all(M3SpacingToken.space12.value),
+      child: M3Padding.all(
+        M3SpacingToken.space12,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -217,7 +217,7 @@ class _ElevationCard extends StatelessWidget {
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
             ),
-            SizedBox(height: M3SpacingToken.space4.value),
+            const M3Gap(M3SpacingToken.space4),
             Text(
               '${elevation.value.toStringAsFixed(0)} dp',
               style: textTheme.bodySmall,

@@ -33,7 +33,7 @@ Add this line to your project's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  material_design: ^0.9.0
+  material_design: ^0.11.0
 ```
 
 Then run `flutter pub get`.
@@ -89,9 +89,9 @@ MaterialApp(
 
 ### Typography
 
-The full M3 type scale is available via the `M3TypeScaleToken` enum.
+The full M3 type scale is available via the `M3TextStyleToken` enum.
 
-- **`M3TypeScaleToken`**: Provides 15 `TextStyle` tokens, from `displayLarge` to `labelSmall`. Each token contains a `.value` property that returns the `TextStyle`.
+- **`M3TextStyleToken`**: Provides 15 `TextStyle` tokens, from `displayLarge` to `labelSmall`. Each token contains a `.value` property that returns the `TextStyle`.
 
 **Example:**
 
@@ -100,9 +100,17 @@ MaterialApp(
   theme: ThemeData(
     useMaterial3: true,
     textTheme: TextTheme(
-      displayLarge: M3TypeScaleToken.displayLarge.value,
-      displayMedium: M3TypeScaleToken.displayMedium.value,
-      displaySmall: M3TypeScaleToken.displaySmall.value,
+      displayLarge: M3TextStyleToken.displayLarge.value.copyWith(
+        fontSize: 64,
+      ),
+      ...
+      headlineMedium: M3TextStyleToken.headlineMedium.value.copyWith(
+        fontWeight: FontWeight.w500,
+      ),
+      ...
+      titleSmall: M3TextStyleToken.titleSmall.value.copyWith(
+        letterSpacing: 1,
+      ),
       ...
     ),
   ),
@@ -210,7 +218,7 @@ A granular scale for consistent spacing, margins, and layouts using enum-based t
 **Example:**
 
 ```dart
-Padding(
+M3Padding(
   padding: EdgeInsets.all(M3SpacingToken.space16.value), // 16dp padding
   child: Text('Hello, Material!'),
 )
@@ -243,7 +251,7 @@ Container(
 Row(
   children: [
     Expanded(child: ContentPane1()),
-    SizedBox(width: M3SpacerToken.pane.value),
+    const M3Gap(M3SpacerToken.pane),
     Expanded(child: ContentPane2()),
   ],
 )
@@ -416,7 +424,7 @@ Starting from version 0.7.0, all design tokens have been converted from static c
 ```dart
 // Old API - Direct access
 Card(elevation: M3ElevationToken.level5)
-Padding(padding: EdgeInsets.all(M3SpacingToken.space16))
+M3Padding(padding: EdgeInsets.all(M3SpacingToken.space16))
 AnimatedContainer(duration: M3MotionDurationToken.short2)
 Icon(Icons.directions_boat_filled, size: M3IconSize.dense),
 ```
@@ -426,7 +434,7 @@ Icon(Icons.directions_boat_filled, size: M3IconSize.dense),
 ```dart
 // New API - Access via .value property
 Card(elevation: M3ElevationToken.level5.value)
-Padding(padding: EdgeInsets.all(M3SpacingToken.space16.value))
+M3Padding(padding: EdgeInsets.all(M3SpacingToken.space16.value))
 AnimatedContainer(duration: M3MotionDurationToken.short2.value)
 Icon(Icons.directions_boat_filled, size: M3IconSizeToken.dense.value),
 ```

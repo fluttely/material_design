@@ -1,22 +1,22 @@
 part of 'm3_elevation_token.dart';
 
-const int _kM3ShadowColorValue = 0x26000000;
+const Color _kM3ShadowColor = Color(0x26000000);
 const List<BoxShadow> _kM3ShadowLevel0 = [];
 const List<BoxShadow> _kM3ShadowLevel1 = [
   BoxShadow(
-    color: Color(_kM3ShadowColorValue),
+    color: _kM3ShadowColor,
     offset: Offset(0, 1),
     blurRadius: 2,
   ),
 ];
 const List<BoxShadow> _kM3ShadowLevel2 = [
   BoxShadow(
-    color: Color(_kM3ShadowColorValue),
+    color: _kM3ShadowColor,
     offset: Offset(0, 1),
     blurRadius: 3,
   ),
   BoxShadow(
-    color: Color(_kM3ShadowColorValue),
+    color: _kM3ShadowColor,
     offset: Offset(0, 2),
     blurRadius: 6,
     spreadRadius: 2,
@@ -24,12 +24,12 @@ const List<BoxShadow> _kM3ShadowLevel2 = [
 ];
 const List<BoxShadow> _kM3ShadowLevel3 = [
   BoxShadow(
-    color: Color(_kM3ShadowColorValue),
+    color: _kM3ShadowColor,
     offset: Offset(0, 2),
     blurRadius: 4,
   ),
   BoxShadow(
-    color: Color(_kM3ShadowColorValue),
+    color: _kM3ShadowColor,
     offset: Offset(0, 4),
     blurRadius: 8,
     spreadRadius: 3,
@@ -37,12 +37,12 @@ const List<BoxShadow> _kM3ShadowLevel3 = [
 ];
 const List<BoxShadow> _kM3ShadowLevel4 = [
   BoxShadow(
-    color: Color(_kM3ShadowColorValue),
+    color: _kM3ShadowColor,
     offset: Offset(0, 2),
     blurRadius: 4,
   ),
   BoxShadow(
-    color: Color(_kM3ShadowColorValue),
+    color: _kM3ShadowColor,
     offset: Offset(0, 4),
     blurRadius: 10,
     spreadRadius: 3,
@@ -50,12 +50,12 @@ const List<BoxShadow> _kM3ShadowLevel4 = [
 ];
 const List<BoxShadow> _kM3ShadowLevel5 = [
   BoxShadow(
-    color: Color(_kM3ShadowColorValue),
+    color: _kM3ShadowColor,
     offset: Offset(0, 2),
     blurRadius: 4,
   ),
   BoxShadow(
-    color: Color(_kM3ShadowColorValue),
+    color: _kM3ShadowColor,
     offset: Offset(0, 4),
     blurRadius: 12,
     spreadRadius: 3,
@@ -100,7 +100,7 @@ enum _M3ShadowToken implements IM3Token<List<BoxShadow>> {
 
   /// The color used for M3 shadows is black with 15% opacity.
   /// 0x26 = 38 in decimal = 15% of 255 = 38/255 ≈ 0.149 opacity
-  Color get shadowColor => const Color(_kM3ShadowColorValue);
+  Color get shadowColor => _kM3ShadowColor;
 
   /// Returns a shadow token for a given M3ElevationToken.
   /// This method now delegates the logic to [fromElevationValue].

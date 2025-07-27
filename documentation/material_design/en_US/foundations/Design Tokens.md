@@ -138,7 +138,7 @@ class M3SysColor {
 
 ```dart
 // ✅ Active and working
-class M3TypeScaleToken {
+class M3TextStyleToken {
   static const TextStyle displayLarge = TextStyle(
     fontSize: 57,
     fontWeight: FontWeight.w400,
@@ -248,7 +248,7 @@ ElevatedButton(
       horizontal: M3SpacingToken.space16.value, // ✅ Active spacing
     ),
     shape: RoundedRectangleBorder(
-      borderRadius: M3Shape.medium.value, // ✅ Active shape
+      borderRadius: M3ShapeToken.medium.value, // ✅ Active shape
     ),
     elevation: M3ElevationToken.level1.value, // ✅ Active elevation
   ),
@@ -341,9 +341,9 @@ ThemeData buildM3Theme() {
 
     // ✅ Use active typography tokens
     textTheme: TextTheme(
-      displayLarge: M3TypeScaleToken.displayLarge,
-      headlineMedium: M3TypeScaleToken.headlineMedium,
-      bodyLarge: M3TypeScaleToken.bodyLarge,
+      displayLarge: M3TextStyleToken.displayLarge,
+      headlineMedium: M3TextStyleToken.headlineMedium,
+      bodyLarge: M3TextStyleToken.bodyLarge,
       // ... other text styles
     ),
 
@@ -352,7 +352,7 @@ ThemeData buildM3Theme() {
       style: ElevatedButton.styleFrom(
         minimumSize: Size.fromHeight(40.0),
         shape: RoundedRectangleBorder(
-          borderRadius: M3Shape.medium.value, // ✅ Active shape token
+          borderRadius: M3ShapeToken.medium.value, // ✅ Active shape token
         ),
         elevation: M3ElevationToken.level1.value, // ✅ Active elevation token
       ),

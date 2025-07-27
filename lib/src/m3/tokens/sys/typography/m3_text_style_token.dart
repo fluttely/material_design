@@ -1,4 +1,4 @@
-/// M3TypeScaleToken
+/// M3TextStyleToken
 library;
 
 import 'dart:math' as math;
@@ -13,9 +13,9 @@ import 'package:material_design/material_design.dart';
 /// providing excellent readability and visual hierarchy across different
 /// platforms and screen sizes.
 /// {@endtemplate}
-class M3TypeScaleFonts {
+class _M3TypeScaleFonts {
   /// Primary Material Design font family.
-  static const String roboto = 'Roboto';
+  // static const String roboto = 'Roboto';
 
   /// System font stack with fallbacks.
   static const List<String> systemFontStack = [
@@ -145,7 +145,7 @@ const TextStyle _kM3TypeScaleLabelSmall = TextStyle(
 /// - **Body**: Primary content text in various sizes
 /// - **Label**: Supporting text for UI components
 /// {@endtemplate}
-enum M3TypeScaleToken implements IM3Token<TextStyle> {
+enum M3TextStyleToken implements IM3Token<TextStyle> {
   /// Display Large text style (57sp).
   displayLarge(_kM3TypeScaleDisplayLarge),
 
@@ -192,7 +192,7 @@ enum M3TypeScaleToken implements IM3Token<TextStyle> {
   labelSmall(_kM3TypeScaleLabelSmall);
 
   /// Creates a type scale token with the specified value.
-  const M3TypeScaleToken(this.value);
+  const M3TextStyleToken(this.value);
 
   /// The text style value.
   @override
@@ -239,11 +239,11 @@ enum M3TypeScaleToken implements IM3Token<TextStyle> {
     final screenWidth = MediaQuery.of(context).size.width;
 
     if (screenWidth < M3BreakpointToken.medium.value) {
-      return M3TypeScaleToken.displaySmall.value;
+      return M3TextStyleToken.displaySmall.value;
     } else if (screenWidth < M3BreakpointToken.large.value) {
-      return M3TypeScaleToken.displayMedium.value;
+      return M3TextStyleToken.displayMedium.value;
     } else {
-      return M3TypeScaleToken.displayLarge.value;
+      return M3TextStyleToken.displayLarge.value;
     }
   }
 
@@ -278,7 +278,7 @@ enum M3TypeScaleToken implements IM3Token<TextStyle> {
     return baseStyle.copyWith(
       fontFamily: fontFamily,
       fontFamilyFallback:
-          fontFamilyFallback ?? M3TypeScaleFonts.systemFontStack,
+          fontFamilyFallback ?? _M3TypeScaleFonts.systemFontStack,
     );
   }
 
@@ -286,7 +286,7 @@ enum M3TypeScaleToken implements IM3Token<TextStyle> {
   static TextStyle monoVariant(TextStyle baseStyle) {
     return baseStyle.copyWith(
       fontFamily: 'Roboto Mono',
-      fontFamilyFallback: M3TypeScaleFonts.monoFontStack,
+      fontFamilyFallback: _M3TypeScaleFonts.monoFontStack,
       letterSpacing: 0,
     );
   }
@@ -312,64 +312,64 @@ enum M3TypeScaleCategory {
   label;
 
   /// Gets all tokens that belong to this category.
-  List<M3TypeScaleToken> get tokens => switch (this) {
+  List<M3TextStyleToken> get tokens => switch (this) {
         display => [
-            M3TypeScaleToken.displayLarge,
-            M3TypeScaleToken.displayMedium,
-            M3TypeScaleToken.displaySmall,
+            M3TextStyleToken.displayLarge,
+            M3TextStyleToken.displayMedium,
+            M3TextStyleToken.displaySmall,
           ],
         headline => [
-            M3TypeScaleToken.headlineLarge,
-            M3TypeScaleToken.headlineMedium,
-            M3TypeScaleToken.headlineSmall,
+            M3TextStyleToken.headlineLarge,
+            M3TextStyleToken.headlineMedium,
+            M3TextStyleToken.headlineSmall,
           ],
         title => [
-            M3TypeScaleToken.titleLarge,
-            M3TypeScaleToken.titleMedium,
-            M3TypeScaleToken.titleSmall,
+            M3TextStyleToken.titleLarge,
+            M3TextStyleToken.titleMedium,
+            M3TextStyleToken.titleSmall,
           ],
         body => [
-            M3TypeScaleToken.bodyLarge,
-            M3TypeScaleToken.bodyMedium,
-            M3TypeScaleToken.bodySmall,
+            M3TextStyleToken.bodyLarge,
+            M3TextStyleToken.bodyMedium,
+            M3TextStyleToken.bodySmall,
           ],
         label => [
-            M3TypeScaleToken.labelLarge,
-            M3TypeScaleToken.labelMedium,
-            M3TypeScaleToken.labelSmall,
+            M3TextStyleToken.labelLarge,
+            M3TextStyleToken.labelMedium,
+            M3TextStyleToken.labelSmall,
           ],
       };
 
   /// Gets the largest token in this category.
-  M3TypeScaleToken get largest => tokens.first;
+  M3TextStyleToken get largest => tokens.first;
 
   /// Gets the smallest token in this category.
-  M3TypeScaleToken get smallest => tokens.last;
+  M3TextStyleToken get smallest => tokens.last;
 }
 
 /// Provides utility methods for working with type scale tokens.
-extension M3TypeScaleTokenUtils on M3TypeScaleToken {
+extension M3TextStyleTokenUtils on M3TextStyleToken {
   /// Gets the semantic category this token belongs to.
   M3TypeScaleCategory get category => switch (this) {
-        M3TypeScaleToken.displayLarge ||
-        M3TypeScaleToken.displayMedium ||
-        M3TypeScaleToken.displaySmall =>
+        M3TextStyleToken.displayLarge ||
+        M3TextStyleToken.displayMedium ||
+        M3TextStyleToken.displaySmall =>
           M3TypeScaleCategory.display,
-        M3TypeScaleToken.headlineLarge ||
-        M3TypeScaleToken.headlineMedium ||
-        M3TypeScaleToken.headlineSmall =>
+        M3TextStyleToken.headlineLarge ||
+        M3TextStyleToken.headlineMedium ||
+        M3TextStyleToken.headlineSmall =>
           M3TypeScaleCategory.headline,
-        M3TypeScaleToken.titleLarge ||
-        M3TypeScaleToken.titleMedium ||
-        M3TypeScaleToken.titleSmall =>
+        M3TextStyleToken.titleLarge ||
+        M3TextStyleToken.titleMedium ||
+        M3TextStyleToken.titleSmall =>
           M3TypeScaleCategory.title,
-        M3TypeScaleToken.bodyLarge ||
-        M3TypeScaleToken.bodyMedium ||
-        M3TypeScaleToken.bodySmall =>
+        M3TextStyleToken.bodyLarge ||
+        M3TextStyleToken.bodyMedium ||
+        M3TextStyleToken.bodySmall =>
           M3TypeScaleCategory.body,
-        M3TypeScaleToken.labelLarge ||
-        M3TypeScaleToken.labelMedium ||
-        M3TypeScaleToken.labelSmall =>
+        M3TextStyleToken.labelLarge ||
+        M3TextStyleToken.labelMedium ||
+        M3TextStyleToken.labelSmall =>
           M3TypeScaleCategory.label,
       };
 
@@ -380,24 +380,24 @@ extension M3TypeScaleTokenUtils on M3TypeScaleToken {
   double get lineHeight => fontSize * (value.height ?? 1.0);
 
   /// Checks if this token has a larger font size than another.
-  bool isLargerThan(M3TypeScaleToken other) => fontSize > other.fontSize;
+  bool isLargerThan(M3TextStyleToken other) => fontSize > other.fontSize;
 
   /// Checks if this token has a smaller font size than another.
-  bool isSmallerThan(M3TypeScaleToken other) => fontSize < other.fontSize;
+  bool isSmallerThan(M3TextStyleToken other) => fontSize < other.fontSize;
 
   /// Returns the difference in font size between this and another token.
-  double fontSizeDifferenceFrom(M3TypeScaleToken other) =>
+  double fontSizeDifferenceFrom(M3TextStyleToken other) =>
       (fontSize - other.fontSize).abs();
 
   /// Gets the next larger token in the same category, if available.
-  M3TypeScaleToken? get nextLarger {
+  M3TextStyleToken? get nextLarger {
     final categoryTokens = category.tokens;
     final currentIndex = categoryTokens.indexOf(this);
     return currentIndex > 0 ? categoryTokens[currentIndex - 1] : null;
   }
 
   /// Gets the next smaller token in the same category, if available.
-  M3TypeScaleToken? get nextSmaller {
+  M3TextStyleToken? get nextSmaller {
     final categoryTokens = category.tokens;
     final currentIndex = categoryTokens.indexOf(this);
     return currentIndex < categoryTokens.length - 1
@@ -415,7 +415,7 @@ extension M3TypeScaleTokenUtils on M3TypeScaleToken {
   TextStyle withFontFamily(String family, {List<String>? fallbacks}) =>
       value.copyWith(
         fontFamily: family,
-        fontFamilyFallback: fallbacks ?? M3TypeScaleFonts.systemFontStack,
+        fontFamilyFallback: fallbacks ?? _M3TypeScaleFonts.systemFontStack,
       );
 
   /// Creates an adaptive text style that scales with user preferences.
@@ -424,7 +424,7 @@ extension M3TypeScaleTokenUtils on M3TypeScaleToken {
     double? minFontSize,
     double? maxFontSize,
   }) =>
-      M3TypeScaleToken.adaptive(
+      M3TextStyleToken.adaptive(
         baseStyle: value,
         context: context,
         minFontSize: minFontSize,
@@ -432,25 +432,23 @@ extension M3TypeScaleTokenUtils on M3TypeScaleToken {
       );
 
   /// Creates a text style optimized for accessibility.
-  TextStyle get accessible => M3TypeScaleToken.enhancedReadability(value);
+  TextStyle get accessible => M3TextStyleToken.enhancedReadability(value);
 
   /// Creates a high contrast version of this text style.
-  TextStyle get highContrast => M3TypeScaleToken.highContrast(value);
+  TextStyle get highContrast => M3TextStyleToken.highContrast(value);
 
   /// Creates a monospace variant for code display.
-  TextStyle get monospace => M3TypeScaleToken.monoVariant(value);
+  TextStyle get monospace => M3TextStyleToken.monoVariant(value);
 
   /// Creates a responsive text style based on screen size.
   TextStyle responsive(BuildContext context) {
     if (category != M3TypeScaleCategory.display) return value;
-    return M3TypeScaleToken.responsiveDisplay(context);
+    return M3TextStyleToken.responsiveDisplay(context);
   }
 
   /// Checks if this token is suitable for long-form reading.
   bool get isReadingOptimized => switch (this) {
-        M3TypeScaleToken.bodyLarge ||
-        M3TypeScaleToken.bodyMedium =>
-          true,
+        M3TextStyleToken.bodyLarge || M3TextStyleToken.bodyMedium => true,
         _ => false,
       };
 
@@ -496,34 +494,34 @@ extension M3TypeScaleTokenUtils on M3TypeScaleToken {
 }
 
 /// Provides comparison utilities for type scale tokens.
-extension M3TypeScaleTokenComparison on M3TypeScaleToken {
+extension M3TextStyleTokenComparison on M3TextStyleToken {
   /// Returns the token with the larger font size.
-  M3TypeScaleToken max(M3TypeScaleToken other) =>
+  M3TextStyleToken max(M3TextStyleToken other) =>
       fontSize >= other.fontSize ? this : other;
 
   /// Returns the token with the smaller font size.
-  M3TypeScaleToken min(M3TypeScaleToken other) =>
+  M3TextStyleToken min(M3TextStyleToken other) =>
       fontSize <= other.fontSize ? this : other;
 
   /// Calculates the scale factor between this and another token.
-  double scaleFactorTo(M3TypeScaleToken other) => other.fontSize / fontSize;
+  double scaleFactorTo(M3TextStyleToken other) => other.fontSize / fontSize;
 
   /// Checks if two tokens have similar font sizes (within 2px).
-  bool isSimilarSizeTo(M3TypeScaleToken other) =>
+  bool isSimilarSizeTo(M3TextStyleToken other) =>
       fontSizeDifferenceFrom(other) <= 2.0;
 
   /// Checks if this token can be used as a visual replacement for another.
-  bool isVisuallyCompatibleWith(M3TypeScaleToken other) =>
+  bool isVisuallyCompatibleWith(M3TextStyleToken other) =>
       category == other.category || isSimilarSizeTo(other);
 }
 
 /// Provides context-aware typography utilities.
 extension M3TypeScaleContext on BuildContext {
   /// Gets the appropriate type scale token based on screen size and usage.
-  M3TypeScaleToken getResponsiveToken({
-    required M3TypeScaleToken mobile,
-    required M3TypeScaleToken tablet,
-    required M3TypeScaleToken desktop,
+  M3TextStyleToken getResponsiveToken({
+    required M3TextStyleToken mobile,
+    required M3TextStyleToken tablet,
+    required M3TextStyleToken desktop,
   }) {
     final screenWidth = MediaQuery.of(this).size.width;
     if (screenWidth < M3BreakpointToken.medium.value) {
@@ -537,30 +535,30 @@ extension M3TypeScaleContext on BuildContext {
 
   /// Checks if the user has enabled large text accessibility settings.
   bool get hasLargeTextPreference =>
-      MediaQuery.of(this).textScaler.scale(16.0) > 20.0;
+      MediaQuery.of(this).textScaler.scale(16) > 20.0;
 
   /// Gets the recommended body text token based on accessibility preferences.
-  M3TypeScaleToken get accessibleBodyToken => hasLargeTextPreference
-      ? M3TypeScaleToken.bodyLarge
-      : M3TypeScaleToken.bodyMedium;
+  M3TextStyleToken get accessibleBodyToken => hasLargeTextPreference
+      ? M3TextStyleToken.bodyLarge
+      : M3TextStyleToken.bodyMedium;
 
   /// Gets the theme's text theme converted to type scale tokens.
-  Map<M3TypeScaleToken, TextStyle> get typeScaleTheme => {
-        M3TypeScaleToken.displayLarge: Theme.of(this).textTheme.displayLarge!,
-        M3TypeScaleToken.displayMedium: Theme.of(this).textTheme.displayMedium!,
-        M3TypeScaleToken.displaySmall: Theme.of(this).textTheme.displaySmall!,
-        M3TypeScaleToken.headlineLarge: Theme.of(this).textTheme.headlineLarge!,
-        M3TypeScaleToken.headlineMedium:
+  Map<M3TextStyleToken, TextStyle> get typeScaleTheme => {
+        M3TextStyleToken.displayLarge: Theme.of(this).textTheme.displayLarge!,
+        M3TextStyleToken.displayMedium: Theme.of(this).textTheme.displayMedium!,
+        M3TextStyleToken.displaySmall: Theme.of(this).textTheme.displaySmall!,
+        M3TextStyleToken.headlineLarge: Theme.of(this).textTheme.headlineLarge!,
+        M3TextStyleToken.headlineMedium:
             Theme.of(this).textTheme.headlineMedium!,
-        M3TypeScaleToken.headlineSmall: Theme.of(this).textTheme.headlineSmall!,
-        M3TypeScaleToken.titleLarge: Theme.of(this).textTheme.titleLarge!,
-        M3TypeScaleToken.titleMedium: Theme.of(this).textTheme.titleMedium!,
-        M3TypeScaleToken.titleSmall: Theme.of(this).textTheme.titleSmall!,
-        M3TypeScaleToken.bodyLarge: Theme.of(this).textTheme.bodyLarge!,
-        M3TypeScaleToken.bodyMedium: Theme.of(this).textTheme.bodyMedium!,
-        M3TypeScaleToken.bodySmall: Theme.of(this).textTheme.bodySmall!,
-        M3TypeScaleToken.labelLarge: Theme.of(this).textTheme.labelLarge!,
-        M3TypeScaleToken.labelMedium: Theme.of(this).textTheme.labelMedium!,
-        M3TypeScaleToken.labelSmall: Theme.of(this).textTheme.labelSmall!,
+        M3TextStyleToken.headlineSmall: Theme.of(this).textTheme.headlineSmall!,
+        M3TextStyleToken.titleLarge: Theme.of(this).textTheme.titleLarge!,
+        M3TextStyleToken.titleMedium: Theme.of(this).textTheme.titleMedium!,
+        M3TextStyleToken.titleSmall: Theme.of(this).textTheme.titleSmall!,
+        M3TextStyleToken.bodyLarge: Theme.of(this).textTheme.bodyLarge!,
+        M3TextStyleToken.bodyMedium: Theme.of(this).textTheme.bodyMedium!,
+        M3TextStyleToken.bodySmall: Theme.of(this).textTheme.bodySmall!,
+        M3TextStyleToken.labelLarge: Theme.of(this).textTheme.labelLarge!,
+        M3TextStyleToken.labelMedium: Theme.of(this).textTheme.labelMedium!,
+        M3TextStyleToken.labelSmall: Theme.of(this).textTheme.labelSmall!,
       };
 }

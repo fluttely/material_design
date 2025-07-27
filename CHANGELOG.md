@@ -2,7 +2,189 @@
 
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adherves to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## 0.11.0
+
+### New Features
+
+- **Introduced `M3Padding` Widget**: A new token-driven widget that replaces the standard `Padding` to enforce the use of `M3SpacingToken` for consistent padding across the application. It provides convenient constructors like `M3Padding.all`, `M3Padding.only`, and `M3Padding.symmetric`.
+- **Introduced `M3Gap` Widget**: A direct, token-based replacement for `SizedBox` used for creating space between widgets. `M3Gap` simplifies creating consistent spacing in `Row`s and `Column`s by using `M3SpacingToken`.
+- **Introduced `M3EdgeInsets` Utility**: A new utility class to create `EdgeInsets` exclusively from `M3SpacingToken`, ensuring all spacing values adhere to the Material Design system's defined scale.
+
+### Refactoring
+
+- **Adopted New Spacing Widgets**: Refactored the entire demo application, examples, and internal library widgets to use the new `M3Padding` and `M3Gap` widgets. This removes direct dependency on Flutter's `Padding` and `SizedBox` for spacing tasks, promoting design system consistency.
+- **Simplified Token API**: Updated the API for spacing tokens. It's no longer necessary to call `.value` on tokens when using them with the new spacing widgets (e.g., `M3Padding.all(M3SpacingToken.space16)`).
+- **Improved Code Organization**: Relocated core utility files from the `lib/src/m3/mt/` directory to a more semantically correct `lib/src/m3/utils/` directory, improving the project's structure.
+
+### Documentation
+
+- **Updated All Examples**: Revised all documentation, including `README.md`, implementation guides, and inline code comments, to reflect the new spacing widgets and strongly recommend their usage over standard Flutter widgets for spacing.
+
+## 0.10.0
+
+### 💥 BREAKING CHANGES
+
+- **Major Token System Refactor**: The token system has been significantly refactored to improve consistency, remove redundancy, and align more closely with a unified design system architecture.
+  - **Unified Shape Tokens**: `M3BorderRadiusToken` and `M3RadiusToken` are now internal (`_M3BorderRadiusToken`, `_M3RadiusToken`). All shape properties should be accessed directly through `M3ShapeToken`.
+    - **Before**: `M3BorderRadiusToken.medium.value`
+    - **After**: `M3ShapeToken.medium.borderRadius`
+  - **Screen Size Enum Renamed**: `M3WindowSizeClass` has been renamed to `M3ScreenSize` for better clarity and to avoid conflicts with Flutter's own window size classes.
+  - **Private Component/State Tokens**: `M3ComponentElevationToken` and `M3StateElevationToken` have been made private (`_M3ComponentElevationToken`, `_M3StateElevationToken`) as they are intended for internal use within the system.
+  - **Simplified Motion API**: `M3MotionToken` now includes `duration` and `easing` getters, simplifying animation definitions.
+
+### ✨ Enhancements
+
+- **Improved API Consistency**: The token API is now more consistent and predictable. Accessing related values (like radius from a shape) is more intuitive.
+- **Streamlined Architecture**: By removing redundant and reference-level tokens, the public API is smaller, cleaner, and easier to learn.
+- **Enhanced Readability**: The new patterns (`M3ShapeToken.medium.borderRadius`) make the code more declarative and easier to read.
+
+### 🗑️ Deprecations & Removals
+
+- **Removed Reference Tokens**: The `M3Ref...` token files (`M3RefPalette`, `M3RefOpacity`, `M3RefTypeface`) have been removed from the public API. Their values are now integrated directly into the system tokens where needed.
+- **Removed Component-Specific Button Tokens**: `M3CompButton` has been removed. Use standard Flutter `ButtonStyle` with system tokens for customization.
+- **Removed `M3ColorSchemeToken`**: This has been removed as part of the color system simplification. Use `Theme.of(context).colorScheme` for semantic color access.
+- **Removed Demo Component Showcase**: The `components_showcase_page.dart` file has been deleted from the demo application as part of a broader demo simplification effort.
+
+### 🔧 Migration Guide
+
+**Shape and Radius:**
+
+Update all references to `M3BorderRadiusToken` to use the new `M3ShapeToken` accessors.
+
+**Before (v0.9.2):**
+
+```dart
+Container(
+  decoration: BoxDecoration(
+    borderRadius: M3BorderRadiusToken.medium.value,
+  ),
+)
+```
+
+**After (v0.10.0):**
+
+```dart
+Container(
+  decoration: BoxDecoration(
+    borderRadius: M3ShapeToken.medium.borderRadius,
+  ),
+)
+```
+
+**Adaptive Layouts:**
+
+Update all references from `M3WindowSizeClass` to the new `M3ScreenSize`.
+
+**Before (v0.9.2):**
+
+```dart
+final sizeClass = M3BreakpointToken.getWindowSizeClassFromContext(context);
+if (sizeClass == M3WindowSizeClass.compact) {
+  // ...
+}
+```
+
+**After (v0.10.0):**
+
+```dart
+final sizeClass = M3BreakpointToken.getWindowSizeClassFromContext(context);
+if (sizeClass == M3ScreenSize.compact) {
+  // ...
+}
+```
+
+## 0.9.2
+
+### 🔄 BREAKING CHANGES
+
+- **Typography Token Naming**: Renamed `M3TypeScaleToken` to `M3TextStyleToken` throughout the entire codebase for better semantic clarity and consistency with Material Design 3 nomenclature
+  - All references to `M3TypeScaleToken` in code, documentation, and examples have been updated to `M3TextStyleToken`
+  - The class provides the same 15 `TextStyle` tokens (displayLarge to labelSmall) with identical functionality
+  - Enhanced README examples showing `copyWith()` usage for customizing text styles
+
+### ✨ Enhancements
+
+- **Improved API Semantics**: The new `M3TextStyleToken` name better reflects that these are complete text style definitions rather than just type scale values
+- **Enhanced Documentation**: Updated all documentation files (English and Portuguese) to use the new token naming convention
+- **Better Code Examples**: Improved README with more comprehensive typography examples showing real-world usage patterns
+- **Consistent Token Interface**: All typography-related utility methods (responsiveDisplay, enhancedReadability, monoVariant, highContrast) maintained under the new class name
+
+### 📚 Documentation Updates
+
+- **Comprehensive Naming Updates**: Updated all documentation files in both English (`en_US`) and Portuguese (`pt_BR`) directories
+- **Implementation Guide Updates**: Refreshed implementation examples and component mappings with new token references
+- **README Enhancement**: Added better typography examples showing advanced usage with `copyWith()` method
+- **Demo Application Updates**: Updated showcase pages to demonstrate the new `M3TextStyleToken` API
+
+### 🎯 Demo & Example Applications
+
+- **Complete Demo Update**: All demo showcase pages updated to use `M3TextStyleToken`
+- **Theme Integration**: Updated theme provider to use new typography token naming
+- **Interactive Examples**: Enhanced typography page and utility examples with new token references
+
+### 🔧 Migration Guide
+
+**Before (v0.9.1):**
+
+```dart
+Text('Title', style: M3TypeScaleToken.headlineMedium.value)
+textTheme: TextTheme(
+  displayLarge: M3TypeScaleToken.displayLarge.value,
+  bodyMedium: M3TypeScaleToken.bodyMedium.value,
+)
+```
+
+**After (v0.9.2):**
+
+```dart
+Text('Title', style: M3TextStyleToken.headlineMedium.value)
+textTheme: TextTheme(
+  displayLarge: M3TextStyleToken.displayLarge.value,
+  bodyMedium: M3TextStyleToken.bodyMedium.value,
+)
+```
+
+### 🐛 Compatibility Notes
+
+- **No Functional Changes**: All text style values and functionality remain identical - only the class name has changed
+- **Same API Structure**: All properties (.value, .responsiveDisplay, .enhancedReadability, etc.) maintain the same interface
+- **Import Structure Unchanged**: Main package imports continue to work as before
+
+### Recommended Version Bump: **MINOR** (0.9.1 → 0.9.2)
+
+This release contains a breaking change in class naming but maintains API compatibility and adds semantic improvements to the typography system.
+
+## 0.9.1
+
+### 🐛 Bug Fixes
+
+- **Visual Density Token**: Fixed critical StackOverflowError in `M3VisualDensityToken.adaptivePlatform` by removing recursive call and directly returning `VisualDensity.adaptivePlatformDensity`
+- **Motion Tokens API**: Updated motion showcase to use direct token properties instead of `.value` accessor for better consistency
+- **Shape Token References**: Updated all documentation and demo references from `M3Shape` to `M3ShapeToken` for consistency
+
+### ✨ Enhancements
+
+- **Enhanced Visual Density Documentation**: Improved inline documentation with clearer property descriptions and usage examples
+- **Better Type Safety**: Enhanced visual density token implementation with proper typing and clearer API contracts
+- **Motion Token Consistency**: Standardized motion token usage pattern across demo application
+
+### 📚 Documentation Updates
+
+- **Token Reference Updates**: Updated all documentation files to reflect correct `M3ShapeToken` naming
+- **API Documentation**: Enhanced visual density token documentation with detailed property descriptions
+- **Usage Examples**: Updated code examples throughout documentation to use correct token references
+
+### 🔧 Code Quality
+
+- **Gitignore Cleanup**: Updated `.gitignore` to use more generic trash directory pattern (`lib/src/trash` instead of `lib/src/m3/trash`)
+- **Code Organization**: Improved visual density token file structure and removed redundant utility methods
+- **Better Error Handling**: Eliminated potential runtime errors through proper token implementation
+
+### Recommended Version Bump: **PATCH** (0.9.0 → 0.9.1)
+
+This release contains bug fixes and documentation improvements without breaking changes to the public API.
 
 ## 0.9.0
 

@@ -26,13 +26,6 @@ const double _kM3ElevationLevel5 = 12;
 /// {@endtemplate}
 @immutable
 abstract interface class IM3ElevationToken implements IM3Token<double> {
-  /// The elevation value in logical pixels (dp).
-  ///
-  /// This value determines the perceived distance between surfaces and is the
-  /// basis for calculating shadow intensity and surface tint color.
-  @override
-  double get value;
-
   /// Determines whether this elevation profile should cast a shadow.
   ///
   /// While most elevated surfaces cast shadows, some components like [AppBar]
@@ -67,6 +60,10 @@ enum M3ElevationToken implements IM3ElevationToken {
 
   const M3ElevationToken(this.value);
 
+  /// The elevation value in logical pixels (dp).
+  ///
+  /// This value determines the perceived distance between surfaces and is the
+  /// basis for calculating shadow intensity and surface tint color.
   @override
   final double value;
 
@@ -85,133 +82,133 @@ enum M3ElevationToken implements IM3ElevationToken {
       };
 }
 
-/// {@template m3_component_elevation_token}
-/// Defines the default, resting-state elevation for key Material 3 components.
-///
-/// Each value maps directly to a specific component type, ensuring consistent
-/// styling across an application.
-/// {@endtemplate}
-enum M3ComponentElevationToken implements IM3ElevationToken {
-  /// Resting elevation for [Card] (1 dp).
-  card(_kM3ElevationLevel1),
+// /// {@template m3_component_elevation_token}
+// /// Defines the default, resting-state elevation for key Material 3 components.
+// ///
+// /// Each value maps directly to a specific component type, ensuring consistent
+// /// styling across an application.
+// /// {@endtemplate}
+// enum _M3ComponentElevationToken implements IM3ElevationToken {
+//   /// Resting elevation for [Card] (1 dp).
+//   card(_kM3ElevationLevel1),
 
-  /// Resting elevation for [TextButton] and [OutlinedButton] (0 dp).
-  button(_kM3ElevationLevel0),
+//   /// Resting elevation for [TextButton] and [OutlinedButton] (0 dp).
+//   button(_kM3ElevationLevel0),
 
-  /// Resting elevation for [ElevatedButton] (1 dp).
-  elevatedButton(_kM3ElevationLevel1),
+//   /// Resting elevation for [ElevatedButton] (1 dp).
+//   elevatedButton(_kM3ElevationLevel1),
 
-  /// Resting elevation for [FloatingActionButton] (6 dp).
-  fab(_kM3ElevationLevel3),
+//   /// Resting elevation for [FloatingActionButton] (6 dp).
+//   fab(_kM3ElevationLevel3),
 
-  /// Resting elevation for [AppBar] (3 dp, no shadow).
-  appBar(_kM3ElevationLevel2, hasShadow: false),
+//   /// Resting elevation for [AppBar] (3 dp, no shadow).
+//   appBar(_kM3ElevationLevel2, hasShadow: false),
 
-  /// Resting elevation for [BottomAppBar] (3 dp).
-  bottomAppBar(_kM3ElevationLevel2),
+//   /// Resting elevation for [BottomAppBar] (3 dp).
+//   bottomAppBar(_kM3ElevationLevel2),
 
-  /// Resting elevation for [Drawer] (1 dp).
-  drawer(_kM3ElevationLevel1),
+//   /// Resting elevation for [Drawer] (1 dp).
+//   drawer(_kM3ElevationLevel1),
 
-  /// Resting elevation for [BottomSheet] (1 dp).
-  bottomSheet(_kM3ElevationLevel1),
+//   /// Resting elevation for [BottomSheet] (1 dp).
+//   bottomSheet(_kM3ElevationLevel1),
 
-  /// Resting elevation for [Dialog] (6 dp).
-  dialog(_kM3ElevationLevel3),
+//   /// Resting elevation for [Dialog] (6 dp).
+//   dialog(_kM3ElevationLevel3),
 
-  /// Resting elevation for [SnackBar] (6 dp, no shadow).
-  snackbar(_kM3ElevationLevel3, hasShadow: false),
+//   /// Resting elevation for [SnackBar] (6 dp, no shadow).
+//   snackbar(_kM3ElevationLevel3, hasShadow: false),
 
-  /// Resting elevation for [Tooltip] (3 dp, no shadow).
-  tooltip(_kM3ElevationLevel2, hasShadow: false),
+//   /// Resting elevation for [Tooltip] (3 dp, no shadow).
+//   tooltip(_kM3ElevationLevel2, hasShadow: false),
 
-  /// Resting elevation for [Menu] and [DropdownMenu] (3 dp).
-  menu(_kM3ElevationLevel2),
+//   /// Resting elevation for [Menu] and [DropdownMenu] (3 dp).
+//   menu(_kM3ElevationLevel2),
 
-  /// Resting elevation for [NavigationBar] (3 dp).
-  navigationBar(_kM3ElevationLevel2),
+//   /// Resting elevation for [NavigationBar] (3 dp).
+//   navigationBar(_kM3ElevationLevel2),
 
-  /// Resting elevation for [NavigationRail] (0 dp).
-  navigationRail(_kM3ElevationLevel0),
+//   /// Resting elevation for [NavigationRail] (0 dp).
+//   navigationRail(_kM3ElevationLevel0),
 
-  /// Resting elevation for [SearchBar] (1 dp).
-  searchBar(_kM3ElevationLevel1),
+//   /// Resting elevation for [SearchBar] (1 dp).
+//   searchBar(_kM3ElevationLevel1),
 
-  /// Resting elevation for [Chip] (0 dp).
-  chip(_kM3ElevationLevel0);
+//   /// Resting elevation for [Chip] (0 dp).
+//   chip(_kM3ElevationLevel0);
 
-  const M3ComponentElevationToken(this.value, {this.hasShadow = true});
+//   const _M3ComponentElevationToken(this.value, {this.hasShadow = true});
 
-  @override
-  final double value;
+//   @override
+//   final double value;
 
-  @override
-  final bool hasShadow;
-}
+//   @override
+//   final bool hasShadow;
+// }
 
-/// {@template m3_state_elevation_token}
-/// Defines elevation tokens for Material 3 components during interactive states.
-///
-/// These elevations provide visual feedback for user interactions like hover,
-/// focus, press, and drag.
-/// {@endtemplate}
-enum M3StateElevationToken implements IM3ElevationToken {
-  /// Elevation for a [Card] in a hovered state (3 dp).
-  cardHover(_kM3ElevationLevel2),
+// /// {@template m3_state_elevation_token}
+// /// Defines elevation tokens for Material 3 components during interactive states.
+// ///
+// /// These elevations provide visual feedback for user interactions like hover,
+// /// focus, press, and drag.
+// /// {@endtemplate}
+// enum _M3StateElevationToken implements IM3ElevationToken {
+//   /// Elevation for a [Card] in a hovered state (3 dp).
+//   cardHover(_kM3ElevationLevel2),
 
-  /// Elevation for a [Card] in a pressed state (1 dp).
-  cardPressed(_kM3ElevationLevel1),
+//   /// Elevation for a [Card] in a pressed state (1 dp).
+//   cardPressed(_kM3ElevationLevel1),
 
-  /// Elevation for a button in a hovered state (2 dp).
-  buttonHover(2), // TODO(fluttely): Verify this value against M3 specification
+//   /// Elevation for a button in a hovered state (2 dp).
+//   buttonHover(2), // TODO(fluttely): Verify this value against M3 specification
 
-  /// Elevation for a button in a pressed state (1 dp).
-  buttonPressed(_kM3ElevationLevel1),
+//   /// Elevation for a button in a pressed state (1 dp).
+//   buttonPressed(_kM3ElevationLevel1),
 
-  /// Elevation for a [FloatingActionButton] in a hovered state (8 dp).
-  fabHover(_kM3ElevationLevel4),
+//   /// Elevation for a [FloatingActionButton] in a hovered state (8 dp).
+//   fabHover(_kM3ElevationLevel4),
 
-  /// Elevation for a [FloatingActionButton] in a pressed state (8 dp).
-  fabPressed(_kM3ElevationLevel4),
+//   /// Elevation for a [FloatingActionButton] in a pressed state (8 dp).
+//   fabPressed(_kM3ElevationLevel4),
 
-  /// Elevation for a filled [IconButton] in a hovered state (3 dp).
-  filledIconButtonHover(_kM3ElevationLevel2),
+//   /// Elevation for a filled [IconButton] in a hovered state (3 dp).
+//   filledIconButtonHover(_kM3ElevationLevel2),
 
-  /// Elevation for a filled [IconButton] in a pressed state (1 dp).
-  filledIconButtonPressed(_kM3ElevationLevel1),
+//   /// Elevation for a filled [IconButton] in a pressed state (1 dp).
+//   filledIconButtonPressed(_kM3ElevationLevel1),
 
-  /// Elevation for a [Chip] in a dragged state (8 dp).
-  chipDragged(_kM3ElevationLevel4),
+//   /// Elevation for a [Chip] in a dragged state (8 dp).
+//   chipDragged(_kM3ElevationLevel4),
 
-  /// Elevation for a [Switch] thumb in its resting state (1 dp).
-  switchThumbRest(_kM3ElevationLevel1),
+//   /// Elevation for a [Switch] thumb in its resting state (1 dp).
+//   switchThumbRest(_kM3ElevationLevel1),
 
-  /// Elevation for a [Switch] thumb in a hovered state (3 dp).
-  switchThumbHover(_kM3ElevationLevel2),
+//   /// Elevation for a [Switch] thumb in a hovered state (3 dp).
+//   switchThumbHover(_kM3ElevationLevel2),
 
-  /// Elevation for a [Switch] thumb in a pressed state (6 dp).
-  switchThumbPressed(_kM3ElevationLevel3),
+//   /// Elevation for a [Switch] thumb in a pressed state (6 dp).
+//   switchThumbPressed(_kM3ElevationLevel3),
 
-  /// Elevation for a [NavigationBar] indicator in a hovered state (3 dp).
-  navigationBarIndicatorHover(_kM3ElevationLevel2),
+//   /// Elevation for a [NavigationBar] indicator in a hovered state (3 dp).
+//   navigationBarIndicatorHover(_kM3ElevationLevel2),
 
-  /// Elevation for a [NavigationBar] indicator in a focused state (3 dp).
-  navigationBarIndicatorFocus(_kM3ElevationLevel2),
+//   /// Elevation for a [NavigationBar] indicator in a focused state (3 dp).
+//   navigationBarIndicatorFocus(_kM3ElevationLevel2),
 
-  /// Elevation for a [NavigationRail] indicator in a hovered state (3 dp).
-  navigationRailIndicatorHover(_kM3ElevationLevel2),
+//   /// Elevation for a [NavigationRail] indicator in a hovered state (3 dp).
+//   navigationRailIndicatorHover(_kM3ElevationLevel2),
 
-  /// Elevation for a [NavigationRail] indicator in a focused state (3 dp).
-  navigationRailIndicatorFocus(_kM3ElevationLevel2);
+//   /// Elevation for a [NavigationRail] indicator in a focused state (3 dp).
+//   navigationRailIndicatorFocus(_kM3ElevationLevel2);
 
-  const M3StateElevationToken(this.value);
+//   const _M3StateElevationToken(this.value);
 
-  @override
-  final double value;
+//   @override
+//   final double value;
 
-  @override
-  bool get hasShadow => true;
-}
+//   @override
+//   bool get hasShadow => true;
+// }
 
 /// Provides visual calculation behaviors for any [IM3ElevationToken].
 ///

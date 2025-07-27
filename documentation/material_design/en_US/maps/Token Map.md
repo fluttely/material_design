@@ -6,10 +6,10 @@
 
 ### ✅ **Active Token Systems**
 
-- **Typography Tokens** - M3TypeScaleToken (15 text styles)
+- **Typography Tokens** - M3TextStyleToken (15 text styles)
 - **Spacing Tokens** - M3SpacingToken (4dp grid system)
 - **Elevation Tokens** - M3Elevation (6 levels)
-- **Shape Tokens** - M3Shape (border radius system)
+- **Shape Tokens** - M3ShapeToken (border radius system)
 - **Motion Tokens** - M3MotionDurationToken & M3MotionEasingToken
 - **State Tokens** - M3StateLayerOpacity
 - **Breakpoint Tokens** - M3BreakpointToken (responsive)
@@ -45,12 +45,12 @@ graph TD
     D --> D2[M3CompCard ❌]
     D --> D3[M3CompDialog ❌]
 
-    E --> E1[M3TypeScaleToken ✅]
+    E --> E1[M3TextStyleToken ✅]
     E --> E2[M3Elevation ✅]
     E --> E3[M3SpacingToken ✅]
     E --> E4[M3MotionDurationToken ✅]
     E --> E5[M3MotionEasingToken ✅]
-    E --> E6[M3Shape ✅]
+    E --> E6[M3ShapeToken ✅]
     E --> E7[M3StateLayerOpacity ✅]
     E --> E8[M3BreakpointToken ✅]
 
@@ -119,7 +119,7 @@ letterSpacing: {-0.025→0.05}
 */
 ```
 
-**Planned Flow:** `M3RefTypeface` → `M3TypeScaleToken` → `TextTheme`
+**Planned Flow:** `M3RefTypeface` → `M3TextStyleToken` → `TextTheme`
 
 ## 🎯 System Tokens - ⚖️ **MIXED IMPLEMENTATION**
 
@@ -144,7 +144,7 @@ error           ← M3RefPalette.error.40
 **Typography System - Fully Functional:**
 
 ```dart
-// ✅ M3TypeScaleToken - 15 complete text styles
+// ✅ M3TextStyleToken - 15 complete text styles
 displayLarge: TextStyle(fontSize: 57, fontWeight: FontWeight.w400)
 headlineMedium: TextStyle(fontSize: 28, fontWeight: FontWeight.w400)
 bodyLarge: TextStyle(fontSize: 16, fontWeight: FontWeight.w400)
@@ -199,7 +199,7 @@ ElevatedButton(
   style: ElevatedButton.styleFrom(
     minimumSize: Size.fromHeight(40.0), // Direct value
     shape: RoundedRectangleBorder(
-      borderRadius: M3Shape.medium.value, // ✅ Active shape token
+      borderRadius: M3ShapeToken.medium.value, // ✅ Active shape token
     ),
     elevation: M3ElevationToken.level1.value, // ✅ Active elevation token
   ),
@@ -215,9 +215,9 @@ ElevatedButton(
 Card(
   elevation: M3ElevationToken.level1.value,     // ✅ Active elevation
   shape: RoundedRectangleBorder(
-    borderRadius: M3Shape.medium.value,    // ✅ Active shape
+    borderRadius: M3ShapeToken.medium.value,    // ✅ Active shape
   ),
-  child: Padding(
+  child: M3Padding(
     padding: EdgeInsets.all(M3SpacingToken.space16.value), // ✅ Active spacing
     child: content,
   ),
@@ -228,7 +228,7 @@ Card(
 
 These token systems are fully implemented and functional:
 
-### [[../styles/Typography|✏️ M3TypeScaleToken]] - ✅ **Fully Active**
+### [[../styles/Typography|✏️ M3TextStyleToken]] - ✅ **Fully Active**
 
 ```dart
 // ✅ Complete 15 typographic styles - all functional
@@ -281,7 +281,7 @@ large: 1200→1599dp    // Medium desktops
 extraLarge: 1600dp+   // Large desktops
 ```
 
-### 🔷 M3Shape - ✅ **Fully Active**
+### 🔷 M3ShapeToken - ✅ **Fully Active**
 
 ```dart
 // ✅ Complete shape system - all functional
@@ -317,7 +317,7 @@ graph LR
 
 ```mermaid
 graph LR
-    A[M3RefTypeface<br/>Font families] --> B[M3TypeScaleToken<br/>15 text styles]
+    A[M3RefTypeface<br/>Font families] --> B[M3TextStyleToken<br/>15 text styles]
     B --> C[TextTheme<br/>Flutter native]
     C --> D[Text Widget<br/>Styled text]
 ```
@@ -336,9 +336,9 @@ graph LR
 ### Most Used (Active Tokens Only)
 
 1. **M3SpacingToken** - Spacing system (used in 95% of widgets) ✅
-2. **M3TypeScaleToken** - Typography (used in 90% of texts) ✅
+2. **M3TextStyleToken** - Typography (used in 90% of texts) ✅
 3. **M3Elevation** - Elevation (used in 75% of cards/surfaces) ✅
-4. **M3Shape** - Shapes (used in 70% of containers) ✅
+4. **M3ShapeToken** - Shapes (used in 70% of containers) ✅
 5. **M3MotionToken** - Animation durations and easing ✅
 
 ### By Category
@@ -383,8 +383,8 @@ final columns = M3Adaptive.responsiveValue<int>(
 );
 
 // Typography demonstration
-Text('Display Large', style: M3TypeScaleToken.displayLarge),
-Text('Body Medium', style: M3TypeScaleToken.bodyMedium),
+Text('Display Large', style: M3TextStyleToken.displayLarge),
+Text('Body Medium', style: M3TextStyleToken.bodyMedium),
 ```
 
 ## 🏷️ Tags

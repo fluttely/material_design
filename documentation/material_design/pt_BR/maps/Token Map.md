@@ -27,7 +27,7 @@ graph TD
     D --> D2[M3CompCard]
     D --> D3[M3CompDialog]
 
-    E --> E1[M3TypeScaleToken]
+    E --> E1[M3TextStyleToken]
     E --> E2[M3TonalColor]
     E --> E3[M3Elevation]
     E --> E4[M3SpacingToken]
@@ -94,7 +94,7 @@ fontWeights: {100→900}
 letterSpacing: {-0.025→0.05}
 ```
 
-**Fluxo:** `M3RefTypeface` → `M3TypeScaleToken` → `TextTheme`
+**Fluxo:** `M3RefTypeface` → `M3TextStyleToken` → `TextTheme`
 
 ### ⏱️ M3RefDuration
 
@@ -202,7 +202,7 @@ contentPadding: M3SpacingToken.space16  // 16dp
 
 Tokens existentes mantidos para compatibilidade, gradualmente migrados para nova estrutura:
 
-### [[../styles/Typography|✏️ M3TypeScaleToken]]
+### [[../styles/Typography|✏️ M3TextStyleToken]]
 
 ```dart
 // 15 estilos tipográficos
@@ -271,7 +271,7 @@ graph LR
 
 ```mermaid
 graph LR
-    A[M3RefTypeface<br/>Font families] --> B[M3TypeScaleToken<br/>15 text styles]
+    A[M3RefTypeface<br/>Font families] --> B[M3TextStyleToken<br/>15 text styles]
     B --> C[TextTheme<br/>Flutter native]
     C --> D[Text Widget<br/>Styled text]
 ```
@@ -290,7 +290,7 @@ graph LR
 ### Mais Usados
 
 1. **M3SpacingToken** - Sistema de espaçamento (usado em 95% dos widgets)
-2. **M3TypeScaleToken** - Tipografia (usado em 90% dos textos)
+2. **M3TextStyleToken** - Tipografia (usado em 90% dos textos)
 3. **M3SysColor** - Cores sistemáticas (usado em 85% dos containers)
 4. **M3Elevation** - Elevação (usado em 75% dos cards/surfaces)
 5. **M3Radius** - Formas (usado em 70% dos containers)
@@ -337,8 +337,8 @@ final columns = M3Adaptive.responsiveValue<int>(
 );
 
 // Typography demonstration
-Text('Display Large', style: M3TypeScaleToken.displayLarge),
-Text('Body Medium', style: M3TypeScaleToken.bodyMedium),
+Text('Display Large', style: M3TextStyleToken.displayLarge),
+Text('Body Medium', style: M3TextStyleToken.bodyMedium),
 ```
 
 ## 🏷️ Tags

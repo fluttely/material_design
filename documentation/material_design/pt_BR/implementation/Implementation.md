@@ -61,7 +61,7 @@ class MyApp extends StatelessWidget {
     return ThemeData(
       useMaterial3: true,
       colorScheme: M3SysColor.toColorScheme(),
-      textTheme: M3TypeScaleToken.material3TextTheme,
+      textTheme: M3TextStyleToken.material3TextTheme,
       // Configurações automáticas de componentes
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
@@ -78,7 +78,7 @@ class MyApp extends StatelessWidget {
     return ThemeData(
       useMaterial3: true,
       colorScheme: M3SysColorDark.toColorScheme(),
-      textTheme: M3TypeScaleToken.material3TextTheme,
+      textTheme: M3TextStyleToken.material3TextTheme,
     );
   }
 }
@@ -106,15 +106,15 @@ class ExampleCard extends StatelessWidget {
           // Usando typography scale
           Text(
             'Card Title',
-            style: M3TypeScaleToken.titleMedium.copyWith(
+            style: M3TextStyleToken.titleMedium.copyWith(
               color: M3SysColor.onSurface,
             ),
           ),
           // Usando spacing tokens
-          SizedBox(height: M3SpacingToken.space8),
+          const M3Gap(M3SpacingToken.space8),
           Text(
             'Card description text',
-            style: M3TypeScaleToken.bodyMedium.copyWith(
+            style: M3TextStyleToken.bodyMedium.copyWith(
               color: M3SysColor.onSurfaceVariant,
             ),
           ),
@@ -220,7 +220,7 @@ class M3Theme {
       visualDensity: visualDensity ?? M3VisualDensityToken.adaptivePlatformDensity.value,
 
       // Typography
-      textTheme: M3TypeScaleToken.material3TextTheme,
+      textTheme: M3TextStyleToken.material3TextTheme,
 
       // Components
       elevatedButtonTheme: _buildElevatedButtonTheme(colorScheme),
@@ -245,7 +245,7 @@ class M3Theme {
   static ThemeData highContrast() {
     return light().copyWith(
       // Ajustes de contraste aumentado
-      textTheme: M3TypeScaleToken.material3TextTheme.apply(
+      textTheme: M3TextStyleToken.material3TextTheme.apply(
         displayColor: Colors.black,
         bodyColor: Colors.black,
       ),

@@ -64,16 +64,16 @@ class _UtilsPageState extends State<UtilsPage> {
       children: [
         Text(
           'Responsive Display Text',
-          style: M3TypeScaleToken.responsiveDisplay(context),
+          style: M3TextStyleToken.responsiveDisplay(context),
         ),
-        SizedBox(height: M3SpacingToken.space8.value),
+        const M3Gap(M3SpacingToken.space8),
         Text(
           'This text has enhanced readability for better accessibility.',
-          style: M3TypeScaleToken.enhancedReadability(textTheme.bodyLarge!),
+          style: M3TextStyleToken.enhancedReadability(textTheme.bodyLarge!),
         ),
-        SizedBox(height: M3SpacingToken.space16.value),
+        const M3Gap(M3SpacingToken.space16),
         _buildHighContrastShowcase(textTheme),
-        SizedBox(height: M3SpacingToken.space16.value),
+        const M3Gap(M3SpacingToken.space16),
         Container(
           width: double.infinity,
           padding: EdgeInsets.all(M3SpacingToken.space12.value),
@@ -83,7 +83,7 @@ class _UtilsPageState extends State<UtilsPage> {
           ),
           child: Text(
             'function total(items) => items.reduce((a, b) => a + b.price, 0);',
-            style: M3TypeScaleToken.monoVariant(textTheme.bodyMedium!),
+            style: M3TextStyleToken.monoVariant(textTheme.bodyMedium!),
           ),
         ),
       ],
@@ -94,10 +94,10 @@ class _UtilsPageState extends State<UtilsPage> {
     return Row(
       children: [
         Expanded(child: _buildSurfaceCard('Surface', M3ElevationToken.level0)),
-        SizedBox(width: M3SpacingToken.space8.value),
+        const M3Gap(M3SpacingToken.space8),
         Expanded(
             child: _buildSurfaceCard('Surface+1', M3ElevationToken.level1)),
-        SizedBox(width: M3SpacingToken.space8.value),
+        const M3Gap(M3SpacingToken.space8),
         Expanded(
             child: _buildSurfaceCard('Surface+3', M3ElevationToken.level2)),
       ],
@@ -123,7 +123,7 @@ class _UtilsPageState extends State<UtilsPage> {
             });
           },
         ),
-        SizedBox(height: M3SpacingToken.space8.value),
+        const M3Gap(M3SpacingToken.space8),
         AnimatedContainer(
           duration: M3MotionDurationToken.medium2.value,
           curve: M3MotionEasingToken.standard.value,
@@ -152,14 +152,14 @@ class _UtilsPageState extends State<UtilsPage> {
           icon: Icon(_runAnimations ? Icons.visibility_off : Icons.visibility),
           label: Text(_runAnimations ? 'Hide' : 'Animate'),
         ),
-        SizedBox(height: M3SpacingToken.space16.value),
+        const M3Gap(M3SpacingToken.space16),
         AnimatedOpacity(
           opacity: _runAnimations ? 1.0 : 0.0,
           duration: animationDuration.value,
           curve: animationCurve.value,
           child: _buildMotionCard('Fade In', Icons.opacity),
         ),
-        SizedBox(height: M3SpacingToken.space8.value),
+        const M3Gap(M3SpacingToken.space8),
         AnimatedSlide(
           offset: _runAnimations ? Offset.zero : const Offset(0, 0.5),
           duration: animationDuration.value,
@@ -171,7 +171,7 @@ class _UtilsPageState extends State<UtilsPage> {
             child: _buildMotionCard('Slide Up', Icons.arrow_upward_rounded),
           ),
         ),
-        SizedBox(height: M3SpacingToken.space8.value),
+        const M3Gap(M3SpacingToken.space8),
         AnimatedScale(
           scale: _runAnimations ? 1.0 : 0.8,
           duration: animationDuration.value,
@@ -196,19 +196,19 @@ class _UtilsPageState extends State<UtilsPage> {
         // TODO(kevin): enhance this feature
         _buildShapeExample('None', M3ShapeUtils.squared()),
         _buildShapeExample(
-            'XS', M3ShapeUtils.rounded(M3RadiusToken.extraSmall.value.x)),
+            'XS', M3ShapeUtils.rounded(M3ShapeToken.extraSmall.radius.x)),
         _buildShapeExample(
-            'Small', M3ShapeUtils.rounded(M3RadiusToken.small.value.x)),
+            'Small', M3ShapeUtils.rounded(M3ShapeToken.small.radius.x)),
         _buildShapeExample(
-            'Medium', M3ShapeUtils.rounded(M3RadiusToken.medium.value.x)),
+            'Medium', M3ShapeUtils.rounded(M3ShapeToken.medium.radius.x)),
         _buildShapeExample(
-            'Large', M3ShapeUtils.rounded(M3RadiusToken.large.value.x)),
+            'Large', M3ShapeUtils.rounded(M3ShapeToken.large.radius.x)),
         _buildShapeExample(
-            'XL', M3ShapeUtils.rounded(M3RadiusToken.extraLarge.value.x)),
+            'XL', M3ShapeUtils.rounded(M3ShapeToken.extraLarge.radius.x)),
         _buildShapeExample(
-            'Top', M3ShapeUtils.topRounded(M3RadiusToken.large.value.x)),
+            'Top', M3ShapeUtils.topRounded(M3ShapeToken.large.radius.x)),
         _buildShapeExample(
-            'Bottom', M3ShapeUtils.bottomRounded(M3RadiusToken.large.value.x)),
+            'Bottom', M3ShapeUtils.bottomRounded(M3ShapeToken.large.radius.x)),
       ],
     );
   }
@@ -225,7 +225,7 @@ class _UtilsPageState extends State<UtilsPage> {
         ),
         Text(
           'High Contrast',
-          style: M3TypeScaleToken.highContrast(textTheme.titleMedium!),
+          style: M3TextStyleToken.highContrast(textTheme.titleMedium!),
         ),
       ],
     );
@@ -238,8 +238,8 @@ class _UtilsPageState extends State<UtilsPage> {
   }) {
     return Card(
       margin: EdgeInsets.only(bottom: M3SpacingToken.space16.value),
-      child: Padding(
-        padding: EdgeInsets.all(M3SpacingToken.space16.value),
+      child: M3Padding.all(
+        M3SpacingToken.space16,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -249,14 +249,14 @@ class _UtilsPageState extends State<UtilsPage> {
                   icon,
                   color: Theme.of(context).colorScheme.primary,
                 ),
-                SizedBox(width: M3SpacingToken.space12.value),
+                const M3Gap(M3SpacingToken.space12),
                 Text(
                   title,
                   style: Theme.of(context).textTheme.headlineSmall,
                 ),
               ],
             ),
-            SizedBox(height: M3SpacingToken.space16.value),
+            const M3Gap(M3SpacingToken.space16),
             content,
           ],
         ),
@@ -297,7 +297,7 @@ class _UtilsPageState extends State<UtilsPage> {
       child: Row(
         children: [
           Icon(icon, color: colorScheme.onSecondaryContainer),
-          SizedBox(width: M3SpacingToken.space12.value),
+          const M3Gap(M3SpacingToken.space12),
           Text(
             label,
             style: Theme.of(context)

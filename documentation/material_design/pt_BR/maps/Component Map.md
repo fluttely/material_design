@@ -115,7 +115,7 @@ graph LR
 
 ```mermaid
 graph LR
-    A[M3RefTypeface<br/>Font definitions] --> B[M3TypeScaleToken<br/>15 text styles]
+    A[M3RefTypeface<br/>Font definitions] --> B[M3TextStyleToken<br/>15 text styles]
     B --> C[TextTheme<br/>Flutter integration]
     C --> D[Component Text<br/>Button labels, Card titles]
 
@@ -236,7 +236,7 @@ M3BreakpointToken.medium ← MediaQuery.size.width ← Responsive layout
 
 ```dart
 // Advanced typography connects to:
-M3TypeScaleToken.responsiveDisplay(context) ← M3BreakpointToken ← Screen adaptation
+M3TextStyleToken.responsiveDisplay(context) ← M3BreakpointToken ← Screen adaptation
 
 // Interactive elevation connects to:
 M3TonalColor.surfaceAt(context, elevation) ← M3RefPalette ← Surface tinting
@@ -268,7 +268,7 @@ graph LR
     B --> E[Component Themes]
 
     C --> C1[M3SysColor.toColorScheme]
-    D --> D1[M3TypeScaleToken.material3TextTheme]
+    D --> D1[M3TextStyleToken.material3TextTheme]
 
     E --> E1[ElevatedButtonTheme]
     E --> E2[CardTheme]
