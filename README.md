@@ -33,7 +33,7 @@ Add this line to your project's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  material_design: ^0.12.0
+  material_design: ^0.12.1
 ```
 
 Then run `flutter pub get`.
@@ -154,7 +154,7 @@ Use `M3BorderRadiusToken` when you need a `BorderRadius` object to apply the sam
 ```dart
 Container(
   decoration: BoxDecoration(
-    borderRadius: M3BorderRadiusToken.large.value, // 16dp circular BorderRadius
+    borderRadius: M3ShapeToken.large.borderRadius, // 16dp circular BorderRadius
   ),
 )
 ```
@@ -173,8 +173,8 @@ Container(
 Container(
   decoration: BoxDecoration(
     borderRadius: BorderRadius.only(
-      topLeft: M3RadiusToken.extraLarge.value, // 28dp circular Radius
-      bottomRight: M3RadiusToken.small.value, // 28dp circular Radius
+      topLeft: M3ShapeToken.extraLarge.radius, // 28dp circular Radius
+      bottomRight: M3ShapeToken.small.radius, // 28dp circular Radius
     ),
   ),
 )
@@ -218,8 +218,8 @@ A granular scale for consistent spacing, margins, and layouts using enum-based t
 **Example:**
 
 ```dart
-M3Padding(
-  padding: M3EdgeInsets.all(M3SpacingToken.space16), // 16dp padding
+M3Padding.all(
+  M3SpacingToken.space16, // 16dp padding
   child: Text('Hello, Material!'),
 )
 ```

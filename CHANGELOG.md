@@ -4,21 +4,27 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adherves to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.12.1
+
+### Documentation
+
+- **Radius Examples Updated**: Revised all radius `README.md` documentation, usage guides, and inline comments related to radius.
+
 ## 0.12.0
 
 ### 🚀 Major Features & Enhancements
 
 - **New Spacing System**: Introduced a new, robust spacing system to enforce design system consistency and improve developer experience.
-    - **`M3EdgeInsets`**: A new utility to create `EdgeInsets` exclusively from `M3SpacingToken` and `M3MarginToken`. This ensures all insets and margins adhere to the design system.
-    - **`M3Padding` Widget**: A token-enforced padding widget that replaces the standard `Padding`. It provides convenient constructors (`.all`, `.symmetric`, `.only`) that accept `M3SpacingToken`.
-    - **`M3Gap` Widget**: A token-based replacement for `SizedBox` to create consistent spacing in `Row`s and `Column`s using `M3SpacingToken`.
+  - **`M3EdgeInsets`**: A new utility to create `EdgeInsets` exclusively from `M3SpacingToken` and `M3MarginToken`. This ensures all insets and margins adhere to the design system.
+  - **`M3Padding` Widget**: A token-enforced padding widget that replaces the standard `Padding`. It provides convenient constructors (`.all`, `.symmetric`, `.only`) that accept `M3SpacingToken`.
+  - **`M3Gap` Widget**: A token-based replacement for `SizedBox` to create consistent spacing in `Row`s and `Column`s using `M3SpacingToken`.
 - **Simplified Token API**: The API for all spacing and margin tokens has been simplified. The `.value` accessor is no longer needed when using the new spacing widgets and utilities, making the code cleaner and more readable (e.g., `M3Padding.all(M3SpacingToken.space16)`).
 - **Enhanced Breakpoint System**: The responsive breakpoint system has been refactored for clarity and consistency.
-    - `M3WindowSizeClass` has been renamed to `M3ScreenSize`.
-    - `getWindowSizeClassFromContext` has been renamed to `getScreenSizeFromContext`.
+  - `M3WindowSizeClass` has been renamed to `M3ScreenSize`.
+  - `getWindowSizeClassFromContext` has been renamed to `getScreenSizeFromContext`.
 - **Improved Documentation**:
-    - The main library file (`m3.dart`) has been completely overhauled with comprehensive documentation, serving as a complete guide to the package's features.
-    - All core token classes (`M3ElevationToken`, `M3VisualDensityToken`, `IM3Token`, etc.) have received extensive inline documentation, explaining their purpose, architecture, and usage patterns.
+  - The main library file (`m3.dart`) has been completely overhauled with comprehensive documentation, serving as a complete guide to the package's features.
+  - All core token classes (`M3ElevationToken`, `M3VisualDensityToken`, `IM3Token`, etc.) have received extensive inline documentation, explaining their purpose, architecture, and usage patterns.
 
 ### 🔄 Refactoring
 
