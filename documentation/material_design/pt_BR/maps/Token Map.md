@@ -324,7 +324,7 @@ Demonstra todos os tokens organizados por categoria:
 ```dart
 // Spacing demonstration
 Container(
-  padding: EdgeInsets.all(M3SpacingToken.space16), // 16dp
+  padding: M3EdgeInsets.all(M3SpacingToken.space16), // 16dp
   child: Text('Spaced content'),
 )
 

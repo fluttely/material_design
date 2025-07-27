@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:material_design/material_design.dart';
 
-Future<Color?> showColorPickerDialog(BuildContext context, Color initialColor) {
+Future<Color?> showColorPickerDialog(BuildContext context) {
   return showDialog<Color>(
     context: context,
     builder: (context) {
-      Color selectedColor = initialColor;
       return AlertDialog(
         title: const Text('Pick a seed color'),
         content: SingleChildScrollView(

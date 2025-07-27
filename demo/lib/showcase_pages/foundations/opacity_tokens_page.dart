@@ -29,7 +29,7 @@ class OpacityTokensPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text('M3 Opacity')),
       body: ListView(
-        padding: EdgeInsets.all(M3SpacingToken.space16.value),
+        padding: M3EdgeInsets.all(M3SpacingToken.space16),
         children: [
           // Section for state layer opacities.
           _buildSection(

@@ -33,53 +33,129 @@ abstract interface class IM3VisualDensityToken
 }
 
 /// {@template m3_visual_density_token}
-/// Defines the global visual density tokens for the Material 3 design system.
+/// Material Design 3 visual density tokens for adaptive component spacing.
 ///
-/// Visual density controls the vertical and horizontal "compactness" of UI
-/// components. It affects spacing around elements like buttons, list items,
-/// and form controls, but does not affect text sizes, icon sizes, or internal
-/// padding defined by specs.
+/// Visual density controls the spatial compactness of UI components by adjusting
+/// spacing around interactive elements. This system enables interfaces to adapt
+/// to different usage contexts, input methods, and user preferences while
+/// maintaining usability and accessibility standards.
+///
+/// ## What Visual Density Affects
+///
+/// **Affected Elements**:
+/// - Spacing around buttons, chips, and interactive components
+/// - List item height and internal padding
+/// - Form field spacing and touch target areas
+/// - Navigation element spacing
+/// - Component margins and separation
+///
+/// **Unaffected Elements**:
+/// - Text sizes and typography scale
+/// - Icon sizes and visual elements
+/// - Component border radii
+/// - Internal content padding (spec-defined)
+/// - Color schemes and visual styling
+///
+/// ## Density Levels and Use Cases
+///
+/// - **Comfortable (-1, -1)**: Touch-optimized interfaces, accessibility focus
+/// - **Standard (0, 0)**: Balanced approach, Material Design baseline  
+/// - **Compact (-2, -2)**: Information-dense interfaces, desktop optimization
+/// - **Adaptive Platform**: Automatically adjusts based on platform conventions
+///
+/// ## Implementation Notes
+///
+/// Visual density values are applied as multipliers to component spacing.
+/// Negative values create tighter spacing (more compact), while positive
+/// values create looser spacing (more comfortable). The system ensures
+/// minimum touch target sizes are maintained for accessibility.
+///
+/// Reference: https://m3.material.io/foundations/interaction/touch-targets
 /// {@endtemplate}
 enum M3VisualDensityToken implements IM3VisualDensityToken {
-  /// The default visual density profile (0, 0).
+  /// Standard visual density (0, 0) - Material Design baseline.
   ///
-  /// This represents a visual density that corresponds to density values of
-  /// zero in both axes, matching the Material Design specification defaults.
+  /// The default density level that provides balanced spacing according to
+  /// Material Design 3 specifications. This density serves as the reference
+  /// point for all other density calculations and provides optimal balance
+  /// between content density and usability.
+  ///
+  /// **Characteristics**:
+  /// - Follows Material Design 3 spacing specifications exactly
+  /// - Optimal for mixed-use interfaces (touch and mouse)
+  /// - Provides good balance of content density and accessibility
+  /// - Suitable for most general-purpose applications
+  ///
+  /// **Best for**: General applications, mixed input methods, balanced UX
   standard(
     0,
     0,
-    description: 'Standard density with default spacing',
+    description: 'Standard density with Material Design baseline spacing',
   ),
 
-  /// A comfortable visual density profile (-1, -1).
+  /// Comfortable visual density (-1, -1) - Enhanced touch accessibility.
   ///
-  /// Components will interpret this density by making themselves less dense
-  /// than [standard], providing more breathing room and larger touch targets.
+  /// Provides increased spacing and larger touch targets for improved
+  /// accessibility and touch interaction. This density prioritizes user
+  /// comfort and accessibility compliance over content density.
+  ///
+  /// **Characteristics**:
+  /// - Larger touch targets (better accessibility)
+  /// - Increased spacing between interactive elements
+  /// - Enhanced visual breathing room
+  /// - Optimized for touch-first interfaces
+  /// - Improved usability for users with motor difficulties
+  ///
+  /// **Best for**: Touch devices, accessibility-focused apps, senior users
   comfortable(
     -1,
     -1,
-    description: 'Comfortable density with increased spacing',
+    description: 'Comfortable density with enhanced touch targets',
   ),
 
-  /// A compact visual density profile (-2, -2).
+  /// Compact visual density (-2, -2) - Information-dense interfaces.
   ///
-  /// Components will interpret this density by making themselves more dense
-  /// than [standard], fitting more content on the screen.
+  /// Reduces spacing to maximize content density while maintaining minimum
+  /// accessibility standards. This density enables more information display
+  /// in limited screen space, ideal for data-heavy applications.
+  ///
+  /// **Characteristics**:
+  /// - Reduced spacing between components
+  /// - Higher information density
+  /// - Optimized for mouse/keyboard interaction
+  /// - Maintains minimum touch target sizes
+  /// - Efficient use of screen real estate
+  ///
+  /// **Best for**: Desktop apps, data tables, professional tools, dashboards
   compact(
     -2,
     -2,
-    description: 'Compact density with reduced spacing',
+    description: 'Compact density for information-dense interfaces',
   ),
 
-  /// An adaptive visual density that adjusts based on the current platform.
+  /// Adaptive platform density - Automatically adjusts per platform.
   ///
-  /// This density resolves to [VisualDensity.adaptivePlatformDensity], which
-  /// typically uses a more compact spacing on desktop and standard on mobile.
+  /// Automatically selects appropriate density based on platform conventions
+  /// and user preferences. This token delegates to Flutter's built-in adaptive
+  /// density system, which considers platform norms and user settings.
+  ///
+  /// **Platform Behavior**:
+  /// - **Mobile (iOS/Android)**: Tends toward comfortable for touch optimization
+  /// - **Desktop (Windows/macOS/Linux)**: Tends toward compact for efficiency
+  /// - **Web**: Adapts based on user agent and screen characteristics
+  ///
+  /// **Characteristics**:
+  /// - Platform-aware density selection
+  /// - Respects user system preferences
+  /// - Automatically updates with system changes
+  /// - Provides native platform feel
+  ///
+  /// **Best for**: Cross-platform apps, platform-native experiences
   adaptivePlatform(
-    0,
-    0, // Placeholder values, as the actual density is determined by Flutter.
+    0, // Placeholder - actual values determined by Flutter at runtime
+    0, // Placeholder - actual values determined by Flutter at runtime
     isAdaptive: true,
-    description: 'Platform-adaptive density',
+    description: 'Platform-adaptive density that respects system conventions',
   );
 
   /// Creates a global visual density token.

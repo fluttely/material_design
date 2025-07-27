@@ -327,7 +327,7 @@ Card(
     // Motion
     duration: M3MotionDurationToken.short4,
     curve: M3MotionEasingToken.standard,
-    padding: EdgeInsets.all(M3SpacingToken.space16),
+    padding: M3EdgeInsets.all(M3SpacingToken.space16),
     child: Column(
       children: [
         // Typography

@@ -9,12 +9,15 @@ import 'package:material_design/material_design.dart';
 part '_m3_shadow_token.dart';
 part '_m3_tonal_color.dart';
 
+/// Constants >>>
 const double _kM3ElevationLevel0 = 0;
 const double _kM3ElevationLevel1 = 1;
 const double _kM3ElevationLevel2 = 3;
 const double _kM3ElevationLevel3 = 6;
 const double _kM3ElevationLevel4 = 8;
 const double _kM3ElevationLevel5 = 12;
+
+/// <<< Constants
 
 /// {@template im3_elevation_token}
 /// Represents the contract for a Material 3 elevation token.

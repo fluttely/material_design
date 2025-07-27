@@ -10,7 +10,7 @@ class ZIndexTokensPage extends StatelessWidget {
       appBar:
           AppBar(title: const Text('Z-Index System')), // TODO(Kevin): fix title
       body: ListView(
-        padding: EdgeInsets.all(M3SpacingToken.space16.value),
+        padding: M3EdgeInsets.all(M3SpacingToken.space16),
         children: [
           _buildZIndexSection(context),
         ],
@@ -81,7 +81,7 @@ class ZIndexTokensPage extends StatelessWidget {
         const M3Gap(M3SpacingToken.space16),
         Container(
           height: 512,
-          padding: EdgeInsets.all(M3SpacingToken.space16.value),
+          padding: M3EdgeInsets.all(M3SpacingToken.space16),
           decoration: BoxDecoration(
             color: colorScheme.surfaceContainerLowest,
             borderRadius: M3ShapeToken.medium.borderRadius,
@@ -183,9 +183,9 @@ class ZIndexTokensPage extends StatelessWidget {
                   ),
                 ),
                 trailing: Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: M3SpacingToken.space8.value,
-                    vertical: M3SpacingToken.space4.value,
+                  padding: M3EdgeInsets.symmetric(
+                    horizontal: M3SpacingToken.space8,
+                    vertical: M3SpacingToken.space4,
                   ),
                   decoration: BoxDecoration(
                     color: colorScheme.surfaceContainerHighest,

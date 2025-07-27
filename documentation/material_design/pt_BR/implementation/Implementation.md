@@ -326,7 +326,7 @@ class _DynamicThemeState extends State<DynamicTheme> {
 ```dart
 // ✅ Bom - Use tokens semânticos
 Container(
-  padding: EdgeInsets.all(M3SpacingToken.space16),
+  padding: M3EdgeInsets.all(M3SpacingToken.space16),
   decoration: BoxDecoration(
     color: M3SysColor.primaryContainer,
     borderRadius: BorderRadius.circular(M3Radius.medium),
@@ -335,7 +335,7 @@ Container(
 
 // ❌ Ruim - Valores hard-coded
 Container(
-  padding: EdgeInsets.all(16.0),
+  padding: M3EdgeInsets.all(16.0),
   decoration: BoxDecoration(
     color: Color(0xFFEADDFF),
     borderRadius: BorderRadius.circular(12.0),

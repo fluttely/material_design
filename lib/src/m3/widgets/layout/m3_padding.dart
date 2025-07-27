@@ -64,8 +64,8 @@ class M3Padding extends StatelessWidget {
   /// The [padding] parameter specifies the spacing token to apply to all sides.
   const M3Padding.all(
     this.padding, {
-    super.key,
     required this.child,
+    super.key,
   })  : left = null,
         top = null,
         right = null,
@@ -79,8 +79,8 @@ class M3Padding extends StatelessWidget {
   /// Each parameter specifies the spacing token for that direction.
   /// Null values result in no padding for that direction.
   const M3Padding.only({
-    super.key,
     required this.child,
+    super.key,
     this.left,
     this.top,
     this.right,
@@ -95,8 +95,8 @@ class M3Padding extends StatelessWidget {
     this.top,
     this.right,
     this.bottom, {
-    super.key,
     required this.child,
+    super.key,
   })  : padding = null,
         horizontal = null,
         vertical = null,
@@ -107,8 +107,8 @@ class M3Padding extends StatelessWidget {
   /// The [horizontal] parameter applies to left and right sides.
   /// The [vertical] parameter applies to top and bottom sides.
   const M3Padding.symmetric({
-    super.key,
     required this.child,
+    super.key,
     this.horizontal,
     this.vertical,
   })  : padding = null,
@@ -353,91 +353,43 @@ enum _PaddingType {
 //   }
 // }
 
-/// Utility class for creating padding-related helper methods.
-///
-/// This class provides static methods for common padding operations and
-/// calculations that work with Material Design 3 spacing tokens.
-class M3PaddingUtils {
-  /// Private constructor to prevent instantiation.
-  M3PaddingUtils._();
+// /// Utility class for creating padding-related helper methods.
+// ///
+// /// This class provides static methods for common padding operations and
+// /// calculations that work with Material Design 3 spacing tokens.
+// class M3PaddingUtils {
+//   /// Gets the appropriate padding token for different UI density levels.
+//   ///
+//   /// This method helps choose spacing tokens based on the visual density
+//   /// of the interface, ensuring appropriate padding for different contexts.
+//   ///
+//   /// [density] - The visual density level
+//   static M3SpacingToken forDensity(VisualDensity density) {
+//     if (density == VisualDensity.compact) {
+//       return M3SpacingToken.space8;
+//     } else if (density == VisualDensity.comfortable) {
+//       return M3SpacingToken.space16;
+//     } else {
+//       return M3SpacingToken.space24;
+//     }
+//   }
 
-  /// Combines multiple M3SpacingTokens into a single EdgeInsets.
-  ///
-  /// This method allows you to create custom EdgeInsets using different
-  /// spacing tokens for each direction while maintaining design system
-  /// consistency.
-  ///
-  /// [left] - The spacing token for the left side
-  /// [top] - The spacing token for the top side
-  /// [right] - The spacing token for the right side
-  /// [bottom] - The spacing token for the bottom side
-  static EdgeInsets fromTokens({
-    M3SpacingToken? left,
-    M3SpacingToken? top,
-    M3SpacingToken? right,
-    M3SpacingToken? bottom,
-  }) {
-    return EdgeInsets.only(
-      left: left?.value ?? 0,
-      top: top?.value ?? 0,
-      right: right?.value ?? 0,
-      bottom: bottom?.value ?? 0,
-    );
-  }
-
-  /// Creates symmetric EdgeInsets from M3SpacingTokens.
-  ///
-  /// [horizontal] - The spacing token for left and right sides
-  /// [vertical] - The spacing token for top and bottom sides
-  static EdgeInsets symmetric({
-    M3SpacingToken? horizontal,
-    M3SpacingToken? vertical,
-  }) {
-    return EdgeInsets.symmetric(
-      horizontal: horizontal?.value ?? 0,
-      vertical: vertical?.value ?? 0,
-    );
-  }
-
-  /// Creates uniform EdgeInsets from an M3SpacingToken.
-  ///
-  /// [token] - The spacing token to apply to all sides
-  static EdgeInsets all(M3SpacingToken token) {
-    return EdgeInsets.all(token.value);
-  }
-
-  /// Gets the appropriate padding token for different UI density levels.
-  ///
-  /// This method helps choose spacing tokens based on the visual density
-  /// of the interface, ensuring appropriate padding for different contexts.
-  ///
-  /// [density] - The visual density level
-  static M3SpacingToken forDensity(VisualDensity density) {
-    if (density == VisualDensity.compact) {
-      return M3SpacingToken.space8;
-    } else if (density == VisualDensity.comfortable) {
-      return M3SpacingToken.space16;
-    } else {
-      return M3SpacingToken.space24;
-    }
-  }
-
-  /// Calculates responsive padding based on screen width.
-  ///
-  /// This method provides responsive padding that adapts to different
-  /// screen sizes, following Material Design 3 responsive guidelines.
-  ///
-  /// [screenWidth] - The screen width in logical pixels
-  static M3SpacingToken forScreenWidth(double screenWidth) {
-    if (screenWidth < 600) {
-      // Compact screens (phones in portrait)
-      return M3SpacingToken.space16;
-    } else if (screenWidth < 840) {
-      // Medium screens (phones in landscape, small tablets)
-      return M3SpacingToken.space24;
-    } else {
-      // Expanded screens and larger
-      return M3SpacingToken.space32;
-    }
-  }
-}
+//   /// Calculates responsive padding based on screen width.
+//   ///
+//   /// This method provides responsive padding that adapts to different
+//   /// screen sizes, following Material Design 3 responsive guidelines.
+//   ///
+//   /// [screenWidth] - The screen width in logical pixels
+//   static M3SpacingToken forScreenWidth(double screenWidth) {
+//     if (screenWidth < M3BreakpointToken.medium.value) {
+//       // Compact screens (phones in portrait)
+//       return M3SpacingToken.space16;
+//     } else if (screenWidth < M3BreakpointToken.expanded.value) {
+//       // Medium screens (phones in landscape, small tablets)
+//       return M3SpacingToken.space24;
+//     } else {
+//       // Expanded screens and larger
+//       return M3SpacingToken.space32;
+//     }
+//   }
+// }

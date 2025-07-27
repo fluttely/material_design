@@ -26,7 +26,7 @@ class _AdaptivePageState extends State<AdaptivePage> {
         automaticallyImplyLeading: false,
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(M3SpacingToken.space16.value),
+        padding: M3EdgeInsets.all(M3SpacingToken.space16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -47,7 +47,7 @@ class _AdaptivePageState extends State<AdaptivePage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Window Size Class: ${_getWindowSizeClassName(context)}',
+                        'Window Size Class: ${_getScreenSizeName(context)}',
                         style: Theme.of(context).textTheme.titleMedium,
                       ),
                       const M3Gap(M3SpacingToken.space8),
@@ -237,9 +237,9 @@ class _AdaptivePageState extends State<AdaptivePage> {
     );
   }
 
-  String _getWindowSizeClassName(BuildContext context) {
-    final sizeClass = M3BreakpointToken.getWindowSizeClassFromContext(context);
-    switch (sizeClass) {
+  String _getScreenSizeName(BuildContext context) {
+    final screenSize = M3BreakpointToken.getScreenSizeFromContext(context);
+    switch (screenSize) {
       case M3ScreenSize.compact:
         return 'Compact';
       case M3ScreenSize.medium:

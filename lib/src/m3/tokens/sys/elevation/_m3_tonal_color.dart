@@ -1,9 +1,42 @@
 part of 'm3_elevation_token.dart';
 
-/// A utility class to handle Material 3 surface color calculations.
+/// {@template m3_tonal_color}
+/// Internal utility class for Material Design 3 surface tint calculations.
 ///
-/// This class encapsulates the logic for applying a `surfaceTintColor` based on
-/// elevation, as specified by the Material Design guidelines.
+/// This class implements the core tonal elevation system of Material Design 3,
+/// where surfaces at different elevations receive varying amounts of surface
+/// tint to indicate their relative depth. The tonal system is the primary
+/// method for expressing elevation in Material Design 3, with shadows serving
+/// as a complementary enhancement.
+///
+/// ## Material Design 3 Tonal System
+///
+/// The tonal elevation system works by blending a surface tint color
+/// (typically the primary color) with the base surface color. Higher
+/// elevations receive more tint, creating a visual hierarchy that
+/// indicates relative depth and importance.
+///
+/// ## Tint Application Formula
+///
+/// The tint opacity is calculated using an exponential curve that provides
+/// natural-feeling progression:
+/// - **0dp**: No tint (pure surface color)
+/// - **1-6dp**: Gradual tint increase (subtle depth indication)
+/// - **8-24dp**: Enhanced tint (prominent elevation)
+/// - **24dp+**: Maximum tint (critical elevation)
+///
+/// ## Integration with Theme System
+///
+/// The tonal color system integrates seamlessly with Flutter's theme system,
+/// automatically extracting surface and surfaceTint colors from the current
+/// ColorScheme and applying appropriate tinting based on elevation values.
+///
+/// **Internal Implementation**: This is a private utility used by the elevation
+/// token system. External code should use [M3ElevationToken] extensions like
+/// `surfaceColor(context)` or `calculateSurfaceColor()`.
+///
+/// Reference: https://m3.material.io/styles/elevation/applying-elevation
+/// {@endtemplate}
 @immutable
 abstract interface class _M3TonalColor {
   /// Calculates the surface color with an elevation-based tint.
@@ -51,7 +84,18 @@ abstract interface class _M3TonalColor {
     );
   }
 
-  /// Calculates the tint opacity for a given elevation.
+  /// Calculates the tint opacity for a given elevation using M3's formula.
+  ///
+  /// This method implements Material Design 3's exponential tint progression
+  /// that provides natural depth perception. The formula ensures:
+  /// - Smooth opacity transitions between elevation levels
+  /// - Maximum tint cap at 12% for readability
+  /// - Exponential curve that feels natural to users
+  ///
+  /// **Formula**: `opacity = 0.12 * (1 - e^(-elevation/8))`
+  ///
+  /// [elevation] - The elevation token to calculate opacity for
+  /// Returns opacity value between 0.0 and 0.12
   static double _calculateTintOpacity(IM3ElevationToken elevation) {
     if (elevation.value <= 0) return 0;
     if (elevation.value >= 24) return 0.12;
@@ -60,7 +104,22 @@ abstract interface class _M3TonalColor {
     return 0.12 * (1 - math.exp(-elevation.value / 8));
   }
 
-  /// Creates a high contrast surface color for accessibility.
+  /// Creates a high contrast surface color for accessibility compliance.
+  ///
+  /// This method enhances the standard surface tinting to provide better
+  /// visual distinction for users with accessibility needs. The enhanced
+  /// tinting ensures elevation differences are more pronounced while
+  /// maintaining readability standards.
+  ///
+  /// **Accessibility Features**:
+  /// - 1.5x tint multiplier for enhanced visibility
+  /// - Maximum opacity cap at 20% to preserve readability
+  /// - Maintains color harmony with the base tint system
+  ///
+  /// [surface] - The base surface color
+  /// [surfaceTint] - The tint color to blend
+  /// [elevation] - The elevation level for tint calculation
+  /// Returns enhanced surface color with accessibility-friendly tinting
   static Color highContrastSurface({
     required Color surface,
     required Color surfaceTint,
@@ -68,7 +127,7 @@ abstract interface class _M3TonalColor {
   }) {
     if (elevation.value <= 0) return surface;
 
-    // Enhanced tinting for high contrast
+    // Enhanced tinting for high contrast (1.5x multiplier, max 20%)
     final tintOpacity = math.min(_calculateTintOpacity(elevation) * 1.5, 0.2);
     return Color.alphaBlend(
       surfaceTint.withValues(alpha: tintOpacity),

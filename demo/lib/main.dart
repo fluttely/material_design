@@ -370,10 +370,7 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
               IconButton(
                 icon: Icon(Icons.color_lens, color: themeProvider.seedColor),
                 onPressed: () async {
-                  final newColor = await showColorPickerDialog(
-                    context,
-                    themeProvider.seedColor,
-                  );
+                  final newColor = await showColorPickerDialog(context);
                   if (newColor != null) {
                     themeProvider.changeSeedColor(newColor);
                   }
@@ -485,7 +482,7 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
 
           // Fixed bottom controls
           Container(
-            padding: const EdgeInsets.symmetric(vertical: 8),
+            padding: M3EdgeInsets.symmetric(vertical: M3SpacingToken.space8),
             child: Column(
               children: [
                 Divider(
@@ -524,10 +521,7 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
                         size: 20,
                       ),
                       onPressed: () async {
-                        final newColor = await showColorPickerDialog(
-                          context,
-                          themeProvider.seedColor,
-                        );
+                        final newColor = await showColorPickerDialog(context);
                         if (newColor != null) {
                           themeProvider.changeSeedColor(newColor);
                         }

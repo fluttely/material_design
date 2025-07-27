@@ -128,7 +128,7 @@ abstract class M3CompButton {
   static const double elevationPressed = 1.0;
 
   // Padding
-  static const EdgeInsets paddingMedium = EdgeInsets.symmetric(
+  static const M3EdgeInsets paddingMedium = M3EdgeInsets.symmetric(
     horizontal: 16.0,
     vertical: 8.0,
   );

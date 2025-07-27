@@ -302,7 +302,7 @@ class _DemoHomePageState extends State<DemoHomePage>
 
   /// Compact layout for mobile devices
   Widget _buildCompactLayout(BuildContext context) {
-    return _buildMainContent(context, padding: M3SpacingToken.space16.value);
+    return _buildMainContent(context, padding: M3SpacingToken.space16);
   }
 
   /// Medium layout for tablets and small desktops
@@ -312,8 +312,7 @@ class _DemoHomePageState extends State<DemoHomePage>
         _buildNavigationRail(context),
         const VerticalDivider(thickness: 1, width: 1),
         Expanded(
-          child:
-              _buildMainContent(context, padding: M3SpacingToken.space24.value),
+          child: _buildMainContent(context, padding: M3SpacingToken.space24),
         ),
       ],
     );
@@ -327,8 +326,7 @@ class _DemoHomePageState extends State<DemoHomePage>
         const VerticalDivider(thickness: 1, width: 1),
         Expanded(
           flex: 2,
-          child:
-              _buildMainContent(context, padding: M3SpacingToken.space32.value),
+          child: _buildMainContent(context, padding: M3SpacingToken.space32),
         ),
         const VerticalDivider(thickness: 1, width: 1),
         Expanded(
@@ -408,9 +406,10 @@ class _DemoHomePageState extends State<DemoHomePage>
   }
 
   /// Builds the main content area
-  Widget _buildMainContent(BuildContext context, {required double padding}) {
+  Widget _buildMainContent(BuildContext context,
+      {required M3SpacingToken padding}) {
     return SingleChildScrollView(
-      padding: EdgeInsets.all(padding),
+      padding: M3EdgeInsets.all(padding),
       child: FadeTransition(
         opacity: _pageAnimationController,
         child: SlideTransition(
@@ -446,7 +445,7 @@ class _DemoHomePageState extends State<DemoHomePage>
   /// Builds the side panel for large screens
   Widget _buildSidePanel(BuildContext context) {
     return SingleChildScrollView(
-      padding: EdgeInsets.all(M3SpacingToken.space16.value),
+      padding: M3EdgeInsets.all(M3SpacingToken.space16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -632,7 +631,7 @@ class _DemoHomePageState extends State<DemoHomePage>
           ]
               .map((token) => Expanded(
                     child: Container(
-                      padding: EdgeInsets.all(M3SpacingToken.space12.value),
+                      padding: M3EdgeInsets.all(M3SpacingToken.space12),
                       decoration: BoxDecoration(
                         border: Border.all(
                           width: token.value,

@@ -6,40 +6,7 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:material_design/material_design.dart';
 
-/// {@template m3_type_scale_fonts}
-/// Material Design 3 type scale font family constants.
-///
-/// These font families are optimized for Material Design 3 typography system,
-/// providing excellent readability and visual hierarchy across different
-/// platforms and screen sizes.
-/// {@endtemplate}
-class _M3TypeScaleFonts {
-  /// Primary Material Design font family.
-  // static const String roboto = 'Roboto';
-
-  /// System font stack with fallbacks.
-  static const List<String> systemFontStack = [
-    'Roboto',
-    '-apple-system',
-    'BlinkMacSystemFont',
-    'Segoe UI',
-    'Helvetica Neue',
-    'Arial',
-    'sans-serif',
-  ];
-
-  /// Monospace font stack for code display.
-  static const List<String> monoFontStack = [
-    'Roboto Mono',
-    'SFMono-Regular',
-    'Monaco',
-    'Consolas',
-    'Liberation Mono',
-    'Courier New',
-    'monospace',
-  ];
-}
-
+/// Constants >>>
 const TextStyle _kM3TypeScaleDisplayLarge = TextStyle(
   fontSize: 57,
   fontWeight: FontWeight.w400,
@@ -130,6 +97,42 @@ const TextStyle _kM3TypeScaleLabelSmall = TextStyle(
   letterSpacing: 0.5,
   height: 16 / 11,
 );
+
+/// <<< Constants
+
+/// {@template m3_type_scale_fonts}
+/// Material Design 3 type scale font family constants.
+///
+/// These font families are optimized for Material Design 3 typography system,
+/// providing excellent readability and visual hierarchy across different
+/// platforms and screen sizes.
+/// {@endtemplate}
+abstract interface class _M3TypeScaleFonts {
+  /// Primary Material Design font family.
+  // static const String roboto = 'Roboto';
+
+  /// System font stack with fallbacks.
+  static const List<String> systemFontStack = [
+    'Roboto',
+    '-apple-system',
+    'BlinkMacSystemFont',
+    'Segoe UI',
+    'Helvetica Neue',
+    'Arial',
+    'sans-serif',
+  ];
+
+  /// Monospace font stack for code display.
+  static const List<String> monoFontStack = [
+    'Roboto Mono',
+    'SFMono-Regular',
+    'Monaco',
+    'Consolas',
+    'Liberation Mono',
+    'Courier New',
+    'monospace',
+  ];
+}
 
 /// {@template m3_type_scale_token}
 /// Material Design 3 type scale tokens for consistent typography.

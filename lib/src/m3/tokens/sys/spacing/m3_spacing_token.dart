@@ -23,7 +23,7 @@ abstract interface class IM3SpacingToken implements IM3Token<double> {}
 ///
 /// // Use in widgets
 /// M3Padding(
-///   padding: EdgeInsets.all(M3SpacingToken.space16.value),
+///   padding: M3EdgeInsets.all(M3SpacingToken.space16),
 ///   child: Text('Hello World'),
 /// )
 /// ```
@@ -176,7 +176,7 @@ enum M3SpacingToken implements IM3SpacingToken {
 /// double margin = M3MarginToken.compactScreen.value; // 16.0
 ///
 /// // Use with responsive design
-/// EdgeInsets.symmetric(
+/// M3EdgeInsets.symmetric(
 ///   horizontal: M3MarginToken.mediumScreen.value,
 /// )
 /// ```

@@ -9,7 +9,7 @@ class BorderTokensPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text('Borders')),
       body: ListView(
-        padding: EdgeInsets.all(M3SpacingToken.space16.value),
+        padding: M3EdgeInsets.all(M3SpacingToken.space16),
         children: [
           _buildBorderSection(context),
         ],
@@ -37,7 +37,7 @@ class BorderTokensPage extends StatelessWidget {
           children: borders.map((border) {
             final (label, width) = border;
             return Container(
-              padding: EdgeInsets.all(M3SpacingToken.space16.value),
+              padding: M3EdgeInsets.all(M3SpacingToken.space16),
               decoration: BoxDecoration(
                 border:
                     Border.all(width: width.value, color: colorScheme.primary),

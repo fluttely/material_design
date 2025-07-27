@@ -33,7 +33,7 @@ Add this line to your project's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  material_design: ^0.11.0
+  material_design: ^0.12.0
 ```
 
 Then run `flutter pub get`.
@@ -219,7 +219,7 @@ A granular scale for consistent spacing, margins, and layouts using enum-based t
 
 ```dart
 M3Padding(
-  padding: EdgeInsets.all(M3SpacingToken.space16.value), // 16dp padding
+  padding: M3EdgeInsets.all(M3SpacingToken.space16), // 16dp padding
   child: Text('Hello, Material!'),
 )
 ```
@@ -236,7 +236,7 @@ M3Padding(
 
 ```dart
 Container(
-  margin: EdgeInsets.symmetric(horizontal: M3MarginToken.compactScreen.value),
+  margin: M3EdgeInsets.symmetric(horizontal: M3MarginToken.compactScreen),
   child: Text('Content with responsive margins'),
 )
 ```
@@ -424,17 +424,17 @@ Starting from version 0.7.0, all design tokens have been converted from static c
 ```dart
 // Old API - Direct access
 Card(elevation: M3ElevationToken.level5)
-M3Padding(padding: EdgeInsets.all(M3SpacingToken.space16))
+Padding(padding: EdgeInsets.all(M3SpacingToken.space16), child: ...)
 AnimatedContainer(duration: M3MotionDurationToken.short2)
 Icon(Icons.directions_boat_filled, size: M3IconSize.dense),
 ```
 
-**After (v0.7.0+):**
+**After (v0.11.0+):**
 
 ```dart
 // New API - Access via .value property
 Card(elevation: M3ElevationToken.level5.value)
-M3Padding(padding: EdgeInsets.all(M3SpacingToken.space16.value))
+M3Padding.all(M3SpacingToken.space16, child: ...)
 AnimatedContainer(duration: M3MotionDurationToken.short2.value)
 Icon(Icons.directions_boat_filled, size: M3IconSizeToken.dense.value),
 ```
@@ -443,10 +443,11 @@ Icon(Icons.directions_boat_filled, size: M3IconSizeToken.dense.value),
 
 ```dart
 // Old API - no longer available
+final elevation = M3ElevationToken.level5;
 Container(
   decoration: BoxDecoration(
-    color: M3TonalColor.surface3(context),
-    boxShadow: M3ShadowToken.fromElevation(4.5),
+    color: M3TonalColor.fromElevation(context, elevation),
+    boxShadow: M3ShadowToken.fromElevation(elevation),
   ),
 )
 ```
@@ -455,7 +456,7 @@ Container(
 
 ```dart
 // New unified API
-final elevation = M3ElevationToken.fromValue(4.5);
+final elevation = M3ElevationToken.level5;
 Container(
   decoration: BoxDecoration(
     color: elevation.surfaceColor(context),

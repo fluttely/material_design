@@ -249,7 +249,7 @@ M3MotionUtils.fadeIn(duration, curve) ← M3RefDuration ← Animation timing
 
 ```dart
 // M3AdaptiveScaffold connects to:
-WindowSizeClass ← M3BreakpointToken ← MediaQuery
+M3ScreenSize ← M3BreakpointToken ← MediaQuery
 NavigationDestination ← Component tokens ← Visual consistency
 
 // Responsive values connect to:

@@ -20,7 +20,7 @@ class _UtilsPageState extends State<UtilsPage> {
         title: const Text('M3 Utilities Showcase'),
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(M3SpacingToken.space16.value),
+        padding: M3EdgeInsets.all(M3SpacingToken.space16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -76,7 +76,7 @@ class _UtilsPageState extends State<UtilsPage> {
         const M3Gap(M3SpacingToken.space16),
         Container(
           width: double.infinity,
-          padding: EdgeInsets.all(M3SpacingToken.space12.value),
+          padding: M3EdgeInsets.all(M3SpacingToken.space12),
           decoration: ShapeDecoration(
             color: Theme.of(context).colorScheme.surfaceContainer,
             shape: M3ShapeToken.small.value,
@@ -237,7 +237,9 @@ class _UtilsPageState extends State<UtilsPage> {
     required Widget content,
   }) {
     return Card(
-      margin: EdgeInsets.only(bottom: M3SpacingToken.space16.value),
+      margin: M3EdgeInsets.only(
+        bottom: M3SpacingToken.space16,
+      ),
       child: M3Padding.all(
         M3SpacingToken.space16,
         child: Column(
@@ -286,9 +288,9 @@ class _UtilsPageState extends State<UtilsPage> {
   Widget _buildMotionCard(String label, IconData icon) {
     final colorScheme = Theme.of(context).colorScheme;
     return Container(
-      padding: EdgeInsets.symmetric(
-        horizontal: M3SpacingToken.space16.value,
-        vertical: M3SpacingToken.space12.value,
+      padding: M3EdgeInsets.symmetric(
+        horizontal: M3SpacingToken.space16,
+        vertical: M3SpacingToken.space12,
       ),
       decoration: ShapeDecoration(
         color: colorScheme.secondaryContainer,

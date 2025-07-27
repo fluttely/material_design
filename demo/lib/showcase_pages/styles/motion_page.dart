@@ -12,7 +12,7 @@ class MotionPage extends StatelessWidget {
         title: Text('Motion'),
       ),
       body: ListView(
-        padding: EdgeInsets.all(M3MarginToken.mediumScreen.value),
+        padding: M3EdgeInsets.all(M3MarginToken.mediumScreen),
         children: [
           LaunchURLText(
             label:

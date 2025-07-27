@@ -43,7 +43,7 @@ class BreakpointTokensPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text('Responsive Breakpoints')),
       body: ListView(
-        padding: EdgeInsets.all(M3SpacingToken.space16.value),
+        padding: M3EdgeInsets.all(M3SpacingToken.space16),
         children: [
           Card(
             child: M3Padding.all(

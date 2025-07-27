@@ -1,7 +1,38 @@
 part of 'm3_elevation_token.dart';
 
+/// {@template m3_shadow_color}
+/// The standard shadow color for Material Design 3 elevation system.
+///
+/// This color (black with 15% opacity, #26000000) is specifically calibrated
+/// to provide optimal shadow contrast across both light and dark themes while
+/// maintaining accessibility standards.
+///
+/// The 15% opacity ensures shadows are visible but not overwhelming, creating
+/// subtle depth cues that enhance the visual hierarchy without competing with
+/// content for attention.
+/// {@endtemplate}
 const Color _kM3ShadowColor = Color(0x26000000);
+/// {@template m3_shadow_level_0}
+/// Level 0 shadow: No shadow (empty list).
+///
+/// Used for components at surface level with no elevation.
+/// This represents the base state where surfaces rest directly
+/// on the background without any visual depth indication.
+/// {@endtemplate}
 const List<BoxShadow> _kM3ShadowLevel0 = [];
+
+/// {@template m3_shadow_level_1}
+/// Level 1 shadow (1dp elevation): Single subtle shadow.
+///
+/// Creates minimal depth perception with a single soft shadow.
+/// Ideal for components like Cards in their resting state,
+/// providing subtle separation from the background.
+///
+/// **Shadow properties**:
+/// - Vertical offset: 1dp
+/// - Blur radius: 2dp
+/// - No spread or horizontal offset
+/// {@endtemplate}
 const List<BoxShadow> _kM3ShadowLevel1 = [
   BoxShadow(
     color: _kM3ShadowColor,
@@ -9,6 +40,18 @@ const List<BoxShadow> _kM3ShadowLevel1 = [
     blurRadius: 2,
   ),
 ];
+
+/// {@template m3_shadow_level_2}
+/// Level 2 shadow (3dp elevation): Dual-layer shadow system.
+///
+/// Combines a sharp definition shadow with a soft ambient shadow,
+/// creating more pronounced depth. Used for components like
+/// elevated buttons and focused elements.
+///
+/// **Shadow properties**:
+/// - **Layer 1**: Sharp shadow (offset: 1dp, blur: 3dp)
+/// - **Layer 2**: Soft shadow (offset: 2dp, blur: 6dp, spread: 2dp)
+/// {@endtemplate}
 const List<BoxShadow> _kM3ShadowLevel2 = [
   BoxShadow(
     color: _kM3ShadowColor,
@@ -22,6 +65,18 @@ const List<BoxShadow> _kM3ShadowLevel2 = [
     spreadRadius: 2,
   ),
 ];
+
+/// {@template m3_shadow_level_3}
+/// Level 3 shadow (6dp elevation): Enhanced dual-layer depth.
+///
+/// Provides distinct elevation for prominent components like
+/// FloatingActionButtons and elevated dialogs. The dual shadow
+/// system creates natural depth perception.
+///
+/// **Shadow properties**:
+/// - **Layer 1**: Definition shadow (offset: 2dp, blur: 4dp)
+/// - **Layer 2**: Ambient shadow (offset: 4dp, blur: 8dp, spread: 3dp)
+/// {@endtemplate}
 const List<BoxShadow> _kM3ShadowLevel3 = [
   BoxShadow(
     color: _kM3ShadowColor,
@@ -35,6 +90,18 @@ const List<BoxShadow> _kM3ShadowLevel3 = [
     spreadRadius: 3,
   ),
 ];
+
+/// {@template m3_shadow_level_4}
+/// Level 4 shadow (8dp elevation): High-elevation shadow system.
+///
+/// Creates substantial depth for components that need significant
+/// visual separation, such as modal surfaces and prominent overlays.
+/// The increased blur creates softer, more diffused shadows.
+///
+/// **Shadow properties**:
+/// - **Layer 1**: Definition shadow (offset: 2dp, blur: 4dp)
+/// - **Layer 2**: Extended ambient shadow (offset: 4dp, blur: 10dp, spread: 3dp)
+/// {@endtemplate}
 const List<BoxShadow> _kM3ShadowLevel4 = [
   BoxShadow(
     color: _kM3ShadowColor,
@@ -48,6 +115,18 @@ const List<BoxShadow> _kM3ShadowLevel4 = [
     spreadRadius: 3,
   ),
 ];
+
+/// {@template m3_shadow_level_5}
+/// Level 5 shadow (12dp elevation): Maximum depth shadow system.
+///
+/// The strongest shadow configuration for components requiring
+/// maximum visual separation, such as modal dialogs and critical
+/// overlays. Creates the most dramatic depth effect in the system.
+///
+/// **Shadow properties**:
+/// - **Layer 1**: Definition shadow (offset: 2dp, blur: 4dp)
+/// - **Layer 2**: Maximum ambient shadow (offset: 4dp, blur: 12dp, spread: 3dp)
+/// {@endtemplate}
 const List<BoxShadow> _kM3ShadowLevel5 = [
   BoxShadow(
     color: _kM3ShadowColor,
@@ -62,17 +141,53 @@ const List<BoxShadow> _kM3ShadowLevel5 = [
   ),
 ];
 
-/// Provides pre-defined, Material 3-compliant shadow tokens.
+/// {@template m3_shadow_token}
+/// Internal shadow token system for Material Design 3 elevation.
 ///
-/// These tokens are defined directly from the Material 3 specification and
-/// are composed of one or two simple `BoxShadow` layers. They are designed
-/// to be used with a `shadowColor`, which defaults to `Colors.black` in
-/// most Material components.
+/// This enum provides pre-defined, specification-compliant shadow configurations
+/// that correspond to Material Design 3's five standard elevation levels. Each
+/// shadow configuration consists of carefully crafted BoxShadow layers that
+/// create natural depth perception.
 ///
-/// Note: The primary indicator of elevation in M3 is the "Surface Tint",
-/// with these shadows acting as a complementary element.
+/// ## Shadow System Architecture
+///
+/// Material Design 3 shadows use a dual-layer approach:
+/// 1. **Definition Layer**: Sharp, close shadow for edge definition
+/// 2. **Ambient Layer**: Soft, spread shadow for realistic depth
+///
+/// ## Integration with Elevation
+///
+/// While shadows provide visual depth cues, Material Design 3 primarily
+/// relies on **surface tint** for elevation indication. Shadows serve as
+/// a complementary element that enhances the depth perception created
+/// by tonal elevation.
+///
+/// ## Usage Pattern
+///
+/// ```dart
+/// // Get shadows for elevation level
+/// final shadows = _M3ShadowToken.fromElevation(M3ElevationToken.level3);
+/// 
+/// // Apply to container
+/// Container(
+///   decoration: BoxDecoration(
+///     color: surfaceColor,
+///     boxShadow: shadows.value,
+///   ),
+/// );
+/// ```
+///
+/// ## Performance Considerations
+///
+/// - Each shadow level is pre-calculated for optimal performance
+/// - Shadow configurations are immutable and cached
+/// - Dual-layer shadows provide maximum visual impact with minimal rendering cost
+///
+/// **Internal Implementation**: This is a private token used by the elevation
+/// system. External code should use [M3ElevationToken] and its extensions.
 ///
 /// Reference: https://m3.material.io/styles/elevation/shadows
+/// {@endtemplate}
 enum _M3ShadowToken implements IM3Token<List<BoxShadow>> {
   /// Level 0: No shadow.
   level0(_kM3ShadowLevel0),

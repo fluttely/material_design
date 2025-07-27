@@ -78,7 +78,7 @@ class M3EdgeInsets {
   /// ```dart
   /// final insets = M3EdgeInsets.all(M3SpacingToken.space16);
   /// ```
-  static EdgeInsets all(M3SpacingToken token) {
+  static EdgeInsets all(IM3SpacingToken token) {
     return EdgeInsets.all(token.value);
   }
 
@@ -101,10 +101,10 @@ class M3EdgeInsets {
   /// );
   /// ```
   static EdgeInsets only({
-    M3SpacingToken? left,
-    M3SpacingToken? top,
-    M3SpacingToken? right,
-    M3SpacingToken? bottom,
+    IM3SpacingToken? left,
+    IM3SpacingToken? top,
+    IM3SpacingToken? right,
+    IM3SpacingToken? bottom,
   }) {
     return EdgeInsets.only(
       left: left?.value ?? 0,
@@ -127,8 +127,8 @@ class M3EdgeInsets {
   /// );
   /// ```
   static EdgeInsets symmetric({
-    M3SpacingToken? horizontal,
-    M3SpacingToken? vertical,
+    IM3SpacingToken? horizontal,
+    IM3SpacingToken? vertical,
   }) {
     return EdgeInsets.symmetric(
       horizontal: horizontal?.value ?? 0,
@@ -144,7 +144,7 @@ class M3EdgeInsets {
   // /// ```dart
   // /// final insets = M3EdgeInsets.horizontal(M3SpacingToken.space16);
   // /// ```
-  // static EdgeInsets horizontal(M3SpacingToken token) {
+  // static EdgeInsets horizontal(IM3SpacingToken token) {
   //   return EdgeInsets.symmetric(horizontal: token.value);
   // }
 
@@ -156,35 +156,35 @@ class M3EdgeInsets {
   // /// ```dart
   // /// final insets = M3EdgeInsets.vertical(M3SpacingToken.space12);
   // /// ```
-  // static EdgeInsets vertical(M3SpacingToken token) {
+  // static EdgeInsets vertical(IM3SpacingToken token) {
   //   return EdgeInsets.symmetric(vertical: token.value);
   // }
 
   // /// Creates EdgeInsets with left spacing only.
   // ///
   // /// [token] - The spacing token for the left side
-  // static EdgeInsets left(M3SpacingToken token) {
+  // static EdgeInsets left(IM3SpacingToken token) {
   //   return EdgeInsets.only(left: token.value);
   // }
 
   // /// Creates EdgeInsets with top spacing only.
   // ///
   // /// [token] - The spacing token for the top side
-  // static EdgeInsets top(M3SpacingToken token) {
+  // static EdgeInsets top(IM3SpacingToken token) {
   //   return EdgeInsets.only(top: token.value);
   // }
 
   // /// Creates EdgeInsets with right spacing only.
   // ///
   // /// [token] - The spacing token for the right side
-  // static EdgeInsets right(M3SpacingToken token) {
+  // static EdgeInsets right(IM3SpacingToken token) {
   //   return EdgeInsets.only(right: token.value);
   // }
 
   // /// Creates EdgeInsets with bottom spacing only.
   // ///
   // /// [token] - The spacing token for the bottom side
-  // static EdgeInsets bottom(M3SpacingToken token) {
+  // static EdgeInsets bottom(IM3SpacingToken token) {
   //   return EdgeInsets.only(bottom: token.value);
   // }
 
@@ -193,22 +193,22 @@ class M3EdgeInsets {
   // /// Creates EdgeInsets with no spacing (0dp all sides).
   // ///
   // /// This can be useful for conditional spacing or as a placeholder.
-  // static EdgeInsets get none => EdgeInsets.all(M3SpacingToken.none.value);
+  // static EdgeInsets get none => EdgeInsets.all(IM3SpacingToken.none.value);
 
   // /// Creates EdgeInsets with extra small spacing (4dp all sides).
-  // static EdgeInsets get extraSmall => EdgeInsets.all(M3SpacingToken.space4.value);
+  // static EdgeInsets get extraSmall => EdgeInsets.all(IM3SpacingToken.space4.value);
 
   // /// Creates EdgeInsets with small spacing (8dp all sides).
-  // static EdgeInsets get small => EdgeInsets.all(M3SpacingToken.space8.value);
+  // static EdgeInsets get small => EdgeInsets.all(IM3SpacingToken.space8.value);
 
   // /// Creates EdgeInsets with medium spacing (16dp all sides).
-  // static EdgeInsets get medium => EdgeInsets.all(M3SpacingToken.space16.value);
+  // static EdgeInsets get medium => EdgeInsets.all(IM3SpacingToken.space16.value);
 
   // /// Creates EdgeInsets with large spacing (24dp all sides).
-  // static EdgeInsets get large => EdgeInsets.all(M3SpacingToken.space24.value);
+  // static EdgeInsets get large => EdgeInsets.all(IM3SpacingToken.space24.value);
 
   // /// Creates EdgeInsets with extra large spacing (32dp all sides).
-  // static EdgeInsets get extraLarge => EdgeInsets.all(M3SpacingToken.space32.value);
+  // static EdgeInsets get extraLarge => EdgeInsets.all(IM3SpacingToken.space32.value);
 
   // Responsive spacing methods
 
@@ -230,10 +230,10 @@ class M3EdgeInsets {
   static EdgeInsets forScreenWidth(double screenWidth, {double factor = 1.0}) {
     late M3SpacingToken token;
 
-    if (screenWidth < 600) {
+    if (screenWidth < M3BreakpointToken.medium.value) {
       // Compact screens (phones in portrait)
       token = M3SpacingToken.space16;
-    } else if (screenWidth < 840) {
+    } else if (screenWidth < M3BreakpointToken.expanded.value) {
       // Medium screens (phones in landscape, small tablets)
       token = M3SpacingToken.space24;
     } else {
@@ -294,13 +294,13 @@ class M3EdgeInsets {
   ///
   /// [screenWidth] - The screen width in logical pixels
   static EdgeInsets marginForScreenWidth(double screenWidth) {
-    if (screenWidth < 600) {
+    if (screenWidth < M3BreakpointToken.medium.value) {
       return EdgeInsets.all(M3MarginToken.compactScreen.value);
-    } else if (screenWidth < 840) {
+    } else if (screenWidth < M3BreakpointToken.expanded.value) {
       return EdgeInsets.all(M3MarginToken.mediumScreen.value);
-    } else if (screenWidth < 1200) {
+    } else if (screenWidth < M3BreakpointToken.large.value) {
       return EdgeInsets.all(M3MarginToken.expandedScreen.value);
-    } else if (screenWidth < 1600) {
+    } else if (screenWidth < M3BreakpointToken.extraLarge.value) {
       return EdgeInsets.all(M3MarginToken.largeScreen.value);
     } else {
       return EdgeInsets.all(M3MarginToken.extraLargeScreen.value);
@@ -322,7 +322,7 @@ extension M3EdgeInsetsExtensions on EdgeInsets {
   /// final insets = EdgeInsets.all(8.0);
   /// final enhanced = insets.addM3Spacing(M3SpacingToken.space8);
   /// ```
-  EdgeInsets addM3Spacing(M3SpacingToken token) {
+  EdgeInsets addM3Spacing(IM3SpacingToken token) {
     return EdgeInsets.only(
       left: left + token.value,
       top: top + token.value,
@@ -336,10 +336,10 @@ extension M3EdgeInsetsExtensions on EdgeInsets {
   /// Each parameter specifies the spacing token to add to that direction.
   /// Null values result in no additional spacing for that direction.
   EdgeInsets addM3SpacingOnly({
-    M3SpacingToken? left,
-    M3SpacingToken? top,
-    M3SpacingToken? right,
-    M3SpacingToken? bottom,
+    IM3SpacingToken? left,
+    IM3SpacingToken? top,
+    IM3SpacingToken? right,
+    IM3SpacingToken? bottom,
   }) {
     return EdgeInsets.only(
       left: this.left + (left?.value ?? 0),
@@ -351,8 +351,8 @@ extension M3EdgeInsetsExtensions on EdgeInsets {
 
   /// Adds symmetric Material Design 3 spacing.
   EdgeInsets addM3SpacingSymmetric({
-    M3SpacingToken? horizontal,
-    M3SpacingToken? vertical,
+    IM3SpacingToken? horizontal,
+    IM3SpacingToken? vertical,
   }) {
     final h = horizontal?.value ?? 0;
     final v = vertical?.value ?? 0;
@@ -391,7 +391,7 @@ extension M3EdgeInsetsExtensions on EdgeInsets {
   /// returns a map with the token recommendations.
   ///
   /// Returns a map with keys: 'left', 'top', 'right', 'bottom'
-  Map<String, M3SpacingToken> toM3SpacingTokens() {
+  Map<String, IM3SpacingToken> toM3SpacingTokens() {
     return {
       'left': _findNearestToken(left),
       'top': _findNearestToken(top),
@@ -402,9 +402,9 @@ extension M3EdgeInsetsExtensions on EdgeInsets {
 
   /// Finds the nearest M3SpacingToken for a given value.
   M3SpacingToken _findNearestToken(double value) {
-    final tokens = M3SpacingToken.values;
-    M3SpacingToken nearest = tokens.first;
-    double minDifference = (value - tokens.first.value).abs();
+    const tokens = M3SpacingToken.values;
+    var nearest = tokens.first;
+    var minDifference = (value - tokens.first.value).abs();
 
     for (final token in tokens) {
       if (token == M3SpacingToken.infinity) continue;

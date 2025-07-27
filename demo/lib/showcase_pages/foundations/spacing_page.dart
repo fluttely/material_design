@@ -59,7 +59,7 @@ class _SpacingPageState extends State<SpacingPage> {
         title: const Text('Spacing System'),
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(M3SpacingToken.space16.value),
+        padding: M3EdgeInsets.all(M3SpacingToken.space16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -157,7 +157,7 @@ class _SpacingPageState extends State<SpacingPage> {
   //   final isInfinity = value == double.infinity;
 
   //   return M3Padding(
-  //     padding: const EdgeInsets.symmetric(vertical: 4.0),
+  //     padding: const M3EdgeInsets.symmetric(vertical: 4.0),
   //     child: Row(
   //       children: [
   //         SizedBox(

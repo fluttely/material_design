@@ -218,7 +218,7 @@ Card(
     borderRadius: M3ShapeToken.medium.value,    // ✅ Active shape
   ),
   child: M3Padding(
-    padding: EdgeInsets.all(M3SpacingToken.space16.value), // ✅ Active spacing
+    padding: M3EdgeInsets.all(M3SpacingToken.space16), // ✅ Active spacing
     child: content,
   ),
 )
@@ -370,7 +370,7 @@ Demonstrates all tokens organized by category:
 ```dart
 // Spacing demonstration
 Container(
-  padding: EdgeInsets.all(M3SpacingToken.space16), // 16dp
+  padding: M3EdgeInsets.all(M3SpacingToken.space16), // 16dp
   child: Text('Spaced content'),
 )
 

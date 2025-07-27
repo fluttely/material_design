@@ -18,9 +18,9 @@ abstract interface class M3Adaptive {
     Widget? large,
     Widget? extraLarge,
   }) {
-    final sizeClass = M3BreakpointToken.getWindowSizeClassFromContext(context);
+    final screenSize = M3BreakpointToken.getScreenSizeFromContext(context);
 
-    switch (sizeClass) {
+    switch (screenSize) {
       case M3ScreenSize.compact:
         return compact;
       case M3ScreenSize.medium:
@@ -43,9 +43,9 @@ abstract interface class M3Adaptive {
     T? large,
     T? extraLarge,
   }) {
-    final sizeClass = M3BreakpointToken.getWindowSizeClassFromContext(context);
+    final screenSize = M3BreakpointToken.getScreenSizeFromContext(context);
 
-    switch (sizeClass) {
+    switch (screenSize) {
       case M3ScreenSize.compact:
         return compact;
       case M3ScreenSize.medium:
@@ -61,28 +61,28 @@ abstract interface class M3Adaptive {
 
   /// Creates adaptive padding based on screen size.
   static EdgeInsetsGeometry adaptivePadding(BuildContext context) {
-    return EdgeInsets.all(
-      responsiveValue<double>(
+    return M3EdgeInsets.all(
+      responsiveValue<M3MarginToken>(
         context: context,
-        compact: M3MarginToken.compactScreen.value,
-        medium: M3MarginToken.mediumScreen.value,
-        expanded: M3MarginToken.expandedScreen.value,
-        large: M3MarginToken.largeScreen.value,
-        extraLarge: M3MarginToken.extraLargeScreen.value,
+        compact: M3MarginToken.compactScreen,
+        medium: M3MarginToken.mediumScreen,
+        expanded: M3MarginToken.expandedScreen,
+        large: M3MarginToken.largeScreen,
+        extraLarge: M3MarginToken.extraLargeScreen,
       ),
     );
   }
 
   /// Creates adaptive margins based on screen size.
   static EdgeInsetsGeometry adaptiveMargin(BuildContext context) {
-    return EdgeInsets.symmetric(
-      horizontal: responsiveValue<double>(
+    return M3EdgeInsets.symmetric(
+      horizontal: responsiveValue<M3MarginToken>(
         context: context,
-        compact: M3MarginToken.compactScreen.value,
-        medium: M3MarginToken.mediumScreen.value,
-        expanded: M3MarginToken.expandedScreen.value,
-        large: M3MarginToken.largeScreen.value,
-        extraLarge: M3MarginToken.extraLargeScreen.value,
+        compact: M3MarginToken.compactScreen,
+        medium: M3MarginToken.mediumScreen,
+        expanded: M3MarginToken.expandedScreen,
+        large: M3MarginToken.largeScreen,
+        extraLarge: M3MarginToken.extraLargeScreen,
       ),
     );
   }
@@ -98,9 +98,9 @@ abstract interface class M3Adaptive {
     Widget? leading,
     Widget? trailing,
   }) {
-    final sizeClass = M3BreakpointToken.getWindowSizeClassFromContext(context);
+    final screenSize = M3BreakpointToken.getScreenSizeFromContext(context);
 
-    switch (sizeClass) {
+    switch (screenSize) {
       case M3ScreenSize.compact:
         return NavigationBar(
           destinations: destinations,
@@ -127,6 +127,8 @@ abstract interface class M3Adaptive {
       case M3ScreenSize.large:
       case M3ScreenSize.extraLarge:
         return NavigationDrawer(
+          selectedIndex: selectedIndex,
+          onDestinationSelected: onDestinationSelected,
           children: [
             if (leading != null) leading,
             ...destinations.asMap().entries.map((entry) {
@@ -138,8 +140,6 @@ abstract interface class M3Adaptive {
             }),
             if (trailing != null) trailing,
           ],
-          selectedIndex: selectedIndex,
-          onDestinationSelected: onDestinationSelected,
         );
     }
   }
@@ -313,7 +313,7 @@ abstract interface class M3Adaptive {
         transitionBuilder: (context, animation, secondaryAnimation, child) {
           return SlideTransition(
             position: Tween<Offset>(
-              begin: const Offset(1.0, 0.0),
+              begin: const Offset(1, 0),
               end: Offset.zero,
             ).animate(CurvedAnimation(
               parent: animation,
@@ -367,7 +367,7 @@ abstract interface class M3Adaptive {
     Decoration? decoration,
   }) {
     final maxWidth = M3BreakpointToken.getMaxContentWidth(
-      M3BreakpointToken.getWindowSizeClassFromContext(context),
+      M3BreakpointToken.getScreenSizeFromContext(context),
     );
 
     return Container(
@@ -452,9 +452,9 @@ abstract interface class M3Adaptive {
     final inputType = getInputMethodType(context);
     switch (inputType) {
       case InputMethodType.touch:
-        return 48.0; // Mobile touch target
+        return 48; // Mobile touch target
       case InputMethodType.mouse:
-        return 32.0; // Desktop mouse target
+        return 32; // Desktop mouse target
     }
   }
 }
@@ -470,6 +470,18 @@ enum InputMethodType {
 
 /// Adaptive scaffold that provides responsive layout structure.
 class M3AdaptiveScaffold extends StatelessWidget {
+  const M3AdaptiveScaffold({
+    required this.body,
+    super.key,
+    this.destinations,
+    this.selectedIndex = 0,
+    this.onDestinationSelected,
+    this.appBar,
+    this.floatingActionButton,
+    this.navigationLeading,
+    this.navigationTrailing,
+  });
+
   /// The primary content of the scaffold.
   final Widget body;
 
@@ -494,24 +506,12 @@ class M3AdaptiveScaffold extends StatelessWidget {
   /// Trailing widget for navigation.
   final Widget? navigationTrailing;
 
-  const M3AdaptiveScaffold({
-    Key? key,
-    required this.body,
-    this.destinations,
-    this.selectedIndex = 0,
-    this.onDestinationSelected,
-    this.appBar,
-    this.floatingActionButton,
-    this.navigationLeading,
-    this.navigationTrailing,
-  }) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
-    final sizeClass = M3BreakpointToken.getWindowSizeClassFromContext(context);
+    final screenSize = M3BreakpointToken.getScreenSizeFromContext(context);
 
     // For compact screens, use standard scaffold with bottom navigation
-    if (sizeClass == M3ScreenSize.compact) {
+    if (screenSize == M3ScreenSize.compact) {
       return Scaffold(
         appBar: appBar,
         body: body,
@@ -527,7 +527,7 @@ class M3AdaptiveScaffold extends StatelessWidget {
     }
 
     // For medium screens, use navigation rail
-    if (sizeClass == M3ScreenSize.medium) {
+    if (screenSize == M3ScreenSize.medium) {
       return Scaffold(
         appBar: appBar,
         body: Row(
@@ -559,6 +559,8 @@ class M3AdaptiveScaffold extends StatelessWidget {
       appBar: appBar,
       drawer: destinations != null
           ? NavigationDrawer(
+              selectedIndex: selectedIndex,
+              onDestinationSelected: onDestinationSelected,
               children: [
                 if (navigationLeading != null) navigationLeading!,
                 ...destinations!.asMap().entries.map((entry) {
@@ -570,8 +572,6 @@ class M3AdaptiveScaffold extends StatelessWidget {
                 }),
                 if (navigationTrailing != null) navigationTrailing!,
               ],
-              selectedIndex: selectedIndex,
-              onDestinationSelected: onDestinationSelected,
             )
           : null,
       body: body,
