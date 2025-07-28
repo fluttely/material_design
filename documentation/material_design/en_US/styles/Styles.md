@@ -200,7 +200,7 @@ AnimatedContainer(
 
 ### [[Motion|🌊 Motion System]] - ✅ **Working**
 
-Based on **M3MotionDurationToken** and **M3MotionEasingToken** tokens - fully implemented and functional:
+Based on **M3MotionDurationToken** and **M3MotionCurveToken** tokens - fully implemented and functional:
 
 **Duration Categories:**
 
@@ -222,10 +222,10 @@ M3MotionDurationToken.long4        // 600ms
 
 ```dart
 // Official M3 curves
-M3MotionEasingToken.standard       // (0.2, 0.0, 0.0, 1.0) - most common
-M3MotionEasingToken.emphasized     // (0.05, 0.7, 0.1, 1.0) - important transitions
-M3MotionEasingToken.decelerated    // (0.0, 0.0, 0.2, 1.0) - entering elements
-M3MotionEasingToken.accelerated    // (0.3, 0.0, 1.0, 1.0) - exiting elements
+M3MotionCurveToken.standard       // (0.2, 0.0, 0.0, 1.0) - most common
+M3MotionCurveToken.emphasized     // (0.05, 0.7, 0.1, 1.0) - important transitions
+M3MotionCurveToken.decelerated    // (0.0, 0.0, 0.2, 1.0) - entering elements
+M3MotionCurveToken.accelerated    // (0.3, 0.0, 1.0, 1.0) - exiting elements
 ```
 
 **Motion Patterns:**
@@ -234,7 +234,7 @@ M3MotionEasingToken.accelerated    // (0.3, 0.0, 1.0, 1.0) - exiting elements
 // Fade with contextual duration
 M3MotionUtils.fadeIn(
   duration: M3MotionDurationToken.medium2,
-  curve: M3MotionEasingToken.emphasizedDecelerate,
+  curve: M3MotionCurveToken.emphasizedDecelerate,
   child: myWidget,
 )
 
@@ -347,7 +347,7 @@ Card(
   child: AnimatedContainer(
     // Motion
     duration: M3MotionDurationToken.short4,
-    curve: M3MotionEasingToken.standard,
+    curve: M3MotionCurveToken.standard,
     padding: M3EdgeInsets.all(M3SpacingToken.space16),
     child: Column(
       children: [

@@ -4,6 +4,115 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adherves to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.16.0
+
+### 🔄 BREAKING CHANGES
+
+- **Motion Token API Renaming**: Renamed motion easing tokens for better semantic clarity
+  - **`M3MotionEasingToken` → `M3MotionCurveToken`**: All motion easing token references updated throughout the codebase
+  - **Affected Properties**: All easing curve access patterns (emphasized, standard, standardDecelerate, standardAccelerate, linear, etc.)
+  - **Documentation Updates**: Comprehensive updates to both English and Portuguese documentation reflecting new naming
+
+### ✨ New Features - M3 Expressive
+
+- **Loading Indicator Component**: Introduced new M3 Expressive loading indicator component
+  - **`LoadingIndicator`**: Brand new loading indicator widget with Material Design 3 expressive styling
+  - **`LoadingIndicator.contained()`**: Contained variant for different visual contexts
+  - **`LoadingIndicatorTheme`**: Complete theming system for customization
+  - Enhanced visual design following M3 Expressive guidelines
+
+- **Material New Shapes System**: Added comprehensive new shapes library for M3 Expressive
+  - **`MaterialShapes`**: Extensive collection of 35+ predefined shapes including:
+    - Basic shapes: circle, square, triangle, diamond, oval
+    - Advanced shapes: heart, clover, burst, flower, ghost-ish
+    - Cookie variants: 4-sided through 12-sided cookies
+    - Expressive shapes: sunny, boom, puffy, pixelCircle
+  - **Shape Morphing**: Advanced shape morphing capabilities with smooth animations
+  - **Interactive Showcase**: Complete demo implementation with animated shape transitions
+
+### 🎯 Developer Experience Improvements
+
+- **Enhanced Demo Application**: Added new M3 Expressive showcase section
+  - **M3ExpressivePage**: Dedicated page showcasing new expressive components
+  - **Loading Indicator Demo**: Interactive demonstrations of loading indicator variants
+  - **Navigation Enhancement**: Added "Expressive" section to main navigation with dedicated icon
+  - **Integrated Examples**: Seamless integration with existing demo architecture
+
+- **API Consistency**: Updated motion token usage patterns throughout codebase
+  - **README Updates**: All motion examples updated to use `M3MotionCurveToken`
+  - **Demo Consistency**: All showcase pages migrated to new motion token naming
+  - **Documentation Alignment**: Both English and Portuguese docs synchronized
+
+### 📱 Enhanced Example Applications
+
+- **Theme Integration**: Better theme integration patterns in examples
+  - **Context-Aware Styling**: Enhanced usage of `Theme.of(context)` patterns throughout examples
+  - **Color Scheme Integration**: Improved color scheme access patterns in README examples
+  - **State Layer Updates**: Better state layer opacity usage with proper theme integration
+
+### 🏗️ Library Architecture Enhancements
+
+- **Export Structure**: Enhanced library exports for new M3 Expressive components
+  - **Main Library**: Added exports for `LoadingIndicator` and `MaterialShapes`
+  - **Modular Organization**: Better separation between core M3 and M3 Expressive features
+  - **Theme Integration**: Proper theming integration for all new components
+
+### 🔧 Migration Guide
+
+**Motion Token Updates:**
+
+```dart
+// Before (v0.15.x)
+AnimatedContainer(
+  curve: M3MotionEasingToken.emphasized.value,
+  duration: M3MotionDurationToken.medium2.value,
+)
+
+// After (v0.16.0)
+AnimatedContainer(
+  curve: M3MotionCurveToken.emphasized.value,
+  duration: M3MotionDurationToken.medium2.value,
+)
+```
+
+**New M3 Expressive Components:**
+
+```dart
+// Loading Indicator
+LoadingIndicator() // Standard variant
+LoadingIndicator.contained() // Contained variant
+
+// Material Shapes (for advanced shape usage)
+import 'package:material_design/material_design.dart';
+
+// Access predefined shapes
+final shape = MaterialShapes.heart;
+final morphing = Morph(MaterialShapes.circle, MaterialShapes.heart);
+```
+
+**Theme Usage:**
+
+```dart
+// Enhanced theme integration patterns
+Container(
+  color: Theme.of(context).colorScheme.surface.withValues(
+    alpha: M3StateLayerOpacityToken.hover.value,
+  ),
+)
+```
+
+### 📊 Impact Summary
+
+- **Files Modified**: 20+ files updated across core library, demo, and documentation
+- **API Enhancement**: Consistent motion token naming across entire library
+- **New Components**: 2 major M3 Expressive components (LoadingIndicator, MaterialShapes)
+- **Documentation**: Comprehensive updates in both English and Portuguese
+- **Demo Enhancement**: New showcase section for M3 Expressive features
+
+**Recommended Version Bump: MINOR (0.15.0 → 0.16.0)**
+
+This release introduces significant new M3 Expressive features while maintaining backward compatibility, includes motion token API improvements for better semantic clarity, and provides enhanced developer experience through comprehensive documentation updates and interactive demos.
+
 ## 0.15.0
 
 ### 🔄 BREAKING CHANGES

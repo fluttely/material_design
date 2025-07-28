@@ -10,7 +10,7 @@
 - **Spacing Tokens** - M3SpacingToken (4dp grid system)
 - **Elevation Tokens** - M3Elevation (6 levels)
 - **Shape Tokens** - M3ShapeToken (border radius system)
-- **Motion Tokens** - M3MotionDurationToken & M3MotionEasingToken
+- **Motion Tokens** - M3MotionDurationToken & M3MotionCurveToken
 - **State Tokens** - M3StateLayerOpacity
 - **Breakpoint Tokens** - M3BreakpointToken (responsive)
 
@@ -49,7 +49,7 @@ graph TD
     E --> E2[M3Elevation ✅]
     E --> E3[M3SpacingToken ✅]
     E --> E4[M3MotionDurationToken ✅]
-    E --> E5[M3MotionEasingToken ✅]
+    E --> E5[M3MotionCurveToken ✅]
     E --> E6[M3ShapeToken ✅]
     E --> E7[M3StateLayerOpacity ✅]
     E --> E8[M3BreakpointToken ✅]

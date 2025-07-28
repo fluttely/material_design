@@ -53,39 +53,7 @@ Container(
   ),
   child: Text(
     'Hello Material 3',
-    style: M3TextStyleToken.headlineMedium.value,
-  ),
-)
-```
-
-## Core Tokens
-
-### 🎨 Color System
-
-Generate complete Material 3 color schemes from a single seed color:
-
-```dart
-MaterialApp(
-  theme: ThemeData(
-    useMaterial3: true,
-    colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
-  ),
-)
-```
-
-### 📝 Typography
-
-Access all 15 Material 3 text styles:
-
-```dart
-MaterialApp(
-  theme: ThemeData(
-    useMaterial3: true,
-    textTheme: TextTheme(
-      displayLarge: M3TextStyleToken.displayLarge.value,
-      ...
-      labelSmall: M3TextStyleToken.labelSmall.value,
-    ),
+    style: Theme.of(context).textTheme.headlineMedium,
   ),
 )
 ```
@@ -151,7 +119,7 @@ Standardized animations:
 ```dart
 AnimatedContainer(
   duration: M3MotionDurationToken.medium2.value, // 300ms
-  curve: M3MotionEasingToken.emphasized.value,    // Material easing
+  curve: M3MotionCurveToken.emphasized.value,    // Material easing
 )
 ```
 
@@ -182,9 +150,42 @@ Container(
 )
 
 // State layer opacities
-Container(
-  color: primaryColor.withValues(
-    alpha: M3StateLayerOpacityToken.hover.value, // 0.08
+final Color hoverOverlayColor = Theme.of(context).colorScheme.onSurface.withValues(alpha: M3StateLayerOpacityToken.hover.value);
+return AnimatedContainer(
+  duration: const Duration(milliseconds: 200),
+  color: _onHover ? Color.alphaBlend(hoverOverlayColor, colorScheme.surface) : colorScheme.surface,
+  child: // Seu conteúdo aqui,
+);
+```
+
+## Core Tokens
+
+### 🎨 Color System
+
+Generate complete Material 3 color schemes from a single seed color:
+
+```dart
+MaterialApp(
+  theme: ThemeData(
+    useMaterial3: true,
+    colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+  ),
+)
+```
+
+### 📝 Typography
+
+Access all 15 Material 3 text styles:
+
+```dart
+MaterialApp(
+  theme: ThemeData(
+    useMaterial3: true,
+    textTheme: TextTheme(
+      displayLarge: M3TextStyleToken.displayLarge.value,
+      ...
+      labelSmall: M3TextStyleToken.labelSmall.value,
+    ),
   ),
 )
 ```

@@ -7,6 +7,7 @@ import 'package:material_design_demo/showcase_pages/foundations/opacity_tokens_p
 import 'package:material_design_demo/showcase_pages/foundations/spacing_page.dart';
 import 'package:material_design_demo/showcase_pages/foundations/visual_density_page.dart';
 import 'package:material_design_demo/showcase_pages/foundations/z_index_tokens_page.dart';
+import 'package:material_design_demo/showcase_pages/m3_expressive/m3_expressive_page.dart';
 import 'package:material_design_demo/showcase_pages/widgets/launch_url_text.dart';
 import 'package:provider/provider.dart';
 
@@ -108,6 +109,7 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
 
     // Components and Utilities
     const UtilsPage(),
+    const M3ExpressivePage(),
   ];
 
   @override
@@ -254,6 +256,11 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
         icon: Icon(Icons.auto_awesome_outlined),
         selectedIcon: Icon(Icons.auto_awesome),
         label: Text('Utils'),
+      ),
+      NavigationRailDestination(
+        icon: Icon(Icons.local_activity_outlined),
+        selectedIcon: Icon(Icons.local_activity),
+        label: Text('Expressive'),
       ),
     ];
   }

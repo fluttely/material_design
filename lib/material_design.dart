@@ -14,10 +14,15 @@
 /// - `M3ElevationToken.level5`
 library;
 
+import 'dart:collection';
 import 'dart:math' as math;
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:material_design/material_design.dart';
+import 'package:meta/meta.dart';
+import 'package:vector_math/vector_math_64.dart' hide Colors;
 
 /// **Elevation System**: Tonal elevation and shadow tokens.
 /// Implements Material Design 3's primary depth indication system using
@@ -140,3 +145,53 @@ part 'src/m3/widgets/layout/m3_padding.dart';
 /// Provides comprehensive shape decoration creation using Material Design 3
 /// shape tokens with built-in patterns, responsive shapes, and accessibility.
 part 'src/m3/widgets/layout/m3_shape_decoration.dart';
+
+/// **M3 Expressive Components**: Advanced Material Design 3 components.
+/// Showcase Material Design 3's expressive capabilities with dynamic shapes,
+/// morphing animations, and enhanced visual feedback.
+
+/// Loading indicators with morphing shapes and expressive animations.
+/// Provides contained and non-contained variants with customizable sequences.
+part 'src/m3_expressive/loading_indicator/loading_indicator.dart';
+
+/// Complete theming system for M3 Expressive loading indicators.
+/// Defines visual properties and provides theme inheritance for styling.
+part 'src/m3_expressive/loading_indicator/loading_indicator_theme.dart';
+
+/// Material Design 3 expressive shapes collection.
+/// Predefined shapes for morphing animations and decorative elements.
+part 'src/m3_expressive/new_shapes/material_shapes.dart';
+
+/// Shape corner rounding system for smooth polygon transitions.
+part 'src/m3_expressive/new_shapes/shapes/corner_rounding.dart';
+
+/// Cubic curve calculations for complex shape morphing.
+part 'src/m3_expressive/new_shapes/shapes/cubic.dart';
+
+/// Feature mapping utilities for shape transformation algorithms.
+part 'src/m3_expressive/new_shapes/shapes/feature_mapping.dart';
+
+/// Shape feature analysis and extraction system.
+part 'src/m3_expressive/new_shapes/shapes/features.dart';
+
+/// Float mapping utilities for precision shape calculations.
+part 'src/m3_expressive/new_shapes/shapes/float_mapping.dart';
+
+/// Shape morphing engine for smooth transitions between polygons.
+part 'src/m3_expressive/new_shapes/shapes/morph.dart';
+
+/// Point geometry utilities for shape vertex manipulation.
+part 'src/m3_expressive/new_shapes/shapes/point.dart';
+
+/// Polygon measurement and bounds calculation utilities.
+part 'src/m3_expressive/new_shapes/shapes/polygon_measure.dart';
+
+/// Core rounded polygon implementation with vertex and curve support.
+part 'src/m3_expressive/new_shapes/shapes/rounded_polygon.dart';
+
+/// Core shapes library with morphing, rounding, and transformation.
+/// Foundation classes for creating and manipulating complex polygon shapes.
+part 'src/m3_expressive/new_shapes/shapes/shapes.dart';
+
+/// Shape utility functions and extension methods.
+part 'src/m3_expressive/new_shapes/shapes/utils.dart';

@@ -316,7 +316,7 @@ abstract interface class M3Adaptive {
               end: Offset.zero,
             ).animate(CurvedAnimation(
               parent: animation,
-              curve: M3MotionEasingToken.emphasizedDecelerate.value,
+              curve: M3MotionCurveToken.emphasizedDecelerate.value,
             )),
             child: child,
           );

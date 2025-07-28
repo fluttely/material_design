@@ -201,10 +201,10 @@ M3MotionDurationToken.long4        // 600ms
 
 ```dart
 // Curvas oficiais M3
-M3MotionEasingToken.standard       // (0.2, 0.0, 0.0, 1.0) - mais comum
-M3MotionEasingToken.emphasized     // (0.05, 0.7, 0.1, 1.0) - transições importantes
-M3MotionEasingToken.decelerated    // (0.0, 0.0, 0.2, 1.0) - elementos entrando
-M3MotionEasingToken.accelerated    // (0.3, 0.0, 1.0, 1.0) - elementos saindo
+M3MotionCurveToken.standard       // (0.2, 0.0, 0.0, 1.0) - mais comum
+M3MotionCurveToken.emphasized     // (0.05, 0.7, 0.1, 1.0) - transições importantes
+M3MotionCurveToken.decelerated    // (0.0, 0.0, 0.2, 1.0) - elementos entrando
+M3MotionCurveToken.accelerated    // (0.3, 0.0, 1.0, 1.0) - elementos saindo
 ```
 
 **Motion Patterns:**
@@ -213,7 +213,7 @@ M3MotionEasingToken.accelerated    // (0.3, 0.0, 1.0, 1.0) - elementos saindo
 // Fade com duração contextual
 M3MotionUtils.fadeIn(
   duration: M3MotionDurationToken.medium2,
-  curve: M3MotionEasingToken.emphasizedDecelerate,
+  curve: M3MotionCurveToken.emphasizedDecelerate,
   child: myWidget,
 )
 
@@ -326,7 +326,7 @@ Card(
   child: AnimatedContainer(
     // Motion
     duration: M3MotionDurationToken.short4,
-    curve: M3MotionEasingToken.standard,
+    curve: M3MotionCurveToken.standard,
     padding: M3EdgeInsets.all(M3SpacingToken.space16),
     child: Column(
       children: [

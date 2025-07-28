@@ -16,43 +16,43 @@ class MotionPage extends StatelessWidget {
         children: [
           LaunchURLText(
             label:
-                'M3MotionToken Equals:\nM3MotionDurationToken + M3MotionEasingToken',
+                'M3MotionToken Equals:\nM3MotionDurationToken + M3MotionCurveToken',
             m3Url:
                 'https://m3.material.io/styles/motion/easing-and-duration/applying-easing-and-duration',
           ),
           _MotionShowcase(
             title: 'Emphasized',
-            easing: M3MotionEasingToken.emphasizedAccelerate,
+            easing: M3MotionCurveToken.emphasizedAccelerate,
             duration: M3MotionDurationToken.long2,
           ),
           _MotionShowcase(
             title: 'Emphasized Incoming',
-            easing: M3MotionEasingToken.emphasizedDecelerate,
+            easing: M3MotionCurveToken.emphasizedDecelerate,
             duration: M3MotionDurationToken.long1,
           ),
           _MotionShowcase(
             title: 'Emphasized Outgoing',
-            easing: M3MotionEasingToken.emphasizedAccelerate,
+            easing: M3MotionCurveToken.emphasizedAccelerate,
             duration: M3MotionDurationToken.short3,
           ),
           _MotionShowcase(
             title: 'Standard',
-            easing: M3MotionEasingToken.standard,
+            easing: M3MotionCurveToken.standard,
             duration: M3MotionDurationToken.medium2,
           ),
           _MotionShowcase(
             title: 'Standard Incoming',
-            easing: M3MotionEasingToken.standardDecelerate,
+            easing: M3MotionCurveToken.standardDecelerate,
             duration: M3MotionDurationToken.medium1,
           ),
           _MotionShowcase(
             title: 'Standard Outgoing',
-            easing: M3MotionEasingToken.standardAccelerate,
+            easing: M3MotionCurveToken.standardAccelerate,
             duration: M3MotionDurationToken.short4,
           ),
           _MotionShowcase(
             title: 'Linear',
-            easing: M3MotionEasingToken.linear,
+            easing: M3MotionCurveToken.linear,
             duration: M3MotionDurationToken.short3,
           ),
         ],
@@ -69,7 +69,7 @@ class _MotionShowcase extends StatefulWidget {
   });
 
   final String title;
-  final M3MotionEasingToken easing;
+  final M3MotionCurveToken easing;
   final M3MotionDurationToken duration;
 
   @override
@@ -143,7 +143,7 @@ class _MotionPainter extends CustomPainter {
   });
 
   final double animationValue;
-  final M3MotionEasingToken easing;
+  final M3MotionCurveToken easing;
   final Color color;
 
   @override

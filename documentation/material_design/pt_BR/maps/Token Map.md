@@ -32,7 +32,7 @@ graph TD
     E --> E3[M3Elevation]
     E --> E4[M3SpacingToken]
     E --> E5[M3MotionDurationToken]
-    E --> E6[M3MotionEasingToken]
+    E --> E6[M3MotionCurveToken]
     E --> E7[M3Radius]
     E --> E8[M3BoxShadowToken]
 
