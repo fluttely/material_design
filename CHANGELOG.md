@@ -4,6 +4,52 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adherves to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.16.1
+
+### 🏗️ CI/CD Infrastructure & Quality Improvements
+
+- **Enhanced Testing Infrastructure**: Introduced comprehensive automated testing workflow
+
+  - **New `tests.yml` Workflow**: Added dedicated GitHub Actions workflow for continuous testing
+  - **Multi-Environment Testing**: Tests run on both root package and demo application
+  - **Quality Gates**: Added code formatting checks and static analysis to CI pipeline
+  - **Branch Protection**: Tests trigger on main and development branches, plus pull requests
+
+- **Deployment Pipeline Optimization**: Improved demo deployment workflow for better reliability
+  - **Sequential Workflow Execution**: Demo deployment now triggers only after successful test completion
+  - **Enhanced Setup Steps**: Better job naming and clearer deployment process
+  - **Reduced Redundancy**: Removed duplicate test execution from deployment workflow
+
+### 📄 Project Metadata Updates
+
+- **License Standardization**: Updated project license to reflect proper branding
+
+- **CI Badge Alignment**: Updated README.md to reference correct GitHub Actions workflow
+  - **Badge URL Update**: Tests badge now points to `tests.yml` instead of legacy `test.yml`
+  - Ensures build status accuracy and proper CI/CD visibility
+
+### 🔧 Developer Experience Enhancements
+
+- **Improved Workflow Names**: Enhanced GitHub Actions workflow naming for better clarity
+
+  - `Tests` workflow provides clear indication of testing process
+  - Better integration with GitHub's status checks and branch protection rules
+
+- **Build Process Optimization**: Streamlined CI/CD pipeline reduces redundant operations
+  - Eliminates duplicate Flutter setup and dependency installation
+  - Faster feedback loop for developers through optimized test execution
+
+### 📊 Impact Summary
+
+- **Files Modified**: 4 core infrastructure files updated
+- **CI/CD Enhancement**: Separated testing and deployment concerns for better reliability
+- **Quality Assurance**: Added automated code quality checks to development workflow
+- **Branding Consistency**: Standardized project attribution across legal documents
+
+**Recommended Version Bump: MINOR (0.16.0 → 0.16.1)**
+
+This release focuses on infrastructure improvements, CI/CD pipeline enhancements, and project metadata standardization. While no new features are introduced, the improved testing infrastructure and deployment reliability significantly enhance the development experience and project quality assurance.
+
 ## 0.16.0
 
 ### 🔄 BREAKING CHANGES
@@ -16,6 +62,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 ### ✨ New Features - M3 Expressive
 
 - **Loading Indicator Component**: Introduced new M3 Expressive loading indicator component
+
   - **`LoadingIndicator`**: Brand new loading indicator widget with Material Design 3 expressive styling
   - **`LoadingIndicator.contained()`**: Contained variant for different visual contexts
   - **`LoadingIndicatorTheme`**: Complete theming system for customization
@@ -33,6 +80,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 ### 🎯 Developer Experience Improvements
 
 - **Enhanced Demo Application**: Added new M3 Expressive showcase section
+
   - **M3ExpressivePage**: Dedicated page showcasing new expressive components
   - **Loading Indicator Demo**: Interactive demonstrations of loading indicator variants
   - **Navigation Enhancement**: Added "Expressive" section to main navigation with dedicated icon

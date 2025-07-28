@@ -2,7 +2,7 @@
 
 [![pub version](https://img.shields.io/pub/v/material_design.svg)](https://pub.dev/packages/material_design)
 [![license](https://img.shields.io/badge/license-BSD-blue.svg)](/LICENSE)
-[![Tests](https://github.com/fluttely/material_design/actions/workflows/test.yml/badge.svg)](https://github.com/fluttely/material_design/actions/workflows/test.yml)
+[![Tests](https://github.com/fluttely/material_design/actions/workflows/tests.yml/badge.svg)](https://github.com/fluttely/material_design/actions/workflows/tests.yml)
 [![Deploy Demo](https://github.com/fluttely/material_design/actions/workflows/deploy-demo.yml/badge.svg)](https://github.com/fluttely/material_design/actions/workflows/deploy-demo.yml)
 [![codecov](https://codecov.io/gh/fluttely/material_design/branch/master/graph/badge.svg)](https://codecov.io/gh/fluttely/material_design)
 

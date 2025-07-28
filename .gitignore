@@ -35,4 +35,4 @@ build/
 .env
 utils.js
 CLAUDE.md
-lib/src/m3_expressive
+# lib/src/m3_expressive

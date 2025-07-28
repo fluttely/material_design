@@ -1,0 +1,47 @@
+name: Tests
+
+on:
+  push:
+    branches: [main, development]
+  pull_request:
+    branches: [main, development]
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: "stable"
+
+      - name: Install dependencies (root)
+        run: flutter pub get
+
+      - name: Install dependencies (demo)
+        run: |
+          cd demo
+          flutter pub get
+
+      - name: Run tests (root)
+        run: flutter test
+
+      - name: Run tests (demo)
+        run: |
+          cd demo
+          if [ -d "test" ]; then
+            flutter test
+          else
+            echo "No tests found in demo directory, skipping..."
+          fi
+
+      - name: Check code formatting
+        run: dart format --set-exit-if-changed .
+
+      - name: Analyze code
+        run: flutter analyze --no-fatal-infos

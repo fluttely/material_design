@@ -6,13 +6,13 @@ void main() {
   group('M3Gap', () {
     testWidgets('creates SizedBox with correct spacing', (tester) async {
       await tester.pumpWidget(
-        MaterialApp(
+        const MaterialApp(
           home: Scaffold(
             body: Column(
               children: [
-                const Text('Top'),
+                Text('Top'),
                 M3Gap(M3SpacingToken.space16),
-                const Text('Bottom'),
+                Text('Bottom'),
               ],
             ),
           ),
@@ -25,20 +25,20 @@ void main() {
           matching: find.byType(SizedBox),
         ),
       );
-      
+
       expect(gap.height, equals(16));
       expect(gap.width, isNull);
     });
 
     testWidgets('works in horizontal layout', (tester) async {
       await tester.pumpWidget(
-        MaterialApp(
+        const MaterialApp(
           home: Scaffold(
             body: Row(
               children: [
-                const Text('Left'),
+                Text('Left'),
                 M3Gap(M3SpacingToken.space24, orientation: Axis.horizontal),
-                const Text('Right'),
+                Text('Right'),
               ],
             ),
           ),
@@ -51,7 +51,7 @@ void main() {
           matching: find.byType(SizedBox),
         ),
       );
-      
+
       expect(gap.width, equals(24));
       expect(gap.height, isNull);
     });
@@ -77,7 +77,7 @@ void main() {
           matching: find.byType(SizedBox),
         ),
       );
-      
+
       expect(gaps.elementAt(0).height, equals(8));
       expect(gaps.elementAt(1).height, equals(32));
       expect(gaps.elementAt(2).height, equals(64));
@@ -104,7 +104,7 @@ void main() {
           matching: find.byType(SizedBox),
         ),
       );
-      
+
       expect(gap.height, equals(16));
     });
 
@@ -129,7 +129,7 @@ void main() {
           matching: find.byType(SizedBox),
         ),
       );
-      
+
       expect(gap.height, equals(24));
     });
 
@@ -154,7 +154,7 @@ void main() {
           matching: find.byType(SizedBox),
         ),
       );
-      
+
       expect(gap.height, equals(0));
       expect(gap.width, isNull);
     });
