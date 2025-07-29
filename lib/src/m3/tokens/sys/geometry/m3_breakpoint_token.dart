@@ -3,7 +3,8 @@ part of '../../../../../material_design.dart';
 /// Material Design 3 breakpoint tokens for responsive window size classes.
 ///
 /// This enum defines the canonical Material Design 3 breakpoints, known as
-/// "window size classes". These values are based on extensive research by Google
+/// "window size classes". These values are based on extensive research by
+/// Google
 /// on the most common screen sizes across the device ecosystem. They function
 /// as lower bounds that categorize available UI space, enabling layouts to
 /// adapt consistently and ergonomically across different devices.
@@ -39,8 +40,10 @@ part of '../../../../../material_design.dart';
 /// ## Breakpoint Guidelines
 ///
 /// - **Compact (0-599dp)**: Phones in portrait - single column layouts
-/// - **Medium (600-839dp)**: Phones in landscape, small tablets - dual pane capable
-/// - **Expanded (840-1199dp)**: Large tablets, foldables - complex multi-pane layouts
+/// - **Medium (600-839dp)**: Phones in landscape, small tablets - dual pane
+///   capable
+/// - **Expanded (840-1199dp)**: Large tablets, foldables - complex multi-pane
+///   layouts
 /// - **Large (1200-1599dp)**: Desktop screens - rich information architecture
 /// - **Extra Large (1600dp+)**: Large monitors - expansive multi-column layouts
 ///
@@ -313,12 +316,14 @@ enum M3ScreenSize {
 
 /// Extension on M3ScreenSizeExtension to add convenience methods.
 extension M3ScreenSizeExtension on M3ScreenSize {
-  /// Returns true if this size class is at least as large as the given size class.
+  /// Returns true if this size class is at least as large as the given size
+  /// class.
   bool isAtLeast(M3ScreenSize other) {
     return index >= other.index;
   }
 
-  /// Returns true if this size class is at most as large as the given size class.
+  /// Returns true if this size class is at most as large as the given size
+  /// class.
   bool isAtMost(M3ScreenSize other) {
     return index <= other.index;
   }
@@ -367,7 +372,8 @@ extension M3ScreenSizeExtension on M3ScreenSize {
   }
 }
 
-/// A responsive builder widget that rebuilds when the window size class changes.
+/// A responsive builder widget that rebuilds when the window size class
+/// changes.
 ///
 /// This widget provides an easy way to build adaptive layouts that respond
 /// to changes in window size class.
@@ -403,10 +409,13 @@ class M3ResponsiveBuilder extends StatelessWidget {
   }
 }
 
-/// A widget that provides responsive values based on the current window size class.
+/// A widget that provides responsive values based on the current window size
+/// class.
 ///
-/// This widget allows you to specify different values for different breakpoints
-/// and automatically selects the appropriate value based on the current screen size.
+/// This widget allows you to specify different values for different
+/// breakpoints
+/// and automatically selects the appropriate value based on the current screen
+/// size.
 ///
 /// Example:
 /// ```dart
@@ -608,7 +617,8 @@ class M3ResponsiveGrid extends StatelessWidget {
 /// Provides utilities for implementing Material Design 3 navigation patterns
 /// that adapt to different window size classes.
 class M3ResponsiveNavigation {
-  /// Determines the appropriate navigation type for the current window size class.
+  /// Determines the appropriate navigation type for the current window size
+  /// class.
   static M3NavigationType getNavigationType(M3ScreenSize screenSize) {
     switch (screenSize) {
       case M3ScreenSize.compact:
@@ -628,7 +638,7 @@ class M3ResponsiveNavigation {
   }
 
   /// Gets the recommended navigation rail width.
-  static double getRailWidth(bool extended) {
+  static double getRailWidth({required bool extended}) {
     return extended ? 256.0 : 80.0;
   }
 }
@@ -645,7 +655,8 @@ enum M3NavigationType {
   drawer,
 }
 
-/// A responsive scaffold that automatically adjusts navigation based on window size.
+/// A responsive scaffold that automatically adjusts navigation based on window
+/// size.
 ///
 /// This widget provides a complete scaffold solution that adapts its navigation
 /// pattern based on the current window size class.

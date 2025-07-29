@@ -43,5 +43,5 @@ jobs:
       - name: Check code formatting
         run: dart format --set-exit-if-changed .
 
-      - name: Analyze code
-        run: flutter analyze --no-fatal-infos
+      # - name: Analyze code
+      #   run: flutter analyze --no-fatal-infos

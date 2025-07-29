@@ -325,23 +325,4 @@ class _UtilsPageState extends State<UtilsPage> {
       ),
     );
   }
-
-  Widget _buildShapeExample(String label, BorderRadius borderRadius) {
-    return Container(
-      width: 80,
-      height: 60,
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.tertiaryContainer,
-        borderRadius: borderRadius,
-      ),
-      child: Center(
-        child: Text(
-          label,
-          style: Theme.of(context).textTheme.labelMedium?.copyWith(
-              color: Theme.of(context).colorScheme.onTertiaryContainer),
-          textAlign: TextAlign.center,
-        ),
-      ),
-    );
-  }
 }

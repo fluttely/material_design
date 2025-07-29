@@ -115,7 +115,8 @@ abstract interface class M3ColorUtils {
     return calculateContrast(foreground, background) >= 3.0;
   }
 
-  /// Adjusts a color to meet minimum contrast requirements against a background.
+  /// Adjusts a color to meet minimum contrast requirements against a
+  /// background.
   static Color adjustForAccessibility(
     Color color,
     Color background, {

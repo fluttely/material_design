@@ -48,7 +48,8 @@ part of '../../../../../material_design.dart';
 /// ### Combination and Operations
 /// ```dart
 /// // Combine different EdgeInsets
-/// final combined = M3EdgeInsets.small() + M3EdgeInsets.vertical(M3SpacingToken.space8);
+/// final combined = M3EdgeInsets.small() +
+/// M3EdgeInsets.vertical(M3SpacingToken.space8);
 ///
 /// // Scale EdgeInsets
 /// final scaled = M3EdgeInsets.medium() * 1.5;
@@ -212,19 +213,24 @@ class M3EdgeInsets extends EdgeInsets {
   // static EdgeInsets get none => EdgeInsets.all(IM3SpacingToken.none.value);
 
   // /// Creates EdgeInsets with extra small spacing (4dp all sides).
-  // static EdgeInsets get extraSmall => EdgeInsets.all(IM3SpacingToken.space4.value);
+  // static EdgeInsets get extraSmall =>
+  // EdgeInsets.all(IM3SpacingToken.space4.value);
 
   // /// Creates EdgeInsets with small spacing (8dp all sides).
-  // static EdgeInsets get small => EdgeInsets.all(IM3SpacingToken.space8.value);
+  // static EdgeInsets get small =>
+  // EdgeInsets.all(IM3SpacingToken.space8.value);
 
   // /// Creates EdgeInsets with medium spacing (16dp all sides).
-  // static EdgeInsets get medium => EdgeInsets.all(IM3SpacingToken.space16.value);
+  // static EdgeInsets get medium =>
+  // EdgeInsets.all(IM3SpacingToken.space16.value);
 
   // /// Creates EdgeInsets with large spacing (24dp all sides).
-  // static EdgeInsets get large => EdgeInsets.all(IM3SpacingToken.space24.value);
+  // static EdgeInsets get large =>
+  // EdgeInsets.all(IM3SpacingToken.space24.value);
 
   // /// Creates EdgeInsets with extra large spacing (32dp all sides).
-  // static EdgeInsets get extraLarge => EdgeInsets.all(IM3SpacingToken.space32.value);
+  // static EdgeInsets get extraLarge =>
+  // EdgeInsets.all(IM3SpacingToken.space32.value);
 
   // Responsive spacing methods
 

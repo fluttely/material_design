@@ -26,38 +26,46 @@ import 'package:vector_math/vector_math_64.dart' hide Colors;
 
 /// **Elevation System**: Tonal elevation and shadow tokens.
 /// Implements Material Design 3's primary depth indication system using
-/// surface tinting combined with complementary shadow effects for natural depth perception.
+/// surface tinting combined with complementary shadow effects for natural
+/// depth perception.
 part 'src/m3/tokens/sys/elevation/m3_box_shadow_token.dart';
 part 'src/m3/tokens/sys/elevation/m3_elevation_token.dart';
 part 'src/m3/tokens/sys/elevation/m3_surface_color_token.dart';
 part 'src/m3/tokens/sys/elevation/m3_surface_tint.dart';
 
 /// **Geometry Tokens**: Spatial and dimensional design tokens.
-/// Comprehensive geometric system including borders, breakpoints, icon sizing, and z-index layering.
+/// Comprehensive geometric system including borders, breakpoints, icon
+/// sizing, and z-index layering.
 
 /// Border width tokens for consistent component outlining and separation.
-/// Provides semantic border widths from subtle (1dp) to prominent (4dp) with usage guidelines.
+/// Provides semantic border widths from subtle (1dp) to prominent (4dp)
+/// with usage guidelines.
 part 'src/m3/tokens/sys/geometry/m3_border_token.dart';
 
 /// Responsive breakpoint system for adaptive layout design.
-/// Implements Material Design 3's five-tier breakpoint system with utility methods
-/// for responsive components, navigation patterns, and screen size adaptation.
+/// Implements Material Design 3's five-tier breakpoint system with utility
+/// methods
+/// for responsive components, navigation patterns, and screen size
+/// adaptation.
 part 'src/m3/tokens/sys/geometry/m3_breakpoint_token.dart';
 
 /// Icon sizing tokens for consistent iconography across interface elements.
-/// Provides semantic icon sizes from dense (20dp) to extra-large (48dp) with
+/// Provides semantic icon sizes from dense (20dp) to extra-large (48dp)
+/// with
 /// context-appropriate usage recommendations.
 part 'src/m3/tokens/sys/geometry/m3_icon_size_token.dart';
 
 /// Z-index layering tokens for predictable component stacking order.
-/// Establishes consistent layering hierarchy from background (0) to tooltips (9999)
+/// Establishes consistent layering hierarchy from background (0) to
+/// tooltips (9999)
 /// ensuring proper visual relationships and interaction patterns.
 part 'src/m3/tokens/sys/geometry/m3_z_index_token.dart';
 
 /// **Interaction Tokens**: User interaction and feedback systems.
 
 /// Visual density tokens for adaptive component spacing.
-/// Provides platform-aware density adjustment from compact (-2,-2) to comfortable (-1,-1)
+/// Provides platform-aware density adjustment from compact (-2,-2) to
+/// comfortable (-1,-1)
 /// with automatic platform adaptation and accessibility considerations.
 part 'src/m3/tokens/sys/interaction/m3_visual_density_token.dart';
 
@@ -68,7 +76,8 @@ part 'src/m3/tokens/sys/interfaces/m3_token.dart';
 
 /// **Motion System**: Animation duration and easing tokens.
 /// Complete motion design system with duration tokens (50ms-1000ms) and
-/// easing curves (emphasized, standard, linear) for natural, consistent animations.
+/// easing curves (emphasized, standard, linear) for natural, consistent
+/// animations.
 part 'src/m3/tokens/sys/motion/m3_motion_token.dart';
 
 /// **Shape System**: Corner radius and border radius tokens.
@@ -77,25 +86,38 @@ part 'src/m3/tokens/sys/motion/m3_motion_token.dart';
 part 'src/m3/tokens/sys/shape/m3_shape_token.dart';
 
 /// **Spacing System**: 4dp grid-based spacing and margin tokens.
-/// Complete spacing system with base spacing (4dp-128dp), responsive margins,
+/// Complete spacing system with base spacing (4dp-128dp), responsive
+/// margins,
 /// and semantic spacer tokens for consistent spatial rhythm.
 part 'src/m3/tokens/sys/spacing/m3_spacing_token.dart';
 
 /// **State Tokens**: Interaction states and opacity management.
 
 /// General opacity tokens for UI element transparency.
-/// Provides semantic opacity values for disabled states (38%), dividers (12%),
-/// and backdrop overlays (50%) with accessibility-compliant transparency levels.
+/// Provides semantic opacity values for disabled states (38%), dividers
+/// (12%),
+/// and backdrop overlays (50%) with accessibility-compliant transparency
+/// levels.
 part 'src/m3/tokens/sys/state/m3_opacity_token.dart';
 
 /// Interactive state layer opacity tokens for user feedback.
-/// Implements Material Design 3's state layer system with hover (8%), focus (10%),
-/// pressed (10%), and dragged (16%) opacity tokens for consistent interaction feedback.
+/// Implements Material Design 3's state layer system with hover (8%),
+/// focus (10%),
+/// pressed (10%), and dragged (16%) opacity tokens for consistent
+/// interaction feedback.
 part 'src/m3/tokens/sys/state/m3_state_layer_opacity_token.dart';
 
+/// State layer tokens for interactive element overlay management.
+/// Provides comprehensive state layer implementation with color and
+/// opacity combinations for consistent user interaction feedback
+/// across all interactive components.
+part 'src/m3/tokens/sys/state/m3_state_layer_token.dart';
+
 /// **Typography System**: Complete type scale and text styling tokens.
-/// Comprehensive typography system with display, headline, title, body, and label
-/// categories, including responsive text, accessibility enhancements, and adaptive scaling.
+/// Comprehensive typography system with display, headline, title, body,
+/// and label
+/// categories, including responsive text, accessibility enhancements,
+/// and adaptive scaling.
 part 'src/m3/tokens/sys/typography/m3_text_style_token.dart';
 
 /// Comprehensive accessibility toolkit for inclusive design.
@@ -127,12 +149,14 @@ part 'src/m3/widgets/layout/m3_box_decoration.dart';
 part 'src/m3/widgets/layout/m3_container.dart';
 
 /// Material Design 3 EdgeInsets utility with comprehensive token integration.
-/// Provides token-enforced edge insets with responsive calculations, accessibility
+/// Provides token-enforced edge insets with responsive calculations,
+/// accessibility
 /// adaptations, and common layout patterns for consistent spatial design.
 part 'src/m3/widgets/layout/m3_edge_insets.dart';
 
 /// Intelligent gap widget with automatic orientation detection.
-/// Creates spacing between layout elements with automatic parent context detection,
+/// Creates spacing between layout elements with automatic parent context
+/// detection,
 /// supporting all spacing tokens with convenient factory methods and utilities.
 part 'src/m3/widgets/layout/m3_gap.dart';
 

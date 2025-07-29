@@ -1,5 +1,11 @@
 part of '../../../../material_design.dart';
 
+/// A measured polygon that holds information about cubics and their associated
+/// outline progress values along the shape's perimeter.
+///
+/// This class is used to match cubics between shapes that lie at similar
+/// outline progress positions, particularly useful for morphing animations
+/// between different polygon shapes.
 class MeasuredPolygon {
   MeasuredPolygon._({
     required Measurer measurer,
@@ -45,6 +51,16 @@ class MeasuredPolygon {
     _cubics = measuredCubics;
   }
 
+  /// Creates a [MeasuredPolygon] by measuring the given [polygon] using the
+  /// specified [measurer].
+  ///
+  /// This factory method extracts the cubics from the polygon's features,
+  /// measures each cubic according to the measurer's algorithm, and calculates
+  /// outline progress values for each cubic along the shape's perimeter.
+  ///
+  /// [measurer] the measurement algorithm to use for calculating cubic sizes
+  /// and positions.
+  /// [polygon] the polygon to measure and convert to a measured polygon.
   factory MeasuredPolygon.measurePolygon(
     Measurer measurer,
     RoundedPolygon polygon,
@@ -116,16 +132,30 @@ class MeasuredPolygon {
 
   final List<ProgressableFeature> _features;
 
+  /// Returns an unmodifiable view of the features in this measured polygon.
+  ///
+  /// Each feature represents a characteristic outline segment with its
+  /// associated outline progress position.
   List<ProgressableFeature> get features => UnmodifiableListView(_features);
 
+  /// Returns the first measured cubic in this polygon.
   MeasuredCubic get first => _cubics.first;
 
+  /// Returns the last measured cubic in this polygon.
   MeasuredCubic get last => _cubics.last;
 
+  /// Returns the number of measured cubics in this polygon.
   int get length => _cubics.length;
 
+  /// Returns the measured cubic at the specified [index].
+  ///
+  /// Throws [RangeError] if [index] is out of bounds.
   MeasuredCubic operator [](int index) => _cubics[index];
 
+  /// Returns the measured cubic at the specified [index], or null if the
+  /// index is out of bounds.
+  ///
+  /// [index] the index of the cubic to retrieve.
   MeasuredCubic? getOrNull(int index) {
     final length = _cubics.length;
 
@@ -237,6 +267,13 @@ class MeasuredPolygon {
 /// Outline progress is a value in [0..1) that represents the distance traveled
 /// along the overall outline path of the shape.
 class MeasuredCubic {
+  /// Creates a measured cubic with the specified measurer, cubic curve,
+  /// and outline progress range.
+  ///
+  /// [measurer] the measurement algorithm used to measure this cubic.
+  /// [cubic] the cubic Bézier curve being measured.
+  /// [startOutlineProgress] the starting outline progress value (0-1).
+  /// [endOutlineProgress] the ending outline progress value (0-1).
   MeasuredCubic({
     required this.measurer,
     required this.cubic,
@@ -260,20 +297,29 @@ class MeasuredCubic {
     measuredSize = measurer.measureCubic(cubic);
   }
 
+  /// The measurement algorithm used to measure this cubic.
   final Measurer measurer;
 
+  /// The cubic Bézier curve being measured.
   final Cubic cubic;
 
+  /// The measured size of this cubic according to the measurer.
   late final double measuredSize;
 
   double _startOutlineProgress;
 
   double _endOutlineProgress;
 
+  /// The starting outline progress value for this cubic (0-1).
   double get startOutlineProgress => _startOutlineProgress;
 
+  /// The ending outline progress value for this cubic (0-1).
   double get endOutlineProgress => _endOutlineProgress;
 
+  /// Updates the outline progress range for this measured cubic.
+  ///
+  /// [startOutlineProgress] new starting progress value, if null keeps current.
+  /// [endOutlineProgress] new ending progress value, if null keeps current.
   void updateProgressRange({
     double? startOutlineProgress,
     double? endOutlineProgress,
@@ -365,7 +411,15 @@ abstract interface class Measurer {
 /// result will be to the true arc length. The default implementation has at
 /// least 98.5% accuracy on the case of a circular arc, which is the
 /// worst case for our standard shapes.
+///
+/// This measurer uses a segmented approach to calculate approximate arc
+/// lengths by dividing each cubic into multiple segments and summing the
+/// linear distances between consecutive points on the curve.
 class LengthMeasurer implements Measurer {
+  /// Creates a new [LengthMeasurer] instance.
+  ///
+  /// This measurer approximates arc lengths by splitting cubic curves into
+  /// segments and calculating their linear distances.
   const LengthMeasurer();
 
   // The minimum number needed to achieve up to 98.5% accuracy from the true

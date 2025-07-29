@@ -35,24 +35,32 @@ const M3ElevationToken _kM3SurfaceLevel5 = M3ElevationToken.level5;
 // }
 
 enum M3SurfaceColorToken {
+  /// Surface color token for elevation level 0
   level0(_kM3SurfaceLevel0),
+
+  /// Surface color token for elevation level 1
   level1(_kM3SurfaceLevel1),
+
+  /// Surface color token for elevation level 2
   level2(_kM3SurfaceLevel2),
+
+  /// Surface color token for elevation level 3
   level3(_kM3SurfaceLevel3),
+
+  /// Surface color token for elevation level 4
   level4(_kM3SurfaceLevel4),
+
+  /// Surface color token for elevation level 5
   level5(_kM3SurfaceLevel5);
 
-  final M3ElevationToken _elevation;
-
+  /// Creates a surface color token with the given elevation.
   const M3SurfaceColorToken(this._elevation);
 
-  /// Factory method que retorna um wrapper com o valor
-  Color value(BuildContext context) =>
-      M3SurfaceTint.fromElevation(context, _elevation);
-
+  /// Creates a surface color token from an elevation token interface.
   factory M3SurfaceColorToken.fromElevation(IM3ElevationToken elevation) =>
       M3SurfaceColorToken.fromElevationValue(elevation.value);
 
+  /// Creates a surface color token from an elevation value.
   factory M3SurfaceColorToken.fromElevationValue(double value) =>
       switch (value) {
         >= 12 => level5,
@@ -62,4 +70,11 @@ enum M3SurfaceColorToken {
         >= 1 => level1,
         _ => level0,
       };
+
+  /// The elevation token associated with this surface color
+  final M3ElevationToken _elevation;
+
+  /// Returns the surface color value for the given context
+  Color value(BuildContext context) =>
+      M3SurfaceTint.fromElevation(context, _elevation);
 }

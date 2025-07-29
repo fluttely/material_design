@@ -435,7 +435,7 @@ abstract interface class M3Adaptive {
       case TargetPlatform.windows:
       case TargetPlatform.linux:
         return InputMethodType.mouse;
-      default:
+      case TargetPlatform.fuchsia:
         return InputMethodType.touch;
     }
   }
@@ -468,7 +468,14 @@ enum InputMethodType {
 }
 
 /// Adaptive scaffold that provides responsive layout structure.
+///
+/// Automatically switches between different navigation patterns based on
+/// screen size:
+/// - Compact: Bottom navigation bar
+/// - Medium: Navigation rail
+/// - Large: Navigation drawer
 class M3AdaptiveScaffold extends StatelessWidget {
+  /// Creates an adaptive scaffold with the given configuration.
   const M3AdaptiveScaffold({
     required this.body,
     super.key,

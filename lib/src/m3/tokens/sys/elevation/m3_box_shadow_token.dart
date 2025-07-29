@@ -101,7 +101,8 @@ const List<BoxShadow> _kM3ShadowLevel3 = [
 ///
 /// **Shadow properties**:
 /// - **Layer 1**: Definition shadow (offset: 2dp, blur: 4dp)
-/// - **Layer 2**: Extended ambient shadow (offset: 4dp, blur: 10dp, spread: 3dp)
+/// - **Layer 2**: Extended ambient shadow (offset: 4dp, blur: 10dp, spread:
+/// 3dp)
 /// {@endtemplate}
 const List<BoxShadow> _kM3ShadowLevel4 = [
   BoxShadow(
@@ -145,7 +146,8 @@ const List<BoxShadow> _kM3ShadowLevel5 = [
 /// {@template m3_shadow_token}
 /// Internal shadow token system for Material Design 3 elevation.
 ///
-/// This enum provides pre-defined, specification-compliant shadow configurations
+/// This enum provides pre-defined, specification-compliant shadow
+/// configurations
 /// that correspond to Material Design 3's five standard elevation levels. Each
 /// shadow configuration consists of carefully crafted BoxShadow layers that
 /// create natural depth perception.
@@ -182,7 +184,8 @@ const List<BoxShadow> _kM3ShadowLevel5 = [
 ///
 /// - Each shadow level is pre-calculated for optimal performance
 /// - Shadow configurations are immutable and cached
-/// - Dual-layer shadows provide maximum visual impact with minimal rendering cost
+/// - Dual-layer shadows provide maximum visual impact with minimal
+///   rendering cost
 ///
 /// **Internal Implementation**: This is a private token used by the elevation
 /// system. External code should use [M3ElevationToken] and its extensions.
@@ -210,16 +213,8 @@ enum M3BoxShadowToken implements IM3Token<List<BoxShadow>> {
 
   const M3BoxShadowToken(this.value);
 
-  /// The shadows for this elevation level.
-  @override
-  final List<BoxShadow> value;
-
-  /// The color used for M3 shadows is black with 15% opacity.
-  /// 0x26 = 38 in decimal = 15% of 255 = 38/255 ≈ 0.149 opacity
-  Color get shadowColor => _kM3ShadowColor;
-
   /// Returns a shadow token for a given M3ElevationToken.
-  /// This method now delegates the logic to [fromElevationValue].
+  /// This method now delegates the logic to fromElevationValue.
   factory M3BoxShadowToken.fromElevation(IM3ElevationToken elevation) =>
       M3BoxShadowToken.fromElevationValue(elevation.value);
 
@@ -233,4 +228,12 @@ enum M3BoxShadowToken implements IM3Token<List<BoxShadow>> {
         >= 1 => level1,
         _ => level0,
       };
+
+  /// The shadows for this elevation level.
+  @override
+  final List<BoxShadow> value;
+
+  /// The color used for M3 shadows is black with 15% opacity.
+  /// 0x26 = 38 in decimal = 15% of 255 = 38/255 ≈ 0.149 opacity
+  Color get shadowColor => _kM3ShadowColor;
 }

@@ -60,7 +60,7 @@ abstract interface class M3Accessibility {
       case TargetPlatform.windows:
       case TargetPlatform.linux:
         return minTouchTargetDesktop;
-      default:
+      case TargetPlatform.fuchsia:
         return minTouchTargetMobile;
     }
   }
@@ -464,7 +464,11 @@ abstract interface class M3Accessibility {
 }
 
 /// Accessibility configuration for the app.
+///
+/// Provides a centralized way to manage accessibility settings and preferences.
+/// Can be constructed manually or from system settings using [fromContext].
 class M3AccessibilityConfig {
+  /// Creates an accessibility configuration with the specified settings.
   const M3AccessibilityConfig({
     this.highContrast = false,
     this.reducedMotion = false,

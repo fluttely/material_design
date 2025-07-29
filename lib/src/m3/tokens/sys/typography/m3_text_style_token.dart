@@ -541,13 +541,17 @@ extension M3TextStyleTokenComparison on M3TextStyleToken {
 
 //   /// Gets the theme's text theme converted to type scale tokens.
 //   Map<M3TextStyleToken, TextStyle> get typeScaleTheme => {
-//         M3TextStyleToken.displayLarge: Theme.of(this).textTheme.displayLarge,
-//         M3TextStyleToken.displayMedium: Theme.of(this).textTheme.displayMedium,
+//         M3TextStyleToken.displayLarge:
+//             Theme.of(this).textTheme.displayLarge,
+//         M3TextStyleToken.displayMedium:
+//             Theme.of(this).textTheme.displayMedium,
 //         M3TextStyleToken.displaySmall: Theme.of(this).textTheme.displaySmall,
-//         M3TextStyleToken.headlineLarge: Theme.of(this).textTheme.headlineLarge,
+//         M3TextStyleToken.headlineLarge:
+//             Theme.of(this).textTheme.headlineLarge,
 //         M3TextStyleToken.headlineMedium:
 //             Theme.of(this).textTheme.headlineMedium,
-//         M3TextStyleToken.headlineSmall: Theme.of(this).textTheme.headlineSmall,
+//         M3TextStyleToken.headlineSmall:
+//             Theme.of(this).textTheme.headlineSmall,
 //         M3TextStyleToken.titleLarge: Theme.of(this).textTheme.titleLarge,
 //         M3TextStyleToken.titleMedium: Theme.of(this).textTheme.titleMedium,
 //         M3TextStyleToken.titleSmall: Theme.of(this).textTheme.titleSmall,

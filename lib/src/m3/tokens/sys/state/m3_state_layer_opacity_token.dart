@@ -54,7 +54,8 @@ enum M3StateLayerOpacityToken implements IM3Token<double> {
   /// device (mouse, trackpad). This subtle opacity provides immediate feedback
   /// that the element is interactive and ready to be activated.
   ///
-  /// The 8% opacity ensures the hover effect is noticeable but not overwhelming,
+  /// The 8% opacity ensures the hover effect is noticeable but not
+  /// overwhelming,
   /// maintaining readability while clearly indicating interactivity.
   ///
   /// **Ideal use cases**:

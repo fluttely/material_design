@@ -13,8 +13,10 @@ const double _kM3ElevationLevel5 = 12;
 /// {@template im3_elevation_token}
 /// Represents the contract for a Material 3 elevation token.
 ///
-/// This interface establishes the essential properties required for any object
-/// that defines an elevation level. It ensures that all tokens, whether standard,
+/// This interface establishes the essential properties required for any
+/// object
+/// that defines an elevation level. It ensures that all tokens, whether
+/// standard,
 /// component-specific, or custom, can be processed consistently to render
 /// surface colors and shadows according to Material Design 3 principles.
 /// {@endtemplate}
@@ -30,26 +32,31 @@ abstract interface class IM3ElevationToken implements IM3Token<double> {
 /// {@template m3_elevation_token}
 /// Defines the five standard elevation levels of the Material 3 design system.
 ///
-/// These tokens represent a fixed collection of elevation steps used as a baseline
+/// These tokens represent a fixed collection of elevation steps used as a
+/// baseline
 /// for positioning surfaces in the z-axis.
 /// {@endtemplate}
 enum M3ElevationToken implements IM3ElevationToken {
   /// The base level, with no elevation (0 dp). Used for default surfaces.
   level0(_kM3ElevationLevel0),
 
-  /// A subtle elevation (1 dp), typically for resting-state components like [Card].
+  /// A subtle elevation (1 dp), typically for resting-state components like
+  /// [Card].
   level1(_kM3ElevationLevel1),
 
   /// A more distinct elevation (3 dp), often used for menus and dialogs.
   level2(_kM3ElevationLevel2),
 
-  /// A prominent elevation (6 dp), used for components like [FloatingActionButton].
+  /// A prominent elevation (6 dp), used for components like
+  /// [FloatingActionButton].
   level3(_kM3ElevationLevel3),
 
-  /// A higher elevation (8 dp) for components that need to stand out significantly.
+  /// A higher elevation (8 dp) for components that need to stand out
+  /// significantly.
   level4(_kM3ElevationLevel4),
 
-  /// The highest standard elevation (12 dp), reserved for critical temporary surfaces.
+  /// The highest standard elevation (12 dp), reserved for critical temporary
+  /// surfaces.
   level5(_kM3ElevationLevel5);
 
   const M3ElevationToken(this.value);
@@ -220,7 +227,8 @@ extension IM3ElevationTokenVisuals on IM3ElevationToken {
 
   /// Calculates surface color with a custom formula and tint color.
   ///
-  /// This is a convenience method that delegates its logic to [M3SurfaceTint.calculateSurfaceColor].
+  /// This is a convenience method that delegates its logic to
+  /// [M3SurfaceTint.calculateSurfaceColor].
   Color calculateSurfaceColor({
     required Color surface,
     required Color surfaceTint,
@@ -233,7 +241,8 @@ extension IM3ElevationTokenVisuals on IM3ElevationToken {
 
   /// Creates a high contrast surface color for accessibility.
   ///
-  /// This is a convenience method that delegates its logic to [M3SurfaceTint.highContrastSurface].
+  /// This is a convenience method that delegates its logic to
+  /// [M3SurfaceTint.highContrastSurface].
   Color highContrastSurface({
     required Color surface,
     required Color surfaceTint,
@@ -253,6 +262,7 @@ extension IM3ElevationTokenComparison on IM3ElevationToken {
   /// Checks if this elevation is lower than another token's elevation.
   bool isLowerThan(IM3ElevationToken other) => value < other.value;
 
-  /// Returns the absolute difference in elevation between this and another token.
+  /// Returns the absolute difference in elevation between this and another
+  /// token.
   double differenceFrom(IM3ElevationToken other) => (value - other.value).abs();
 }

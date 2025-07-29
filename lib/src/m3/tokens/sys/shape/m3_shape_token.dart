@@ -58,7 +58,8 @@ const _kM3ShapeExtraExtraLarge =
 const _kM3ShapeFull =
     RoundedRectangleBorder(borderRadius: _kM3BorderRadiusFull);
 
-/// Defines the corner radius values (`Radius`) for shape tokens according to Material Design 3.
+/// Defines the corner radius values (`Radius`) for shape tokens according to
+/// Material Design 3.
 ///
 /// Shape is a token category in Material 3 that replaces the small, medium,
 /// and large component shape categories from Material 2. These tokens can be
@@ -111,7 +112,8 @@ enum M3RadiusToken implements IM3Token<Radius> {
   double get dp => value.x;
 }
 
-/// Defines the border radius values (`BorderRadius`) for shape tokens according to Material Design 3.
+/// Defines the border radius values (`BorderRadius`) for shape tokens
+/// according to Material Design 3.
 ///
 /// This enum uses [M3RadiusToken] tokens to build `BorderRadius` objects, which
 /// can be applied to components to affect their border rounding.
@@ -187,7 +189,8 @@ enum M3BorderRadiusToken implements IM3Token<BorderRadius> {
 ///
 /// These tokens make it easy to apply consistent corner rounding to Flutter
 /// widgets like [Card], [InkWell], and `Container` decorations. Using these
-/// shape tokens helps maintain a consistent visual language across the application.
+/// shape tokens helps maintain a consistent visual language across the
+/// application.
 ///
 /// This is the highest-level token, ready to be used in widget properties.
 ///
@@ -296,20 +299,50 @@ enum M3ShapeToken implements IM3Token<RoundedRectangleBorder> {
 }
 
 /// Component size categories for shape selection.
-enum ComponentSize { small, medium, large }
+enum ComponentSize {
+  /// Small component size.
+  small,
+
+  /// Medium component size.
+  medium,
+
+  /// Large component size.
+  large
+}
 
 /// Material Design 3 component types.
 enum M3Component {
+  /// Button component.
   button,
+
+  /// Floating action button component.
   fab,
+
+  /// Chip component.
   chip,
+
+  /// Card component.
   card,
+
+  /// Dialog component.
   dialog,
+
+  /// Sheet component.
   sheet,
+
+  /// Text field component.
   textField,
+
+  /// Menu component.
   menu,
+
+  /// Navigation bar component.
   navigationBar,
+
+  /// Navigation rail component.
   navigationRail,
+
+  /// Other component type.
   other,
 }
 

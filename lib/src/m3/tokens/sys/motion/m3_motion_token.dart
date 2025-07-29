@@ -160,7 +160,8 @@ class M3MotionScheme {
   /// The easing easing for the animation.
   final M3MotionCurveToken easing;
 
-  /// Creates a [Tween] for this motion scheme, animating between [begin] and [end].
+  /// Creates a [Tween] for this motion scheme, animating between [begin] and
+  /// [end].
   ///
   /// This is a convenience method for creating a [CurveTween] that can be
   /// chained with another tween (like [Tween<double>]) and driven by an
@@ -168,7 +169,9 @@ class M3MotionScheme {
   ///
   /// Example:
   /// ```dart
-  /// myAnimation = controller.drive(M3MotionToken.emphasized.asTween(begin: 0.0, end: 1.0));
+  /// myAnimation = controller.drive(
+  ///   M3MotionToken.emphasized.asTween(begin: 0.0, end: 1.0),
+  /// );
   /// ```
   Animatable<T> asTween<T>({required T begin, required T end}) {
     return Tween<T>(begin: begin, end: end)
@@ -182,7 +185,8 @@ class M3MotionScheme {
 /// consistent and natural-feeling animations across the application.
 ///
 /// This class provides pre-combined [M3MotionScheme]s for convenience, built
-/// from the granular [M3MotionDurationToken].value and [M3MotionCurveToken] tokens.
+/// from the granular [M3MotionDurationToken].value and [M3MotionCurveToken]
+/// tokens.
 ///
 /// See: https://m3.material.io/styles/motion/easing-and-duration/applying-easing-and-duration
 enum M3MotionToken implements IM3Token<M3MotionScheme> {
@@ -251,6 +255,7 @@ enum M3MotionToken implements IM3Token<M3MotionScheme> {
   @override
   final M3MotionScheme value;
 
+  /// Gets the duration component of this motion token.
   Duration get duration {
     return switch (this) {
       M3MotionToken.emphasized => M3MotionDurationToken.long2.value,
@@ -263,6 +268,7 @@ enum M3MotionToken implements IM3Token<M3MotionScheme> {
     };
   }
 
+  /// Gets the easing curve component of this motion token.
   Curve get easing {
     return switch (this) {
       M3MotionToken.emphasized => M3MotionCurveToken.emphasized.value,
@@ -308,18 +314,32 @@ enum M3MotionToken implements IM3Token<M3MotionScheme> {
   }
 }
 
-/// Motion distance categories for selecting appropriate durations
+/// Motion distance categories for selecting appropriate durations.
 enum MotionDistance {
+  /// Short distance animations.
   short,
+
+  /// Medium distance animations.
   medium,
+
+  /// Long distance animations.
   long,
+
+  /// Extra long distance animations.
   extraLong,
 }
 
-/// Motion types for selecting appropriate easing curves
+/// Motion types for selecting appropriate easing curves.
 enum MotionType {
+  /// Elements entering the screen.
   incoming,
+
+  /// Elements exiting the screen.
   outgoing,
+
+  /// Elements that persist on screen.
   persistent,
+
+  /// Standard motion type.
   standard,
 }

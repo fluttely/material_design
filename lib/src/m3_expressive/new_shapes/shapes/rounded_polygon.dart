@@ -29,7 +29,8 @@ class RoundedPolygon {
       }
 
       return true;
-    }());
+    }(),
+        'RoundedPolygon curves must be contiguous with matching anchor points');
   }
 
   /// This constructor takes the number of vertices in the resulting polygon.
@@ -699,15 +700,27 @@ class RoundedPolygon {
     );
   }
 
+  /// The list of features that describe the characteristics of each outline
+  /// segment of the polygon.
+  ///
+  /// Each feature represents a portion of the polygon's outline, such as
+  /// corners or edges, and contains the cubic curves that define its shape.
   final List<Feature> features;
 
+  /// The center point of the polygon.
+  ///
+  /// This point is used as a reference for transformations and calculations.
+  /// It may be explicitly provided or automatically calculated based on the
+  /// polygon's vertices.
   final Point center;
 
   /// A flattened version of the [Feature]s, as a `List<Cubic>`.
   final List<Cubic> cubics;
 
+  /// The X coordinate of the polygon's center point.
   double get centerX => center.x;
 
+  /// The Y coordinate of the polygon's center point.
   double get centerY => center.y;
 
   void _initCubics() {
@@ -1208,7 +1221,8 @@ class _RoundedCorner {
     // We use an approximation to cut a part of the circle section proportional
     // to 1 - smooth, When smooth = 0, we take the full section, when
     // smooth = 1, we take nothing.
-    // TODO: revisit this, it can be problematic as it approaches 180 degrees
+    // TODO(performance): Revisit this approach as it can be problematic when
+    // the angle approaches 180 degrees.
     final p = interpolate(
       circleSegmentIntersection,
       (circleSegmentIntersection + otherCircleSegmentIntersection) / 2,
