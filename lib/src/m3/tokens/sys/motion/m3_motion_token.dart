@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:material_design/material_design.dart';
+part of '../../../../../material_design.dart';
 
 /// The set of durations in the Material specification.
 ///
@@ -96,17 +95,17 @@ enum M3MotionDurationToken implements IM3Token<Duration> {
 ///
 /// ```dart
 /// // Get emphasized easing curve
-/// Curve curve = M3MotionEasingToken.emphasized.value;
+/// Curve curve = M3MotionCurveToken.emphasized.value;
 ///
 /// // Use in animations
 /// AnimatedContainer(
-///   curve: M3MotionEasingToken.standard.value,
+///   curve: M3MotionCurveToken.standard.value,
 ///   duration: Duration(milliseconds: 300),
 /// );
 /// ```
 ///
 /// Specification: https://m3.material.io/styles/motion/easing-and-duration/tokens-specs
-enum M3MotionEasingToken implements IM3Token<Curve> {
+enum M3MotionCurveToken implements IM3Token<Curve> {
   /// Emphasized easing curve for prominent animations.
   emphasized(Curves.easeInOutCubicEmphasized),
 
@@ -129,7 +128,7 @@ enum M3MotionEasingToken implements IM3Token<Curve> {
   linear(Easing.linear);
 
   /// Creates a motion easing token with the specified value.
-  const M3MotionEasingToken(this.value);
+  const M3MotionCurveToken(this.value);
 
   /// The easing curve value.
   @override
@@ -159,7 +158,7 @@ class M3MotionScheme {
   final M3MotionDurationToken duration;
 
   /// The easing easing for the animation.
-  final M3MotionEasingToken easing;
+  final M3MotionCurveToken easing;
 
   /// Creates a [Tween] for this motion scheme, animating between [begin] and [end].
   ///
@@ -183,7 +182,7 @@ class M3MotionScheme {
 /// consistent and natural-feeling animations across the application.
 ///
 /// This class provides pre-combined [M3MotionScheme]s for convenience, built
-/// from the granular [M3MotionDurationToken].value and [M3MotionEasingToken] tokens.
+/// from the granular [M3MotionDurationToken].value and [M3MotionCurveToken] tokens.
 ///
 /// See: https://m3.material.io/styles/motion/easing-and-duration/applying-easing-and-duration
 enum M3MotionToken implements IM3Token<M3MotionScheme> {
@@ -194,21 +193,21 @@ enum M3MotionToken implements IM3Token<M3MotionScheme> {
   /// Duration: `long2` (500ms). Curve: `emphasized`.
   emphasized(M3MotionScheme(
     M3MotionDurationToken.long2,
-    M3MotionEasingToken.emphasized,
+    M3MotionCurveToken.emphasized,
   )),
 
   /// Emphasized motion for elements that are entering the screen.
   /// Duration: `long1` (450ms). Curve: `emphasizedDecelerate`.
   emphasizedIncoming(M3MotionScheme(
     M3MotionDurationToken.long1,
-    M3MotionEasingToken.emphasizedDecelerate,
+    M3MotionCurveToken.emphasizedDecelerate,
   )),
 
   /// Emphasized motion for elements that are exiting the screen.
   /// Duration: `short3` (150ms). Curve: `emphasizedAccelerate`.
   emphasizedOutgoing(M3MotionScheme(
     M3MotionDurationToken.short3,
-    M3MotionEasingToken.emphasizedAccelerate,
+    M3MotionCurveToken.emphasizedAccelerate,
   )),
 
   // --- Standard Motion Tokens ---
@@ -218,21 +217,21 @@ enum M3MotionToken implements IM3Token<M3MotionScheme> {
   /// Duration: `medium2` (300ms). Curve: `standard`.
   standard(M3MotionScheme(
     M3MotionDurationToken.medium2,
-    M3MotionEasingToken.standard,
+    M3MotionCurveToken.standard,
   )),
 
   /// Standard motion for elements that are entering the screen.
   /// Duration: `medium1` (250ms). Curve: `standardDecelerate`.
   standardIncoming(M3MotionScheme(
     M3MotionDurationToken.medium1,
-    M3MotionEasingToken.standardDecelerate,
+    M3MotionCurveToken.standardDecelerate,
   )),
 
   /// Standard motion for elements that are exiting the screen.
   /// Duration: `short4` (200ms). Curve: `standardAccelerate`.
   standardOutgoing(M3MotionScheme(
     M3MotionDurationToken.short4,
-    M3MotionEasingToken.standardAccelerate,
+    M3MotionCurveToken.standardAccelerate,
   )),
 
   // --- Utility Motion Token ---
@@ -242,7 +241,7 @@ enum M3MotionToken implements IM3Token<M3MotionScheme> {
   /// Duration: `short3` (150ms). Curve: `linear`.
   linear(M3MotionScheme(
     M3MotionDurationToken.short3,
-    M3MotionEasingToken.linear,
+    M3MotionCurveToken.linear,
   ));
 
   /// Creates a motion token with the specified [M3MotionScheme].
@@ -266,17 +265,17 @@ enum M3MotionToken implements IM3Token<M3MotionScheme> {
 
   Curve get easing {
     return switch (this) {
-      M3MotionToken.emphasized => M3MotionEasingToken.emphasized.value,
+      M3MotionToken.emphasized => M3MotionCurveToken.emphasized.value,
       M3MotionToken.emphasizedIncoming =>
-        M3MotionEasingToken.emphasizedDecelerate.value,
+        M3MotionCurveToken.emphasizedDecelerate.value,
       M3MotionToken.emphasizedOutgoing =>
-        M3MotionEasingToken.emphasizedAccelerate.value,
-      M3MotionToken.standard => M3MotionEasingToken.standard.value,
+        M3MotionCurveToken.emphasizedAccelerate.value,
+      M3MotionToken.standard => M3MotionCurveToken.standard.value,
       M3MotionToken.standardIncoming =>
-        M3MotionEasingToken.standardDecelerate.value,
+        M3MotionCurveToken.standardDecelerate.value,
       M3MotionToken.standardOutgoing =>
-        M3MotionEasingToken.standardAccelerate.value,
-      M3MotionToken.linear => M3MotionEasingToken.linear.value,
+        M3MotionCurveToken.standardAccelerate.value,
+      M3MotionToken.linear => M3MotionCurveToken.linear.value,
     };
   }
 
@@ -298,13 +297,13 @@ enum M3MotionToken implements IM3Token<M3MotionScheme> {
   static Curve getEasingByType(MotionType type) {
     switch (type) {
       case MotionType.incoming:
-        return M3MotionEasingToken.emphasizedDecelerate.value;
+        return M3MotionCurveToken.emphasizedDecelerate.value;
       case MotionType.outgoing:
-        return M3MotionEasingToken.emphasizedAccelerate.value;
+        return M3MotionCurveToken.emphasizedAccelerate.value;
       case MotionType.persistent:
-        return M3MotionEasingToken.emphasized.value;
+        return M3MotionCurveToken.emphasized.value;
       case MotionType.standard:
-        return M3MotionEasingToken.standard.value;
+        return M3MotionCurveToken.standard.value;
     }
   }
 }

@@ -62,7 +62,7 @@ class _AccessibilityPageState extends State<AccessibilityPage>
         ],
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(M3SpacingToken.space16.value),
+        padding: M3EdgeInsets.all(M3SpacingToken.space16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -186,12 +186,13 @@ class _AccessibilityPageState extends State<AccessibilityPage>
 
   Widget _buildStatChip(String label, IconData icon, Color color) {
     return Container(
-      padding: EdgeInsets.symmetric(
-          horizontal: M3SpacingToken.space8.value,
-          vertical: M3SpacingToken.space4.value),
+      padding: M3EdgeInsets.symmetric(
+        horizontal: M3SpacingToken.space8,
+        vertical: M3SpacingToken.space4,
+      ),
       decoration: BoxDecoration(
         color: color.withValues(alpha: 0.2),
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: M3BorderRadiusToken.medium.value,
         border: Border.all(color: color.withValues(alpha: 0.5)),
       ),
       child: Row(
@@ -450,7 +451,6 @@ class _AccessibilityPageState extends State<AccessibilityPage>
             Expanded(
               child: M3Accessibility.focusIndicator(
                 child: Card(
-                  margin: EdgeInsets.zero,
                   child: ListTile(
                     title: const Text('Focus Target 1'),
                     onTap: () {},
@@ -513,7 +513,10 @@ class _AccessibilityPageState extends State<AccessibilityPage>
           settingName: 'High Contrast',
           settingValue: mediaQuery.highContrast.toString(),
           demo: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+            padding: M3EdgeInsets.symmetric(
+              horizontal: M3SpacingToken.space8,
+              vertical: M3SpacingToken.space4,
+            ),
             decoration: ShapeDecoration(
               color: mediaQuery.highContrast
                   ? Colors.black
@@ -577,8 +580,10 @@ class _AccessibilityPageState extends State<AccessibilityPage>
               const M3Gap(M3SpacingToken.space16),
               for (final scale in [0.8, 1.0, 1.2, 1.4, 1.8]) ...[
                 Container(
-                  padding: EdgeInsets.all(M3SpacingToken.space12.value),
-                  margin: EdgeInsets.only(bottom: M3SpacingToken.space8.value),
+                  padding: M3EdgeInsets.all(M3SpacingToken.space12),
+                  margin: M3EdgeInsets.only(
+                    bottom: M3SpacingToken.space8,
+                  ),
                   decoration: ShapeDecoration(
                     color: scale == textScale
                         ? Theme.of(context).colorScheme.primaryContainer
@@ -715,7 +720,9 @@ class _AccessibilityPageState extends State<AccessibilityPage>
     String? subtitle,
   }) {
     return Card(
-      margin: EdgeInsets.only(bottom: M3SpacingToken.space16.value),
+      margin: M3EdgeInsets.only(
+        bottom: M3SpacingToken.space16,
+      ),
       child: M3Padding.all(
         M3SpacingToken.space16,
         child: Column(
@@ -764,12 +771,12 @@ class _AccessibilityPageState extends State<AccessibilityPage>
   }) {
     final colorScheme = Theme.of(context).colorScheme;
     return Container(
-      padding: EdgeInsets.all(M3SpacingToken.space16.value),
+      padding: M3EdgeInsets.all(M3SpacingToken.space16),
       decoration: BoxDecoration(
         color: isGood
             ? colorScheme.secondaryContainer.withValues(alpha: 0.3)
             : colorScheme.errorContainer.withValues(alpha: 0.3),
-        borderRadius: M3ShapeToken.medium.borderRadius,
+        borderRadius: M3BorderRadiusToken.medium.value,
         border: Border.all(
           color: isGood ? colorScheme.secondary : colorScheme.error,
           width: 1,
@@ -806,10 +813,10 @@ class _AccessibilityPageState extends State<AccessibilityPage>
     final colorScheme = Theme.of(context).colorScheme;
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.all(M3SpacingToken.space20.value),
+      padding: M3EdgeInsets.all(M3SpacingToken.space20),
       decoration: BoxDecoration(
         color: colorScheme.surfaceContainer,
-        borderRadius: M3ShapeToken.large.borderRadius,
+        borderRadius: M3BorderRadiusToken.large.value,
         border: Border.all(
           color: colorScheme.outline.withValues(alpha: 0.5),
         ),
@@ -854,7 +861,7 @@ class _AccessibilityPageState extends State<AccessibilityPage>
       color: backgroundColor,
       elevation: M3ElevationToken.level0.value,
       shape: RoundedRectangleBorder(
-        borderRadius: M3ShapeToken.medium.borderRadius,
+        borderRadius: M3BorderRadiusToken.medium.value,
         side: BorderSide(color: Theme.of(context).colorScheme.outlineVariant),
       ),
       child: M3Padding.all(

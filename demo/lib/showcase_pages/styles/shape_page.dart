@@ -31,7 +31,7 @@ class ShapePage extends StatelessWidget {
         ),
       ),
       body: GridView.builder(
-        padding: EdgeInsets.all(M3MarginToken.mediumScreen.value),
+        padding: M3EdgeInsets.all(M3MarginToken.mediumScreen),
         gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
           maxCrossAxisExtent: 200,
           childAspectRatio: 1.5,

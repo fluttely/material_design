@@ -1,4 +1,4 @@
-import 'package:material_design/material_design.dart';
+part of '../../../../../material_design.dart';
 
 /// Material Design 3 state layer opacity tokens for interactive components.
 ///
@@ -20,7 +20,7 @@ import 'package:material_design/material_design.dart';
 ///
 /// // Apply to container overlays
 /// Container(
-///   decoration: BoxDecoration(
+///   decoration: M3BoxDecoration(
 ///     color: Colors.blue.withValues(alpha:
 ///       M3StateLayerOpacityToken.pressed.value,
 ///     ),

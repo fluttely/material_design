@@ -1,45 +1,6 @@
-/// M3TextStyleToken
-library;
+part of '../../../../../material_design.dart';
 
-import 'dart:math' as math;
-
-import 'package:flutter/material.dart';
-import 'package:material_design/material_design.dart';
-
-/// {@template m3_type_scale_fonts}
-/// Material Design 3 type scale font family constants.
-///
-/// These font families are optimized for Material Design 3 typography system,
-/// providing excellent readability and visual hierarchy across different
-/// platforms and screen sizes.
-/// {@endtemplate}
-class _M3TypeScaleFonts {
-  /// Primary Material Design font family.
-  // static const String roboto = 'Roboto';
-
-  /// System font stack with fallbacks.
-  static const List<String> systemFontStack = [
-    'Roboto',
-    '-apple-system',
-    'BlinkMacSystemFont',
-    'Segoe UI',
-    'Helvetica Neue',
-    'Arial',
-    'sans-serif',
-  ];
-
-  /// Monospace font stack for code display.
-  static const List<String> monoFontStack = [
-    'Roboto Mono',
-    'SFMono-Regular',
-    'Monaco',
-    'Consolas',
-    'Liberation Mono',
-    'Courier New',
-    'monospace',
-  ];
-}
-
+/// Constants >>>
 const TextStyle _kM3TypeScaleDisplayLarge = TextStyle(
   fontSize: 57,
   fontWeight: FontWeight.w400,
@@ -130,6 +91,42 @@ const TextStyle _kM3TypeScaleLabelSmall = TextStyle(
   letterSpacing: 0.5,
   height: 16 / 11,
 );
+
+/// <<< Constants
+
+/// {@template m3_type_scale_fonts}
+/// Material Design 3 type scale font family constants.
+///
+/// These font families are optimized for Material Design 3 typography system,
+/// providing excellent readability and visual hierarchy across different
+/// platforms and screen sizes.
+/// {@endtemplate}
+abstract interface class _M3TypeScaleFonts {
+  /// Primary Material Design font family.
+  // static const String roboto = 'Roboto';
+
+  /// System font stack with fallbacks.
+  static const List<String> systemFontStack = [
+    'Roboto',
+    '-apple-system',
+    'BlinkMacSystemFont',
+    'Segoe UI',
+    'Helvetica Neue',
+    'Arial',
+    'sans-serif',
+  ];
+
+  /// Monospace font stack for code display.
+  static const List<String> monoFontStack = [
+    'Roboto Mono',
+    'SFMono-Regular',
+    'Monaco',
+    'Consolas',
+    'Liberation Mono',
+    'Courier New',
+    'monospace',
+  ];
+}
 
 /// {@template m3_type_scale_token}
 /// Material Design 3 type scale tokens for consistent typography.
@@ -515,50 +512,50 @@ extension M3TextStyleTokenComparison on M3TextStyleToken {
       category == other.category || isSimilarSizeTo(other);
 }
 
-/// Provides context-aware typography utilities.
-extension M3TypeScaleContext on BuildContext {
-  /// Gets the appropriate type scale token based on screen size and usage.
-  M3TextStyleToken getResponsiveToken({
-    required M3TextStyleToken mobile,
-    required M3TextStyleToken tablet,
-    required M3TextStyleToken desktop,
-  }) {
-    final screenWidth = MediaQuery.of(this).size.width;
-    if (screenWidth < M3BreakpointToken.medium.value) {
-      return mobile;
-    } else if (screenWidth < M3BreakpointToken.large.value) {
-      return tablet;
-    } else {
-      return desktop;
-    }
-  }
+// /// Provides context-aware typography utilities.
+// extension M3TypeScaleContext on BuildContext {
+//   /// Gets the appropriate type scale token based on screen size and usage.
+//   M3TextStyleToken getResponsiveToken({
+//     required M3TextStyleToken mobile,
+//     required M3TextStyleToken tablet,
+//     required M3TextStyleToken desktop,
+//   }) {
+//     final screenWidth = MediaQuery.of(this).size.width;
+//     if (screenWidth < M3BreakpointToken.medium.value) {
+//       return mobile;
+//     } else if (screenWidth < M3BreakpointToken.large.value) {
+//       return tablet;
+//     } else {
+//       return desktop;
+//     }
+//   }
 
-  /// Checks if the user has enabled large text accessibility settings.
-  bool get hasLargeTextPreference =>
-      MediaQuery.of(this).textScaler.scale(16) > 20.0;
+//   /// Checks if the user has enabled large text accessibility settings.
+//   bool get hasLargeTextPreference =>
+//       MediaQuery.of(this).textScaler.scale(16) > 20.0;
 
-  /// Gets the recommended body text token based on accessibility preferences.
-  M3TextStyleToken get accessibleBodyToken => hasLargeTextPreference
-      ? M3TextStyleToken.bodyLarge
-      : M3TextStyleToken.bodyMedium;
+//   /// Gets the recommended body text token based on accessibility preferences.
+//   M3TextStyleToken get accessibleBodyToken => hasLargeTextPreference
+//       ? M3TextStyleToken.bodyLarge
+//       : M3TextStyleToken.bodyMedium;
 
-  /// Gets the theme's text theme converted to type scale tokens.
-  Map<M3TextStyleToken, TextStyle> get typeScaleTheme => {
-        M3TextStyleToken.displayLarge: Theme.of(this).textTheme.displayLarge!,
-        M3TextStyleToken.displayMedium: Theme.of(this).textTheme.displayMedium!,
-        M3TextStyleToken.displaySmall: Theme.of(this).textTheme.displaySmall!,
-        M3TextStyleToken.headlineLarge: Theme.of(this).textTheme.headlineLarge!,
-        M3TextStyleToken.headlineMedium:
-            Theme.of(this).textTheme.headlineMedium!,
-        M3TextStyleToken.headlineSmall: Theme.of(this).textTheme.headlineSmall!,
-        M3TextStyleToken.titleLarge: Theme.of(this).textTheme.titleLarge!,
-        M3TextStyleToken.titleMedium: Theme.of(this).textTheme.titleMedium!,
-        M3TextStyleToken.titleSmall: Theme.of(this).textTheme.titleSmall!,
-        M3TextStyleToken.bodyLarge: Theme.of(this).textTheme.bodyLarge!,
-        M3TextStyleToken.bodyMedium: Theme.of(this).textTheme.bodyMedium!,
-        M3TextStyleToken.bodySmall: Theme.of(this).textTheme.bodySmall!,
-        M3TextStyleToken.labelLarge: Theme.of(this).textTheme.labelLarge!,
-        M3TextStyleToken.labelMedium: Theme.of(this).textTheme.labelMedium!,
-        M3TextStyleToken.labelSmall: Theme.of(this).textTheme.labelSmall!,
-      };
-}
+//   /// Gets the theme's text theme converted to type scale tokens.
+//   Map<M3TextStyleToken, TextStyle> get typeScaleTheme => {
+//         M3TextStyleToken.displayLarge: Theme.of(this).textTheme.displayLarge,
+//         M3TextStyleToken.displayMedium: Theme.of(this).textTheme.displayMedium,
+//         M3TextStyleToken.displaySmall: Theme.of(this).textTheme.displaySmall,
+//         M3TextStyleToken.headlineLarge: Theme.of(this).textTheme.headlineLarge,
+//         M3TextStyleToken.headlineMedium:
+//             Theme.of(this).textTheme.headlineMedium,
+//         M3TextStyleToken.headlineSmall: Theme.of(this).textTheme.headlineSmall,
+//         M3TextStyleToken.titleLarge: Theme.of(this).textTheme.titleLarge,
+//         M3TextStyleToken.titleMedium: Theme.of(this).textTheme.titleMedium,
+//         M3TextStyleToken.titleSmall: Theme.of(this).textTheme.titleSmall,
+//         M3TextStyleToken.bodyLarge: Theme.of(this).textTheme.bodyLarge,
+//         M3TextStyleToken.bodyMedium: Theme.of(this).textTheme.bodyMedium,
+//         M3TextStyleToken.bodySmall: Theme.of(this).textTheme.bodySmall,
+//         M3TextStyleToken.labelLarge: Theme.of(this).textTheme.labelLarge,
+//         M3TextStyleToken.labelMedium: Theme.of(this).textTheme.labelMedium,
+//         M3TextStyleToken.labelSmall: Theme.of(this).textTheme.labelSmall,
+//       };
+// }

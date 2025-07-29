@@ -1,8 +1,11 @@
 name: Deploy Demo
 
 on:
-  push:
-    branches: [master]
+  workflow_run:
+    workflows: ["Tests"]
+    types:
+      - completed
+    branches: [main, development]
   workflow_dispatch:
 
 jobs:
@@ -12,16 +15,22 @@ jobs:
       contents: write
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-      - uses: subosito/flutter-action@v2
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
         with:
           channel: "stable"
+
+      - name: Install dependencies
+        run: |
+          cd demo
+          flutter pub get
 
       - name: Build web
         run: |
           cd demo
-          flutter pub get
           flutter build web --release --base-href="/${{ github.event.repository.name }}/"
 
       - name: Deploy to GitHub Pages

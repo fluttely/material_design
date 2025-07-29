@@ -112,13 +112,13 @@ class _MaterialDesignDemoState extends State<MaterialDesignDemo>
       cardTheme: CardThemeData(
         elevation: 1,
         shape: RoundedRectangleBorder(
-          borderRadius: M3ShapeToken.medium.borderRadius,
+          borderRadius: M3BorderRadiusToken.medium.value,
         ),
       ),
       filledButtonTheme: FilledButtonThemeData(
         style: FilledButton.styleFrom(
           shape: RoundedRectangleBorder(
-            borderRadius: M3ShapeToken.full.borderRadius,
+            borderRadius: M3BorderRadiusToken.full.value,
           ),
         ),
       ),
@@ -146,13 +146,13 @@ class _MaterialDesignDemoState extends State<MaterialDesignDemo>
       cardTheme: CardThemeData(
         elevation: 1,
         shape: RoundedRectangleBorder(
-          borderRadius: M3ShapeToken.medium.borderRadius,
+          borderRadius: M3BorderRadiusToken.medium.value,
         ),
       ),
       filledButtonTheme: FilledButtonThemeData(
         style: FilledButton.styleFrom(
           shape: RoundedRectangleBorder(
-            borderRadius: M3ShapeToken.full.borderRadius,
+            borderRadius: M3BorderRadiusToken.full.value,
           ),
         ),
       ),
@@ -302,7 +302,7 @@ class _DemoHomePageState extends State<DemoHomePage>
 
   /// Compact layout for mobile devices
   Widget _buildCompactLayout(BuildContext context) {
-    return _buildMainContent(context, padding: M3SpacingToken.space16.value);
+    return _buildMainContent(context, padding: M3SpacingToken.space16);
   }
 
   /// Medium layout for tablets and small desktops
@@ -312,8 +312,7 @@ class _DemoHomePageState extends State<DemoHomePage>
         _buildNavigationRail(context),
         const VerticalDivider(thickness: 1, width: 1),
         Expanded(
-          child:
-              _buildMainContent(context, padding: M3SpacingToken.space24.value),
+          child: _buildMainContent(context, padding: M3SpacingToken.space24),
         ),
       ],
     );
@@ -327,8 +326,7 @@ class _DemoHomePageState extends State<DemoHomePage>
         const VerticalDivider(thickness: 1, width: 1),
         Expanded(
           flex: 2,
-          child:
-              _buildMainContent(context, padding: M3SpacingToken.space32.value),
+          child: _buildMainContent(context, padding: M3SpacingToken.space32),
         ),
         const VerticalDivider(thickness: 1, width: 1),
         Expanded(
@@ -408,9 +406,10 @@ class _DemoHomePageState extends State<DemoHomePage>
   }
 
   /// Builds the main content area
-  Widget _buildMainContent(BuildContext context, {required double padding}) {
+  Widget _buildMainContent(BuildContext context,
+      {required M3SpacingToken padding}) {
     return SingleChildScrollView(
-      padding: EdgeInsets.all(padding),
+      padding: M3EdgeInsets.all(padding),
       child: FadeTransition(
         opacity: _pageAnimationController,
         child: SlideTransition(
@@ -446,7 +445,7 @@ class _DemoHomePageState extends State<DemoHomePage>
   /// Builds the side panel for large screens
   Widget _buildSidePanel(BuildContext context) {
     return SingleChildScrollView(
-      padding: EdgeInsets.all(M3SpacingToken.space16.value),
+      padding: M3EdgeInsets.all(M3SpacingToken.space16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -546,7 +545,7 @@ class _DemoHomePageState extends State<DemoHomePage>
             M3SpacingToken.space16,
             M3SpacingToken.space24,
             M3SpacingToken.space32,
-          ].map((token) => _SpacingExample(token: token)).toList(),
+          ].map((token) => _SpacingExample(spacing: token)).toList(),
         ),
       ],
     );
@@ -604,13 +603,17 @@ class _DemoHomePageState extends State<DemoHomePage>
           spacing: M3SpacingToken.space16.value,
           children: [
             _OpacityExample(
-                token: M3StateLayerOpacityToken.hover, label: 'Hover'),
+                stateLayerOpacity: M3StateLayerOpacityToken.hover,
+                label: 'Hover'),
             _OpacityExample(
-                token: M3StateLayerOpacityToken.focus, label: 'Focus'),
+                stateLayerOpacity: M3StateLayerOpacityToken.focus,
+                label: 'Focus'),
             _OpacityExample(
-                token: M3StateLayerOpacityToken.pressed, label: 'Pressed'),
+                stateLayerOpacity: M3StateLayerOpacityToken.pressed,
+                label: 'Pressed'),
             _OpacityExample(
-                token: M3StateLayerOpacityToken.dragged, label: 'Dragged'),
+                stateLayerOpacity: M3StateLayerOpacityToken.dragged,
+                label: 'Dragged'),
           ],
         ),
       ],
@@ -626,19 +629,19 @@ class _DemoHomePageState extends State<DemoHomePage>
         Row(
           spacing: M3SpacingToken.space16.value,
           children: [
-            M3BorderToken.thin,
-            M3BorderToken.thick,
-            M3BorderToken.extraThick,
+            M3BorderWidthToken.thin,
+            M3BorderWidthToken.thick,
+            M3BorderWidthToken.extraThick,
           ]
               .map((token) => Expanded(
                     child: Container(
-                      padding: EdgeInsets.all(M3SpacingToken.space12.value),
+                      padding: M3EdgeInsets.all(M3SpacingToken.space12),
                       decoration: BoxDecoration(
                         border: Border.all(
                           width: token.value,
                           color: Theme.of(context).colorScheme.outline,
                         ),
-                        borderRadius: M3ShapeToken.small.borderRadius,
+                        borderRadius: M3BorderRadiusToken.small.value,
                       ),
                       child: Text(
                         '${token.name}\n${token.value}px',
@@ -707,20 +710,20 @@ class _DemoHomePageState extends State<DemoHomePage>
         Row(
           spacing: M3SpacingToken.space16.value,
           children: [
-            M3ShapeToken.none,
-            M3ShapeToken.small,
-            M3ShapeToken.medium,
-            M3ShapeToken.large,
-            M3ShapeToken.extraLarge,
+            M3BorderRadiusToken.none,
+            M3BorderRadiusToken.small,
+            M3BorderRadiusToken.medium,
+            M3BorderRadiusToken.large,
+            M3BorderRadiusToken.extraLarge,
           ]
               .map((token) => Expanded(
                     child: Container(
                       height: 60,
                       decoration: BoxDecoration(
                         color: Theme.of(context).colorScheme.surfaceContainer,
-                        borderRadius: M3ShapeToken.values
+                        borderRadius: M3BorderRadiusToken.values
                             .firstWhere((r) => r.name == token.name)
-                            .borderRadius,
+                            .value,
                       ),
                       child: Center(
                         child: Text(
@@ -1244,7 +1247,7 @@ class _ColorSwatch extends StatelessWidget {
           height: 40,
           decoration: BoxDecoration(
             color: color,
-            borderRadius: M3ShapeToken.small.borderRadius,
+            borderRadius: M3BorderRadiusToken.small.value,
             border: Border.all(
               color:
                   Theme.of(context).colorScheme.outline.withValues(alpha: 0.2),
@@ -1263,16 +1266,16 @@ class _ColorSwatch extends StatelessWidget {
 }
 
 class _SpacingExample extends StatelessWidget {
-  final M3SpacingToken token;
+  final M3SpacingToken spacing;
 
-  const _SpacingExample({required this.token});
+  const _SpacingExample({required this.spacing});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         Container(
-          width: token.value,
+          width: spacing.value,
           height: 20,
           decoration: BoxDecoration(
             color: Theme.of(context).colorScheme.primary,
@@ -1281,7 +1284,7 @@ class _SpacingExample extends StatelessWidget {
         ),
         const M3Gap(M3SpacingToken.space4),
         Text(
-          '${token.name}\n${token.value}px',
+          '${spacing.name}\n${spacing.value}px',
           textAlign: TextAlign.center,
           style: Theme.of(context).textTheme.bodySmall,
         ),
@@ -1291,10 +1294,10 @@ class _SpacingExample extends StatelessWidget {
 }
 
 class _OpacityExample extends StatelessWidget {
-  final M3StateLayerOpacityToken token;
+  final M3StateLayerOpacityToken stateLayerOpacity;
   final String label;
 
-  const _OpacityExample({required this.token, required this.label});
+  const _OpacityExample({required this.stateLayerOpacity, required this.label});
 
   @override
   Widget build(BuildContext context) {
@@ -1303,17 +1306,17 @@ class _OpacityExample extends StatelessWidget {
         Container(
           width: 60,
           height: 40,
-          decoration: BoxDecoration(
+          decoration: M3BoxDecoration(
             color: Theme.of(context)
                 .colorScheme
                 .primary
-                .withValues(alpha: token.value),
-            borderRadius: M3ShapeToken.small.borderRadius,
+                .withValues(alpha: stateLayerOpacity.value),
+            borderRadius: M3BorderRadiusToken.small,
           ),
         ),
         const M3Gap(M3SpacingToken.space4),
         Text(
-          '$label\n${(token.value * 100).toInt()}%',
+          '$label\n${(stateLayerOpacity.value * 100).toInt()}%',
           textAlign: TextAlign.center,
           style: Theme.of(context).textTheme.bodySmall,
         ),
@@ -1359,7 +1362,7 @@ class _ColorPickerButton extends StatelessWidget {
                         shape: BoxShape.circle,
                         border: Border.all(
                           color: Theme.of(context).colorScheme.outlineVariant,
-                          width: 1,
+                          width: M3BorderWidthToken.thin.value,
                         ),
                       ),
                     ),

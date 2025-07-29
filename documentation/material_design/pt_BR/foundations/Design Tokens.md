@@ -128,7 +128,7 @@ abstract class M3CompButton {
   static const double elevationPressed = 1.0;
 
   // Padding
-  static const EdgeInsets paddingMedium = EdgeInsets.symmetric(
+  static const M3EdgeInsets paddingMedium = M3EdgeInsets.symmetric(
     horizontal: 16.0,
     vertical: 8.0,
   );
@@ -139,7 +139,7 @@ ElevatedButton(
   style: ElevatedButton.styleFrom(
     minimumSize: Size.fromHeight(M3CompButton.heightMedium),
     padding: M3CompButton.paddingMedium,
-    shape: RoundedRectangleBorder(borderRadius: M3CompButton.shapeMedium),
+    shape: RoundedRectangleBorder(shape: M3CompButton.shapeMedium),
   ),
   child: Text('Button'),
 )
@@ -229,7 +229,7 @@ ThemeData buildM3Theme() {
       style: ElevatedButton.styleFrom(
         minimumSize: Size.fromHeight(M3CompButton.heightMedium),
         shape: RoundedRectangleBorder(
-          borderRadius: M3CompButton.shapeMedium,
+          shape: M3CompButton.shapeMedium,
         ),
       ),
     ),

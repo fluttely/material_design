@@ -13,7 +13,7 @@ class EnhancedThemePage extends StatelessWidget {
         automaticallyImplyLeading: false,
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(M3SpacingToken.space16.value),
+        padding: M3EdgeInsets.all(M3SpacingToken.space16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -75,7 +75,7 @@ class EnhancedThemePage extends StatelessWidget {
             //       Card(
             //         elevation: M3ElevationToken.card,
             //         child: M3Padding(
-            //           padding: const EdgeInsets.all(M3SpacingToken.space16),
+            //           padding: const M3EdgeInsets.all(M3SpacingToken.space16),
             //           child: SizedBox(
             //             width: double.infinity,
             //             child: Text(
@@ -89,7 +89,7 @@ class EnhancedThemePage extends StatelessWidget {
             //       Card(
             //         elevation: M3ElevationToken.appBar,
             //         child: M3Padding(
-            //           padding: const EdgeInsets.all(M3SpacingToken.space16),
+            //           padding: const M3EdgeInsets.all(M3SpacingToken.space16),
             //           child: SizedBox(
             //             width: double.infinity,
             //             child: Text(
@@ -103,7 +103,7 @@ class EnhancedThemePage extends StatelessWidget {
             //       Card(
             //         elevation: M3ElevationToken.level5,
             //         child: M3Padding(
-            //           padding: const EdgeInsets.all(M3SpacingToken.space16),
+            //           padding: const M3EdgeInsets.all(M3SpacingToken.space16),
             //           child: SizedBox(
             //             width: double.infinity,
             //             child: Text(
@@ -169,7 +169,7 @@ class EnhancedThemePage extends StatelessWidget {
       String label, Color backgroundColor, Color textColor) {
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.all(M3SpacingToken.space16.value),
+      padding: M3EdgeInsets.all(M3SpacingToken.space16),
       decoration: ShapeDecoration(
         color: backgroundColor,
         shape: M3ShapeToken.medium.value,

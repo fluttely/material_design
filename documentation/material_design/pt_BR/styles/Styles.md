@@ -67,7 +67,7 @@ Container(
 ```dart
 // Superfícies com tingimento baseado na elevação
 Container(
-  color: M3TonalColor.surfaceAt(context, 3.0), // 3dp elevation
+  color: M3SurfaceTint.surfaceAt(context, 3.0), // 3dp elevation
   child: content,
 )
 ```
@@ -154,9 +154,9 @@ abstract class M3Elevation {
 ```dart
 // Superfície com cor baseada na elevação
 Container(
-  decoration: BoxDecoration(
-    color: M3TonalColor.surfaceAt(context, 6.0),
-    boxShadow: M3ShadowToken.fromElevation(6.0),
+  decoration: M3BoxDecoration(
+    color: M3SurfaceTint.surfaceAt(context, 6.0),
+    boxShadow: M3BoxShadowToken.fromElevation(6.0),
   ),
   child: content,
 )
@@ -168,9 +168,9 @@ Container(
 // Elevação que responde a interações
 AnimatedContainer(
   duration: M3MotionDurationToken.short4,
-  decoration: BoxDecoration(
-    color: M3TonalColor.surfaceAt(context, isPressed ? 1.0 : 3.0),
-    boxShadow: M3ShadowToken.fromElevation(isPressed ? 1.0 : 3.0),
+  decoration: M3BoxDecoration(
+    color: M3SurfaceTint.surfaceAt(context, isPressed ? 1.0 : 3.0),
+    boxShadow: M3BoxShadowToken.fromElevation(isPressed ? 1.0 : 3.0),
   ),
 )
 ```
@@ -201,10 +201,10 @@ M3MotionDurationToken.long4        // 600ms
 
 ```dart
 // Curvas oficiais M3
-M3MotionEasingToken.standard       // (0.2, 0.0, 0.0, 1.0) - mais comum
-M3MotionEasingToken.emphasized     // (0.05, 0.7, 0.1, 1.0) - transições importantes
-M3MotionEasingToken.decelerated    // (0.0, 0.0, 0.2, 1.0) - elementos entrando
-M3MotionEasingToken.accelerated    // (0.3, 0.0, 1.0, 1.0) - elementos saindo
+M3MotionCurveToken.standard       // (0.2, 0.0, 0.0, 1.0) - mais comum
+M3MotionCurveToken.emphasized     // (0.05, 0.7, 0.1, 1.0) - transições importantes
+M3MotionCurveToken.decelerated    // (0.0, 0.0, 0.2, 1.0) - elementos entrando
+M3MotionCurveToken.accelerated    // (0.3, 0.0, 1.0, 1.0) - elementos saindo
 ```
 
 **Motion Patterns:**
@@ -213,7 +213,7 @@ M3MotionEasingToken.accelerated    // (0.3, 0.0, 1.0, 1.0) - elementos saindo
 // Fade com duração contextual
 M3MotionUtils.fadeIn(
   duration: M3MotionDurationToken.medium2,
-  curve: M3MotionEasingToken.emphasizedDecelerate,
+  curve: M3MotionCurveToken.emphasizedDecelerate,
   child: myWidget,
 )
 
@@ -249,22 +249,22 @@ abstract class M3Radius {
 ```dart
 // Formas básicas
 Container(
-  decoration: BoxDecoration(
-    borderRadius: M3ShapeUtils.rounded(M3Radius.medium), // 12dp
+  decoration: M3BoxDecoration(
+    shape: M3ShapeUtils.rounded(M3Radius.medium), // 12dp
   ),
 )
 
 // Formas direcionais
 Container(
-  decoration: BoxDecoration(
-    borderRadius: M3ShapeUtils.topRounded(M3Radius.large), // Apenas topo
+  decoration: M3BoxDecoration(
+    shape: M3ShapeUtils.topRounded(M3Radius.large), // Apenas topo
   ),
 )
 
 // Formas de componente específico
 Card(
   shape: RoundedRectangleBorder(
-    borderRadius: BorderRadius.circular(M3Radius.medium), // 12dp para cards
+    shape: BorderRadius.circular(M3Radius.medium), // 12dp para cards
   ),
 )
 ```
@@ -302,7 +302,7 @@ ThemeData buildM3Theme({Color? seedColor}) {
       style: ElevatedButton.styleFrom(
         elevation: M3ElevationToken.level1.value,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(M3Radius.medium),
+          shape: BorderRadius.circular(M3Radius.medium),
         ),
         animationDuration: M3MotionDurationToken.short4,
       ),
@@ -318,7 +318,7 @@ ThemeData buildM3Theme({Color? seedColor}) {
 Card(
   // Shape
   shape: RoundedRectangleBorder(
-    borderRadius: BorderRadius.circular(M3Radius.medium),
+    shape: BorderRadius.circular(M3Radius.medium),
   ),
   // Elevation
   elevation: M3ElevationToken.level1.value,
@@ -326,8 +326,8 @@ Card(
   child: AnimatedContainer(
     // Motion
     duration: M3MotionDurationToken.short4,
-    curve: M3MotionEasingToken.standard,
-    padding: EdgeInsets.all(M3SpacingToken.space16),
+    curve: M3MotionCurveToken.standard,
+    padding: M3EdgeInsets.all(M3SpacingToken.space16),
     child: Column(
       children: [
         // Typography

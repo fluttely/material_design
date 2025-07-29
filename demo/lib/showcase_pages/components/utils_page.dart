@@ -20,7 +20,7 @@ class _UtilsPageState extends State<UtilsPage> {
         title: const Text('M3 Utilities Showcase'),
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(M3SpacingToken.space16.value),
+        padding: M3EdgeInsets.all(M3SpacingToken.space16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -44,11 +44,11 @@ class _UtilsPageState extends State<UtilsPage> {
               icon: Icons.animation_rounded,
               content: _buildMotionPatternsShowcase(),
             ),
-            _buildSection(
-              title: 'Shape System',
-              icon: Icons.rounded_corner_rounded,
-              content: _buildShapeShowcase(),
-            ),
+            // _buildSection(
+            //   title: 'Shape System',
+            //   icon: Icons.rounded_corner_rounded,
+            //   content: _buildShapeShowcase(),
+            // ),
           ],
         ),
       ),
@@ -76,7 +76,7 @@ class _UtilsPageState extends State<UtilsPage> {
         const M3Gap(M3SpacingToken.space16),
         Container(
           width: double.infinity,
-          padding: EdgeInsets.all(M3SpacingToken.space12.value),
+          padding: M3EdgeInsets.all(M3SpacingToken.space12),
           decoration: ShapeDecoration(
             color: Theme.of(context).colorScheme.surfaceContainer,
             shape: M3ShapeToken.small.value,
@@ -126,7 +126,7 @@ class _UtilsPageState extends State<UtilsPage> {
         const M3Gap(M3SpacingToken.space8),
         AnimatedContainer(
           duration: M3MotionDurationToken.medium2.value,
-          curve: M3MotionEasingToken.standard.value,
+          curve: M3MotionCurveToken.standard.value,
           decoration: ShapeDecoration(
             color: _elevation.surfaceColor(context),
             shape: M3ShapeToken.large.value,
@@ -144,7 +144,7 @@ class _UtilsPageState extends State<UtilsPage> {
 
   Widget _buildMotionPatternsShowcase() {
     const animationDuration = M3MotionDurationToken.long1;
-    final animationCurve = M3MotionEasingToken.emphasizedDecelerate;
+    final animationCurve = M3MotionCurveToken.emphasizedDecelerate;
     return Column(
       children: [
         ElevatedButton.icon(
@@ -187,31 +187,45 @@ class _UtilsPageState extends State<UtilsPage> {
     );
   }
 
-  Widget _buildShapeShowcase() {
-    return Wrap(
-      spacing: M3SpacingToken.space8.value,
-      runSpacing: M3SpacingToken.space8.value,
-      alignment: WrapAlignment.center,
-      children: [
-        // TODO(kevin): enhance this feature
-        _buildShapeExample('None', M3ShapeUtils.squared()),
-        _buildShapeExample(
-            'XS', M3ShapeUtils.rounded(M3ShapeToken.extraSmall.radius.x)),
-        _buildShapeExample(
-            'Small', M3ShapeUtils.rounded(M3ShapeToken.small.radius.x)),
-        _buildShapeExample(
-            'Medium', M3ShapeUtils.rounded(M3ShapeToken.medium.radius.x)),
-        _buildShapeExample(
-            'Large', M3ShapeUtils.rounded(M3ShapeToken.large.radius.x)),
-        _buildShapeExample(
-            'XL', M3ShapeUtils.rounded(M3ShapeToken.extraLarge.radius.x)),
-        _buildShapeExample(
-            'Top', M3ShapeUtils.topRounded(M3ShapeToken.large.radius.x)),
-        _buildShapeExample(
-            'Bottom', M3ShapeUtils.bottomRounded(M3ShapeToken.large.radius.x)),
-      ],
-    );
-  }
+  // Widget _buildShapeShowcase() {
+  //   return Wrap(
+  //     spacing: M3SpacingToken.space8.value,
+  //     runSpacing: M3SpacingToken.space8.value,
+  //     alignment: WrapAlignment.center,
+  //     children: [
+  //       // TODO(kevin): enhance this feature
+  //       _buildShapeExample('None', M3ShapeUtils.squared()),
+  //       _buildShapeExample(
+  //           'XS',
+  //           M3ShapeUtils.rounded(
+  //               M3RadiusToken.extraSmall.value.dp)),
+  //       _buildShapeExample(
+  //           'Small',
+  //           M3ShapeUtils.rounded(
+  //               M3RadiusToken.small.value.dp)),
+  //       _buildShapeExample(
+  //           'Medium',
+  //           M3ShapeUtils.rounded(
+  //               M3RadiusToken.medium.value.dp)),
+  //       _buildShapeExample(
+  //           'Large',
+  //           M3ShapeUtils.rounded(
+  //               M3RadiusToken.large.value.dp)),
+  //       _buildShapeExample(
+  //           'XL',
+  //           M3ShapeUtils.rounded(
+  //               M3BorderRadiusToken.extraLarge.radius.value.dp)),
+  //       _buildShapeExample(
+  //           'Top',
+  //           M3ShapeUtils.topRounded(
+  //               M3RadiusToken.large.value.dp)),
+  //       _buildShapeExample(
+  //           'Bottom',
+  //           M3ShapeUtils.bottomRounded(
+  //               M3RadiusToken.large.value.dp)),
+  //     ],
+  //   );
+  // }
 
   // --- Helper Widgets ---
 
@@ -237,7 +251,9 @@ class _UtilsPageState extends State<UtilsPage> {
     required Widget content,
   }) {
     return Card(
-      margin: EdgeInsets.only(bottom: M3SpacingToken.space16.value),
+      margin: M3EdgeInsets.only(
+        bottom: M3SpacingToken.space16,
+      ),
       child: M3Padding.all(
         M3SpacingToken.space16,
         child: Column(
@@ -269,7 +285,7 @@ class _UtilsPageState extends State<UtilsPage> {
       height: 80,
       decoration: BoxDecoration(
         color: elevation.surfaceColor(context),
-        borderRadius: M3ShapeToken.medium.value.borderRadius,
+        borderRadius: M3BorderRadiusToken.medium.value,
         border: elevation.value == 0
             ? Border.all(color: Theme.of(context).colorScheme.outlineVariant)
             : null,
@@ -286,9 +302,9 @@ class _UtilsPageState extends State<UtilsPage> {
   Widget _buildMotionCard(String label, IconData icon) {
     final colorScheme = Theme.of(context).colorScheme;
     return Container(
-      padding: EdgeInsets.symmetric(
-        horizontal: M3SpacingToken.space16.value,
-        vertical: M3SpacingToken.space12.value,
+      padding: M3EdgeInsets.symmetric(
+        horizontal: M3SpacingToken.space16,
+        vertical: M3SpacingToken.space12,
       ),
       decoration: ShapeDecoration(
         color: colorScheme.secondaryContainer,

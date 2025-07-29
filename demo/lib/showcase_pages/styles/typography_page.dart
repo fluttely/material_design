@@ -33,7 +33,7 @@ class TypographyPage extends StatelessWidget {
         ),
       ),
       body: ListView.builder(
-        padding: EdgeInsets.all(M3SpacingToken.space16.value),
+        padding: M3EdgeInsets.all(M3SpacingToken.space16),
         itemCount: textStyles.length,
         itemBuilder: (context, index) {
           final (label, style) = textStyles[index];

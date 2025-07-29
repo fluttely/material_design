@@ -164,7 +164,7 @@ class ColorPage extends StatelessWidget {
         ),
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(M3MarginToken.mediumScreen.value),
+        padding: M3EdgeInsets.all(M3MarginToken.mediumScreen),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -232,10 +232,10 @@ class _KeyColorChip extends StatelessWidget {
     return M3Padding.only(
       bottom: M3SpacingToken.space8,
       child: Container(
-        padding: EdgeInsets.all(M3SpacingToken.space16.value),
-        decoration: BoxDecoration(
+        padding: M3EdgeInsets.all(M3SpacingToken.space16),
+        decoration: M3BoxDecoration(
           color: color,
-          borderRadius: M3ShapeToken.medium.borderRadius,
+          borderRadius: M3BorderRadiusToken.medium,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -275,10 +275,10 @@ class _ColorChip extends StatelessWidget {
 
     return Container(
       width: 150,
-      padding: EdgeInsets.all(M3SpacingToken.space8.value),
+      padding: M3EdgeInsets.all(M3SpacingToken.space8),
       decoration: BoxDecoration(
         color: color,
-        borderRadius: M3ShapeToken.small.borderRadius,
+        borderRadius: M3BorderRadiusToken.small.value,
         border: Border.all(color: colorScheme.outlineVariant),
       ),
       child: Column(

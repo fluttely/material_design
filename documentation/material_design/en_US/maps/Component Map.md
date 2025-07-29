@@ -239,7 +239,7 @@ M3BreakpointToken.medium ← MediaQuery.size.width ← Responsive layout
 M3TextStyleToken.responsiveDisplay(context) ← M3BreakpointToken ← Screen adaptation
 
 // Interactive elevation connects to:
-M3TonalColor.surfaceAt(context, elevation) ← M3RefPalette ← Surface tinting
+M3SurfaceTint.surfaceAt(context, elevation) ← M3RefPalette ← Surface tinting
 
 // Motion patterns connect to:
 M3MotionUtils.fadeIn(duration, curve) ← M3RefDuration ← Animation timing
@@ -249,7 +249,7 @@ M3MotionUtils.fadeIn(duration, curve) ← M3RefDuration ← Animation timing
 
 ```dart
 // M3AdaptiveScaffold connects to:
-WindowSizeClass ← M3BreakpointToken ← MediaQuery
+M3ScreenSize ← M3BreakpointToken ← MediaQuery
 NavigationDestination ← Component tokens ← Visual consistency
 
 // Responsive values connect to:

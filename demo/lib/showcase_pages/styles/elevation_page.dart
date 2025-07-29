@@ -95,7 +95,7 @@ class ElevationPage extends StatelessWidget {
         title: const Text('Elevation'),
       ),
       body: ListView(
-        padding: EdgeInsets.all(M3MarginToken.mediumScreen.value),
+        padding: M3EdgeInsets.all(M3MarginToken.mediumScreen),
         children: [
           Text(
             'Elevation in M3 is a combination of a surface tint and, for some components, a shadow. Below, the cards are rendered according to the official rules defined in the M3Elevation token class.',
@@ -203,7 +203,10 @@ class _ElevationCard extends StatelessWidget {
       height: 120,
       decoration: ShapeDecoration(
         shape: M3ShapeToken.small.value,
-        color: elevation.surfaceColor(context),
+        color:
+            // elevation.surfaceColor(context),
+            // M3SurfaceColorToken.level0.value(context),
+            M3SurfaceColorToken.fromElevation(elevation).value(context),
         shadows: useShadows ? elevation.shadows : null,
       ),
       child: M3Padding.all(

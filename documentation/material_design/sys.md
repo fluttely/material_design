@@ -106,7 +106,7 @@ final motion = Theme.of(context).extension<SysMotion>()!;
 
 Container(
   color: surfaces.surfaceContainerHigh,
-  padding: EdgeInsets.all(SysSpacing.medium.value),
+  padding: M3EdgeInsets.all(SysSpacing.medium.value),
   child: AnimatedContainer(
     duration: motion.medium2,
     curve: motion.emphasizedDecelerate,

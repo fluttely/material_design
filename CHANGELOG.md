@@ -4,6 +4,598 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adherves to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.16.1
+
+### 🏗️ CI/CD Infrastructure & Quality Improvements
+
+- **Enhanced Testing Infrastructure**: Introduced comprehensive automated testing workflow
+
+  - **New `tests.yml` Workflow**: Added dedicated GitHub Actions workflow for continuous testing
+  - **Multi-Environment Testing**: Tests run on both root package and demo application
+  - **Quality Gates**: Added code formatting checks and static analysis to CI pipeline
+  - **Branch Protection**: Tests trigger on main and development branches, plus pull requests
+
+- **Deployment Pipeline Optimization**: Improved demo deployment workflow for better reliability
+  - **Sequential Workflow Execution**: Demo deployment now triggers only after successful test completion
+  - **Enhanced Setup Steps**: Better job naming and clearer deployment process
+  - **Reduced Redundancy**: Removed duplicate test execution from deployment workflow
+
+### 📄 Project Metadata Updates
+
+- **License Standardization**: Updated project license to reflect proper branding
+
+- **CI Badge Alignment**: Updated README.md to reference correct GitHub Actions workflow
+  - **Badge URL Update**: Tests badge now points to `tests.yml` instead of legacy `test.yml`
+  - Ensures build status accuracy and proper CI/CD visibility
+
+### 🔧 Developer Experience Enhancements
+
+- **Improved Workflow Names**: Enhanced GitHub Actions workflow naming for better clarity
+
+  - `Tests` workflow provides clear indication of testing process
+  - Better integration with GitHub's status checks and branch protection rules
+
+- **Build Process Optimization**: Streamlined CI/CD pipeline reduces redundant operations
+  - Eliminates duplicate Flutter setup and dependency installation
+  - Faster feedback loop for developers through optimized test execution
+
+### 📊 Impact Summary
+
+- **Files Modified**: 4 core infrastructure files updated
+- **CI/CD Enhancement**: Separated testing and deployment concerns for better reliability
+- **Quality Assurance**: Added automated code quality checks to development workflow
+- **Branding Consistency**: Standardized project attribution across legal documents
+
+**Recommended Version Bump: MINOR (0.16.0 → 0.16.1)**
+
+This release focuses on infrastructure improvements, CI/CD pipeline enhancements, and project metadata standardization. While no new features are introduced, the improved testing infrastructure and deployment reliability significantly enhance the development experience and project quality assurance.
+
+## 0.16.0
+
+### 🔄 BREAKING CHANGES
+
+- **Motion Token API Renaming**: Renamed motion easing tokens for better semantic clarity
+  - **`M3MotionEasingToken` → `M3MotionCurveToken`**: All motion easing token references updated throughout the codebase
+  - **Affected Properties**: All easing curve access patterns (emphasized, standard, standardDecelerate, standardAccelerate, linear, etc.)
+  - **Documentation Updates**: Comprehensive updates to both English and Portuguese documentation reflecting new naming
+
+### ✨ New Features - M3 Expressive
+
+- **Loading Indicator Component**: Introduced new M3 Expressive loading indicator component
+
+  - **`LoadingIndicator`**: Brand new loading indicator widget with Material Design 3 expressive styling
+  - **`LoadingIndicator.contained()`**: Contained variant for different visual contexts
+  - **`LoadingIndicatorTheme`**: Complete theming system for customization
+  - Enhanced visual design following M3 Expressive guidelines
+
+- **Material New Shapes System**: Added comprehensive new shapes library for M3 Expressive
+  - **`MaterialShapes`**: Extensive collection of 35+ predefined shapes including:
+    - Basic shapes: circle, square, triangle, diamond, oval
+    - Advanced shapes: heart, clover, burst, flower, ghost-ish
+    - Cookie variants: 4-sided through 12-sided cookies
+    - Expressive shapes: sunny, boom, puffy, pixelCircle
+  - **Shape Morphing**: Advanced shape morphing capabilities with smooth animations
+  - **Interactive Showcase**: Complete demo implementation with animated shape transitions
+
+### 🎯 Developer Experience Improvements
+
+- **Enhanced Demo Application**: Added new M3 Expressive showcase section
+
+  - **M3ExpressivePage**: Dedicated page showcasing new expressive components
+  - **Loading Indicator Demo**: Interactive demonstrations of loading indicator variants
+  - **Navigation Enhancement**: Added "Expressive" section to main navigation with dedicated icon
+  - **Integrated Examples**: Seamless integration with existing demo architecture
+
+- **API Consistency**: Updated motion token usage patterns throughout codebase
+  - **README Updates**: All motion examples updated to use `M3MotionCurveToken`
+  - **Demo Consistency**: All showcase pages migrated to new motion token naming
+  - **Documentation Alignment**: Both English and Portuguese docs synchronized
+
+### 📱 Enhanced Example Applications
+
+- **Theme Integration**: Better theme integration patterns in examples
+  - **Context-Aware Styling**: Enhanced usage of `Theme.of(context)` patterns throughout examples
+  - **Color Scheme Integration**: Improved color scheme access patterns in README examples
+  - **State Layer Updates**: Better state layer opacity usage with proper theme integration
+
+### 🏗️ Library Architecture Enhancements
+
+- **Export Structure**: Enhanced library exports for new M3 Expressive components
+  - **Main Library**: Added exports for `LoadingIndicator` and `MaterialShapes`
+  - **Modular Organization**: Better separation between core M3 and M3 Expressive features
+  - **Theme Integration**: Proper theming integration for all new components
+
+### 🔧 Migration Guide
+
+**Motion Token Updates:**
+
+```dart
+// Before (v0.15.x)
+AnimatedContainer(
+  curve: M3MotionEasingToken.emphasized.value,
+  duration: M3MotionDurationToken.medium2.value,
+)
+
+// After (v0.16.0)
+AnimatedContainer(
+  curve: M3MotionCurveToken.emphasized.value,
+  duration: M3MotionDurationToken.medium2.value,
+)
+```
+
+**New M3 Expressive Components:**
+
+```dart
+// Loading Indicator
+LoadingIndicator() // Standard variant
+LoadingIndicator.contained() // Contained variant
+
+// Material Shapes (for advanced shape usage)
+import 'package:material_design/material_design.dart';
+
+// Access predefined shapes
+final shape = MaterialShapes.heart;
+final morphing = Morph(MaterialShapes.circle, MaterialShapes.heart);
+```
+
+**Theme Usage:**
+
+```dart
+// Enhanced theme integration patterns
+Container(
+  color: Theme.of(context).colorScheme.surface.withValues(
+    alpha: M3StateLayerOpacityToken.hover.value,
+  ),
+)
+```
+
+### 📊 Impact Summary
+
+- **Files Modified**: 20+ files updated across core library, demo, and documentation
+- **API Enhancement**: Consistent motion token naming across entire library
+- **New Components**: 2 major M3 Expressive components (LoadingIndicator, MaterialShapes)
+- **Documentation**: Comprehensive updates in both English and Portuguese
+- **Demo Enhancement**: New showcase section for M3 Expressive features
+
+**Recommended Version Bump: MINOR (0.15.0 → 0.16.0)**
+
+This release introduces significant new M3 Expressive features while maintaining backward compatibility, includes motion token API improvements for better semantic clarity, and provides enhanced developer experience through comprehensive documentation updates and interactive demos.
+
+## 0.15.0
+
+### 🔄 BREAKING CHANGES
+
+- **Shape System Refactoring**: Introduced a comprehensive three-tiered shape token system for more granular control and better developer experience
+
+  - **New Three-Tier System**: `M3ShapeToken` (high-level), `M3BorderRadiusToken` (mid-level), and `M3RadiusToken` (low-level)
+  - **Enhanced Usage Patterns**: Each tier serves specific use cases for maximum flexibility and semantic clarity
+  - **Improved API Ergonomics**: More intuitive property access patterns and better type safety
+
+- **Elevation System API Improvements**: Major refactoring of elevation-related classes for better clarity and consistency
+  - **`_M3ShadowToken` → `M3BoxShadowToken`**: Shadow token class is now public and properly named
+  - **`_M3TonalColor` → `M3SurfaceTint`**: Tonal color utility renamed for better semantic clarity
+  - **New `M3SurfaceColorToken`**: Dedicated token for surface color management with elevation integration
+  - **Enhanced Elevation Integration**: Better integration between elevation, shadows, and surface colors
+
+### 🏗️ Enhanced Widget System
+
+- **New `M3Container` Widget**: Advanced container widget with built-in Material Design 3 token enforcement
+
+  - Seamless integration with elevation and surface color systems
+  - Enhanced type safety and consistent API patterns
+  - Simplified common container styling workflows
+
+- **Shape Token Architecture Enhancement**: Complete reorganization of shape-related tokens
+  - **`M3ShapeToken`**: High-level shapes returning `RoundedRectangleBorder` for direct widget usage
+  - **`M3BorderRadiusToken`**: Mid-level tokens returning `BorderRadius` for decoration usage
+  - **`M3RadiusToken`**: Low-level tokens returning `Radius` for custom corner configurations
+
+### 🎯 Developer Experience Improvements
+
+- **Comprehensive Documentation Overhaul**: Extensive README.md updates with new API patterns
+
+  - Detailed three-tier shape system explanation with usage guidelines
+  - Enhanced elevation examples showing multiple implementation approaches
+  - Clear decision matrix for choosing appropriate token levels
+  - Updated spacing and layout examples with corrected API usage
+
+- **Improved API Consistency**: Unified access patterns across all shape and elevation tokens
+  - Consistent `.value` property access across all token types
+  - Clear semantic separation between different abstraction levels
+  - Enhanced IntelliSense support with better type definitions
+
+### 📱 Complete Application Migration
+
+- **Demo Application Overhaul**: Full migration to use new shape and elevation APIs
+
+  - All showcase pages updated to demonstrate three-tier shape system
+  - Enhanced elevation examples with new `M3SurfaceColorToken` integration
+  - Improved visual consistency across all demo components
+
+- **Example Application Updates**: Comprehensive refactoring of example applications
+  - Theme configurations updated to use new shape token system
+  - Interactive components migrated to new elevation API patterns
+  - Enhanced accessibility examples with new token implementations
+
+### 🧹 Code Organization & Architecture
+
+- **Token File Restructuring**: Better organization of elevation and shape token files
+
+  - Moved private implementation files to public API with proper naming
+  - Enhanced file organization with clearer dependency relationships
+  - Improved internal documentation and code structure
+
+- **Enhanced Library Exports**: Streamlined export structure for better developer experience
+  - Cleaner main library file with comprehensive token exposure
+  - Better separation between public and internal APIs
+  - Enhanced type definitions and interface contracts
+
+### 🔧 Migration Guide
+
+**Three-Tier Shape System:**
+
+```dart
+// Before (v0.14.x) - Single shape approach
+Container(
+  decoration: M3BoxDecoration(
+    shape: M3ShapeToken.medium,
+  ),
+)
+
+// After (v0.15.0) - Three-tier system
+// High-level: For shape property of widgets
+Card(shape: M3ShapeToken.large.value)
+
+// Mid-level: For borderRadius in BoxDecoration
+Container(
+  decoration: BoxDecoration(
+    borderRadius: M3BorderRadiusToken.large.value,
+  ),
+)
+
+// Low-level: For custom corner configurations
+Container(
+  decoration: BoxDecoration(
+    borderRadius: BorderRadius.only(
+      topLeft: M3RadiusToken.extraLarge.value,
+      bottomRight: M3RadiusToken.small.value,
+    ),
+  ),
+)
+```
+
+**Elevation System Updates:**
+
+```dart
+// Before (v0.14.x) - Private classes
+final shadows = _M3ShadowToken.fromElevation(elevation);
+final surfaceColor = _M3TonalColor.surfaceAt(context, elevation);
+
+// After (v0.15.0) - Public API with better naming
+final shadows = M3BoxShadowToken.fromElevation(elevation);
+final surfaceColor = M3SurfaceTint.surfaceAt(context, elevation);
+// or
+final surfaceColor = M3SurfaceColorToken.fromElevation(elevation).value(context);
+```
+
+**Container Widget:**
+
+```dart
+// New M3Container widget for enhanced functionality
+M3Container(
+  elevation: M3ElevationToken.level3,
+  // Automatically applies elevation, shadows, and surface colors
+  child: content,
+)
+```
+
+### 📊 Impact Summary
+
+- **Files Modified**: 25+ files updated across core library, demo, and example applications
+- **API Enhancement**: Three-tier shape system providing better granular control
+- **Developer Experience**: Simplified common use cases while enabling advanced customization
+- **Documentation**: Comprehensive updates with clear usage guidelines and decision matrices
+- **Type Safety**: Enhanced type safety and better IntelliSense support throughout
+
+**Recommended Version Bump: MINOR (0.14.0 → 0.15.0)**
+
+This release introduces significant API improvements and architectural enhancements to the shape and elevation systems, comprehensive documentation updates, and enhanced developer experience through the new three-tier shape token architecture while maintaining Material Design 3 compliance.
+
+## 0.14.0-dev
+
+### 🔄 BREAKING CHANGES
+
+- **API Unification and Simplification**: Major refactoring to unify the decoration and shape API for better consistency and developer experience
+  - **`BoxDecoration` → `M3BoxDecoration`**: All `BoxDecoration` usage replaced with new `M3BoxDecoration` widget for token enforcement
+    - **Before**: `BoxDecoration(borderRadius: M3ShapeToken.medium.borderRadius.value)`
+    - **After**: `M3BoxDecoration(shape: M3ShapeToken.medium)`
+  - **`BorderRadius` → `shape` property**: Simplified shape application through dedicated `shape` parameter
+    - **Before**: `borderRadius: M3ShapeToken.large.borderRadius.value`
+    - **After**: `shape: M3ShapeToken.large`
+  - **`Border.all()` → `M3Border.all()`**: Unified border creation through `M3Border` utility
+    - **Before**: `Border.all(width: M3BorderWidthToken.thin.value)`
+    - **After**: `M3Border.all(width: M3BorderWidthToken.thin.value)`
+
+### 🏗️ Enhanced Widget System
+
+- **New `M3BoxDecoration` Widget**: Comprehensive replacement for `BoxDecoration` with built-in Material Design 3 token enforcement
+  - Automatic shape token integration through `shape` parameter
+  - Enhanced type safety and token validation
+  - Simplified API for common decoration patterns
+  - Backward compatible with standard `BoxDecoration` properties
+- **Enhanced `M3Border` Utility**: Advanced border creation system with M3 token integration
+  - Consistent API for all border types (`all`, `symmetric`, `only`)
+  - Built-in token validation and type safety
+  - Improved developer experience with clear method signatures
+
+### 🎯 Developer Experience Improvements
+
+- **Simplified Shape Application**: Streamlined the process of applying shapes to components
+  - Direct token application without complex property chains
+  - Consistent pattern across all shape-related widgets
+  - Reduced boilerplate code for common styling patterns
+- **Documentation Updates**: Comprehensive updates to all documentation reflecting the new API patterns
+  - Updated README.md with new API examples
+  - Refreshed implementation guides in both English and Portuguese
+  - Enhanced inline code documentation throughout the library
+
+### 📱 Complete Demo Migration
+
+- **Demo Application Overhaul**: Full migration of demo application to use new API patterns
+  - All showcase pages updated to demonstrate `M3BoxDecoration` usage
+  - Enhanced examples showing simplified shape and decoration patterns
+  - Improved visual consistency across demo components
+- **Example Application Updates**: Complete refactoring of example app to use new decoration system
+  - Theme examples updated to use `M3BoxDecoration`
+  - Interactive components migrated to new shape API
+  - Enhanced accessibility examples with new decoration patterns
+
+### 🧹 Code Organization
+
+- **Temporary Shape Utils Disabled**: Disabled `M3ShapeUtils` temporarily during refactoring process
+  - Commented out in main export to prevent breaking changes
+  - Will be re-enabled with enhanced functionality in upcoming patch releases
+- **Enhanced Library Structure**: Improved organization of widget and utility classes
+  - Better separation between layout and decoration utilities
+  - Cleaner import structure with reduced complexity
+
+### 🔧 Migration Guide
+
+**BoxDecoration to M3BoxDecoration:**
+
+```dart
+// Before (v0.13.x)
+Container(
+  decoration: BoxDecoration(
+    color: M3SysColor.surfaceContainer,
+    borderRadius: M3ShapeToken.medium.borderRadius.value,
+    border: Border.all(width: M3BorderWidthToken.thin.value),
+  ),
+)
+
+// After (v0.14.0)
+Container(
+  decoration: M3BoxDecoration(
+    color: M3SysColor.surfaceContainer,
+    shape: M3ShapeToken.medium,
+    border: M3Border.all(width: M3BorderWidthToken.thin.value),
+  ),
+)
+```
+
+**Shape Token Application:**
+
+```dart
+// Before (v0.13.x)
+Card(
+  shape: RoundedRectangleBorder(
+    borderRadius: M3ShapeToken.large.borderRadius.value,
+  ),
+)
+
+// After (v0.14.0)
+Card(
+  shape: RoundedRectangleBorder(
+    shape: M3ShapeToken.large,
+  ),
+)
+```
+
+**Theme Configuration:**
+
+```dart
+// Before (v0.13.x)
+ElevatedButton.styleFrom(
+  shape: RoundedRectangleBorder(
+    borderRadius: M3ShapeToken.medium.borderRadius.value,
+  ),
+)
+
+// After (v0.14.0)
+ElevatedButton.styleFrom(
+  shape: RoundedRectangleBorder(
+    shape: M3ShapeToken.medium,
+  ),
+)
+```
+
+### 📊 Impact Summary
+
+- **Files Modified**: 30+ files updated across documentation, demo, and example applications
+- **API Consistency**: Unified decoration and shape API across entire library
+- **Developer Experience**: Simplified common styling patterns with reduced boilerplate
+- **Documentation**: Comprehensive updates in both English and Portuguese
+- **Backward Compatibility**: Maintained compatibility with existing token values while improving API ergonomics
+
+**Recommended Version Bump: MINOR (0.13.0 → 0.14.0)**
+
+This release contains significant API improvements and breaking changes to decoration and shape systems, extensive documentation updates, and enhanced developer experience through simplified APIs while maintaining full Material Design 3 compliance.
+
+## 0.13.0-dev
+
+### 🔄 BREAKING CHANGES
+
+- **Shape Token API Refactoring**: Major changes to the shape token system requiring property chain updates
+  - **Before**: `M3ShapeToken.medium.borderRadius` → **After**: `M3ShapeToken.medium.borderRadius.value`
+  - **Before**: `M3ShapeToken.large.radius` → **After**: `M3ShapeToken.large.borderRadius.radius.value`
+  - All shape token access now requires `.value` at the end for consistent API patterns
+- **Border Token Renaming**: `M3BorderToken` has been renamed to `M3BorderWidthToken` for better semantic clarity
+  - Update all `M3BorderToken.thin` → `M3BorderWidthToken.thin`
+  - Affects all border width references throughout the codebase
+
+### 🗂️ Library Architecture Overhaul
+
+- **Consolidated Main Export**: Removed the separate `m3.dart` file and consolidated all exports into the main `material_design.dart` library file
+  - All imports now use: `import 'package:material_design/material_design.dart'`
+  - Improved library structure with comprehensive inline documentation for all token systems
+- **Enhanced Widget System**: Added new layout widgets with Material Design 3 token enforcement
+  - **`M3Border`**: Custom border widget that enforces M3 design tokens (465+ lines of implementation)
+  - **`M3BorderRadius`**: Custom border radius utility with token validation
+  - **`M3BoxDecoration`**: Token-enforced box decoration for consistent styling
+  - **`M3ShapeDecoration`**: Advanced shape decoration with M3 compliance (591+ lines of implementation)
+
+### 🏗️ Enhanced Shape System
+
+- **Complete Shape Token Refactoring**: Redesigned the shape token system with 270+ lines of additional functionality
+  - Added comprehensive internal constants for all radius values
+  - Implemented wrapper classes for better type safety and API consistency
+  - Enhanced border radius utilities with validation and helper methods
+- **Improved Type Safety**: All shape-related tokens now have consistent access patterns and validation
+
+### 🎨 Enhanced Layout Utilities
+
+- **Improved M3EdgeInsets**: Significant enhancements to the EdgeInsets utility (179 lines updated)
+- **Streamlined M3Padding**: Simplified and optimized padding implementation (183 lines reduced)
+- **Enhanced Layout Widgets**: Better integration with the Material Design 3 token system
+
+### 📱 Demo and Example Updates
+
+- **Complete API Migration**: Updated entire demo application and examples to use the new token access patterns
+- **Enhanced Examples**: All showcase pages now demonstrate the new API structure
+- **Better Documentation**: Improved inline comments and examples throughout demo and example applications
+
+### 🔧 Migration Guide
+
+**Shape and Border Radius:**
+
+```dart
+// Before (v0.11.0)
+Container(
+  decoration: BoxDecoration(
+    borderRadius: M3ShapeToken.medium.borderRadius,
+  ),
+)
+
+// After (v0.12.0)
+Container(
+  decoration: BoxDecoration(
+    borderRadius: M3ShapeToken.medium.borderRadius.value,
+  ),
+)
+```
+
+**Border Tokens:**
+
+```dart
+// Before (v0.11.0)
+Border.all(width: M3BorderToken.thin.value)
+
+// After (v0.12.0)
+Border.all(width: M3BorderWidthToken.thin.value)
+```
+
+**Library Import:**
+
+```dart
+// Before (v0.11.0)
+import 'package:material_design/src/m3/m3.dart';
+
+// After (v0.12.0)
+import 'package:material_design/material_design.dart';
+```
+
+**Recommended Version Bump: MINOR (0.11.0 → 0.12.0)**
+
+This release contains significant breaking changes to the shape and border token APIs, extensive library architecture improvements, and new widget implementations that substantially enhance the Material Design 3 token system.
+
+## 0.12.1
+
+### Documentation
+
+- **Radius Examples Updated**: Revised all radius `README.md` documentation, usage guides, and inline comments related to radius.
+
+## 0.12.0
+
+### 🚀 Major Features & Enhancements
+
+- **New Spacing System**: Introduced a new, robust spacing system to enforce design system consistency and improve developer experience.
+  - **`M3EdgeInsets`**: A new utility to create `EdgeInsets` exclusively from `M3SpacingToken` and `M3MarginToken`. This ensures all insets and margins adhere to the design system.
+  - **`M3Padding` Widget**: A token-enforced padding widget that replaces the standard `Padding`. It provides convenient constructors (`.all`, `.symmetric`, `.only`) that accept `M3SpacingToken`.
+  - **`M3Gap` Widget**: A token-based replacement for `SizedBox` to create consistent spacing in `Row`s and `Column`s using `M3SpacingToken`.
+- **Simplified Token API**: The API for all spacing and margin tokens has been simplified. The `.value` accessor is no longer needed when using the new spacing widgets and utilities, making the code cleaner and more readable (e.g., `M3Padding.all(M3SpacingToken.space16)`).
+- **Enhanced Breakpoint System**: The responsive breakpoint system has been refactored for clarity and consistency.
+  - `M3WindowSizeClass` has been renamed to `M3ScreenSize`.
+  - `getWindowSizeClassFromContext` has been renamed to `getScreenSizeFromContext`.
+- **Improved Documentation**:
+  - The main library file (`m3.dart`) has been completely overhauled with comprehensive documentation, serving as a complete guide to the package's features.
+  - All core token classes (`M3ElevationToken`, `M3VisualDensityToken`, `IM3Token`, etc.) have received extensive inline documentation, explaining their purpose, architecture, and usage patterns.
+
+### 🔄 Refactoring
+
+- **Full Adoption of New Spacing System**: The entire demo application, examples, and internal library code have been refactored to use the new `M3EdgeInsets`, `M3Padding`, and `M3Gap` utilities. This removes direct dependencies on Flutter's `Padding` and `SizedBox`, ensuring strict adherence to the design system.
+- **Adaptive Utilities Update**: The `M3Adaptive` helper class has been updated to use the new `M3ScreenSize` enum and `M3EdgeInsets` utility for responsive layouts.
+- **Codebase Cleanup**: Removed unused files and cleaned up `.gitignore`.
+
+### 🔧 Migration Guide
+
+**Spacing and Padding:**
+
+Update all `Padding` and `SizedBox` widgets used for spacing to the new `M3Padding` and `M3Gap` widgets.
+
+**Before (v0.11.0):**
+
+```dart
+Padding(
+  padding: EdgeInsets.all(M3SpacingToken.space16.value),
+  child: Text('Hello'),
+)
+
+SizedBox(height: M3SpacingToken.space24.value)
+```
+
+**After (v0.12.0):**
+
+```dart
+M3Padding.all(
+  M3SpacingToken.space16,
+  child: Text('Hello'),
+)
+
+const M3Gap(M3SpacingToken.space24)
+```
+
+**Responsive Breakpoints:**
+
+Update all references from `M3WindowSizeClass` to `M3ScreenSize`.
+
+**Before (v0.11.0):**
+
+```dart
+final sizeClass = M3BreakpointToken.getWindowSizeClassFromContext(context);
+if (sizeClass == M3WindowSizeClass.compact) {
+  // ...
+}
+```
+
+**After (v0.12.0):**
+
+```dart
+final screenSize = M3BreakpointToken.getScreenSizeFromContext(context);
+if (screenSize == M3ScreenSize.compact) {
+  // ...
+}
+```
+
 ## 0.11.0
 
 ### New Features

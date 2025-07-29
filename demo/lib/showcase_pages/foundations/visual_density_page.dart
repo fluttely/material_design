@@ -70,9 +70,9 @@ class _VisualDensityPageState extends State<VisualDensityPage> {
   /// Builds an informative card about adaptive density.
   Widget _buildPlatformInfo() {
     return Card(
-      margin: EdgeInsets.symmetric(
-        vertical: M3SpacingToken.space8.value,
-        horizontal: M3SpacingToken.space16.value,
+      margin: M3EdgeInsets.symmetric(
+        vertical: M3SpacingToken.space8,
+        horizontal: M3SpacingToken.space16,
       ),
       child: ListTile(
         leading: const Icon(Icons.info_outline),
@@ -128,9 +128,9 @@ class _VisualDensityPageState extends State<VisualDensityPage> {
   /// Builds the example list to visualize the density.
   Widget _buildDemoList() {
     return ListView.builder(
-      padding: EdgeInsets.symmetric(
-        horizontal: M3SpacingToken.space16.value,
-        vertical: M3SpacingToken.space16.value,
+      padding: M3EdgeInsets.symmetric(
+        horizontal: M3SpacingToken.space16,
+        vertical: M3SpacingToken.space16,
       ),
       itemCount: 6,
       itemBuilder: (context, index) {

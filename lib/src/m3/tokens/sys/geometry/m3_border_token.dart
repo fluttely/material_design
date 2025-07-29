@@ -1,5 +1,20 @@
-import 'package:flutter/material.dart';
-import 'package:material_design/material_design.dart';
+part of '../../../../../material_design.dart';
+
+const double _borderWidthNone = 0;
+const double _borderWidthThin = 1;
+const double _borderWidthThick = 2;
+const double _borderWidthExtraThick = 4;
+
+const BorderSide _borderSideNone = BorderSide(width: _borderWidthNone);
+const BorderSide _borderSideThin = BorderSide();
+const BorderSide _borderSideThick = BorderSide(width: _borderWidthThick);
+const BorderSide _borderSideExtraThick =
+    BorderSide(width: _borderWidthExtraThick);
+
+const Border _borderNone = Border.fromBorderSide(_borderSideNone);
+const Border _borderThin = Border.fromBorderSide(_borderSideThin);
+const Border _borderThick = Border.fromBorderSide(_borderSideThick);
+const Border _borderExtraThick = Border.fromBorderSide(_borderSideExtraThick);
 
 /// Material Design 3 border width tokens for consistent component styling.
 ///
@@ -16,22 +31,22 @@ import 'package:material_design/material_design.dart';
 ///
 /// ```dart
 /// // Get standard border width
-/// double borderWidth = M3BorderToken.thin.value; // 1.0
+/// double borderWidth = M3BorderWidthToken.thin.value; // 1.0
 ///
 /// // Use in decorations
 /// Container(
-///   decoration: BoxDecoration(
-///     border: Border.all(
-///       width: M3BorderToken.thin.value,
+///   decoration: M3BoxDecoration(
+///     border: M3Border.all(
+///       width: M3BorderWidthToken.thin.value,
 ///       color: Colors.grey,
 ///     ),
 ///   ),
 /// )
 ///
 /// // Use with utility methods
-/// Border border = M3BorderToken.outline(
+/// Border border = M3BorderWidthToken.outline(
 ///   color: Colors.blue,
-///   width: M3BorderToken.thick.value,
+///   width: M3BorderWidthToken.thick.value,
 /// );
 /// ```
 ///
@@ -43,7 +58,7 @@ import 'package:material_design/material_design.dart';
 /// - **Extra Thick (4dp)**: High emphasis, error states, special cases
 ///
 /// Reference: Material Design 3 component specifications
-enum M3BorderToken implements IM3Token<double> {
+enum M3BorderWidthToken implements IM3Token<double> {
   /// No border width (0dp).
   ///
   /// Used when borders need to be completely removed or made invisible.
@@ -55,7 +70,7 @@ enum M3BorderToken implements IM3Token<double> {
   /// - Seamless content areas
   /// - Hidden state indicators
   /// - Clean, minimal interface elements
-  none(0),
+  none(_borderWidthNone),
 
   /// Standard thin border width (1dp).
   ///
@@ -69,7 +84,7 @@ enum M3BorderToken implements IM3Token<double> {
   /// - Card borders and dividers
   /// - List item separators
   /// - Default component boundaries
-  thin(1),
+  thin(_borderWidthThin),
 
   /// Thick border width (2dp).
   ///
@@ -83,7 +98,7 @@ enum M3BorderToken implements IM3Token<double> {
   /// - Active/highlighted components
   /// - Important form field borders
   /// - Navigation element indicators
-  thick(2),
+  thick(_borderWidthThick),
 
   /// Extra thick border width (4dp).
   ///
@@ -97,65 +112,90 @@ enum M3BorderToken implements IM3Token<double> {
   /// - High-emphasis interactive elements
   /// - Accessibility-enhanced focus indicators
   /// - Special design accent elements
-  extraThick(4);
+  extraThick(_borderWidthExtraThick);
 
   /// Creates a border token with the specified value.
-  const M3BorderToken(this.value);
+  const M3BorderWidthToken(this.value);
 
   /// The border width value in density-independent pixels (dp).
   @override
   final double value;
 }
 
-// TODO(fluttely):
-/// Provides utility methods for working with border tokens.
-extension M3BorderTokenUtils on M3BorderToken {
-  /// Creates a [BorderSide] with this token's width.
-  ///
-  /// This is a convenient way to create a [BorderSide] for use in
-  /// various Flutter widgets.
-  ///
-  /// - [color]: The color of the border side.
-  /// - [style]: The style of the border side, defaults to solid.
-  BorderSide toSide({
-    required Color color,
-    BorderStyle style = BorderStyle.solid,
-  }) {
-    return BorderSide(
-      color: color,
-      width: value,
-      style: style,
-    );
-  }
+// // TODO(fluttely):
+// /// Provides utility methods for working with border tokens.
+// extension _M3BorderWidthTokenUtils on M3BorderWidthToken {
+//   // /// Creates a [BorderSide] with this token's width.
+//   // ///
+//   // /// This is a convenient way to create a [BorderSide] for use in
+//   // /// various Flutter widgets.
+//   // ///
+//   // /// - [color]: The color of the border side.
+//   // /// - [style]: The style of the border side, defaults to solid.
+//   // BorderSide toSide({
+//   //   required Color color,
+//   //   BorderStyle style = BorderStyle.solid,
+//   // }) {
+//   //   return BorderSide(
+//   //     color: color,
+//   //     width: value,
+//   //     style: style,
+//   //   );
+//   // }
 
-  /// Checks if this border width is thicker than another.
-  bool isThickerThan(M3BorderToken other) => value > other.value;
+//   /// Checks if this border width is thicker than another.
+//   bool isThickerThan(M3BorderWidthToken other) => value > other.value;
 
-  /// Checks if this border width is thinner than another.
-  bool isThinnerThan(M3BorderToken other) => value < other.value;
+//   /// Checks if this border width is thinner than another.
+//   bool isThinnerThan(M3BorderWidthToken other) => value < other.value;
 
-  /// Returns the difference in width between this and another border token.
-  double differenceFrom(M3BorderToken other) => (value - other.value).abs();
+//   /// Returns the difference in width between this and another border token.
+//   double differenceFrom(M3BorderWidthToken other) =>
+//       (value - other.value).abs();
 
-  /// Creates a BorderRadius with this token's width as the radius.
-  BorderRadius asRadius() => BorderRadius.circular(value);
+//   /// Creates a BorderRadius with this token's width as the radius.
+//   BorderRadius asRadius() => BorderRadius.circular(value);
 
-  /// Creates a Radius with this token's width.
-  Radius get radius => Radius.circular(value);
+//   /// Creates a Radius with this token's width.
+//   Radius get radius => Radius.circular(value);
 
-  /// Checks if this border is visible (has width > 0).
-  bool get isVisible => value > 0;
+//   /// Checks if this border is visible (has width > 0).
+//   bool get isVisible => value > 0;
 
-  /// Creates an animated BorderSide that can transition between states.
-  BorderSide animatedSide({
-    required Color color,
-    required Animation<double> animation,
-    BorderStyle style = BorderStyle.solid,
-  }) {
-    return BorderSide(
-      color: color,
-      width: value * animation.value,
-      style: style,
-    );
-  }
+//   /// Creates an animated BorderSide that can transition between states.
+//   BorderSide animatedSide({
+//     required Color color,
+//     required Animation<double> animation,
+//     BorderStyle style = BorderStyle.solid,
+//   }) {
+//     return BorderSide(
+//       color: color,
+//       width: value * animation.value,
+//       style: style,
+//     );
+//   }
+// }
+
+enum M3BorderSideToken implements IM3Token<BorderSide> {
+  none(_borderSideNone),
+  thin(_borderSideThin),
+  thick(_borderSideThick),
+  extraThick(_borderSideExtraThick);
+
+  const M3BorderSideToken(this.value);
+
+  @override
+  final BorderSide value;
+}
+
+enum M3BorderToken implements IM3Token<Border> {
+  none(_borderNone),
+  thin(_borderThin),
+  thick(_borderThick),
+  extraThick(_borderExtraThick);
+
+  const M3BorderToken(this.value);
+
+  @override
+  final Border value;
 }

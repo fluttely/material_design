@@ -7,6 +7,7 @@ import 'package:material_design_demo/showcase_pages/foundations/opacity_tokens_p
 import 'package:material_design_demo/showcase_pages/foundations/spacing_page.dart';
 import 'package:material_design_demo/showcase_pages/foundations/visual_density_page.dart';
 import 'package:material_design_demo/showcase_pages/foundations/z_index_tokens_page.dart';
+import 'package:material_design_demo/showcase_pages/m3_expressive/m3_expressive_page.dart';
 import 'package:material_design_demo/showcase_pages/widgets/launch_url_text.dart';
 import 'package:provider/provider.dart';
 
@@ -108,6 +109,7 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
 
     // Components and Utilities
     const UtilsPage(),
+    const M3ExpressivePage(),
   ];
 
   @override
@@ -255,6 +257,11 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
         selectedIcon: Icon(Icons.auto_awesome),
         label: Text('Utils'),
       ),
+      NavigationRailDestination(
+        icon: Icon(Icons.local_activity_outlined),
+        selectedIcon: Icon(Icons.local_activity),
+        label: Text('Expressive'),
+      ),
     ];
   }
 
@@ -370,10 +377,7 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
               IconButton(
                 icon: Icon(Icons.color_lens, color: themeProvider.seedColor),
                 onPressed: () async {
-                  final newColor = await showColorPickerDialog(
-                    context,
-                    themeProvider.seedColor,
-                  );
+                  final newColor = await showColorPickerDialog(context);
                   if (newColor != null) {
                     themeProvider.changeSeedColor(newColor);
                   }
@@ -485,7 +489,7 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
 
           // Fixed bottom controls
           Container(
-            padding: const EdgeInsets.symmetric(vertical: 8),
+            padding: M3EdgeInsets.symmetric(vertical: M3SpacingToken.space8),
             child: Column(
               children: [
                 Divider(
@@ -524,10 +528,7 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
                         size: 20,
                       ),
                       onPressed: () async {
-                        final newColor = await showColorPickerDialog(
-                          context,
-                          themeProvider.seedColor,
-                        );
+                        final newColor = await showColorPickerDialog(context);
                         if (newColor != null) {
                           themeProvider.changeSeedColor(newColor);
                         }

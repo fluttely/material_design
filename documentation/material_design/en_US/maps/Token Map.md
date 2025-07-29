@@ -10,7 +10,7 @@
 - **Spacing Tokens** - M3SpacingToken (4dp grid system)
 - **Elevation Tokens** - M3Elevation (6 levels)
 - **Shape Tokens** - M3ShapeToken (border radius system)
-- **Motion Tokens** - M3MotionDurationToken & M3MotionEasingToken
+- **Motion Tokens** - M3MotionDurationToken & M3MotionCurveToken
 - **State Tokens** - M3StateLayerOpacity
 - **Breakpoint Tokens** - M3BreakpointToken (responsive)
 
@@ -49,7 +49,7 @@ graph TD
     E --> E2[M3Elevation ✅]
     E --> E3[M3SpacingToken ✅]
     E --> E4[M3MotionDurationToken ✅]
-    E --> E5[M3MotionEasingToken ✅]
+    E --> E5[M3MotionCurveToken ✅]
     E --> E6[M3ShapeToken ✅]
     E --> E7[M3StateLayerOpacity ✅]
     E --> E8[M3BreakpointToken ✅]
@@ -199,7 +199,7 @@ ElevatedButton(
   style: ElevatedButton.styleFrom(
     minimumSize: Size.fromHeight(40.0), // Direct value
     shape: RoundedRectangleBorder(
-      borderRadius: M3ShapeToken.medium.value, // ✅ Active shape token
+      shape: M3ShapeToken.medium.value, // ✅ Active shape token
     ),
     elevation: M3ElevationToken.level1.value, // ✅ Active elevation token
   ),
@@ -215,10 +215,10 @@ ElevatedButton(
 Card(
   elevation: M3ElevationToken.level1.value,     // ✅ Active elevation
   shape: RoundedRectangleBorder(
-    borderRadius: M3ShapeToken.medium.value,    // ✅ Active shape
+    shape: M3ShapeToken.medium.value,    // ✅ Active shape
   ),
   child: M3Padding(
-    padding: EdgeInsets.all(M3SpacingToken.space16.value), // ✅ Active spacing
+    padding: M3EdgeInsets.all(M3SpacingToken.space16), // ✅ Active spacing
     child: content,
   ),
 )
@@ -370,7 +370,7 @@ Demonstrates all tokens organized by category:
 ```dart
 // Spacing demonstration
 Container(
-  padding: EdgeInsets.all(M3SpacingToken.space16), // 16dp
+  padding: M3EdgeInsets.all(M3SpacingToken.space16), // 16dp
   child: Text('Spaced content'),
 )
 

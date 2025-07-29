@@ -617,7 +617,7 @@ class M3TouchTargets {
     if (onTap != null) {
       result = InkWell(
         onTap: onTap,
-        borderRadius: BorderRadius.circular(M3Radius.medium),
+        shape: BorderRadius.circular(M3Radius.medium),
         child: result,
       );
     }

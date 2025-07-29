@@ -9,7 +9,7 @@ class IconSizeTokensPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text('Icon Sizes')),
       body: ListView(
-        padding: EdgeInsets.all(M3SpacingToken.space16.value),
+        padding: M3EdgeInsets.all(M3SpacingToken.space16),
         children: [
           _buildIconSizeSection(context),
         ],

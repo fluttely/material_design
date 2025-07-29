@@ -10,7 +10,7 @@ class ZIndexTokensPage extends StatelessWidget {
       appBar:
           AppBar(title: const Text('Z-Index System')), // TODO(Kevin): fix title
       body: ListView(
-        padding: EdgeInsets.all(M3SpacingToken.space16.value),
+        padding: M3EdgeInsets.all(M3SpacingToken.space16),
         children: [
           _buildZIndexSection(context),
         ],
@@ -81,10 +81,10 @@ class ZIndexTokensPage extends StatelessWidget {
         const M3Gap(M3SpacingToken.space16),
         Container(
           height: 512,
-          padding: EdgeInsets.all(M3SpacingToken.space16.value),
+          padding: M3EdgeInsets.all(M3SpacingToken.space16),
           decoration: BoxDecoration(
             color: colorScheme.surfaceContainerLowest,
-            borderRadius: M3ShapeToken.medium.borderRadius,
+            borderRadius: M3BorderRadiusToken.medium.value,
             border: Border.all(color: colorScheme.outlineVariant),
           ),
           child: Stack(
@@ -105,7 +105,7 @@ class ZIndexTokensPage extends StatelessWidget {
                     height: 120,
                     decoration: BoxDecoration(
                       color: layer.color,
-                      borderRadius: M3ShapeToken.small.borderRadius,
+                      borderRadius: M3BorderRadiusToken.small.value,
                       border: Border.all(
                         color: layer.borderColor,
                         width: 2,
@@ -157,7 +157,7 @@ class ZIndexTokensPage extends StatelessWidget {
         Container(
           decoration: BoxDecoration(
             color: colorScheme.surfaceContainerLow,
-            borderRadius: M3ShapeToken.medium.borderRadius,
+            borderRadius: M3BorderRadiusToken.medium.value,
             border: Border.all(color: colorScheme.outlineVariant),
           ),
           child: Column(
@@ -183,13 +183,13 @@ class ZIndexTokensPage extends StatelessWidget {
                   ),
                 ),
                 trailing: Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: M3SpacingToken.space8.value,
-                    vertical: M3SpacingToken.space4.value,
+                  padding: M3EdgeInsets.symmetric(
+                    horizontal: M3SpacingToken.space8,
+                    vertical: M3SpacingToken.space4,
                   ),
-                  decoration: BoxDecoration(
+                  decoration: M3BoxDecoration(
                     color: colorScheme.surfaceContainerHighest,
-                    borderRadius: M3ShapeToken.small.borderRadius,
+                    borderRadius: M3BorderRadiusToken.small,
                   ),
                   child: Text(
                     '${layer.zIndex}',

@@ -175,9 +175,9 @@ abstract class M3Elevation {
 ```dart
 // Surface with elevation-based color
 Container(
-  decoration: BoxDecoration(
-    color: M3TonalColor.surfaceAt(context, 6.0),
-    boxShadow: M3ShadowToken.fromElevation(6.0),
+  decoration: M3BoxDecoration(
+    color: M3SurfaceTint.surfaceAt(context, 6.0),
+    boxShadow: M3BoxShadowToken.fromElevation(6.0),
   ),
   child: content,
 )
@@ -189,9 +189,9 @@ Container(
 // Elevation that responds to interactions
 AnimatedContainer(
   duration: M3MotionDurationToken.short4,
-  decoration: BoxDecoration(
-    color: M3TonalColor.surfaceAt(context, isPressed ? 1.0 : 3.0),
-    boxShadow: M3ShadowToken.fromElevation(isPressed ? 1.0 : 3.0),
+  decoration: M3BoxDecoration(
+    color: M3SurfaceTint.surfaceAt(context, isPressed ? 1.0 : 3.0),
+    boxShadow: M3BoxShadowToken.fromElevation(isPressed ? 1.0 : 3.0),
   ),
 )
 ```
@@ -200,7 +200,7 @@ AnimatedContainer(
 
 ### [[Motion|🌊 Motion System]] - ✅ **Working**
 
-Based on **M3MotionDurationToken** and **M3MotionEasingToken** tokens - fully implemented and functional:
+Based on **M3MotionDurationToken** and **M3MotionCurveToken** tokens - fully implemented and functional:
 
 **Duration Categories:**
 
@@ -222,10 +222,10 @@ M3MotionDurationToken.long4        // 600ms
 
 ```dart
 // Official M3 curves
-M3MotionEasingToken.standard       // (0.2, 0.0, 0.0, 1.0) - most common
-M3MotionEasingToken.emphasized     // (0.05, 0.7, 0.1, 1.0) - important transitions
-M3MotionEasingToken.decelerated    // (0.0, 0.0, 0.2, 1.0) - entering elements
-M3MotionEasingToken.accelerated    // (0.3, 0.0, 1.0, 1.0) - exiting elements
+M3MotionCurveToken.standard       // (0.2, 0.0, 0.0, 1.0) - most common
+M3MotionCurveToken.emphasized     // (0.05, 0.7, 0.1, 1.0) - important transitions
+M3MotionCurveToken.decelerated    // (0.0, 0.0, 0.2, 1.0) - entering elements
+M3MotionCurveToken.accelerated    // (0.3, 0.0, 1.0, 1.0) - exiting elements
 ```
 
 **Motion Patterns:**
@@ -234,7 +234,7 @@ M3MotionEasingToken.accelerated    // (0.3, 0.0, 1.0, 1.0) - exiting elements
 // Fade with contextual duration
 M3MotionUtils.fadeIn(
   duration: M3MotionDurationToken.medium2,
-  curve: M3MotionEasingToken.emphasizedDecelerate,
+  curve: M3MotionCurveToken.emphasizedDecelerate,
   child: myWidget,
 )
 
@@ -270,22 +270,22 @@ abstract class M3Radius {
 ```dart
 // Basic shapes
 Container(
-  decoration: BoxDecoration(
-    borderRadius: M3ShapeUtils.rounded(M3Radius.medium), // 12dp
+  decoration: M3BoxDecoration(
+    shape: M3ShapeUtils.rounded(M3Radius.medium), // 12dp
   ),
 )
 
 // Directional shapes
 Container(
-  decoration: BoxDecoration(
-    borderRadius: M3ShapeUtils.topRounded(M3Radius.large), // Top only
+  decoration: M3BoxDecoration(
+    shape: M3ShapeUtils.topRounded(M3Radius.large), // Top only
   ),
 )
 
 // Component-specific shapes
 Card(
   shape: RoundedRectangleBorder(
-    borderRadius: BorderRadius.circular(M3Radius.medium), // 12dp for cards
+    shape: BorderRadius.circular(M3Radius.medium), // 12dp for cards
   ),
 )
 ```
@@ -323,7 +323,7 @@ ThemeData buildM3Theme({Color? seedColor}) {
       style: ElevatedButton.styleFrom(
         elevation: M3ElevationToken.level1.value,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(M3Radius.medium),
+          shape: BorderRadius.circular(M3Radius.medium),
         ),
         animationDuration: M3MotionDurationToken.short4,
       ),
@@ -339,7 +339,7 @@ ThemeData buildM3Theme({Color? seedColor}) {
 Card(
   // Shape
   shape: RoundedRectangleBorder(
-    borderRadius: BorderRadius.circular(M3Radius.medium),
+    shape: BorderRadius.circular(M3Radius.medium),
   ),
   // Elevation
   elevation: M3ElevationToken.level1.value,
@@ -347,8 +347,8 @@ Card(
   child: AnimatedContainer(
     // Motion
     duration: M3MotionDurationToken.short4,
-    curve: M3MotionEasingToken.standard,
-    padding: EdgeInsets.all(M3SpacingToken.space16),
+    curve: M3MotionCurveToken.standard,
+    padding: M3EdgeInsets.all(M3SpacingToken.space16),
     child: Column(
       children: [
         // Typography

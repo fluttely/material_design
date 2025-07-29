@@ -1,4 +1,4 @@
-import 'package:material_design/material_design.dart';
+part of '../../../../../material_design.dart';
 
 /// Material Design 3 general opacity tokens for UI elements.
 ///
@@ -28,7 +28,7 @@ import 'package:material_design/material_design.dart';
 ///
 /// // Use for disabled containers
 /// Container(
-///   decoration: BoxDecoration(
+///   decoration: M3BoxDecoration(
 ///     color: Colors.blue.withValues(alpha:
 ///       M3OpacityToken.disabledContainer.value,
 ///     ),

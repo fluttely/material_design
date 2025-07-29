@@ -28,13 +28,13 @@ graph TD
     D --> D3[M3CompDialog]
 
     E --> E1[M3TextStyleToken]
-    E --> E2[M3TonalColor]
+    E --> E2[M3SurfaceTint]
     E --> E3[M3Elevation]
     E --> E4[M3SpacingToken]
     E --> E5[M3MotionDurationToken]
-    E --> E6[M3MotionEasingToken]
+    E --> E6[M3MotionCurveToken]
     E --> E7[M3Radius]
-    E --> E8[M3ShadowToken]
+    E --> E8[M3BoxShadowToken]
 
     %% Conexões de dependência
     B1 --> C1
@@ -176,7 +176,7 @@ ElevatedButton(
   style: ElevatedButton.styleFrom(
     minimumSize: Size.fromHeight(M3CompButton.heightMedium), // 40dp
     shape: RoundedRectangleBorder(
-      borderRadius: M3CompButton.shapeMedium, // 12dp
+      shape: M3CompButton.shapeMedium, // 12dp
     ),
     elevation: M3CompButton.elevationRested, // 1dp
   ),
@@ -324,7 +324,7 @@ Demonstra todos os tokens organizados por categoria:
 ```dart
 // Spacing demonstration
 Container(
-  padding: EdgeInsets.all(M3SpacingToken.space16), // 16dp
+  padding: M3EdgeInsets.all(M3SpacingToken.space16), // 16dp
   child: Text('Spaced content'),
 )
 

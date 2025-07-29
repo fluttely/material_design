@@ -1,4 +1,4 @@
-import 'package:material_design/material_design.dart';
+part of '../../../../../material_design.dart';
 
 /// Material Design 3 z-index tokens for consistent component layering.
 ///
