@@ -1,6 +1,8 @@
 part of '../../../../../material_design.dart';
 
 @immutable
+
+/// Contract for Material Design 3 spacing tokens.
 abstract interface class IM3SpacingToken implements IM3Token<double> {}
 
 /// Material Design 3 spacing tokens based on a 4dp grid system.
@@ -10,7 +12,8 @@ abstract interface class IM3SpacingToken implements IM3Token<double> {}
 /// and rhythmic spacing throughout the UI, following the official Material
 /// Design 3 spacing guidelines.
 ///
-/// Each token represents a specific spacing value in density-independent pixels (dp).
+/// Each token represents a specific spacing value in density-independent
+/// pixels (dp).
 /// The system is designed around 4dp increments for optimal visual rhythm and
 /// consistency across different screen densities.
 ///
@@ -29,7 +32,8 @@ abstract interface class IM3SpacingToken implements IM3Token<double> {}
 ///
 /// ## Spacing Scale Guidelines
 ///
-/// - **Base Scale (4dp-64dp)**: Ideal for component padding and small layout gaps
+/// - **Base Scale (4dp-64dp)**: Ideal for component padding and small
+///   layout gaps
 /// - **Extended Scale (72dp-128dp)**: For larger layout spacing needs
 /// - **Special Values**: none (0dp) and infinity for edge cases
 ///

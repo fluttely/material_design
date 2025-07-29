@@ -33,7 +33,8 @@ abstract interface class IM3VisualDensityToken
 /// {@template m3_visual_density_token}
 /// Material Design 3 visual density tokens for adaptive component spacing.
 ///
-/// Visual density controls the spatial compactness of UI components by adjusting
+/// Visual density controls the spatial compactness of UI components by
+/// adjusting
 /// spacing around interactive elements. This system enables interfaces to adapt
 /// to different usage contexts, input methods, and user preferences while
 /// maintaining usability and accessibility standards.
@@ -180,7 +181,8 @@ enum M3VisualDensityToken implements IM3VisualDensityToken {
   VisualDensity get value {
     // FIX: The recursion is resolved here.
     // For the adaptive case, we return Flutter's built-in adaptive density
-    // directly, preventing the infinite loop that caused the StackOverflowError.
+    // directly, preventing the infinite loop that caused the
+    // StackOverflowError.
     if (isAdaptive) {
       return VisualDensity.adaptivePlatformDensity;
     }
@@ -296,7 +298,8 @@ extension IM3VisualDensityTokenUtils on IM3VisualDensityToken {
     return VisualDensity.lerp(value, other.value, t);
   }
 
-  /// Whether this density is generally considered suitable for touch interfaces.
+  /// Whether this density is generally considered suitable for touch
+  /// interfaces.
   bool get isTouchFriendly => horizontal >= -1.0 && vertical >= -1.0;
 
   /// Whether this density is generally considered optimized for desktop use.
@@ -308,7 +311,8 @@ extension IM3VisualDensityContext on BuildContext {
   /// Gets the current [VisualDensity] from the active [Theme].
   VisualDensity get visualDensity => Theme.of(this).visualDensity;
 
-  /// Gets the recommended [M3VisualDensityToken] for the current platform context.
+  /// Gets the recommended [M3VisualDensityToken] for the current platform
+  /// context.
   M3VisualDensityToken get recommendedDensity {
     final platform = Theme.of(this).platform;
     return M3VisualDensityToken.forPlatform(platform);

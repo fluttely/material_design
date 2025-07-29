@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:material_design/material_design.dart';
 import 'package:material_design_demo/m3_expressive/loading_indicator/main.dart';
 // import 'package:material_design_demo/m3_expressive/new_shapes/shapes_preview.dart';
 
@@ -61,54 +60,6 @@ class _M3ExpressivePageState extends State<M3ExpressivePage> {
             height: 100,
             child: LoadingIndicatorPage(),
           ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildSpacingDemo(String label, IM3Token spacing) {
-    final textTheme = Theme.of(context).textTheme;
-    final colorScheme = Theme.of(context).colorScheme;
-    // FIX: Check if the value is infinity to avoid calling .toInt() on it.
-    final isInfinity = spacing.value == double.infinity;
-
-    return M3Padding.only(
-      bottom: M3SpacingToken.space16,
-      child: Row(
-        children: [
-          SizedBox(
-            width: 128,
-            child: Text(
-              label,
-              style: textTheme.labelLarge,
-            ),
-          ),
-          SizedBox(
-            width: 48,
-            child: Text(
-              // FIX: Display '∞' for infinity, otherwise display the integer value.
-              isInfinity ? '∞' : '${spacing.value.toInt()}dp',
-              style: textTheme.bodyMedium?.copyWith(
-                color: colorScheme.onSurfaceVariant,
-              ),
-            ),
-          ),
-          const M3Gap(M3SpacingToken.space16),
-          // FIX: Conditionally render the container or a text label for infinity.
-          if (isInfinity)
-            Text(
-              'Unbounded',
-              style: textTheme.bodySmall?.copyWith(
-                color: colorScheme.onSurfaceVariant,
-                fontStyle: FontStyle.italic,
-              ),
-            )
-          else
-            Container(
-              height: 24,
-              width: spacing.value,
-              color: colorScheme.primary,
-            ),
         ],
       ),
     );

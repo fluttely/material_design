@@ -4,7 +4,8 @@ part of '../../../../../material_design.dart';
 ///
 /// This enum defines general-purpose opacity values for UI elements like
 /// disabled components, dividers, and backdrops, following Material Design 3
-/// guidelines. These opacities are typically applied directly to element colors,
+/// guidelines. These opacities are typically applied directly to element
+/// colors,
 /// unlike state layers which are overlaid on top of components.
 ///
 /// The opacity system ensures consistent visual hierarchy and accessibility

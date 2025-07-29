@@ -2,7 +2,8 @@ part of '../../../../../material_design.dart';
 
 /// Material Design 3 Padding widget with design token enforcement.
 ///
-/// This widget provides a consistent way to apply padding using Material Design 3
+/// This widget provides a consistent way to apply padding using Material
+/// Design 3
 /// spacing tokens. It enforces the use of predefined spacing values to ensure
 /// visual consistency throughout the application.
 ///

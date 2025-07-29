@@ -83,9 +83,7 @@ class M3Border extends Border {
   /// The width parameter must be a Material Design 3 border token to ensure
   /// consistent styling.
   ///
-  /// [side] - The M3BorderWidthToken defining the border width
-  /// [color] - The color of the border
-  /// [style] - The style of the border (defaults to solid)
+  /// The [side] parameter defines the border appearance for all sides.
   ///
   /// Example:
   /// ```dart
@@ -433,13 +431,15 @@ class M3Border extends Border {
 //   ///
 //   /// Uses thick border token for accessibility-compliant focus
 //   /// indication, typically with the primary color.
-//   static M3Border focusIndicator(Color color) => M3Border.focus(color: color);
+//   static M3Border focusIndicator(Color color) =>
+//       M3Border.focus(color: color);
 
 //   /// Error state indicator border.
 //   ///
 //   /// Uses extra thick border token for prominent error indication,
 //   /// typically with the error color from the theme.
-//   static M3Border errorIndicator(Color color) => M3Border.error(color: color);
+//   static M3Border errorIndicator(Color color) =>
+//       M3Border.error(color: color);
 
 //   /// Subtle divider border.
 //   ///
@@ -458,7 +458,8 @@ class M3Border extends Border {
 //   /// Button outline border.
 //   ///
 //   /// Standard border for outlined button components.
-//   static M3Border buttonOutline(Color color) => M3Border.outline(color: color);
+//   static M3Border buttonOutline(Color color) =>
+//       M3Border.outline(color: color);
 
 //   /// Text field border.
 //   ///

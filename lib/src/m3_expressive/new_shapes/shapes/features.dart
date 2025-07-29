@@ -17,6 +17,11 @@ part of '../../../../material_design.dart';
 /// By using features, you can manipulate polygon shapes with more context and
 /// control.
 abstract class Feature {
+  /// Creates a [Feature] with the given list of [Cubic] curves.
+  ///
+  /// This is the base constructor for all feature types. The [cubics] list
+  /// must contain at least one cubic and must be continuous (each cubic's
+  /// end anchor point must match the next cubic's start anchor point).
   const Feature(List<Cubic> cubics) : _cubics = cubics;
 
   /// Group a list of [Cubic] objects to a feature that should be ignored in
@@ -125,7 +130,16 @@ abstract class Feature {
 /// Edges have only a list of the cubic curves which make up the edge. Edges
 /// lie between corners and have no vertex or concavity; the curves are simply
 /// straight lines (represented by [Cubic] curves).
+/// A feature representing an edge of a polygon shape.
+///
+/// Edges have no vertex or concavity and are composed of cubic curves that
+/// represent straight lines between corners. Edge features are marked as
+/// ignorable in the default [Morph] mapping process.
 class EdgeFeature extends Feature {
+  /// Creates an [EdgeFeature] with the given list of [Cubic] curves.
+  ///
+  /// The cubics should represent straight line segments that form the edge
+  /// of a polygon between two corners.
   EdgeFeature(super._cubics);
 
   @override
@@ -167,9 +181,24 @@ class EdgeFeature extends Feature {
 /// rounded (or not), and a flag indicating whether the corner is convex. A
 /// regular polygon has all convex corners, while a star polygon generally
 /// (but not necessarily) has both convex (outer) and concave (inner) corners.
+/// A feature representing a corner of a polygon shape.
+///
+/// Corners contain cubic curves that describe how the corner is rounded
+/// and include a flag indicating whether the corner is convex (outward)
+/// or concave (inward). Corner features are not ignored in the default
+/// [Morph] mapping process.
 class CornerFeature extends Feature {
+  /// Creates a [CornerFeature] with the given list of [Cubic] curves.
+  ///
+  /// The [convex] parameter determines whether this corner bends outward
+  /// (convex = true, the default) or inward (concave = false) from the shape.
   const CornerFeature(super._cubics, {this.convex = true});
 
+  /// Whether this corner is convex (outward indentation) or concave (inward).
+  ///
+  /// A convex corner bends outward from the shape (like the corners of a
+  /// regular polygon), while a concave corner bends inward (like the inner
+  /// corners of a star shape).
   final bool convex;
 
   @override

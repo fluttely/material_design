@@ -36,6 +36,10 @@ class Cubic {
       : assert(points.length == 8, 'Points array size should be 8.'),
         _points = points;
 
+  /// Creates a [Cubic] from four [Point] objects representing the anchor
+  /// and control points of the Bézier curve.
+  ///
+  /// This is an internal constructor used for performance optimizations.
   @internal
   Cubic.fromPoints(
     Point anchor0,
@@ -79,7 +83,7 @@ class Cubic {
   /// smallest of the two possible arcs around the entire 360-degree circle.
   /// Arcs of greater than 180 degrees should use more than one arc together.
   /// Note that p0 and p1 should be equidistant from the center.
-  // TODO: consider a more general function (maybe in addition to this) that
+  // TODO(material_design): consider a more general function (maybe in addition to this) that
   // allows caller to get a list of curves surpassing 180 degrees.
   factory Cubic.circularArc(
     double centerX,
@@ -126,22 +130,37 @@ class Cubic {
 
   final List<double> _points;
 
+  /// Returns an unmodifiable view of the internal points array.
+  ///
+  /// The array contains 8 values representing the x,y coordinates of:
+  /// - anchor0 (indices 0,1)
+  /// - control0 (indices 2,3)
+  /// - control1 (indices 4,5)
+  /// - anchor1 (indices 6,7)
   List<double> get points => UnmodifiableListView(_points);
 
+  /// The x-coordinate of the first anchor point of the Bézier curve.
   double get anchor0X => _points[0];
 
+  /// The y-coordinate of the first anchor point of the Bézier curve.
   double get anchor0Y => _points[1];
 
+  /// The x-coordinate of the first control point of the Bézier curve.
   double get control0X => _points[2];
 
+  /// The y-coordinate of the first control point of the Bézier curve.
   double get control0Y => _points[3];
 
+  /// The x-coordinate of the second control point of the Bézier curve.
   double get control1X => _points[4];
 
+  /// The y-coordinate of the second control point of the Bézier curve.
   double get control1Y => _points[5];
 
+  /// The x-coordinate of the second anchor point of the Bézier curve.
   double get anchor1X => _points[6];
 
+  /// The y-coordinate of the second anchor point of the Bézier curve.
   double get anchor1Y => _points[7];
 
   /// Returns a point on the curve for parameter [t], representing the
@@ -164,10 +183,18 @@ class Cubic {
     );
   }
 
+  /// Returns true if this curve has effectively zero length.
+  ///
+  /// A curve is considered to have zero length if the distance between
+  /// its anchor points is less than [distanceEpsilon].
   bool zeroLength() =>
       (anchor0X - anchor1X).abs() < distanceEpsilon &&
       (anchor0Y - anchor1Y).abs() < distanceEpsilon;
 
+  /// Returns true if the angle from this curve to the [next] curve is convex.
+  ///
+  /// This determines if the turn from this curve to the next one bends outward
+  /// (convex) or inward (concave) when traversing the shape.
   bool convexTo(Cubic next) {
     final prevVertex = Point(anchor0X, anchor0Y);
     final currVertex = Point(anchor1X, anchor1Y);
@@ -284,7 +311,7 @@ class Cubic {
 
   /// Returns two Cubics, created by splitting this curve at the given
   /// distance of [t] between the original starting and ending anchor points.
-  // TODO: cartesian optimization?
+  // TODO(material_design): cartesian optimization?
   (Cubic, Cubic) split(double t) {
     final u = 1 - t;
     final point = pointOnCurve(t);
@@ -301,7 +328,7 @@ class Cubic {
         point.y,
       ),
       Cubic(
-        // TODO: should calculate once and share the result.
+        // TODO(material_design): should calculate once and share the result.
         point.x,
         point.y,
         control0X * (u * u) + control1X * (2 * u * t) + anchor1X * (t * t),
@@ -326,14 +353,21 @@ class Cubic {
         anchor0Y,
       );
 
+  /// Adds two [Cubic] curves by adding their corresponding point coordinates.
   Cubic operator +(Cubic o) =>
       Cubic._raw(List.generate(8, (i) => _points[i] + o._points[i]));
 
+  /// Multiplies all point coordinates of this [Cubic] by a scalar value.
   Cubic operator *(double x) =>
       Cubic._raw(List.generate(8, (i) => _points[i] * x));
 
+  /// Divides all point coordinates of this [Cubic] by a scalar value.
   Cubic operator /(double x) => this * (1.0 / x);
 
+  /// Returns a new [Cubic] with all points transformed by the given function.
+  ///
+  /// The [PointTransformer] function is applied to each anchor and control point
+  /// to create a new transformed curve.
   Cubic transformed(PointTransformer f) {
     final newCubic = _MutableCubic();
     for (var i = 0; i < 8; i++) {

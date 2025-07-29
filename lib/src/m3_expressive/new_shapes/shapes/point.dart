@@ -4,9 +4,8 @@ typedef PointTransformer = (double, double) Function(double x, double y);
 
 @immutable
 class Point {
-  static const zero = Point(0, 0);
-
   const Point(this.x, this.y);
+  static const zero = Point(0, 0);
 
   final double x;
 

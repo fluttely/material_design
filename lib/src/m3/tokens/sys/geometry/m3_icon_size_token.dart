@@ -3,12 +3,14 @@ part of '../../../../../material_design.dart';
 /// Material Design 3 icon size tokens for consistent iconography.
 ///
 /// This enum defines standard icon sizes based on the Material Design 3
-/// specification. While M3 primarily uses 24dp as the standard size for UI icons,
+/// specification. While M3 primarily uses 24dp as the standard size for UI
+/// icons,
 /// different sizes are used contextually to maintain visual balance, hierarchy,
 /// and optimal readability across various components and layouts.
 ///
 /// The icon size system ensures consistent visual weight and proportions
-/// throughout the interface, supporting both functional and decorative icon usage.
+/// throughout the interface, supporting both functional and decorative icon
+/// usage.
 ///
 /// ## Usage
 ///
@@ -57,7 +59,8 @@ enum M3IconSizeToken implements IM3Token<double> {
   /// Standard icon size (24dp).
   ///
   /// The default and most commonly used icon size in Material Design 3.
-  /// This size provides optimal balance between visibility and space efficiency,
+  /// This size provides optimal balance between visibility and space efficiency
+  /// ,
   /// making it suitable for the majority of UI components and interactions.
   ///
   /// **Ideal use cases**:

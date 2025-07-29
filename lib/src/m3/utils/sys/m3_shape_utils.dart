@@ -26,7 +26,9 @@
 //         }
 
 //       case 'fab':
-//         return variant == 'extended' ? M3ShapeToken.large : M3ShapeToken.large;
+//         return variant == 'extended'
+//             ? M3ShapeToken.large
+//             : M3ShapeToken.large;
 
 //       case 'card':
 //         return M3ShapeToken.medium;

@@ -223,7 +223,7 @@ class _KeyColorChip extends StatelessWidget {
   final Color onColor;
 
   String _colorToHex(Color color) =>
-      '#${color.value.toRadixString(16).substring(2).toUpperCase()}';
+      '#${color.toARGB32().toRadixString(16).substring(2).toUpperCase()}';
 
   @override
   Widget build(BuildContext context) {
@@ -266,7 +266,7 @@ class _ColorChip extends StatelessWidget {
   final Color onColor;
 
   String _colorToHex(Color color) =>
-      '#${color.value.toRadixString(16).substring(2).toUpperCase()}';
+      '#${color.toARGB32().toRadixString(16).substring(2).toUpperCase()}';
 
   @override
   Widget build(BuildContext context) {

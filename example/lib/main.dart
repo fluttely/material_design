@@ -524,8 +524,9 @@ class _DemoHomePageState extends State<DemoHomePage>
     if (density == M3VisualDensityToken.standard.value) return 'Standard';
     if (density == M3VisualDensityToken.comfortable.value) return 'Comfortable';
     if (density == M3VisualDensityToken.compact.value) return 'Compact';
-    if (density == M3VisualDensityToken.adaptivePlatformDensity.value)
+    if (density == M3VisualDensityToken.adaptivePlatformDensity.value) {
       return 'Adaptive';
+    }
     return 'Custom';
   }
 
@@ -1368,7 +1369,7 @@ class _ColorPickerButton extends StatelessWidget {
                     ),
                     const M3Gap(M3SpacingToken.space12),
                     Text(
-                      '#${color.value.toRadixString(16).padLeft(8, '0').substring(2).toUpperCase()}',
+                      '#${color.toARGB32().toRadixString(16).padLeft(8, '0').substring(2).toUpperCase()}',
                     ),
                   ],
                 ),

@@ -104,8 +104,8 @@ enum M3ZIndexToken implements IM3Token<int> {
   /// Modal component z-index (1000).
   ///
   /// For modal components that must appear above all other application content,
-  /// creating a clear separation between the modal and the underlying interface.
-  /// This ensures user focus is directed to the modal content.
+  /// creating a clear separation between the modal and the underlying
+  /// interface. This ensures user focus is directed to the modal content.
   ///
   /// **Ideal use cases**:
   /// - Dialog boxes and modal windows

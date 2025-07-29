@@ -4,19 +4,31 @@ part of '../../../../material_design.dart';
 // the same, within some reasonable roundoff error. The distance epsilon is
 // smaller, with the intention that the roundoff should not be larger than a
 // pixel on any reasonable sized display.
+/// Epsilon value used to determine when two points are the same within
+/// reasonable roundoff error for distance calculations.
 const distanceEpsilon = 1e-5;
+
+/// Epsilon value used to determine when two angles are the same within
+/// reasonable roundoff error.
 const angleEpsilon = 1e-6;
 
 // This epsilon is based on the observation that people tend to see e.g.
 // collinearity much more relaxed than what is mathematically correct. This
 // effect is heightened on smaller displays. Use this epsilon for operations
 // that allow higher tolerances.
+/// Relaxed epsilon value for operations that allow higher tolerances,
+/// based on human perception of geometric features like collinearity.
 const relaxedDistanceEpsilon = 5e-3;
 
-const twoPi = math.pi * 2;
+/// Two times pi constant.
+const double twoPi = math.pi * 2;
 
+/// Calculates the Euclidean distance from origin to point (x, y).
 double distance(double x, double y) => math.sqrt(x * x + y * y);
 
+/// Calculates the squared Euclidean distance from origin to point (x, y).
+/// Useful when you only need to compare distances without needing the
+/// actual value.
 double distanceSquared(double x, double y) => x * x + y * y;
 
 /// Returns unit vector representing the direction to this point from (0, 0).
@@ -26,9 +38,15 @@ Point directionVector(double x, double y) {
   return Point(x / d, y / d);
 }
 
+/// Creates a unit vector pointing in the direction of the given angle.
+/// [angleRadians] is the angle in radians from the positive x-axis.
 Point directionVectorFromAngle(double angleRadians) =>
     Point(math.cos(angleRadians), math.sin(angleRadians));
 
+/// Converts polar coordinates to Cartesian coordinates.
+/// [radius] is the distance from the center.
+/// [angleRadians] is the angle in radians from the positive x-axis.
+/// [center] is the center point (defaults to origin).
 Point radialToCartesian(
   double radius,
   double angleRadians, [
@@ -36,6 +54,7 @@ Point radialToCartesian(
 ]) =>
     directionVectorFromAngle(angleRadians) * radius + center;
 
+/// Returns the square of the given number.
 double square(double x) => x * x;
 
 /// Linearly interpolates between [start] and [stop] with [fraction] fraction
@@ -74,7 +93,7 @@ bool collinearIsh(
 /// Approximates whether corner at this vertex is concave or convex, based on
 /// the relationship of the prev->curr/curr->next vectors.
 bool convex(Point previous, Point current, Point next) {
-  // TODO: b/369320447 - This is a fast, but not reliable calculation.
+  // TODO(username): This is a fast, but not reliable calculation.
   return (current - previous).clockwise(next - current);
 }
 
@@ -145,14 +164,18 @@ int binarySearchBy<E, K>(
   return -min - 1;
 }
 
+/// Extension on [double] that provides value coercion methods.
 extension DoubleCoerceExtensions on double {
+  /// Ensures this value is at least [minimumValue].
   double coerceAtLeast(double minimumValue) =>
       this < minimumValue ? minimumValue : this;
 
+  /// Ensures this value is at most [maximumValue].
   double coerceAtMost(double maximumValue) {
     return this > maximumValue ? maximumValue : this;
   }
 
+  /// Ensures this value is within the range [minimumValue] to [maximumValue].
   double coerceIn(double minimumValue, double maximumValue) {
     if (this < minimumValue) return minimumValue;
     if (this > maximumValue) return maximumValue;
@@ -160,7 +183,9 @@ extension DoubleCoerceExtensions on double {
   }
 }
 
+/// Extension on [Matrix4] that provides point transformation utilities.
 extension Matrix4PointTransformer on Matrix4 {
+  /// Converts this matrix to a [PointTransformer] function.
   PointTransformer asPointTransformer() {
     return (x, y) {
       final vector = transform3(Vector3(x, y, 0));
@@ -169,6 +194,7 @@ extension Matrix4PointTransformer on Matrix4 {
   }
 }
 
+/// Extension on [RoundedPolygon] that provides [Path] conversion utilities.
 extension RoundedPolygonToPathExtension on RoundedPolygon {
   /// Returns a [Path] representation for a [RoundedPolygon] shape. Note that
   /// there is some rounding happening (to the nearest thousandth), to work
@@ -209,6 +235,7 @@ extension RoundedPolygonToPathExtension on RoundedPolygon {
   }
 }
 
+/// Extension on [Morph] that provides [Path] conversion utilities.
 extension MorphToPathExtension on Morph {
   /// Returns a [Path] for a [Morph].
   ///

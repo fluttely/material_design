@@ -25,7 +25,8 @@ const Border _borderExtraThick = Border.fromBorderSide(_borderSideExtraThick);
 /// elements in the interface.
 ///
 /// The border width scale is designed to provide visual hierarchy and state
-/// indication while maintaining the clean, minimal aesthetic of Material Design.
+/// indication while maintaining the clean, minimal aesthetic of Material
+/// Design.
 ///
 /// ## Usage
 ///
@@ -176,26 +177,118 @@ enum M3BorderWidthToken implements IM3Token<double> {
 //   }
 // }
 
+/// Material Design 3 border side tokens for consistent border styling.
+///
+/// This enum provides pre-configured [BorderSide] objects that correspond
+/// to the standard Material Design 3 border widths. Each token represents
+/// a complete border side configuration with the appropriate width.
+///
+/// These tokens ensure consistent border appearance across all components
+/// and provide a centralized way to manage border styling throughout
+/// the application.
+///
+/// ## Usage
+///
+/// ```dart
+/// // Get a standard thin border side
+/// BorderSide side = M3BorderSideToken.thin.value;
+///
+/// // Use in decorations
+/// Container(
+///   decoration: BoxDecoration(
+///     border: Border(
+///       top: M3BorderSideToken.thick.value,
+///       bottom: M3BorderSideToken.thin.value,
+///     ),
+///   ),
+/// )
+/// ```
 enum M3BorderSideToken implements IM3Token<BorderSide> {
+  /// No border side (0dp width).
+  ///
+  /// A completely transparent border side with zero width.
+  /// Used when borders need to be removed or made invisible.
   none(_borderSideNone),
+
+  /// Standard thin border side (1dp width).
+  ///
+  /// The default border side for most Material Design components.
+  /// Provides subtle definition without visual intrusion.
   thin(_borderSideThin),
+
+  /// Thick border side (2dp width).
+  ///
+  /// Enhanced border side for emphasis and selected states.
+  /// Creates clear visual hierarchy and attention.
   thick(_borderSideThick),
+
+  /// Extra thick border side (4dp width).
+  ///
+  /// High-emphasis border side for critical states and special cases.
+  /// Maximum visual weight for important boundaries.
   extraThick(_borderSideExtraThick);
 
+  /// Creates a border side token with the specified value.
   const M3BorderSideToken(this.value);
 
+  /// The [BorderSide] configuration for this token.
   @override
   final BorderSide value;
 }
 
+/// Material Design 3 border tokens for complete border styling.
+///
+/// This enum provides pre-configured [Border] objects that apply
+/// consistent border styling to all sides of a container. Each token
+/// uses the corresponding border width from the Material Design 3
+/// specification.
+///
+/// These tokens ensure uniform border appearance across components
+/// and provide a standardized approach to container styling.
+///
+/// ## Usage
+///
+/// ```dart
+/// // Get a complete border
+/// Border border = M3BorderToken.thin.value;
+///
+/// // Use in decorations
+/// Container(
+///   decoration: BoxDecoration(
+///     border: M3BorderToken.thick.value,
+///     borderRadius: BorderRadius.circular(8),
+///   ),
+/// )
+/// ```
 enum M3BorderToken implements IM3Token<Border> {
+  /// No border on any side (0dp width).
+  ///
+  /// A completely borderless configuration.
+  /// Used for seamless, boundary-free containers.
   none(_borderNone),
+
+  /// Thin border on all sides (1dp width).
+  ///
+  /// Standard border configuration for most components.
+  /// Provides subtle container definition.
   thin(_borderThin),
+
+  /// Thick border on all sides (2dp width).
+  ///
+  /// Enhanced border for emphasis and selected states.
+  /// Creates clear container boundaries.
   thick(_borderThick),
+
+  /// Extra thick border on all sides (4dp width).
+  ///
+  /// High-emphasis border for critical states.
+  /// Maximum visual weight for important containers.
   extraThick(_borderExtraThick);
 
+  /// Creates a border token with the specified value.
   const M3BorderToken(this.value);
 
+  /// The [Border] configuration for this token.
   @override
   final Border value;
 }

@@ -17,6 +17,18 @@ part of '../../../../material_design.dart';
 /// splitting curves when the shapes do not have the same number of curves or
 /// when the curve placement within the shapes is very different.
 class Morph {
+  /// Creates a [Morph] that can animate between the [start] and [end] polygons.
+  ///
+  /// The constructor analyzes both polygons and creates a mapping between their
+  /// curves to enable smooth animation. The mapping process aligns similar
+  /// features (edges, corners) and splits curves when necessary to ensure
+  /// both shapes have the same number of corresponding curves.
+  ///
+  /// Example:
+  /// ```dart
+  /// final morph = Morph(startPolygon, endPolygon);
+  /// final intermediateShape = morph.asCubics(0.5); // 50% between start and end
+  /// ```
   Morph(RoundedPolygon start, RoundedPolygon end)
       : _start = start,
         _end = end {
