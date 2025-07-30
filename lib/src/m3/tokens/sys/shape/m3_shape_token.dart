@@ -1,6 +1,6 @@
 part of '../../../../../material_design.dart';
 
-const double _kM3RadiusNoneValue = 0;
+// const double _kM3RadiusNoneValue = 0;
 const double _kM3RadiusExtraSmallValue = 4;
 const double _kM3RadiusSmallValue = 8;
 const double _kM3RadiusMediumValue = 12;

@@ -42,9 +42,9 @@ enum M3SurfaceColorToken implements IM3ContextualToken<Color> {
 
   /// Returns the surface color value for the given context
   @override
-  Color Function(BuildContext) get value => _resolve;
+  Color Function(BuildContext) get value => resolve;
 
   @override
-  Color _resolve(BuildContext context) =>
+  Color resolve(BuildContext context) =>
       M3SurfaceTint.fromElevation(context, _elevation);
 }
