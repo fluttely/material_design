@@ -524,7 +524,7 @@ class _DemoHomePageState extends State<DemoHomePage>
     if (density == M3VisualDensityToken.standard.value) return 'Standard';
     if (density == M3VisualDensityToken.comfortable.value) return 'Comfortable';
     if (density == M3VisualDensityToken.compact.value) return 'Compact';
-    if (density == M3VisualDensityToken.adaptivePlatformDensity.value) {
+    if (density == M3VisualDensityToken.adaptivePlatformDensity) {
       return 'Adaptive';
     }
     return 'Custom';
@@ -553,6 +553,7 @@ class _DemoHomePageState extends State<DemoHomePage>
   }
 
   Widget _buildVisualDensityDemo() {
+    // Versão mais limpa usando uma lista mista
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -560,24 +561,7 @@ class _DemoHomePageState extends State<DemoHomePage>
         const M3Gap(M3SpacingToken.space8),
         Wrap(
           spacing: M3SpacingToken.space8.value,
-          children: [
-            M3VisualDensityToken.standard,
-            M3VisualDensityToken.comfortable,
-            M3VisualDensityToken.compact,
-            M3VisualDensityToken.adaptivePlatformDensity,
-          ]
-              .map(
-                (density) => FilterChip(
-                  label: Text(_getDensityName(density.value)),
-                  selected: _visualDensity == density.value,
-                  onSelected: (selected) {
-                    if (selected) {
-                      setState(() => _visualDensity = density.value);
-                    }
-                  },
-                ),
-              )
-              .toList(),
+          children: _buildDensityChips(),
         ),
         const M3Gap(M3SpacingToken.space8),
         Card(
@@ -592,6 +576,28 @@ class _DemoHomePageState extends State<DemoHomePage>
         ),
       ],
     );
+  }
+
+  List<Widget> _buildDensityChips() {
+    final densityOptions = [
+      ('Standard', M3VisualDensityToken.standard.value),
+      ('Comfortable', M3VisualDensityToken.comfortable.value),
+      ('Compact', M3VisualDensityToken.compact.value),
+      ('Adaptive', M3VisualDensityToken.adaptivePlatformDensity),
+    ];
+
+    return densityOptions.map((option) {
+      final (name, density) = option;
+      return FilterChip(
+        label: Text(name),
+        selected: _visualDensity == density,
+        onSelected: (selected) {
+          if (selected) {
+            setState(() => _visualDensity = density);
+          }
+        },
+      );
+    }).toList();
   }
 
   Widget _buildOpacityDemo() {

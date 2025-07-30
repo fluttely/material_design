@@ -1,98 +1,99 @@
 part of '../../../../../material_design.dart';
 
-/// Constants >>>
-const TextStyle _kM3TypeScaleDisplayLarge = TextStyle(
-  fontSize: 57,
-  fontWeight: FontWeight.w400,
-  letterSpacing: -0.25,
-  height: 64 / 57,
-);
-const TextStyle _kM3TypeScaleDisplayMedium = TextStyle(
-  fontSize: 45,
-  fontWeight: FontWeight.w400,
-  letterSpacing: 0,
-  height: 52 / 45,
-);
-const TextStyle _kM3TypeScaleDisplaySmall = TextStyle(
-  fontSize: 36,
-  fontWeight: FontWeight.w400,
-  letterSpacing: 0,
-  height: 44 / 36,
-);
-const TextStyle _kM3TypeScaleHeadlineLarge = TextStyle(
-  fontSize: 32,
-  fontWeight: FontWeight.w400,
-  letterSpacing: 0,
-  height: 40 / 32,
-);
-const TextStyle _kM3TypeScaleHeadlineMedium = TextStyle(
-  fontSize: 28,
-  fontWeight: FontWeight.w400,
-  letterSpacing: 0,
-  height: 36 / 28,
-);
-const TextStyle _kM3TypeScaleHeadlineSmall = TextStyle(
-  fontSize: 24,
-  fontWeight: FontWeight.w400,
-  letterSpacing: 0,
-  height: 32 / 24,
-);
-const TextStyle _kM3TypeScaleTitleLarge = TextStyle(
-  fontSize: 22,
-  fontWeight: FontWeight.w400,
-  letterSpacing: 0,
-  height: 28 / 22,
-);
-const TextStyle _kM3TypeScaleTitleMedium = TextStyle(
-  fontSize: 16,
-  fontWeight: FontWeight.w500,
-  letterSpacing: 0.15,
-  height: 24 / 16,
-);
-const TextStyle _kM3TypeScaleTitleSmall = TextStyle(
-  fontSize: 14,
-  fontWeight: FontWeight.w500,
-  letterSpacing: 0.1,
-  height: 20 / 14,
-);
-const TextStyle _kM3TypeScaleBodyLarge = TextStyle(
-  fontSize: 16,
-  fontWeight: FontWeight.w400,
-  letterSpacing: 0.5,
-  height: 24 / 16,
-);
-const TextStyle _kM3TypeScaleBodyMedium = TextStyle(
-  fontSize: 14,
-  fontWeight: FontWeight.w400,
-  letterSpacing: 0.25,
-  height: 20 / 14,
-);
-const TextStyle _kM3TypeScaleBodySmall = TextStyle(
-  fontSize: 12,
-  fontWeight: FontWeight.w400,
-  letterSpacing: 0.4,
-  height: 16 / 12,
-);
-const TextStyle _kM3TypeScaleLabelLarge = TextStyle(
-  fontSize: 14,
-  fontWeight: FontWeight.w500,
-  letterSpacing: 0.1,
-  height: 20 / 14,
-);
-const TextStyle _kM3TypeScaleLabelMedium = TextStyle(
-  fontSize: 12,
-  fontWeight: FontWeight.w500,
-  letterSpacing: 0.5,
-  height: 16 / 12,
-);
-const TextStyle _kM3TypeScaleLabelSmall = TextStyle(
-  fontSize: 11,
-  fontWeight: FontWeight.w500,
-  letterSpacing: 0.5,
-  height: 16 / 11,
-);
+abstract final class M3TextStyles {
+  M3TextStyles._();
 
-/// <<< Constants
+  static const TextStyle displayLarge = TextStyle(
+    fontSize: 57,
+    fontWeight: FontWeight.w400,
+    letterSpacing: -0.25,
+    height: 64 / 57,
+  );
+  static const TextStyle displayMedium = TextStyle(
+    fontSize: 45,
+    fontWeight: FontWeight.w400,
+    letterSpacing: 0,
+    height: 52 / 45,
+  );
+  static const TextStyle displaySmall = TextStyle(
+    fontSize: 36,
+    fontWeight: FontWeight.w400,
+    letterSpacing: 0,
+    height: 44 / 36,
+  );
+  static const TextStyle headlineLarge = TextStyle(
+    fontSize: 32,
+    fontWeight: FontWeight.w400,
+    letterSpacing: 0,
+    height: 40 / 32,
+  );
+  static const TextStyle headlineMedium = TextStyle(
+    fontSize: 28,
+    fontWeight: FontWeight.w400,
+    letterSpacing: 0,
+    height: 36 / 28,
+  );
+  static const TextStyle headlineSmall = TextStyle(
+    fontSize: 24,
+    fontWeight: FontWeight.w400,
+    letterSpacing: 0,
+    height: 32 / 24,
+  );
+  static const TextStyle titleLarge = TextStyle(
+    fontSize: 22,
+    fontWeight: FontWeight.w400,
+    letterSpacing: 0,
+    height: 28 / 22,
+  );
+  static const TextStyle titleMedium = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.w500,
+    letterSpacing: 0.15,
+    height: 24 / 16,
+  );
+  static const TextStyle titleSmall = TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.w500,
+    letterSpacing: 0.1,
+    height: 20 / 14,
+  );
+  static const TextStyle bodyLarge = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.w400,
+    letterSpacing: 0.5,
+    height: 24 / 16,
+  );
+  static const TextStyle bodyMedium = TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.w400,
+    letterSpacing: 0.25,
+    height: 20 / 14,
+  );
+  static const TextStyle bodySmall = TextStyle(
+    fontSize: 12,
+    fontWeight: FontWeight.w400,
+    letterSpacing: 0.4,
+    height: 16 / 12,
+  );
+  static const TextStyle labelLarge = TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.w500,
+    letterSpacing: 0.1,
+    height: 20 / 14,
+  );
+  static const TextStyle labelMedium = TextStyle(
+    fontSize: 12,
+    fontWeight: FontWeight.w500,
+    letterSpacing: 0.5,
+    height: 16 / 12,
+  );
+  static const TextStyle labelSmall = TextStyle(
+    fontSize: 11,
+    fontWeight: FontWeight.w500,
+    letterSpacing: 0.5,
+    height: 16 / 11,
+  );
+}
 
 /// {@template m3_type_scale_fonts}
 /// Material Design 3 type scale font family constants.
@@ -144,49 +145,49 @@ abstract interface class _M3TypeScaleFonts {
 /// {@endtemplate}
 enum M3TextStyleToken implements IM3Token<TextStyle> {
   /// Display Large text style (57sp).
-  displayLarge(_kM3TypeScaleDisplayLarge),
+  displayLarge(M3TextStyles.displayLarge),
 
   /// Display Medium text style (45sp).
-  displayMedium(_kM3TypeScaleDisplayMedium),
+  displayMedium(M3TextStyles.displayMedium),
 
   /// Display Small text style (36sp).
-  displaySmall(_kM3TypeScaleDisplaySmall),
+  displaySmall(M3TextStyles.displaySmall),
 
   /// Headline Large text style (32sp).
-  headlineLarge(_kM3TypeScaleHeadlineLarge),
+  headlineLarge(M3TextStyles.headlineLarge),
 
   /// Headline Medium text style (28sp).
-  headlineMedium(_kM3TypeScaleHeadlineMedium),
+  headlineMedium(M3TextStyles.headlineMedium),
 
   /// Headline Small text style (24sp).
-  headlineSmall(_kM3TypeScaleHeadlineSmall),
+  headlineSmall(M3TextStyles.headlineSmall),
 
   /// Title Large text style (22sp).
-  titleLarge(_kM3TypeScaleTitleLarge),
+  titleLarge(M3TextStyles.titleLarge),
 
   /// Title Medium text style (16sp).
-  titleMedium(_kM3TypeScaleTitleMedium),
+  titleMedium(M3TextStyles.titleMedium),
 
   /// Title Small text style (14sp).
-  titleSmall(_kM3TypeScaleTitleSmall),
+  titleSmall(M3TextStyles.titleSmall),
 
   /// Body Large text style (16sp).
-  bodyLarge(_kM3TypeScaleBodyLarge),
+  bodyLarge(M3TextStyles.bodyLarge),
 
   /// Body Medium text style (14sp).
-  bodyMedium(_kM3TypeScaleBodyMedium),
+  bodyMedium(M3TextStyles.bodyMedium),
 
   /// Body Small text style (12sp).
-  bodySmall(_kM3TypeScaleBodySmall),
+  bodySmall(M3TextStyles.bodySmall),
 
   /// Label Large text style (14sp).
-  labelLarge(_kM3TypeScaleLabelLarge),
+  labelLarge(M3TextStyles.labelLarge),
 
   /// Label Medium text style (12sp).
-  labelMedium(_kM3TypeScaleLabelMedium),
+  labelMedium(M3TextStyles.labelMedium),
 
   /// Label Small text style (11sp).
-  labelSmall(_kM3TypeScaleLabelSmall);
+  labelSmall(M3TextStyles.labelSmall);
 
   /// Creates a type scale token with the specified value.
   const M3TextStyleToken(this.value);

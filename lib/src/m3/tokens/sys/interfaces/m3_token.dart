@@ -76,3 +76,8 @@ abstract interface class IM3Token<T> {
   /// ```
   T get value;
 }
+
+abstract interface class IM3ContextualToken<T>
+    extends IM3Token<T Function(BuildContext)> {
+  T _resolve(BuildContext context);
+}

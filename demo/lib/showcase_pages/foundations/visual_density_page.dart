@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design/material_design.dart'; // Assuming this is your local package
 
@@ -10,28 +9,25 @@ class VisualDensityPage extends StatefulWidget {
 }
 
 class _VisualDensityPageState extends State<VisualDensityPage> {
-  // The initial state now uses a value from our constants list.
-  VisualDensity _selectedDensity =
-      M3VisualDensityToken.adaptivePlatformDensity.value;
+  // Corrigido: usar o getter estático para adaptive density
+  VisualDensity _selectedDensity = M3VisualDensityToken.adaptivePlatformDensity;
 
-  // The list of options is defined as a static constant for better performance.
-  // We added an icon for each option, making the configuration more centralized.
-  static final List<
-          ({String label, M3VisualDensityToken density, IconData icon})>
+  // Corrigido: criar uma estrutura que funciona com a nova implementação
+  static final List<({String label, VisualDensity density, IconData icon})>
       _densityOptions = [
     (
       label: 'Standard',
-      density: M3VisualDensityToken.standard,
+      density: M3VisualDensityToken.standard.value,
       icon: Icons.density_medium
     ),
     (
       label: 'Comfortable',
-      density: M3VisualDensityToken.comfortable,
+      density: M3VisualDensityToken.comfortable.value,
       icon: Icons.format_line_spacing
     ),
     (
       label: 'Compact',
-      density: M3VisualDensityToken.compact,
+      density: M3VisualDensityToken.compact.value,
       icon: Icons.density_small
     ),
     (
@@ -41,13 +37,19 @@ class _VisualDensityPageState extends State<VisualDensityPage> {
     ),
   ];
 
-  /// Getter to determine the name of the adaptive density value on the current platform.
+  /// Getter para determinar o nome do valor de densidade adaptativa na plataforma atual.
   String get _adaptiveDensityValueName {
-    // Logic based on the known implementation of `adaptivePlatformDensity`.
-    final isCompact = defaultTargetPlatform == TargetPlatform.linux ||
-        defaultTargetPlatform == TargetPlatform.macOS ||
-        defaultTargetPlatform == TargetPlatform.windows;
-    return isCompact ? 'Compact' : 'Standard';
+    final platform = Theme.of(context).platform;
+    final recommendedToken = M3VisualDensityToken.forPlatform(platform);
+
+    switch (recommendedToken) {
+      case M3VisualDensityToken.comfortable:
+        return 'Comfortable';
+      case M3VisualDensityToken.standard:
+        return 'Standard';
+      case M3VisualDensityToken.compact:
+        return 'Compact';
+    }
   }
 
   @override
@@ -56,7 +58,6 @@ class _VisualDensityPageState extends State<VisualDensityPage> {
       appBar: AppBar(
         title: const Text('M3VisualDensityToken'),
       ),
-      // The body is now composed of methods that build each part of the UI.
       body: Column(
         children: [
           _buildPlatformInfo(),
@@ -67,7 +68,7 @@ class _VisualDensityPageState extends State<VisualDensityPage> {
     );
   }
 
-  /// Builds an informative card about adaptive density.
+  /// Constrói um card informativo sobre densidade adaptativa.
   Widget _buildPlatformInfo() {
     return Card(
       margin: M3EdgeInsets.symmetric(
@@ -84,7 +85,7 @@ class _VisualDensityPageState extends State<VisualDensityPage> {
     );
   }
 
-  /// Builds the density selector with segmented buttons.
+  /// Constrói o seletor de densidade com botões segmentados.
   Widget _buildDensitySelector() {
     return M3Padding.symmetric(
       vertical: M3SpacingToken.space8,
@@ -92,7 +93,7 @@ class _VisualDensityPageState extends State<VisualDensityPage> {
         segments: _densityOptions
             .map(
               (option) => ButtonSegment<VisualDensity>(
-                value: option.density.value,
+                value: option.density,
                 label: Text(option.label),
                 icon: Icon(option.icon),
               ),
@@ -108,7 +109,7 @@ class _VisualDensityPageState extends State<VisualDensityPage> {
     );
   }
 
-  /// Builds the demo area that reacts to the density change.
+  /// Constrói a área de demonstração que reage à mudança de densidade.
   Widget _buildDemoArea() {
     return Expanded(
       child: Theme(
@@ -125,7 +126,7 @@ class _VisualDensityPageState extends State<VisualDensityPage> {
     );
   }
 
-  /// Builds the example list to visualize the density.
+  /// Constrói a lista de exemplo para visualizar a densidade.
   Widget _buildDemoList() {
     return ListView.builder(
       padding: M3EdgeInsets.symmetric(

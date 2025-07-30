@@ -1,5 +1,82 @@
 part of '../../../../../material_design.dart';
 
+abstract final class M3MotionDurations {
+  M3MotionDurations._();
+
+  /// Short1 duration (50ms) - Ultra-fast micro-interactions.
+  static const Duration short1 = Durations.short1;
+
+  /// Short2 duration (100ms) - Quick component transitions.
+  static const Duration short2 = Durations.short2;
+
+  /// Short3 duration (150ms) - Enhanced component transitions.
+  static const Duration short3 = Durations.short3;
+
+  /// Short4 duration (200ms) - Prominent short transitions.
+  static const Duration short4 = Durations.short4;
+
+  /// Medium1 duration (250ms) - Standard content transitions.
+  static const Duration medium1 = Durations.medium1;
+
+  /// Medium2 duration (300ms) - Common transition duration.
+  static const Duration medium2 = Durations.medium2;
+
+  /// Medium3 duration (350ms) - Enhanced medium transitions.
+  static const Duration medium3 = Durations.medium3;
+
+  /// Medium4 duration (400ms) - Prominent medium transitions.
+  static const Duration medium4 = Durations.medium4;
+
+  /// Long1 duration (450ms) - Complex view transitions.
+  static const Duration long1 = Durations.long1;
+
+  /// Long2 duration (500ms) - Standard long transitions.
+  static const Duration long2 = Durations.long2;
+
+  /// Long3 duration (550ms) - Enhanced long transitions.
+  static const Duration long3 = Durations.long3;
+
+  /// Long4 duration (600ms) - Prominent long transitions.
+  static const Duration long4 = Durations.long4;
+
+  /// Extra Long1 duration (700ms) - Major view changes.
+  static const Duration extraLong1 = Durations.extralong1;
+
+  /// Extra Long2 duration (800ms) - Complex layout changes.
+  static const Duration extraLong2 = Durations.extralong2;
+
+  /// Extra Long3 duration (900ms) - Large-scale transitions.
+  static const Duration extraLong3 = Durations.extralong3;
+
+  /// Extra Long4 duration (1000ms) - Maximum duration transitions.
+  static const Duration extraLong4 = Durations.extralong4;
+}
+
+abstract final class M3MotionCurves {
+  M3MotionCurves._();
+
+  /// Emphasized easing curve for prominent animations.
+  static const ThreePointCubic emphasized = Curves.easeInOutCubicEmphasized;
+
+  /// Emphasized decelerate for incoming elements.
+  static const Curve emphasizedDecelerate = Easing.emphasizedDecelerate;
+
+  /// Emphasized accelerate for outgoing elements.
+  static const Curve emphasizedAccelerate = Easing.emphasizedAccelerate;
+
+  /// Standard easing for common transitions.
+  static const Curve standard = Easing.standard;
+
+  /// Standard decelerate for incoming content.
+  static const Curve standardDecelerate = Easing.standardDecelerate;
+
+  /// Standard accelerate for outgoing content.
+  static const Curve standardAccelerate = Easing.standardAccelerate;
+
+  /// Linear easing for mechanical animations.
+  static const Curve linear = Easing.linear;
+}
+
 /// The set of durations in the Material specification.
 ///
 /// See also:
@@ -30,52 +107,52 @@ part of '../../../../../material_design.dart';
 /// Specification: https://m3.material.io/styles/motion/easing-and-duration/tokens-specs
 enum M3MotionDurationToken implements IM3Token<Duration> {
   /// Short1 duration (50ms) - Ultra-fast micro-interactions.
-  short1(Durations.short1),
+  short1(M3MotionDurations.short1),
 
   /// Short2 duration (100ms) - Quick component transitions.
-  short2(Durations.short2),
+  short2(M3MotionDurations.short2),
 
   /// Short3 duration (150ms) - Enhanced component transitions.
-  short3(Durations.short3),
+  short3(M3MotionDurations.short3),
 
   /// Short4 duration (200ms) - Prominent short transitions.
-  short4(Durations.short4),
+  short4(M3MotionDurations.short4),
 
   /// Medium1 duration (250ms) - Standard content transitions.
-  medium1(Durations.medium1),
+  medium1(M3MotionDurations.medium1),
 
   /// Medium2 duration (300ms) - Common transition duration.
-  medium2(Durations.medium2),
+  medium2(M3MotionDurations.medium2),
 
   /// Medium3 duration (350ms) - Enhanced medium transitions.
-  medium3(Durations.medium3),
+  medium3(M3MotionDurations.medium3),
 
   /// Medium4 duration (400ms) - Prominent medium transitions.
-  medium4(Durations.medium4),
+  medium4(M3MotionDurations.medium4),
 
   /// Long1 duration (450ms) - Complex view transitions.
-  long1(Durations.long1),
+  long1(M3MotionDurations.long1),
 
   /// Long2 duration (500ms) - Standard long transitions.
-  long2(Durations.long2),
+  long2(M3MotionDurations.long2),
 
   /// Long3 duration (550ms) - Enhanced long transitions.
-  long3(Durations.long3),
+  long3(M3MotionDurations.long3),
 
   /// Long4 duration (600ms) - Prominent long transitions.
-  long4(Durations.long4),
+  long4(M3MotionDurations.long4),
 
   /// Extra Long1 duration (700ms) - Major view changes.
-  extraLong1(Durations.extralong1),
+  extraLong1(M3MotionDurations.extraLong1),
 
   /// Extra Long2 duration (800ms) - Complex layout changes.
-  extraLong2(Durations.extralong2),
+  extraLong2(M3MotionDurations.extraLong2),
 
   /// Extra Long3 duration (900ms) - Large-scale transitions.
-  extraLong3(Durations.extralong3),
+  extraLong3(M3MotionDurations.extraLong3),
 
   /// Extra Long4 duration (1000ms) - Maximum duration transitions.
-  extraLong4(Durations.extralong4);
+  extraLong4(M3MotionDurations.extraLong4);
 
   /// Creates a motion duration token with the specified value.
   const M3MotionDurationToken(this.value);
@@ -107,25 +184,25 @@ enum M3MotionDurationToken implements IM3Token<Duration> {
 /// Specification: https://m3.material.io/styles/motion/easing-and-duration/tokens-specs
 enum M3MotionCurveToken implements IM3Token<Curve> {
   /// Emphasized easing curve for prominent animations.
-  emphasized(Curves.easeInOutCubicEmphasized),
+  emphasized(M3MotionCurves.emphasized),
 
   /// Emphasized decelerate for incoming elements.
-  emphasizedDecelerate(Easing.emphasizedDecelerate),
+  emphasizedDecelerate(M3MotionCurves.emphasizedDecelerate),
 
   /// Emphasized accelerate for outgoing elements.
-  emphasizedAccelerate(Easing.emphasizedAccelerate),
+  emphasizedAccelerate(M3MotionCurves.emphasizedAccelerate),
 
   /// Standard easing for common transitions.
-  standard(Easing.standard),
+  standard(M3MotionCurves.standard),
 
   /// Standard decelerate for incoming content.
-  standardDecelerate(Easing.standardDecelerate),
+  standardDecelerate(M3MotionCurves.standardDecelerate),
 
   /// Standard accelerate for outgoing content.
-  standardAccelerate(Easing.standardAccelerate),
+  standardAccelerate(M3MotionCurves.standardAccelerate),
 
   /// Linear easing for mechanical animations.
-  linear(Easing.linear);
+  linear(M3MotionCurves.linear);
 
   /// Creates a motion easing token with the specified value.
   const M3MotionCurveToken(this.value);

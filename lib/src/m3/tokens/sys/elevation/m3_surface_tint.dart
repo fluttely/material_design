@@ -53,11 +53,10 @@ abstract interface class M3SurfaceTint {
   /// Returns the final, tinted surface color.
   static Color fromElevation(
       BuildContext context, IM3ElevationToken elevation) {
-    return _fromElevationValue(context, elevation.value);
+    return fromElevationValue(context, elevation.value);
   }
 
-  static Color _fromElevationValue(
-      BuildContext context, double elevationValue) {
+  static Color fromElevationValue(BuildContext context, double elevationValue) {
     final colorScheme = Theme.of(context).colorScheme;
 
     return ElevationOverlay.applySurfaceTint(
