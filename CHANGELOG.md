@@ -4,6 +4,23 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adherves to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.18.1
+
+### 🔧 Refactoring & Code Quality
+
+- **API Refinement**: Renamed internal `_resolve` method to `resolve` in `M3SurfaceColorToken` and `IM3ContextualToken` for better public API clarity and consistency. This change makes the method public, allowing for easier extension and implementation by developers.
+- **Code Cleanup**: Removed an unused constant `_kM3RadiusNoneValue` from the shape token system, contributing to a cleaner and more maintainable codebase.
+
+### 📊 Impact Summary
+
+- **Files Modified**: 3 files updated across the core token system.
+- **Architectural Refinement**: Minor improvement in the token system architecture for better extensibility.
+- **API Simplification**: Made the token resolution logic more accessible.
+
+**Recommended Version Bump: PATCH (0.18.0 → 0.18.1)**
+
+This release focuses on minor API refinements and code cleanup, improving the overall quality and developer experience without introducing breaking changes.
+
 ## 0.18.0
 
 ### 🔄 BREAKING CHANGES
