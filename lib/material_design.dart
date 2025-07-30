@@ -111,7 +111,7 @@ part 'src/m3/tokens/sys/state/m3_state_layer_opacity_token.dart';
 /// Provides comprehensive state layer implementation with color and
 /// opacity combinations for consistent user interaction feedback
 /// across all interactive components.
-part 'src/m3/tokens/sys/state/m3_state_layer_token.dart';
+// part 'src/m3/tokens/sys/state/m3_state_layer_token.dart';
 
 /// **Typography System**: Complete type scale and text styling tokens.
 /// Comprehensive typography system with display, headline, title, body,

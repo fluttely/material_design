@@ -1,14 +1,15 @@
 part of '../../../../../material_design.dart';
 
-/// Constants >>>
-const double _kM3ElevationLevel0 = 0;
-const double _kM3ElevationLevel1 = 1;
-const double _kM3ElevationLevel2 = 3;
-const double _kM3ElevationLevel3 = 6;
-const double _kM3ElevationLevel4 = 8;
-const double _kM3ElevationLevel5 = 12;
-
-/// <<< Constants
+abstract final class M3Elevations {
+  // Private constructor to prevent instantiation.
+  M3Elevations._();
+  static const double level0 = 0;
+  static const double level1 = 1;
+  static const double level2 = 3;
+  static const double level3 = 6;
+  static const double level4 = 8;
+  static const double level5 = 12;
+}
 
 /// {@template im3_elevation_token}
 /// Represents the contract for a Material 3 elevation token.
@@ -38,26 +39,26 @@ abstract interface class IM3ElevationToken implements IM3Token<double> {
 /// {@endtemplate}
 enum M3ElevationToken implements IM3ElevationToken {
   /// The base level, with no elevation (0 dp). Used for default surfaces.
-  level0(_kM3ElevationLevel0),
+  level0(M3Elevations.level0),
 
   /// A subtle elevation (1 dp), typically for resting-state components like
   /// [Card].
-  level1(_kM3ElevationLevel1),
+  level1(M3Elevations.level1),
 
   /// A more distinct elevation (3 dp), often used for menus and dialogs.
-  level2(_kM3ElevationLevel2),
+  level2(M3Elevations.level2),
 
   /// A prominent elevation (6 dp), used for components like
   /// [FloatingActionButton].
-  level3(_kM3ElevationLevel3),
+  level3(M3Elevations.level3),
 
   /// A higher elevation (8 dp) for components that need to stand out
   /// significantly.
-  level4(_kM3ElevationLevel4),
+  level4(M3Elevations.level4),
 
   /// The highest standard elevation (12 dp), reserved for critical temporary
   /// surfaces.
-  level5(_kM3ElevationLevel5);
+  level5(M3Elevations.level5);
 
   const M3ElevationToken(this.value);
 
@@ -91,54 +92,54 @@ enum M3ElevationToken implements IM3ElevationToken {
 // /// {@endtemplate}
 // enum M3ComponentElevationToken implements IM3ElevationToken {
 //   /// Resting elevation for [Card] (1 dp).
-//   card(_kM3ElevationLevel1),
+//   card(M3Elevations.level1),
 
 //   /// Resting elevation for [TextButton] and [OutlinedButton] (0 dp).
-//   button(_kM3ElevationLevel0),
+//   button(M3Elevations.level0),
 
 //   /// Resting elevation for [ElevatedButton] (1 dp).
-//   elevatedButton(_kM3ElevationLevel1),
+//   elevatedButton(M3Elevations.level1),
 
 //   /// Resting elevation for [FloatingActionButton] (6 dp).
-//   fab(_kM3ElevationLevel3),
+//   fab(M3Elevations.level3),
 
 //   /// Resting elevation for [AppBar] (3 dp, no shadow).
-//   appBar(_kM3ElevationLevel2, hasShadow: false),
+//   appBar(M3Elevations.level2, hasShadow: false),
 
 //   /// Resting elevation for [BottomAppBar] (3 dp).
-//   bottomAppBar(_kM3ElevationLevel2),
+//   bottomAppBar(M3Elevations.level2),
 
 //   /// Resting elevation for [Drawer] (1 dp).
-//   drawer(_kM3ElevationLevel1),
+//   drawer(M3Elevations.level1),
 
 //   /// Resting elevation for [BottomSheet] (1 dp).
-//   bottomSheet(_kM3ElevationLevel1),
+//   bottomSheet(M3Elevations.level1),
 
 //   /// Resting elevation for [Dialog] (6 dp).
-//   dialog(_kM3ElevationLevel3),
+//   dialog(M3Elevations.level3),
 
 //   /// Resting elevation for [SnackBar] (6 dp, no shadow).
-//   snackbar(_kM3ElevationLevel3, hasShadow: false),
+//   snackbar(M3Elevations.level3, hasShadow: false),
 
 //   /// Resting elevation for [Tooltip] (3 dp, no shadow).
-//   tooltip(_kM3ElevationLevel2, hasShadow: false),
+//   tooltip(M3Elevations.level2, hasShadow: false),
 
 //   /// Resting elevation for [Menu] and [DropdownMenu] (3 dp).
-//   menu(_kM3ElevationLevel2),
+//   menu(M3Elevations.level2),
 
 //   /// Resting elevation for [NavigationBar] (3 dp).
-//   navigationBar(_kM3ElevationLevel2),
+//   navigationBar(M3Elevations.level2),
 
 //   /// Resting elevation for [NavigationRail] (0 dp).
-//   navigationRail(_kM3ElevationLevel0),
+//   navigationRail(M3Elevations.level0),
 
 //   /// Resting elevation for [SearchBar] (1 dp).
-//   searchBar(_kM3ElevationLevel1),
+//   searchBar(M3Elevations.level1),
 
 //   /// Resting elevation for [Chip] (0 dp).
-//   chip(_kM3ElevationLevel0);
+//   chip(M3Elevations.level0);
 
-//   const _M3ComponentElevationToken(this.value, {this.hasShadow = true});
+//   const M3ComponentElevationToken(this.value, {this.hasShadow = true});
 
 //   @override
 //   final double value;
@@ -155,54 +156,54 @@ enum M3ElevationToken implements IM3ElevationToken {
 // /// {@endtemplate}
 // enum M3StateElevationToken implements IM3ElevationToken {
 //   /// Elevation for a [Card] in a hovered state (3 dp).
-//   cardHover(_kM3ElevationLevel2),
+//   cardHover(M3Elevations.level2),
 
 //   /// Elevation for a [Card] in a pressed state (1 dp).
-//   cardPressed(_kM3ElevationLevel1),
+//   cardPressed(M3Elevations.level1),
 
 //   /// Elevation for a button in a hovered state (2 dp).
 //   buttonHover(2), // TODO(fluttely): Verify this value against M3 specification
 
 //   /// Elevation for a button in a pressed state (1 dp).
-//   buttonPressed(_kM3ElevationLevel1),
+//   buttonPressed(M3Elevations.level1),
 
 //   /// Elevation for a [FloatingActionButton] in a hovered state (8 dp).
-//   fabHover(_kM3ElevationLevel4),
+//   fabHover(M3Elevations.level4),
 
 //   /// Elevation for a [FloatingActionButton] in a pressed state (8 dp).
-//   fabPressed(_kM3ElevationLevel4),
+//   fabPressed(M3Elevations.level4),
 
 //   /// Elevation for a filled [IconButton] in a hovered state (3 dp).
-//   filledIconButtonHover(_kM3ElevationLevel2),
+//   filledIconButtonHover(M3Elevations.level2),
 
 //   /// Elevation for a filled [IconButton] in a pressed state (1 dp).
-//   filledIconButtonPressed(_kM3ElevationLevel1),
+//   filledIconButtonPressed(M3Elevations.level1),
 
 //   /// Elevation for a [Chip] in a dragged state (8 dp).
-//   chipDragged(_kM3ElevationLevel4),
+//   chipDragged(M3Elevations.level4),
 
 //   /// Elevation for a [Switch] thumb in its resting state (1 dp).
-//   switchThumbRest(_kM3ElevationLevel1),
+//   switchThumbRest(M3Elevations.level1),
 
 //   /// Elevation for a [Switch] thumb in a hovered state (3 dp).
-//   switchThumbHover(_kM3ElevationLevel2),
+//   switchThumbHover(M3Elevations.level2),
 
 //   /// Elevation for a [Switch] thumb in a pressed state (6 dp).
-//   switchThumbPressed(_kM3ElevationLevel3),
+//   switchThumbPressed(M3Elevations.level3),
 
 //   /// Elevation for a [NavigationBar] indicator in a hovered state (3 dp).
-//   navigationBarIndicatorHover(_kM3ElevationLevel2),
+//   navigationBarIndicatorHover(M3Elevations.level2),
 
 //   /// Elevation for a [NavigationBar] indicator in a focused state (3 dp).
-//   navigationBarIndicatorFocus(_kM3ElevationLevel2),
+//   navigationBarIndicatorFocus(M3Elevations.level2),
 
 //   /// Elevation for a [NavigationRail] indicator in a hovered state (3 dp).
-//   navigationRailIndicatorHover(_kM3ElevationLevel2),
+//   navigationRailIndicatorHover(M3Elevations.level2),
 
 //   /// Elevation for a [NavigationRail] indicator in a focused state (3 dp).
-//   navigationRailIndicatorFocus(_kM3ElevationLevel2);
+//   navigationRailIndicatorFocus(M3Elevations.level2);
 
-//   const _M3StateElevationToken(this.value);
+//   const M3StateElevationToken(this.value);
 
 //   @override
 //   final double value;

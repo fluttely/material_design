@@ -4,6 +4,72 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adherves to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.18.0
+
+### 🔄 BREAKING CHANGES
+
+- **Token System Overhaul**: Major architectural refactoring of the entire token system. Raw token values have been moved into dedicated `abstract final` classes (e.g., `M3Elevations`, `M3Spacings`, `M3Shapes`), and token `enum`s now reference these constants. This improves code organization, type safety, and maintainability but alters the internal structure.
+- **`M3StateLayerToken` Deprecated**: The `M3StateLayerToken` enum and its corresponding file have been commented out and are no longer part of the public API. State layers should now be constructed manually using `M3StateLayerOpacities` and theme colors.
+- **Removed Shape Helpers**: Static helper methods `M3ShapeToken.forComponentSize()` and `M3ShapeToken.forComponent()` have been removed.
+- **Removed Shape Extensions**: The `M3ShapeExtensions` (`withShape`, `clipWithShape`) have been removed.
+- **New `IM3ContextualToken` Interface**: Introduced `IM3ContextualToken` for tokens whose values depend on `BuildContext`. `M3SurfaceColorToken` now implements this interface, changing its `value` from a method to a getter that returns a `Color Function(BuildContext)`.
+
+### 🏗️ Architectural Refinements
+
+- **Centralized Token Constants**: Introduced dedicated classes to hold raw, `const` token values (`M3Elevations`, `M3Spacings`, `M3Shapes`, `M3Radii`, `M3BorderRadii`, `M3VisualDensities`, `M3MotionDurations`, `M3MotionCurves`, `M3Opacities`, `M3StateLayerOpacities`, `M3TextStyles`). This provides a single source of truth and allows for direct access to primitive values when needed.
+- **Simplified Token Enums**: All token `enum`s (`M3ElevationToken`, `M3SpacingToken`, etc.) have been simplified to act as semantic wrappers around the new constant value classes.
+- **Improved `M3VisualDensityToken`**: The implementation has been significantly streamlined. It now directly holds a `VisualDensity` object instead of separate `horizontal` and `vertical` properties, simplifying its API and improving its integration with Flutter's core density system.
+
+### 🎯 Developer Experience Improvements
+
+- **Enhanced API Consistency**: The refactoring provides a more consistent and predictable API. Developers can now access either the semantic token `enum` or the raw `const` value from the new static classes.
+- **Improved Type Safety**: The new structure enhances type safety and reduces the chances of using "magic numbers" throughout the codebase.
+
+### 🔧 Migration Guide
+
+**`M3VisualDensityToken` Usage:**
+
+The API for adaptive density is now a direct static getter.
+
+```dart
+// Before (v0.17.0)
+VisualDensity adaptive = M3VisualDensityToken.adaptivePlatform.value;
+
+// After (v0.18.0)
+VisualDensity adaptive = M3VisualDensityToken.adaptivePlatformDensity;
+```
+
+**State Layer Creation:**
+
+Since `M3StateLayerToken` is gone, state layers must be created manually using `M3StateLayerOpacities`.
+
+```dart
+// Before (v0.17.0)
+Color hoverOverlay = M3StateLayerToken.hoverPrimary.withBaseColor(Theme.of(context).colorScheme.primary);
+
+// After (v0.18.0)
+Color hoverOverlay = Theme.of(context).colorScheme.primary.withOpacity(M3StateLayerOpacities.hover);
+```
+
+**`M3SurfaceColorToken` Usage:**
+
+The public-facing usage remains the same, but the underlying interface has changed from a method `value(context)` to a getter `value` that returns a function.
+
+```dart
+// Usage remains the same, but be aware of the interface change if you were implementing it.
+Color surfaceColor = M3SurfaceColorToken.level1.value(context);
+```
+
+### 📊 Impact Summary
+
+- **Files Modified**: 20+ files updated across the core library and tests.
+- **Architectural Refinement**: Major improvement in token system architecture for long-term maintainability.
+- **API Simplification**: Removed several APIs (`M3StateLayerToken`, shape helpers) in favor of a more direct, foundational approach.
+
+**Recommended Version Bump: MAJOR (0.17.0 → 0.18.0)**
+
+This release introduces significant breaking changes and a major architectural refactoring of the token system, aimed at improving consistency, maintainability, and type safety.
+
 ## 0.17.0
 
 ### 🏗️ CI/CD Infrastructure & Quality Improvements

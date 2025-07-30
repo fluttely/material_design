@@ -1,57 +1,23 @@
 part of '../../../../../material_design.dart';
 
-/// Constants >>>
-const M3ElevationToken _kM3SurfaceLevel0 = M3ElevationToken.level0;
-const M3ElevationToken _kM3SurfaceLevel1 = M3ElevationToken.level1;
-const M3ElevationToken _kM3SurfaceLevel2 = M3ElevationToken.level2;
-const M3ElevationToken _kM3SurfaceLevel3 = M3ElevationToken.level3;
-const M3ElevationToken _kM3SurfaceLevel4 = M3ElevationToken.level4;
-const M3ElevationToken _kM3SurfaceLevel5 = M3ElevationToken.level5;
-
-/// <<< Constants
-
-// /// Token de cor de superfície com valor imutável
-// class M3SurfaceColorToken implements IM3Token<Color> {
-//   /// Construtores nomeados para cada nível
-//   M3SurfaceColorToken.level0(BuildContext context)
-//       : value = M3SurfaceTint.fromElevation(context, _kM3SurfaceLevel0);
-
-//   M3SurfaceColorToken.level1(BuildContext context)
-//       : value = M3SurfaceTint.fromElevation(context, _kM3SurfaceLevel1);
-
-//   M3SurfaceColorToken.level2(BuildContext context)
-//       : value = M3SurfaceTint.fromElevation(context, _kM3SurfaceLevel2);
-
-//   M3SurfaceColorToken.level3(BuildContext context)
-//       : value = M3SurfaceTint.fromElevation(context, _kM3SurfaceLevel3);
-
-//   M3SurfaceColorToken.level4(BuildContext context)
-//       : value = M3SurfaceTint.fromElevation(context, _kM3SurfaceLevel4);
-
-//   M3SurfaceColorToken.level5(BuildContext context)
-//       : value = M3SurfaceTint.fromElevation(context, _kM3SurfaceLevel5);
-//   @override
-//   final Color value;
-// }
-
-enum M3SurfaceColorToken {
+enum M3SurfaceColorToken implements IM3ContextualToken<Color> {
   /// Surface color token for elevation level 0
-  level0(_kM3SurfaceLevel0),
+  level0(M3ElevationToken.level0),
 
   /// Surface color token for elevation level 1
-  level1(_kM3SurfaceLevel1),
+  level1(M3ElevationToken.level1),
 
   /// Surface color token for elevation level 2
-  level2(_kM3SurfaceLevel2),
+  level2(M3ElevationToken.level2),
 
   /// Surface color token for elevation level 3
-  level3(_kM3SurfaceLevel3),
+  level3(M3ElevationToken.level3),
 
   /// Surface color token for elevation level 4
-  level4(_kM3SurfaceLevel4),
+  level4(M3ElevationToken.level4),
 
   /// Surface color token for elevation level 5
-  level5(_kM3SurfaceLevel5);
+  level5(M3ElevationToken.level5);
 
   /// Creates a surface color token with the given elevation.
   const M3SurfaceColorToken(this._elevation);
@@ -75,6 +41,10 @@ enum M3SurfaceColorToken {
   final M3ElevationToken _elevation;
 
   /// Returns the surface color value for the given context
-  Color value(BuildContext context) =>
+  @override
+  Color Function(BuildContext) get value => _resolve;
+
+  @override
+  Color _resolve(BuildContext context) =>
       M3SurfaceTint.fromElevation(context, _elevation);
 }

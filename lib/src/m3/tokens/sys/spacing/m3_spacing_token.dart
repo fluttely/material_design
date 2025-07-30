@@ -1,5 +1,121 @@
 part of '../../../../../material_design.dart';
 
+abstract final class M3Spacings {
+  /// No spacing (0dp).
+  ///
+  /// Used when you need to explicitly remove spacing or create tight layouts.
+  static const double none = 0;
+
+  /// 4dp spacing token.
+  ///
+  /// The smallest spacing unit in the Material Design grid system.
+  /// Ideal for very tight component spacing or fine-tuning layouts.
+  static const double space4 = 4;
+
+  /// 8dp spacing token.
+  ///
+  /// Commonly used for small internal padding within components,
+  /// such as button padding or small gaps between related elements.
+  static const double space8 = 8;
+
+  /// 12dp spacing token.
+  ///
+  /// Used for medium-tight spacing between related components
+  /// or for internal padding in compact layouts.
+  static const double space12 = 12;
+
+  /// 16dp spacing token.
+  ///
+  /// The most commonly used spacing value in Material Design.
+  /// Ideal for standard padding, margins, and gaps between components.
+  /// This is the recommended baseline spacing for most use cases.
+  static const double space16 = 16;
+
+  /// 20dp spacing token.
+  ///
+  /// Used for slightly larger gaps between components or
+  /// for padding in medium-density layouts.
+  static const double space20 = 20;
+
+  /// 24dp spacing token.
+  ///
+  /// Commonly used for container margins, section spacing,
+  /// and padding in larger components like cards or dialogs.
+  static const double space24 = 24;
+
+  /// 28dp spacing token.
+  ///
+  /// Used for larger component spacing or when more visual
+  /// separation is needed between interface elements.
+  static const double space28 = 28;
+
+  /// 32dp spacing token.
+  ///
+  /// Ideal for significant spacing between major sections,
+  /// large component padding, or creating visual hierarchy.
+  static const double space32 = 32;
+
+  /// 36dp spacing token.
+  ///
+  /// Used for larger gaps between major interface sections
+  /// or for padding in prominent components.
+  static const double space36 = 36;
+
+  /// 40dp spacing token.
+  ///
+  /// Suitable for large padding values, significant margins,
+  /// or creating substantial visual separation.
+  static const double space40 = 40;
+
+  /// 48dp spacing token.
+  ///
+  /// Used for major layout spacing, large component margins,
+  /// or creating clear visual divisions between content areas.
+  static const double space48 = 48;
+
+  /// 56dp spacing token.
+  ///
+  /// Ideal for substantial spacing between major layout sections
+  /// or for padding in large containers and surfaces.
+  static const double space56 = 56;
+
+  /// 64dp spacing token.
+  ///
+  /// The largest spacing in the base scale. Used for maximum
+  /// visual separation within standard layouts.
+  static const double space64 = 64;
+
+  /// 72dp spacing token.
+  ///
+  /// Extended scale spacing for larger layout requirements.
+  /// Suitable for wide screens or when significant spacing is needed.
+  static const double space72 = 72;
+
+  /// 80dp spacing token.
+  ///
+  /// Large spacing for major layout divisions or when
+  /// creating substantial visual breathing room.
+  static const double space80 = 80;
+
+  /// 96dp spacing token.
+  ///
+  /// Very large spacing for major sections in wide layouts
+  /// or when maximum visual separation is required.
+  static const double space96 = 96;
+
+  /// 128dp spacing token.
+  ///
+  /// Maximum spacing token for the largest possible gaps
+  /// in wide-screen layouts or special design requirements.
+  static const double space128 = 128;
+
+  /// Infinite spacing.
+  ///
+  /// Special case value representing unlimited space.
+  /// Used in flexible layouts or when maximum available space is needed.
+  static const double infinity = double.infinity;
+}
+
 @immutable
 
 /// Contract for Material Design 3 spacing tokens.
@@ -42,116 +158,116 @@ enum M3SpacingToken implements IM3SpacingToken {
   /// No spacing (0dp).
   ///
   /// Used when you need to explicitly remove spacing or create tight layouts.
-  none(0),
+  none(M3Spacings.none),
 
   /// 4dp spacing token.
   ///
   /// The smallest spacing unit in the Material Design grid system.
   /// Ideal for very tight component spacing or fine-tuning layouts.
-  space4(4),
+  space4(M3Spacings.space4),
 
   /// 8dp spacing token.
   ///
   /// Commonly used for small internal padding within components,
   /// such as button padding or small gaps between related elements.
-  space8(8),
+  space8(M3Spacings.space8),
 
   /// 12dp spacing token.
   ///
   /// Used for medium-tight spacing between related components
   /// or for internal padding in compact layouts.
-  space12(12),
+  space12(M3Spacings.space12),
 
   /// 16dp spacing token.
   ///
   /// The most commonly used spacing value in Material Design.
   /// Ideal for standard padding, margins, and gaps between components.
   /// This is the recommended baseline spacing for most use cases.
-  space16(16),
+  space16(M3Spacings.space16),
 
   /// 20dp spacing token.
   ///
   /// Used for slightly larger gaps between components or
   /// for padding in medium-density layouts.
-  space20(20),
+  space20(M3Spacings.space20),
 
   /// 24dp spacing token.
   ///
   /// Commonly used for container margins, section spacing,
   /// and padding in larger components like cards or dialogs.
-  space24(24),
+  space24(M3Spacings.space24),
 
   /// 28dp spacing token.
   ///
   /// Used for larger component spacing or when more visual
   /// separation is needed between interface elements.
-  space28(28),
+  space28(M3Spacings.space28),
 
   /// 32dp spacing token.
   ///
   /// Ideal for significant spacing between major sections,
   /// large component padding, or creating visual hierarchy.
-  space32(32),
+  space32(M3Spacings.space32),
 
   /// 36dp spacing token.
   ///
   /// Used for larger gaps between major interface sections
   /// or for padding in prominent components.
-  space36(36),
+  space36(M3Spacings.space36),
 
   /// 40dp spacing token.
   ///
   /// Suitable for large padding values, significant margins,
   /// or creating substantial visual separation.
-  space40(40),
+  space40(M3Spacings.space40),
 
   /// 48dp spacing token.
   ///
   /// Used for major layout spacing, large component margins,
   /// or creating clear visual divisions between content areas.
-  space48(48),
+  space48(M3Spacings.space48),
 
   /// 56dp spacing token.
   ///
   /// Ideal for substantial spacing between major layout sections
   /// or for padding in large containers and surfaces.
-  space56(56),
+  space56(M3Spacings.space56),
 
   /// 64dp spacing token.
   ///
   /// The largest spacing in the base scale. Used for maximum
   /// visual separation within standard layouts.
-  space64(64),
+  space64(M3Spacings.space64),
 
   /// 72dp spacing token.
   ///
   /// Extended scale spacing for larger layout requirements.
   /// Suitable for wide screens or when significant spacing is needed.
-  space72(72),
+  space72(M3Spacings.space72),
 
   /// 80dp spacing token.
   ///
   /// Large spacing for major layout divisions or when
   /// creating substantial visual breathing room.
-  space80(80),
+  space80(M3Spacings.space80),
 
   /// 96dp spacing token.
   ///
   /// Very large spacing for major sections in wide layouts
   /// or when maximum visual separation is required.
-  space96(96),
+  space96(M3Spacings.space96),
 
   /// 128dp spacing token.
   ///
   /// Maximum spacing token for the largest possible gaps
   /// in wide-screen layouts or special design requirements.
-  space128(128),
+  space128(M3Spacings.space128),
 
   /// Infinite spacing.
   ///
   /// Special case value representing unlimited space.
   /// Used in flexible layouts or when maximum available space is needed.
-  infinity(double.infinity);
+  infinity(M3Spacings.infinity);
 
   /// Creates a spacing token with the specified value.
   const M3SpacingToken(this.value);

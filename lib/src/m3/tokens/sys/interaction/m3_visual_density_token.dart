@@ -1,5 +1,76 @@
 part of '../../../../../material_design.dart';
 
+abstract final class M3VisualDensities {
+  /// Standard visual density (0, 0) - Material Design baseline.
+  ///
+  /// The default density level that provides balanced spacing according to
+  /// Material Design 3 specifications. This density serves as the reference
+  /// point for all other density calculations and provides optimal balance
+  /// between content density and usability.
+  ///
+  /// **Characteristics**:
+  /// - Follows Material Design 3 spacing specifications exactly
+  /// - Optimal for mixed-use interfaces (touch and mouse)
+  /// - Provides good balance of content density and accessibility
+  /// - Suitable for most general-purpose applications
+  ///
+  /// **Best for**: General applications, mixed input methods, balanced UX
+  static const VisualDensity standard = VisualDensity.standard;
+
+  /// Comfortable visual density (-1, -1) - Enhanced touch accessibility.
+  ///
+  /// Provides increased spacing and larger touch targets for improved
+  /// accessibility and touch interaction. This density prioritizes user
+  /// comfort and accessibility compliance over content density.
+  ///
+  /// **Characteristics**:
+  /// - Larger touch targets (better accessibility)
+  /// - Increased spacing between interactive elements
+  /// - Enhanced visual breathing room
+  /// - Optimized for touch-first interfaces
+  /// - Improved usability for users with motor difficulties
+  ///
+  /// **Best for**: Touch devices, accessibility-focused apps, senior users
+  static const VisualDensity comfortable = VisualDensity.comfortable;
+
+  /// Compact visual density (-2, -2) - Information-dense interfaces.
+  ///
+  /// Reduces spacing to maximize content density while maintaining minimum
+  /// accessibility standards. This density enables more information display
+  /// in limited screen space, ideal for data-heavy applications.
+  ///
+  /// **Characteristics**:
+  /// - Reduced spacing between components
+  /// - Higher information density
+  /// - Optimized for mouse/keyboard interaction
+  /// - Maintains minimum touch target sizes
+  /// - Efficient use of screen real estate
+  ///
+  /// **Best for**: Desktop apps, data tables, professional tools, dashboards
+  static const VisualDensity compact = VisualDensity.compact;
+
+  /// Adaptive platform density - Automatically adjusts per platform.
+  ///
+  /// Automatically selects appropriate density based on platform conventions
+  /// and user preferences. This token delegates to Flutter's built-in adaptive
+  /// density system, which considers platform norms and user settings.
+  ///
+  /// **Platform Behavior**:
+  /// - **Mobile (iOS/Android)**: Tends toward comfortable for touch optimization
+  /// - **Desktop (Windows/macOS/Linux)**: Tends toward compact for efficiency
+  /// - **Web**: Adapts based on user agent and screen characteristics
+  ///
+  /// **Characteristics**:
+  /// - Platform-aware density selection
+  /// - Respects user system preferences
+  /// - Automatically updates with system changes
+  /// - Provides native platform feel
+  ///
+  /// **Best for**: Cross-platform apps, platform-native experiences
+  static VisualDensity get adaptivePlatformDensity =>
+      VisualDensity.adaptivePlatformDensity;
+}
+
 /// {@template im3_visual_density_token}
 /// Represents the contract for a Material 3 visual density token.
 ///
@@ -14,20 +85,6 @@ abstract interface class IM3VisualDensityToken
   /// The concrete [VisualDensity] value for this token.
   @override
   VisualDensity get value;
-
-  /// The horizontal density adjustment. A negative value indicates a more
-  /// compact (tighter) spacing.
-  double get horizontal;
-
-  /// The vertical density adjustment. A negative value indicates a more
-  /// compact (tighter) spacing.
-  double get vertical;
-
-  /// Whether this density is considered adaptive to the platform.
-  bool get isAdaptive;
-
-  /// A human-readable description of the density level.
-  String get description;
 }
 
 /// {@template m3_visual_density_token}
@@ -86,11 +143,7 @@ enum M3VisualDensityToken implements IM3VisualDensityToken {
   /// - Suitable for most general-purpose applications
   ///
   /// **Best for**: General applications, mixed input methods, balanced UX
-  standard(
-    0,
-    0,
-    description: 'Standard density with Material Design baseline spacing',
-  ),
+  standard(M3VisualDensities.standard),
 
   /// Comfortable visual density (-1, -1) - Enhanced touch accessibility.
   ///
@@ -106,11 +159,7 @@ enum M3VisualDensityToken implements IM3VisualDensityToken {
   /// - Improved usability for users with motor difficulties
   ///
   /// **Best for**: Touch devices, accessibility-focused apps, senior users
-  comfortable(
-    -1,
-    -1,
-    description: 'Comfortable density with enhanced touch targets',
-  ),
+  comfortable(M3VisualDensities.comfortable),
 
   /// Compact visual density (-2, -2) - Information-dense interfaces.
   ///
@@ -126,11 +175,13 @@ enum M3VisualDensityToken implements IM3VisualDensityToken {
   /// - Efficient use of screen real estate
   ///
   /// **Best for**: Desktop apps, data tables, professional tools, dashboards
-  compact(
-    -2,
-    -2,
-    description: 'Compact density for information-dense interfaces',
-  ),
+  compact(M3VisualDensities.compact);
+
+  /// Creates a global visual density token.
+  const M3VisualDensityToken(this.value);
+
+  @override
+  final VisualDensity value;
 
   /// Adaptive platform density - Automatically adjusts per platform.
   ///
@@ -150,48 +201,8 @@ enum M3VisualDensityToken implements IM3VisualDensityToken {
   /// - Provides native platform feel
   ///
   /// **Best for**: Cross-platform apps, platform-native experiences
-  adaptivePlatform(
-    0, // Placeholder - actual values determined by Flutter at runtime
-    0, // Placeholder - actual values determined by Flutter at runtime
-    isAdaptive: true,
-    description: 'Platform-adaptive density that respects system conventions',
-  );
-
-  /// Creates a global visual density token.
-  const M3VisualDensityToken(
-    this.horizontal,
-    this.vertical, {
-    required this.description,
-    this.isAdaptive = false,
-  });
-
-  @override
-  final double horizontal;
-
-  @override
-  final double vertical;
-
-  @override
-  final bool isAdaptive;
-
-  @override
-  final String description;
-
-  @override
-  VisualDensity get value {
-    // FIX: The recursion is resolved here.
-    // For the adaptive case, we return Flutter's built-in adaptive density
-    // directly, preventing the infinite loop that caused the
-    // StackOverflowError.
-    if (isAdaptive) {
-      return VisualDensity.adaptivePlatformDensity;
-    }
-    // For all other cases, construct the density from the token's properties.
-    return VisualDensity(horizontal: horizontal, vertical: vertical);
-  }
-
-  /// A convenient alias for the [adaptivePlatform] enum case.
-  static M3VisualDensityToken get adaptivePlatformDensity => adaptivePlatform;
+  static VisualDensity get adaptivePlatformDensity =>
+      M3VisualDensities.adaptivePlatformDensity;
 
   /// Gets the recommended density token for the current platform.
   static M3VisualDensityToken forPlatform(TargetPlatform platform) {
@@ -273,23 +284,23 @@ enum M3VisualDensityToken implements IM3VisualDensityToken {
 extension IM3VisualDensityTokenUtils on IM3VisualDensityToken {
   /// Checks if this density is more compact than another.
   bool isMoreCompactThan(IM3VisualDensityToken other) {
-    final thisCompactness = horizontal + vertical;
-    final otherCompactness = other.horizontal + other.vertical;
+    final thisCompactness = value.horizontal + value.vertical;
+    final otherCompactness = other.value.horizontal + other.value.vertical;
     return thisCompactness < otherCompactness;
   }
 
   /// Checks if this density is more comfortable (less compact) than another.
   bool isMoreComfortableThan(IM3VisualDensityToken other) {
-    final thisCompactness = horizontal + vertical;
-    final otherCompactness = other.horizontal + other.vertical;
+    final thisCompactness = value.horizontal + value.vertical;
+    final otherCompactness = other.value.horizontal + other.value.vertical;
     return thisCompactness > otherCompactness;
   }
 
   /// Creates a new [VisualDensity] by adjusting this density's values.
   VisualDensity adjustBy({double horizontal = 0.0, double vertical = 0.0}) {
     return VisualDensity(
-      horizontal: this.horizontal + horizontal,
-      vertical: this.vertical + vertical,
+      horizontal: value.horizontal + horizontal,
+      vertical: value.vertical + vertical,
     );
   }
 
@@ -300,10 +311,12 @@ extension IM3VisualDensityTokenUtils on IM3VisualDensityToken {
 
   /// Whether this density is generally considered suitable for touch
   /// interfaces.
-  bool get isTouchFriendly => horizontal >= -1.0 && vertical >= -1.0;
+  bool get isTouchFriendly =>
+      value.horizontal >= -1.0 && value.vertical >= -1.0;
 
   /// Whether this density is generally considered optimized for desktop use.
-  bool get isDesktopOptimized => horizontal <= 0.0 && vertical <= 0.0;
+  bool get isDesktopOptimized =>
+      value.horizontal <= 0.0 && value.vertical <= 0.0;
 }
 
 /// Provides context-aware visual density utilities on [BuildContext].
