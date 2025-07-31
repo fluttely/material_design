@@ -456,7 +456,7 @@ extension M3EdgeInsetsExtensions on EdgeInsets {
 /// ensuring consistency across the application while reducing boilerplate code.
 class M3EdgeInsetsPatterns {
   /// Private constructor to prevent instantiation.
-  M3EdgeInsetsPatterns._();
+  const M3EdgeInsetsPatterns._();
 
   // Card and Surface Patterns
 

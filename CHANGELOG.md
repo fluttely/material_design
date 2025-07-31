@@ -4,6 +4,68 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adherves to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.18.2
+
+### 🏗️ Code Architecture & Organization
+
+- **Enhanced Border System**: Completely refactored the border token system for better organization and semantic clarity
+
+  - **New Structured Classes**: Introduced `M3BorderWidths`, `M3BorderSides`, and `M3Borders` as abstract final classes containing all border-related constants
+  - **Improved Token Referencing**: All border token enums now reference the new structured classes instead of inline constants, improving maintainability and consistency
+  - **Better Code Organization**: Moved border width, border side, and border constants into dedicated static classes for clearer architecture
+
+- **Elevation System Refactoring**: Major improvements to the elevation token system architecture
+
+  - **Enhanced Shadow Color Management**: Moved shadow color constant to private `_color` variable at the top of the file for better encapsulation
+  - **Updated M3Shadows Class**: Made `M3Shadows` constructor private (`const M3Shadows._()`) and refactored all shadow definitions to use the private color constant
+  - **Improved Token Documentation**: Enhanced elevation token documentation with comprehensive usage examples, visual characteristics, and typical use cases for all 6 elevation levels (level0-level5)
+  - **Commented Shadow Color Getter**: Temporarily commented out the `shadowColor` getter in `M3BoxShadowToken` pending architectural review
+
+- **Breakpoint System Enhancement**: Improved the responsive breakpoint system with better documentation and structure
+
+  - **New M3Breakpoints Class**: Introduced comprehensive `M3Breakpoints` abstract final class with detailed documentation for all breakpoint values
+  - **Enhanced Documentation**: Each breakpoint now includes device examples, design characteristics, and common use cases
+  - **Improved Token References**: Updated `M3BreakpointToken` enum to reference the new `M3Breakpoints` class constants
+
+- **Icon Size System Refactoring**: Complete overhaul of the icon size token system
+  - **New M3IconSizes Class**: Introduced structured `M3IconSizes` abstract final class with comprehensive documentation for all icon sizes
+  - **Enhanced Size Definitions**: Each icon size now includes detailed usage guidelines, ideal use cases, and semantic clarity
+  - **Better Token Organization**: Updated `M3IconSizeToken` enum to reference the new structured class constants
+
+### 🎨 Visual Design System Improvements
+
+- **Enhanced Visual Density Documentation**: Significantly improved visual density token documentation with detailed explanations of each density level and their appropriate use cases
+
+- **Typography System Enhancement**: Improved the typography token system with better documentation and clearer usage patterns
+
+- **Motion System Documentation**: Enhanced motion token documentation with better explanations of duration and curve usage
+
+- **Shape System Improvements**: Better organization of spacing tokens with enhanced documentation and usage guidelines
+
+### 🔧 Developer Experience Enhancements
+
+- **Improved Code Documentation**: Comprehensive documentation updates across all token systems with clear usage examples and best practices
+- **Better IntelliSense Support**: Enhanced type definitions and documentation improve IDE support and developer productivity
+- **Consistent Architecture**: All token systems now follow a consistent architectural pattern with dedicated constant classes and referencing enums
+
+### 🧹 Code Quality & Maintenance
+
+- **File Structure Cleanup**: Improved organization of token files with better separation of concerns
+- **Enhanced Code Consistency**: Standardized patterns across all token systems for better maintainability
+- **M3 Expressive Integration**: Improved integration and organization of M3 Expressive components within the design system
+- **Layout Widget Enhancements**: Enhanced layout widgets (`M3EdgeInsets`, `M3Gap`, `M3Radius`, `M3ShapeDecoration`) with better token integration
+
+### 📊 Impact Summary
+
+- **Files Modified**: 15+ core token system files updated across elevation, geometry, interaction, motion, shape, spacing, state, and typography systems
+- **Architectural Enhancement**: Major improvement in token system organization and consistency
+- **Documentation Quality**: Comprehensive documentation improvements across all token systems
+- **Developer Experience**: Enhanced IDE support and clearer usage patterns throughout the library
+
+**Recommended Version Bump: MINOR (0.18.1 → 0.18.2)**
+
+This release introduces significant architectural improvements to the token system, comprehensive documentation enhancements, and better code organization while maintaining full backward compatibility and Material Design 3 compliance.
+
 ## 0.18.1
 
 ### 🔧 Refactoring & Code Quality

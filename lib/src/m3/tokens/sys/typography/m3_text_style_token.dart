@@ -1,7 +1,7 @@
 part of '../../../../../material_design.dart';
 
 abstract final class M3TextStyles {
-  M3TextStyles._();
+  const M3TextStyles._();
 
   static const TextStyle displayLarge = TextStyle(
     fontSize: 57,

@@ -1,7 +1,7 @@
 part of '../../../../../material_design.dart';
 
 abstract final class M3StateLayerOpacities {
-  M3StateLayerOpacities._();
+  const M3StateLayerOpacities._();
 
   /// Hover state layer opacity (8%).
   ///

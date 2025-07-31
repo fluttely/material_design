@@ -1,7 +1,7 @@
 part of '../../../../../material_design.dart';
 
 abstract final class M3MotionDurations {
-  M3MotionDurations._();
+  const M3MotionDurations._();
 
   /// Short1 duration (50ms) - Ultra-fast micro-interactions.
   static const Duration short1 = Durations.short1;
@@ -53,7 +53,7 @@ abstract final class M3MotionDurations {
 }
 
 abstract final class M3MotionCurves {
-  M3MotionCurves._();
+  const M3MotionCurves._();
 
   /// Emphasized easing curve for prominent animations.
   static const ThreePointCubic emphasized = Curves.easeInOutCubicEmphasized;
@@ -75,6 +75,109 @@ abstract final class M3MotionCurves {
 
   /// Linear easing for mechanical animations.
   static const Curve linear = Easing.linear;
+}
+
+// Copyright 2024 The Flutter Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+/// Represents a Material Design 3 motion scheme, combining duration and easing.
+///
+/// This class encapsulates the two core components of an M3 animation:
+/// - [duration]: How long the animation runs.
+/// - [curve]: The easing easing that defines the rate of change over time.
+///
+/// While Material Design 3 specifies duration and easing tokens separately,
+/// this class provides a convenient way to group them for direct use in
+/// Flutter animations.
+///
+/// See: https://m3.material.io/styles/motion/easing-and-duration/tokens-specs
+class M3MotionScheme {
+  /// Creates a motion scheme with a specific duration and easing.
+  const M3MotionScheme(this.duration, this.curve);
+
+  /// The total time the animation will take.
+  final Duration duration;
+
+  /// The easing easing for the animation.
+  final Curve curve;
+
+  /// Creates a [Tween] for this motion scheme, animating between [begin] and
+  /// [end].
+  ///
+  /// This is a convenience method for creating a [CurveTween] that can be
+  /// chained with another tween (like [Tween<double>]) and driven by an
+  /// [AnimationController].
+  ///
+  /// Example:
+  /// ```dart
+  /// myAnimation = controller.drive(
+  ///   M3MotionToken.emphasized.asTween(begin: 0.0, end: 1.0),
+  /// );
+  /// ```
+  Animatable<T> asTween<T>({required T begin, required T end}) {
+    return Tween<T>(begin: begin, end: end).chain(CurveTween(curve: curve));
+  }
+}
+
+abstract final class M3Motions {
+  // --- Emphasized Motion Tokens ---
+  // For transitions of large-scale elements and hero moments.
+
+  /// Emphasized motion for elements that are on-screen at the start and end.
+  /// Duration: `long2` (500ms). Curve: `emphasized`.
+  static const emphasized = M3MotionScheme(
+    M3MotionDurations.long2,
+    M3MotionCurves.emphasized,
+  );
+
+  /// Emphasized motion for elements that are entering the screen.
+  /// Duration: `long1` (450ms). Curve: `emphasizedDecelerate`.
+  static const emphasizedIncoming = M3MotionScheme(
+    M3MotionDurations.long1,
+    M3MotionCurves.emphasizedDecelerate,
+  );
+
+  /// Emphasized motion for elements that are exiting the screen.
+  /// Duration: `short3` (150ms). Curve: `emphasizedAccelerate`.
+  static const emphasizedOutgoing = M3MotionScheme(
+    M3MotionDurations.short3,
+    M3MotionCurves.emphasizedAccelerate,
+  );
+
+  // --- Standard Motion Tokens ---
+  // For standard, functional transitions of smaller components.
+
+  /// Standard motion for elements that are on-screen at the start and end.
+  /// Duration: `medium2` (300ms). Curve: `standard`.
+  static const standard = M3MotionScheme(
+    M3MotionDurations.medium2,
+    M3MotionCurves.standard,
+  );
+
+  /// Standard motion for elements that are entering the screen.
+  /// Duration: `medium1` (250ms). Curve: `standardDecelerate`.
+  static const standardIncoming = M3MotionScheme(
+    M3MotionDurations.medium1,
+    M3MotionCurves.standardDecelerate,
+  );
+
+  /// Standard motion for elements that are exiting the screen.
+  /// Duration: `short4` (200ms). Curve: `standardAccelerate`.
+  static const standardOutgoing = M3MotionScheme(
+    M3MotionDurations.short4,
+    M3MotionCurves.standardAccelerate,
+  );
+
+  // --- Utility Motion Token ---
+
+  /// A linear interpolation scheme. Not part of the core M3 token set, but
+  /// useful for specific cases.
+  /// Duration: `short3` (150ms). Curve: `linear`.
+  static const linear = M3MotionScheme(
+    M3MotionDurations.short3,
+    M3MotionCurves.linear,
+  );
 }
 
 /// The set of durations in the Material specification.
@@ -212,50 +315,6 @@ enum M3MotionCurveToken implements IM3Token<Curve> {
   final Curve value;
 }
 
-// Copyright 2024 The Flutter Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-
-/// Represents a Material Design 3 motion scheme, combining duration and easing.
-///
-/// This class encapsulates the two core components of an M3 animation:
-/// - [duration]: How long the animation runs.
-/// - [easing]: The easing easing that defines the rate of change over time.
-///
-/// While Material Design 3 specifies duration and easing tokens separately,
-/// this class provides a convenient way to group them for direct use in
-/// Flutter animations.
-///
-/// See: https://m3.material.io/styles/motion/easing-and-duration/tokens-specs
-class M3MotionScheme {
-  /// Creates a motion scheme with a specific duration and easing.
-  const M3MotionScheme(this.duration, this.easing);
-
-  /// The total time the animation will take.
-  final M3MotionDurationToken duration;
-
-  /// The easing easing for the animation.
-  final M3MotionCurveToken easing;
-
-  /// Creates a [Tween] for this motion scheme, animating between [begin] and
-  /// [end].
-  ///
-  /// This is a convenience method for creating a [CurveTween] that can be
-  /// chained with another tween (like [Tween<double>]) and driven by an
-  /// [AnimationController].
-  ///
-  /// Example:
-  /// ```dart
-  /// myAnimation = controller.drive(
-  ///   M3MotionToken.emphasized.asTween(begin: 0.0, end: 1.0),
-  /// );
-  /// ```
-  Animatable<T> asTween<T>({required T begin, required T end}) {
-    return Tween<T>(begin: begin, end: end)
-        .chain(CurveTween(curve: easing.value));
-  }
-}
-
 /// Defines the standard motion tokens for Material Design 3.
 ///
 /// These tokens provide standardized duration and easing values for creating
@@ -272,58 +331,37 @@ enum M3MotionToken implements IM3Token<M3MotionScheme> {
 
   /// Emphasized motion for elements that are on-screen at the start and end.
   /// Duration: `long2` (500ms). Curve: `emphasized`.
-  emphasized(M3MotionScheme(
-    M3MotionDurationToken.long2,
-    M3MotionCurveToken.emphasized,
-  )),
+  emphasized(M3Motions.emphasized),
 
   /// Emphasized motion for elements that are entering the screen.
   /// Duration: `long1` (450ms). Curve: `emphasizedDecelerate`.
-  emphasizedIncoming(M3MotionScheme(
-    M3MotionDurationToken.long1,
-    M3MotionCurveToken.emphasizedDecelerate,
-  )),
+  emphasizedIncoming(M3Motions.emphasizedIncoming),
 
   /// Emphasized motion for elements that are exiting the screen.
   /// Duration: `short3` (150ms). Curve: `emphasizedAccelerate`.
-  emphasizedOutgoing(M3MotionScheme(
-    M3MotionDurationToken.short3,
-    M3MotionCurveToken.emphasizedAccelerate,
-  )),
+  emphasizedOutgoing(M3Motions.emphasizedOutgoing),
 
   // --- Standard Motion Tokens ---
   // For standard, functional transitions of smaller components.
 
   /// Standard motion for elements that are on-screen at the start and end.
   /// Duration: `medium2` (300ms). Curve: `standard`.
-  standard(M3MotionScheme(
-    M3MotionDurationToken.medium2,
-    M3MotionCurveToken.standard,
-  )),
+  standard(M3Motions.standard),
 
   /// Standard motion for elements that are entering the screen.
   /// Duration: `medium1` (250ms). Curve: `standardDecelerate`.
-  standardIncoming(M3MotionScheme(
-    M3MotionDurationToken.medium1,
-    M3MotionCurveToken.standardDecelerate,
-  )),
+  standardIncoming(M3Motions.standardIncoming),
 
   /// Standard motion for elements that are exiting the screen.
   /// Duration: `short4` (200ms). Curve: `standardAccelerate`.
-  standardOutgoing(M3MotionScheme(
-    M3MotionDurationToken.short4,
-    M3MotionCurveToken.standardAccelerate,
-  )),
+  standardOutgoing(M3Motions.standardOutgoing),
 
   // --- Utility Motion Token ---
 
   /// A linear interpolation scheme. Not part of the core M3 token set, but
   /// useful for specific cases.
   /// Duration: `short3` (150ms). Curve: `linear`.
-  linear(M3MotionScheme(
-    M3MotionDurationToken.short3,
-    M3MotionCurveToken.linear,
-  ));
+  linear(M3Motions.linear);
 
   /// Creates a motion token with the specified [M3MotionScheme].
   const M3MotionToken(this.value);

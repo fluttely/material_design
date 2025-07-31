@@ -265,7 +265,7 @@ class M3Gap extends StatelessWidget {
 // /// ```
 // class M3GapUtils {
 //   /// Private constructor to prevent instantiation
-//   M3GapUtils._();
+//  const M3GapUtils._();
 
 //   /// Adds gaps between widgets in a list.
 //   ///

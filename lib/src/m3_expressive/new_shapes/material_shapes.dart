@@ -65,6 +65,8 @@ part of '../../../material_design.dart';
 /// * [Morph], for shape transition animations
 /// * [LoadingIndicator], for practical usage examples
 abstract final class MaterialShapes {
+  const MaterialShapes._();
+
   static const _cornerRound15 = CornerRounding(radius: 0.15);
   static const _cornerRound20 = CornerRounding(radius: 0.2);
   static const _cornerRound30 = CornerRounding(radius: 0.3);

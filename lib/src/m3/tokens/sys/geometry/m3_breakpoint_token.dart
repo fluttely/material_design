@@ -1,5 +1,113 @@
 part of '../../../../../material_design.dart';
 
+abstract final class M3Breakpoints {
+  /// Compact breakpoint (0dp to 599dp).
+  ///
+  /// The smallest breakpoint representing the design baseline for constrained
+  /// interfaces. This breakpoint optimizes for single-column layouts and
+  /// touch-first interaction patterns.
+  ///
+  /// **Typical devices**: Phones in portrait mode 📱
+  ///
+  /// **Design characteristics**:
+  /// - Single-column content layout
+  /// - Bottom navigation or navigation drawer
+  /// - Touch-optimized component sizing
+  /// - Minimal whitespace for content density
+  /// - Stacked interface elements
+  ///
+  /// **Common use cases**:
+  /// - Mobile-first responsive designs
+  /// - Single-focus task interfaces
+  /// - Touch-optimized interactions
+  /// - Content-dense layouts
+  static const double compact = 0;
+
+  /// Medium breakpoint (600dp to 839dp).
+  ///
+  /// The first adaptation point for larger screens, enabling enhanced layouts
+  /// with secondary content areas and improved navigation patterns.
+  ///
+  /// **Typical devices**: Phones in landscape, small tablets (iPad Mini) ↔️
+  ///
+  /// **Design characteristics**:
+  /// - Dual-pane layouts possible
+  /// - Navigation rails over bottom navigation
+  /// - Side-by-side content arrangements
+  /// - Enhanced component spacing
+  /// - Improved information density
+  ///
+  /// **Common use cases**:
+  /// - Master-detail interfaces
+  /// - Side-by-side list/detail views
+  /// - Enhanced navigation patterns
+  /// - Improved content browsing
+  static const double medium = 600;
+
+  /// Expanded breakpoint (840dp to 1199dp).
+  ///
+  /// Designed for screens with substantial horizontal space, enabling complex
+  /// multi-pane layouts and advanced interface patterns.
+  ///
+  /// **Typical devices**: Large tablets in landscape (iPad Pro), foldables 💻
+  ///
+  /// **Design characteristics**:
+  /// - Multi-pane layout capabilities
+  /// - Complex navigation structures
+  /// - Rich content presentation
+  /// - Advanced interaction patterns
+  /// - Substantial whitespace utilization
+  ///
+  /// **Common use cases**:
+  /// - Dashboard interfaces
+  /// - Content editing tools
+  /// - Multi-column layouts
+  /// - Complex data visualization
+  static const double expanded = 840;
+
+  /// Large breakpoint (1200dp to 1599dp).
+  ///
+  /// Optimized for desktop experiences with persistent UI elements and
+  /// information-rich interfaces that maximize available screen space.
+  ///
+  /// **Typical devices**: Desktop monitors, laptops 🖥️
+  ///
+  /// **Design characteristics**:
+  /// - Persistent navigation panels
+  /// - Fixed sidebar layouts
+  /// - Rich information architecture
+  /// - Desktop interaction patterns
+  /// - Multiple simultaneous content areas
+  ///
+  /// **Common use cases**:
+  /// - Desktop applications
+  /// - Professional tools and dashboards
+  /// - Content management systems
+  /// - Multi-tasking interfaces
+  static const double large = 1200;
+
+  /// Extra large breakpoint (1600dp and above).
+  ///
+  /// For the largest screens, enabling fully expansive layouts with maximum
+  /// horizontal space utilization and advanced multi-column arrangements.
+  ///
+  /// **Typical devices**: Large monitors, ultra-wide displays 🖥️✨
+  ///
+  /// **Design characteristics**:
+  /// - Expansive multi-column layouts
+  /// - Maximum information density
+  /// - Advanced spatial organization
+  /// - Ultra-wide optimizations
+  /// - Specialized large-screen patterns
+  ///
+  /// **Common use cases**:
+  /// - Professional workspaces
+  /// - Multi-monitor setups
+  /// - Data-intensive applications
+  /// - Creative and design tools
+  static const double extraLarge = 1600;
+}
+
 /// Material Design 3 breakpoint tokens for responsive window size classes.
 ///
 /// This enum defines the canonical Material Design 3 breakpoints, known as
@@ -69,7 +177,7 @@ enum M3BreakpointToken implements IM3Token<double> {
   /// - Single-focus task interfaces
   /// - Touch-optimized interactions
   /// - Content-dense layouts
-  compact(0),
+  compact(M3Breakpoints.compact),
 
   /// Medium breakpoint (600dp to 839dp).
   ///
@@ -90,7 +198,7 @@ enum M3BreakpointToken implements IM3Token<double> {
   /// - Side-by-side list/detail views
   /// - Enhanced navigation patterns
   /// - Improved content browsing
-  medium(600),
+  medium(M3Breakpoints.medium),
 
   /// Expanded breakpoint (840dp to 1199dp).
   ///
@@ -111,7 +219,7 @@ enum M3BreakpointToken implements IM3Token<double> {
   /// - Content editing tools
   /// - Multi-column layouts
   /// - Complex data visualization
-  expanded(840),
+  expanded(M3Breakpoints.expanded),
 
   /// Large breakpoint (1200dp to 1599dp).
   ///
@@ -132,7 +240,7 @@ enum M3BreakpointToken implements IM3Token<double> {
   /// - Professional tools and dashboards
   /// - Content management systems
   /// - Multi-tasking interfaces
-  large(1200),
+  large(M3Breakpoints.large),
 
   /// Extra large breakpoint (1600dp and above).
   ///
@@ -153,7 +261,7 @@ enum M3BreakpointToken implements IM3Token<double> {
   /// - Multi-monitor setups
   /// - Data-intensive applications
   /// - Creative and design tools
-  extraLarge(1600);
+  extraLarge(M3Breakpoints.extraLarge);
 
   /// Creates a breakpoint token with the specified value.
   const M3BreakpointToken(this.value);

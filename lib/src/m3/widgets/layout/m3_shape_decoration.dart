@@ -364,7 +364,7 @@ extension M3ShapeDecorationExtensions on ShapeDecoration {
   ShapeDecoration withM3Shape(M3ShapeToken shape) {
     return ShapeDecoration(
       shape: shape.value,
-      color: color,
+      color: _color,
       gradient: gradient,
       image: image,
       shadows: shadows,
@@ -389,7 +389,7 @@ extension M3ShapeDecorationExtensions on ShapeDecoration {
     final existingShadows = shadows ?? [];
     return ShapeDecoration(
       shape: shape,
-      color: color,
+      color: _color,
       gradient: gradient,
       image: image,
       shadows: [...existingShadows, ...newShadows],
@@ -443,7 +443,7 @@ extension M3ShapeDecorationExtensions on ShapeDecoration {
 // /// ensuring consistency across the application while reducing boilerplate code.
 // class M3ShapeDecorationPatterns {
 //   /// Private constructor to prevent instantiation.
-//   M3ShapeDecorationPatterns._();
+//  const M3ShapeDecorationPatterns._();
 
 //   // Card Patterns
 
