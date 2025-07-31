@@ -1,6 +1,8 @@
 part of '../../../../../material_design.dart';
 
 abstract final class M3Spacings {
+  const M3Spacings._();
+
   /// No spacing (0dp).
   ///
   /// Used when you need to explicitly remove spacing or create tight layouts.
@@ -129,29 +131,96 @@ abstract interface class IM3SpacingToken implements IM3Token<double> {}
 /// Design 3 spacing guidelines.
 ///
 /// Each token represents a specific spacing value in density-independent
-/// pixels (dp).
-/// The system is designed around 4dp increments for optimal visual rhythm and
-/// consistency across different screen densities.
+/// pixels (dp). The system is designed around 4dp increments for optimal
+/// visual rhythm and consistency across different screen densities and
+/// accessibility requirements.
 ///
-/// ## Usage
+/// ## Design Philosophy
+///
+/// The Material Design 3 spacing system is built on these principles:
+/// - **Consistent rhythm**: 4dp base unit creates predictable patterns
+/// - **Semantic naming**: Token names reflect size and common use cases
+/// - **Scalable hierarchy**: Progressive spacing supports visual hierarchy
+/// - **Accessibility ready**: Spacing meets touch target and readability standards
+/// - **Cross-platform consistency**: Works across mobile, tablet, and desktop
+///
+/// ## Spacing Categories
+///
+/// ### Micro Spacing (4dp-12dp)
+/// Fine-tuned spacing for component internal padding and tight layouts:
+/// - `space4`: Minimal spacing, icon padding
+/// - `space8`: Small component padding, button internals
+/// - `space12`: Compact list item spacing, form element gaps
+///
+/// ### Standard Spacing (16dp-24dp)
+/// Primary spacing for most interface components:
+/// - `space16`: **Most common** - standard padding and margins
+/// - `space20`: Medium spacing for related content groups
+/// - `space24`: Large component margins, section spacing
+///
+/// ### Macro Spacing (28dp-64dp)
+/// Larger spacing for layout structure and visual separation:
+/// - `space28-40`: Major component spacing, feature separation
+/// - `space48-64`: Layout section spacing, content area margins
+///
+/// ### Extended Spacing (72dp-128dp)
+/// Wide-screen and desktop layout spacing:
+/// - `space72-96`: Large screen content margins
+/// - `space128`: Maximum spacing for wide layouts
+///
+/// ## Usage Examples
 ///
 /// ```dart
-/// // Access the spacing value
+/// // Basic spacing
 /// double spacing = M3SpacingToken.space16.value; // 16.0
 ///
-/// // Use in widgets
+/// // Component padding
+/// Padding(
+///   padding: EdgeInsets.all(M3SpacingToken.space16.value),
+///   child: Text('Content'),
+/// )
+///
+/// // Layout margins
+/// Container(
+///   margin: EdgeInsets.symmetric(
+///     horizontal: M3SpacingToken.space24.value,
+///     vertical: M3SpacingToken.space16.value,
+///   ),
+/// )
+///
+/// // With Material Design 3 utilities
 /// M3Padding(
 ///   padding: M3EdgeInsets.all(M3SpacingToken.space16),
-///   child: Text('Hello World'),
+///   child: content,
+/// )
+///
+/// // Gap widgets
+/// Column(
+///   children: [
+///     widget1,
+///     M3Gap(M3SpacingToken.space12),
+///     widget2,
+///   ],
 /// )
 /// ```
 ///
-/// ## Spacing Scale Guidelines
+/// ## Responsive Considerations
 ///
-/// - **Base Scale (4dp-64dp)**: Ideal for component padding and small
-///   layout gaps
-/// - **Extended Scale (72dp-128dp)**: For larger layout spacing needs
-/// - **Special Values**: none (0dp) and infinity for edge cases
+/// Different spacing may be appropriate for different screen sizes:
+/// ```dart
+/// // Responsive spacing selection
+/// final spacing = screenWidth > 600 
+///     ? M3SpacingToken.space24  // Tablet/desktop
+///     : M3SpacingToken.space16; // Mobile
+/// ```
+///
+/// ## Best Practices
+///
+/// 1. **Start with space16** - Most common spacing value
+/// 2. **Use semantic tokens** - Choose based on content relationship
+/// 3. **Maintain rhythm** - Stick to 4dp multiples
+/// 4. **Consider accessibility** - Ensure adequate touch targets
+/// 5. **Test across devices** - Verify spacing works on different screens
 ///
 /// Reference: https://m3.material.io/foundations/layout/understanding-layout/spacing
 enum M3SpacingToken implements IM3SpacingToken {

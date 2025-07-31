@@ -1,7 +1,7 @@
 part of '../../../../../material_design.dart';
 
 abstract final class M3Opacities {
-  M3Opacities._();
+  const M3Opacities._();
 
   /// Opacity for disabled component content (38%).
   ///

@@ -1,5 +1,18 @@
 part of '../../../../../material_design.dart';
 
+/// {@template m3_shadow_color}
+/// The standard shadow color for Material Design 3 elevation system.
+///
+/// This color (black with 15% opacity, #26000000) is specifically calibrated
+/// to provide optimal shadow contrast across both light and dark themes while
+/// maintaining accessibility standards.
+///
+/// The 15% opacity ensures shadows are visible but not overwhelming, creating
+/// subtle depth cues that enhance the visual hierarchy without competing with
+/// content for attention.
+/// {@endtemplate}
+const Color _color = Color(0x26000000);
+
 /// A collection of pre-defined, specification-compliant raw shadow values
 /// for the Material Design 3 system.
 ///
@@ -10,20 +23,7 @@ part of '../../../../../material_design.dart';
 /// Reference: https://m3.material.io/styles/elevation/shadows
 abstract final class M3Shadows {
   // Private constructor to prevent instantiation.
-  M3Shadows._();
-
-  /// {@template m3_shadow_color}
-  /// The standard shadow color for Material Design 3 elevation system.
-  ///
-  /// This color (black with 15% opacity, #26000000) is specifically calibrated
-  /// to provide optimal shadow contrast across both light and dark themes while
-  /// maintaining accessibility standards.
-  ///
-  /// The 15% opacity ensures shadows are visible but not overwhelming, creating
-  /// subtle depth cues that enhance the visual hierarchy without competing with
-  /// content for attention.
-  /// {@endtemplate}
-  static const Color color = Color(0x26000000);
+  const M3Shadows._();
 
   /// {@template m3_shadow_level_0}
   /// Level 0 shadow: No shadow (empty list).
@@ -48,7 +48,7 @@ abstract final class M3Shadows {
   /// {@endtemplate}
   static const List<BoxShadow> level1 = [
     BoxShadow(
-      color: color,
+      color: _color,
       offset: Offset(0, 1),
       blurRadius: 2,
     ),
@@ -67,12 +67,12 @@ abstract final class M3Shadows {
   /// {@endtemplate}
   static const List<BoxShadow> level2 = [
     BoxShadow(
-      color: color,
+      color: _color,
       offset: Offset(0, 1),
       blurRadius: 3,
     ),
     BoxShadow(
-      color: color,
+      color: _color,
       offset: Offset(0, 2),
       blurRadius: 6,
       spreadRadius: 2,
@@ -92,12 +92,12 @@ abstract final class M3Shadows {
   /// {@endtemplate}
   static const List<BoxShadow> level3 = [
     BoxShadow(
-      color: color,
+      color: _color,
       offset: Offset(0, 2),
       blurRadius: 4,
     ),
     BoxShadow(
-      color: color,
+      color: _color,
       offset: Offset(0, 4),
       blurRadius: 8,
       spreadRadius: 3,
@@ -118,12 +118,12 @@ abstract final class M3Shadows {
   /// {@endtemplate}
   static const List<BoxShadow> level4 = [
     BoxShadow(
-      color: color,
+      color: _color,
       offset: Offset(0, 2),
       blurRadius: 4,
     ),
     BoxShadow(
-      color: color,
+      color: _color,
       offset: Offset(0, 4),
       blurRadius: 10,
       spreadRadius: 3,
@@ -143,12 +143,12 @@ abstract final class M3Shadows {
   /// {@endtemplate}
   static const List<BoxShadow> level5 = [
     BoxShadow(
-      color: color,
+      color: _color,
       offset: Offset(0, 2),
       blurRadius: 4,
     ),
     BoxShadow(
-      color: color,
+      color: _color,
       offset: Offset(0, 4),
       blurRadius: 12,
       spreadRadius: 3,
@@ -246,7 +246,7 @@ enum M3BoxShadowToken implements IM3Token<List<BoxShadow>> {
   @override
   final List<BoxShadow> value;
 
-  /// The color used for M3 shadows is black with 15% opacity.
-  /// 0x26 = 38 in decimal = 15% of 255 = 38/255 ≈ 0.149 opacity
-  Color get shadowColor => M3Shadows.color;
+  // /// The color used for M3 shadows is black with 15% opacity.
+  // /// 0x26 = 38 in decimal = 15% of 255 = 38/255 ≈ 0.149 opacity
+  // Color get shadowColor => M3Shadows.color;
 }

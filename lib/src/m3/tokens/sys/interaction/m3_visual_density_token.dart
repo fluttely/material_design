@@ -1,6 +1,8 @@
 part of '../../../../../material_design.dart';
 
 abstract final class M3VisualDensities {
+  const M3VisualDensities._();
+
   /// Standard visual density (0, 0) - Material Design baseline.
   ///
   /// The default density level that provides balanced spacing according to
