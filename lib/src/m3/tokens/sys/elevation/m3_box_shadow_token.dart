@@ -19,7 +19,7 @@ const Color _color = Color(0x26000000);
 /// This class provides direct access to the `const List<BoxShadow>` values
 /// for advanced use cases or when a compile-time constant is required.
 ///
-/// For general-purpose, semantic usage, prefer using [M3BoxShadowToken].
+/// For general-purpose, semantic usage, prefer using [M3ShadowToken].
 /// Reference: https://m3.material.io/styles/elevation/shadows
 abstract final class M3Shadows {
   // Private constructor to prevent instantiation.
@@ -182,7 +182,7 @@ abstract final class M3Shadows {
 ///
 /// ```dart
 /// // Get shadows for elevation level
-/// final shadows = M3BoxShadowToken.fromElevation(M3ElevationToken.level3);
+/// final shadows = M3ShadowToken.fromElevation(M3ElevationToken.level3);
 ///
 /// // Apply to container
 /// Container(
@@ -205,7 +205,7 @@ abstract final class M3Shadows {
 ///
 /// Reference: https://m3.material.io/styles/elevation/shadows
 /// {@endtemplate}
-enum M3BoxShadowToken implements IM3Token<List<BoxShadow>> {
+enum M3ShadowToken implements IM3Token<List<BoxShadow>> {
   /// Level 0: No shadow.
   level0(M3Shadows.level0),
 
@@ -224,16 +224,16 @@ enum M3BoxShadowToken implements IM3Token<List<BoxShadow>> {
   /// Level 5 (12dp): The strongest shadows for maximum elevation.
   level5(M3Shadows.level5);
 
-  const M3BoxShadowToken(this.value);
+  const M3ShadowToken(this.value);
 
   /// Returns a shadow token for a given M3ElevationToken.
   /// This method now delegates the logic to fromElevationValue.
-  factory M3BoxShadowToken.fromElevation(IM3ElevationToken elevation) =>
-      M3BoxShadowToken.fromElevationValue(elevation.value);
+  factory M3ShadowToken.fromElevation(IM3ElevationToken elevation) =>
+      M3ShadowToken.fromElevationValue(elevation.value);
 
   /// Returns a shadow token for a given elevation value in dp.
   /// This method contains the core logic and is the single source of truth.
-  factory M3BoxShadowToken.fromElevationValue(double value) => switch (value) {
+  factory M3ShadowToken.fromElevationValue(double value) => switch (value) {
         >= 12 => level5,
         >= 8 => level4,
         >= 6 => level3,
