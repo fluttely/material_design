@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adherves to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.18.3
+
+### Refactoring
+
+- **API Refinement**: Renamed `M3BoxShadowToken` to `M3ShadowToken` for a more concise and consistent naming within the elevation system.
+- **Documentation**: Updated all documentation and examples to reflect the new `M3ShadowToken` name.
+
+**Recommended Version Bump: PATCH (0.18.2 → 0.18.3)**
+
+This release focuses on a minor API refinement for better consistency and clarity.
+
 ## 0.18.2
 
 ### 🏗️ Code Architecture & Organization
@@ -1269,7 +1280,6 @@ AnimatedContainer(
   - Improved developer experience with clear architectural explanations
 
 - **Enhanced Navigation Experience**:
-
   - Custom NavigationRail implementation with Material Design 3 hover animations and state layer effects
   - Improved mobile navigation with floating hamburger menu and proper M3 specifications
   - Better visual hierarchy with organized Foundation, Styles, and Components sections

@@ -99,7 +99,7 @@ class ExampleCard extends StatelessWidget {
         color: M3SysColor.surfaceContainer,
         shape: M3CompCard.shape,
         // Using elevation system
-        boxShadow: M3BoxShadowToken.fromElevation(M3ElevationToken.level1.value),
+        boxShadow: M3ShadowToken.fromElevation(M3ElevationToken.level1.value),
       ),
       child: Column(
         children: [

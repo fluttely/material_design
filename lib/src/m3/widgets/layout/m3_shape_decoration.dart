@@ -79,7 +79,7 @@ class M3ShapeDecoration extends ShapeDecoration {
   /// Creates a ShapeDecoration with a Material Design 3 shape token.
   M3ShapeDecoration({
     required M3ShapeToken shape,
-    M3BoxShadowToken? shadows,
+    M3ShadowToken? shadows,
     super.color,
     super.image,
     super.gradient,

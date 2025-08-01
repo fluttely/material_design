@@ -6,7 +6,7 @@ class M3BoxDecoration extends BoxDecoration {
   M3BoxDecoration({
     M3BorderRadiusToken? borderRadius,
     M3Border? border,
-    M3BoxShadowToken? boxShadow,
+    M3ShadowToken? boxShadow,
     super.color,
     super.image,
     super.gradient,
