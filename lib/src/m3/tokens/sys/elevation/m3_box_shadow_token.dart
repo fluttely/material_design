@@ -139,7 +139,8 @@ abstract final class M3Shadows {
   ///
   /// **Shadow properties**:
   /// - **Layer 1**: Definition shadow (offset: 2dp, blur: 4dp)
-  /// - **Layer 2**: Maximum ambient shadow (offset: 4dp, blur: 12dp, spread: 3dp)
+  /// - **Layer 2**: Maximum ambient shadow (offset: 4dp, blur: 12dp,
+  ///   spread: 3dp)
   /// {@endtemplate}
   static const List<BoxShadow> level5 = [
     BoxShadow(
@@ -249,4 +250,16 @@ enum M3ShadowToken implements IM3Token<List<BoxShadow>> {
   // /// The color used for M3 shadows is black with 15% opacity.
   // /// 0x26 = 38 in decimal = 15% of 255 = 38/255 ≈ 0.149 opacity
   // Color get shadowColor => M3Shadows.color;
+
+  /// Retorna o valor constante correspondente ao token
+  static List<BoxShadow> getValue(M3ShadowToken token) {
+    return switch (token) {
+      M3ShadowToken.level0 => M3Shadows.level0,
+      M3ShadowToken.level1 => M3Shadows.level1,
+      M3ShadowToken.level2 => M3Shadows.level2,
+      M3ShadowToken.level3 => M3Shadows.level3,
+      M3ShadowToken.level4 => M3Shadows.level4,
+      M3ShadowToken.level5 => M3Shadows.level5,
+    };
+  }
 }

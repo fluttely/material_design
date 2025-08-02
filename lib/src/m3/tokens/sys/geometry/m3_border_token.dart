@@ -87,8 +87,8 @@ abstract final class M3BorderSides {
 
   /// Extra thick border side (4dp width).
   ///
-  /// High-emphasis border side for critical states and special cases.
-  /// Maximum visual weight for important boundaries.
+  /// High-emphasis border side for critical states and special cases. Maximum
+  /// visual weight for important boundaries.
   static const BorderSide extraThick =
       BorderSide(width: M3BorderWidths.extraThick);
 }

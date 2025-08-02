@@ -4,6 +4,80 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adherves to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.20.0
+
+### 🎯 Major Documentation & API Enhancement
+
+- **Complete README.md Overhaul**: Comprehensive restructuring of project documentation with enhanced developer experience
+  - **New Feature Comparison Table**: Added detailed comparison between Flutter defaults and material_design package benefits
+  - **Enhanced API Examples**: Updated all code examples to showcase both constants and typed token approaches
+  - **Improved Quick Start Guide**: Streamlined getting started section with clear API pattern recommendations
+  - **Complete Token Reference Table**: Added comprehensive table documenting all token categories with descriptions
+  - **Better Visual Hierarchy**: Restructured content organization with clearer sections and improved navigation
+  - **Performance Documentation**: Added dedicated performance section highlighting zero runtime overhead and tree-shaking benefits
+  - **Enhanced Migration Guide**: Updated examples showing migration from Flutter's built-in Material components
+
+### 🏗️ Motion System Architecture Improvements
+
+- **Enhanced Motion Token Implementation**: Significant improvements to motion token system architecture
+  - **Dual Motion Scheme Classes**: Introduced both `M3MotionScheme` (with direct Duration/Curve) and `M3MotionSchemeToken` (with token references) for maximum flexibility
+  - **Improved Constructor Patterns**: Updated all motion schemes to use named constructor parameters for better clarity
+  - **Enhanced Animation Utilities**: Added `asTween` method to `M3MotionScheme` for convenient animation creation
+  - **Consistent Token References**: All motion constants now reference the appropriate duration and curve constants directly
+  - **Better Type Safety**: Improved type definitions and method signatures throughout the motion system
+
+### 🎨 Design System Enhancements
+
+- **Shadow Token System Enhancement**: Added utility method to `M3ShadowToken` for better developer experience
+
+  - **New `getValue` Static Method**: Added convenient static method to retrieve constant values from shadow tokens
+  - **Improved Token Mapping**: Enhanced mapping between enum tokens and their corresponding constant values
+  - **Better API Consistency**: Unified access patterns across shadow token implementations
+
+- **Documentation Formatting Improvements**: Enhanced code documentation throughout the system
+  - **Border Token Documentation**: Improved comment formatting for better readability in border system
+  - **Shape Token Documentation**: Enhanced getter documentation and method organization in shape tokens
+  - **Consistent Code Style**: Applied consistent documentation formatting across all token files
+
+### 📱 Enhanced Developer Experience
+
+- **Improved API Guidance**: Better documentation of when to use different API approaches
+
+  - **Clear Usage Patterns**: Enhanced guidance on choosing between constants, typed tokens, and .value patterns
+  - **Real-World Examples**: Added practical implementation examples showing M3Card component usage
+  - **Performance Considerations**: Added guidance on when to use const constructors vs. typed tokens
+  - **Migration Assistance**: Comprehensive examples for migrating from Flutter's default Material components
+
+- **Better Code Organization**: Improved internal organization and consistency
+  - **Enhanced File Structure**: Better organization of motion token implementations
+  - **Improved Import Patterns**: Cleaner export structure with better separation of concerns
+  - **Consistent Naming**: Standardized naming patterns across all token implementations
+
+### 🔧 Technical Improvements
+
+- **Enhanced Type Safety**: Improved type definitions throughout the codebase
+
+  - **Better Token Interfaces**: Enhanced token interface implementations for more robust type checking
+  - **Improved Method Signatures**: Better parameter typing and return type definitions
+  - **Consistent API Patterns**: Unified approach to token value access across all systems
+
+- **Code Quality Enhancements**: General improvements to code organization and maintainability
+  - **Better Documentation**: Enhanced inline documentation with clearer usage examples
+  - **Improved Code Formatting**: Consistent formatting patterns applied throughout the codebase
+  - **Enhanced Maintainability**: Better separation of concerns and cleaner internal APIs
+
+### 📊 Impact Summary
+
+- **Files Modified**: 7+ core files updated across documentation, motion system, and token implementations
+- **Documentation Enhancement**: Major improvement in developer onboarding and API guidance
+- **Motion System Refinement**: Enhanced flexibility and type safety in animation token usage
+- **Developer Experience**: Significantly improved getting started experience and API clarity
+- **Type Safety**: Enhanced compile-time safety and better IDE integration
+
+**Recommended Version Bump: MINOR (0.19.0 → 0.20.0)**
+
+This release introduces significant documentation improvements, motion system enhancements, and developer experience refinements while maintaining full backward compatibility and Material Design 3 compliance.
+
 ## 0.19.0
 
 ### 🏗️ Architectural Refinements
@@ -1303,6 +1377,7 @@ AnimatedContainer(
   - Improved developer experience with clear architectural explanations
 
 - **Enhanced Navigation Experience**:
+
   - Custom NavigationRail implementation with Material Design 3 hover animations and state layer effects
   - Improved mobile navigation with floating hamburger menu and proper M3 specifications
   - Better visual hierarchy with organized Foundation, Styles, and Components sections

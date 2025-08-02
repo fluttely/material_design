@@ -347,7 +347,8 @@ class M3ShapeDecoration extends ShapeDecoration {
   // }
 }
 
-/// Extension methods for ShapeDecoration operations with Material Design 3 tokens.
+/// Extension methods for ShapeDecoration operations with Material Design 3
+/// tokens.
 ///
 /// These extensions provide additional functionality for working with
 /// ShapeDecoration in combination with Material Design 3 shape tokens.
