@@ -141,18 +141,18 @@ part 'src/m3/utils/color/m3_color_utils.dart';
 // part 'src/m3/utils/sys/m3_shape_utils.dart';
 
 /// Custom BorderRadius that enforces Material Design 3 tokens.
-part 'src/m3/widgets/layout/m3_border.dart';
-part 'src/m3/widgets/layout/m3_border_radius.dart';
-
-/// Custom box decoration that enforces Material Design 3 tokens.
-part 'src/m3/widgets/layout/m3_box_decoration.dart';
-part 'src/m3/widgets/layout/m3_container.dart';
+part 'src/m3/utils/layout/m3_border_radius.dart';
 
 /// Material Design 3 EdgeInsets utility with comprehensive token integration.
 /// Provides token-enforced edge insets with responsive calculations,
 /// accessibility
 /// adaptations, and common layout patterns for consistent spatial design.
-part 'src/m3/widgets/layout/m3_edge_insets.dart';
+part 'src/m3/utils/layout/m3_edge_insets.dart';
+part 'src/m3/widgets/layout/m3_border.dart';
+
+/// Custom box decoration that enforces Material Design 3 tokens.
+part 'src/m3/widgets/layout/m3_box_decoration.dart';
+part 'src/m3/widgets/layout/m3_container.dart';
 
 /// Intelligent gap widget with automatic orientation detection.
 /// Creates spacing between layout elements with automatic parent context

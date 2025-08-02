@@ -4,6 +4,29 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adherves to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.19.0
+
+### 🏗️ Architectural Refinements
+
+- **Motion Token System Overhaul**: Refactored the `M3MotionToken` system for improved consistency and expressiveness.
+  - **New `M3MotionScheme`**: The `M3MotionScheme` now encapsulates `M3MotionDurationToken` and `M3MotionCurveToken` directly, providing a more unified and token-driven approach to defining motion.
+  - **Simplified API**: The `M3MotionToken` API has been streamlined. The `duration` and `curve` getters now return the respective token enums, promoting a more consistent use of tokens throughout the animation system.
+  - **Improved Tween Creation**: The `asTween` helper method in `M3MotionScheme` has been updated to correctly use the `.value` of the curve token.
+
+### 🧹 Code Organization & Maintenance
+
+- **Layout Utilities Relocated**: Moved layout utility files for better project structure.
+  - `M3BorderRadius` and `M3EdgeInsets` have been relocated from `lib/src/m3/widgets/layout/` to `lib/src/m3/utils/layout/`, clarifying their role as utility classes rather than standalone widgets.
+
+### 🎯 Demo & Documentation Updates
+
+- **README Refresh**: Updated the `README.md` with improved examples that reflect the latest API enhancements.
+- **Motion Showcase Update**: The motion showcase page in the demo application has been updated to use the new, refactored motion token API.
+
+**Recommended Version Bump: MINOR (0.18.3 → 0.19.0)**
+
+This release introduces a significant architectural improvement to the motion token system for better consistency and developer experience, along with better code organization.
+
 ## 0.18.3
 
 ### Refactoring
