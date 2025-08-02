@@ -37,7 +37,7 @@ Transform your Flutter development with production-ready design tokens that elim
 
 ```yaml
 dependencies:
-  material_design: ^0.1.0 # Replace with actual version
+  material_design: ^0.19.0
 ```
 
 ## Quick Start
@@ -49,18 +49,19 @@ Choose the API style that best fits your needs:
 ```dart
 import 'package:material_design/material_design.dart';
 
+final elevation = M3ElevationToken.level5;
 Container(
   padding: M3EdgeInsets.all(M3SpacingToken.space16),
   decoration: M3BoxDecoration(
-    color: Theme.of(context).colorScheme.surfaceContainer,
+    color: elevation.surfaceColor(context),
     borderRadius: M3BorderRadiusToken.medium,
-    boxShadow: M3ShadowToken.fromElevation(M3ElevationToken.level3),
+    boxShadow: M3ShadowToken.fromElevation(elevation),
   ),
   child: Text(
     'Hello Material 3',
     style: Theme.of(context).textTheme.headlineMedium,
   ),
-)
+),
 ```
 
 ### ⚡ Alternative: .value Pattern (Flutter Standard)
@@ -71,30 +72,30 @@ Container(
   decoration: BoxDecoration(
     color: Theme.of(context).colorScheme.surfaceContainer,
     borderRadius: M3BorderRadiusToken.medium.value,
-    boxShadow: M3ShadowToken.fromElevation(M3ElevationToken.level3).value,
+    boxShadow: M3ShadowToken.level5.value,
   ),
   child: Text(
     'Hello Material 3',
     style: Theme.of(context).textTheme.headlineMedium,
   ),
-)
+),
 ```
 
-### 🔧 Alternative: Constants (Performance Optimized)
+### 🔧 Alternative: Constants
 
 ```dart
 Container(
   padding: EdgeInsets.all(M3Spacings.space16),
-  decoration: BoxDecoration(
-    color: Theme.of(context).colorScheme.surfaceContainer,
+  decoration: const BoxDecoration(
+    color: Colors.blue,
     borderRadius: M3BorderRadii.medium,
-    boxShadow: M3Shadows.level3,
+    boxShadow: M3Shadows.level5,
   ),
-  child: Text(
+  child: const Text(
     'Hello Material 3',
-    style: Theme.of(context).textTheme.headlineMedium,
+    style: M3TextStyles.headlineMedium,
   ),
-)
+),
 ```
 
 > 💡 **Which approach to choose?**
@@ -153,7 +154,7 @@ Container(
 Row(
   children: [
     Widget1(),
-    M3Gap(M3SpacerToken.pane), // 24dp gap
+    M3Gap(M3SpacingToken.space24), // 24dp gap
     Widget2(),
   ],
 )
@@ -165,10 +166,17 @@ Standardized Material 3 motion patterns:
 
 ```dart
 AnimatedContainer(
+  duration: M3MotionToken.emphasized.duration.value, // 300ms
+  curve: M3MotionToken.emphasized.curve.value, // Material easing curve
+  // ... other properties
+),
+
+// or
+AnimatedContainer(
   duration: M3MotionDurationToken.medium2.value, // 300ms
   curve: M3MotionCurveToken.emphasized.value,    // Material easing curve
   // ... other properties
-)
+),
 ```
 
 ### 🎨 Elevation & Shadows
@@ -176,10 +184,11 @@ AnimatedContainer(
 Material 3 elevation system with surface tinting:
 
 ```dart
+final elevation = M3ElevationToken.level5;
 Container(
   decoration: BoxDecoration(
-    color: M3ElevationToken.level3.surfaceColor(context),
-    boxShadow: M3ElevationToken.level3.shadows,
+    color: elevation.surfaceColor(context),
+    boxShadow: elevation.shadows,
   ),
 )
 ```

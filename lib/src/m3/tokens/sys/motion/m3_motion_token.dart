@@ -97,10 +97,10 @@ class M3MotionScheme {
   const M3MotionScheme(this.duration, this.curve);
 
   /// The total time the animation will take.
-  final Duration duration;
+  final M3MotionDurationToken duration;
 
   /// The easing easing for the animation.
-  final Curve curve;
+  final M3MotionCurveToken curve;
 
   /// Creates a [Tween] for this motion scheme, animating between [begin] and
   /// [end].
@@ -116,7 +116,8 @@ class M3MotionScheme {
   /// );
   /// ```
   Animatable<T> asTween<T>({required T begin, required T end}) {
-    return Tween<T>(begin: begin, end: end).chain(CurveTween(curve: curve));
+    return Tween<T>(begin: begin, end: end)
+        .chain(CurveTween(curve: curve.value));
   }
 }
 
@@ -127,22 +128,22 @@ abstract final class M3Motions {
   /// Emphasized motion for elements that are on-screen at the start and end.
   /// Duration: `long2` (500ms). Curve: `emphasized`.
   static const emphasized = M3MotionScheme(
-    M3MotionDurations.long2,
-    M3MotionCurves.emphasized,
+    M3MotionDurationToken.long2,
+    M3MotionCurveToken.emphasized,
   );
 
   /// Emphasized motion for elements that are entering the screen.
   /// Duration: `long1` (450ms). Curve: `emphasizedDecelerate`.
   static const emphasizedIncoming = M3MotionScheme(
-    M3MotionDurations.long1,
-    M3MotionCurves.emphasizedDecelerate,
+    M3MotionDurationToken.long1,
+    M3MotionCurveToken.emphasizedDecelerate,
   );
 
   /// Emphasized motion for elements that are exiting the screen.
   /// Duration: `short3` (150ms). Curve: `emphasizedAccelerate`.
   static const emphasizedOutgoing = M3MotionScheme(
-    M3MotionDurations.short3,
-    M3MotionCurves.emphasizedAccelerate,
+    M3MotionDurationToken.short3,
+    M3MotionCurveToken.emphasizedAccelerate,
   );
 
   // --- Standard Motion Tokens ---
@@ -151,22 +152,22 @@ abstract final class M3Motions {
   /// Standard motion for elements that are on-screen at the start and end.
   /// Duration: `medium2` (300ms). Curve: `standard`.
   static const standard = M3MotionScheme(
-    M3MotionDurations.medium2,
-    M3MotionCurves.standard,
+    M3MotionDurationToken.medium2,
+    M3MotionCurveToken.standard,
   );
 
   /// Standard motion for elements that are entering the screen.
   /// Duration: `medium1` (250ms). Curve: `standardDecelerate`.
   static const standardIncoming = M3MotionScheme(
-    M3MotionDurations.medium1,
-    M3MotionCurves.standardDecelerate,
+    M3MotionDurationToken.medium1,
+    M3MotionCurveToken.standardDecelerate,
   );
 
   /// Standard motion for elements that are exiting the screen.
   /// Duration: `short4` (200ms). Curve: `standardAccelerate`.
   static const standardOutgoing = M3MotionScheme(
-    M3MotionDurations.short4,
-    M3MotionCurves.standardAccelerate,
+    M3MotionDurationToken.short4,
+    M3MotionCurveToken.standardAccelerate,
   );
 
   // --- Utility Motion Token ---
@@ -175,8 +176,8 @@ abstract final class M3Motions {
   /// useful for specific cases.
   /// Duration: `short3` (150ms). Curve: `linear`.
   static const linear = M3MotionScheme(
-    M3MotionDurations.short3,
-    M3MotionCurves.linear,
+    M3MotionDurationToken.short3,
+    M3MotionCurveToken.linear,
   );
 }
 
@@ -371,33 +372,13 @@ enum M3MotionToken implements IM3Token<M3MotionScheme> {
   final M3MotionScheme value;
 
   /// Gets the duration component of this motion token.
-  Duration get duration {
-    return switch (this) {
-      M3MotionToken.emphasized => M3MotionDurationToken.long2.value,
-      M3MotionToken.emphasizedIncoming => M3MotionDurationToken.long1.value,
-      M3MotionToken.emphasizedOutgoing => M3MotionDurationToken.short3.value,
-      M3MotionToken.standard => M3MotionDurationToken.medium2.value,
-      M3MotionToken.standardIncoming => M3MotionDurationToken.medium1.value,
-      M3MotionToken.standardOutgoing => M3MotionDurationToken.short4.value,
-      M3MotionToken.linear => M3MotionDurationToken.short3.value,
-    };
+  M3MotionDurationToken get duration {
+    return value.duration;
   }
 
   /// Gets the easing curve component of this motion token.
-  Curve get easing {
-    return switch (this) {
-      M3MotionToken.emphasized => M3MotionCurveToken.emphasized.value,
-      M3MotionToken.emphasizedIncoming =>
-        M3MotionCurveToken.emphasizedDecelerate.value,
-      M3MotionToken.emphasizedOutgoing =>
-        M3MotionCurveToken.emphasizedAccelerate.value,
-      M3MotionToken.standard => M3MotionCurveToken.standard.value,
-      M3MotionToken.standardIncoming =>
-        M3MotionCurveToken.standardDecelerate.value,
-      M3MotionToken.standardOutgoing =>
-        M3MotionCurveToken.standardAccelerate.value,
-      M3MotionToken.linear => M3MotionCurveToken.linear.value,
-    };
+  M3MotionCurveToken get curve {
+    return value.curve;
   }
 
   /// Get appropriate duration based on distance or complexity.

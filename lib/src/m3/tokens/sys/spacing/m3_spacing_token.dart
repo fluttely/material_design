@@ -209,7 +209,7 @@ abstract interface class IM3SpacingToken implements IM3Token<double> {}
 /// Different spacing may be appropriate for different screen sizes:
 /// ```dart
 /// // Responsive spacing selection
-/// final spacing = screenWidth > 600 
+/// final spacing = screenWidth > 600
 ///     ? M3SpacingToken.space24  // Tablet/desktop
 ///     : M3SpacingToken.space16; // Mobile
 /// ```

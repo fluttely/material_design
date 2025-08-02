@@ -22,37 +22,37 @@ class MotionPage extends StatelessWidget {
           ),
           _MotionShowcase(
             title: 'Emphasized',
-            easing: M3MotionCurveToken.emphasizedAccelerate,
+            curve: M3MotionCurveToken.emphasizedAccelerate,
             duration: M3MotionDurationToken.long2,
           ),
           _MotionShowcase(
             title: 'Emphasized Incoming',
-            easing: M3MotionCurveToken.emphasizedDecelerate,
+            curve: M3MotionCurveToken.emphasizedDecelerate,
             duration: M3MotionDurationToken.long1,
           ),
           _MotionShowcase(
             title: 'Emphasized Outgoing',
-            easing: M3MotionCurveToken.emphasizedAccelerate,
+            curve: M3MotionCurveToken.emphasizedAccelerate,
             duration: M3MotionDurationToken.short3,
           ),
           _MotionShowcase(
             title: 'Standard',
-            easing: M3MotionCurveToken.standard,
+            curve: M3MotionCurveToken.standard,
             duration: M3MotionDurationToken.medium2,
           ),
           _MotionShowcase(
             title: 'Standard Incoming',
-            easing: M3MotionCurveToken.standardDecelerate,
+            curve: M3MotionCurveToken.standardDecelerate,
             duration: M3MotionDurationToken.medium1,
           ),
           _MotionShowcase(
             title: 'Standard Outgoing',
-            easing: M3MotionCurveToken.standardAccelerate,
+            curve: M3MotionCurveToken.standardAccelerate,
             duration: M3MotionDurationToken.short4,
           ),
           _MotionShowcase(
             title: 'Linear',
-            easing: M3MotionCurveToken.linear,
+            curve: M3MotionCurveToken.linear,
             duration: M3MotionDurationToken.short3,
           ),
         ],
@@ -64,12 +64,12 @@ class MotionPage extends StatelessWidget {
 class _MotionShowcase extends StatefulWidget {
   const _MotionShowcase({
     required this.title,
-    required this.easing,
+    required this.curve,
     required this.duration,
   });
 
   final String title;
-  final M3MotionCurveToken easing;
+  final M3MotionCurveToken curve;
   final M3MotionDurationToken duration;
 
   @override
@@ -91,7 +91,7 @@ class _MotionShowcaseState extends State<_MotionShowcase>
     _animation = Tween<double>(
       begin: 0.0,
       end: 1.0,
-    ).chain(CurveTween(curve: widget.easing.value)).animate(_controller);
+    ).chain(CurveTween(curve: widget.curve.value)).animate(_controller);
     _controller.repeat(reverse: true);
   }
 
@@ -119,7 +119,7 @@ class _MotionShowcaseState extends State<_MotionShowcase>
               return CustomPaint(
                 painter: _MotionPainter(
                   animationValue: _animation.value,
-                  easing: widget.easing,
+                  curve: widget.curve,
                   color: colorScheme.primary,
                 ),
                 child: SizedBox(
@@ -138,12 +138,12 @@ class _MotionShowcaseState extends State<_MotionShowcase>
 class _MotionPainter extends CustomPainter {
   _MotionPainter({
     required this.animationValue,
-    required this.easing,
+    required this.curve,
     required this.color,
   });
 
   final double animationValue;
-  final M3MotionCurveToken easing;
+  final M3MotionCurveToken curve;
   final Color color;
 
   @override
@@ -157,7 +157,7 @@ class _MotionPainter extends CustomPainter {
     path.moveTo(0, size.height);
 
     for (double t = 0; t <= 1.0; t += 0.01) {
-      final y = size.height - easing.value.transform(t) * size.height;
+      final y = size.height - curve.value.transform(t) * size.height;
       path.lineTo(t * size.width, y);
     }
     canvas.drawPath(path, paint);
@@ -165,7 +165,7 @@ class _MotionPainter extends CustomPainter {
     final circlePaint = Paint()..color = color;
     final circleX = animationValue * size.width;
     final circleY =
-        size.height - easing.value.transform(animationValue) * size.height;
+        size.height - curve.value.transform(animationValue) * size.height;
     canvas.drawCircle(Offset(circleX, circleY), 6, circlePaint);
   }
 
