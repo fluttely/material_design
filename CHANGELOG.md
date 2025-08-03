@@ -4,6 +4,33 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adherves to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.20.2
+
+### 📚 Major Documentation Overhaul & API Refinement
+
+- **Complete README.md Rewrite**: The project's `README.md` has been completely overhauled to serve as a comprehensive design system guide.
+  - **Enhanced Onboarding**: Introduces foundational design system concepts like token hierarchy, style tokens, and design philosophy to improve developer onboarding.
+  - **Improved Examples**: Features new, real-world examples for building consistent components and responsive layouts using the token system.
+  - **Clearer Token Reference**: Re-structured the token reference tables for better readability and quick lookups.
+  - **Design-Centric Language**: Adopts a more professional, design-system-oriented language to better bridge the gap between design and development.
+
+### 🏗️ Architectural Refinements
+
+- **Semantic API Improvement**: Refactored the core shape value definitions for better clarity and alignment with design terminology.
+  - **`M3RadiusValues` -> `M3Corners`**: Renamed the internal `M3RadiusValues` class to `M3Corners` to more accurately describe its purpose (defining corner radius values).
+  - **Updated Documentation**: All related inline documentation has been updated to reflect the new, more intuitive naming.
+  - This is a non-breaking internal change that improves code maintainability and readability.
+
+### 📊 Impact Summary
+
+- **Documentation Quality**: A monumental improvement in documentation quality, transforming the README into a valuable learning resource.
+- **Developer Experience**: Significantly improved developer onboarding and a clearer explanation of the package's philosophy and architecture.
+- **Code Clarity**: Enhanced internal code clarity with more semantic naming for core shape tokens.
+
+**Recommended Version Bump: MINOR (0.20.2 → 0.21.0)**
+
+This release introduces a major documentation overhaul and internal API refinements that significantly enhance developer experience and code clarity without introducing breaking changes.
+
 ## 0.20.1
 
 ### 🔄 Example Application Migration
