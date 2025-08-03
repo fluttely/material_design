@@ -139,7 +139,8 @@ abstract final class M3Shadows {
   ///
   /// **Shadow properties**:
   /// - **Layer 1**: Definition shadow (offset: 2dp, blur: 4dp)
-  /// - **Layer 2**: Maximum ambient shadow (offset: 4dp, blur: 12dp, spread: 3dp)
+  /// - **Layer 2**: Maximum ambient shadow (offset: 4dp, blur: 12dp,
+  ///   spread: 3dp)
   /// {@endtemplate}
   static const List<BoxShadow> level5 = [
     BoxShadow(
@@ -228,12 +229,12 @@ enum M3ShadowToken implements IM3Token<List<BoxShadow>> {
 
   /// Returns a shadow token for a given M3ElevationToken.
   /// This method now delegates the logic to fromElevationValue.
-  factory M3ShadowToken.fromElevation(IM3ElevationToken elevation) =>
-      M3ShadowToken.fromElevationValue(elevation.value);
+  factory M3ShadowToken.fromElevationToken(IM3ElevationToken elevation) =>
+      M3ShadowToken.fromElevation(elevation.value);
 
   /// Returns a shadow token for a given elevation value in dp.
   /// This method contains the core logic and is the single source of truth.
-  factory M3ShadowToken.fromElevationValue(double value) => switch (value) {
+  factory M3ShadowToken.fromElevation(double value) => switch (value) {
         >= 12 => level5,
         >= 8 => level4,
         >= 6 => level3,

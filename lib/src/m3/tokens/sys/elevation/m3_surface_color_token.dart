@@ -23,12 +23,11 @@ enum M3SurfaceColorToken implements IM3ContextualToken<Color> {
   const M3SurfaceColorToken(this._elevation);
 
   /// Creates a surface color token from an elevation token interface.
-  factory M3SurfaceColorToken.fromElevation(IM3ElevationToken elevation) =>
-      M3SurfaceColorToken.fromElevationValue(elevation.value);
+  factory M3SurfaceColorToken.fromElevationToken(IM3ElevationToken elevation) =>
+      M3SurfaceColorToken.fromElevation(elevation.value);
 
   /// Creates a surface color token from an elevation value.
-  factory M3SurfaceColorToken.fromElevationValue(double value) =>
-      switch (value) {
+  factory M3SurfaceColorToken.fromElevation(double value) => switch (value) {
         >= 12 => level5,
         >= 8 => level4,
         >= 6 => level3,
@@ -46,5 +45,5 @@ enum M3SurfaceColorToken implements IM3ContextualToken<Color> {
 
   @override
   Color resolve(BuildContext context) =>
-      M3SurfaceTint.fromElevation(context, _elevation);
+      M3SurfaceTint.fromElevationToken(context, _elevation);
 }

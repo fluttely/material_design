@@ -74,8 +74,8 @@ abstract final class M3RadiusValues {
 
   /// Large corner radius (16dp).
   ///
-  /// Used for prominent components that need enhanced visual hierarchy.
-  /// Creates a friendly, approachable appearance while maintaining professionalism.
+  /// Used for prominent components that need enhanced visual hierarchy. Creates a
+  /// friendly, approachable appearance while maintaining professionalism.
   ///
   /// **Common use cases:**
   /// - Prominent cards and hero sections
@@ -661,12 +661,12 @@ enum M3BorderRadiusToken implements IM3Token<BorderRadius> {
 
   /// Returns the corresponding [M3RadiusToken] for this border radius.
   ///
-  /// This getter provides access to the underlying radius token, allowing
-  /// for consistent radius values across different shape abstractions.
+  /// This getter provides access to the underlying radius token, allowing for
+  /// consistent radius values across different shape abstractions.
   ///
   /// Example:
   /// ```dart
-  /// final radius = M3BorderRadiusToken.medium.borderRadius.radius.value; // Returns M3RadiusToken.medium
+  /// final radius = M3BorderRadiusToken.medium.radius; // Returns M3RadiusToken.medium
   /// ```
   M3RadiusToken get radius {
     return switch (this) {

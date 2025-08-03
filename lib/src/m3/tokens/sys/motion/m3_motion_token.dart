@@ -94,7 +94,56 @@ abstract final class M3MotionCurves {
 /// See: https://m3.material.io/styles/motion/easing-and-duration/tokens-specs
 class M3MotionScheme {
   /// Creates a motion scheme with a specific duration and easing.
-  const M3MotionScheme(this.duration, this.curve);
+  const M3MotionScheme({
+    required this.duration,
+    required this.curve,
+  });
+
+  /// The total time the animation will take.
+  final Duration duration;
+
+  /// The easing easing for the animation.
+  final Curve curve;
+
+  /// Creates a [Tween] for this motion scheme, animating between [begin] and
+  /// [end].
+  ///
+  /// This is a convenience method for creating a [CurveTween] that can be
+  /// chained with another tween (like [Tween<double>]) and driven by an
+  /// [AnimationController].
+  ///
+  /// Example:
+  /// ```dart
+  /// myAnimation = controller.drive(
+  ///   M3MotionToken.emphasized.asTween(begin: 0.0, end: 1.0),
+  /// );
+  /// ```
+  Animatable<T> asTween<T>({required T begin, required T end}) {
+    return Tween<T>(begin: begin, end: end).chain(CurveTween(curve: curve));
+  }
+}
+
+// Copyright 2024 The Flutter Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+/// Represents a Material Design 3 motion scheme, combining duration and easing.
+///
+/// This class encapsulates the two core components of an M3 animation:
+/// - [duration]: How long the animation runs.
+/// - [curve]: The easing easing that defines the rate of change over time.
+///
+/// While Material Design 3 specifies duration and easing tokens separately,
+/// this class provides a convenient way to group them for direct use in
+/// Flutter animations.
+///
+/// See: https://m3.material.io/styles/motion/easing-and-duration/tokens-specs
+class M3MotionSchemeToken {
+  /// Creates a motion scheme with a specific duration and easing.
+  const M3MotionSchemeToken({
+    required this.duration,
+    required this.curve,
+  });
 
   /// The total time the animation will take.
   final M3MotionDurationToken duration;
@@ -128,22 +177,22 @@ abstract final class M3Motions {
   /// Emphasized motion for elements that are on-screen at the start and end.
   /// Duration: `long2` (500ms). Curve: `emphasized`.
   static const emphasized = M3MotionScheme(
-    M3MotionDurationToken.long2,
-    M3MotionCurveToken.emphasized,
+    duration: M3MotionDurations.long2,
+    curve: M3MotionCurves.emphasized,
   );
 
   /// Emphasized motion for elements that are entering the screen.
   /// Duration: `long1` (450ms). Curve: `emphasizedDecelerate`.
   static const emphasizedIncoming = M3MotionScheme(
-    M3MotionDurationToken.long1,
-    M3MotionCurveToken.emphasizedDecelerate,
+    duration: M3MotionDurations.long1,
+    curve: M3MotionCurves.emphasizedDecelerate,
   );
 
   /// Emphasized motion for elements that are exiting the screen.
   /// Duration: `short3` (150ms). Curve: `emphasizedAccelerate`.
   static const emphasizedOutgoing = M3MotionScheme(
-    M3MotionDurationToken.short3,
-    M3MotionCurveToken.emphasizedAccelerate,
+    duration: M3MotionDurations.short3,
+    curve: M3MotionCurves.emphasizedAccelerate,
   );
 
   // --- Standard Motion Tokens ---
@@ -152,22 +201,22 @@ abstract final class M3Motions {
   /// Standard motion for elements that are on-screen at the start and end.
   /// Duration: `medium2` (300ms). Curve: `standard`.
   static const standard = M3MotionScheme(
-    M3MotionDurationToken.medium2,
-    M3MotionCurveToken.standard,
+    duration: M3MotionDurations.medium2,
+    curve: M3MotionCurves.standard,
   );
 
   /// Standard motion for elements that are entering the screen.
   /// Duration: `medium1` (250ms). Curve: `standardDecelerate`.
   static const standardIncoming = M3MotionScheme(
-    M3MotionDurationToken.medium1,
-    M3MotionCurveToken.standardDecelerate,
+    duration: M3MotionDurations.medium1,
+    curve: M3MotionCurves.standardDecelerate,
   );
 
   /// Standard motion for elements that are exiting the screen.
   /// Duration: `short4` (200ms). Curve: `standardAccelerate`.
   static const standardOutgoing = M3MotionScheme(
-    M3MotionDurationToken.short4,
-    M3MotionCurveToken.standardAccelerate,
+    duration: M3MotionDurations.short4,
+    curve: M3MotionCurves.standardAccelerate,
   );
 
   // --- Utility Motion Token ---
@@ -176,8 +225,8 @@ abstract final class M3Motions {
   /// useful for specific cases.
   /// Duration: `short3` (150ms). Curve: `linear`.
   static const linear = M3MotionScheme(
-    M3MotionDurationToken.short3,
-    M3MotionCurveToken.linear,
+    duration: M3MotionDurations.short3,
+    curve: M3MotionCurves.linear,
   );
 }
 
@@ -321,55 +370,76 @@ enum M3MotionCurveToken implements IM3Token<Curve> {
 /// These tokens provide standardized duration and easing values for creating
 /// consistent and natural-feeling animations across the application.
 ///
-/// This class provides pre-combined [M3MotionScheme]s for convenience, built
+/// This class provides pre-combined [M3MotionSchemeToken]s for convenience, built
 /// from the granular [M3MotionDurationToken].value and [M3MotionCurveToken]
 /// tokens.
 ///
 /// See: https://m3.material.io/styles/motion/easing-and-duration/applying-easing-and-duration
-enum M3MotionToken implements IM3Token<M3MotionScheme> {
+enum M3MotionToken implements IM3Token<M3MotionSchemeToken> {
   // --- Emphasized Motion Tokens ---
   // For transitions of large-scale elements and hero moments.
 
   /// Emphasized motion for elements that are on-screen at the start and end.
   /// Duration: `long2` (500ms). Curve: `emphasized`.
-  emphasized(M3Motions.emphasized),
+  emphasized(M3MotionSchemeToken(
+    duration: M3MotionDurationToken.long2,
+    curve: M3MotionCurveToken.emphasized,
+  )),
 
   /// Emphasized motion for elements that are entering the screen.
   /// Duration: `long1` (450ms). Curve: `emphasizedDecelerate`.
-  emphasizedIncoming(M3Motions.emphasizedIncoming),
+  emphasizedIncoming(M3MotionSchemeToken(
+    duration: M3MotionDurationToken.long1,
+    curve: M3MotionCurveToken.emphasizedDecelerate,
+  )),
 
   /// Emphasized motion for elements that are exiting the screen.
   /// Duration: `short3` (150ms). Curve: `emphasizedAccelerate`.
-  emphasizedOutgoing(M3Motions.emphasizedOutgoing),
+  emphasizedOutgoing(M3MotionSchemeToken(
+    duration: M3MotionDurationToken.short3,
+    curve: M3MotionCurveToken.emphasizedAccelerate,
+  )),
 
   // --- Standard Motion Tokens ---
   // For standard, functional transitions of smaller components.
 
   /// Standard motion for elements that are on-screen at the start and end.
   /// Duration: `medium2` (300ms). Curve: `standard`.
-  standard(M3Motions.standard),
+  standard(M3MotionSchemeToken(
+    duration: M3MotionDurationToken.medium2,
+    curve: M3MotionCurveToken.standard,
+  )),
 
   /// Standard motion for elements that are entering the screen.
   /// Duration: `medium1` (250ms). Curve: `standardDecelerate`.
-  standardIncoming(M3Motions.standardIncoming),
+  standardIncoming(M3MotionSchemeToken(
+    duration: M3MotionDurationToken.medium1,
+    curve: M3MotionCurveToken.standardDecelerate,
+  )),
 
   /// Standard motion for elements that are exiting the screen.
   /// Duration: `short4` (200ms). Curve: `standardAccelerate`.
-  standardOutgoing(M3Motions.standardOutgoing),
+  standardOutgoing(M3MotionSchemeToken(
+    duration: M3MotionDurationToken.short4,
+    curve: M3MotionCurveToken.standardAccelerate,
+  )),
 
   // --- Utility Motion Token ---
 
   /// A linear interpolation scheme. Not part of the core M3 token set, but
   /// useful for specific cases.
   /// Duration: `short3` (150ms). Curve: `linear`.
-  linear(M3Motions.linear);
+  linear(M3MotionSchemeToken(
+    duration: M3MotionDurationToken.short3,
+    curve: M3MotionCurveToken.linear,
+  ));
 
-  /// Creates a motion token with the specified [M3MotionScheme].
+  /// Creates a motion token with the specified [M3MotionSchemeToken].
   const M3MotionToken(this.value);
 
   /// The motion scheme value, containing both duration and easing curve.
   @override
-  final M3MotionScheme value;
+  final M3MotionSchemeToken value;
 
   /// Gets the duration component of this motion token.
   M3MotionDurationToken get duration {
