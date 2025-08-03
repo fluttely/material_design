@@ -5,33 +5,39 @@
 [![Flutter Version](https://img.shields.io/badge/flutter-%3E%3D3.0.0-blue)](https://flutter.dev)
 [![Platform](https://img.shields.io/badge/platform-flutter-blue)](https://flutter.dev)
 
-🎨 **The most complete Material Design 3 implementation for Flutter**
+🎨 **A complete Material Design 3 design system implementation for Flutter**
 
-A comprehensive, type-safe toolkit that brings the full power of Material Design 3 to Flutter apps. Build pixel-perfect UIs with enhanced developer experience through enum-based design tokens, comprehensive documentation, and zero learning curve.
-
-Transform your Flutter development with production-ready design tokens that eliminate guesswork and ensure consistency across your entire application.
+A comprehensive design system toolkit that brings Google's Material Design 3 specifications to Flutter through a carefully architected token system. This package provides production-ready design foundations, styles, and components following the official Material Design 3 guidelines.
 
 ## 🚀 Live Demo & Resources
 
-**[🌟 View Interactive Demo](https://fluttely.github.io/material_design/)** - Explore all design tokens with live examples
+**[🌟 Interactive Design System Explorer](https://fluttely.github.io/material_design/)** - Explore all tokens with live examples
 
-**[📚 Material Design 3 Guidelines](https://m3.material.io/)** - Official documentation
+**[📚 Material Design 3 Guidelines](https://m3.material.io/)** - Official specification
 
-## ✨ Why material_design?
+**[🎨 Design Tokens Spec](https://m3.material.io/foundations/design-tokens/overview)** - Understanding tokens
 
-| Feature                  | Flutter Default    | material_design           |
-| ------------------------ | ------------------ | ------------------------- |
-| **Type Safety**          | ❌ Magic numbers   | ✅ Compile-time checks    |
-| **Design Tokens**        | ❌ Manual values   | ✅ Official M3 tokens     |
-| **Consistency**          | ❌ Prone to errors | ✅ Guaranteed consistency |
-| **Developer Experience** | ❌ Look up values  | ✅ IntelliSense support   |
-| **Performance**          | ✅ Good            | ✅ Zero runtime overhead  |
+## ✨ Why Use This Package?
+
+### For Design System Experts
+
+- **Specification Compliance**: 100% aligned with Material Design 3 tokens
+- **Token Architecture**: Properly structured design tokens hierarchy
+- **System Consistency**: Enforced through compile-time constants
+- **Design-Development Bridge**: Direct mapping from design tools to code
+
+### For Flutter Developers
+
+- **No Magic Numbers**: Replace `EdgeInsets.all(16)` with `M3Spacings.space16`
+- **IntelliSense Support**: Discover available options as you type
+- **Zero Learning Curve**: Uses familiar Flutter patterns
+- **Maintainable Code**: Update design system values in one place
 
 ## 📦 Installation
 
 ```yaml
 dependencies:
-  material_design: ^0.20.1
+  material_design: ^0.20.2
 ```
 
 ```bash
@@ -40,138 +46,174 @@ flutter pub add material_design
 
 ## 🎯 Quick Start
 
-Choose the API style that best fits your needs:
-
-### Recommended: Use Constants (Flutter Standard)
-
 ```dart
 import 'package:material_design/material_design.dart';
 
+// Using design tokens in your widgets
 Container(
-  padding: const EdgeInsets.all(M3Spacings.space16),
+  padding: const EdgeInsets.all(M3Spacings.space16),  // Spacing token
   decoration: const BoxDecoration(
-    color: Colors.blue,
-    borderRadius: M3BorderRadii.medium,
-    boxShadow: M3Shadows.level5,
+    borderRadius: M3BorderRadii.medium,               // Shape style token
+    boxShadow: M3Shadows.level3,                     // Elevation style
   ),
   child: const Text(
     'Hello Material 3',
-    style: M3TextStyles.headlineMedium,
+    style: M3TextStyles.headlineMedium,              // Typography style
   ),
 ),
 ```
 
-### Alternative: Typed Tokens (Enhanced Developer Experience)
+## 📐 Design Foundations
+
+### Understanding Token Hierarchy
+
+Material Design 3 organizes design decisions into a clear hierarchy:
+
+#### 1. **Atomic Tokens** (Raw Values)
+
+The smallest units of design decisions:
 
 ```dart
-final elevation = M3ElevationToken.level5;
+// Raw spacing values (4dp grid)
+M3Spacings.space4   // 4.0
+M3Spacings.space8   // 8.0
+M3Spacings.space16  // 16.0
 
-Container(
-  padding: M3EdgeInsets.all(M3SpacingToken.space16),
-  decoration: M3BoxDecoration(
-    color: elevation.surfaceColor(context),
-    borderRadius: M3BorderRadiusToken.medium,
-    boxShadow: M3ShadowToken.fromElevation(elevation),
-  ),
-  child: Text(
-    'Hello Material 3',
-    style: Theme.of(context).textTheme.headlineMedium,
-  ),
-),
+// Raw corner values
+M3Corners.small   // 8.0
+M3Corners.medium  // 12.0
+M3Corners.large   // 16.0
 ```
 
-> 💡 **Which approach to choose?**
->
-> - **Constants**: Familiar Flutter syntax
-> - **Typed tokens**: Best developer experience, compile-time safety
+#### 2. **Composite Tokens** (Applied Values)
 
-## 📐 Design Token System
+Combinations of atomic tokens:
+
+```dart
+// Border radius (applies radius to all corners)
+M3BorderRadii.medium  // BorderRadius.circular(12)
+
+// Complete borders
+M3Borders.thin  // Border with 1dp width
+```
+
+#### 3. **Style Tokens** (Design Decisions)
+
+Higher-level design applications:
+
+```dart
+// Elevation creates both shadow and surface tint
+M3Shadows.level3      // Elevation level 3 shadows
+M3Elevations.level3   // Elevation level 3 value
+
+// Motion combines duration and easing
+M3Motions.emphasized  // 500ms with emphasized easing
+```
+
+### Spacing Foundation
+
+Material Design 3 uses a **4dp grid system** for consistent spatial relationships:
+
+```dart
+// Spacing scale (multiples of 4dp)
+Padding(
+  padding: const EdgeInsets.all(M3Spacings.space16),    // 16dp
+  child: Column(
+    children: [
+      Text('Title'),
+      SizedBox(height: M3Spacings.space8),              // 8dp
+      Text('Subtitle'),
+    ],
+  ),
+)
+
+// Responsive margins based on screen size
+Container(
+  margin: EdgeInsets.symmetric(
+    horizontal: M3Margins.compactScreen,  // 16dp on mobile
+  ),
+)
+```
 
 ### Shape System
 
-Three levels of shape tokens for maximum flexibility:
+The shape system provides three levels of abstraction:
 
 ```dart
-// High-level: Ready-to-use shapes
-Card(
-  shape: M3Shapes.medium, // RoundedRectangleBorder
-)
-
-// Mid-level: Border radius for decorations
-Container(
-  decoration: BoxDecoration(
-    borderRadius: M3BorderRadii.large, // BorderRadius
-  ),
-)
-
-// Low-level: Individual radius values
+// Level 1: Raw radius values (Radius objects)
 Container(
   decoration: BoxDecoration(
     borderRadius: BorderRadius.only(
-      topLeft: M3Radii.extraLarge, // Radius
+      topLeft: M3Radii.large,
+      topRight: M3Radii.large,
     ),
   ),
 )
-```
 
-### Spacing & Layout
-
-Consistent spacing based on Material Design's 4dp grid system:
-
-```dart
-// Spacing for padding/margins
-Padding(
-  padding: M3EdgeInsets.all(M3SpacingToken.space24),
-)
-
-// Responsive margins
-Container(
-  margin: EdgeInsets.symmetric(
-    horizontal: M3Margins.compactScreen,
-  ),
-)
-
-// Layout gaps
-Row(
-  children: [
-    Widget1(),
-    M3Gap(M3SpacingToken.space16),
-    Widget2(),
-  ],
-)
-```
-
-### Motion & Animation
-
-```dart
-AnimatedContainer(
-  duration: M3Motions.emphasized.duration,
-  curve: M3Motions.emphasized.curve,
-  // ... other properties
-),
-```
-
-### Elevation & Shadows
-
-```dart
-final elevation = M3ElevationToken.level3;
-
+// Level 2: Border radius (all corners)
 Container(
   decoration: BoxDecoration(
-    color: elevation.surfaceColor(context),
-    boxShadow: elevation.shadows,
+    borderRadius: M3BorderRadii.medium,
+  ),
+)
+
+// Level 3: Complete shapes (for Material widgets)
+Card(
+  shape: M3Shapes.medium,
+  child: content,
+)
+```
+
+### Motion Foundation
+
+Motion tokens ensure consistent animation behavior:
+
+```dart
+// Standard transitions
+AnimatedContainer(
+  duration: M3MotionDurations.medium,      // 300ms
+  curve: M3MotionCurves.emphasized,       // Emphasized easing
+  // ...
+)
+
+// Complete motion specifications
+AnimatedOpacity(
+  duration: M3Motions.standard.duration,  // 300ms
+  curve: M3Motions.standard.curve,        // Standard easing
+  opacity: isVisible ? 1.0 : 0.0,
+)
+```
+
+### Elevation System
+
+Elevation in Material Design 3 combines shadows and surface tint:
+
+```dart
+// Using elevation values
+Material(
+  elevation: M3Elevations.level2,  // 3.0dp elevation
+  child: content,
+)
+
+// Using shadow tokens directly
+Container(
+  decoration: BoxDecoration(
+    color: Theme.of(context).colorScheme.surface,
+    boxShadow: M3Shadows.level3,  // Level 3 shadow list
   ),
 )
 ```
 
-## 💻 Real-World Example
+## 💻 Real-World Examples
+
+### Building a Consistent Card Component
 
 ```dart
-class M3Card extends StatelessWidget {
+class DesignSystemCard extends StatelessWidget {
   final Widget child;
   final VoidCallback? onTap;
 
-  const M3Card({
+  const DesignSystemCard({
     required this.child,
     this.onTap,
     super.key,
@@ -179,129 +221,264 @@ class M3Card extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final elevation = M3ElevationToken.level1;
-
-    return InkWell(
-      onTap: onTap,
+    return Material(
+      // Shape style token
       borderRadius: M3BorderRadii.medium,
-      child: Container(
-        padding: M3EdgeInsets.all(M3SpacingToken.space16),
-        decoration: M3BoxDecoration(
-          color: elevation.surfaceColor(context),
-          borderRadius: M3BorderRadiusToken.medium,
-          boxShadow: M3ShadowToken.fromElevation(elevation),
+      // Elevation token
+      elevation: M3Elevations.level1,
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: M3BorderRadii.medium,
+        child: Padding(
+          // Spacing foundation token
+          padding: const EdgeInsets.all(M3Spacings.space16),
+          child: child,
         ),
-        child: child,
       ),
     );
   }
 }
 ```
 
-## 📊 Complete Token Reference
+### Responsive Layout with Design Tokens
 
-| Token Category  | Enum Class                 | Constants Class         | Description                |
-| --------------- | -------------------------- | ----------------------- | -------------------------- |
-| **Layout**      |
-| Spacing         | `M3SpacingToken`           | `M3Spacings`            | 4dp grid-based spacing     |
-| Margin          | `M3MarginToken`            | `M3Margins`             | Responsive margin values   |
-| Spacer          | `M3SpacerToken`            | `M3Spacers`             | Spacer widget helpers      |
-| **Shape**       |
-| Radius          | `M3RadiusToken`            | `M3Radii`               | Individual radius values   |
-| Border Radius   | `M3BorderRadiusToken`      | `M3BorderRadii`         | Corner radius values       |
-| Shape           | `M3ShapeToken`             | `M3Shapes`              | Complete shape definitions |
-| **Border**      |
-| Border Width    | `M3BorderWidthToken`       | `M3BorderWidths`        | Border thickness values    |
-| Border Side     | `M3BorderSideToken`        | `M3BorderSides`         | Individual border sides    |
-| Border          | `M3BorderToken`            | `M3Borders`             | Complete border configs    |
-| **Elevation**   |
-| Elevation       | `M3ElevationToken`         | `M3Elevations`          | Surface elevation levels   |
-| Shadow          | `M3ShadowToken`            | `M3Shadows`             | Box shadow configurations  |
-| Surface Color   | `M3SurfaceColorToken`      | -                       | Dynamic surface colors\*   |
-| **Motion**      |
-| Duration        | `M3MotionDurationToken`    | `M3MotionDurations`     | Animation timings          |
-| Curve           | `M3MotionCurveToken`       | `M3MotionCurves`        | Animation easing curves    |
-| Motion          | `M3MotionToken`            | `M3Motions`             | Complete motion configs    |
-| **Typography**  |
-| Text Style      | `M3TextStyleToken`         | `M3TextStyles`          | Text style definitions     |
-| **Interactive** |
-| Opacity         | `M3OpacityToken`           | `M3Opacities`           | General opacity values     |
-| State Layer     | `M3StateLayerOpacityToken` | `M3StateLayerOpacities` | Interactive state opacity  |
-| **Responsive**  |
-| Breakpoint      | `M3BreakpointToken`        | `M3Breakpoints`         | Responsive breakpoints     |
-| **Other**       |
-| Icon Size       | `M3IconSizeToken`          | `M3IconSizes`           | Standard icon dimensions   |
-| Visual Density  | `M3VisualDensityToken`     | `M3VisualDensities`     | UI density configurations  |
-| Z-Index         | `M3ZIndexToken`            | `M3ZIndexes`            | Stacking order values      |
+```dart
+class ResponsiveScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
 
-\*Note: `M3SurfaceColorToken` values are calculated dynamically based on the current theme.
+    // Use breakpoint tokens for responsive design
+    final isCompact = screenWidth < M3Breakpoints.compact;
+    final padding = isCompact
+        ? M3Spacings.space16
+        : M3Spacings.space24;
 
-## ⚡ Performance
+    return Scaffold(
+      body: Padding(
+        padding: EdgeInsets.all(padding),
+        child: Column(
+          spacing: M3Spacings.space16,  // Consistent spacing
+          children: [
+            // Header with typography scale
+            Text(
+              'Design System Demo',
+              style: M3TextStyles.headlineLarge,
+            ),
+            // Content with proper margins
+            Container(
+              margin: EdgeInsets.symmetric(
+                horizontal: M3Margins.getMargin(context),
+              ),
+              child: content,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+```
 
-- **Zero runtime overhead**: Tokens compile to constants
-- **Tree-shakeable**: Only includes what you use
-- **Optimized for hot reload**: Instant design updates
-- **Const constructors**: Maximum performance for rebuild-heavy widgets
+## 🎨 Design Token Philosophy
+
+### Why Design Tokens Matter
+
+1. **Single Source of Truth**: Change a value once, update everywhere
+2. **Design-Dev Alignment**: Same language between designers and developers
+3. **Consistency**: Enforced through the type system
+4. **Scalability**: Easy to maintain and extend
+5. **Documentation**: Self-documenting code through meaningful names
+
+### Token Naming Convention
+
+Our tokens follow Material Design 3's semantic naming:
+
+```
+M3[Category][Subcategory].descriptor
+```
+
+Examples:
+
+- `M3Spacings.space16` - 16dp from spacing category
+- `M3BorderRadii.medium` - Medium border radius
+- `M3Shadows.level3` - Level 3 elevation shadow
+
+## ⚡ Performance Considerations
+
+- **Compile-time Constants**: All tokens are const values
+- **Tree-shaking**: Only included tokens are bundled
+- **Zero Runtime Overhead**: No performance penalty
+- **Hot Reload Compatible**: Instant design updates
 
 ## 🔄 Migration Guide
 
-### From Flutter's Built-in Material
+### From Magic Numbers
 
 ```dart
-// Before
+// Before: Magic numbers everywhere
 Container(
   padding: const EdgeInsets.all(16.0),
-  decoration: const BoxDecoration(
+  margin: const EdgeInsets.symmetric(horizontal: 24.0),
+  decoration: BoxDecoration(
     borderRadius: BorderRadius.circular(12.0),
-    boxShadow: [
-      BoxShadow(
-        color: Colors.black.withOpacity(0.1),
-        blurRadius: 8,
-        offset: Offset(0, 2),
-      ),
-    ],
   ),
 )
 
-// After
+// After: Self-documenting design tokens
 Container(
   padding: const EdgeInsets.all(M3Spacings.space16),
-  decoration: const BoxDecoration(
+  margin: const EdgeInsets.symmetric(horizontal: M3Spacings.space24),
+  decoration: BoxDecoration(
     borderRadius: M3BorderRadii.medium,
-    boxShadow: M3Shadows.level2,
   ),
 )
 ```
+
+### From Custom Design Systems
+
+If you have an existing design system, map your values to Material Design 3 tokens:
+
+```dart
+// Your old system
+class AppSpacing {
+  static const double small = 8;
+  static const double medium = 16;
+  static const double large = 24;
+}
+
+// Migration mapping
+class AppSpacing {
+  static const double small = M3Spacings.space8;
+  static const double medium = M3Spacings.space16;
+  static const double large = M3Spacings.space24;
+}
+```
+
+## 📊 Complete Token Reference
+
+### Foundation Tokens
+
+| Category           | Constants Class     | Purpose                      | Example Values                    |
+| ------------------ | ------------------- | ---------------------------- | --------------------------------- |
+| **Spacing**        | `M3Spacings`        | 4dp grid system              | 0, 2, 4, 8, 12, 16, 24, 32, 48dp  |
+| **Margin**         | `M3Margins`         | Responsive container margins | 16dp, 24dp, 32dp, 40dp, 48dp      |
+| **Spacer**         | `M3Spacers`         | Pre-built spacer widgets     | horizontal/vertical spacers       |
+| **Motion**         | `M3MotionDurations` | Animation timing             | 50ms, 100ms, 300ms, 500ms, 1000ms |
+| **Motion Curve**   | `M3MotionCurves`    | Animation easing curves      | emphasized, standard, linear      |
+| **Motion**         | `M3Motions`         | Combined duration + curve    | emphasized, standard, linear      |
+| **Breakpoint**     | `M3Breakpoints`     | Responsive breakpoints       | 0, 600, 840, 1200, 1600dp         |
+| **Opacity**        | `M3Opacities`       | General transparency values  | 0.04, 0.08, 0.12, 0.38, 0.87      |
+| **Visual Density** | `M3VisualDensities` | UI density configurations    | -3, -2, -1, 0, comfortable        |
+| **Z-Index**        | `M3ZIndexes`        | Stacking order values        | -1, 0, 10, 100, 1000, 9999        |
+
+### Style Tokens
+
+| Category          | Constants Class         | Purpose                        | Use Case                      |
+| ----------------- | ----------------------- | ------------------------------ | ----------------------------- |
+| **Radius**        | `M3Radii`               | Individual corner radius       | Corner rounding primitives    |
+| **Border Radius** | `M3BorderRadii`         | Complete border radius         | Container corner rounding     |
+| **Shape**         | `M3Shapes`              | Component border shapes        | Cards, buttons, dialogs       |
+| **Border Width**  | `M3BorderWidths`        | Border thickness values        | 0dp, 1dp, 2dp, 4dp            |
+| **Border Side**   | `M3BorderSides`         | Individual border sides        | Border configurations         |
+| **Border**        | `M3Borders`             | Complete border specifications | Outlined components           |
+| **Elevation**     | `M3Elevations`          | Surface elevation levels       | 0dp, 1dp, 3dp, 6dp, 8dp, 12dp |
+| **Shadow**        | `M3Shadows`             | Box shadow configurations      | Elevated surface shadows      |
+| **State Layer**   | `M3StateLayerOpacities` | Interactive state overlays     | Hover, focus, pressed states  |
+
+### Typography Tokens
+
+| Category       | Constants Class | Purpose                   | Example Scales                 |
+| -------------- | --------------- | ------------------------- | ------------------------------ |
+| **Text Style** | `M3TextStyles`  | Complete typography scale | Display, Headline, Body, Label |
+
+### Component Support Tokens
+
+| Category      | Constants Class | Purpose                      | Example Values               |
+| ------------- | --------------- | ---------------------------- | ---------------------------- |
+| **Icon Size** | `M3IconSizes`   | Standardized icon dimensions | 18dp, 24dp, 36dp, 40dp, 48dp |
+
+### Utility Classes
+
+| Category          | Class Name                | Purpose                       | Usage                          |
+| ----------------- | ------------------------- | ----------------------------- | ------------------------------ |
+| **EdgeInsets**    | `M3EdgeInsets`            | Type-safe padding/margin      | Enforces spacing tokens        |
+| **EdgeInsets**    | `M3EdgeInsetsDirectional` | Directional padding/margin    | RTL-aware spacing              |
+| **Padding**       | `M3Padding`               | Pre-configured padding widget | Consistent padding application |
+| **Gap**           | `M3Gap`                   | Spacing between flex children | Row/Column spacing             |
+| **Sliver**        | `M3Sliver`                | Sliver spacing utilities      | CustomScrollView spacing       |
+| **BorderRadius**  | `M3BorderRadius`          | Type-safe border radius       | Enforces radius tokens         |
+| **Border**        | `M3Border`                | Type-safe border creation     | Enforces border tokens         |
+| **BoxDecoration** | `M3BoxDecoration`         | Type-safe box decoration      | Enforces all style tokens      |
+
+### Dynamic Tokens
+
+| Category         | Class Name        | Purpose                | Behavior                          |
+| ---------------- | ----------------- | ---------------------- | --------------------------------- |
+| **Surface Tint** | `M3SurfaceTint`\* | Dynamic surface colors | Calculated from theme + elevation |
+
+\*Note: Surface tint values are calculated dynamically based on the current theme and elevation level.
+
+### Responsive Utilities
+
+| Category       | Class Name               | Purpose                      | Features                        |
+| -------------- | ------------------------ | ---------------------------- | ------------------------------- |
+| **Builder**    | `M3ResponsiveBuilder`    | Responsive widget builder    | Rebuilds on size class change   |
+| **Value**      | `M3ResponsiveValue`      | Responsive value selection   | Different values per breakpoint |
+| **Visibility** | `M3ResponsiveVisibility` | Conditional visibility       | Show/hide based on screen size  |
+| **Grid**       | `M3ResponsiveGrid`       | Responsive grid layout       | Adaptive columns and spacing    |
+| **Scaffold**   | `M3ResponsiveScaffold`   | Adaptive navigation scaffold | Bottom nav → Rail → Drawer      |
+
+### Helper Classes
+
+| Category        | Class Name               | Purpose                      | Usage                           |
+| --------------- | ------------------------ | ---------------------------- | ------------------------------- |
+| **Screen Size** | `M3ScreenSize`           | Window size classification   | Compact, Medium, Expanded, etc. |
+| **Grid Config** | `M3ResponsiveGridConfig` | Grid layout configuration    | Columns, gutters, margins       |
+| **Navigation**  | `M3ResponsiveNavigation` | Navigation pattern selection | Determines nav type by size     |
+
+## 🎯 What is a Design System?
+
+A **design system** is a collection of reusable standards and guidelines that ensure consistency across digital products. It includes:
+
+- **Design Tokens**: The atomic values of your design system (colors, spacing, typography)
+- **Foundations**: Core design principles (layout, motion, interaction patterns)
+- **Styles**: Applied design decisions (elevation, shape, typography scales)
+- **Components**: Reusable UI elements built from tokens and styles
 
 ## 🤝 Contributing
 
-We welcome contributions! Please read our [Contributing Guide](CONTRIBUTING.md) before submitting PRs.
+We welcome contributions from both design system experts and Flutter developers!
 
-### Development Setup
+### Areas for Contribution
 
-```bash
-git clone https://github.com/fluttely/material_design.git
-cd material_design
-flutter pub get
-flutter test
-```
+- Additional composite tokens
+- Component implementations
+- Documentation improvements
+- Example applications
+- Design tool integrations
 
-## 📄 Changelog
+See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
-See [CHANGELOG.md](CHANGELOG.md) for version history and migration guides.
+## 📚 Further Reading
 
-## 📜 License
+- [Material Design 3 Specification](https://m3.material.io/)
+- [Design Tokens W3C Spec](https://www.w3.org/community/design-tokens/)
+- [Google's Design System Guide](https://design.google/library/design-system-governance/)
+
+## 📄 License
 
 This project is licensed under the BSD License - see the [LICENSE](LICENSE) file for details.
 
-## 🙏 Credits
+## 🙏 Acknowledgments
 
-- Material Design team at Google for the M3 specification
-- Flutter team for the excellent framework
+- Google Material Design Team for the M3 specification
+- Flutter Team for the excellent framework
+- Design Tokens Community Group for standardization efforts
 - All our [contributors](https://github.com/fluttely/material_design/graphs/contributors)
 
 ---
 
 <p align="center">
-  <strong>Made with ❤️ by the Flutter community</strong>
+  <strong>Building consistent, beautiful Flutter apps with Material Design 3</strong>
 </p>

@@ -1,6 +1,6 @@
 name: material_design
 description: "The fastest path to consistent Material Design UIs in Flutter. Build beautiful apps aligned with official metrics and guidelines using a powerful set of ready-to-use design tokens and helper widgets."
-version: 0.20.1
+version: 0.20.2
 # author: Kevin Kobori <https://www.linkedin.com/in/kevin-kobori/>
 homepage:
 repository: https://github.com/fluttely/material_design

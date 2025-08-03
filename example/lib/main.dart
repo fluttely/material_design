@@ -406,8 +406,7 @@ class _DemoHomePageState extends State<DemoHomePage>
   }
 
   /// Builds the main content area
-  Widget _buildMainContent(BuildContext context,
-      {required double padding}) {
+  Widget _buildMainContent(BuildContext context, {required double padding}) {
     return SingleChildScrollView(
       padding: EdgeInsets.all(padding),
       child: FadeTransition(

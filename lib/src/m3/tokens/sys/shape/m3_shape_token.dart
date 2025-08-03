@@ -1,13 +1,13 @@
 part of '../../../../../material_design.dart';
 
-/// Material Design 3 radius values in density-independent pixels (dp).
+/// Material Design 3 corner radius values in density-independent pixels (dp).
 ///
-/// This class defines the core radius values used throughout the Material
+/// This class defines the core corner radius values used throughout the Material
 /// Design 3 shape system. These values are carefully selected to provide
 /// optimal visual hierarchy and consistency across different components
 /// and interaction states.
 ///
-/// The radius values follow Material Design 3's shape system principles:
+/// The corner radius values follow Material Design 3's shape system principles:
 /// - **Progressive scaling**: Each step provides meaningful visual difference
 /// - **Semantic naming**: Names reflect size relationships and use cases
 /// - **Component compatibility**: Values work harmoniously across components
@@ -21,8 +21,8 @@ part of '../../../../../material_design.dart';
 /// - **Full (9999dp)**: Pill shapes and fully rounded elements
 ///
 /// Reference: https://m3.material.io/foundations/shape/shape-scale
-abstract final class M3RadiusValues {
-  const M3RadiusValues._();
+abstract final class M3Corners {
+  const M3Corners._();
 
   /// No corner radius (0dp).
   ///
@@ -152,7 +152,7 @@ abstract final class M3RadiusValues {
 /// used directly with Flutter's layout and decoration APIs to create
 /// consistent corner rounding throughout the application.
 ///
-/// Each [Radius] uses the circular constructor with values from [M3RadiusValues],
+/// Each [Radius] uses the circular constructor with values from [M3Corners],
 /// ensuring consistency with the Material Design 3 specification while
 /// providing type-safe access to radius values.
 ///
@@ -204,57 +204,56 @@ abstract final class M3Radii {
   ///
   /// Provides subtle corner softening for small components and
   /// precise interface elements that need minimal visual enhancement.
-  static const extraSmall = Radius.circular(M3RadiusValues.extraSmall);
+  static const extraSmall = Radius.circular(M3Corners.extraSmall);
 
   /// Small circular radius (8dp).
   ///
   /// The standard radius for buttons, chips, and small interactive
   /// elements. Balances visual appeal with functional clarity.
-  static const small = Radius.circular(M3RadiusValues.small);
+  static const small = Radius.circular(M3Corners.small);
 
   /// Medium circular radius (12dp).
   ///
   /// The most commonly used radius in Material Design 3. Optimal
   /// for cards, containers, and standard interface components.
-  static const medium = Radius.circular(M3RadiusValues.medium);
+  static const medium = Radius.circular(M3Corners.medium);
 
   /// Large circular radius (16dp).
   ///
   /// Used for prominent components requiring enhanced visual hierarchy
   /// and friendly, approachable appearance.
-  static const large = Radius.circular(M3RadiusValues.large);
+  static const large = Radius.circular(M3Corners.large);
 
   /// Large increased circular radius (20dp).
   ///
   /// Intermediate radius for components needing more emphasis than
   /// standard large but less than extra-large.
-  static const largeIncreased = Radius.circular(M3RadiusValues.largeIncreased);
+  static const largeIncreased = Radius.circular(M3Corners.largeIncreased);
 
   /// Extra large circular radius (28dp).
   ///
   /// Creates distinctive shapes for hero sections, large modals,
   /// and prominent brand elements.
-  static const extraLarge = Radius.circular(M3RadiusValues.extraLarge);
+  static const extraLarge = Radius.circular(M3Corners.extraLarge);
 
   /// Extra large increased circular radius (32dp).
   ///
   /// Maximum discrete radius for special emphasis and brand-specific
   /// interface elements requiring strong visual impact.
   static const extraLargeIncreased =
-      Radius.circular(M3RadiusValues.extraLargeIncreased);
+      Radius.circular(M3Corners.extraLargeIncreased);
 
   /// Extra extra large circular radius (48dp).
   ///
   /// The largest discrete radius value, reserved for unique creative
   /// elements and maximum visual emphasis scenarios.
-  static const extraExtraLarge =
-      Radius.circular(M3RadiusValues.extraExtraLarge);
+  static const extraExtraLarge = Radius.circular(M3Corners.extraExtraLarge);
 
   /// Full circular radius for pill shapes.
   ///
   /// Creates fully rounded ends that adapt to component dimensions.
   /// Perfect for floating action buttons, pill buttons, and search bars.
-  static const full = Radius.circular(M3RadiusValues.full);
+  static const full = Radius.circular(M3Corners.full);
 }
 
 /// Material Design 3 [BorderRadius] objects for consistent component rounding.
@@ -523,34 +522,34 @@ abstract final class M3Shapes {
 
 enum M3RadiusValueToken implements IM3Token<double> {
   /// No corner radius (0dp).
-  none(M3RadiusValues.none),
+  none(M3Corners.none),
 
   /// Extra small corner radius (4dp).
-  extraSmall(M3RadiusValues.extraSmall),
+  extraSmall(M3Corners.extraSmall),
 
   /// Small corner radius (8dp).
-  small(M3RadiusValues.small),
+  small(M3Corners.small),
 
   /// Medium corner radius (12dp).
-  medium(M3RadiusValues.medium),
+  medium(M3Corners.medium),
 
   /// Large corner radius (16dp).
-  large(M3RadiusValues.large),
+  large(M3Corners.large),
 
   /// Large increased corner radius (20dp).
-  largeIncreased(M3RadiusValues.largeIncreased),
+  largeIncreased(M3Corners.largeIncreased),
 
   /// Extra large corner radius (28dp).
-  extraLarge(M3RadiusValues.extraLarge),
+  extraLarge(M3Corners.extraLarge),
 
   /// Extra large increased corner radius (32dp).
-  extraLargeIncreased(M3RadiusValues.extraLargeIncreased),
+  extraLargeIncreased(M3Corners.extraLargeIncreased),
 
   /// Extra extra large corner radius (48dp).
-  extraExtraLarge(M3RadiusValues.extraExtraLarge),
+  extraExtraLarge(M3Corners.extraExtraLarge),
 
   /// Full corner radius, used for creating pill shapes.
-  full(M3RadiusValues.full);
+  full(M3Corners.full);
 
   const M3RadiusValueToken(this.value);
 
