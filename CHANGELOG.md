@@ -4,6 +4,22 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adherves to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.20.1
+
+### 🔄 Example Application Migration
+
+- **Complete Example Migration to Constants Classes**: Migrated entire example application from Enum Classes to Constants Classes for better consistency
+  - **Spacing Tokens**: Updated all `M3SpacingToken` usage to `M3Spacings` constants
+  - **Border Radius Tokens**: Migrated `M3BorderRadiusToken` to `M3BorderRadii` and `M3Radii` constants
+  - **Breakpoint Tokens**: Updated `M3BreakpointToken` to `M3Breakpoints` constants
+  - **Visual Density Tokens**: Migrated `M3VisualDensityToken` to `M3VisualDensities` constants
+  - **State Layer Opacity**: Updated `M3StateLayerOpacityToken` to `M3StateLayerOpacities` constants
+  - **Border Width Tokens**: Migrated `M3BorderWidthToken` to `M3BorderWidths` constants
+  - **Layout Utilities**: Replaced `M3Gap` and `M3Padding.all` with standard Flutter `SizedBox` and `Padding` widgets using constant values
+  - **EdgeInsets Migration**: Updated `M3EdgeInsets.all` to standard Flutter `EdgeInsets.all` with constant values
+  - **Method Signature Updates**: Updated component methods to use `double` parameters instead of token types where appropriate
+  - **Improved Example Consistency**: Example now follows the recommended Constants Class approach documented in README
+
 ## 0.20.0
 
 ### 🎯 Major Documentation & API Enhancement

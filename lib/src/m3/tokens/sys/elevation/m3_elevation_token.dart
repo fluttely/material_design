@@ -418,12 +418,12 @@ enum M3ElevationToken implements IM3ElevationToken {
 extension IM3ElevationTokenVisuals on IM3ElevationToken {
   /// The list of [BoxShadow]s that represent this elevation level.
   List<BoxShadow> get shadows => hasShadow
-      ? M3ShadowToken.fromElevation(this).value
+      ? M3ShadowToken.fromElevationToken(this).value
       : M3ShadowToken.level0.value;
 
   /// Calculates the surface color using Flutter's default tint overlay.
   Color surfaceColor(BuildContext context) =>
-      M3SurfaceTint.fromElevation(context, this);
+      M3SurfaceTint.fromElevationToken(context, this);
 
   /// Calculates surface color with a custom formula and tint color.
   ///

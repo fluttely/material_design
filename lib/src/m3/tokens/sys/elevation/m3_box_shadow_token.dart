@@ -229,12 +229,12 @@ enum M3ShadowToken implements IM3Token<List<BoxShadow>> {
 
   /// Returns a shadow token for a given M3ElevationToken.
   /// This method now delegates the logic to fromElevationValue.
-  factory M3ShadowToken.fromElevation(IM3ElevationToken elevation) =>
-      M3ShadowToken.fromElevationValue(elevation.value);
+  factory M3ShadowToken.fromElevationToken(IM3ElevationToken elevation) =>
+      M3ShadowToken.fromElevation(elevation.value);
 
   /// Returns a shadow token for a given elevation value in dp.
   /// This method contains the core logic and is the single source of truth.
-  factory M3ShadowToken.fromElevationValue(double value) => switch (value) {
+  factory M3ShadowToken.fromElevation(double value) => switch (value) {
         >= 12 => level5,
         >= 8 => level4,
         >= 6 => level3,
@@ -250,16 +250,4 @@ enum M3ShadowToken implements IM3Token<List<BoxShadow>> {
   // /// The color used for M3 shadows is black with 15% opacity.
   // /// 0x26 = 38 in decimal = 15% of 255 = 38/255 ≈ 0.149 opacity
   // Color get shadowColor => M3Shadows.color;
-
-  /// Retorna o valor constante correspondente ao token
-  static List<BoxShadow> getValue(M3ShadowToken token) {
-    return switch (token) {
-      M3ShadowToken.level0 => M3Shadows.level0,
-      M3ShadowToken.level1 => M3Shadows.level1,
-      M3ShadowToken.level2 => M3Shadows.level2,
-      M3ShadowToken.level3 => M3Shadows.level3,
-      M3ShadowToken.level4 => M3Shadows.level4,
-      M3ShadowToken.level5 => M3Shadows.level5,
-    };
-  }
 }

@@ -31,7 +31,7 @@ Transform your Flutter development with production-ready design tokens that elim
 
 ```yaml
 dependencies:
-  material_design: ^0.20.0
+  material_design: ^0.20.1
 ```
 
 ```bash
