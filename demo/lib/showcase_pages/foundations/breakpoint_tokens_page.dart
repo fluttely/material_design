@@ -193,7 +193,7 @@ class _BreakpointVisualizer extends StatelessWidget {
             // The main bar showing breakpoint ranges.
             Container(
               height: 32,
-              decoration: ShapeDecoration(shape: M3ShapeToken.full.value),
+              decoration: ShapeDecoration(shape: M3Shapes.full),
               clipBehavior: Clip.antiAlias,
               child: Row(
                 children: List.generate(breakpoints.length, (index) {

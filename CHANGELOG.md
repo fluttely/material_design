@@ -4,6 +4,107 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adherves to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.21.0-dev
+
+### 💥 BREAKING CHANGES: Major Architectural Overhaul
+
+This version introduces a major architectural refactoring of the token system to enhance type safety, simplify the API, and improve the overall developer experience. The token `enum` system has been replaced with direct `const` values and type-safe atomic wrapper classes.
+
+- **Token API Overhaul**: All `M3...Token` enums (e.g., `M3ShapeToken`, `M3TextStyleToken`, `M3BorderRadiusToken`) have been removed from the public API or made private.
+- **Direct `const` Access**: Token values are now accessed directly via `const` fields in new static classes (e.g., `M3Shapes.medium`, `M3TextStyle.bodyLarge`, `M3BorderRadii.small`). The `.value` accessor is no longer needed, resulting in cleaner and more performant code.
+- **New Atomic Wrapper Classes**: Introduced new classes that extend Flutter's core layout classes to enforce the use of design tokens at the lowest level:
+  - `M3TextStyle` extends `TextStyle`.
+  - `M3Radius` extends `Radius`.
+  - `M3BorderRadius` extends `BorderRadius`.
+  - `M3BorderSide` extends `BorderSide`.
+  - `M3RoundedRectangleBorder` extends `RoundedRectangleBorder`.
+  - `M3BoxShadow` extends `BoxShadow`.
+- **Class Renaming**: The `M3ShadowToken` enum has been replaced by the `M3Shadows` class, which provides direct access to shadow constants.
+
+### 🏗️ Architectural Refinements
+
+- **Atomic Design Principles**: The new atomic classes (`M3TextStyle`, `M3Radius`, etc.) enforce the design system at a more granular level, providing compile-time safety and preventing the use of arbitrary values.
+- **API Simplification**: The API is now more intuitive and requires less boilerplate. Direct access to `const` values makes the code cleaner and more aligned with Flutter's core widgets.
+- **Improved Type Safety**: The wrapper classes ensure that only valid Material Design tokens can be used, enhancing type safety and reducing potential runtime errors.
+
+### 🎯 Developer Experience Improvements
+
+- **Simplified API**: Code is significantly cleaner and more readable (e.g., `shape: M3Shapes.medium` instead of `shape: M3ShapeToken.medium.value`).
+- **Enhanced IDE Support**: The use of `const` values and strongly-typed classes provides better autocompletion and more reliable compile-time error checking in IDEs.
+- **Reduced Boilerplate**: The removal of the `.value` accessor and complex token chains reduces boilerplate and simplifies widget styling.
+
+### 🔧 Migration Guide
+
+**Shape Tokens:**
+Update `M3ShapeToken.token.value` to the direct `M3Shapes.token` constant.
+
+```dart
+// Before
+Card(shape: M3ShapeToken.large.value)
+
+// After
+Card(shape: M3Shapes.large)
+```
+
+**BorderRadius Tokens:**
+Replace `M3BorderRadiusToken.token.value` with `M3BorderRadii.token`.
+
+```dart
+// Before
+Container(
+  decoration: BoxDecoration(
+    borderRadius: M3BorderRadiusToken.large.value,
+  ),
+)
+
+// After
+Container(
+  decoration: BoxDecoration(
+    borderRadius: M3BorderRadii.large,
+  ),
+)
+```
+
+**TextStyle Tokens:**
+Replace `M3TextStyleToken.token.value` with the direct `M3TextStyle.token` constant.
+
+```dart
+// Before
+Text('Title', style: M3TextStyleToken.headlineMedium.value)
+
+// After
+Text('Title', style: M3TextStyle.headlineMedium)
+```
+
+**Elevation & Shadow Tokens:**
+Update `M3ShadowToken.fromElevation(...)` to use the new `M3Shadows` class.
+
+```dart
+// Before
+Container(
+  decoration: BoxDecoration(
+    boxShadow: M3ShadowToken.fromElevation(M3ElevationToken.level3.value),
+  ),
+)
+
+// After
+Container(
+  decoration: BoxDecoration(
+    boxShadow: M3Shadows.fromElevation(M3ElevationToken.level3.value),
+  ),
+)
+```
+
+### 📊 Impact Summary
+
+- **Files Modified**: 30+ files updated across the core library, demo, tests, and documentation.
+- **Architectural Refinement**: A fundamental shift from an enum-based token system to a more robust, type-safe, and const-based API.
+- **API Simplification**: A major improvement in API ergonomics, making the library easier to use and integrate.
+
+**Recommended Version Bump: MAJOR (0.20.2 → 0.21.0-dev)**
+
+This release introduces significant breaking changes and a major architectural refactoring that stabilizes the token system API, justifying a major version bump to 1.0.0.
+
 ## 0.20.2
 
 ### 📚 Major Documentation Overhaul & API Refinement

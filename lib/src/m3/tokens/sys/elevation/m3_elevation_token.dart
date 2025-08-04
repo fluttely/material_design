@@ -92,6 +92,7 @@ abstract interface class IM3ElevationToken implements IM3Token<double> {
 ///
 /// Reference: https://m3.material.io/foundations/elevation/overview
 /// {@endtemplate}
+/// ATOM
 enum M3ElevationToken implements IM3ElevationToken {
   /// The base level, with no elevation (0 dp).
   ///
@@ -417,9 +418,8 @@ enum M3ElevationToken implements IM3ElevationToken {
 /// decoupling the token's definition from its visual implementation.
 extension IM3ElevationTokenVisuals on IM3ElevationToken {
   /// The list of [BoxShadow]s that represent this elevation level.
-  List<BoxShadow> get shadows => hasShadow
-      ? M3ShadowToken.fromElevationToken(this).value
-      : M3ShadowToken.level0.value;
+  List<BoxShadow> get shadows =>
+      hasShadow ? M3Shadows.fromElevationToken(this) : M3Shadows.level0;
 
   /// Calculates the surface color using Flutter's default tint overlay.
   Color surfaceColor(BuildContext context) =>

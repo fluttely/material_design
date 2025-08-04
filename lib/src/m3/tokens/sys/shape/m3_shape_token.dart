@@ -145,14 +145,14 @@ abstract final class M3Corners {
   static const double full = 9999;
 }
 
-/// Material Design 3 [Radius] objects for consistent corner rounding.
+/// Material Design 3 [M3Radius] objects for consistent corner rounding.
 ///
-/// This class provides pre-configured [Radius] objects that correspond to
-/// Material Design 3's shape system values. These [Radius] objects can be
+/// This class provides pre-configured [M3Radius] objects that correspond to
+/// Material Design 3's shape system values. These [M3Radius] objects can be
 /// used directly with Flutter's layout and decoration APIs to create
 /// consistent corner rounding throughout the application.
 ///
-/// Each [Radius] uses the circular constructor with values from [M3Corners],
+/// Each [M3Radius] uses the circular constructor with values from [M3CornersToken],
 /// ensuring consistency with the Material Design 3 specification while
 /// providing type-safe access to radius values.
 ///
@@ -187,7 +187,7 @@ abstract final class M3Corners {
 ///
 /// ## Performance
 ///
-/// All [Radius] objects are declared as compile-time constants, providing
+/// All [M3Radius] objects are declared as compile-time constants, providing
 /// optimal performance with no runtime overhead.
 ///
 /// Reference: https://m3.material.io/foundations/shape/shape-scale
@@ -196,64 +196,66 @@ abstract final class M3Radii {
 
   /// No corner radius - sharp rectangular corners.
   ///
-  /// Equivalent to [Radius.zero]. Used for precise geometric shapes
+  /// Equivalent to [M3Radius.zero]. Used for precise geometric shapes
   /// or when corner rounding would interfere with content display.
-  static const Radius none = Radius.zero;
+  static const M3Radius none = M3Radius.zero;
 
   /// Extra small circular radius (4dp).
   ///
   /// Provides subtle corner softening for small components and
   /// precise interface elements that need minimal visual enhancement.
-  static const extraSmall = Radius.circular(M3Corners.extraSmall);
+  static const extraSmall = M3Radius.circular(M3CornersToken.extraSmall);
 
   /// Small circular radius (8dp).
   ///
   /// The standard radius for buttons, chips, and small interactive
   /// elements. Balances visual appeal with functional clarity.
-  static const small = Radius.circular(M3Corners.small);
+  static const small = M3Radius.circular(M3CornersToken.small);
 
   /// Medium circular radius (12dp).
   ///
   /// The most commonly used radius in Material Design 3. Optimal
   /// for cards, containers, and standard interface components.
-  static const medium = Radius.circular(M3Corners.medium);
+  static const medium = M3Radius.circular(M3CornersToken.medium);
 
   /// Large circular radius (16dp).
   ///
   /// Used for prominent components requiring enhanced visual hierarchy
   /// and friendly, approachable appearance.
-  static const large = Radius.circular(M3Corners.large);
+  static const large = M3Radius.circular(M3CornersToken.large);
 
   /// Large increased circular radius (20dp).
   ///
   /// Intermediate radius for components needing more emphasis than
   /// standard large but less than extra-large.
-  static const largeIncreased = Radius.circular(M3Corners.largeIncreased);
+  static const largeIncreased =
+      M3Radius.circular(M3CornersToken.largeIncreased);
 
   /// Extra large circular radius (28dp).
   ///
   /// Creates distinctive shapes for hero sections, large modals,
   /// and prominent brand elements.
-  static const extraLarge = Radius.circular(M3Corners.extraLarge);
+  static const extraLarge = M3Radius.circular(M3CornersToken.extraLarge);
 
   /// Extra large increased circular radius (32dp).
   ///
   /// Maximum discrete radius for special emphasis and brand-specific
   /// interface elements requiring strong visual impact.
   static const extraLargeIncreased =
-      Radius.circular(M3Corners.extraLargeIncreased);
+      M3Radius.circular(M3CornersToken.extraLargeIncreased);
 
   /// Extra extra large circular radius (48dp).
   ///
   /// The largest discrete radius value, reserved for unique creative
   /// elements and maximum visual emphasis scenarios.
-  static const extraExtraLarge = Radius.circular(M3Corners.extraExtraLarge);
+  static const extraExtraLarge =
+      M3Radius.circular(M3CornersToken.extraExtraLarge);
 
   /// Full circular radius for pill shapes.
   ///
   /// Creates fully rounded ends that adapt to component dimensions.
   /// Perfect for floating action buttons, pill buttons, and search bars.
-  static const full = Radius.circular(M3Corners.full);
+  static const full = M3Radius.circular(M3CornersToken.full);
 }
 
 /// Material Design 3 [BorderRadius] objects for consistent component rounding.
@@ -294,7 +296,7 @@ abstract final class M3Radii {
 /// )
 /// ```
 ///
-/// ## Asymmetric Border Radius
+/// ## Asymmetric Border M3Radius
 ///
 /// For asymmetric corner rounding, use [BorderRadius.only] with individual
 /// [M3Radii] values:
@@ -322,69 +324,69 @@ abstract final class M3BorderRadii {
 
   /// No border radius - sharp rectangular corners.
   ///
-  /// Equivalent to [BorderRadius.zero]. Creates precise geometric shapes
+  /// Equivalent to [M3BorderRadius.zero]. Creates precise geometric shapes
   /// with no corner rounding, suitable for technical interfaces and
   /// data-dense layouts.
-  static const BorderRadius radiusNone = BorderRadius.zero;
+  static const M3BorderRadius zero = M3BorderRadius.zero;
 
   /// Extra small uniform border radius (4dp all corners).
   ///
   /// Provides subtle corner rounding for small components like chips,
   /// badges, and compact interactive elements where minimal visual
   /// enhancement is desired.
-  static const extraSmall = BorderRadius.all(M3Radii.extraSmall);
+  static const extraSmall = M3BorderRadius.all(M3Radii.extraSmall);
 
   /// Small uniform border radius (8dp all corners).
   ///
   /// The standard border radius for buttons, form controls, and small
   /// cards. Balances visual softness with functional clarity.
-  static const small = BorderRadius.all(M3Radii.small);
+  static const small = M3BorderRadius.all(M3Radii.small);
 
   /// Medium uniform border radius (12dp all corners).
   ///
   /// The most commonly used border radius in Material Design 3.
   /// Optimal for standard cards, containers, dialogs, and most
   /// interface components requiring corner rounding.
-  static const medium = BorderRadius.all(M3Radii.medium);
+  static const medium = M3BorderRadius.all(M3Radii.medium);
 
   /// Large uniform border radius (16dp all corners).
   ///
   /// Used for prominent components that need enhanced visual hierarchy.
   /// Creates friendly, approachable shapes while maintaining
   /// professional appearance.
-  static const large = BorderRadius.all(M3Radii.large);
+  static const large = M3BorderRadius.all(M3Radii.large);
 
   /// Large increased uniform border radius (20dp all corners).
   ///
   /// Intermediate radius for components requiring more visual emphasis
   /// than standard large radius but less than extra-large.
-  static const largeIncreased = BorderRadius.all(M3Radii.largeIncreased);
+  static const largeIncreased = M3BorderRadius.all(M3Radii.largeIncreased);
 
   /// Extra large uniform border radius (28dp all corners).
   ///
   /// Creates distinctive, friendly shapes for hero sections, large
   /// modal surfaces, bottom sheets, and prominent brand elements.
-  static const extraLarge = BorderRadius.all(M3Radii.extraLarge);
+  static const extraLarge = M3BorderRadius.all(M3Radii.extraLarge);
 
   /// Extra large increased uniform border radius (32dp all corners).
   ///
   /// Maximum discrete border radius for special emphasis components
   /// and brand-specific interface elements requiring strong visual impact.
   static const extraLargeIncreased =
-      BorderRadius.all(M3Radii.extraLargeIncreased);
+      M3BorderRadius.all(M3Radii.extraLargeIncreased);
 
   /// Extra extra large uniform border radius (48dp all corners).
   ///
   /// The largest discrete border radius value, reserved for unique
   /// creative elements and scenarios requiring maximum visual emphasis.
-  static const extraExtraLarge = BorderRadius.all(M3Radii.extraExtraLarge);
+  static const extraExtraLarge = M3BorderRadius.all(M3Radii.extraExtraLarge);
 
   /// Full uniform border radius for pill shapes.
   ///
   /// Creates fully rounded shapes that adapt to component dimensions.
   /// Perfect for floating action buttons, pill-shaped buttons,
   /// search bars, and progress indicators.
-  static const full = BorderRadius.all(M3Radii.full);
+  static const full = M3BorderRadius.all(M3Radii.full);
 }
 
 /// Material Design 3 [RoundedRectangleBorder] shapes for consistent component styling.
@@ -454,73 +456,74 @@ abstract final class M3Shapes {
   /// Creates precise geometric shapes suitable for technical interfaces,
   /// data displays, and components where corner rounding would interfere
   /// with functionality.
-  static const none = RoundedRectangleBorder();
+  static const none = M3RoundedRectangleBorder();
 
   /// Extra small rounded rectangular shape (4dp corners).
   ///
   /// Provides subtle corner rounding for small components like chips,
   /// badges, and compact buttons where minimal visual enhancement is desired.
   static const extraSmall =
-      RoundedRectangleBorder(borderRadius: M3BorderRadii.extraSmall);
+      M3RoundedRectangleBorder(borderRadius: M3BorderRadii.extraSmall);
 
   /// Small rounded rectangular shape (8dp corners).
   ///
   /// The standard shape for buttons, form controls, and small interactive
   /// elements. Balances visual appeal with functional clarity.
   static const small =
-      RoundedRectangleBorder(borderRadius: M3BorderRadii.small);
+      M3RoundedRectangleBorder(borderRadius: M3BorderRadii.small);
 
   /// Medium rounded rectangular shape (12dp corners).
   ///
   /// The most commonly used shape in Material Design 3. Optimal for
   /// cards, containers, dialogs, and standard interface components.
   static const medium =
-      RoundedRectangleBorder(borderRadius: M3BorderRadii.medium);
+      M3RoundedRectangleBorder(borderRadius: M3BorderRadii.medium);
 
   /// Large rounded rectangular shape (16dp corners).
   ///
   /// Used for prominent components requiring enhanced visual hierarchy.
   /// Creates friendly, approachable shapes while maintaining professionalism.
   static const large =
-      RoundedRectangleBorder(borderRadius: M3BorderRadii.large);
+      M3RoundedRectangleBorder(borderRadius: M3BorderRadii.large);
 
   /// Large increased rounded rectangular shape (20dp corners).
   ///
   /// Intermediate shape for components needing more visual emphasis than
   /// standard large but less than extra-large.
   static const largeIncreased =
-      RoundedRectangleBorder(borderRadius: M3BorderRadii.largeIncreased);
+      M3RoundedRectangleBorder(borderRadius: M3BorderRadii.largeIncreased);
 
   /// Extra large rounded rectangular shape (28dp corners).
   ///
   /// Creates distinctive shapes for hero sections, large modal surfaces,
   /// bottom sheets, and prominent brand elements.
   static const extraLarge =
-      RoundedRectangleBorder(borderRadius: M3BorderRadii.extraLarge);
+      M3RoundedRectangleBorder(borderRadius: M3BorderRadii.extraLarge);
 
   /// Extra large increased rounded rectangular shape (32dp corners).
   ///
   /// Maximum discrete shape for special emphasis components and
   /// brand-specific interface elements requiring strong visual impact.
   static const extraLargeIncreased =
-      RoundedRectangleBorder(borderRadius: M3BorderRadii.extraLargeIncreased);
+      M3RoundedRectangleBorder(borderRadius: M3BorderRadii.extraLargeIncreased);
 
   /// Extra extra large rounded rectangular shape (48dp corners).
   ///
   /// The largest discrete shape value, reserved for unique creative
   /// elements and scenarios requiring maximum visual emphasis.
   static const extraExtraLarge =
-      RoundedRectangleBorder(borderRadius: M3BorderRadii.extraExtraLarge);
+      M3RoundedRectangleBorder(borderRadius: M3BorderRadii.extraExtraLarge);
 
   /// Fully rounded pill shape.
   ///
   /// Creates shapes with fully rounded ends that adapt to component
   /// dimensions. Perfect for floating action buttons, pill buttons,
   /// and search bars.
-  static const full = RoundedRectangleBorder(borderRadius: M3BorderRadii.full);
+  static const full =
+      M3RoundedRectangleBorder(borderRadius: M3BorderRadii.full);
 }
 
-enum M3RadiusValueToken implements IM3Token<double> {
+enum M3CornersToken implements IM3Token<double> {
   /// No corner radius (0dp).
   none(M3Corners.none),
 
@@ -551,13 +554,42 @@ enum M3RadiusValueToken implements IM3Token<double> {
   /// Full corner radius, used for creating pill shapes.
   full(M3Corners.full);
 
-  const M3RadiusValueToken(this.value);
+  const M3CornersToken(this.value);
 
   @override
   final double value;
 }
 
-/// Defines the corner radius values (`Radius`) for shape tokens according to
+// // Supondo que 'token' seja uma constante de tempo de compilação.
+// const M3CornersToken token = M3CornersToken.medium;
+
+// // Ternário aninhado que mapeia o enum M3CornersToken para M3CornersToken.
+// const double result = token == M3CornersToken.none
+//     ? M3CornersToken.none
+//     : token == M3CornersToken.extraSmall
+//         ? M3CornersToken.extraSmall
+//         : token == M3CornersToken.small
+//             ? M3CornersToken.small
+//             : token == M3CornersToken.medium
+//                 ? M3CornersToken.medium
+//                 : token == M3CornersToken.large
+//                     ? M3CornersToken.large
+//                     : token == M3CornersToken.largeIncreased
+//                         ? M3CornersToken.largeIncreased
+//                         : token == M3CornersToken.extraLarge
+//                             ? M3CornersToken.extraLarge
+//                             : token == M3CornersToken.extraLargeIncreased
+//                                 ? M3CornersToken.extraLargeIncreased
+//                                 : token == M3CornersToken.extraExtraLarge
+//                                     ? M3CornersToken.extraExtraLarge
+//                                     : M3CornersToken.full;
+
+// void main() {
+//   // result terá o valor de M3CornersToken.medium (12.0)
+//   print(result);
+// }
+
+/// Defines the corner radius values (`M3Radius`) for shape tokens according to
 /// Material Design 3.
 ///
 /// Shape is a token category in Material 3 that replaces the small, medium,
@@ -567,10 +599,10 @@ enum M3RadiusValueToken implements IM3Token<double> {
 /// This is the most granular level of shape tokens.
 ///
 /// ### Usage:
-/// `final myRadius = M3Radius.medium.value; // Returns a Radius.circular(12)`
+/// `final myRadius = M3Radius.medium.value; // Returns a M3Radius.circular(12)`
 ///
 /// Reference: https://m3.material.io/styles/shape/corner-radius-scale
-enum M3RadiusToken implements IM3Token<Radius> {
+enum _M3RadiusToken implements IM3Token<M3Radius> {
   /// No corner radius (0dp).
   none(M3Radii.none),
 
@@ -601,64 +633,97 @@ enum M3RadiusToken implements IM3Token<Radius> {
   /// Full corner radius, used for creating pill shapes.
   full(M3Radii.full);
 
-  const M3RadiusToken(this.value);
+  const _M3RadiusToken(this.value);
 
-  /// The final `Radius` object.
+  /// The final `M3Radius` object.
   @override
-  final Radius value;
+  final M3Radius value;
 
   /// The raw radius value in dp.
   double get dp => value.x;
 }
 
+// // Supondo que 'token' seja uma constante de tempo de compilação.
+// const M3RadiusToken token = M3RadiusToken.large;
+
+// // Ternário aninhado que mapeia o enum M3RadiusToken para M3Radii.
+// const M3Radius result = token == M3RadiusToken.none
+//     ? M3Radii.none
+//     : token == M3RadiusToken.extraSmall
+//         ? M3Radii.extraSmall
+//         : token == M3RadiusToken.small
+//             ? M3Radii.small
+//             : token == M3RadiusToken.medium
+//                 ? M3Radii.medium
+//                 : token == M3RadiusToken.large
+//                     ? M3Radii.large
+//                     : token == M3RadiusToken.largeIncreased
+//                         ? M3Radii.largeIncreased
+//                         : token == M3RadiusToken.extraLarge
+//                             ? M3Radii.extraLarge
+//                             : token == M3RadiusToken.extraLargeIncreased
+//                                 ? M3Radii.extraLargeIncreased
+//                                 : token == M3RadiusToken.extraExtraLarge
+//                                     ? M3Radii.extraExtraLarge
+//                                     : M3Radii.full;
+
+// void main() {
+//   // result terá o valor de M3Radii.large
+//   print(result);
+// }
+
 /// Defines the border radius values (`BorderRadius`) for shape tokens
 /// according to Material Design 3.
 ///
-/// This enum uses [M3RadiusToken] tokens to build `BorderRadius` objects, which
+/// This enum uses [_M3RadiusToken] tokens to build `BorderRadius` objects, which
 /// can be applied to components to affect their border rounding.
 ///
 /// ### Usage:
 /// `final myBorderRadius = M3BorderRadii.large.value;`
 ///
 /// Reference: https://m3.material.io/styles/shape/corner-radius-scale
+// TODO: _M3BorderRadiusToken
 enum M3BorderRadiusToken implements IM3Token<BorderRadius> {
   /// No border radius (0dp).
-  none(M3BorderRadii.radiusNone),
+  none(M3BorderRadius.all(M3Radius.zero)),
 
   /// Extra small border radius (4dp).
-  extraSmall(M3BorderRadii.extraSmall),
+  extraSmall(M3BorderRadius.all(M3Radius.circular(M3CornersToken.extraSmall))),
 
   /// Small border radius (8dp).
-  small(M3BorderRadii.small),
+  small(M3BorderRadius.all(M3Radius.circular(M3CornersToken.small))),
 
   /// Medium border radius (12dp).
-  medium(M3BorderRadii.medium),
+  medium(M3BorderRadius.all(M3Radius.circular(M3CornersToken.medium))),
 
   /// Large border radius (16dp).
-  large(M3BorderRadii.large),
+  large(M3BorderRadius.all(M3Radius.circular(M3CornersToken.large))),
 
   /// Large increased border radius (20dp).
-  largeIncreased(M3BorderRadii.largeIncreased),
+  largeIncreased(
+      M3BorderRadius.all(M3Radius.circular(M3CornersToken.largeIncreased))),
 
   /// Extra large border radius (28dp).
-  extraLarge(M3BorderRadii.extraLarge),
+  extraLarge(M3BorderRadius.all(M3Radius.circular(M3CornersToken.extraLarge))),
 
   /// Extra large increased border radius (32dp).
-  extraLargeIncreased(M3BorderRadii.extraLargeIncreased),
+  extraLargeIncreased(M3BorderRadius.all(
+      M3Radius.circular(M3CornersToken.extraLargeIncreased))),
 
   /// Extra extra large border radius (48dp).
-  extraExtraLarge(M3BorderRadii.extraExtraLarge),
+  extraExtraLarge(
+      M3BorderRadius.all(M3Radius.circular(M3CornersToken.extraExtraLarge))),
 
   /// Full border radius, used for creating pill shapes.
-  full(M3BorderRadii.full);
+  full(M3BorderRadius.all(M3Radius.circular(M3CornersToken.full)));
 
   const M3BorderRadiusToken(this.value);
 
   /// The final `BorderRadius` object.
   @override
-  final BorderRadius value;
+  final M3BorderRadius value;
 
-  /// Returns the corresponding [M3RadiusToken] for this border radius.
+  /// Returns the corresponding [_M3RadiusToken] for this border radius.
   ///
   /// This getter provides access to the underlying radius token, allowing for
   /// consistent radius values across different shape abstractions.
@@ -667,22 +732,51 @@ enum M3BorderRadiusToken implements IM3Token<BorderRadius> {
   /// ```dart
   /// final radius = M3BorderRadiusToken.medium.radius; // Returns M3RadiusToken.medium
   /// ```
-  M3RadiusToken get radius {
+  _M3RadiusToken get radius {
     return switch (this) {
-      M3BorderRadiusToken.none => M3RadiusToken.none,
-      M3BorderRadiusToken.extraSmall => M3RadiusToken.extraSmall,
-      M3BorderRadiusToken.small => M3RadiusToken.small,
-      M3BorderRadiusToken.medium => M3RadiusToken.medium,
-      M3BorderRadiusToken.large => M3RadiusToken.large,
-      M3BorderRadiusToken.largeIncreased => M3RadiusToken.largeIncreased,
-      M3BorderRadiusToken.extraLarge => M3RadiusToken.extraLarge,
+      M3BorderRadiusToken.none => _M3RadiusToken.none,
+      M3BorderRadiusToken.extraSmall => _M3RadiusToken.extraSmall,
+      M3BorderRadiusToken.small => _M3RadiusToken.small,
+      M3BorderRadiusToken.medium => _M3RadiusToken.medium,
+      M3BorderRadiusToken.large => _M3RadiusToken.large,
+      M3BorderRadiusToken.largeIncreased => _M3RadiusToken.largeIncreased,
+      M3BorderRadiusToken.extraLarge => _M3RadiusToken.extraLarge,
       M3BorderRadiusToken.extraLargeIncreased =>
-        M3RadiusToken.extraLargeIncreased,
-      M3BorderRadiusToken.extraExtraLarge => M3RadiusToken.extraExtraLarge,
-      M3BorderRadiusToken.full => M3RadiusToken.full,
+        _M3RadiusToken.extraLargeIncreased,
+      M3BorderRadiusToken.extraExtraLarge => _M3RadiusToken.extraExtraLarge,
+      M3BorderRadiusToken.full => _M3RadiusToken.full,
     };
   }
 }
+
+// // Supondo que 'token' seja uma constante de tempo de compilação.
+// const M3BorderRadiusToken token = M3BorderRadiusToken.small;
+
+// // Ternário aninhado que mapeia o enum M3BorderRadiusToken para M3BorderRadii.
+// const BorderRadius result = token == M3BorderRadiusToken.none
+//     ? M3BorderRadii.none
+//     : token == M3BorderRadiusToken.extraSmall
+//         ? M3BorderRadii.extraSmall
+//         : token == M3BorderRadiusToken.small
+//             ? M3BorderRadii.small
+//             : token == M3BorderRadiusToken.medium
+//                 ? M3BorderRadii.medium
+//                 : token == M3BorderRadiusToken.large
+//                     ? M3BorderRadii.large
+//                     : token == M3BorderRadiusToken.largeIncreased
+//                         ? M3BorderRadii.largeIncreased
+//                         : token == M3BorderRadiusToken.extraLarge
+//                             ? M3BorderRadii.extraLarge
+//                             : token == M3BorderRadiusToken.extraLargeIncreased
+//                                 ? M3BorderRadii.extraLargeIncreased
+//                                 : token == M3BorderRadiusToken.extraExtraLarge
+//                                     ? M3BorderRadii.extraExtraLarge
+//                                     : M3BorderRadii.full;
+
+// void main() {
+//   // result terá o valor de M3BorderRadii.small
+//   print(result);
+// }
 
 /// Provides pre-defined, Material 3-compliant shape tokens (`ShapeBorder`).
 ///
@@ -702,6 +796,7 @@ enum M3BorderRadiusToken implements IM3Token<BorderRadius> {
 /// )
 /// ```
 /// Reference: https://m3.material.io/styles/shape/corner-radius-scale
+// TODO: _M3ShapeToken
 enum M3ShapeToken implements IM3Token<RoundedRectangleBorder> {
   /// A shape with no corner rounding (0dp).
   none(M3Shapes.none),
@@ -749,7 +844,7 @@ enum M3ShapeToken implements IM3Token<RoundedRectangleBorder> {
   ///
   /// Example:
   /// ```dart
-  /// final borderRadius = M3ShapeToken.medium; // Returns M3BorderRadiusToken.medium
+  /// final borderRadius = M3Shapes.medium; // Returns M3BorderRadiusToken.medium
   /// ```
   M3BorderRadiusToken get borderRadius {
     return switch (this) {
@@ -771,31 +866,60 @@ enum M3ShapeToken implements IM3Token<RoundedRectangleBorder> {
   // ///
   // /// This helper method suggests shape tokens based on common
   // /// Material Design 3 patterns.
-  // static M3ShapeToken forComponentSize(ComponentSize size) {
+  // static M3Shapes forComponentSize(ComponentSize size) {
   //   return switch (size) {
-  //     ComponentSize.small => M3ShapeToken.small,
-  //     ComponentSize.medium => M3ShapeToken.medium,
-  //     ComponentSize.large => M3ShapeToken.large,
+  //     ComponentSize.small => M3Shapes.small,
+  //     ComponentSize.medium => M3Shapes.medium,
+  //     ComponentSize.large => M3Shapes.large,
   //   };
   // }
 
   // /// Returns the shape token typically used for a component type.
   // ///
   // /// Based on Material Design 3 component specifications.
-  // static M3ShapeToken forComponent(M3Component component) {
+  // static M3Shapes forComponent(M3Component component) {
   //   return switch (component) {
-  //     M3Component.button => M3ShapeToken.small,
-  //     M3Component.fab => M3ShapeToken.full,
-  //     M3Component.chip => M3ShapeToken.extraSmall,
-  //     M3Component.card => M3ShapeToken.medium,
-  //     M3Component.dialog => M3ShapeToken.large,
-  //     M3Component.sheet => M3ShapeToken.extraLarge,
-  //     M3Component.textField => M3ShapeToken.small,
-  //     M3Component.menu => M3ShapeToken.medium,
-  //     _ => M3ShapeToken.medium,
+  //     M3Component.button => M3Shapes.small,
+  //     M3Component.fab => M3Shapes.full,
+  //     M3Component.chip => M3Shapes.extraSmall,
+  //     M3Component.card => M3Shapes.medium,
+  //     M3Component.dialog => M3Shapes.large,
+  //     M3Component.sheet => M3Shapes.extraLarge,
+  //     M3Component.textField => M3Shapes.small,
+  //     M3Component.menu => M3Shapes.medium,
+  //     _ => M3Shapes.medium,
   //   };
   // }
 }
+
+// // Supondo que 'token' seja uma constante de tempo de compilação.
+// const M3Shapes token = M3Shapes.extraLarge;
+
+// // Ternário aninhado que mapeia o enum M3Shapes para M3Shapes.
+// const RoundedRectangleBorder result = token == M3Shapes.none
+//     ? M3Shapes.none
+//     : token == M3Shapes.extraSmall
+//         ? M3Shapes.extraSmall
+//         : token == M3Shapes.small
+//             ? M3Shapes.small
+//             : token == M3Shapes.medium
+//                 ? M3Shapes.medium
+//                 : token == M3Shapes.large
+//                     ? M3Shapes.large
+//                     : token == M3Shapes.largeIncreased
+//                         ? M3Shapes.largeIncreased
+//                         : token == M3Shapes.extraLarge
+//                             ? M3Shapes.extraLarge
+//                             : token == M3Shapes.extraLargeIncreased
+//                                 ? M3Shapes.extraLargeIncreased
+//                                 : token == M3Shapes.extraExtraLarge
+//                                     ? M3Shapes.extraExtraLarge
+//                                     : M3Shapes.full;
+
+// void main() {
+//   // result terá o valor de M3Shapes.extraLarge
+//   print(result);
+// }
 
 // /// Component size categories for shape selection.
 // enum ComponentSize {
@@ -848,7 +972,7 @@ enum M3ShapeToken implements IM3Token<RoundedRectangleBorder> {
 // /// Extension methods for shape-related functionality.
 // extension M3ShapeExtensions on Widget {
 //   /// Wraps this widget with a shaped container using the specified token.
-//   Widget withShape(M3ShapeToken shape, {Color? color}) {
+//   Widget withShape(M3Shapes shape, {Color? color}) {
 //     return Container(
 //       decoration: ShapeDecoration(
 //         shape: shape.value,
@@ -859,7 +983,7 @@ enum M3ShapeToken implements IM3Token<RoundedRectangleBorder> {
 //   }
 
 //   /// Clips this widget with the specified shape token.
-//   Widget clipWithShape(M3ShapeToken shape) {
+//   Widget clipWithShape(M3Shapes shape) {
 //     return ClipRRect(
 //       borderRadius: shape.borderRadius.value,
 //       child: this,

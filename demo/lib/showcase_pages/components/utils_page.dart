@@ -64,12 +64,12 @@ class _UtilsPageState extends State<UtilsPage> {
       children: [
         Text(
           'Responsive Display Text',
-          style: M3TextStyleToken.responsiveDisplay(context),
+          style: M3TextStyle.responsiveDisplay(context),
         ),
         const M3Gap(M3SpacingToken.space8),
         Text(
           'This text has enhanced readability for better accessibility.',
-          style: M3TextStyleToken.enhancedReadability(textTheme.bodyLarge!),
+          style: M3TextStyle.enhancedReadability(textTheme.bodyLarge!),
         ),
         const M3Gap(M3SpacingToken.space16),
         _buildHighContrastShowcase(textTheme),
@@ -79,11 +79,11 @@ class _UtilsPageState extends State<UtilsPage> {
           padding: M3EdgeInsets.all(M3SpacingToken.space12),
           decoration: ShapeDecoration(
             color: Theme.of(context).colorScheme.surfaceContainer,
-            shape: M3ShapeToken.small.value,
+            shape: M3Shapes.small,
           ),
           child: Text(
             'function total(items) => items.reduce((a, b) => a + b.price, 0);',
-            style: M3TextStyleToken.monoVariant(textTheme.bodyMedium!),
+            style: M3TextStyle.monoVariant(textTheme.bodyMedium!),
           ),
         ),
       ],
@@ -125,11 +125,11 @@ class _UtilsPageState extends State<UtilsPage> {
         ),
         const M3Gap(M3SpacingToken.space8),
         AnimatedContainer(
-          duration: M3MotionDurationToken.medium2.value,
+          duration: M3MotionDurations.medium2,
           curve: M3MotionCurveToken.standard.value,
           decoration: ShapeDecoration(
             color: _elevation.surfaceColor(context),
-            shape: M3ShapeToken.large.value,
+            shape: M3Shapes.large,
             shadows: _elevation.shadows,
           ),
           child: ListTile(
@@ -143,8 +143,8 @@ class _UtilsPageState extends State<UtilsPage> {
   }
 
   Widget _buildMotionPatternsShowcase() {
-    const animationDuration = M3MotionDurationToken.long1;
-    final animationCurve = M3MotionCurveToken.emphasizedDecelerate;
+    const animationDuration = M3MotionDurations.long1;
+    final animationCurve = M3MotionCurves.emphasizedDecelerate;
     return Column(
       children: [
         ElevatedButton.icon(
@@ -155,18 +155,18 @@ class _UtilsPageState extends State<UtilsPage> {
         const M3Gap(M3SpacingToken.space16),
         AnimatedOpacity(
           opacity: _runAnimations ? 1.0 : 0.0,
-          duration: animationDuration.value,
-          curve: animationCurve.value,
+          duration: animationDuration,
+          curve: animationCurve,
           child: _buildMotionCard('Fade In', Icons.opacity),
         ),
         const M3Gap(M3SpacingToken.space8),
         AnimatedSlide(
           offset: _runAnimations ? Offset.zero : const Offset(0, 0.5),
-          duration: animationDuration.value,
-          curve: animationCurve.value,
+          duration: animationDuration,
+          curve: animationCurve,
           child: AnimatedOpacity(
             opacity: _runAnimations ? 1.0 : 0.0,
-            duration: animationDuration.value,
+            duration: animationDuration,
             curve: Curves.easeIn,
             child: _buildMotionCard('Slide Up', Icons.arrow_upward_rounded),
           ),
@@ -174,11 +174,11 @@ class _UtilsPageState extends State<UtilsPage> {
         const M3Gap(M3SpacingToken.space8),
         AnimatedScale(
           scale: _runAnimations ? 1.0 : 0.8,
-          duration: animationDuration.value,
-          curve: animationCurve.value,
+          duration: animationDuration,
+          curve: animationCurve,
           child: AnimatedOpacity(
             opacity: _runAnimations ? 1.0 : 0.0,
-            duration: M3MotionDurationToken.medium2.value,
+            duration: M3MotionDurations.medium2,
             curve: Curves.easeIn,
             child: _buildMotionCard('Scale In', Icons.zoom_in_rounded),
           ),
@@ -239,7 +239,7 @@ class _UtilsPageState extends State<UtilsPage> {
         ),
         Text(
           'High Contrast',
-          style: M3TextStyleToken.highContrast(textTheme.titleMedium!),
+          style: M3TextStyle.highContrast(textTheme.titleMedium!),
         ),
       ],
     );
@@ -285,7 +285,7 @@ class _UtilsPageState extends State<UtilsPage> {
       height: 80,
       decoration: BoxDecoration(
         color: elevation.surfaceColor(context),
-        borderRadius: M3BorderRadiusToken.medium.value,
+        borderRadius: M3BorderRadii.medium,
         border: elevation.value == 0
             ? Border.all(color: Theme.of(context).colorScheme.outlineVariant)
             : null,
@@ -308,7 +308,7 @@ class _UtilsPageState extends State<UtilsPage> {
       ),
       decoration: ShapeDecoration(
         color: colorScheme.secondaryContainer,
-        shape: M3ShapeToken.medium.value,
+        shape: M3Shapes.medium,
       ),
       child: Row(
         children: [

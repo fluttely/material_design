@@ -647,7 +647,7 @@ class _DemoHomePageState extends State<DemoHomePage>
                           width: token.value,
                           color: Theme.of(context).colorScheme.outline,
                         ),
-                        borderRadius: M3BorderRadiusToken.small.value,
+                        borderRadius: M3BorderRadii.small,
                       ),
                       child: Text(
                         '${token.name}\n${token.value}px',
@@ -716,24 +716,22 @@ class _DemoHomePageState extends State<DemoHomePage>
         Row(
           spacing: M3Spacings.space16,
           children: [
-            M3BorderRadiusToken.none,
-            M3BorderRadiusToken.small,
-            M3BorderRadiusToken.medium,
-            M3BorderRadiusToken.large,
-            M3BorderRadiusToken.extraLarge,
+            M3BorderRadii.zero,
+            M3BorderRadii.small,
+            M3BorderRadii.medium,
+            M3BorderRadii.large,
+            M3BorderRadii.extraLarge,
           ]
               .map((token) => Expanded(
                     child: Container(
                       height: 60,
                       decoration: BoxDecoration(
                         color: Theme.of(context).colorScheme.surfaceContainer,
-                        borderRadius: M3BorderRadiusToken.values
-                            .firstWhere((r) => r.name == token.name)
-                            .value,
+                        borderRadius: token,
                       ),
                       child: Center(
                         child: Text(
-                          token.name,
+                          token.toString(),
                           style: Theme.of(context).textTheme.bodySmall,
                           textAlign: TextAlign.center,
                         ),
@@ -1253,7 +1251,7 @@ class _ColorSwatch extends StatelessWidget {
           height: 40,
           decoration: BoxDecoration(
             color: color,
-            borderRadius: M3BorderRadiusToken.small.value,
+            borderRadius: M3BorderRadii.small,
             border: Border.all(
               color:
                   Theme.of(context).colorScheme.outline.withValues(alpha: 0.2),
@@ -1317,7 +1315,7 @@ class _OpacityExample extends StatelessWidget {
                 .colorScheme
                 .primary
                 .withValues(alpha: stateLayerOpacity.value),
-            borderRadius: M3BorderRadiusToken.small,
+            borderRadius: M3BorderRadii.small,
           ),
         ),
         const SizedBox(height: M3Spacings.space4),

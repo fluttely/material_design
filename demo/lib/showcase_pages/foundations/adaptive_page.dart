@@ -223,7 +223,7 @@ class _AdaptivePageState extends State<AdaptivePage> {
       itemBuilder: (context, index) => Container(
         decoration: ShapeDecoration(
           color: Theme.of(context).colorScheme.primaryContainer,
-          shape: M3ShapeToken.small.value,
+          shape: M3Shapes.small,
         ),
         child: Center(
           child: Text(
@@ -292,7 +292,7 @@ class _CompactLayoutDemo extends StatelessWidget {
     return Container(
       decoration: ShapeDecoration(
         color: Theme.of(context).colorScheme.primaryContainer,
-        shape: M3ShapeToken.medium.value,
+        shape: M3Shapes.medium,
       ),
       child: Center(
         child: Column(
@@ -326,7 +326,7 @@ class _MediumLayoutDemo extends StatelessWidget {
     return Container(
       decoration: ShapeDecoration(
         color: Theme.of(context).colorScheme.secondaryContainer,
-        shape: M3ShapeToken.medium.value,
+        shape: M3Shapes.medium,
       ),
       child: Center(
         child: Column(
@@ -360,7 +360,7 @@ class _ExpandedLayoutDemo extends StatelessWidget {
     return Container(
       decoration: ShapeDecoration(
         color: Theme.of(context).colorScheme.tertiaryContainer,
-        shape: M3ShapeToken.medium.value,
+        shape: M3Shapes.medium,
       ),
       child: Center(
         child: Column(

@@ -3,36 +3,38 @@ part of '../../../../../material_design.dart';
 /// Custom BorderRadius that enforces Material Design 3 tokens.
 class M3BorderRadius extends BorderRadius {
   /// Creates uniform border radius from a shape token.
-  M3BorderRadius.all(M3RadiusToken radius) : super.all(radius.value);
+  const M3BorderRadius.all(M3Radius super.radius) : super.all();
 
   /// Creates vertical border radius (top or bottom).
-  M3BorderRadius.vertical({
-    M3RadiusToken top = M3RadiusToken.none,
-    M3RadiusToken bottom = M3RadiusToken.none,
+  const M3BorderRadius.vertical({
+    M3Radius top = M3Radius.zero,
+    M3Radius bottom = M3Radius.zero,
   }) : super.vertical(
-          top: top.value,
-          bottom: bottom.value,
+          top: top,
+          bottom: bottom,
         );
 
   /// Creates horizontal border radius (left or right).
-  M3BorderRadius.horizontal({
-    M3RadiusToken left = M3RadiusToken.none,
-    M3RadiusToken right = M3RadiusToken.none,
+  const M3BorderRadius.horizontal({
+    M3Radius left = M3Radius.zero,
+    M3Radius right = M3Radius.zero,
   }) : super.horizontal(
-          left: left.value,
-          right: right.value,
+          left: left,
+          right: right,
         );
 
   /// Creates border radius with different tokens for each corner.
-  M3BorderRadius.only({
-    M3RadiusToken topLeft = M3RadiusToken.none,
-    M3RadiusToken topRight = M3RadiusToken.none,
-    M3RadiusToken bottomLeft = M3RadiusToken.none,
-    M3RadiusToken bottomRight = M3RadiusToken.none,
+  const M3BorderRadius.only({
+    M3Radius topLeft = M3Radius.zero,
+    M3Radius topRight = M3Radius.zero,
+    M3Radius bottomLeft = M3Radius.zero,
+    M3Radius bottomRight = M3Radius.zero,
   }) : super.only(
-          topLeft: topLeft.value,
-          topRight: topRight.value,
-          bottomLeft: bottomLeft.value,
-          bottomRight: bottomRight.value,
+          topLeft: topLeft,
+          topRight: topRight,
+          bottomLeft: bottomLeft,
+          bottomRight: bottomRight,
         );
+
+  static const M3BorderRadius zero = M3BorderRadius.all(M3Radius.zero);
 }

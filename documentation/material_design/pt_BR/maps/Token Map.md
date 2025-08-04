@@ -34,7 +34,7 @@ graph TD
     E --> E5[M3MotionDurationToken]
     E --> E6[M3MotionCurveToken]
     E --> E7[M3Radius]
-    E --> E8[M3ShadowToken]
+    E --> E8[M3Shadows]
 
     %% Conexões de dependência
     B1 --> C1

@@ -177,7 +177,7 @@ abstract class M3Elevation {
 Container(
   decoration: M3BoxDecoration(
     color: M3SurfaceTint.surfaceAt(context, 6.0),
-    boxShadow: M3ShadowToken.fromElevation(6.0),
+    boxShadow: M3Shadows.fromElevation(6.0),
   ),
   child: content,
 )
@@ -191,7 +191,7 @@ AnimatedContainer(
   duration: M3MotionDurationToken.short4,
   decoration: M3BoxDecoration(
     color: M3SurfaceTint.surfaceAt(context, isPressed ? 1.0 : 3.0),
-    boxShadow: M3ShadowToken.fromElevation(isPressed ? 1.0 : 3.0),
+    boxShadow: M3Shadows.fromElevation(isPressed ? 1.0 : 3.0),
   ),
 )
 ```

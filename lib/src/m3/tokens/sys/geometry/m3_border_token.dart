@@ -1,5 +1,6 @@
 part of '../../../../../material_design.dart';
 
+/// IT'S AN ATOM
 abstract final class M3BorderWidths {
   const M3BorderWidths._();
 
@@ -62,37 +63,39 @@ abstract final class M3BorderWidths {
 abstract final class M3BorderSides {
   const M3BorderSides._();
 
-  // static const BorderSide none = BorderSide(width: _borderWidthNone);
-  // static const BorderSide thin = BorderSide();
-  // static const BorderSide thick = BorderSide(width: _borderWidthThick);
-  // static const BorderSide extraThick = BorderSide(width: _borderWidthExtraThick);
+  // static const M3BorderSide none = M3BorderSide(width: _borderWidthNone);
+  // static const M3BorderSide thin = M3BorderSide();
+  // static const M3BorderSide thick = M3BorderSide(width: _borderWidthThick);
+  // static const M3BorderSide extraThick = M3BorderSide(width: _borderWidthExtraThick);
 
   /// No border side (0dp width).
   ///
   /// A completely transparent border side with zero width.
   /// Used when borders need to be removed or made invisible.
-  static const BorderSide none = BorderSide(width: M3BorderWidths.none);
+  static const M3BorderSide none = M3BorderSide(width: M3BorderWidthToken.none);
 
   /// Standard thin border side (1dp width).
   ///
   /// The default border side for most Material Design components.
   /// Provides subtle definition without visual intrusion.
-  static const BorderSide thin = BorderSide();
+  static const M3BorderSide thin = M3BorderSide();
 
   /// Thick border side (2dp width).
   ///
   /// Enhanced border side for emphasis and selected states.
   /// Creates clear visual hierarchy and attention.
-  static const BorderSide thick = BorderSide(width: M3BorderWidths.thick);
+  static const M3BorderSide thick =
+      M3BorderSide(width: M3BorderWidthToken.thick);
 
   /// Extra thick border side (4dp width).
   ///
   /// High-emphasis border side for critical states and special cases. Maximum
   /// visual weight for important boundaries.
-  static const BorderSide extraThick =
-      BorderSide(width: M3BorderWidths.extraThick);
+  static const M3BorderSide extraThick =
+      M3BorderSide(width: M3BorderWidthToken.extraThick);
 }
 
+/// IT'S NOT AN ATOM
 abstract final class M3Borders {
   const M3Borders._();
 
@@ -100,26 +103,26 @@ abstract final class M3Borders {
   ///
   /// A completely borderless configuration.
   /// Used for seamless, boundary-free containers.
-  static const Border none = Border.fromBorderSide(M3BorderSides.none);
+  static const Border none = M3Border.fromBorderSide(M3BorderSides.none);
 
   /// Thin border on all sides (1dp width).
   ///
   /// Standard border configuration for most components.
   /// Provides subtle container definition.
-  static const Border thin = Border.fromBorderSide(M3BorderSides.thin);
+  static const M3Border thin = M3Border.fromBorderSide(M3BorderSides.thin);
 
   /// Thick border on all sides (2dp width).
   ///
   /// Enhanced border for emphasis and selected states.
   /// Creates clear container boundaries.
-  static const Border thick = Border.fromBorderSide(M3BorderSides.thick);
+  static const M3Border thick = M3Border.fromBorderSide(M3BorderSides.thick);
 
   /// Extra thick border on all sides (4dp width).
   ///
   /// High-emphasis border for critical states.
   /// Maximum visual weight for important containers.
-  static const Border extraThick =
-      Border.fromBorderSide(M3BorderSides.extraThick);
+  static const M3Border extraThick =
+      M3Border.fromBorderSide(M3BorderSides.extraThick);
 }
 
 /// Material Design 3 border width tokens for consistent component styling.
@@ -229,6 +232,23 @@ enum M3BorderWidthToken implements IM3Token<double> {
   final double value;
 }
 
+// // Supondo que 'token' seja uma constante de tempo de compilação.
+// const M3BorderWidthToken token = M3BorderWidthToken.thin;
+
+// // Ternário aninhado que mapeia o enum M3BorderWidthToken para M3BorderWidths.
+// const double result = token == M3BorderWidthToken.none
+//     ? M3BorderWidths.none
+//     : token == M3BorderWidthToken.thin
+//         ? M3BorderWidths.thin
+//         : token == M3BorderWidthToken.thick
+//             ? M3BorderWidths.thick
+//             : M3BorderWidths.extraThick;
+
+// void main() {
+//   // result terá o valor de M3BorderWidths.thin (1.0)
+//   print(result);
+// }
+
 // // TODO(fluttely):
 // /// Provides utility methods for working with border tokens.
 // extension _M3BorderWidthTokenUtils on M3BorderWidthToken {
@@ -309,6 +329,7 @@ enum M3BorderWidthToken implements IM3Token<double> {
 ///   ),
 /// )
 /// ```
+// TODO: _M3BorderSideToken
 enum M3BorderSideToken implements IM3Token<BorderSide> {
   /// No border side (0dp width).
   ///
@@ -342,6 +363,23 @@ enum M3BorderSideToken implements IM3Token<BorderSide> {
   final BorderSide value;
 }
 
+// // Supondo que 'token' seja uma constante de tempo de compilação.
+// const M3BorderSideToken token = M3BorderSideToken.thick;
+
+// // Ternário aninhado que mapeia o enum M3BorderSideToken para M3BorderSides.
+// const BorderSide result = token == M3BorderSideToken.none
+//     ? M3BorderSides.none
+//     : token == M3BorderSideToken.thin
+//         ? M3BorderSides.thin
+//         : token == M3BorderSideToken.thick
+//             ? M3BorderSides.thick
+//             : M3BorderSides.extraThick;
+
+// void main() {
+//   // result terá o valor de M3BorderSides.thick
+//   print(result);
+// }
+
 /// Material Design 3 border tokens for complete border styling.
 ///
 /// This enum provides pre-configured [Border] objects that apply
@@ -366,6 +404,7 @@ enum M3BorderSideToken implements IM3Token<BorderSide> {
 ///   ),
 /// )
 /// ```
+// TODO: _M3BorderToken
 enum M3BorderToken implements IM3Token<Border> {
   /// No border on any side (0dp width).
   ///
@@ -398,3 +437,20 @@ enum M3BorderToken implements IM3Token<Border> {
   @override
   final Border value;
 }
+
+// // Supondo que 'token' seja uma constante de tempo de compilação.
+// const M3BorderToken token = M3BorderToken.extraThick;
+
+// // Ternário aninhado que mapeia o enum M3BorderToken para M3Borders.
+// const Border result = token == M3BorderToken.none
+//     ? M3Borders.none
+//     : token == M3BorderToken.thin
+//         ? M3Borders.thin
+//         : token == M3BorderToken.thick
+//             ? M3Borders.thick
+//             : M3Borders.extraThick;
+
+// void main() {
+//   // result terá o valor de M3Borders.extraThick
+//   print(result);
+// }

@@ -16,17 +16,17 @@ part of '../../../../../material_design.dart';
 /// ### Basic ShapeDecoration Creation
 /// ```dart
 /// // Simple shape decoration
-/// final decoration = M3ShapeDecoration.withShape(M3ShapeToken.medium);
+/// final decoration = M3ShapeDecoration.withShape(M3Shapes.medium);
 ///
 /// // Shape decoration with color
 /// final coloredDecoration = M3ShapeDecoration.filled(
-///   shape: M3ShapeToken.large,
+///   shape: M3Shapes.large,
 ///   color: Colors.blue,
 /// );
 ///
 /// // Shape decoration with gradient
 /// final gradientDecoration = M3ShapeDecoration.gradient(
-///   shape: M3ShapeToken.small,
+///   shape: M3Shapes.small,
 ///   gradient: LinearGradient(
 ///     colors: [Colors.red, Colors.blue],
 ///   ),
@@ -37,13 +37,13 @@ part of '../../../../../material_design.dart';
 /// ```dart
 /// // Shape decoration with border
 /// final borderedDecoration = M3ShapeDecoration.bordered(
-///   shape: M3ShapeToken.medium,
+///   shape: M3Shapes.medium,
 ///   border: Border.all(color: Colors.grey, width: 2),
 /// );
 ///
 /// // Complex decoration with multiple properties
 /// final complexDecoration = M3ShapeDecoration(
-///   shape: M3ShapeToken.large,
+///   shape: M3Shapes.large,
 ///   color: Colors.white,
 ///   border: Border.all(color: Colors.black),
 ///   shadows: [
@@ -77,23 +77,52 @@ part of '../../../../../material_design.dart';
 /// compile time through the type system.
 class M3ShapeDecoration extends ShapeDecoration {
   /// Creates a ShapeDecoration with a Material Design 3 shape token.
-  M3ShapeDecoration({
-    required M3ShapeToken shape,
-    M3ShadowToken? shadows,
+  const M3ShapeDecoration({
+    required M3RoundedRectangleBorder shape,
+    List<M3BoxShadow>? shadows,
     super.color,
     super.image,
     super.gradient,
   }) : super(
-          shadows: shadows?.value,
-          shape: shape.value,
+          shape: shape,
+          shadows: shadows,
         );
 
-  ShapeDecoration fromBoxDecoration(M3BoxDecoration source) =>
-      ShapeDecoration.fromBoxDecoration(source);
+  // /// Creates an M3ShapeDecoration from the properties of an M3BoxDecoration.
+  // ///
+  // /// This factory constructor extracts the border, radius, and other visual
+  // /// properties from a box decoration to build a shape decoration.
+  // factory M3ShapeDecoration.fromBoxDecoration(M3BoxDecoration source) {
+  //   // 1. Extrai o BorderRadius do BoxDecoration de origem.
+  //   //    Se for nulo, usa BorderRadius.zero para criar um retângulo sem cantos arredondados.
+  //   final borderRadius =
+  //       (source.borderRadius as M3BorderRadius?) ?? M3BorderRadius.zero;
+
+  //   // 2. Cria o M3RoundedRectangleBorder necessário para o construtor principal.
+  //   //    Aqui, também pegamos a borda (side) do BoxDecoration, se houver.
+  //   final shape = M3RoundedRectangleBorder(
+  //     borderRadius: borderRadius,
+  //     side: source.border?.top ?? BorderSide.none,
+  //   );
+
+  //   // 3. Chama o construtor principal para criar e retornar a instância final
+  //   //    de M3ShapeDecoration, passando as propriedades extraídas.
+  //   return M3ShapeDecoration(
+  //     shape: shape,
+  //     color: source.color,
+  //     gradient: source.gradient,
+  //     image: source.image,
+  //     shadows: source.boxShadow,
+  //   );
+  // }
+
+//   M3ShapeDecoration.fromBoxDecoration(M3BoxDecoration super.source)
+//       : super.fromBoxDecoration(); // error:  The generative constructor 'ShapeDecoration ShapeDecoration.fromBoxDecoration(BoxDecoration source)' is expected, but a factory was found.
+// // Try calling a different constructor of the superclass, or making the called constructor not be a factory constructor.
 
   // /// Creates a ShapeDecoration with filled color.
   // M3ShapeDecoration.filled({
-  //   required M3ShapeToken shapeToken,
+  //   required M3Shapes shapeToken,
   //   required Color color,
   //   super.image,
   //   super.shadows,
@@ -104,7 +133,7 @@ class M3ShapeDecoration extends ShapeDecoration {
 
   // /// Creates a ShapeDecoration with gradient.
   // M3ShapeDecoration.gradient({
-  //   required M3ShapeToken shapeToken,
+  //   required M3Shapes shapeToken,
   //   required Gradient gradient,
   //   super.image,
   //   super.shadows,
@@ -114,7 +143,7 @@ class M3ShapeDecoration extends ShapeDecoration {
   //      );
 
   // /// Creates a simple ShapeDecoration with only a shape token.
-  // static M3ShapeDecoration withShape(M3ShapeToken shapeToken) {
+  // static M3ShapeDecoration withShape(M3Shapes shapeToken) {
   //   return M3ShapeDecoration(shapeToken: shapeToken);
   // }
 
@@ -127,12 +156,12 @@ class M3ShapeDecoration extends ShapeDecoration {
   // /// Example:
   // /// ```dart
   // /// final decoration = M3ShapeDecoration.bordered(
-  // ///   shape: M3ShapeToken.medium,
+  // ///   shape: M3Shapes.medium,
   // ///   border: Border.all(color: Colors.grey),
   // /// );
   // /// ```
   // static ShapeDecoration bordered({
-  //   required M3ShapeToken shape,
+  //   required M3Shapes shape,
   //   required Border border,
   //   Color? color,
   // }) {
@@ -151,7 +180,7 @@ class M3ShapeDecoration extends ShapeDecoration {
   // /// Example:
   // /// ```dart
   // /// final decoration = M3ShapeDecoration.shadowed(
-  // ///   shape: M3ShapeToken.large,
+  // ///   shape: M3Shapes.large,
   // ///   shadows: [
   // ///     BoxShadow(
   // ///       color: Colors.grey.withValues(alpha: 0.3),
@@ -161,7 +190,7 @@ class M3ShapeDecoration extends ShapeDecoration {
   // /// );
   // /// ```
   // static ShapeDecoration shadowed({
-  //   required M3ShapeToken shape,
+  //   required M3Shapes shape,
   //   required List<BoxShadow> shadows,
   //   Color? color,
   // }) {
@@ -182,7 +211,7 @@ class M3ShapeDecoration extends ShapeDecoration {
   //   List<BoxShadow>? shadows,
   // }) {
   //   return ShapeDecoration(
-  //     shape: M3ShapeToken.medium.value,
+  //     shape: M3Shapes.medium.value,
   //     color: color,
   //     shadows: shadows ??
   //         [
@@ -204,8 +233,8 @@ class M3ShapeDecoration extends ShapeDecoration {
   // }) {
   //   return ShapeDecoration(
   //     shape: border != null
-  //         ? M3ShapeToken.small.value.copyWith(side: border.top)
-  //         : M3ShapeToken.small.value,
+  //         ? M3Shapes.small.value.copyWith(side: border.top)
+  //         : M3Shapes.small.value,
   //     color: color,
   //   );
   // }
@@ -218,7 +247,7 @@ class M3ShapeDecoration extends ShapeDecoration {
   //   List<BoxShadow>? shadows,
   // }) {
   //   return ShapeDecoration(
-  //     shape: M3ShapeToken.large.value,
+  //     shape: M3Shapes.large.value,
   //     color: color,
   //     shadows: shadows,
   //   );
@@ -233,8 +262,8 @@ class M3ShapeDecoration extends ShapeDecoration {
   // }) {
   //   return ShapeDecoration(
   //     shape: border != null
-  //         ? M3ShapeToken.small.value.copyWith(side: border.top)
-  //         : M3ShapeToken.small.value,
+  //         ? M3Shapes.small.value.copyWith(side: border.top)
+  //         : M3Shapes.small.value,
   //     color: color,
   //   );
   // }
@@ -247,7 +276,7 @@ class M3ShapeDecoration extends ShapeDecoration {
   //   List<BoxShadow>? shadows,
   // }) {
   //   return ShapeDecoration(
-  //     shape: M3ShapeToken.extraLarge.value,
+  //     shape: M3Shapes.extraLarge.value,
   //     color: color,
   //     shadows: shadows ??
   //         [
@@ -269,8 +298,8 @@ class M3ShapeDecoration extends ShapeDecoration {
   // }) {
   //   return ShapeDecoration(
   //     shape: border != null
-  //         ? M3ShapeToken.full.value.copyWith(side: border.top)
-  //         : M3ShapeToken.full.value,
+  //         ? M3Shapes.full.value.copyWith(side: border.top)
+  //         : M3Shapes.full.value,
   //     color: color,
   //   );
   // }
@@ -297,17 +326,17 @@ class M3ShapeDecoration extends ShapeDecoration {
   //   Color? color,
   //   List<BoxShadow>? shadows,
   // }) {
-  //   late M3ShapeToken shape;
+  //   late M3Shapes shape;
 
   //   if (screenWidth < M3BreakpointToken.medium.value) {
   //     // Compact screens (phones in portrait)
-  //     shape = M3ShapeToken.small;
+  //     shape = M3Shapes.small;
   //   } else if (screenWidth < M3BreakpointToken.expanded.value) {
   //     // Medium screens (phones in landscape, small tablets)
-  //     shape = M3ShapeToken.medium;
+  //     shape = M3Shapes.medium;
   //   } else {
   //     // Expanded screens and larger
-  //     shape = M3ShapeToken.large;
+  //     shape = M3Shapes.large;
   //   }
 
   //   return ShapeDecoration(
@@ -329,14 +358,14 @@ class M3ShapeDecoration extends ShapeDecoration {
   //   Color? color,
   //   List<BoxShadow>? shadows,
   // }) {
-  //   late M3ShapeToken shape;
+  //   late M3Shapes shape;
 
   //   if (density == VisualDensity.compact) {
-  //     shape = M3ShapeToken.extraSmall;
+  //     shape = M3Shapes.extraSmall;
   //   } else if (density == VisualDensity.comfortable) {
-  //     shape = M3ShapeToken.small;
+  //     shape = M3Shapes.small;
   //   } else {
-  //     shape = M3ShapeToken.medium;
+  //     shape = M3Shapes.medium;
   //   }
 
   //   return ShapeDecoration(
@@ -360,7 +389,7 @@ extension M3ShapeDecorationExtensions on ShapeDecoration {
   /// Example:
   /// ```dart
   /// final decoration = ShapeDecoration(color: Colors.blue);
-  /// final shaped = decoration.withM3Shape(M3ShapeToken.medium);
+  /// final shaped = decoration.withM3Shape(M3Shapes.medium);
   /// ```
   ShapeDecoration withM3Shape(M3ShapeToken shape) {
     return ShapeDecoration(
@@ -378,7 +407,7 @@ extension M3ShapeDecorationExtensions on ShapeDecoration {
   ///
   /// Example:
   /// ```dart
-  /// final decoration = ShapeDecoration(shape: M3ShapeToken.medium.value);
+  /// final decoration = ShapeDecoration(shape: M3Shapes.medium.value);
   /// final shadowed = decoration.addM3Shadows([
   ///   BoxShadow(
   ///     color: Colors.grey.withValues(alpha: 0.3),
@@ -400,11 +429,11 @@ extension M3ShapeDecorationExtensions on ShapeDecoration {
   // /// Converts ShapeDecoration to the nearest Material Design 3 shape token.
   // ///
   // /// This method analyzes the current shape and returns the closest
-  // /// M3ShapeToken that matches the border radius.
+  // /// M3Shapes that matches the border radius.
   // ///
   // /// Returns null if the shape is not a RoundedRectangleBorder or if
   // /// no close match is found.
-  // M3ShapeToken? toM3ShapeToken() {
+  // M3Shapes? toM3ShapeToken() {
   //   if (shape is! RoundedRectangleBorder) return null;
 
   //   final roundedShape = shape as RoundedRectangleBorder;
@@ -416,11 +445,11 @@ extension M3ShapeDecorationExtensions on ShapeDecoration {
   //   final uniformRadius = borderRadius;
   //   final topLeft = uniformRadius.topLeft;
 
-  //   // Find the nearest M3ShapeToken
+  //   // Find the nearest M3Shapes
   //   return _findNearestShapeToken(topLeft.x);
   // }
 
-  // /// Finds the nearest M3ShapeToken for a given radius value.
+  // /// Finds the nearest M3Shapes for a given radius value.
   // M3RadiusToken _findNearestShapeToken(double radiusValue) {
   //   const tokens = M3RadiusToken.values;
   //   var nearest = tokens.first;
@@ -464,7 +493,7 @@ extension M3ShapeDecorationExtensions on ShapeDecoration {
 
 //   /// Compact card decoration for dense layouts.
 //   static ShapeDecoration get cardCompact => M3ShapeDecoration.shadowed(
-//         shape: M3ShapeToken.small,
+//         shape: M3Shapes.small,
 //         shadows: [
 //           BoxShadow(
 //             color: Colors.black.withValues(alpha: 0.08),
@@ -509,20 +538,20 @@ extension M3ShapeDecorationExtensions on ShapeDecoration {
 
 //   /// Standard input field decoration.
 //   static ShapeDecoration get inputField => M3ShapeDecoration.withShape(
-//         M3ShapeToken.extraSmall,
+//         M3Shapes.extraSmall,
 //       );
 
 //   /// Focused input field decoration.
 //   static ShapeDecoration inputFieldFocused(Color focusColor) =>
 //       M3ShapeDecoration.bordered(
-//         shape: M3ShapeToken.extraSmall,
+//         shape: M3Shapes.extraSmall,
 //         border: Border.all(color: focusColor, width: 2),
 //       );
 
 //   /// Error input field decoration.
 //   static ShapeDecoration inputFieldError(Color errorColor) =>
 //       M3ShapeDecoration.bordered(
-//         shape: M3ShapeToken.extraSmall,
+//         shape: M3Shapes.extraSmall,
 //         border: Border.all(color: errorColor),
 //       );
 
@@ -530,7 +559,7 @@ extension M3ShapeDecorationExtensions on ShapeDecoration {
 
 //   /// Navigation rail decoration.
 //   static ShapeDecoration get navigationRail => M3ShapeDecoration.shadowed(
-//         shape: M3ShapeToken.medium,
+//         shape: M3Shapes.medium,
 //         shadows: [
 //           BoxShadow(
 //             color: Colors.black.withValues(alpha: 0.05),
@@ -542,7 +571,7 @@ extension M3ShapeDecorationExtensions on ShapeDecoration {
 
 //   /// Bottom navigation decoration.
 //   static ShapeDecoration get bottomNavigation => M3ShapeDecoration.shadowed(
-//         shape: M3ShapeToken.none,
+//         shape: M3Shapes.none,
 //         shadows: [
 //           BoxShadow(
 //             color: Colors.black.withValues(alpha: 0.1),

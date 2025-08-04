@@ -183,7 +183,7 @@ class _SpacingPageState extends State<SpacingPage> {
   //                   height: value,
   //                   decoration: ShapeDecoration(
   //                     color: colorScheme.secondaryContainer,
-  //                     shape: M3ShapeToken.extraSmall,
+  //                     shape: M3Shapes.extraSmall,
   //                   ),
   //                 ),
   //         ),
