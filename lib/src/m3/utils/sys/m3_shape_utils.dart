@@ -18,28 +18,28 @@
 //       case 'button':
 //         switch (size?.toLowerCase()) {
 //           case 'small':
-//             return M3ShapeToken.extraSmall;
+//             return M3Shapes.extraSmall;
 //           case 'large':
-//             return M3ShapeToken.medium;
+//             return M3Shapes.medium;
 //           default:
-//             return M3ShapeToken.small;
+//             return M3Shapes.small;
 //         }
 
 //       case 'fab':
 //         return variant == 'extended'
-//             ? M3ShapeToken.large
-//             : M3ShapeToken.large;
+//             ? M3Shapes.large
+//             : M3Shapes.large;
 
 //       case 'card':
-//         return M3ShapeToken.medium;
+//         return M3Shapes.medium;
 
 //       case 'textfield':
 //         return variant == 'outlined'
-//             ? M3ShapeToken.extraSmall
-//             : M3ShapeToken.extraSmall;
+//             ? M3Shapes.extraSmall
+//             : M3Shapes.extraSmall;
 
 //       case 'chip':
-//         return M3ShapeToken.small;
+//         return M3Shapes.small;
 
 //       case 'bottomsheet':
 //         return BorderRadius.vertical(
@@ -47,16 +47,16 @@
 //         );
 
 //       case 'dialog':
-//         return M3ShapeToken.extraLarge;
+//         return M3Shapes.extraLarge;
 
 //       case 'menu':
-//         return M3ShapeToken.extraSmall;
+//         return M3Shapes.extraSmall;
 
 //       case 'snackbar':
-//         return M3ShapeToken.extraSmall;
+//         return M3Shapes.extraSmall;
 
 //       case 'searchbar':
-//         return M3ShapeToken.full;
+//         return M3Shapes.full;
 
 //       default:
 //         return BorderRadius.zero;
@@ -149,11 +149,11 @@
 //     final screenWidth = MediaQuery.of(context).size.width;
 
 //     if (screenWidth < M3BreakpointToken.medium.value) {
-//       return small ?? M3ShapeToken.small;
+//       return small ?? M3Shapes.small;
 //     } else if (screenWidth < M3BreakpointToken.large.value) {
-//       return medium ?? M3ShapeToken.medium;
+//       return medium ?? M3Shapes.medium;
 //     } else {
-//       return large ?? M3ShapeToken.large;
+//       return large ?? M3Shapes.large;
 //     }
 //   }
 

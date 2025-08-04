@@ -11,22 +11,22 @@ class ShapePage extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
 
     final shapes = [
-      ('None', M3ShapeToken.none.value),
-      ('Extra Small', M3ShapeToken.extraSmall.value),
-      ('Small', M3ShapeToken.small.value),
-      ('Medium', M3ShapeToken.medium.value),
-      ('Large', M3ShapeToken.large.value),
-      ('Large Increased', M3ShapeToken.largeIncreased.value),
-      ('Extra Large', M3ShapeToken.extraLarge.value),
-      ('Extra Large Increased', M3ShapeToken.extraLargeIncreased.value),
-      ('Extra Extra Large', M3ShapeToken.extraExtraLarge.value),
-      ('Full (Stadium)', M3ShapeToken.full.value),
+      ('None', M3Shapes.none),
+      ('Extra Small', M3Shapes.extraSmall),
+      ('Small', M3Shapes.small),
+      ('Medium', M3Shapes.medium),
+      ('Large', M3Shapes.large),
+      ('Large Increased', M3Shapes.largeIncreased),
+      ('Extra Large', M3Shapes.extraLarge),
+      ('Extra Large Increased', M3Shapes.extraLargeIncreased),
+      ('Extra Extra Large', M3Shapes.extraExtraLarge),
+      ('Full (Stadium)', M3Shapes.full),
     ];
 
     return Scaffold(
       appBar: AppBar(
         title: LaunchURLText(
-          label: 'M3ShapeToken',
+          label: 'M3Shapes',
           m3Url: 'https://m3.material.io/styles/shape/corner-radius-scale',
         ),
       ),

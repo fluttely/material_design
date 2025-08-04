@@ -117,7 +117,7 @@ class _CustomButtonState extends State<CustomButton> {
         onTapCancel: () => setState(() => _isPressed = false),
         onTap: widget.onPressed,
         child: AnimatedContainer(
-          duration: M3MotionDurationToken.short3.value,
+          duration: M3MotionDurations.short3,
           child: Material(
             type: MaterialType.canvas,
             elevation: _elevation.value,
@@ -144,7 +144,7 @@ class _CustomButtonState extends State<CustomButton> {
                 ),
                 Positioned.fill(
                   child: AnimatedContainer(
-                    duration: M3MotionDurationToken.short3.value,
+                    duration: M3MotionDurations.short3,
                     decoration: M3BoxDecoration(
                       color: stateLayerColor.withValues(
                         alpha: _stateLayerOpacity,

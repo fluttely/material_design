@@ -8,21 +8,21 @@ class TypographyPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textStyles = [
-      ('Display Large', M3TextStyleToken.displayLarge),
-      ('Display Medium', M3TextStyleToken.displayMedium),
-      ('Display Small', M3TextStyleToken.displaySmall),
-      ('Headline Large', M3TextStyleToken.headlineLarge),
-      ('Headline Medium', M3TextStyleToken.headlineMedium),
-      ('Headline Small', M3TextStyleToken.headlineSmall),
-      ('Title Large', M3TextStyleToken.titleLarge),
-      ('Title Medium', M3TextStyleToken.titleMedium),
-      ('Title Small', M3TextStyleToken.titleSmall),
-      ('Body Large', M3TextStyleToken.bodyLarge),
-      ('Body Medium', M3TextStyleToken.bodyMedium),
-      ('Body Small', M3TextStyleToken.bodySmall),
-      ('Label Large', M3TextStyleToken.labelLarge),
-      ('Label Medium', M3TextStyleToken.labelMedium),
-      ('Label Small', M3TextStyleToken.labelSmall),
+      ('Display Large', M3TextStyle.displayLarge),
+      ('Display Medium', M3TextStyle.displayMedium),
+      ('Display Small', M3TextStyle.displaySmall),
+      ('Headline Large', M3TextStyle.headlineLarge),
+      ('Headline Medium', M3TextStyle.headlineMedium),
+      ('Headline Small', M3TextStyle.headlineSmall),
+      ('Title Large', M3TextStyle.titleLarge),
+      ('Title Medium', M3TextStyle.titleMedium),
+      ('Title Small', M3TextStyle.titleSmall),
+      ('Body Large', M3TextStyle.bodyLarge),
+      ('Body Medium', M3TextStyle.bodyMedium),
+      ('Body Small', M3TextStyle.bodySmall),
+      ('Label Large', M3TextStyle.labelLarge),
+      ('Label Medium', M3TextStyle.labelMedium),
+      ('Label Small', M3TextStyle.labelSmall),
     ];
 
     return Scaffold(
@@ -39,7 +39,7 @@ class TypographyPage extends StatelessWidget {
           final (label, style) = textStyles[index];
           return M3Padding.only(
             bottom: M3SpacingToken.space16,
-            child: Text(label, style: style.value),
+            child: Text(label, style: style),
           );
         },
       ),

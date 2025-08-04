@@ -192,7 +192,7 @@ class _AccessibilityPageState extends State<AccessibilityPage>
       ),
       decoration: BoxDecoration(
         color: color.withValues(alpha: 0.2),
-        borderRadius: M3BorderRadiusToken.medium.value,
+        borderRadius: M3BorderRadii.medium,
         border: Border.all(color: color.withValues(alpha: 0.5)),
       ),
       child: Row(
@@ -277,7 +277,7 @@ class _AccessibilityPageState extends State<AccessibilityPage>
                     height: 32,
                     decoration: ShapeDecoration(
                       color: Theme.of(context).colorScheme.errorContainer,
-                      shape: M3ShapeToken.large.value,
+                      shape: M3Shapes.large,
                     ),
                     child: InkWell(
                       onTap: () => _showSnackBar('32dp - Too small!'),
@@ -290,7 +290,7 @@ class _AccessibilityPageState extends State<AccessibilityPage>
                     height: 48,
                     decoration: ShapeDecoration(
                       color: Theme.of(context).colorScheme.primaryContainer,
-                      shape: M3ShapeToken.largeIncreased.value,
+                      shape: M3Shapes.largeIncreased,
                     ),
                     child: InkWell(
                       onTap: () => _showSnackBar('48dp - Perfect!'),
@@ -303,7 +303,7 @@ class _AccessibilityPageState extends State<AccessibilityPage>
                     height: 56,
                     decoration: ShapeDecoration(
                       color: Theme.of(context).colorScheme.secondaryContainer,
-                      shape: M3ShapeToken.extraLarge.value,
+                      shape: M3Shapes.extraLarge,
                     ),
                     child: InkWell(
                       onTap: () => _showSnackBar('56dp - Excellent!'),
@@ -521,7 +521,7 @@ class _AccessibilityPageState extends State<AccessibilityPage>
               color: mediaQuery.highContrast
                   ? Colors.black
                   : Theme.of(context).colorScheme.primary,
-              shape: M3ShapeToken.extraSmall.value,
+              shape: M3Shapes.extraSmall,
             ),
             child: Text(
               'Demo',
@@ -588,7 +588,7 @@ class _AccessibilityPageState extends State<AccessibilityPage>
                     color: scale == textScale
                         ? Theme.of(context).colorScheme.primaryContainer
                         : Theme.of(context).colorScheme.surfaceContainer,
-                    shape: M3ShapeToken.small.value,
+                    shape: M3Shapes.small,
                   ),
                   child: Row(
                     children: [
@@ -675,7 +675,7 @@ class _AccessibilityPageState extends State<AccessibilityPage>
                       height: 100,
                       decoration: ShapeDecoration(
                         color: Theme.of(context).colorScheme.primaryContainer,
-                        shape: M3ShapeToken.extraExtraLarge.value,
+                        shape: M3Shapes.extraExtraLarge,
                       ),
                       child: Icon(
                         Icons.favorite,
@@ -776,7 +776,7 @@ class _AccessibilityPageState extends State<AccessibilityPage>
         color: isGood
             ? colorScheme.secondaryContainer.withValues(alpha: 0.3)
             : colorScheme.errorContainer.withValues(alpha: 0.3),
-        borderRadius: M3BorderRadiusToken.medium.value,
+        borderRadius: M3BorderRadii.medium,
         border: Border.all(
           color: isGood ? colorScheme.secondary : colorScheme.error,
           width: 1,
@@ -816,7 +816,7 @@ class _AccessibilityPageState extends State<AccessibilityPage>
       padding: M3EdgeInsets.all(M3SpacingToken.space20),
       decoration: BoxDecoration(
         color: colorScheme.surfaceContainer,
-        borderRadius: M3BorderRadiusToken.large.value,
+        borderRadius: M3BorderRadii.large,
         border: Border.all(
           color: colorScheme.outline.withValues(alpha: 0.5),
         ),
@@ -861,7 +861,7 @@ class _AccessibilityPageState extends State<AccessibilityPage>
       color: backgroundColor,
       elevation: M3ElevationToken.level0.value,
       shape: RoundedRectangleBorder(
-        borderRadius: M3BorderRadiusToken.medium.value,
+        borderRadius: M3BorderRadii.medium,
         side: BorderSide(color: Theme.of(context).colorScheme.outlineVariant),
       ),
       child: M3Padding.all(
@@ -945,7 +945,7 @@ class _AccessibilityPageState extends State<AccessibilityPage>
       SnackBar(
         content: Text(message),
         behavior: SnackBarBehavior.floating,
-        shape: M3ShapeToken.small.value,
+        shape: M3Shapes.small,
       ),
     );
   }

@@ -64,6 +64,7 @@ part of '../../../material_design.dart';
 /// * [RoundedPolygon], for the underlying shape implementation
 /// * [Morph], for shape transition animations
 /// * [LoadingIndicator], for practical usage examples
+// TODO(fluttely): rename it
 abstract final class MaterialShapes {
   const MaterialShapes._();
 

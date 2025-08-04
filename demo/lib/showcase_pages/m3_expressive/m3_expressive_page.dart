@@ -103,7 +103,7 @@ class _M3ExpressivePageState extends State<M3ExpressivePage> {
   //                   height: value,
   //                   decoration: ShapeDecoration(
   //                     color: colorScheme.secondaryContainer,
-  //                     shape: M3ShapeToken.extraSmall,
+  //                     shape: M3Shapes.extraSmall,
   //                   ),
   //                 ),
   //         ),
