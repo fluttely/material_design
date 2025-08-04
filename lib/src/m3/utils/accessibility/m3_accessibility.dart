@@ -72,7 +72,7 @@ abstract interface class M3Accessibility {
     required Widget child,
     Color? focusColor,
     M3BorderSideToken borderSide = M3BorderSideToken.thick,
-    M3BorderRadiusToken? borderRadius,
+    M3BorderRadius? borderRadius,
   }) {
     return Focus(
       child: Builder(
@@ -83,7 +83,7 @@ abstract interface class M3Accessibility {
             decoration: hasFocus
                 ? M3BoxDecoration(
                     border: M3Border.all(borderSide),
-                    borderRadius: borderRadius?.value,
+                    borderRadius: borderRadius,
                   )
                 : null,
             child: child,
@@ -109,7 +109,7 @@ abstract interface class M3Accessibility {
           minSize ?? minTouchTargetMobile,
           minSize ?? minTouchTargetMobile,
         ),
-        shape: M3ShapeToken.large.value,
+        shape: M3Shapes.large,
       ),
       child: child,
     );

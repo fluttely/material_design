@@ -391,9 +391,9 @@ extension M3ShapeDecorationExtensions on ShapeDecoration {
   /// final decoration = ShapeDecoration(color: Colors.blue);
   /// final shaped = decoration.withM3Shape(M3Shapes.medium);
   /// ```
-  ShapeDecoration withM3Shape(M3ShapeToken shape) {
+  ShapeDecoration withM3Shape(M3RoundedRectangleBorder shape) {
     return ShapeDecoration(
-      shape: shape.value,
+      shape: shape,
       color: _color,
       gradient: gradient,
       image: image,
@@ -450,8 +450,8 @@ extension M3ShapeDecorationExtensions on ShapeDecoration {
   // }
 
   // /// Finds the nearest M3Shapes for a given radius value.
-  // M3RadiusToken _findNearestShapeToken(double radiusValue) {
-  //   const tokens = M3RadiusToken.values;
+  // M3Radius _findNearestShapeToken(double radiusValue) {
+  //   const tokens = M3Radius.values;
   //   var nearest = tokens.first;
   //   var minDifference = (radiusValue - tokens.first.dp).abs();
 

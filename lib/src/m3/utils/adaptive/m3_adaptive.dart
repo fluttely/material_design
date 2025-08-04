@@ -226,7 +226,7 @@ abstract interface class M3Adaptive {
         context: context,
         isDismissible: isDismissible,
         isScrollControlled: true,
-        shape: M3ShapeToken.large.value,
+        shape: M3Shapes.large,
         builder: (context) => DraggableScrollableSheet(
           initialChildSize: 0.6,
           minChildSize: 0.3,
@@ -265,13 +265,13 @@ abstract interface class M3Adaptive {
           return Align(
             alignment: Alignment.centerRight,
             child: Material(
-              // elevation: _M3ComponentElevationToken.dialog.value,
+              // elevation: _M3ComponentElevationToken.dialog,
               child: Container(
                 width: 320,
                 height: double.infinity,
                 decoration: ShapeDecoration(
                   color: Theme.of(context).colorScheme.surface,
-                  shape: M3ShapeToken.large.value,
+                  shape: M3Shapes.large,
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

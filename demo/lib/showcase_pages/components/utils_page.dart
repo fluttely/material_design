@@ -198,31 +198,31 @@ class _UtilsPageState extends State<UtilsPage> {
   //       _buildShapeExample(
   //           'XS',
   //           M3ShapeUtils.rounded(
-  //               M3RadiusToken.extraSmall.value.dp)),
+  //               M3Radius.extraSmall.value.dp)),
   //       _buildShapeExample(
   //           'Small',
   //           M3ShapeUtils.rounded(
-  //               M3RadiusToken.small.value.dp)),
+  //               M3Radius.small.value.dp)),
   //       _buildShapeExample(
   //           'Medium',
   //           M3ShapeUtils.rounded(
-  //               M3RadiusToken.medium.value.dp)),
+  //               M3Radius.medium.value.dp)),
   //       _buildShapeExample(
   //           'Large',
   //           M3ShapeUtils.rounded(
-  //               M3RadiusToken.large.value.dp)),
+  //               M3Radius.large.value.dp)),
   //       _buildShapeExample(
   //           'XL',
   //           M3ShapeUtils.rounded(
-  //               M3BorderRadiusToken.extraLarge.radius.value.dp)),
+  //               M3BorderRadius.extraLarge.radius.value.dp)),
   //       _buildShapeExample(
   //           'Top',
   //           M3ShapeUtils.topRounded(
-  //               M3RadiusToken.large.value.dp)),
+  //               M3Radius.large.value.dp)),
   //       _buildShapeExample(
   //           'Bottom',
   //           M3ShapeUtils.bottomRounded(
-  //               M3RadiusToken.large.value.dp)),
+  //               M3Radius.large.value.dp)),
   //     ],
   //   );
   // }
@@ -285,7 +285,7 @@ class _UtilsPageState extends State<UtilsPage> {
       height: 80,
       decoration: BoxDecoration(
         color: elevation.surfaceColor(context),
-        borderRadius: M3BorderRadii.medium,
+        borderRadius: M3BorderRadius.medium,
         border: elevation.value == 0
             ? Border.all(color: Theme.of(context).colorScheme.outlineVariant)
             : null,

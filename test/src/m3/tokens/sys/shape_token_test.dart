@@ -21,16 +21,16 @@ void main() {
     });
 
     test('borderRadius getter returns correct BorderRadius tokens', () {
-      expect(M3BorderRadii.zero, equals(M3BorderRadius.zero));
-      expect(M3BorderRadii.extraSmall.topLeft.x, equals(4));
-      expect(M3BorderRadii.small.topLeft.x, equals(8));
-      expect(M3BorderRadii.medium.topLeft.x, equals(12));
-      expect(M3BorderRadii.large.topLeft.x, equals(16));
-      expect(M3BorderRadii.largeIncreased.topLeft.x, equals(20));
-      expect(M3BorderRadii.extraLarge.topLeft.x, equals(28));
-      expect(M3BorderRadii.extraLargeIncreased.topLeft.x, equals(32));
-      expect(M3BorderRadii.extraExtraLarge.topLeft.x, equals(48));
-      expect(M3BorderRadii.full.topLeft.x, equals(9999));
+      expect(M3BorderRadius.zero, equals(M3BorderRadius.zero));
+      expect(M3BorderRadius.extraSmall.topLeft.x, equals(4));
+      expect(M3BorderRadius.small.topLeft.x, equals(8));
+      expect(M3BorderRadius.medium.topLeft.x, equals(12));
+      expect(M3BorderRadius.large.topLeft.x, equals(16));
+      expect(M3BorderRadius.largeIncreased.topLeft.x, equals(20));
+      expect(M3BorderRadius.extraLarge.topLeft.x, equals(28));
+      expect(M3BorderRadius.extraLargeIncreased.topLeft.x, equals(32));
+      expect(M3BorderRadius.extraExtraLarge.topLeft.x, equals(48));
+      expect(M3BorderRadius.full.topLeft.x, equals(9999));
     });
 
     // test('forComponentSize returns appropriate shapes', () {

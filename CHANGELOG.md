@@ -4,6 +4,100 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adherves to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.22.0-dev
+
+### 🔄 BREAKING CHANGES: Class Name Standardization & API Consistency
+
+This version introduces a comprehensive refactoring to standardize class naming conventions from plural to singular forms, improving API consistency and aligning with Dart naming conventions.
+
+- **Class Name Standardization**: Major refactoring from plural to singular class names across the entire token system:
+  - `M3Radii` → `M3Radius`: Individual corner radius token class renamed for better semantic clarity
+  - `M3BorderRadii` → `M3BorderRadius`: Border radius token class renamed to follow singular naming convention
+  - All references updated throughout the codebase, documentation, and examples
+
+### 🏗️ API Consistency Improvements
+
+- **Unified Naming Convention**: All token classes now follow consistent singular naming patterns
+- **Enhanced Type Safety**: Maintained all existing type safety features while improving naming clarity
+- **Semantic Clarity**: Class names now better reflect their purpose (individual radius values vs. collections)
+
+### 📱 Complete Application Migration
+
+- **Demo Application Updates**: All demo showcase pages updated to use new class names
+  - Updated component examples, foundation pages, and utility demonstrations
+  - All visual examples maintain functionality while using new API
+- **Example Application Migration**: Complete refactoring of example applications
+  - Theme configurations updated to use new class naming
+  - Interactive components migrated to new API patterns
+  - Maintained all existing functionality and visual consistency
+
+### 📚 Documentation & Examples
+
+- **README Updates**: All documentation examples updated to reflect new class names
+- **Code Example Consistency**: All inline code examples throughout the library updated
+- **Migration Path**: Clear migration from `M3Radii`/`M3BorderRadii` to `M3Radius`/`M3BorderRadius`
+
+### 🔧 Migration Guide
+
+**Radius and BorderRadius Classes:**
+
+```dart
+// Before (v0.21.0-dev)
+Container(
+  decoration: BoxDecoration(
+    borderRadius: M3BorderRadii.medium,
+  ),
+  child: ClipRRect(
+    borderRadius: BorderRadius.only(
+      topLeft: M3Radii.large,
+      topRight: M3Radii.large,
+    ),
+  ),
+)
+
+// After (v0.22.0)
+Container(
+  decoration: BoxDecoration(
+    borderRadius: M3BorderRadius.medium,
+  ),
+  child: ClipRRect(
+    borderRadius: BorderRadius.only(
+      topLeft: M3Radius.large,
+      topRight: M3Radius.large,
+    ),
+  ),
+)
+```
+
+**Theme Configuration:**
+
+```dart
+// Before (v0.21.0-dev)
+CardTheme(
+  shape: RoundedRectangleBorder(
+    borderRadius: M3BorderRadii.medium,
+  ),
+)
+
+// After (v0.22.0)
+CardTheme(
+  shape: RoundedRectangleBorder(
+    borderRadius: M3BorderRadius.medium,
+  ),
+)
+```
+
+### 📊 Impact Summary
+
+- **Files Modified**: 25+ files updated across core library, demo, example applications, and documentation
+- **API Standardization**: Comprehensive class name standardization following Dart conventions
+- **Zero Functional Impact**: All token values and functionality remain identical - only class names changed
+- **Improved Developer Experience**: More intuitive and consistent API with better semantic clarity
+
+**Recommended Version Bump: MINOR (0.21.0-dev → 0.22.0-dev)**
+
+This release introduces breaking changes in class naming for better API consistency and follows semantic versioning by incrementing to 0.22.0. The changes improve developer experience through standardized naming while maintaining all existing functionality and Material Design 3 compliance.
+
 ## 0.21.0-dev
 
 ### 💥 BREAKING CHANGES: Major Architectural Overhaul

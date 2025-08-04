@@ -53,7 +53,7 @@ import 'package:material_design/material_design.dart';
 Container(
   padding: const EdgeInsets.all(M3Spacings.space16),  // Spacing token
   decoration: const BoxDecoration(
-    borderRadius: M3BorderRadii.medium,               // Shape style token
+    borderRadius: M3BorderRadius.medium,               // Shape style token
     boxShadow: M3Shadows.level3,                     // Elevation style
   ),
   child: const Text(
@@ -91,7 +91,7 @@ Combinations of atomic tokens:
 
 ```dart
 // Border radius (applies radius to all corners)
-M3BorderRadii.medium  // BorderRadius.circular(12)
+M3BorderRadius.medium  // BorderRadius.circular(12)
 
 // Complete borders
 M3Borders.thin  // Border with 1dp width
@@ -144,8 +144,8 @@ The shape system provides three levels of abstraction:
 Container(
   decoration: BoxDecoration(
     borderRadius: BorderRadius.only(
-      topLeft: M3Radii.large,
-      topRight: M3Radii.large,
+      topLeft: M3Radius.large,
+      topRight: M3Radius.large,
     ),
   ),
 )
@@ -153,7 +153,7 @@ Container(
 // Level 2: Border radius (all corners)
 Container(
   decoration: BoxDecoration(
-    borderRadius: M3BorderRadii.medium,
+    borderRadius: M3BorderRadius.medium,
   ),
 )
 
@@ -223,12 +223,12 @@ class DesignSystemCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       // Shape style token
-      borderRadius: M3BorderRadii.medium,
+      borderRadius: M3BorderRadius.medium,
       // Elevation token
       elevation: M3Elevations.level1,
       child: InkWell(
         onTap: onTap,
-        borderRadius: M3BorderRadii.medium,
+        borderRadius: M3BorderRadius.medium,
         child: Padding(
           // Spacing foundation token
           padding: const EdgeInsets.all(M3Spacings.space16),
@@ -301,7 +301,7 @@ M3[Category][Subcategory].descriptor
 Examples:
 
 - `M3Spacings.space16` - 16dp from spacing category
-- `M3BorderRadii.medium` - Medium border radius
+- `M3BorderRadius.medium` - Medium border radius
 - `M3Shadows.level3` - Level 3 elevation shadow
 
 ## ⚡ Performance Considerations
@@ -330,7 +330,7 @@ Container(
   padding: const EdgeInsets.all(M3Spacings.space16),
   margin: const EdgeInsets.symmetric(horizontal: M3Spacings.space24),
   decoration: BoxDecoration(
-    borderRadius: M3BorderRadii.medium,
+    borderRadius: M3BorderRadius.medium,
   ),
 )
 ```
@@ -376,8 +376,8 @@ class AppSpacing {
 
 | Category          | Constants Class         | Purpose                        | Use Case                      |
 | ----------------- | ----------------------- | ------------------------------ | ----------------------------- |
-| **Radius**        | `M3Radii`               | Individual corner radius       | Corner rounding primitives    |
-| **Border Radius** | `M3BorderRadii`         | Complete border radius         | Container corner rounding     |
+| **Radius**        | `M3Radius`              | Individual corner radius       | Corner rounding primitives    |
+| **Border Radius** | `M3BorderRadius`        | Complete border radius         | Container corner rounding     |
 | **Shape**         | `M3Shapes`              | Component border shapes        | Cards, buttons, dialogs       |
 | **Border Width**  | `M3BorderWidths`        | Border thickness values        | 0dp, 1dp, 2dp, 4dp            |
 | **Border Side**   | `M3BorderSides`         | Individual border sides        | Border configurations         |

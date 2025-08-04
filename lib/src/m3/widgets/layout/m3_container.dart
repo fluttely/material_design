@@ -8,25 +8,25 @@ part of '../../../../../material_design.dart';
 /// Material Design 3 guidelines by enforcing the use of design tokens for
 /// shapes and border radius values.
 ///
-/// You can specify either a [shapeToken] or [borderRadiusToken], but not both.
+/// You can specify either a [shape] or [borderRadius], but not both.
 /// If neither is provided, a standard Container without decoration is created.
 class M3Container extends StatelessWidget {
   /// Creates an M3Container with Material Design 3 shape tokens.
   ///
-  /// Either [shapeToken] or [borderRadiusToken] can be provided, but not both.
+  /// Either [shape] or [borderRadius] can be provided, but not both.
   /// If both are null, creates a standard container without shape decoration.
   const M3Container({
     super.key,
     this.child,
-    this.shapeToken,
-    this.borderRadiusToken,
+    this.shape,
+    this.borderRadius,
     this.color,
     this.padding,
     this.margin,
     this.width,
     this.height,
   }) : assert(
-          shapeToken == null || borderRadiusToken == null,
+          shape == null || borderRadius == null,
           'Cannot provide both shapeToken and borderRadiusToken',
         );
 
@@ -35,13 +35,13 @@ class M3Container extends StatelessWidget {
 
   /// The Material Design 3 shape token to apply to the container.
   ///
-  /// Cannot be used together with [borderRadiusToken].
-  final M3ShapeToken? shapeToken;
+  /// Cannot be used together with [borderRadius].
+  final M3RoundedRectangleBorder? shape;
 
   /// The Material Design 3 border radius token to apply to the container.
   ///
-  /// Cannot be used together with [shapeToken].
-  final M3BorderRadiusToken? borderRadiusToken;
+  /// Cannot be used together with [shape].
+  final M3BorderRadius? borderRadius;
 
   /// The color to paint behind the [child].
   final Color? color;
@@ -66,26 +66,26 @@ class M3Container extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (shapeToken != null) {
+    if (shape != null) {
       return Container(
         width: width,
         height: height,
         margin: margin,
         padding: padding,
-        decoration: ShapeDecoration(
-          shape: shapeToken!.value,
+        decoration: M3ShapeDecoration(
+          shape: shape!,
           color: color,
         ),
         child: child,
       );
-    } else if (borderRadiusToken != null) {
+    } else if (borderRadius != null) {
       return Container(
         width: width,
         height: height,
         margin: margin,
         padding: padding,
         decoration: BoxDecoration(
-          borderRadius: borderRadiusToken!.value,
+          borderRadius: borderRadius,
           color: color,
         ),
         child: child,

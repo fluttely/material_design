@@ -16,18 +16,18 @@
 // /// ### Basic Radius Creation
 // /// ```dart
 // /// // Circular radius from shape token
-// /// final radius = M3Radius.fromToken(M3RadiusToken.medium);
+// /// final radius = M3Radius.fromToken(M3Radius.medium);
 // ///
 // /// // Direct radius creation
-// /// final radius = M3Radii.medium; // Returns Radius.circular(12)
+// /// final radius = M3Radius.medium; // Returns Radius.circular(12)
 // /// ```
 // ///
 // /// ### Convenience Methods
 // /// ```dart
 // /// // Common radius patterns using static constants
-// /// final small = M3Radii.small;     // 8dp circular
-// /// final medium = M3Radii.medium;   // 12dp circular
-// /// final large = M3Radii.large;     // 16dp circular
+// /// final small = M3Radius.small;     // 8dp circular
+// /// final medium = M3Radius.medium;   // 12dp circular
+// /// final large = M3Radius.large;     // 16dp circular
 // /// ```
 // ///
 // /// ### Integration with Widgets
@@ -35,13 +35,13 @@
 // /// // Use with BorderRadius
 // /// Container(
 // ///   decoration: BoxDecoration(
-// ///     borderRadius: BorderRadius.all(M3Radii.medium),
+// ///     borderRadius: BorderRadius.all(M3Radius.medium),
 // ///   ),
 // /// )
 // ///
 // /// // Use with ClipRRect
 // /// ClipRRect(
-// ///   borderRadius: BorderRadius.all(M3Radii.large),
+// ///   borderRadius: BorderRadius.all(M3Radius.large),
 // ///   child: Image.asset('image.jpg'),
 // /// )
 // /// ```
@@ -75,9 +75,9 @@
 //   ///
 //   /// Example:
 //   /// ```dart
-//   /// final radius = M3Radius.fromToken(M3RadiusToken.medium);
+//   /// final radius = M3Radius.fromToken(M3Radius.medium);
 //   /// ```
-//   static Radius fromToken(M3RadiusToken token) => token.value;
+//   static Radius fromToken(M3Radius token) => token.value;
 
 //   /// Creates an elliptical radius from Material Design 3 radius tokens.
 //   ///
@@ -87,11 +87,11 @@
 //   /// Example:
 //   /// ```dart
 //   /// final radius = M3Radius.elliptical(
-//   ///   M3RadiusToken.large,
-//   ///   M3RadiusToken.small,
+//   ///   M3Radius.large,
+//   ///   M3Radius.small,
 //   /// );
 //   /// ```
-//   static Radius elliptical(M3RadiusToken x, M3RadiusToken y) {
+//   static Radius elliptical(M3Radius x, M3Radius y) {
 //     return Radius.elliptical(x.value.x, y.value.x);
 //   }
 
@@ -113,9 +113,9 @@
 //     bool isSmall = false,
 //     bool isLarge = false,
 //   }) {
-//     if (isSmall) return M3RadiusToken.small.value;
-//     if (isLarge) return M3RadiusToken.large.value;
-//     return M3RadiusToken.medium.value;
+//     if (isSmall) return M3Radius.small.value;
+//     if (isLarge) return M3Radius.large.value;
+//     return M3Radius.medium.value;
 //   }
 
 //   /// Gets appropriate radius based on interaction state.
@@ -130,12 +130,12 @@
 //   /// ```dart
 //   /// final radius = M3Radius.forInteractionState(
 //   ///   isInteracting: true,
-//   ///   baseRadius: M3RadiusToken.medium,
+//   ///   baseRadius: M3Radius.medium,
 //   /// );
 //   /// ```
 //   static Radius forInteractionState({
 //     bool isInteracting = false,
-//     M3RadiusToken baseRadius = M3RadiusToken.medium,
+//     M3Radius baseRadius = M3Radius.medium,
 //   }) {
 //     // In Material Design 3, interaction states typically don't change radius,
 //     // but this method provides flexibility for custom implementations
