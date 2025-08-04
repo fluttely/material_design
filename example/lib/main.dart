@@ -112,13 +112,13 @@ class _MaterialDesignDemoState extends State<MaterialDesignDemo>
       cardTheme: CardThemeData(
         elevation: 1,
         shape: RoundedRectangleBorder(
-          borderRadius: M3BorderRadii.medium,
+          borderRadius: M3BorderRadius.medium,
         ),
       ),
       filledButtonTheme: FilledButtonThemeData(
         style: FilledButton.styleFrom(
           shape: RoundedRectangleBorder(
-            borderRadius: M3BorderRadii.full,
+            borderRadius: M3BorderRadius.full,
           ),
         ),
       ),
@@ -146,13 +146,13 @@ class _MaterialDesignDemoState extends State<MaterialDesignDemo>
       cardTheme: CardThemeData(
         elevation: 1,
         shape: RoundedRectangleBorder(
-          borderRadius: M3BorderRadii.medium,
+          borderRadius: M3BorderRadius.medium,
         ),
       ),
       filledButtonTheme: FilledButtonThemeData(
         style: FilledButton.styleFrom(
           shape: RoundedRectangleBorder(
-            borderRadius: M3BorderRadii.full,
+            borderRadius: M3BorderRadius.full,
           ),
         ),
       ),
@@ -647,7 +647,7 @@ class _DemoHomePageState extends State<DemoHomePage>
                           width: token.value,
                           color: Theme.of(context).colorScheme.outline,
                         ),
-                        borderRadius: M3BorderRadii.small,
+                        borderRadius: M3BorderRadius.small,
                       ),
                       child: Text(
                         '${token.name}\n${token.value}px',
@@ -716,11 +716,11 @@ class _DemoHomePageState extends State<DemoHomePage>
         Row(
           spacing: M3Spacings.space16,
           children: [
-            M3BorderRadii.zero,
-            M3BorderRadii.small,
-            M3BorderRadii.medium,
-            M3BorderRadii.large,
-            M3BorderRadii.extraLarge,
+            M3BorderRadius.zero,
+            M3BorderRadius.small,
+            M3BorderRadius.medium,
+            M3BorderRadius.large,
+            M3BorderRadius.extraLarge,
           ]
               .map((token) => Expanded(
                     child: Container(
@@ -1251,7 +1251,7 @@ class _ColorSwatch extends StatelessWidget {
           height: 40,
           decoration: BoxDecoration(
             color: color,
-            borderRadius: M3BorderRadii.small,
+            borderRadius: M3BorderRadius.small,
             border: Border.all(
               color:
                   Theme.of(context).colorScheme.outline.withValues(alpha: 0.2),
@@ -1315,7 +1315,7 @@ class _OpacityExample extends StatelessWidget {
                 .colorScheme
                 .primary
                 .withValues(alpha: stateLayerOpacity.value),
-            borderRadius: M3BorderRadii.small,
+            borderRadius: M3BorderRadius.small,
           ),
         ),
         const SizedBox(height: M3Spacings.space4),

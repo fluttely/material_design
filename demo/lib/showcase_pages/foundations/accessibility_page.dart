@@ -192,7 +192,7 @@ class _AccessibilityPageState extends State<AccessibilityPage>
       ),
       decoration: BoxDecoration(
         color: color.withValues(alpha: 0.2),
-        borderRadius: M3BorderRadii.medium,
+        borderRadius: M3BorderRadius.medium,
         border: Border.all(color: color.withValues(alpha: 0.5)),
       ),
       child: Row(
@@ -776,7 +776,7 @@ class _AccessibilityPageState extends State<AccessibilityPage>
         color: isGood
             ? colorScheme.secondaryContainer.withValues(alpha: 0.3)
             : colorScheme.errorContainer.withValues(alpha: 0.3),
-        borderRadius: M3BorderRadii.medium,
+        borderRadius: M3BorderRadius.medium,
         border: Border.all(
           color: isGood ? colorScheme.secondary : colorScheme.error,
           width: 1,
@@ -816,7 +816,7 @@ class _AccessibilityPageState extends State<AccessibilityPage>
       padding: M3EdgeInsets.all(M3SpacingToken.space20),
       decoration: BoxDecoration(
         color: colorScheme.surfaceContainer,
-        borderRadius: M3BorderRadii.large,
+        borderRadius: M3BorderRadius.large,
         border: Border.all(
           color: colorScheme.outline.withValues(alpha: 0.5),
         ),
@@ -861,7 +861,7 @@ class _AccessibilityPageState extends State<AccessibilityPage>
       color: backgroundColor,
       elevation: M3ElevationToken.level0.value,
       shape: RoundedRectangleBorder(
-        borderRadius: M3BorderRadii.medium,
+        borderRadius: M3BorderRadius.medium,
         side: BorderSide(color: Theme.of(context).colorScheme.outlineVariant),
       ),
       child: M3Padding.all(

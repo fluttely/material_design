@@ -84,13 +84,13 @@ part 'src/m3/tokens/sys/motion/m3_motion_token.dart';
 /// **Shape System**: Corner radius and border radius tokens.
 /// Comprehensive shape system from sharp (0dp) to fully rounded (9999dp) with
 /// semantic naming and component-specific recommendations.
-part 'src/m3/tokens/sys/shape/m3_shape_token.dart';
+part 'src/m3/tokens/sys/shape/shape_token.dart';
 
 /// **Spacing System**: 4dp grid-based spacing and margin tokens.
 /// Complete spacing system with base spacing (4dp-128dp), responsive
 /// margins,
 /// and semantic spacer tokens for consistent spatial rhythm.
-part 'src/m3/tokens/sys/spacing/m3_spacing_token.dart';
+part 'src/m3/tokens/sys/spacing/spacing_token.dart';
 
 /// **State Tokens**: Interaction states and opacity management.
 
@@ -136,6 +136,7 @@ part 'src/m3/utils/adaptive/m3_adaptive.dart';
 /// state color generation, and accessible color adjustments.
 part 'src/m3/utils/color/m3_color_utils.dart';
 part 'src/m3/utils/layout/atom/m3_border_side.dart';
+part 'src/m3/utils/layout/atom/m3_text_style.dart';
 
 /// Advanced shape manipulation and component-specific shape utilities.
 /// Includes responsive shapes, brand shape styles, accessibility enhancements,
@@ -143,8 +144,7 @@ part 'src/m3/utils/layout/atom/m3_border_side.dart';
 // part 'src/m3/utils/sys/m3_shape_utils.dart';
 
 /// Custom BorderRadius that enforces Material Design 3 tokens.
-part 'src/m3/utils/layout/atom/m3_radius.dart';
-part 'src/m3/utils/layout/atom/m3_text_style.dart';
+part 'src/m3/utils/layout/atom/radius.dart';
 part 'src/m3/utils/layout/m3_border_radius.dart';
 
 /// Material Design 3 EdgeInsets utility with comprehensive token integration.

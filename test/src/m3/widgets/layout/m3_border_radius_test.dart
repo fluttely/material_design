@@ -5,7 +5,7 @@ import 'package:material_design/material_design.dart';
 void main() {
   group('M3BorderRadius', () {
     test('creates uniform border radius correctly', () {
-      const borderRadius = M3BorderRadius.all(M3Radii.medium);
+      const borderRadius = M3BorderRadius.all(M3Radius.medium);
 
       expect(borderRadius, isA<BorderRadius>());
       expect(borderRadius.topLeft.x, equals(12));
@@ -16,8 +16,8 @@ void main() {
 
     test('creates vertical border radius correctly', () {
       const borderRadius = M3BorderRadius.vertical(
-        top: M3Radii.large,
-        bottom: M3Radii.small,
+        top: M3Radius.large,
+        bottom: M3Radius.small,
       );
 
       expect(borderRadius.topLeft.x, equals(16));
@@ -28,8 +28,8 @@ void main() {
 
     test('creates horizontal border radius correctly', () {
       const borderRadius = M3BorderRadius.horizontal(
-        left: M3Radii.extraSmall,
-        right: M3Radii.extraLarge,
+        left: M3Radius.extraSmall,
+        right: M3Radius.extraLarge,
       );
 
       expect(borderRadius.topLeft.x, equals(4));
@@ -40,9 +40,9 @@ void main() {
 
     test('creates individual corner border radius correctly', () {
       const borderRadius = M3BorderRadius.only(
-        topRight: M3Radii.small,
-        bottomLeft: M3Radii.medium,
-        bottomRight: M3Radii.large,
+        topRight: M3Radius.small,
+        bottomLeft: M3Radius.medium,
+        bottomRight: M3Radius.large,
       );
 
       expect(borderRadius.topLeft.x, equals(0));
@@ -79,12 +79,12 @@ void main() {
     });
 
     test('extends BorderRadius class', () {
-      const borderRadius = M3BorderRadius.all(M3Radii.medium);
+      const borderRadius = M3BorderRadius.all(M3Radius.medium);
       expect(borderRadius, isA<BorderRadius>());
     });
 
     test('works with full radius token', () {
-      const borderRadius = M3BorderRadius.all(M3Radii.full);
+      const borderRadius = M3BorderRadius.all(M3Radius.full);
 
       expect(borderRadius.topLeft.x, equals(9999));
       expect(borderRadius.topRight.x, equals(9999));
@@ -94,8 +94,8 @@ void main() {
 
     test('supports asymmetric border radius', () {
       const borderRadius = M3BorderRadius.only(
-        topLeft: M3Radii.extraSmall,
-        bottomRight: M3Radii.extraLarge,
+        topLeft: M3Radius.extraSmall,
+        bottomRight: M3Radius.extraLarge,
       );
 
       expect(borderRadius.topLeft.x, equals(4));
@@ -105,7 +105,7 @@ void main() {
     });
 
     test('creates equal x and y values for circular radius', () {
-      const borderRadius = M3BorderRadius.all(M3Radii.medium);
+      const borderRadius = M3BorderRadius.all(M3Radius.medium);
 
       expect(borderRadius.topLeft.x, equals(borderRadius.topLeft.y));
       expect(borderRadius.topRight.x, equals(borderRadius.topRight.y));
@@ -115,12 +115,12 @@ void main() {
 
     test('integrates correctly with radius token hierarchy', () {
       final radii = [
-        M3Radii.none,
-        M3Radii.extraSmall,
-        M3Radii.small,
-        M3Radii.medium,
-        M3Radii.large,
-        M3Radii.extraLarge,
+        M3Radius.zero,
+        M3Radius.extraSmall,
+        M3Radius.small,
+        M3Radius.medium,
+        M3Radius.large,
+        M3Radius.extraLarge,
       ];
 
       for (final radius in radii) {

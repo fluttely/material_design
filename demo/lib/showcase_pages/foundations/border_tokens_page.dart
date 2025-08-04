@@ -41,7 +41,7 @@ class BorderTokensPage extends StatelessWidget {
               decoration: BoxDecoration(
                 border:
                     Border.all(width: width.value, color: colorScheme.primary),
-                borderRadius: M3BorderRadii.small,
+                borderRadius: M3BorderRadius.small,
               ),
               child: Text('$label (${width.value}dp)'),
             );

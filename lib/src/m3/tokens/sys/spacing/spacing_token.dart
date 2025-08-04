@@ -195,9 +195,8 @@ abstract final class M3Spacers {
   static const double pane = 24;
 }
 
-@immutable
-
 /// Contract for Material Design 3 spacing tokens.
+@immutable
 abstract interface class IM3SpacingToken implements IM3Token<double> {}
 
 /// Material Design 3 spacing tokens based on a 4dp grid system.
