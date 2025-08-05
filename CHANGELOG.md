@@ -4,6 +4,125 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adherves to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.23.0-dev
+
+### 💥 BREAKING CHANGES: Major Token System Refactoring and API Stabilization
+
+This release marks a significant milestone in the library's evolution, introducing major breaking changes aimed at simplifying the API, improving type safety, and aligning more closely with Flutter's core conventions. The token system has been substantially refactored, removing the `Token` suffix from many classes and promoting direct class usage over enums.
+
+### 🏗️ Architectural Refinements
+
+- **Motion System Overhaul**:
+
+  - **`M3MotionToken` -> `M3Motion`**: The composite motion token has been renamed.
+  - **`M3MotionDurationToken` -> `M3MotionDuration`**: Now a class that extends `Duration`, providing direct access to duration constants (e.g., `M3MotionDuration.short2`).
+  - **`M3MotionCurveToken` -> `M3MotionCurve`**: Now a class that extends `ThreePointCubic`, providing direct access to curve constants (e.g., `M3MotionCurve.standard`).
+  - The `.value` accessor is no longer needed for motion durations and curves.
+
+- **Visual Density System Refactoring**:
+
+  - **`M3VisualDensityToken` -> `M3VisualDensity`**: The enum has been replaced with a class that extends `VisualDensity`, allowing for direct use in `ThemeData` without the `.value` accessor.
+  - Provides static constants like `M3VisualDensity.compact` and `M3VisualDensity.comfortable`.
+
+- **Elevation System Simplification**:
+
+  - The `M3ElevationToken` API has been enhanced. The `surfaceColor(context)` and `shadows` getters are now part of the `IM3ElevationTokenVisuals` extension, providing a more unified way to get elevation effects.
+  - `M3SurfaceColorToken` has been removed and its logic is now integrated directly into the elevation token.
+
+- **Border System Unification**:
+
+  - **`M3BorderToken` / `M3BorderSideToken` -> `M3Border` / `M3BorderSide`**: The token enums have been replaced by classes that extend `Border` and `BorderSide` respectively.
+  - Border styles are now accessed via static constants like `M3Border.thin` and `M3BorderSide.thick`.
+
+- **State Layer System Removal**:
+  - `M3StateLayerToken.dart` has been deleted. State layer opacities should be handled using `M3StateLayerOpacities` combined with theme colors.
+
+### 🎯 Developer Experience Improvements
+
+- **Simplified API**: The removal of the `Token` suffix and the `.value` accessor for many tokens results in cleaner, more readable, and more intuitive code.
+- **Improved Type Safety**: Using classes that extend core Flutter types (`Duration`, `Curve`, `VisualDensity`, `Border`) enhances type safety and integration with Flutter's widget system.
+- **API Alignment**: The new API aligns more closely with standard Flutter conventions, making it easier for developers to adopt.
+
+### 🔧 Migration Guide
+
+**Motion:**
+
+```dart
+// Before (v0.22.0-dev)
+AnimatedContainer(
+  duration: M3MotionDurationToken.medium2.value,
+  curve: M3MotionCurveToken.standard.value,
+)
+
+// After (v1.0.0)
+AnimatedContainer(
+  duration: M3MotionDuration.medium2,
+  curve: M3MotionCurve.standard,
+)
+```
+
+**Visual Density:**
+
+```dart
+// Before (v0.22.0-dev)
+ThemeData(
+  visualDensity: M3VisualDensityToken.compact.value,
+)
+
+// After (v1.0.0)
+ThemeData(
+  visualDensity: M3VisualDensity.compact,
+)
+```
+
+**Elevation & Surface Color:**
+
+```dart
+// Before (v0.22.0-dev)
+Container(
+  decoration: ShapeDecoration(
+    color: M3SurfaceColorToken.fromElevationToken(elevation).value(context),
+    shadows: elevation.shadows,
+  ),
+)
+
+// After (v1.0.0)
+Container(
+  decoration: M3ShapeDecoration(
+    color: elevation.surfaceColor(context),
+    shadows: elevation.shadows,
+  ),
+)
+```
+
+**Borders:**
+
+```dart
+// Before (v0.22.0-dev)
+Container(
+  decoration: BoxDecoration(
+    border: M3BorderToken.thin.value,
+  ),
+)
+
+// After (v1.0.0)
+Container(
+  decoration: BoxDecoration(
+    border: M3Border.thin,
+  ),
+)
+```
+
+### 📊 Impact Summary
+
+- **Files Modified**: 30+ files updated across the core library, demo, tests, and documentation.
+- **Architectural Milestone**: Represents a major stabilization of the token API.
+- **Improved Ergonomics**: The API is now significantly more ergonomic and aligned with Flutter's design principles.
+
+**Recommended Version Bump: MAJOR (0.22.0-dev → 0.23.0-dev)**
+
+This release introduces significant breaking changes that rationalize and simplify the entire token system, justifying a major version bump to `1.0.0`.
+
 ## 0.22.0-dev
 
 ### 🔄 BREAKING CHANGES: Class Name Standardization & API Consistency
@@ -321,7 +440,7 @@ This release introduces significant documentation improvements, motion system en
 ### 🏗️ Architectural Refinements
 
 - **Motion Token System Overhaul**: Refactored the `M3MotionToken` system for improved consistency and expressiveness.
-  - **New `M3MotionScheme`**: The `M3MotionScheme` now encapsulates `M3MotionDurationToken` and `M3MotionCurveToken` directly, providing a more unified and token-driven approach to defining motion.
+  - **New `M3MotionScheme`**: The `M3MotionScheme` now encapsulates `M3MotionDuration` and `M3MotionCurve` directly, providing a more unified and token-driven approach to defining motion.
   - **Simplified API**: The `M3MotionToken` API has been streamlined. The `duration` and `curve` getters now return the respective token enums, promoting a more consistent use of tokens throughout the animation system.
   - **Improved Tween Creation**: The `asTween` helper method in `M3MotionScheme` has been updated to correctly use the `.value` of the curve token.
 
@@ -650,7 +769,7 @@ This release focuses on infrastructure improvements, CI/CD pipeline enhancements
 ### 🔄 BREAKING CHANGES
 
 - **Motion Token API Renaming**: Renamed motion easing tokens for better semantic clarity
-  - **`M3MotionEasingToken` → `M3MotionCurveToken`**: All motion easing token references updated throughout the codebase
+  - **`M3MotionEasingToken` → `M3MotionCurve`**: All motion easing token references updated throughout the codebase
   - **Affected Properties**: All easing curve access patterns (emphasized, standard, standardDecelerate, standardAccelerate, linear, etc.)
   - **Documentation Updates**: Comprehensive updates to both English and Portuguese documentation reflecting new naming
 
@@ -682,7 +801,7 @@ This release focuses on infrastructure improvements, CI/CD pipeline enhancements
   - **Integrated Examples**: Seamless integration with existing demo architecture
 
 - **API Consistency**: Updated motion token usage patterns throughout codebase
-  - **README Updates**: All motion examples updated to use `M3MotionCurveToken`
+  - **README Updates**: All motion examples updated to use `M3MotionCurve`
   - **Demo Consistency**: All showcase pages migrated to new motion token naming
   - **Documentation Alignment**: Both English and Portuguese docs synchronized
 
@@ -708,13 +827,13 @@ This release focuses on infrastructure improvements, CI/CD pipeline enhancements
 // Before (v0.15.x)
 AnimatedContainer(
   curve: M3MotionEasingToken.emphasized.value,
-  duration: M3MotionDurationToken.medium2.value,
+  duration: M3MotionDuration.medium2,
 )
 
 // After (v0.16.0)
 AnimatedContainer(
-  curve: M3MotionCurveToken.emphasized.value,
-  duration: M3MotionDurationToken.medium2.value,
+  curve: M3MotionCurve.emphasized,
+  duration: M3MotionDuration.medium2,
 )
 ```
 
@@ -1385,7 +1504,7 @@ This release contains bug fixes and documentation improvements without breaking 
     - `M3Elevation` → `M3ElevationToken`
     - `M3Shape` → `M3ShapeToken`
     - `M3Motion` → `M3MotionToken`
-    - `M3MotionDuration` → `M3MotionDurationToken`
+    - `M3MotionDuration` → `M3MotionDuration`
     - `M3MotionEasing` → `M3MotionEasingToken`
     - `M3Border` → `M3BorderToken`
     - `M3Breakpoint` → `M3BreakpointToken`
@@ -1430,7 +1549,7 @@ This release contains bug fixes and documentation improvements without breaking 
 // Old token naming
 Card(elevation: M3Elevation.level2.value)
 Padding(padding: EdgeInsets.all(M3Spacing.space16.value))
-AnimatedContainer(duration: M3MotionDuration.short2.value)
+AnimatedContainer(duration: M3MotionDuration.short2)
 Text('Title', style: M3TypeScale.headlineMedium)
 ```
 
@@ -1440,7 +1559,7 @@ Text('Title', style: M3TypeScale.headlineMedium)
 // New standardized naming with "Token" suffix
 Card(elevation: M3ElevationToken.level2.value)
 Padding(padding: EdgeInsets.all(M3SpacingToken.space16.value))
-AnimatedContainer(duration: M3MotionDurationToken.short2.value)
+AnimatedContainer(duration: M3MotionDuration.short2)
 Text('Title', style: M3TypeScaleToken.headlineMedium)
 ```
 

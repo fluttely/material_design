@@ -188,7 +188,7 @@ Container(
 ```dart
 // Elevation that responds to interactions
 AnimatedContainer(
-  duration: M3MotionDurationToken.short4,
+  duration: M3MotionDuration.short4,
   decoration: M3BoxDecoration(
     color: M3SurfaceTint.surfaceAt(context, isPressed ? 1.0 : 3.0),
     boxShadow: M3Shadows.fromElevation(isPressed ? 1.0 : 3.0),
@@ -200,32 +200,32 @@ AnimatedContainer(
 
 ### [[Motion|🌊 Motion System]] - ✅ **Working**
 
-Based on **M3MotionDurationToken** and **M3MotionCurveToken** tokens - fully implemented and functional:
+Based on **M3MotionDuration** and **M3MotionCurve** tokens - fully implemented and functional:
 
 **Duration Categories:**
 
 ```dart
 // Micro-interactions
-M3MotionDurationToken.extraShort1  // 50ms
-M3MotionDurationToken.short4       // 200ms
+M3MotionDuration.extraShort1  // 50ms
+M3MotionDuration.short4       // 200ms
 
 // Standard transitions
-M3MotionDurationToken.medium1      // 250ms - most common
-M3MotionDurationToken.medium2      // 300ms - emphasis
+M3MotionDuration.medium1      // 250ms - most common
+M3MotionDuration.medium2      // 300ms - emphasis
 
 // Complex animations
-M3MotionDurationToken.long1        // 450ms
-M3MotionDurationToken.long4        // 600ms
+M3MotionDuration.long1        // 450ms
+M3MotionDuration.long4        // 600ms
 ```
 
 **Easing Curves:**
 
 ```dart
 // Official M3 curves
-M3MotionCurveToken.standard       // (0.2, 0.0, 0.0, 1.0) - most common
-M3MotionCurveToken.emphasized     // (0.05, 0.7, 0.1, 1.0) - important transitions
-M3MotionCurveToken.decelerated    // (0.0, 0.0, 0.2, 1.0) - entering elements
-M3MotionCurveToken.accelerated    // (0.3, 0.0, 1.0, 1.0) - exiting elements
+M3MotionCurve.standard       // (0.2, 0.0, 0.0, 1.0) - most common
+M3MotionCurve.emphasized     // (0.05, 0.7, 0.1, 1.0) - important transitions
+M3MotionCurve.decelerated    // (0.0, 0.0, 0.2, 1.0) - entering elements
+M3MotionCurve.accelerated    // (0.3, 0.0, 1.0, 1.0) - exiting elements
 ```
 
 **Motion Patterns:**
@@ -233,8 +233,8 @@ M3MotionCurveToken.accelerated    // (0.3, 0.0, 1.0, 1.0) - exiting elements
 ```dart
 // Fade with contextual duration
 M3MotionUtils.fadeIn(
-  duration: M3MotionDurationToken.medium2,
-  curve: M3MotionCurveToken.emphasizedDecelerate,
+  duration: M3MotionDuration.medium2,
+  curve: M3MotionCurve.emphasizedDecelerate,
   child: myWidget,
 )
 
@@ -325,7 +325,7 @@ ThemeData buildM3Theme({Color? seedColor}) {
         shape: RoundedRectangleBorder(
           shape: BorderRadius.circular(M3Radius.medium),
         ),
-        animationDuration: M3MotionDurationToken.short4,
+        animationDuration: M3MotionDuration.short4,
       ),
     ),
   );
@@ -346,8 +346,8 @@ Card(
   // Color (automatic via theme)
   child: AnimatedContainer(
     // Motion
-    duration: M3MotionDurationToken.short4,
-    curve: M3MotionCurveToken.standard,
+    duration: M3MotionDuration.short4,
+    curve: M3MotionCurve.standard,
     padding: M3EdgeInsets.all(M3SpacingToken.space16),
     child: Column(
       children: [

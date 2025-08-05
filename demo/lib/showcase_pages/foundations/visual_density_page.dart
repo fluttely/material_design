@@ -10,29 +10,29 @@ class VisualDensityPage extends StatefulWidget {
 
 class _VisualDensityPageState extends State<VisualDensityPage> {
   // Corrigido: usar o getter estático para adaptive density
-  VisualDensity _selectedDensity = M3VisualDensityToken.adaptivePlatformDensity;
+  VisualDensity _selectedDensity = M3VisualDensity.adaptivePlatformDensity;
 
   // Corrigido: criar uma estrutura que funciona com a nova implementação
   static final List<({String label, VisualDensity density, IconData icon})>
       _densityOptions = [
     (
       label: 'Standard',
-      density: M3VisualDensityToken.standard.value,
+      density: M3VisualDensity.standard,
       icon: Icons.density_medium
     ),
     (
       label: 'Comfortable',
-      density: M3VisualDensityToken.comfortable.value,
+      density: M3VisualDensity.comfortable,
       icon: Icons.format_line_spacing
     ),
     (
       label: 'Compact',
-      density: M3VisualDensityToken.compact.value,
+      density: M3VisualDensity.compact,
       icon: Icons.density_small
     ),
     (
       label: 'Adaptive',
-      density: M3VisualDensityToken.adaptivePlatformDensity,
+      density: M3VisualDensity.adaptivePlatformDensity,
       icon: Icons.tune
     ),
   ];
@@ -40,23 +40,21 @@ class _VisualDensityPageState extends State<VisualDensityPage> {
   /// Getter para determinar o nome do valor de densidade adaptativa na plataforma atual.
   String get _adaptiveDensityValueName {
     final platform = Theme.of(context).platform;
-    final recommendedToken = M3VisualDensityToken.forPlatform(platform);
+    final recommendedToken = M3VisualDensity.forPlatform(platform);
 
-    switch (recommendedToken) {
-      case M3VisualDensityToken.comfortable:
-        return 'Comfortable';
-      case M3VisualDensityToken.standard:
-        return 'Standard';
-      case M3VisualDensityToken.compact:
-        return 'Compact';
-    }
+    return switch (recommendedToken) {
+      M3VisualDensity.comfortable => 'Comfortable',
+      M3VisualDensity.standard => 'Standard',
+      M3VisualDensity.compact => 'Compact',
+      _ => '???',
+    };
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('M3VisualDensityToken'),
+        title: const Text('M3VisualDensity'),
       ),
       body: Column(
         children: [

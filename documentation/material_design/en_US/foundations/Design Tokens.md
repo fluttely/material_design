@@ -370,7 +370,7 @@ See practical implementation in **[[../examples/Design Tokens Page|DesignTokensP
 _buildSpacingDemo('M3SpacingToken.space16', M3SpacingToken.space16);
 
 // Density demonstration
-_buildDensityDemo('Standard', M3VisualDensityToken.standard);
+_buildDensityDemo('Standard', M3VisualDensity.standard);
 
 // Breakpoints demonstration
 _buildBreakpointDemo('M3BreakpointToken.medium', M3BreakpointToken.medium);

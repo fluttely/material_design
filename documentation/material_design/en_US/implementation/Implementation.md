@@ -207,7 +207,7 @@ class M3Theme {
   /// Builds light theme with optional seed color
   static ThemeData light({
     Color? seedColor,
-    M3VisualDensityToken? visualDensity,
+    M3VisualDensity? visualDensity,
   }) {
     final colorScheme = seedColor != null
         ? ColorScheme.fromSeed(seedColor: seedColor, brightness: Brightness.light)
@@ -217,7 +217,7 @@ class M3Theme {
       useMaterial3: true,
       brightness: Brightness.light,
       colorScheme: colorScheme,
-      visualDensity: visualDensity ?? M3VisualDensityToken.adaptivePlatformDensity.value,
+      visualDensity: visualDensity ?? M3VisualDensity.adaptivePlatformDensity.value,
 
       // Typography
       textTheme: M3TextStyleToken.material3TextTheme,
@@ -263,7 +263,7 @@ ElevatedButtonThemeData _buildElevatedButtonTheme(ColorScheme colorScheme) {
         shape: M3CompButton.shapeMedium,
       ),
       elevation: M3CompButton.elevationRested,
-      animationDuration: M3MotionDurationToken.short4,
+      animationDuration: M3MotionDuration.short4,
     ),
   );
 }
@@ -451,7 +451,7 @@ Page demonstrating tokens in action:
 _buildSpacingDemo('M3SpacingToken.space16', M3SpacingToken.space16);
 
 // Density demonstration
-_buildDensityDemo('Standard', M3VisualDensityToken.standard);
+_buildDensityDemo('Standard', M3VisualDensity.standard);
 
 // Breakpoints demonstration
 _buildBreakpointDemo('M3BreakpointToken.medium', M3BreakpointToken.medium);

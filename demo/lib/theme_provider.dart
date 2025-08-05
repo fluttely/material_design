@@ -14,7 +14,7 @@ class ThemeProvider with ChangeNotifier {
           seedColor: _seedColor,
           brightness: Brightness.light,
         ),
-        visualDensity: M3VisualDensityToken.comfortable.value,
+        visualDensity: M3VisualDensity.comfortable,
         textTheme: TextTheme(
           displayLarge: M3TextStyle.displayLarge,
           displayMedium: M3TextStyle.displayMedium,
@@ -40,7 +40,7 @@ class ThemeProvider with ChangeNotifier {
           seedColor: _seedColor,
           brightness: Brightness.dark,
         ),
-        visualDensity: M3VisualDensityToken.comfortable.value,
+        visualDensity: M3VisualDensity.comfortable,
         textTheme: TextTheme(
           displayLarge: M3TextStyle.displayLarge,
           displayMedium: M3TextStyle.displayMedium,

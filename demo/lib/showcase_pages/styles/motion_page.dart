@@ -15,45 +15,44 @@ class MotionPage extends StatelessWidget {
         padding: M3EdgeInsets.all(M3MarginToken.mediumScreen),
         children: [
           LaunchURLText(
-            label:
-                'M3MotionToken Equals:\nM3MotionDurationToken + M3MotionCurveToken',
+            label: 'M3Motion Equals:\nM3MotionDurationToken + M3MotionCurve',
             m3Url:
                 'https://m3.material.io/styles/motion/easing-and-duration/applying-easing-and-duration',
           ),
           _MotionShowcase(
             title: 'Emphasized',
-            curve: M3MotionCurveToken.emphasizedAccelerate,
-            duration: M3MotionDurationToken.long2,
+            curve: M3MotionCurve.emphasizedAccelerate,
+            duration: M3MotionDuration.long2,
           ),
           _MotionShowcase(
             title: 'Emphasized Incoming',
-            curve: M3MotionCurveToken.emphasizedDecelerate,
-            duration: M3MotionDurationToken.long1,
+            curve: M3MotionCurve.emphasizedDecelerate,
+            duration: M3MotionDuration.long1,
           ),
           _MotionShowcase(
             title: 'Emphasized Outgoing',
-            curve: M3MotionCurveToken.emphasizedAccelerate,
-            duration: M3MotionDurationToken.short3,
+            curve: M3MotionCurve.emphasizedAccelerate,
+            duration: M3MotionDuration.short3,
           ),
           _MotionShowcase(
             title: 'Standard',
-            curve: M3MotionCurveToken.standard,
-            duration: M3MotionDurationToken.medium2,
+            curve: M3MotionCurve.standard,
+            duration: M3MotionDuration.medium2,
           ),
           _MotionShowcase(
             title: 'Standard Incoming',
-            curve: M3MotionCurveToken.standardDecelerate,
-            duration: M3MotionDurationToken.medium1,
+            curve: M3MotionCurve.standardDecelerate,
+            duration: M3MotionDuration.medium1,
           ),
           _MotionShowcase(
             title: 'Standard Outgoing',
-            curve: M3MotionCurveToken.standardAccelerate,
-            duration: M3MotionDurationToken.short4,
+            curve: M3MotionCurve.standardAccelerate,
+            duration: M3MotionDuration.short4,
           ),
           _MotionShowcase(
             title: 'Linear',
-            curve: M3MotionCurveToken.linear,
-            duration: M3MotionDurationToken.short3,
+            curve: M3MotionCurve.linear,
+            duration: M3MotionDuration.short3,
           ),
         ],
       ),
@@ -69,8 +68,8 @@ class _MotionShowcase extends StatefulWidget {
   });
 
   final String title;
-  final M3MotionCurveToken curve;
-  final M3MotionDurationToken duration;
+  final M3MotionCurve curve;
+  final M3MotionDuration duration;
 
   @override
   State<_MotionShowcase> createState() => _MotionShowcaseState();
@@ -85,13 +84,13 @@ class _MotionShowcaseState extends State<_MotionShowcase>
   void initState() {
     super.initState();
     _controller = AnimationController(
-      duration: widget.duration.value,
+      duration: widget.duration,
       vsync: this,
     );
     _animation = Tween<double>(
       begin: 0.0,
       end: 1.0,
-    ).chain(CurveTween(curve: widget.curve.value)).animate(_controller);
+    ).chain(CurveTween(curve: widget.curve)).animate(_controller);
     _controller.repeat(reverse: true);
   }
 
@@ -143,7 +142,7 @@ class _MotionPainter extends CustomPainter {
   });
 
   final double animationValue;
-  final M3MotionCurveToken curve;
+  final M3MotionCurve curve;
   final Color color;
 
   @override
@@ -157,15 +156,14 @@ class _MotionPainter extends CustomPainter {
     path.moveTo(0, size.height);
 
     for (double t = 0; t <= 1.0; t += 0.01) {
-      final y = size.height - curve.value.transform(t) * size.height;
+      final y = size.height - curve.transform(t) * size.height;
       path.lineTo(t * size.width, y);
     }
     canvas.drawPath(path, paint);
 
     final circlePaint = Paint()..color = color;
     final circleX = animationValue * size.width;
-    final circleY =
-        size.height - curve.value.transform(animationValue) * size.height;
+    final circleY = size.height - curve.transform(animationValue) * size.height;
     canvas.drawCircle(Offset(circleX, circleY), 6, circlePaint);
   }
 

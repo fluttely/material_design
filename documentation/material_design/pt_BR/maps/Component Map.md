@@ -226,7 +226,7 @@ graph TD
 M3SpacingToken.space16 ← M3RefSpacing.base * 4 ← 4dp grid system
 
 // Density demonstration connects to:
-M3VisualDensityToken.standard ← Platform detection ← Adaptive behavior
+M3VisualDensity.standard ← Platform detection ← Adaptive behavior
 
 // Breakpoint demonstration connects to:
 M3BreakpointToken.medium ← MediaQuery.size.width ← Responsive layout

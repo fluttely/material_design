@@ -31,8 +31,8 @@ graph TD
     E --> E2[M3SurfaceTint]
     E --> E3[M3Elevation]
     E --> E4[M3SpacingToken]
-    E --> E5[M3MotionDurationToken]
-    E --> E6[M3MotionCurveToken]
+    E --> E5[M3MotionDuration]
+    E --> E6[M3MotionCurve]
     E --> E7[M3Radius]
     E --> E8[M3Shadows]
 
@@ -104,10 +104,10 @@ extraShort: 50→200ms    // Micro-interações
 short: 250→400ms        // Estado changes
 medium: 450→600ms       // Transições padrão
 long: 700→1000ms        // Complexas
-extraLong: 1200→1800ms  // Página transitions
+extralong: 1200→1800ms  // Página transitions
 ```
 
-**Fluxo:** `M3RefDuration` → `M3MotionDurationToken` → `AnimationController`
+**Fluxo:** `M3RefDuration` → `M3MotionDuration` → `AnimationController`
 
 ## 🎯 System Tokens - Semântica
 
@@ -315,7 +315,7 @@ pie title Token Usage Distribution
 Demonstra todos os tokens organizados por categoria:
 
 - **Tab 1: Spacing** - `M3SpacingToken.*` visual demos
-- **Tab 2: Density** - `M3VisualDensityToken.*` comparisons
+- **Tab 2: Density** - `M3VisualDensity.*` comparisons
 - **Tab 3: Breakpoints** - `M3BreakpointToken.*` responsive behavior
 - **Tab 4: Others** - Icon sizes, z-index, opacities
 

@@ -10,7 +10,7 @@
 - **Spacing Tokens** - M3SpacingToken (4dp grid system)
 - **Elevation Tokens** - M3Elevation (6 levels)
 - **Shape Tokens** - M3Shapes (border radius system)
-- **Motion Tokens** - M3MotionDurationToken & M3MotionCurveToken
+- **Motion Tokens** - M3MotionDuration & M3MotionCurve
 - **State Tokens** - M3StateLayerOpacity
 - **Breakpoint Tokens** - M3BreakpointToken (responsive)
 
@@ -48,8 +48,8 @@ graph TD
     E --> E1[M3TextStyleToken ✅]
     E --> E2[M3Elevation ✅]
     E --> E3[M3SpacingToken ✅]
-    E --> E4[M3MotionDurationToken ✅]
-    E --> E5[M3MotionCurveToken ✅]
+    E --> E4[M3MotionDuration ✅]
+    E --> E5[M3MotionCurve ✅]
     E --> E6[M3Shapes ✅]
     E --> E7[M3StateLayerOpacity ✅]
     E --> E8[M3BreakpointToken ✅]
@@ -290,11 +290,11 @@ medium: 12dp, large: 16dp, extraLarge: 28dp
 full: 9999dp // Fully circular
 ```
 
-### 🎬 M3MotionToken - ✅ **Fully Active**
+### 🎬 M3Motion - ✅ **Fully Active**
 
 ```dart
 // ✅ Complete motion system - all functional
-// Durations: extraShort1 (50ms) to extraLong4 (1000ms)
+// Durations: extraShort1 (50ms) to extralong4 (1000ms)
 // Easings: standard, emphasized, decelerated, accelerated
 short4: Duration(milliseconds: 200)
 medium2: Duration(milliseconds: 300)
@@ -339,7 +339,7 @@ graph LR
 2. **M3TextStyleToken** - Typography (used in 90% of texts) ✅
 3. **M3Elevation** - Elevation (used in 75% of cards/surfaces) ✅
 4. **M3Shapes** - Shapes (used in 70% of containers) ✅
-5. **M3MotionToken** - Animation durations and easing ✅
+5. **M3Motion** - Animation durations and easing ✅
 
 ### By Category
 

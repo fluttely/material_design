@@ -167,7 +167,7 @@ Container(
 ```dart
 // Elevação que responde a interações
 AnimatedContainer(
-  duration: M3MotionDurationToken.short4,
+  duration: M3MotionDuration.short4,
   decoration: M3BoxDecoration(
     color: M3SurfaceTint.surfaceAt(context, isPressed ? 1.0 : 3.0),
     boxShadow: M3Shadows.fromElevation(isPressed ? 1.0 : 3.0),
@@ -185,26 +185,26 @@ Baseado em **[[Design Tokens#M3RefDuration|M3RefDuration]]** e curvas de easing 
 
 ```dart
 // Micro-interações
-M3MotionDurationToken.extraShort1  // 50ms
-M3MotionDurationToken.short4       // 200ms
+M3MotionDuration.extraShort1  // 50ms
+M3MotionDuration.short4       // 200ms
 
 // Transições padrão
-M3MotionDurationToken.medium1      // 250ms - mais comum
-M3MotionDurationToken.medium2      // 300ms - ênfase
+M3MotionDuration.medium1      // 250ms - mais comum
+M3MotionDuration.medium2      // 300ms - ênfase
 
 // Animações complexas
-M3MotionDurationToken.long1        // 450ms
-M3MotionDurationToken.long4        // 600ms
+M3MotionDuration.long1        // 450ms
+M3MotionDuration.long4        // 600ms
 ```
 
 **Easing Curves:**
 
 ```dart
 // Curvas oficiais M3
-M3MotionCurveToken.standard       // (0.2, 0.0, 0.0, 1.0) - mais comum
-M3MotionCurveToken.emphasized     // (0.05, 0.7, 0.1, 1.0) - transições importantes
-M3MotionCurveToken.decelerated    // (0.0, 0.0, 0.2, 1.0) - elementos entrando
-M3MotionCurveToken.accelerated    // (0.3, 0.0, 1.0, 1.0) - elementos saindo
+M3MotionCurve.standard       // (0.2, 0.0, 0.0, 1.0) - mais comum
+M3MotionCurve.emphasized     // (0.05, 0.7, 0.1, 1.0) - transições importantes
+M3MotionCurve.decelerated    // (0.0, 0.0, 0.2, 1.0) - elementos entrando
+M3MotionCurve.accelerated    // (0.3, 0.0, 1.0, 1.0) - elementos saindo
 ```
 
 **Motion Patterns:**
@@ -212,8 +212,8 @@ M3MotionCurveToken.accelerated    // (0.3, 0.0, 1.0, 1.0) - elementos saindo
 ```dart
 // Fade com duração contextual
 M3MotionUtils.fadeIn(
-  duration: M3MotionDurationToken.medium2,
-  curve: M3MotionCurveToken.emphasizedDecelerate,
+  duration: M3MotionDuration.medium2,
+  curve: M3MotionCurve.emphasizedDecelerate,
   child: myWidget,
 )
 
@@ -304,7 +304,7 @@ ThemeData buildM3Theme({Color? seedColor}) {
         shape: RoundedRectangleBorder(
           shape: BorderRadius.circular(M3Radius.medium),
         ),
-        animationDuration: M3MotionDurationToken.short4,
+        animationDuration: M3MotionDuration.short4,
       ),
     ),
   );
@@ -325,8 +325,8 @@ Card(
   // Color (automático via theme)
   child: AnimatedContainer(
     // Motion
-    duration: M3MotionDurationToken.short4,
-    curve: M3MotionCurveToken.standard,
+    duration: M3MotionDuration.short4,
+    curve: M3MotionCurve.standard,
     padding: M3EdgeInsets.all(M3SpacingToken.space16),
     child: Column(
       children: [
