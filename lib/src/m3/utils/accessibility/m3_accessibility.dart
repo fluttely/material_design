@@ -82,7 +82,7 @@ abstract interface class M3Accessibility {
           return Container(
             decoration: hasFocus
                 ? M3BoxDecoration(
-                    border: M3Border.all(borderSide),
+                    border: M3Border._all(borderSide),
                     borderRadius: borderRadius,
                   )
                 : null,

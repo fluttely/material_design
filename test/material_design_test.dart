@@ -8,8 +8,7 @@ void main() {
       // Test that main exports are available
       expect(M3SpacingToken.space16, isA<M3SpacingToken>());
       expect(M3Shapes.medium, isA<RoundedRectangleBorder>());
-      expect(const M3BorderRadius.all(M3Radius.circular(M3CornersToken.small)),
-          isA<M3BorderRadius>());
+      expect(const M3BorderRadius.all(M3Radius.small), isA<M3BorderRadius>());
     });
   });
 }
