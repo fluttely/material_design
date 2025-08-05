@@ -375,7 +375,7 @@ class M3Button extends StatelessWidget {
       padding: _getButtonPadding(),
       shape: _getButtonShape(),
       elevation: M3CompButton.elevationRested,
-      animationDuration: M3MotionDurationToken.short4,
+      animationDuration: M3MotionDuration.short4,
     );
   }
 

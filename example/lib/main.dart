@@ -194,7 +194,7 @@ class _DemoHomePageState extends State<DemoHomePage>
   double _elevation = 1.0;
 
   /// Current visual density setting
-  VisualDensity _visualDensity = M3VisualDensities.standard;
+  VisualDensity _visualDensity = M3VisualDensity.standard;
 
   /// Animation controller for page transitions
   late AnimationController _pageAnimationController;
@@ -520,10 +520,10 @@ class _DemoHomePageState extends State<DemoHomePage>
   }
 
   String _getDensityName(VisualDensity density) {
-    if (density == M3VisualDensities.standard) return 'Standard';
-    if (density == M3VisualDensityToken.comfortable.value) return 'Comfortable';
-    if (density == M3VisualDensityToken.compact.value) return 'Compact';
-    if (density == M3VisualDensityToken.adaptivePlatformDensity) {
+    if (density == M3VisualDensity.standard) return 'Standard';
+    if (density == M3VisualDensity.comfortable) return 'Comfortable';
+    if (density == M3VisualDensity.compact) return 'Compact';
+    if (density == M3VisualDensity.adaptivePlatformDensity) {
       return 'Adaptive';
     }
     return 'Custom';
@@ -579,10 +579,10 @@ class _DemoHomePageState extends State<DemoHomePage>
 
   List<Widget> _buildDensityChips() {
     final densityOptions = [
-      ('Standard', M3VisualDensities.standard),
-      ('Comfortable', M3VisualDensityToken.comfortable.value),
-      ('Compact', M3VisualDensityToken.compact.value),
-      ('Adaptive', M3VisualDensityToken.adaptivePlatformDensity),
+      ('Standard', M3VisualDensity.standard),
+      ('Comfortable', M3VisualDensity.comfortable),
+      ('Compact', M3VisualDensity.compact),
+      ('Adaptive', M3VisualDensity.adaptivePlatformDensity),
     ];
 
     return densityOptions.map((option) {

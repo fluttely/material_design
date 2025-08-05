@@ -25,14 +25,12 @@ import 'package:meta/meta.dart';
 import 'package:vector_math/vector_math_64.dart' hide Colors;
 
 part 'src/m3/tokens/sys/elevation/m3_elevation_token.dart';
-part 'src/m3/tokens/sys/elevation/m3_surface_color_token.dart';
 
 /// **Elevation System**: Tonal elevation and shadow tokens.
 /// Implements Material Design 3's primary depth indication system using
 /// surface tinting combined with complementary shadow effects for natural
 /// depth perception.
-part 'src/m3/tokens/sys/elevation/shadow_token.dart';
-part 'src/m3/tokens/sys/elevation/surface_tint.dart';
+part 'src/m3/tokens/sys/elevation/shadows.dart';
 
 /// **Geometry Tokens**: Spatial and dimensional design tokens.
 /// Comprehensive geometric system including borders, breakpoints, icon
@@ -135,6 +133,7 @@ part 'src/m3/utils/adaptive/m3_adaptive.dart';
 /// Provides color blending, contrast calculations, WCAG compliance checking,
 /// state color generation, and accessible color adjustments.
 part 'src/m3/utils/color/m3_color_utils.dart';
+part 'src/m3/utils/elevation/surface_tint.dart';
 part 'src/m3/utils/layout/atom/m3_border_side.dart';
 part 'src/m3/utils/layout/atom/m3_text_style.dart';
 
@@ -153,8 +152,8 @@ part 'src/m3/utils/layout/m3_border_radius.dart';
 /// adaptations, and common layout patterns for consistent spatial design.
 part 'src/m3/utils/layout/m3_edge_insets.dart';
 part 'src/m3/utils/layout/m3_rounded_rectangle_border.dart';
+part 'src/m3/widgets/layout/border.dart';
 part 'src/m3/widgets/layout/box_shadow.dart';
-part 'src/m3/widgets/layout/m3_border.dart';
 
 /// Custom box decoration that enforces Material Design 3 tokens.
 part 'src/m3/widgets/layout/m3_box_decoration.dart';

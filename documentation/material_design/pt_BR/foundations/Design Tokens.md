@@ -246,7 +246,7 @@ Veja a implementação prática em **[[../examples/Design Tokens Page|DesignToke
 _buildSpacingDemo('M3SpacingToken.space16', M3SpacingToken.space16);
 
 // Demonstração de density
-_buildDensityDemo('Standard', M3VisualDensityToken.standard);
+_buildDensityDemo('Standard', M3VisualDensity.standard);
 
 // Demonstração de breakpoints
 _buildBreakpointDemo('M3BreakpointToken.medium', M3BreakpointToken.medium);

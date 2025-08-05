@@ -316,12 +316,12 @@ abstract interface class M3Adaptive {
               end: Offset.zero,
             ).animate(CurvedAnimation(
               parent: animation,
-              curve: M3MotionCurveToken.emphasizedDecelerate.value,
+              curve: M3MotionCurve.emphasizedDecelerate,
             )),
             child: child,
           );
         },
-        transitionDuration: M3MotionDurationToken.long1.value,
+        transitionDuration: M3MotionDuration.long1,
       );
     }
   }

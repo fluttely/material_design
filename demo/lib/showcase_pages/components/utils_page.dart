@@ -125,8 +125,8 @@ class _UtilsPageState extends State<UtilsPage> {
         ),
         const M3Gap(M3SpacingToken.space8),
         AnimatedContainer(
-          duration: M3MotionDurations.medium2,
-          curve: M3MotionCurveToken.standard.value,
+          duration: M3MotionDuration.medium2,
+          curve: M3MotionCurve.standard,
           decoration: ShapeDecoration(
             color: _elevation.surfaceColor(context),
             shape: M3Shapes.large,
@@ -143,8 +143,8 @@ class _UtilsPageState extends State<UtilsPage> {
   }
 
   Widget _buildMotionPatternsShowcase() {
-    const animationDuration = M3MotionDurations.long1;
-    final animationCurve = M3MotionCurves.emphasizedDecelerate;
+    const animationDuration = M3MotionDuration.long1;
+    final animationCurve = M3MotionCurve.emphasizedDecelerate;
     return Column(
       children: [
         ElevatedButton.icon(
@@ -178,7 +178,7 @@ class _UtilsPageState extends State<UtilsPage> {
           curve: animationCurve,
           child: AnimatedOpacity(
             opacity: _runAnimations ? 1.0 : 0.0,
-            duration: M3MotionDurations.medium2,
+            duration: M3MotionDuration.medium2,
             curve: Curves.easeIn,
             child: _buildMotionCard('Scale In', Icons.zoom_in_rounded),
           ),

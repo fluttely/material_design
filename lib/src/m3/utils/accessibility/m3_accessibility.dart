@@ -71,7 +71,7 @@ abstract interface class M3Accessibility {
   static Widget focusIndicator({
     required Widget child,
     Color? focusColor,
-    M3BorderSideToken borderSide = M3BorderSideToken.thick,
+    M3BorderSide borderSide = M3BorderSide.thick,
     M3BorderRadius? borderRadius,
   }) {
     return Focus(

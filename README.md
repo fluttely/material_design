@@ -58,7 +58,7 @@ Container(
   ),
   child: const Text(
     'Hello Material 3',
-    style: M3TextStyles.headlineMedium,              // Typography style
+    style: M3TextStyle.headlineMedium,              // Typography style
   ),
 ),
 ```
@@ -94,7 +94,7 @@ Combinations of atomic tokens:
 M3BorderRadius.medium  // BorderRadius.circular(12)
 
 // Complete borders
-M3Borders.thin  // Border with 1dp width
+M3Border.thin  // Border with 1dp width
 ```
 
 #### 3. **Style Tokens** (Design Decisions)
@@ -107,7 +107,7 @@ M3Shadows.level3      // Elevation level 3 shadows
 M3Elevations.level3   // Elevation level 3 value
 
 // Motion combines duration and easing
-M3Motions.emphasized  // 500ms with emphasized easing
+M3Motion.emphasized  // 500ms with emphasized easing
 ```
 
 ### Spacing Foundation
@@ -171,15 +171,15 @@ Motion tokens ensure consistent animation behavior:
 ```dart
 // Standard transitions
 AnimatedContainer(
-  duration: M3MotionDurations.medium,      // 300ms
-  curve: M3MotionCurves.emphasized,       // Emphasized easing
+  duration: M3MotionDuration.medium,      // 300ms
+  curve: M3MotionCurve.emphasized,       // Emphasized easing
   // ...
 )
 
 // Complete motion specifications
 AnimatedOpacity(
-  duration: M3Motions.standard.duration,  // 300ms
-  curve: M3Motions.standard.curve,        // Standard easing
+  duration: M3Motion.standard.duration,  // 300ms
+  curve: M3Motion.standard.curve,        // Standard easing
   opacity: isVisible ? 1.0 : 0.0,
 )
 ```
@@ -263,7 +263,7 @@ class ResponsiveScreen extends StatelessWidget {
             // Header with typography scale
             Text(
               'Design System Demo',
-              style: M3TextStyles.headlineLarge,
+              style: M3TextStyle.headlineLarge,
             ),
             // Content with proper margins
             Container(
@@ -359,18 +359,18 @@ class AppSpacing {
 
 ### Foundation Tokens
 
-| Category           | Constants Class     | Purpose                      | Example Values                    |
-| ------------------ | ------------------- | ---------------------------- | --------------------------------- |
-| **Spacing**        | `M3Spacings`        | 4dp grid system              | 0, 2, 4, 8, 12, 16, 24, 32, 48dp  |
-| **Margin**         | `M3Margins`         | Responsive container margins | 16dp, 24dp, 32dp, 40dp, 48dp      |
-| **Spacer**         | `M3Spacers`         | Pre-built spacer widgets     | horizontal/vertical spacers       |
-| **Motion**         | `M3MotionDurations` | Animation timing             | 50ms, 100ms, 300ms, 500ms, 1000ms |
-| **Motion Curve**   | `M3MotionCurves`    | Animation easing curves      | emphasized, standard, linear      |
-| **Motion**         | `M3Motions`         | Combined duration + curve    | emphasized, standard, linear      |
-| **Breakpoint**     | `M3Breakpoints`     | Responsive breakpoints       | 0, 600, 840, 1200, 1600dp         |
-| **Opacity**        | `M3Opacities`       | General transparency values  | 0.04, 0.08, 0.12, 0.38, 0.87      |
-| **Visual Density** | `M3VisualDensities` | UI density configurations    | -3, -2, -1, 0, comfortable        |
-| **Z-Index**        | `M3ZIndexes`        | Stacking order values        | -1, 0, 10, 100, 1000, 9999        |
+| Category           | Constants Class    | Purpose                      | Example Values                    |
+| ------------------ | ------------------ | ---------------------------- | --------------------------------- |
+| **Spacing**        | `M3Spacings`       | 4dp grid system              | 0, 2, 4, 8, 12, 16, 24, 32, 48dp  |
+| **Margin**         | `M3Margins`        | Responsive container margins | 16dp, 24dp, 32dp, 40dp, 48dp      |
+| **Spacer**         | `M3Spacers`        | Pre-built spacer widgets     | horizontal/vertical spacers       |
+| **Motion**         | `M3MotionDuration` | Animation timing             | 50ms, 100ms, 300ms, 500ms, 1000ms |
+| **Motion Curve**   | `M3MotionCurve`    | Animation easing curves      | emphasized, standard, linear      |
+| **Motion**         | `M3Motion`         | Combined duration + curve    | emphasized, standard, linear      |
+| **Breakpoint**     | `M3Breakpoints`    | Responsive breakpoints       | 0, 600, 840, 1200, 1600dp         |
+| **Opacity**        | `M3Opacities`      | General transparency values  | 0.04, 0.08, 0.12, 0.38, 0.87      |
+| **Visual Density** | `M3VisualDensity`  | UI density configurations    | -3, -2, -1, 0, comfortable        |
+| **Z-Index**        | `M3ZIndexes`       | Stacking order values        | -1, 0, 10, 100, 1000, 9999        |
 
 ### Style Tokens
 
@@ -380,8 +380,8 @@ class AppSpacing {
 | **Border Radius** | `M3BorderRadius`        | Complete border radius         | Container corner rounding     |
 | **Shape**         | `M3Shapes`              | Component border shapes        | Cards, buttons, dialogs       |
 | **Border Width**  | `M3BorderWidths`        | Border thickness values        | 0dp, 1dp, 2dp, 4dp            |
-| **Border Side**   | `M3BorderSides`         | Individual border sides        | Border configurations         |
-| **Border**        | `M3Borders`             | Complete border specifications | Outlined components           |
+| **Border Side**   | `M3BorderSide`          | Individual border sides        | Border configurations         |
+| **Border**        | `M3Border`              | Complete border specifications | Outlined components           |
 | **Elevation**     | `M3Elevations`          | Surface elevation levels       | 0dp, 1dp, 3dp, 6dp, 8dp, 12dp |
 | **Shadow**        | `M3Shadows`             | Box shadow configurations      | Elevated surface shadows      |
 | **State Layer**   | `M3StateLayerOpacities` | Interactive state overlays     | Hover, focus, pressed states  |
@@ -390,7 +390,7 @@ class AppSpacing {
 
 | Category       | Constants Class | Purpose                   | Example Scales                 |
 | -------------- | --------------- | ------------------------- | ------------------------------ |
-| **Text Style** | `M3TextStyles`  | Complete typography scale | Display, Headline, Body, Label |
+| **Text Style** | `M3TextStyle`   | Complete typography scale | Display, Headline, Body, Label |
 
 ### Component Support Tokens
 
