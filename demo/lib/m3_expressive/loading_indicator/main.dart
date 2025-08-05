@@ -22,11 +22,11 @@ class _LoadingIndicatorPageState extends State<LoadingIndicatorPage> {
           children: [
             SizedBox.square(
               dimension: 160,
-              child: LoadingIndicator(),
+              child: M3ELoadingIndicator(),
             ),
             SizedBox.square(
               dimension: 160,
-              child: LoadingIndicator.contained(),
+              child: M3ELoadingIndicator.contained(),
             ),
           ],
         ),
