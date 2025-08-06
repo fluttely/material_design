@@ -126,7 +126,7 @@ class _UtilsPageState extends State<UtilsPage> {
         const M3Gap(M3SpacingToken.space8),
         AnimatedContainer(
           duration: M3MotionDuration.medium2,
-          curve: M3MotionCurve.standard,
+          curve: M3Motion.standard.curve,
           decoration: ShapeDecoration(
             color: _elevation.surfaceColor(context),
             shape: M3Shape.large,
@@ -143,8 +143,8 @@ class _UtilsPageState extends State<UtilsPage> {
   }
 
   Widget _buildMotionPatternsShowcase() {
-    const animationDuration = M3MotionDuration.long1;
-    final animationCurve = M3MotionCurve.emphasizedDecelerate;
+    final animationDuration = M3Motion.emphasizedIncoming.duration;
+    final animationCurve = M3Motion.emphasizedIncoming.curve;
     return Column(
       children: [
         ElevatedButton.icon(

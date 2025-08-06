@@ -4,6 +4,50 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adherves to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.26.0
+
+### 🚀 API Refinement and Semantic Improvements
+
+This release introduces significant API refinements focused on improving developer experience, semantic clarity, and consistency across the token system. The changes make the library more intuitive and align it better with Dart conventions.
+
+### ✨ Key Enhancements
+
+- **Semantic `M3Border` API**:
+
+  - Introduced named constructors like `M3Border.thin()`, `M3Border.thick()`, and `M3Border.extraThick()` for creating uniform borders with predefined widths.
+  - Added `M3Border.all()` for creating borders with custom widths while maintaining token consistency.
+  - The default constructor now supports individual side configuration (`top`, `right`, `bottom`, `left`).
+
+- **Intuitive `M3Radius` Constructors**:
+
+  - Renamed the private `_circular` constructor to a public `M3Radius.circular(M3CornerToken)` for direct and intuitive creation of radii from corner tokens.
+  - Static constants like `M3Radius.small` now use a private constructor for internal consistency.
+
+- **Simplified `M3Motion` Access**:
+
+  - The `M3Motion` class now directly provides `duration` and `curve` properties, removing the need for intermediate getters and making animation code cleaner.
+  - **Before**: `M3Motion.standard.curve` -> **After**: `M3Motion.standard.curve` (No change, but underlying implementation is simpler).
+
+- **`M3ElevationToken` Clarity**:
+
+  - Added a `dp` getter to `M3ElevationToken` to explicitly provide the elevation value as a `double`, improving clarity over the generic `value` property.
+
+- **Improved `README.md` Documentation**:
+  - Completely reorganized the "Complete Token Reference" section into two clear tables: **Design Tokens** and **Utility Classes**.
+  - Added a 'Group' column to categorize tokens logically (e.g., Layout & Spacing, Motion & Animation, Shape & Border).
+  - Updated all code examples to reflect the latest API improvements, providing a clearer and more professional guide.
+
+### 🔧 Breaking Changes
+
+- The internal constructor for `M3Radius` was changed. This is unlikely to affect most users who rely on the provided static constants.
+- Some `M3Border` constructors were refined, which may require updates if you were using them directly.
+
+### 📊 Impact
+
+- **Developer Experience**: The API is now more semantic and self-documenting.
+- **Code Clarity**: Refined class structures and documentation make the system easier to understand and use.
+- **Consistency**: The changes bring greater consistency across different parts of the token library.
+
 ## 0.25.0-dev
 
 ### 🚀 Major Code Organization and Token System Improvements

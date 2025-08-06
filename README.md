@@ -51,14 +51,14 @@ import 'package:material_design/material_design.dart';
 
 // Using design tokens in your widgets
 Container(
-  padding: const EdgeInsets.all(M3Spacings.space16),  // Spacing token
+  padding: const EdgeInsets.all(M3Spacings.space16), // Spacing token
   decoration: const BoxDecoration(
-    borderRadius: M3BorderRadius.medium,               // Shape style token
-    boxShadow: M3Shadows.level3,                     // Elevation style
+    borderRadius: M3BorderRadius.medium, // Shape style token
+    boxShadow: M3Shadows.level5, // Elevation style
   ),
   child: const Text(
     'Hello Material 3',
-    style: M3TextStyle.headlineMedium,              // Typography style
+    style: M3TextStyle.headlineMedium, // Typography style
   ),
 ),
 ```
@@ -75,14 +75,18 @@ The smallest units of design decisions:
 
 ```dart
 // Raw spacing values (4dp grid)
-M3Spacings.space4   // 4.0
-M3Spacings.space8   // 8.0
-M3Spacings.space16  // 16.0
+M3Spacings.space4   // 4dp
+M3Spacings.space8   // 8dp
+M3Spacings.space16  // 16dp
+// OR
+M3SpacingToken.space16.value // 16dp
 
 // Raw corner values
-M3Corners.small   // 8.0
-M3Corners.medium  // 12.0
-M3Corners.large   // 16.0
+M3Corners.small   // 8dp
+M3Corners.medium  // 12dp
+M3Corners.large   // 16dp
+// OR
+M3CornerToken.large.value // 16dp
 ```
 
 #### 2. **Composite Tokens** (Applied Values)
@@ -90,11 +94,25 @@ M3Corners.large   // 16.0
 Combinations of atomic tokens:
 
 ```dart
-// Border radius (applies radius to all corners)
-M3BorderRadius.medium  // BorderRadius.circular(12)
+// Complete border radius logic (applies radius to all corners)
+M3Shape(borderRadius: M3BorderRadius.all(M3Radius.circular(M3CornerToken.medium)))
+// OR
+M3Shape(borderRadius: M3BorderRadius.all(M3Radius.medium))
+// OR
+M3Shape(borderRadius: M3BorderRadius.medium)
+// OR
+M3Shape.medium
 
 // Complete borders
-M3Border.thin  // Border with 1dp width
+final outlineColor = Theme.of(context).colorScheme.outline;
+// OR
+M3Border.fromBorderSide(M3BorderSide(outlineColor: outlineColor, width: M3BorderWidthToken.thin))
+// OR
+M3Border.fromBorderSide(M3BorderSide.thin(outlineColor))
+// OR
+M3Border.all(outlineColor: outlineColor, width: M3BorderWidthToken.thin)
+// OR
+M3Border.thin(outlineColor)
 ```
 
 #### 3. **Style Tokens** (Design Decisions)
@@ -103,13 +121,20 @@ Higher-level design applications:
 
 ```dart
 // Elevation creates both shadow and surface tint
-M3Shadows.level3      // Elevation level 3 shadows
-M3Elevations.level3   // Elevation level 3 value
+M3Elevations.level3 // Elevation level 3 dp
+M3Shadows.level3 // Elevation level 3 List<M3BoxShadow>
+M3SurfaceTint.fromElevation(context, M3Elevations.level3), // Elevation level 3 surface tint color
+// OR
+M3ElevationToken.level3.value
+M3ElevationToken.level3.shadows
+M3ElevationToken.level3.surfaceColor(context)
 
-// Motion duration
-M3MotionDuration.long2, // 500ms
-// Motion easing curve
+// Motion duration and easing curve
+M3MotionDuration.long2,   // 500ms
 M3MotionCurve.emphasized, // emphasized easing
+// OR
+M3Motion.emphasized.duration // 500ms
+M3Motion.emphasized.curve // emphasized easing
 ```
 
 ### Spacing Foundation
@@ -119,11 +144,11 @@ Material Design 3 uses a **4dp grid system** for consistent spatial relationship
 ```dart
 // Spacing scale (multiples of 4dp)
 Padding(
-  padding: const EdgeInsets.all(M3Spacings.space16),    // 16dp
+  padding: const EdgeInsets.all(M3Spacings.space16), // 16dp
   child: Column(
     children: [
       Text('Title'),
-      SizedBox(height: M3Spacings.space8),              // 8dp
+      SizedBox(height: M3Spacings.space8), // 8dp
       Text('Subtitle'),
     ],
   ),
@@ -132,7 +157,7 @@ Padding(
 // Responsive margins based on screen size
 Container(
   margin: EdgeInsets.symmetric(
-    horizontal: M3Margins.compactScreen,  // 16dp on mobile
+    horizontal: M3Margins.compactScreen, // 16dp on mobile
   ),
 )
 ```
@@ -162,7 +187,7 @@ Container(
 // Level 3: Complete shapes (for Material widgets)
 Card(
   shape: M3Shape.medium,
-  child: content,
+  child: ...,
 )
 ```
 
@@ -175,14 +200,12 @@ Motion tokens ensure consistent animation behavior:
 AnimatedContainer(
   duration: M3MotionDuration.long2,      // 500ms
   curve: M3MotionCurve.emphasized,       // Emphasized easing
-  // ...
 )
 
 // Complete motion specifications
 AnimatedOpacity(
   duration: M3Motion.emphasized.duration,  // 500ms
   curve: M3Motion.emphasized.curve,        // Emphasized easing
-  opacity: isVisible ? 1.0 : 0.0,
 )
 ```
 
@@ -195,23 +218,23 @@ final elevation = M3Elevations.level5;
 
 // Using Material Widget
 Material(
-  elevation: elevation,  // 12.0dp elevation
-  child: content,
+  elevation: elevation,  // 12dp elevation
+  child: ...,
 )
 
 // Using fromElevation values
 Container(
   decoration: BoxDecoration(
-    color: M3SurfaceTint.fromElevation(context, elevation), // colorScheme.surface with 12.0dp elevation
-    boxShadow: M3Shadows.fromElevation(elevation),  // Level 5 shadow list (12.0dp elevation)
+    color: M3SurfaceTint.fromElevation(context, elevation), // colorScheme.surface with 12dp elevation
+    boxShadow: M3Shadows.fromElevation(elevation),  // Level 5 shadow list (12dp elevation)
   ),
 )
 
 // Using colorScheme and shadow tokens directly
 Container(
   decoration: BoxDecoration(
-    color: Theme.of(context).colorScheme.surface, // (12.0dp elevation)
-    boxShadow: M3Shadows.level5,  // Level 5 shadow list (12.0dp elevation)
+    color: Theme.of(context).colorScheme.surface, // (12dp elevation)
+    boxShadow: M3Shadows.level5,  // Level 5 shadow list (12dp elevation)
   ),
 )
 ```
@@ -332,18 +355,14 @@ Examples:
 Container(
   padding: const EdgeInsets.all(16.0),
   margin: const EdgeInsets.symmetric(horizontal: 24.0),
-  decoration: BoxDecoration(
-    borderRadius: BorderRadius.circular(12.0),
-  ),
+  decoration: BoxDecoration(borderRadius: BorderRadius.circular(12.0)),
 )
 
 // After: Self-documenting design tokens
 Container(
   padding: const EdgeInsets.all(M3Spacings.space16),
   margin: const EdgeInsets.symmetric(horizontal: M3Margins.mediumScreen),
-  decoration: BoxDecoration(
-    borderRadius: M3BorderRadius.medium,
-  ),
+  decoration: BoxDecoration(borderRadius: M3BorderRadius.medium),
 )
 ```
 
@@ -353,107 +372,77 @@ If you have an existing design system, map your values to Material Design 3 toke
 
 ```dart
 // Your old system
-class AppSpacing {
+class AppSpacings {
   static const double small = 8;
   static const double medium = 16;
   static const double large = 24;
 }
 
 // Migration mapping
-class AppSpacing {
+class AppSpacings {
   static const double small = M3Spacings.space8;
   static const double medium = M3Spacings.space16;
   static const double large = M3Spacings.space24;
 }
 ```
 
-## 📊 Complete Token Reference
+Of course! Your intention to categorize was correct, but the execution in Markdown could be improved. I've organized your information into two main tables, **Design Tokens** and **Utility Classes**, using a 'Group' column for the categorization you wanted. This makes the reference much clearer and more professional.
 
-### Foundation Tokens
+---
 
-| Category            | Constants Class    | Purpose                      | Example Values                    |
-| ------------------- | ------------------ | ---------------------------- | --------------------------------- |
-| **Spacing**         | `M3Spacings`       | 4dp grid system              | 0, 2, 4, 8, 12, 16, 24, 32, 48dp  |
-| **Margin**          | `M3Margins`        | Responsive container margins | 16dp, 24dp, 32dp, 40dp, 48dp      |
-| **Spacer**          | `M3Spacers`        | Pre-built spacer widgets     | horizontal/vertical spacers       |
-| ------------------- | ------------------ | ---------------------------- | --------------------------------- |
-| **Motion Duration** | `M3MotionDuration` | Animation timing             | 50ms, 100ms, 300ms, 500ms, 1000ms |
-| **Motion Curve**    | `M3MotionCurve`    | Animation easing curves      | emphasized, standard, linear      |
-| **Motion**          | `M3Motion`         | Combined duration + curve    | emphasized, standard, linear      |
-| ------------------- | ------------------ | ---------------------------- | --------------------------------- |
-| **Breakpoint**      | `M3Breakpoints`    | Responsive breakpoints       | 0, 600, 840, 1200, 1600dp         |
-| ------------------- | ------------------ | ---------------------------- | --------------------------------- |
-| **Opacity**         | `M3Opacities`      | General transparency values  | 0.04, 0.08, 0.12, 0.38, 0.87      |
-| ------------------- | ------------------ | ---------------------------- | --------------------------------- |
-| **Visual Density**  | `M3VisualDensity`  | UI density configurations    | -3, -2, -1, 0, comfortable        |
-| ------------------- | ------------------ | ---------------------------- | --------------------------------- |
-| **Z-Index**         | `M3ZIndexes`       | Stacking order values        | -1, 0, 10, 100, 1000, 9999        |
+## 📊 Complete Token and Utility Reference
 
-### Style Tokens
+### Design Tokens
 
-| Category          | Constants Class         | Purpose                        | Use Case                      |
-| ----------------- | ----------------------- | ------------------------------ | ----------------------------- |
-| **Radius**        | `M3Radius`              | Individual corner radius       | Corner rounding primitives    |
-| **Border Radius** | `M3BorderRadius`        | Complete border radius         | Container corner rounding     |
-| **Shape**         | `M3Shape`               | Component border shapes        | Cards, buttons, dialogs       |
-| ----------------- | ----------------------- | ------------------------------ | ----------------------------- |
-| **Border Width**  | `M3BorderWidths`        | Border thickness values        | 0dp, 1dp, 2dp, 4dp            |
-| **Border Side**   | `M3BorderSide`          | Individual border sides        | Border configurations         |
-| **Border**        | `M3Border`              | Complete border specifications | Outlined components           |
-| ----------------- | ----------------------- | ------------------------------ | ----------------------------- |
-| **Elevation**     | `M3Elevations`          | Surface elevation levels       | 0dp, 1dp, 3dp, 6dp, 8dp, 12dp |
-| **Shadow**        | `M3Shadows`             | Box shadow configurations      | Elevated surface shadows      |
-| ----------------- | ----------------------- | ------------------------------ | ----------------------------- |
-| **State Layer**   | `M3StateLayerOpacities` | Interactive state overlays     | Hover, focus, pressed states  |
+These are constant values that form the foundation of your design system, ensuring consistency across spacing, colors, typography, and more.
 
-### Typography Tokens
+| Group                  | Token           | Constants Class                                    | Purpose                                 | Example Values                                                                                                   |
+| :--------------------- | :-------------- | :------------------------------------------------- | :-------------------------------------- | :--------------------------------------------------------------------------------------------------------------- |
+| **Layout & Spacing**   | Spacing         | `M3Spacings` `M3SpacingToken`                      | 4dp grid system for consistent spacing. | `0`, `2`, `4`, `8`, `12`, `16`, `24`, `32`, `48dp`                                                               |
+|                        | Margin          | `M3Margins` `M3MarginToken`                        | Responsive container margins.           | `16dp`, `24dp`, `32dp`, `40dp`, `48dp`                                                                           |
+|                        | Spacer          | `M3Spacers` `M3SpacerToken`                        | Pre-built spacer widgets.               | horizontal/vertical spacers                                                                                      |
+|                        | Icon Size       | `M3IconSizes` `M3IconSizeToken`                    | Standardized icon dimensions.           | `18dp`, `24dp`, `36dp`, `40dp`, `48dp`                                                                           |
+|                        | Visual Density  | `M3VisualDensity`                                  | UI density configurations.              | `-3`, `-2`, `-1`, `0`, `comfortable`                                                                             |
+|                        | Z-Index         | `M3ZIndexes` `M3ZIndexToken`                       | Values for layer stacking order.        | `-1`, `0`, `10`, `100`, `1000`, `9999`                                                                           |
+| **Responsive**         | Breakpoint      | `M3Breakpoints` `M3BreakpointToken`                | Breakpoints for responsive design.      | `0`, `600`, `840`, `1200`, `1600dp`                                                                              |
+| **Motion & Animation** | Motion Duration | `M3MotionDuration`                                 | Duration and timing for animations.     | `50ms`, `100ms`, `300ms`, `500ms`, `1000ms`                                                                      |
+|                        | Motion Curve    | `M3MotionCurve`                                    | Easing curves for animations.           | `emphasized`, `standard`, `linear`                                                                               |
+|                        | Motion          | `M3Motion`                                         | Combined duration + curve settings.     | `emphasized` `emphasizedIncoming` `emphasizedOutgoing` `standard` `standardIncoming` `standardOutgoing` `linear` |
+| **Color & Opacity**    | Opacity         | `M3Opacities` `M3OpacityToken`                     | General transparency values.            | `0.04`, `0.08`, `0.12`, `0.38`, `0.87`                                                                           |
+|                        | State Layer     | `M3StateLayerOpacities` `M3StateLayerOpacityToken` | Overlays for interactive states.        | Hover, focus, pressed states                                                                                     |
+|                        | Surface Tint    | `M3SurfaceTint`                                    | Dynamic surface colors.                 | Calculated from theme and elevation                                                                              |
+| **Shape & Border**     | Corner          | `M3Corners` `M3CornerToken`                        | Individual corner values.               | Corner rounding primitives                                                                                       |
+|                        | Radius          | `M3Radius`                                         | Individual corner radius values.        | Corner rounding primitives                                                                                       |
+|                        | Border Radius   | `M3BorderRadius`                                   | Complete border radius for containers.  | Container corner rounding                                                                                        |
+|                        | Shape           | `M3Shape`                                          | Border shapes for components.           | Cards, buttons, dialogs                                                                                          |
+|                        | Border Width    | `M3BorderWidths` `M3BorderWidthToken `             | Border thickness values.                | `0dp`, `1dp`, `2dp`, `4dp`                                                                                       |
+|                        | Border Side     | `M3BorderSide`                                     | Individual border sides.                | Border configurations                                                                                            |
+|                        | Border          | `M3Border`                                         | Complete border specifications.         | Outlined components                                                                                              |
+| **Elevation & Shadow** | Elevation       | `M3Elevations` `M3ElevationToken`                  | Surface elevation levels.               | `0dp`, `1dp`, `3dp`, `6dp`, `8dp`, `12dp`                                                                        |
+|                        | Shadow          | `M3Shadows`                                        | Box shadow configurations.              | Shadows for elevated surfaces                                                                                    |
+| **Typography**         | Text Style      | `M3TextStyle`                                      | Complete typography scale.              | Display, Headline, Body, Label                                                                                   |
 
-| Category       | Constants Class | Purpose                   | Example Scales                 |
-| -------------- | --------------- | ------------------------- | ------------------------------ |
-| **Text Style** | `M3TextStyle`   | Complete typography scale | Display, Headline, Body, Label |
+---
 
-### Component Support Tokens
+### Utility & Helper Classes
 
-| Category      | Constants Class | Purpose                      | Example Values               |
-| ------------- | --------------- | ---------------------------- | ---------------------------- |
-| **Icon Size** | `M3IconSizes`   | Standardized icon dimensions | 18dp, 24dp, 36dp, 40dp, 48dp |
+These are classes that help apply design tokens in a type-safe and responsive way.
 
-### Utility Classes
-
-| Category            | Class Name          | Purpose                       | Usage                          |
-| ------------------- | ------------------- | ----------------------------- | ------------------------------ |
-| **EdgeInsets**      | `M3EdgeInsets`      | Type-safe padding/margin      | Enforces spacing tokens        |
-| **Padding**         | `M3Padding`         | Pre-configured padding widget | Consistent padding application |
-| **Gap**             | `M3Gap`             | Spacing between flex children | Row/Column spacing             |
-| ------------------- | ------------------- | ----------------------------- | ------------------------------ |
-| **BoxDecoration**   | `M3BoxDecoration`   | Type-safe box decoration      | Enforces all style tokens      |
-| **ShapeDecoration** | `M3ShapeDecoration` | Type-safe shape decoration    | Enforces all style tokens      |
-
-### Dynamic Tokens
-
-| Category         | Class Name        | Purpose                | Behavior                          |
-| ---------------- | ----------------- | ---------------------- | --------------------------------- |
-| **Surface Tint** | `M3SurfaceTint`\* | Dynamic surface colors | Calculated from theme + elevation |
-
-\*Note: Surface tint values are calculated dynamically based on the current theme and elevation level.
-
-### Responsive Utilities
-
-| Category       | Class Name               | Purpose                      | Features                        |
-| -------------- | ------------------------ | ---------------------------- | ------------------------------- |
-| **Builder**    | `M3ResponsiveBuilder`    | Responsive widget builder    | Rebuilds on size class change   |
-| **Value**      | `M3ResponsiveValue`      | Responsive value selection   | Different values per breakpoint |
-| **Visibility** | `M3ResponsiveVisibility` | Conditional visibility       | Show/hide based on screen size  |
-| **Grid**       | `M3ResponsiveGrid`       | Responsive grid layout       | Adaptive columns and spacing    |
-| **Scaffold**   | `M3ResponsiveScaffold`   | Adaptive navigation scaffold | Bottom nav → Rail → Drawer      |
-
-### Helper Classes
-
-| Category        | Class Name               | Purpose                      | Usage                           |
-| --------------- | ------------------------ | ---------------------------- | ------------------------------- |
-| **Screen Size** | `M3ScreenSize`           | Window size classification   | Compact, Medium, Expanded, etc. |
-| **Grid Config** | `M3ResponsiveGridConfig` | Grid layout configuration    | Columns, gutters, margins       |
-| **Navigation**  | `M3ResponsiveNavigation` | Navigation pattern selection | Determines nav type by size     |
+| Group                   | Utility / Class          | Purpose                                     | Common Use Case                         |
+| :---------------------- | :----------------------- | :------------------------------------------ | :-------------------------------------- |
+| **Layout Helpers**      | `M3EdgeInsets`           | Type-safe padding/margin.                   | Enforces use of spacing tokens          |
+|                         | `M3Padding`              | Pre-configured padding widget.              | Consistent padding application          |
+|                         | `M3Gap`                  | Spacing between flex children (Row/Column). | `Row`/`Column` spacing                  |
+| **Decoration Helpers**  | `M3BoxDecoration`        | Type-safe box decoration.                   | Enforces use of all style tokens        |
+|                         | `M3ShapeDecoration`      | Type-safe shape decoration.                 | Enforces use of all style tokens        |
+| **Responsive Builders** | `M3ResponsiveBuilder`    | Responsive widget builder.                  | Rebuilds on screen size class change    |
+|                         | `M3ResponsiveValue`      | Responsive value selection.                 | Defines different values per breakpoint |
+|                         | `M3ResponsiveVisibility` | Conditional visibility.                     | Shows/hides based on screen size        |
+|                         | `M3ResponsiveGrid`       | Responsive grid layout.                     | Adaptive columns and spacing            |
+|                         | `M3ResponsiveScaffold`   | Adaptive navigation scaffold.               | Bottom nav → Rail → Drawer              |
+| **Responsive Logic**    | `M3ScreenSize`           | Window size classification.                 | Compact, Medium, Expanded, etc.         |
+|                         | `M3ResponsiveGridConfig` | Grid layout configuration.                  | Columns, gutters, margins               |
+|                         | `M3ResponsiveNavigation` | Navigation pattern selection.               | Determines nav type by size             |
 
 ## 🎯 What is a Design System?
 
@@ -478,11 +467,11 @@ We welcome contributions from both design system experts and Flutter developers!
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
-## 📚 Further Reading
+## 📚 Further Reading & More
 
 - [Material Design 3 Specification](https://m3.material.io/)
-- [Design Tokens W3C Spec](https://www.w3.org/community/design-tokens/)
-- [Google's Design System Guide](https://design.google/library/design-system-governance/)
+- [Google's Design System Guide](https://design.google/)
+- [Flex Color Scheme](https://pub.dev/packages/flex_color_scheme)
 
 ## 📄 License
 
