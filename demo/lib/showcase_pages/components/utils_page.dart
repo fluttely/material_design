@@ -79,7 +79,7 @@ class _UtilsPageState extends State<UtilsPage> {
           padding: M3EdgeInsets.all(M3SpacingToken.space12),
           decoration: ShapeDecoration(
             color: Theme.of(context).colorScheme.surfaceContainer,
-            shape: M3Shapes.small,
+            shape: M3Shape.small,
           ),
           child: Text(
             'function total(items) => items.reduce((a, b) => a + b.price, 0);',
@@ -129,7 +129,7 @@ class _UtilsPageState extends State<UtilsPage> {
           curve: M3MotionCurve.standard,
           decoration: ShapeDecoration(
             color: _elevation.surfaceColor(context),
-            shape: M3Shapes.large,
+            shape: M3Shape.large,
             shadows: _elevation.shadows,
           ),
           child: ListTile(
@@ -254,8 +254,8 @@ class _UtilsPageState extends State<UtilsPage> {
       margin: M3EdgeInsets.only(
         bottom: M3SpacingToken.space16,
       ),
-      child: M3Padding.all(
-        M3SpacingToken.space16,
+      child: M3Padding(
+        padding: M3EdgeInsets.all(M3SpacingToken.space16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -308,7 +308,7 @@ class _UtilsPageState extends State<UtilsPage> {
       ),
       decoration: ShapeDecoration(
         color: colorScheme.secondaryContainer,
-        shape: M3Shapes.medium,
+        shape: M3Shape.medium,
       ),
       child: Row(
         children: [

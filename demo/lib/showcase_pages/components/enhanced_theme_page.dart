@@ -172,7 +172,7 @@ class EnhancedThemePage extends StatelessWidget {
       padding: M3EdgeInsets.all(M3SpacingToken.space16),
       decoration: ShapeDecoration(
         color: backgroundColor,
-        shape: M3Shapes.medium,
+        shape: M3Shape.medium,
       ),
       child: Text(
         label,

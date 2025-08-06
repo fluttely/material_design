@@ -46,8 +46,8 @@ class BreakpointTokensPage extends StatelessWidget {
         padding: M3EdgeInsets.all(M3SpacingToken.space16),
         children: [
           Card(
-            child: M3Padding.all(
-              M3SpacingToken.space16,
+            child: M3Padding(
+              padding: M3EdgeInsets.all(M3SpacingToken.space16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -126,8 +126,10 @@ class _BreakpointInfoRow extends StatelessWidget {
         ? '${min.toInt()}dp+'
         : '${min.toInt()}dp - ${max.toInt()}dp';
 
-    return M3Padding.symmetric(
-      vertical: M3SpacingToken.space8,
+    return M3Padding(
+      padding: M3EdgeInsets.symmetric(
+        vertical: M3SpacingToken.space8,
+      ),
       child: Row(
         children: [
           Icon(
@@ -193,7 +195,7 @@ class _BreakpointVisualizer extends StatelessWidget {
             // The main bar showing breakpoint ranges.
             Container(
               height: 32,
-              decoration: ShapeDecoration(shape: M3Shapes.full),
+              decoration: ShapeDecoration(shape: M3Shape.full),
               clipBehavior: Clip.antiAlias,
               child: Row(
                 children: List.generate(breakpoints.length, (index) {

@@ -85,8 +85,10 @@ class _VisualDensityPageState extends State<VisualDensityPage> {
 
   /// Constrói o seletor de densidade com botões segmentados.
   Widget _buildDensitySelector() {
-    return M3Padding.symmetric(
-      vertical: M3SpacingToken.space8,
+    return M3Padding(
+      padding: M3EdgeInsets.symmetric(
+        vertical: M3SpacingToken.space8,
+      ),
       child: SegmentedButton<VisualDensity>(
         segments: _densityOptions
             .map(
@@ -134,8 +136,8 @@ class _VisualDensityPageState extends State<VisualDensityPage> {
       itemCount: 6,
       itemBuilder: (context, index) {
         return Card(
-          child: M3Padding.all(
-            M3SpacingToken.space16,
+          child: M3Padding(
+            padding: M3EdgeInsets.all(M3SpacingToken.space16),
             child: Column(
               children: [
                 ListTile(

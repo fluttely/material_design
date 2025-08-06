@@ -130,8 +130,8 @@ class _AccessibilityPageState extends State<AccessibilityPage>
     final colorScheme = Theme.of(context).colorScheme;
     return Card(
       color: colorScheme.primaryContainer,
-      child: M3Padding.all(
-        M3SpacingToken.space20,
+      child: M3Padding(
+        padding: M3EdgeInsets.all(M3SpacingToken.space20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -277,7 +277,7 @@ class _AccessibilityPageState extends State<AccessibilityPage>
                     height: 32,
                     decoration: ShapeDecoration(
                       color: Theme.of(context).colorScheme.errorContainer,
-                      shape: M3Shapes.large,
+                      shape: M3Shape.large,
                     ),
                     child: InkWell(
                       onTap: () => _showSnackBar('32dp - Too small!'),
@@ -290,7 +290,7 @@ class _AccessibilityPageState extends State<AccessibilityPage>
                     height: 48,
                     decoration: ShapeDecoration(
                       color: Theme.of(context).colorScheme.primaryContainer,
-                      shape: M3Shapes.largeIncreased,
+                      shape: M3Shape.largeIncreased,
                     ),
                     child: InkWell(
                       onTap: () => _showSnackBar('48dp - Perfect!'),
@@ -303,7 +303,7 @@ class _AccessibilityPageState extends State<AccessibilityPage>
                     height: 56,
                     decoration: ShapeDecoration(
                       color: Theme.of(context).colorScheme.secondaryContainer,
-                      shape: M3Shapes.extraLarge,
+                      shape: M3Shape.extraLarge,
                     ),
                     child: InkWell(
                       onTap: () => _showSnackBar('56dp - Excellent!'),
@@ -521,7 +521,7 @@ class _AccessibilityPageState extends State<AccessibilityPage>
               color: mediaQuery.highContrast
                   ? Colors.black
                   : Theme.of(context).colorScheme.primary,
-              shape: M3Shapes.extraSmall,
+              shape: M3Shape.extraSmall,
             ),
             child: Text(
               'Demo',
@@ -588,7 +588,7 @@ class _AccessibilityPageState extends State<AccessibilityPage>
                     color: scale == textScale
                         ? Theme.of(context).colorScheme.primaryContainer
                         : Theme.of(context).colorScheme.surfaceContainer,
-                    shape: M3Shapes.small,
+                    shape: M3Shape.small,
                   ),
                   child: Row(
                     children: [
@@ -675,7 +675,7 @@ class _AccessibilityPageState extends State<AccessibilityPage>
                       height: 100,
                       decoration: ShapeDecoration(
                         color: Theme.of(context).colorScheme.primaryContainer,
-                        shape: M3Shapes.extraExtraLarge,
+                        shape: M3Shape.extraExtraLarge,
                       ),
                       child: Icon(
                         Icons.favorite,
@@ -723,8 +723,8 @@ class _AccessibilityPageState extends State<AccessibilityPage>
       margin: M3EdgeInsets.only(
         bottom: M3SpacingToken.space16,
       ),
-      child: M3Padding.all(
-        M3SpacingToken.space16,
+      child: M3Padding(
+        padding: M3EdgeInsets.all(M3SpacingToken.space16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -860,12 +860,13 @@ class _AccessibilityPageState extends State<AccessibilityPage>
     return Card(
       color: backgroundColor,
       elevation: M3ElevationToken.level0.value,
-      shape: RoundedRectangleBorder(
+      shape: M3Shape(
         borderRadius: M3BorderRadius.medium,
-        side: BorderSide(color: Theme.of(context).colorScheme.outlineVariant),
+        side: M3BorderSide(
+            outlineColor: Theme.of(context).colorScheme.outlineVariant),
       ),
-      child: M3Padding.all(
-        M3SpacingToken.space16,
+      child: M3Padding(
+        padding: M3EdgeInsets.all(M3SpacingToken.space16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -945,7 +946,7 @@ class _AccessibilityPageState extends State<AccessibilityPage>
       SnackBar(
         content: Text(message),
         behavior: SnackBarBehavior.floating,
-        shape: M3Shapes.small,
+        shape: M3Shape.small,
       ),
     );
   }

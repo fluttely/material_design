@@ -2,22 +2,22 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:material_design/material_design.dart';
 
 void main() {
-  group('M3Shapes', () {
+  group('M3Shape', () {
     test('returns correct RoundedRectangleBorder for all shape tokens', () {
-      expect(M3Shapes.none, isA<M3RoundedRectangleBorder>());
-      expect(M3Shapes.extraSmall, isA<M3RoundedRectangleBorder>());
-      expect(M3Shapes.small, isA<M3RoundedRectangleBorder>());
-      expect(M3Shapes.medium, isA<M3RoundedRectangleBorder>());
-      expect(M3Shapes.large, isA<M3RoundedRectangleBorder>());
-      expect(M3Shapes.largeIncreased, isA<M3RoundedRectangleBorder>());
-      expect(M3Shapes.extraLarge, isA<M3RoundedRectangleBorder>());
-      expect(M3Shapes.extraLargeIncreased, isA<M3RoundedRectangleBorder>());
-      expect(M3Shapes.extraExtraLarge, isA<M3RoundedRectangleBorder>());
-      expect(M3Shapes.full, isA<M3RoundedRectangleBorder>());
+      expect(M3Shape.zero, isA<M3Shape>());
+      expect(M3Shape.extraSmall, isA<M3Shape>());
+      expect(M3Shape.small, isA<M3Shape>());
+      expect(M3Shape.medium, isA<M3Shape>());
+      expect(M3Shape.large, isA<M3Shape>());
+      expect(M3Shape.largeIncreased, isA<M3Shape>());
+      expect(M3Shape.extraLarge, isA<M3Shape>());
+      expect(M3Shape.extraLargeIncreased, isA<M3Shape>());
+      expect(M3Shape.extraExtraLarge, isA<M3Shape>());
+      expect(M3Shape.full, isA<M3Shape>());
     });
 
     test('implements IM3Token interface', () {
-      expect(M3Shapes.medium, isA<M3RoundedRectangleBorder>());
+      expect(M3Shape.medium, isA<M3Shape>());
     });
 
     test('borderRadius getter returns correct BorderRadius tokens', () {
@@ -34,46 +34,46 @@ void main() {
     });
 
     // test('forComponentSize returns appropriate shapes', () {
-    //   expect(M3Shapes.forComponentSize(ComponentSize.small),
-    //       equals(M3Shapes.small));
-    //   expect(M3Shapes.forComponentSize(ComponentSize.medium),
-    //       equals(M3Shapes.medium));
-    //   expect(M3Shapes.forComponentSize(ComponentSize.large),
-    //       equals(M3Shapes.large));
+    //   expect(M3Shape.forComponentSize(ComponentSize.small),
+    //       equals(M3Shape.small));
+    //   expect(M3Shape.forComponentSize(ComponentSize.medium),
+    //       equals(M3Shape.medium));
+    //   expect(M3Shape.forComponentSize(ComponentSize.large),
+    //       equals(M3Shape.large));
     // });
 
     // test('forComponent returns appropriate shapes for components', () {
-    //   expect(M3Shapes.forComponent(M3Component.button),
-    //       equals(M3Shapes.small));
-    //   expect(M3Shapes.forComponent(M3Component.fab),
-    //       equals(M3Shapes.full));
-    //   expect(M3Shapes.forComponent(M3Component.chip),
-    //       equals(M3Shapes.extraSmall));
-    //   expect(M3Shapes.forComponent(M3Component.card),
-    //       equals(M3Shapes.medium));
-    //   expect(M3Shapes.forComponent(M3Component.dialog),
-    //       equals(M3Shapes.large));
-    //   expect(M3Shapes.forComponent(M3Component.sheet),
-    //       equals(M3Shapes.extraLarge));
-    //   expect(M3Shapes.forComponent(M3Component.textField),
-    //       equals(M3Shapes.small));
-    //   expect(M3Shapes.forComponent(M3Component.menu),
-    //       equals(M3Shapes.medium));
-    //   expect(M3Shapes.forComponent(M3Component.other),
-    //       equals(M3Shapes.medium));
+    //   expect(M3Shape.forComponent(M3Component.button),
+    //       equals(M3Shape.small));
+    //   expect(M3Shape.forComponent(M3Component.fab),
+    //       equals(M3Shape.full));
+    //   expect(M3Shape.forComponent(M3Component.chip),
+    //       equals(M3Shape.extraSmall));
+    //   expect(M3Shape.forComponent(M3Component.card),
+    //       equals(M3Shape.medium));
+    //   expect(M3Shape.forComponent(M3Component.dialog),
+    //       equals(M3Shape.large));
+    //   expect(M3Shape.forComponent(M3Component.sheet),
+    //       equals(M3Shape.extraLarge));
+    //   expect(M3Shape.forComponent(M3Component.textField),
+    //       equals(M3Shape.small));
+    //   expect(M3Shape.forComponent(M3Component.menu),
+    //       equals(M3Shape.medium));
+    //   expect(M3Shape.forComponent(M3Component.other),
+    //       equals(M3Shape.medium));
     // });
 
     //   test('shape values increase in correct order', () {
     //     final shapes = [
-    //       M3Shapes.none,
-    //       M3Shapes.extraSmall,
-    //       M3Shapes.small,
-    //       M3Shapes.medium,
-    //       M3Shapes.large,
-    //       M3Shapes.largeIncreased,
-    //       M3Shapes.extraLarge,
-    //       M3Shapes.extraLargeIncreased,
-    //       M3Shapes.extraExtraLarge,
+    //       M3Shape.none,
+    //       M3Shape.extraSmall,
+    //       M3Shape.small,
+    //       M3Shape.medium,
+    //       M3Shape.large,
+    //       M3Shape.largeIncreased,
+    //       M3Shape.extraLarge,
+    //       M3Shape.extraLargeIncreased,
+    //       M3Shape.extraExtraLarge,
     //     ];
 
     //     for (var i = 1; i < shapes.length; i++) {

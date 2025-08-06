@@ -118,8 +118,8 @@ class ZIndexTokensPage extends StatelessWidget {
                         ),
                       ],
                     ),
-                    child: M3Padding.all(
-                      M3SpacingToken.space12,
+                    child: M3Padding(
+                      padding: M3EdgeInsets.all(M3SpacingToken.space12),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [

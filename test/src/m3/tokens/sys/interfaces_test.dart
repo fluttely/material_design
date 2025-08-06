@@ -11,7 +11,7 @@ void main() {
     });
 
     // test('shape tokens implement IM3Token correctly', () {
-    //   const token = M3Shapes.medium;
+    //   const token = M3Shape.medium;
     //   expect(token, isA<IM3Token<RoundedRectangleBorder>>());
     //   expect(token, isNotNull);
     // });
@@ -36,8 +36,8 @@ void main() {
       const token2 = M3SpacingToken.space16;
       expect(identical(token1, token2), isTrue);
 
-      const shapeToken1 = M3Shapes.medium;
-      const shapeToken2 = M3Shapes.medium;
+      const shapeToken1 = M3Shape.medium;
+      const shapeToken2 = M3Shape.medium;
       expect(identical(shapeToken1, shapeToken2), isTrue);
     });
 
@@ -46,8 +46,8 @@ void main() {
       final spacing2 = M3SpacingToken.space24.value;
       expect(spacing1, equals(spacing2));
 
-      const shape1 = M3Shapes.large;
-      const shape2 = M3Shapes.large;
+      const shape1 = M3Shape.large;
+      const shape2 = M3Shape.large;
       expect(shape1, equals(shape2));
     });
   });

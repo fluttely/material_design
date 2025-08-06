@@ -206,12 +206,12 @@ class _ElevationCard extends StatelessWidget {
       width: 160,
       height: 120,
       decoration: M3ShapeDecoration(
-        shape: M3Shapes.small,
+        shape: M3Shape.small,
         color: elevation.surfaceColor(context),
         shadows: useShadows ? elevation.shadows : null,
       ),
-      child: M3Padding.all(
-        M3SpacingToken.space12,
+      child: M3Padding(
+        padding: M3EdgeInsets.all(M3SpacingToken.space12),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
