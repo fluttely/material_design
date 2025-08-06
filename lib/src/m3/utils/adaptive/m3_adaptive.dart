@@ -226,7 +226,7 @@ abstract interface class M3Adaptive {
         context: context,
         isDismissible: isDismissible,
         isScrollControlled: true,
-        shape: M3Shapes.large,
+        shape: M3Shape.large,
         builder: (context) => DraggableScrollableSheet(
           initialChildSize: 0.6,
           minChildSize: 0.3,
@@ -235,8 +235,8 @@ abstract interface class M3Adaptive {
             return Column(
               children: [
                 if (title != null) ...[
-                  M3Padding.all(
-                    M3SpacingToken.space16,
+                  M3Padding(
+                    padding: M3EdgeInsets.all(M3SpacingToken.space16),
                     child: Text(
                       title,
                       style: Theme.of(context).textTheme.headlineSmall,
@@ -271,14 +271,14 @@ abstract interface class M3Adaptive {
                 height: double.infinity,
                 decoration: ShapeDecoration(
                   color: Theme.of(context).colorScheme.surface,
-                  shape: M3Shapes.large,
+                  shape: M3Shape.large,
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     if (title != null) ...[
-                      M3Padding.all(
-                        M3SpacingToken.space16,
+                      M3Padding(
+                        padding: M3EdgeInsets.all(M3SpacingToken.space16),
                         child: Row(
                           children: [
                             Expanded(

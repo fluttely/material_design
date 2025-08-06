@@ -37,8 +37,8 @@ class TypographyPage extends StatelessWidget {
         itemCount: textStyles.length,
         itemBuilder: (context, index) {
           final (label, style) = textStyles[index];
-          return M3Padding.only(
-            bottom: M3SpacingToken.space16,
+          return M3Padding(
+            padding: M3EdgeInsets.only(bottom: M3SpacingToken.space16),
             child: Text(label, style: style),
           );
         },

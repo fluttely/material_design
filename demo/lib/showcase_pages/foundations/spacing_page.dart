@@ -103,8 +103,8 @@ class _SpacingPageState extends State<SpacingPage> {
     // FIX: Check if the value is infinity to avoid calling .toInt() on it.
     final isInfinity = spacing.value == double.infinity;
 
-    return M3Padding.only(
-      bottom: M3SpacingToken.space16,
+    return M3Padding(
+      padding: M3EdgeInsets.only(bottom: M3SpacingToken.space16),
       child: Row(
         children: [
           SizedBox(
@@ -183,7 +183,7 @@ class _SpacingPageState extends State<SpacingPage> {
   //                   height: value,
   //                   decoration: ShapeDecoration(
   //                     color: colorScheme.secondaryContainer,
-  //                     shape: M3Shapes.extraSmall,
+  //                     shape: M3Shape.extraSmall,
   //                   ),
   //                 ),
   //         ),

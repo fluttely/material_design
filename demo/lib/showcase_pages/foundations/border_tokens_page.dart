@@ -39,8 +39,12 @@ class BorderTokensPage extends StatelessWidget {
             return Container(
               padding: M3EdgeInsets.all(M3SpacingToken.space16),
               decoration: BoxDecoration(
-                border:
-                    Border.all(width: width.value, color: colorScheme.primary),
+                border: M3Border.fromBorderSide(
+                  M3BorderSide(
+                    outlineColor: colorScheme.primary,
+                    width: width,
+                  ),
+                ),
                 borderRadius: M3BorderRadius.small,
               ),
               child: Text('$label (${width.value}dp)'),

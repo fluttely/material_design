@@ -42,50 +42,96 @@ part of '../../../../material_design.dart';
 /// )
 /// ```
 class M3Border extends Border {
-  /// Creates a border with all sides using the same Material Design 3 token.
-  ///
-  /// This is the most common way to create a uniform border around a component.
-  /// The width parameter must be a Material Design 3 border token to ensure
-  /// consistent styling.
-  ///
-  /// The [side] parameter defines the border appearance for all sides.
-  ///
-  /// Example:
-  /// ```dart
-  /// final border = M3Border.all(
-  ///   width: M3BorderWidthToken.thin,
-  ///   color: Colors.grey,
-  /// );
-  /// ```
-  const M3Border._all(M3BorderSide? side)
-      : super(
-          top: side ?? M3BorderSide.none,
-          right: side ?? M3BorderSide.none,
-          bottom: side ?? M3BorderSide.none,
-          left: side ?? M3BorderSide.none,
-        );
+  // const M3Border.all({
+  //   Color color = const Color(0xFF000000),
+  //   M3BorderWidthToken width = M3BorderWidthToken.thin,
+  //   BorderStyle style = BorderStyle.solid,
+  //   double strokeAlign = BorderSide.strokeAlignInside,
+  // }) {
+  //   final  side = M3BorderSide(
+  //     outlineColor: color,
+  //     width: width,
+  //   );
+  //   return M3Border.fromBorderSide(side);
+  // }
 
-  /// No border on any side (0dp width).
-  ///
-  /// A completely borderless configuration.
-  /// Used for seamless, boundary-free containers.
-  static const M3Border none = M3Border._all(M3BorderSide.none);
+  // const M3Border.all({
+  //   required Color outlineColor,
+  //   M3BorderWidthToken width = M3BorderWidthToken.thin,
+  // }) : super(
+  //       this.top = BorderSide.none,
+  //       this.right = BorderSide.none,
+  //       this.bottom = BorderSide.none,
+  //       this.left = BorderSide.none,
+  //         // color: outlineColor,
+  //         // width: width == M3BorderWidthToken.none
+  //         //     ? M3BorderWidths.none
+  //         //     : width == M3BorderWidthToken.thin
+  //         //         ? M3BorderWidths.thin
+  //         //         : width == M3BorderWidthToken.thick
+  //         //             ? M3BorderWidths.thick
+  //         //             : M3BorderWidths.extraThick,
+  //       );
 
-  /// Thin border on all sides (1dp width).
-  ///
-  /// Standard border configuration for most components.
-  /// Provides subtle container definition.
-  static const M3Border thin = M3Border._all(M3BorderSide.thin);
+  // static  asdad(Color color) =>  Border(
+  //   top: M3BorderSide.none(color),
+  //   right: M3BorderSide.none(color),
+  //   bottom: M3BorderSide.none(color),
+  //   left: M3BorderSide.none(color),
+  // );
 
-  /// Thick border on all sides (2dp width).
-  ///
-  /// Enhanced border for emphasis and selected states.
-  /// Creates clear container boundaries.
-  static const M3Border thick = M3Border._all(M3BorderSide.thick);
+  // const M3Border({
+  //   super.top = M3BorderSide.none,
+  //   super.right = M3BorderSide.none,
+  //   super.bottom = M3BorderSide.none,
+  //   super.left = M3BorderSide.none,
+  // }) : super();
 
-  /// Extra thick border on all sides (4dp width).
-  ///
-  /// High-emphasis border for critical states.
-  /// Maximum visual weight for important containers.
-  static const M3Border extraThick = M3Border._all(M3BorderSide.extraThick);
+  const M3Border.fromBorderSide([M3BorderSide? side])
+      : super.fromBorderSide(side ?? M3BorderSide.none);
+
+  // /// Thin border on all sides (1dp width).
+  // ///
+  // /// Standard border configuration for most components.
+  // /// Provides subtle container definition.
+  // M3Border.thin(Color outlineColor)
+  //     : super.fromBorderSide(M3BorderSide.thin(outlineColor));
+
+  // /// Thick border on all sides (2dp width).
+  // ///
+  // /// Enhanced border for emphasis and selected states.
+  // /// Creates clear container boundaries.
+  // M3Border.thick(Color outlineColor)
+  //     : super.fromBorderSide(M3BorderSide.thick(outlineColor));
+
+  // /// Extra thick border on all sides (4dp width).
+  // ///
+  // /// High-emphasis border for critical states.
+  // /// Maximum visual weight for important containers.
+  // M3Border.extraThick(Color outlineColor)
+  //     : super.fromBorderSide(M3BorderSide.extraThick(outlineColor));
+
+  // /// Creates a border with all sides using the same Material Design 3 token.
+  // ///
+  // /// This is the most common way to create a uniform border around a component.
+  // /// The width parameter must be a Material Design 3 border token to ensure
+  // /// consistent styling.
+  // ///
+  // /// The [side] parameter defines the border appearance for all sides.
+  // ///
+  // /// Example:
+  // /// ```dart
+  // /// final border = M3Border.all(
+  // ///   width: M3BorderWidthToken.thin,
+  // ///   color: Colors.grey,
+  // /// );
+  // /// ```
+  // // const M3Border.fromBorderSide(M3BorderSide super.side)
+  // //     : super.fromBorderSide();
+
+  // /// No border on any side (0dp width).
+  // ///
+  // /// A completely borderless configuration.
+  // /// Used for seamless, boundary-free containers.
+  // static M3Border none = const M3Border.all(M3BorderSide.none);
 }

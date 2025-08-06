@@ -18,8 +18,10 @@ class LaunchURLText extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
 
-    return M3Padding.symmetric(
-      vertical: M3SpacingToken.space16,
+    return M3Padding(
+      padding: M3EdgeInsets.symmetric(
+        vertical: M3SpacingToken.space16,
+      ),
       child: Tooltip(
         message: m3Url,
         child: GestureDetector(

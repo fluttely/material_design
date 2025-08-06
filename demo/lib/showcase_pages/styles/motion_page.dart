@@ -105,8 +105,8 @@ class _MotionShowcaseState extends State<_MotionShowcase>
     final colorScheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
 
-    return M3Padding.only(
-      bottom: M3SpacingToken.space16,
+    return M3Padding(
+      padding: M3EdgeInsets.only(bottom: M3SpacingToken.space16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

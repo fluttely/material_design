@@ -4,6 +4,94 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adherves to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.25.0-dev
+
+### 🚀 Major Code Organization and Token System Improvements
+
+This release focuses on completing the token system reorganization, improving code structure, and fixing critical API inconsistencies. It represents a significant step towards production readiness with enhanced developer experience and better alignment with Material Design 3 specifications.
+
+### 🏗️ Token System Enhancements
+
+- **Complete Tokens Directory Restructure**: All token-related files have been moved to a new `lib/src/m3/tokens/` directory structure for better organization:
+
+  - `border/` → Border-related tokens (width, side resolver)
+  - `elevation/` → Elevation and shadow tokens
+  - `icon/` → Icon sizing tokens
+  - `opacity/` → Opacity and state layer tokens
+  - `responsive/` → Breakpoint and responsive tokens
+  - `shape/` → Corner and radius tokens
+  - `spacing/` → Spacing and layout tokens
+  - `z_index/` → Z-index layering tokens
+
+- **New M3CornerToken System**: Introduced a comprehensive corner token system with proper enum implementation
+- **Typography System Overhaul**: Complete refactor of text styling system with better type safety:
+  - Removed deprecated `M3TextStyleToken` enum
+  - Enhanced `M3TextStyle` class with utility methods and extensions
+  - Added `M3TypeScaleCategory` for better typography organization
+
+### 🔧 API Improvements and Fixes
+
+- **Fixed Extension Compilation Issues**: Resolved critical compilation errors in typography extensions
+- **Motion System Polish**: Improved motion curves and duration tokens with proper constant usage
+- **Box Shadow Optimization**: Streamlined M3BoxShadow implementation for better performance
+- **Documentation Updates**: Enhanced inline documentation for all public APIs
+
+### 📁 File Organization Improvements
+
+- **Trash Directory**: Moved deprecated/unused files to `lib/src/m3/trash/` for future cleanup
+- **Consistent Naming**: Standardized file and class naming conventions across the entire codebase
+- **Better Part-of Directives**: Updated all part files with correct module references
+
+### 🎨 Component Structure Refinements
+
+- **Decoration Components**: Enhanced `M3BoxDecoration` and `M3ShapeDecoration` classes
+- **Container Components**: Improved M3Container implementation
+- **Utility Classes**: Better organization of accessibility, adaptive, and color utilities
+
+### ⚠️ Breaking Changes
+
+1. **File Imports Updated**: Many import paths have changed due to directory restructuring
+2. **Typography API**: `M3TextStyleToken` has been completely removed - use `M3TextStyle` directly
+3. **Token Organization**: Some token classes may have different import paths
+
+### 🔄 Migration Guide
+
+**Typography Migration:**
+
+```dart
+// Before (v0.24.0-dev)
+style: M3TextStyleToken.headlineLarge.value
+
+// After (v0.25.0-dev)
+style: M3TextStyle.headlineLarge
+```
+
+**Import Path Updates:**
+
+```dart
+// Token imports now use the tokens/ directory
+import 'package:material_design/material_design.dart';
+// All tokens are still available through the main export
+```
+
+### 🛠️ Technical Improvements
+
+- **Resolved Dart Analysis Issues**: Fixed critical compilation errors and warnings
+- **Enhanced Type Safety**: Better generic type usage throughout token system
+- **Performance Optimizations**: Removed runtime overhead in token usage
+- **Code Quality**: Improved linting compliance and code consistency
+
+### 📊 Impact Summary
+
+- **Files Restructured**: 40+ files reorganized into logical directory structure
+- **Code Quality**: Resolved all critical compilation issues
+- **Developer Experience**: Cleaner, more intuitive API surface
+- **Documentation**: Enhanced inline documentation coverage
+
+**Recommended Version Bump: MINOR (0.24.0-dev → 0.25.0-dev)**
+
+This release maintains backward compatibility where possible while providing a more robust foundation for future development.
+
 ## 0.24.0-dev
 
 ### 💥 BREAKING CHANGES: Massive Project Restructuring and API Refinement

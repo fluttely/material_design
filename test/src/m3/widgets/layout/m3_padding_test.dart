@@ -10,8 +10,8 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: M3Padding.all(
-              M3SpacingToken.space16,
+            body: M3Padding(
+              padding: M3EdgeInsets.all(M3SpacingToken.space16),
               child: testChild,
             ),
           ),
@@ -26,11 +26,13 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: M3Padding.only(
-              left: M3SpacingToken.space8,
-              top: M3SpacingToken.space12,
-              right: M3SpacingToken.space16,
-              bottom: M3SpacingToken.space20,
+            body: M3Padding(
+              padding: M3EdgeInsets.only(
+                left: M3SpacingToken.space8,
+                top: M3SpacingToken.space12,
+                right: M3SpacingToken.space16,
+                bottom: M3SpacingToken.space20,
+              ),
               child: testChild,
             ),
           ),
@@ -48,9 +50,11 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: M3Padding.symmetric(
-              horizontal: M3SpacingToken.space24,
-              vertical: M3SpacingToken.space16,
+            body: M3Padding(
+              padding: M3EdgeInsets.symmetric(
+                horizontal: M3SpacingToken.space24,
+                vertical: M3SpacingToken.space16,
+              ),
               child: testChild,
             ),
           ),
@@ -68,11 +72,13 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: M3Padding.fromLTRB(
-              M3SpacingToken.space8,
-              M3SpacingToken.space16,
-              M3SpacingToken.space24,
-              M3SpacingToken.space32,
+            body: M3Padding(
+              padding: M3EdgeInsets.fromLTRB(
+                M3SpacingToken.space8,
+                M3SpacingToken.space16,
+                M3SpacingToken.space24,
+                M3SpacingToken.space32,
+              ),
               child: testChild,
             ),
           ),
@@ -90,8 +96,8 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: M3Padding.only(
-              left: M3SpacingToken.space16,
+            body: M3Padding(
+              padding: M3EdgeInsets.only(left: M3SpacingToken.space16),
               child: testChild,
             ),
           ),
@@ -110,8 +116,10 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: M3Padding.symmetric(
-              horizontal: M3SpacingToken.space24,
+            body: M3Padding(
+              padding: M3EdgeInsets.symmetric(
+                horizontal: M3SpacingToken.space24,
+              ),
               child: testChild,
             ),
           ),
@@ -126,7 +134,10 @@ void main() {
     });
 
     test('extends Padding class', () {
-      final padding = M3Padding.all(M3SpacingToken.space16, child: testChild);
+      final padding = M3Padding(
+        padding: M3EdgeInsets.all(M3SpacingToken.space16),
+        child: testChild,
+      );
       expect(padding, isA<Padding>());
     });
 
@@ -134,8 +145,8 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: M3Padding.all(
-              M3SpacingToken.space16,
+            body: M3Padding(
+              padding: M3EdgeInsets.all(M3SpacingToken.space16),
               child: testChild,
             ),
           ),
@@ -149,8 +160,8 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: M3Padding.all(
-              M3SpacingToken.none,
+            body: M3Padding(
+              padding: M3EdgeInsets.all(M3SpacingToken.none),
               child: testChild,
             ),
           ),
@@ -165,8 +176,8 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: M3Padding.all(
-              M3SpacingToken.space128,
+            body: M3Padding(
+              padding: M3EdgeInsets.all(M3SpacingToken.space128),
               child: testChild,
             ),
           ),
@@ -181,9 +192,9 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: M3Padding.only(
-              left: M3SpacingToken.space8,
-              bottom: M3SpacingToken.space24,
+            body: M3Padding(
+              padding: M3EdgeInsets.only(
+                  left: M3SpacingToken.space8, bottom: M3SpacingToken.space24),
               child: testChild,
             ),
           ),
@@ -212,8 +223,8 @@ void main() {
         await tester.pumpWidget(
           MaterialApp(
             home: Scaffold(
-              body: M3Padding.all(
-                spacing,
+              body: M3Padding(
+                padding: M3EdgeInsets.all(spacing),
                 child: testChild,
               ),
             ),

@@ -229,8 +229,8 @@ class _KeyColorChip extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
 
-    return M3Padding.only(
-      bottom: M3SpacingToken.space8,
+    return M3Padding(
+      padding: M3EdgeInsets.only(bottom: M3SpacingToken.space8),
       child: Container(
         padding: M3EdgeInsets.all(M3SpacingToken.space16),
         decoration: M3BoxDecoration(

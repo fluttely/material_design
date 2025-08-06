@@ -41,8 +41,8 @@ class _AdaptivePageState extends State<AdaptivePage> {
               context,
               'Current Window Size',
               Card(
-                child: M3Padding.all(
-                  M3SpacingToken.space16,
+                child: M3Padding(
+                  padding: M3EdgeInsets.all(M3SpacingToken.space16),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -72,8 +72,8 @@ class _AdaptivePageState extends State<AdaptivePage> {
               context,
               'Responsive Values',
               Card(
-                child: M3Padding.all(
-                  M3SpacingToken.space16,
+                child: M3Padding(
+                  padding: M3EdgeInsets.all(M3SpacingToken.space16),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -223,7 +223,7 @@ class _AdaptivePageState extends State<AdaptivePage> {
       itemBuilder: (context, index) => Container(
         decoration: ShapeDecoration(
           color: Theme.of(context).colorScheme.primaryContainer,
-          shape: M3Shapes.small,
+          shape: M3Shape.small,
         ),
         child: Center(
           child: Text(
@@ -273,8 +273,8 @@ class _AdaptivePageState extends State<AdaptivePage> {
     M3Adaptive.showAdaptiveSheet(
       context: context,
       title: 'Adaptive Sheet',
-      child: M3Padding.all(
-        M3SpacingToken.space16,
+      child: M3Padding(
+        padding: M3EdgeInsets.all(M3SpacingToken.space16),
         child: Text(
           'This sheet adapts to the screen size. On mobile, it appears as a bottom sheet. On larger screens, it appears as a side sheet.',
         ),
@@ -292,7 +292,7 @@ class _CompactLayoutDemo extends StatelessWidget {
     return Container(
       decoration: ShapeDecoration(
         color: Theme.of(context).colorScheme.primaryContainer,
-        shape: M3Shapes.medium,
+        shape: M3Shape.medium,
       ),
       child: Center(
         child: Column(
@@ -326,7 +326,7 @@ class _MediumLayoutDemo extends StatelessWidget {
     return Container(
       decoration: ShapeDecoration(
         color: Theme.of(context).colorScheme.secondaryContainer,
-        shape: M3Shapes.medium,
+        shape: M3Shape.medium,
       ),
       child: Center(
         child: Column(
@@ -360,7 +360,7 @@ class _ExpandedLayoutDemo extends StatelessWidget {
     return Container(
       decoration: ShapeDecoration(
         color: Theme.of(context).colorScheme.tertiaryContainer,
-        shape: M3Shapes.medium,
+        shape: M3Shape.medium,
       ),
       child: Center(
         child: Column(

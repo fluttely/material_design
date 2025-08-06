@@ -287,27 +287,33 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
         });
       },
       children: [
-        M3Padding.fromLTRB(
-          M3SpacingToken.space28,
-          M3SpacingToken.space16,
-          M3SpacingToken.space16,
-          M3SpacingToken.space12,
+        M3Padding(
+          padding: M3EdgeInsets.fromLTRB(
+            M3SpacingToken.space28,
+            M3SpacingToken.space16,
+            M3SpacingToken.space16,
+            M3SpacingToken.space12,
+          ),
           child: Text(
             'Material Design 3',
             style: textTheme.titleSmall,
           ),
         ),
-        M3Padding.symmetric(
-          horizontal: M3SpacingToken.space28,
+        M3Padding(
+          padding: M3EdgeInsets.symmetric(
+            horizontal: M3SpacingToken.space28,
+          ),
           child: Divider(),
         ),
 
         // Foundations Section
-        M3Padding.fromLTRB(
-          M3SpacingToken.space28,
-          M3SpacingToken.space16,
-          M3SpacingToken.space16,
-          M3SpacingToken.space12,
+        M3Padding(
+          padding: M3EdgeInsets.fromLTRB(
+            M3SpacingToken.space28,
+            M3SpacingToken.space16,
+            M3SpacingToken.space16,
+            M3SpacingToken.space12,
+          ),
           child: Text('Foundations', style: textTheme.titleSmall),
         ),
         ...foundationDestinations.map(
@@ -317,18 +323,21 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
             selectedIcon: d.selectedIcon,
           ),
         ),
-
-        M3Padding.symmetric(
-          horizontal: M3SpacingToken.space28,
+        M3Padding(
+          padding: M3EdgeInsets.symmetric(
+            horizontal: M3SpacingToken.space28,
+          ),
           child: Divider(),
         ),
 
         // Styles Section
-        M3Padding.fromLTRB(
-          M3SpacingToken.space28,
-          M3SpacingToken.space16,
-          M3SpacingToken.space16,
-          M3SpacingToken.space12,
+        M3Padding(
+          padding: M3EdgeInsets.fromLTRB(
+            M3SpacingToken.space28,
+            M3SpacingToken.space16,
+            M3SpacingToken.space16,
+            M3SpacingToken.space12,
+          ),
           child: Text('Styles', style: textTheme.titleSmall),
         ),
         ...styleDestinations.map(
@@ -338,22 +347,27 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
             selectedIcon: d.selectedIcon,
           ),
         ),
-
-        M3Padding.symmetric(
-          horizontal: M3SpacingToken.space28,
+        M3Padding(
+          padding: M3EdgeInsets.symmetric(
+            horizontal: M3SpacingToken.space28,
+          ),
           child: Divider(),
         ),
 
         // Theme Controls
-        M3Padding.fromLTRB(
-          M3SpacingToken.space28,
-          M3SpacingToken.space16,
-          M3SpacingToken.space16,
-          M3SpacingToken.space12,
+        M3Padding(
+          padding: M3EdgeInsets.fromLTRB(
+            M3SpacingToken.space28,
+            M3SpacingToken.space16,
+            M3SpacingToken.space16,
+            M3SpacingToken.space12,
+          ),
           child: Text('Theme', style: textTheme.titleSmall),
         ),
-        M3Padding.symmetric(
-          horizontal: M3SpacingToken.space16,
+        M3Padding(
+          padding: M3EdgeInsets.symmetric(
+            horizontal: M3SpacingToken.space16,
+          ),
           child: Row(
             children: [
               const Text('Dark Mode'),
@@ -368,8 +382,10 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
             ],
           ),
         ),
-        M3Padding.symmetric(
-          horizontal: M3SpacingToken.space16,
+        M3Padding(
+          padding: M3EdgeInsets.symmetric(
+            horizontal: M3SpacingToken.space16,
+          ),
           child: Row(
             children: [
               const Text('Seed Color'),
@@ -387,8 +403,10 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
           ),
         ),
         const M3Gap(M3SpacingToken.space8),
-        M3Padding.symmetric(
-          horizontal: M3SpacingToken.space16,
+        M3Padding(
+          padding: M3EdgeInsets.symmetric(
+            horizontal: M3SpacingToken.space16,
+          ),
           child: const LaunchURLText(
             label: 'Flutter M3 Demo',
             m3Url: 'https://flutterweb-wasm.web.app/',
@@ -651,8 +669,10 @@ class _NavigationRailItemState extends State<_NavigationRailItem>
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
 
-    return M3Padding.symmetric(
-      vertical: M3SpacingToken.space4,
+    return M3Padding(
+      padding: M3EdgeInsets.symmetric(
+        vertical: M3SpacingToken.space4,
+      ),
       child: GestureDetector(
         onTap: widget.onTap,
         child: SizedBox(
