@@ -44,6 +44,8 @@ abstract final class M3Elevations {
 /// {@endtemplate}
 @immutable
 abstract interface class IM3ElevationToken implements IM3Token<double> {
+  // double get dp;
+
   /// Determines whether this elevation profile should cast a shadow.
   ///
   /// While most elevated surfaces cast shadows, some components like [AppBar]
@@ -273,6 +275,9 @@ enum M3ElevationToken implements IM3ElevationToken {
   /// basis for calculating shadow intensity and surface tint color.
   @override
   final double value;
+
+  // @override
+  // double get dp => value;
 
   @override
   bool get hasShadow => true;

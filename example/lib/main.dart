@@ -627,10 +627,12 @@ class _DemoHomePageState extends State<DemoHomePage>
   }
 
   Widget _buildBorderDemo() {
+    final borderColor = Theme.of(context).colorScheme.outline;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Border Tokens', style: Theme.of(context).textTheme.titleMedium),
+        Text('M3Border Tokens', style: Theme.of(context).textTheme.titleMedium),
         const SizedBox(height: M3Spacings.space8),
         Row(
           spacing: M3Spacings.space16,
@@ -638,25 +640,30 @@ class _DemoHomePageState extends State<DemoHomePage>
             M3BorderWidthToken.thin,
             M3BorderWidthToken.thick,
             M3BorderWidthToken.extraThick,
-          ]
-              .map((token) => Expanded(
-                    child: Container(
-                      padding: EdgeInsets.all(M3Spacings.space12),
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          width: token.value,
-                          color: Theme.of(context).colorScheme.outline,
-                        ),
-                        borderRadius: M3BorderRadius.small,
-                      ),
-                      child: Text(
-                        '${token.name}\n${token.value}px',
-                        textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.bodySmall,
-                      ),
-                    ),
-                  ))
-              .toList(),
+          ].map((token) {
+            final borderSide = M3BorderSide(
+              outlineColor: borderColor,
+              width: token,
+            );
+            return Expanded(
+                child: Container(
+              padding: EdgeInsets.all(M3Spacings.space12),
+              decoration: M3BoxDecoration(
+                border: M3Border(
+                  top: borderSide,
+                  right: borderSide,
+                  bottom: borderSide,
+                  left: borderSide,
+                ),
+                borderRadius: M3BorderRadius.small,
+              ),
+              child: Text(
+                '${token.name}\n${token.value}px',
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.bodySmall,
+              ),
+            ));
+          }).toList(),
         ),
       ],
     );
@@ -725,7 +732,7 @@ class _DemoHomePageState extends State<DemoHomePage>
               .map((token) => Expanded(
                     child: Container(
                       height: 60,
-                      decoration: BoxDecoration(
+                      decoration: M3BoxDecoration(
                         color: Theme.of(context).colorScheme.surfaceContainer,
                         borderRadius: token,
                       ),
@@ -1209,23 +1216,22 @@ class _AnimatedColorSwatchState extends State<_AnimatedColorSwatch>
                 duration: const Duration(milliseconds: 200),
                 width: 40,
                 height: 40,
-                decoration: BoxDecoration(
+                decoration: M3BoxDecoration(
                   color: widget.color,
-                  shape: BoxShape.circle,
+                  borderRadius: M3BorderRadius.full,
                   border: widget.isSelected
-                      ? Border.all(color: widget.outlineColor, width: 3)
+                      ? M3Border.all(
+                          outlineColor: widget.outlineColor,
+                          width: M3BorderWidthToken.thick,
+                        )
                       : _isHovered
-                          ? Border.all(color: widget.outlineColor, width: 1)
+                          ? M3Border.all(
+                              outlineColor: widget.outlineColor,
+                              width: M3BorderWidthToken.thin,
+                            )
                           : null,
-                  boxShadow: _isHovered || widget.isSelected
-                      ? [
-                          BoxShadow(
-                            color: widget.color.withValues(alpha: 0.3),
-                            blurRadius: 8,
-                            spreadRadius: 2,
-                          ),
-                        ]
-                      : null,
+                  boxShadow:
+                      _isHovered || widget.isSelected ? M3Shadows.level5 : null,
                 ),
               ),
             );
@@ -1249,12 +1255,11 @@ class _ColorSwatch extends StatelessWidget {
         Container(
           width: 60,
           height: 40,
-          decoration: BoxDecoration(
+          decoration: M3BoxDecoration(
             color: color,
             borderRadius: M3BorderRadius.small,
-            border: Border.all(
-              color:
-                  Theme.of(context).colorScheme.outline.withValues(alpha: 0.2),
+            border: M3Border.all(
+              outlineColor: Theme.of(context).colorScheme.outlineVariant,
             ),
           ),
         ),
@@ -1281,9 +1286,9 @@ class _SpacingExample extends StatelessWidget {
         Container(
           width: spacing,
           height: 20,
-          decoration: BoxDecoration(
+          decoration: M3BoxDecoration(
             color: Theme.of(context).colorScheme.primary,
-            borderRadius: BorderRadius.circular(2),
+            borderRadius: M3BorderRadius.extraSmall,
           ),
         ),
         const SizedBox(height: M3Spacings.space4),
@@ -1361,12 +1366,13 @@ class _ColorPickerButton extends StatelessWidget {
                     Container(
                       width: 24,
                       height: 24,
-                      decoration: BoxDecoration(
+                      decoration: M3BoxDecoration(
                         color: color,
-                        shape: BoxShape.circle,
-                        border: Border.all(
-                          color: Theme.of(context).colorScheme.outlineVariant,
-                          width: M3BorderWidthToken.thin.value,
+                        borderRadius: M3BorderRadius.full,
+                        border: M3Border.all(
+                          outlineColor:
+                              Theme.of(context).colorScheme.outlineVariant,
+                          width: M3BorderWidthToken.thin,
                         ),
                       ),
                     ),
