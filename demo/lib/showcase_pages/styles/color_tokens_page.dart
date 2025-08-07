@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:material_design/material_design.dart';
 import 'package:material_design_demo/showcase_pages/widgets/launch_url_text.dart';
 
-class ColorPage extends StatelessWidget {
-  const ColorPage({super.key});
+class ColorTokensPage extends StatelessWidget {
+  const ColorTokensPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -158,55 +158,69 @@ class ColorPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: LaunchURLText(
-          label: 'ColorScheme Tokens',
-          m3Url: 'https://m3.material.io/styles/color/roles',
-        ),
+        title: Text('ColorScheme'),
       ),
-      body: SingleChildScrollView(
-        padding: M3EdgeInsets.all(M3MarginToken.mediumScreen),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('Key Colors', style: textTheme.titleLarge),
-                  const M3Gap(M3SpacingToken.space16),
-                  ...keyColors.map(
-                    (p) =>
-                        _KeyColorChip(name: p.$1, color: p.$2, onColor: p.$3),
-                  ),
-                ],
+      body: Column(
+        children: [
+          M3Padding(
+            padding: M3EdgeInsets.only(left: M3SpacingToken.space16),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: const LaunchURLText(
+                label: 'Color Roles',
+                m3Url: 'https://m3.material.io/styles/color/roles',
               ),
             ),
-            const M3Gap(M3SpacerToken.pane),
-            Expanded(
-              flex: 2,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('Scheme', style: textTheme.titleLarge),
-                  const M3Gap(M3SpacingToken.space16),
-                  Wrap(
-                    spacing: M3SpacingToken.space8.value,
-                    runSpacing: M3SpacingToken.space8.value,
-                    children: allColors
-                        .map(
-                          (p) => _ColorChip(
-                            name: p.$1,
-                            color: p.$2,
-                            onColor: p.$3,
-                          ),
-                        )
-                        .toList(),
+          ),
+          SingleChildScrollView(
+            padding:
+                M3EdgeInsets.symmetric(horizontal: M3MarginToken.mediumScreen),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      LaunchURLText(label: 'Key Colors'),
+                      const M3Gap(M3SpacingToken.space16),
+                      ...keyColors.map(
+                        (p) => _KeyColorChip(
+                            name: p.$1, color: p.$2, onColor: p.$3),
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+                const M3Gap(M3SpacerToken.pane),
+                Expanded(
+                  flex: 2,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      LaunchURLText(label: 'Scheme'),
+                      const M3Gap(M3SpacingToken.space16),
+                      Wrap(
+                        spacing: M3SpacingToken.space8.value,
+                        runSpacing: M3SpacingToken.space8.value,
+                        children: allColors
+                            .map(
+                              (p) => _ColorChip(
+                                name: p.$1,
+                                color: p.$2,
+                                onColor: p.$3,
+                              ),
+                            )
+                            .toList(),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

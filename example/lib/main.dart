@@ -637,9 +637,8 @@ class _DemoHomePageState extends State<DemoHomePage>
         Row(
           spacing: M3Spacings.space16,
           children: [
+            M3BorderWidthToken.none,
             M3BorderWidthToken.thin,
-            M3BorderWidthToken.thick,
-            M3BorderWidthToken.extraThick,
           ].map((token) {
             final borderSide = M3BorderSide(
               outlineColor: borderColor,
@@ -1222,7 +1221,7 @@ class _AnimatedColorSwatchState extends State<_AnimatedColorSwatch>
                   border: widget.isSelected
                       ? M3Border.all(
                           outlineColor: widget.outlineColor,
-                          width: M3BorderWidthToken.thick,
+                          width: M3BorderWidthToken.thin,
                         )
                       : _isHovered
                           ? M3Border.all(

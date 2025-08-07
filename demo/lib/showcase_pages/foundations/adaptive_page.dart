@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:material_design/material_design.dart';
+import 'package:material_design_demo/showcase_pages/widgets/launch_url_text.dart';
 
 /// Page demonstrating adaptive design features.
 class AdaptivePage extends StatefulWidget {
@@ -148,10 +149,8 @@ class _AdaptivePageState extends State<AdaptivePage> {
                             color: Theme.of(context).colorScheme.primary,
                           ),
                           const M3Gap(M3SpacingToken.space8),
-                          Text(
-                            _destinations[_selectedIndex].label,
-                            style: Theme.of(context).textTheme.titleLarge,
-                          ),
+                          LaunchURLText(
+                              label: _destinations[_selectedIndex].label),
                         ],
                       ),
                     ),

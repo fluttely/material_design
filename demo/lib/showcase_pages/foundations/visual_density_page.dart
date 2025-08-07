@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:material_design/material_design.dart'; // Assuming this is your local package
+import 'package:material_design/material_design.dart';
+import 'package:material_design_demo/showcase_pages/widgets/launch_url_text.dart'; // Assuming this is your local package
 
 class VisualDensityPage extends StatefulWidget {
   const VisualDensityPage({super.key});
@@ -52,16 +53,28 @@ class _VisualDensityPageState extends State<VisualDensityPage> {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text('M3VisualDensity'),
+        title: const Text('Visual Density'),
       ),
-      body: Column(
-        children: [
-          _buildPlatformInfo(),
-          _buildDensitySelector(),
-          _buildDemoArea(),
-        ],
+      body: Padding(
+        padding: M3EdgeInsets.symmetric(
+          vertical: M3SpacingToken.space8,
+          horizontal: M3SpacingToken.space16,
+        ),
+        child: Column(
+          children: [
+            Align(
+              alignment: Alignment.centerLeft,
+              child: LaunchURLText(label: 'M3VisualDensity'),
+            ),
+            _buildPlatformInfo(),
+            _buildDensitySelector(),
+            _buildDemoArea(),
+          ],
+        ),
       ),
     );
   }
@@ -69,10 +82,6 @@ class _VisualDensityPageState extends State<VisualDensityPage> {
   /// Constrói um card informativo sobre densidade adaptativa.
   Widget _buildPlatformInfo() {
     return Card(
-      margin: M3EdgeInsets.symmetric(
-        vertical: M3SpacingToken.space8,
-        horizontal: M3SpacingToken.space16,
-      ),
       child: ListTile(
         leading: const Icon(Icons.info_outline),
         title: const Text('Adaptive Density'),
@@ -129,10 +138,7 @@ class _VisualDensityPageState extends State<VisualDensityPage> {
   /// Constrói a lista de exemplo para visualizar a densidade.
   Widget _buildDemoList() {
     return ListView.builder(
-      padding: M3EdgeInsets.symmetric(
-        horizontal: M3SpacingToken.space16,
-        vertical: M3SpacingToken.space16,
-      ),
+      padding: M3EdgeInsets.symmetric(vertical: M3SpacingToken.space16),
       itemCount: 6,
       itemBuilder: (context, index) {
         return Card(

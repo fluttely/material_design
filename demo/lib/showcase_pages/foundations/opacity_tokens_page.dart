@@ -27,14 +27,14 @@ class OpacityTokensPage extends StatelessWidget {
     final colorScheme = Theme.of(context).colorScheme;
 
     return Scaffold(
-      appBar: AppBar(title: const Text('M3 Opacity')),
+      appBar: AppBar(title: const Text('Opacity')),
       body: ListView(
         padding: M3EdgeInsets.all(M3SpacingToken.space16),
         children: [
           // Section for state layer opacities.
           _buildSection(
             context: context,
-            title: 'M3StateLayerOpacityToken',
+            title: 'M3StateLayerOpacities | M3StateLayerOpacityToken',
             url:
                 'https://m3.material.io/foundations/interaction/states/state-layers',
             tokens: _stateLayerOpacities,
@@ -43,7 +43,7 @@ class OpacityTokensPage extends StatelessWidget {
           // Section for other common opacities.
           _buildSection(
             context: context,
-            title: 'M3OpacityToken',
+            title: 'M3Opacities | M3OpacityToken',
             // The official link for states, which covers the "disabled" state.
             url:
                 'https://m3.material.io/foundations/interaction/states/overview',
@@ -51,10 +51,7 @@ class OpacityTokensPage extends StatelessWidget {
             baseColor: colorScheme.onSurface,
           ),
           // Section with a practical example.
-          Text(
-            'Practical Example',
-            style: Theme.of(context).textTheme.titleLarge,
-          ),
+          LaunchURLText(label: 'Practical Example'),
           const M3Gap(M3SpacingToken.space12),
           const M3StateLayerOpacityButtonExample(),
         ],

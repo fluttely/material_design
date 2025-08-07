@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:material_design/material_design.dart';
+import 'package:material_design_demo/showcase_pages/widgets/launch_url_text.dart';
 
 class IconSizeTokensPage extends StatelessWidget {
   const IconSizeTokensPage({super.key});
@@ -18,8 +19,6 @@ class IconSizeTokensPage extends StatelessWidget {
   }
 
   Widget _buildIconSizeSection(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-
     final iconSizes = [
       ('dense', M3IconSizeToken.dense.value),
       ('standard', M3IconSizeToken.standard.value),
@@ -31,7 +30,7 @@ class IconSizeTokensPage extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('M3IconSize Tokens', style: textTheme.titleLarge),
+        LaunchURLText(label: 'M3IconSizes | M3IconSizeToken'),
         const M3Gap(M3SpacingToken.space16),
         Wrap(
           spacing: M3SpacingToken.space16.value,

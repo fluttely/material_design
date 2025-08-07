@@ -4,7 +4,7 @@ import 'package:material_design_demo/showcase_pages/foundations/border_tokens_pa
 import 'package:material_design_demo/showcase_pages/foundations/breakpoint_tokens_page.dart';
 import 'package:material_design_demo/showcase_pages/foundations/icon_size_tokens_page.dart';
 import 'package:material_design_demo/showcase_pages/foundations/opacity_tokens_page.dart';
-import 'package:material_design_demo/showcase_pages/foundations/spacing_page.dart';
+import 'package:material_design_demo/showcase_pages/foundations/spacing_tokens_page.dart';
 import 'package:material_design_demo/showcase_pages/foundations/visual_density_page.dart';
 import 'package:material_design_demo/showcase_pages/foundations/z_index_tokens_page.dart';
 import 'package:material_design_demo/showcase_pages/m3_expressive/m3_expressive_page.dart';
@@ -12,14 +12,14 @@ import 'package:material_design_demo/showcase_pages/widgets/launch_url_text.dart
 import 'package:provider/provider.dart';
 
 import 'color_picker.dart';
-import 'showcase_pages/components/utils_page.dart';
 import 'showcase_pages/foundations/accessibility_page.dart';
 import 'showcase_pages/foundations/adaptive_page.dart';
-import 'showcase_pages/styles/color_page.dart';
-import 'showcase_pages/styles/elevation_page.dart';
+import 'showcase_pages/styles/color_tokens_page.dart';
+import 'showcase_pages/styles/elevation_tokens_page.dart';
 import 'showcase_pages/styles/motion_page.dart';
 import 'showcase_pages/styles/shape_page.dart';
 import 'showcase_pages/styles/typography_page.dart';
+import 'showcase_pages/widgets/utils_page.dart';
 import 'theme_provider.dart';
 
 /// Entry point of the Material Design 3 Token Showcase application.
@@ -101,7 +101,7 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
     const AdaptivePage(),
 
     // Styles - Visual design elements
-    const ColorPage(),
+    const ColorTokensPage(),
     const TypographyPage(),
     const ElevationPage(),
     const ShapePage(),
@@ -185,12 +185,12 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
       NavigationRailDestination(
         icon: Icon(Icons.layers_outlined),
         selectedIcon: Icon(Icons.layers),
-        label: Text('Z-Indexes'),
+        label: Text('Z-Index'),
       ),
       NavigationRailDestination(
         icon: Icon(Icons.border_style_outlined),
         selectedIcon: Icon(Icons.border_style),
-        label: Text('Borders'),
+        label: Text('Border'),
       ),
       NavigationRailDestination(
         icon: Icon(Icons.photo_size_select_small_outlined),
@@ -200,7 +200,7 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
       NavigationRailDestination(
         icon: Icon(Icons.opacity_outlined),
         selectedIcon: Icon(Icons.opacity),
-        label: Text('Opacities'),
+        label: Text('Opacity'),
       ),
       NavigationRailDestination(
         icon: Icon(Icons.accessibility_outlined),
@@ -587,18 +587,40 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
   /// - 56dp touch target height as per M3 guidelines
   /// - Rounded 16dp corners following M3 shape tokens
   /// - Semantic icon and label positioning
-  Widget _buildNavigationRailItem({
+  dynamic _buildNavigationRailItem({
     required NavigationRailDestination destination,
     required int index,
     required bool isSelected,
     required VoidCallback onTap,
   }) {
-    return _NavigationRailItem(
-      destination: destination,
-      index: index,
-      isSelected: isSelected,
-      onTap: onTap,
+    // return _NavigationRailItem(
+    //   destination: destination,
+    //   index: index,
+    //   isSelected: isSelected,
+    //   onTap: onTap,
+    // );
+
+    //  NavigationRail(
+    //         selectedIndex: _selectedIndex,
+    //         onDestinationSelected: (index) {
+    //           setState(() {
+    //             _selectedIndex = index;
+    //           });
+    //         },
+    //         labelType: NavigationRailLabelType.selected,
+    //         destinations: const [
+    return NavigationRailDestination(
+      icon: Icon(Icons.foundation_outlined),
+      selectedIcon: Icon(Icons.foundation),
+      label: Text('Foundations'),
     );
+    // NavigationRailDestination(
+    //   icon: Icon(Icons.style_outlined),
+    //   selectedIcon: Icon(Icons.style),
+    //   label: Text('Styles'),
+    //     ),
+    //   ],
+    // ),
   }
 }
 

@@ -56,7 +56,7 @@ class _SpacingPageState extends State<SpacingPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Spacing System'),
+        title: const Text('Spacing'),
       ),
       body: SingleChildScrollView(
         padding: M3EdgeInsets.all(M3SpacingToken.space16),
@@ -64,7 +64,7 @@ class _SpacingPageState extends State<SpacingPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const LaunchURLText(
-              label: 'M3Spacings (for Padding)',
+              label: 'M3Spacings | M3SpacingToken (for Padding)',
               m3Url:
                   'https://m3.material.io/foundations/layout/understanding-layout/spacing',
             ),
@@ -77,7 +77,7 @@ class _SpacingPageState extends State<SpacingPage> {
             ...spacings.map((token) => _buildSpacingDemo(token.$1, token.$2)),
             const M3Gap(M3SpacingToken.space32),
             const LaunchURLText(
-              label: 'M3Margins (by screen sizes)',
+              label: 'M3Margins | M3MarginToken (by screen sizes)',
               m3Url:
                   'https://m3.material.io/foundations/layout/applying-layout/compact',
             ),
@@ -85,7 +85,7 @@ class _SpacingPageState extends State<SpacingPage> {
             ...margins.map((margin) => _buildSpacingDemo(margin.$1, margin.$2)),
             const M3Gap(M3SpacingToken.space32),
             const LaunchURLText(
-              label: 'M3Spacers (between two panes)',
+              label: 'M3Spacers | M3SpacerToken (between two panes)',
               m3Url:
                   'https://m3.material.io/foundations/layout/understanding-layout/spacing',
             ),

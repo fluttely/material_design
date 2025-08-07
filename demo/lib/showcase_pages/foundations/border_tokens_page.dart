@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:material_design/material_design.dart';
+import 'package:material_design_demo/showcase_pages/widgets/launch_url_text.dart';
 
 class BorderTokensPage extends StatelessWidget {
   const BorderTokensPage({super.key});
@@ -7,7 +8,7 @@ class BorderTokensPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Borders')),
+      appBar: AppBar(title: const Text('Border')),
       body: ListView(
         padding: M3EdgeInsets.all(M3SpacingToken.space16),
         children: [
@@ -19,18 +20,23 @@ class BorderTokensPage extends StatelessWidget {
 
   Widget _buildBorderSection(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    final textTheme = Theme.of(context).textTheme;
 
     final borders = [
+      ('None', M3BorderWidthToken.none),
       ('Thin', M3BorderWidthToken.thin),
-      ('Thick', M3BorderWidthToken.thick),
-      ('Extra Thick', M3BorderWidthToken.extraThick),
     ];
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('M3Border Tokens', style: textTheme.titleLarge),
+        LaunchURLText(label: 'M3BorderWidths | M3BorderWidthToken'),
+        Icon(Icons.keyboard_arrow_down_rounded),
+        LaunchURLText(label: 'M3BorderSide'),
+        Icon(Icons.keyboard_arrow_down_rounded),
+        LaunchURLText(label: 'M3Border'),
+        LaunchURLText(
+            label:
+                'outlineColor: Theme.of(context).colorScheme.outline;\noutlineColor: Theme.of(context).colorScheme.outlineVariant;'),
         const M3Gap(M3SpacingToken.space16),
         Wrap(
           spacing: M3SpacingToken.space16.value,
@@ -41,7 +47,7 @@ class BorderTokensPage extends StatelessWidget {
               decoration: BoxDecoration(
                 border: M3Border.fromBorderSide(
                   M3BorderSide(
-                    outlineColor: colorScheme.primary,
+                    outlineColor: colorScheme.outline,
                     width: width,
                   ),
                 ),
