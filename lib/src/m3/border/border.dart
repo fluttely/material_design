@@ -86,43 +86,45 @@ class M3Border extends Border {
     M3BorderSide bottom = M3BorderSide.none,
     M3BorderSide left = M3BorderSide.none,
   }) : super(
-          top: top,
-          right: right,
-          bottom: bottom,
-          left: left,
-        );
+         top: top,
+         right: right,
+         bottom: bottom,
+         left: left,
+       );
 
   const M3Border.fromBorderSide(M3BorderSide super.side)
-      : super.fromBorderSide();
+    : super.fromBorderSide();
 
   M3Border.all({
     required Color outlineColor,
     M3BorderWidthToken width = M3BorderWidthToken.thin,
-  }) : super.fromBorderSide(M3BorderSide(
-          outlineColor: outlineColor,
-          width: width,
-        ));
+  }) : super.fromBorderSide(
+         M3BorderSide(
+           outlineColor: outlineColor,
+           width: width,
+         ),
+       );
 
   /// Thin border on all sides (1dp width).
   ///
   /// Standard border configuration for most components.
   /// Provides subtle container definition.
   M3Border.thin(Color outlineColor)
-      : super.fromBorderSide(M3BorderSide.thin(outlineColor));
+    : super.fromBorderSide(M3BorderSide.thin(outlineColor));
 
   /// Thick border on all sides (2dp width).
   ///
   /// Enhanced border for emphasis and selected states.
   /// Creates clear container boundaries.
   M3Border.thick(Color outlineColor)
-      : super.fromBorderSide(M3BorderSide.thick(outlineColor));
+    : super.fromBorderSide(M3BorderSide.thick(outlineColor));
 
   /// Extra thick border on all sides (4dp width).
   ///
   /// High-emphasis border for critical states.
   /// Maximum visual weight for important containers.
   M3Border.extraThick(Color outlineColor)
-      : super.fromBorderSide(M3BorderSide.extraThick(outlineColor));
+    : super.fromBorderSide(M3BorderSide.extraThick(outlineColor));
 
   /// Creates a border with all sides using the same Material Design 3 token.
   ///

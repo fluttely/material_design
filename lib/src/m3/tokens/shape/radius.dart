@@ -49,31 +49,29 @@ part of '../../../../../material_design.dart';
 class M3Radius extends Radius {
   /// Creates uniform border radius from a shape token.
   const M3Radius.circular(M3CornerToken corner)
-      : super.circular(
-          corner == M3CornerToken.zero
-              ? M3Corners.zero
-              : corner == M3CornerToken.extraSmall
-                  ? M3Corners.extraSmall
-                  : corner == M3CornerToken.small
-                      ? M3Corners.small
-                      : corner == M3CornerToken.medium
-                          ? M3Corners.medium
-                          : corner == M3CornerToken.large
-                              ? M3Corners.large
-                              : corner == M3CornerToken.largeIncreased
-                                  ? M3Corners.largeIncreased
-                                  : corner == M3CornerToken.extraLarge
-                                      ? M3Corners.extraLarge
-                                      : corner ==
-                                              M3CornerToken.extraLargeIncreased
-                                          ? M3Corners.extraLargeIncreased
-                                          : corner ==
-                                                  M3CornerToken.extraExtraLarge
-                                              ? M3Corners.extraExtraLarge
-                                              : corner == M3CornerToken.full
-                                                  ? M3Corners.full
-                                                  : M3Corners.zero,
-        );
+    : super.circular(
+        corner == M3CornerToken.zero
+            ? M3Corners.zero
+            : corner == M3CornerToken.extraSmall
+            ? M3Corners.extraSmall
+            : corner == M3CornerToken.small
+            ? M3Corners.small
+            : corner == M3CornerToken.medium
+            ? M3Corners.medium
+            : corner == M3CornerToken.large
+            ? M3Corners.large
+            : corner == M3CornerToken.largeIncreased
+            ? M3Corners.largeIncreased
+            : corner == M3CornerToken.extraLarge
+            ? M3Corners.extraLarge
+            : corner == M3CornerToken.extraLargeIncreased
+            ? M3Corners.extraLargeIncreased
+            : corner == M3CornerToken.extraExtraLarge
+            ? M3Corners.extraExtraLarge
+            : corner == M3CornerToken.full
+            ? M3Corners.full
+            : M3Corners.zero,
+      );
 
   /// Creates uniform border radius from a shape token.
   const M3Radius._(super.corners) : super.circular();

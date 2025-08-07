@@ -1,10 +1,7 @@
 name: Deploy Demo
 
 on:
-  workflow_run:
-    workflows: ["Tests"]
-    types:
-      - completed
+  pull_request:
     branches: [main]
   workflow_dispatch:
 

@@ -105,8 +105,9 @@ class M3MotionDuration extends Duration {
   ///
   /// * [M3 guidelines: Duration tokens](https://m3.material.io/styles/motion/easing-and-duration/tokens-specs#c009dec6-f29b-4503-b9f0-482af14a8bbd)
   /// * [M3 guidelines: Applying easing and duration](https://m3.material.io/styles/motion/easing-and-duration/applying-easing-and-duration)
-  static const M3MotionDuration extralong1 =
-      M3MotionDuration._(milliseconds: 700);
+  static const M3MotionDuration extralong1 = M3MotionDuration._(
+    milliseconds: 700,
+  );
 
   /// The extralong2 duration (800ms) in the Material specification.
   ///
@@ -114,8 +115,9 @@ class M3MotionDuration extends Duration {
   ///
   /// * [M3 guidelines: Duration tokens](https://m3.material.io/styles/motion/easing-and-duration/tokens-specs#c009dec6-f29b-4503-b9f0-482af14a8bbd)
   /// * [M3 guidelines: Applying easing and duration](https://m3.material.io/styles/motion/easing-and-duration/applying-easing-and-duration)
-  static const M3MotionDuration extralong2 =
-      M3MotionDuration._(milliseconds: 800);
+  static const M3MotionDuration extralong2 = M3MotionDuration._(
+    milliseconds: 800,
+  );
 
   /// The extralong3 duration (900ms) in the Material specification.
   ///
@@ -123,8 +125,9 @@ class M3MotionDuration extends Duration {
   ///
   /// * [M3 guidelines: Duration tokens](https://m3.material.io/styles/motion/easing-and-duration/tokens-specs#c009dec6-f29b-4503-b9f0-482af14a8bbd)
   /// * [M3 guidelines: Applying easing and duration](https://m3.material.io/styles/motion/easing-and-duration/applying-easing-and-duration)
-  static const M3MotionDuration extralong3 =
-      M3MotionDuration._(milliseconds: 900);
+  static const M3MotionDuration extralong3 = M3MotionDuration._(
+    milliseconds: 900,
+  );
 
   /// The extralong4 duration (1000ms) in the Material specification.
   ///
@@ -132,8 +135,9 @@ class M3MotionDuration extends Duration {
   ///
   /// * [M3 guidelines: Duration tokens](https://m3.material.io/styles/motion/easing-and-duration/tokens-specs#c009dec6-f29b-4503-b9f0-482af14a8bbd)
   /// * [M3 guidelines: Applying easing and duration](https://m3.material.io/styles/motion/easing-and-duration/applying-easing-and-duration)
-  static const M3MotionDuration extralong4 =
-      M3MotionDuration._(milliseconds: 1000);
+  static const M3MotionDuration extralong4 = M3MotionDuration._(
+    milliseconds: 1000,
+  );
 }
 
 class M3MotionCurve extends ThreePointCubic {

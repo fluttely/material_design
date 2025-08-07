@@ -83,7 +83,8 @@ abstract interface class M3Accessibility {
             decoration: hasFocus
                 ? M3BoxDecoration(
                     border: M3Border.fromBorderSide(
-                        borderSide ?? M3BorderSide.none),
+                      borderSide ?? M3BorderSide.none,
+                    ),
                     // border: M3Border.all(M3BorderSide.thick(
                     //     Theme.of(context).colorScheme.primary)),
                     borderRadius: borderRadius,

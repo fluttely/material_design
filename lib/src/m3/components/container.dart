@@ -26,9 +26,9 @@ class M3Container extends StatelessWidget {
     this.width,
     this.height,
   }) : assert(
-          shape == null || borderRadius == null,
-          'Cannot provide both shapeToken and borderRadiusToken',
-        );
+         shape == null || borderRadius == null,
+         'Cannot provide both shapeToken and borderRadiusToken',
+       );
 
   /// The widget below this widget in the tree.
   final Widget? child;

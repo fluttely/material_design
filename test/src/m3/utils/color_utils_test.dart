@@ -19,16 +19,20 @@ void main() {
         const darkColor = Color(0xFF333333);
         final lightenedColor = M3ColorUtils.lighten(darkColor, 0.3);
 
-        expect(lightenedColor.computeLuminance(),
-            greaterThan(darkColor.computeLuminance()));
+        expect(
+          lightenedColor.computeLuminance(),
+          greaterThan(darkColor.computeLuminance()),
+        );
       });
 
       test('darken makes color darker', () {
         const lightColor = Color(0xFFCCCCCC);
         final darkenedColor = M3ColorUtils.darken(lightColor, 0.3);
 
-        expect(darkenedColor.computeLuminance(),
-            lessThan(lightColor.computeLuminance()));
+        expect(
+          darkenedColor.computeLuminance(),
+          lessThan(lightColor.computeLuminance()),
+        );
       });
 
       test('saturate increases saturation', () {
@@ -71,8 +75,10 @@ void main() {
         final hoverColor = M3ColorUtils.hover(baseColor);
 
         expect(hoverColor, isA<Color>());
-        expect(hoverColor.computeLuminance(),
-            lessThan(baseColor.computeLuminance()));
+        expect(
+          hoverColor.computeLuminance(),
+          lessThan(baseColor.computeLuminance()),
+        );
       });
 
       test('pressed creates darker overlay than hover', () {
@@ -80,8 +86,10 @@ void main() {
         final hoverColor = M3ColorUtils.hover(baseColor);
         final pressedColor = M3ColorUtils.pressed(baseColor);
 
-        expect(pressedColor.computeLuminance(),
-            lessThan(hoverColor.computeLuminance()));
+        expect(
+          pressedColor.computeLuminance(),
+          lessThan(hoverColor.computeLuminance()),
+        );
       });
 
       test('focused creates overlay with custom opacity', () {
@@ -96,8 +104,10 @@ void main() {
         const baseColor = Colors.red;
         final disabledColor = M3ColorUtils.disabled(baseColor);
 
-        expect((disabledColor.a * 255.0).round() & 0xff,
-            lessThan((baseColor.a * 255.0).round() & 0xff));
+        expect(
+          (disabledColor.a * 255.0).round() & 0xff,
+          lessThan((baseColor.a * 255.0).round() & 0xff),
+        );
       });
 
       test('dragged creates overlay with correct opacity', () {
@@ -105,8 +115,10 @@ void main() {
         final draggedColor = M3ColorUtils.dragged(baseColor);
 
         expect(draggedColor, isA<Color>());
-        expect(draggedColor.computeLuminance(),
-            lessThan(baseColor.computeLuminance()));
+        expect(
+          draggedColor.computeLuminance(),
+          lessThan(baseColor.computeLuminance()),
+        );
       });
     });
 

@@ -43,8 +43,9 @@ class M3ResponsiveScaffold extends StatelessWidget {
   Widget build(BuildContext context) {
     return M3ResponsiveBuilder(
       builder: (context, screenSize) {
-        final navigationType =
-            M3ResponsiveNavigation.getNavigationType(screenSize);
+        final navigationType = M3ResponsiveNavigation.getNavigationType(
+          screenSize,
+        );
 
         switch (navigationType) {
           case M3NavigationType.bottom:
@@ -68,8 +69,9 @@ class M3ResponsiveScaffold extends StatelessWidget {
                   NavigationRail(
                     selectedIndex: selectedIndex,
                     onDestinationSelected: onDestinationSelected,
-                    extended:
-                        M3ResponsiveNavigation.shouldExtendRail(screenSize),
+                    extended: M3ResponsiveNavigation.shouldExtendRail(
+                      screenSize,
+                    ),
                     destinations: destinations.map((dest) {
                       return NavigationRailDestination(
                         icon: dest.icon,

@@ -55,32 +55,32 @@ enum M3TypeScaleCategory {
 
   /// Gets all tokens that belong to this category.
   List<M3TextStyle> get tokens => switch (this) {
-        display => [
-            M3TextStyle.displayLarge,
-            M3TextStyle.displayMedium,
-            M3TextStyle.displaySmall,
-          ],
-        headline => [
-            M3TextStyle.headlineLarge,
-            M3TextStyle.headlineMedium,
-            M3TextStyle.headlineSmall,
-          ],
-        title => [
-            M3TextStyle.titleLarge,
-            M3TextStyle.titleMedium,
-            M3TextStyle.titleSmall,
-          ],
-        body => [
-            M3TextStyle.bodyLarge,
-            M3TextStyle.bodyMedium,
-            M3TextStyle.bodySmall,
-          ],
-        label => [
-            M3TextStyle.labelLarge,
-            M3TextStyle.labelMedium,
-            M3TextStyle.labelSmall,
-          ],
-      };
+    display => [
+      M3TextStyle.displayLarge,
+      M3TextStyle.displayMedium,
+      M3TextStyle.displaySmall,
+    ],
+    headline => [
+      M3TextStyle.headlineLarge,
+      M3TextStyle.headlineMedium,
+      M3TextStyle.headlineSmall,
+    ],
+    title => [
+      M3TextStyle.titleLarge,
+      M3TextStyle.titleMedium,
+      M3TextStyle.titleSmall,
+    ],
+    body => [
+      M3TextStyle.bodyLarge,
+      M3TextStyle.bodyMedium,
+      M3TextStyle.bodySmall,
+    ],
+    label => [
+      M3TextStyle.labelLarge,
+      M3TextStyle.labelMedium,
+      M3TextStyle.labelSmall,
+    ],
+  };
 
   /// Gets the largest token in this category.
   M3TextStyle get largest => tokens.first;

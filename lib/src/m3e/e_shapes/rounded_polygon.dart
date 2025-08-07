@@ -29,8 +29,7 @@ class RoundedPolygon {
       }
 
       return true;
-    }(),
-        'RoundedPolygon curves must be contiguous with matching anchor points');
+    }(), 'RoundedPolygon curves must be contiguous with matching anchor points');
   }
 
   /// This constructor takes the number of vertices in the resulting polygon.
@@ -96,7 +95,7 @@ class RoundedPolygon {
 
   /// Creates a copy of the given [RoundedPolygon].
   RoundedPolygon.from(RoundedPolygon roundedPolygon)
-      : this._(roundedPolygon.features, roundedPolygon.center);
+    : this._(roundedPolygon.features, roundedPolygon.center);
 
   /// This function takes the vertices (either supplied or calculated,
   /// depending on the constructor called), plus [CornerRounding] parameters,
@@ -149,8 +148,10 @@ class RoundedPolygon {
     }
     if (perVertexRounding != null &&
         perVertexRounding.length * 2 != vertices.length) {
-      throw ArgumentError('perVertexRounding list should be either null or '
-          'the same size as the number of vertices (vertices.size / 2).');
+      throw ArgumentError(
+        'perVertexRounding list should be either null or '
+        'the same size as the number of vertices (vertices.size / 2).',
+      );
     }
     final corners = <List<Cubic>>[];
     final n = vertices.length ~/ 2;
@@ -177,9 +178,11 @@ class RoundedPolygon {
     // is how much we can use of expectedRoundCut, second how much of
     // expectedCut.
     final cutAdjusts = List.generate(n, (ix) {
-      final expectedRoundCut = roundedCorners[ix].expectedRoundCut +
+      final expectedRoundCut =
+          roundedCorners[ix].expectedRoundCut +
           roundedCorners[(ix + 1) % n].expectedRoundCut;
-      final expectedCut = roundedCorners[ix].expectedCut +
+      final expectedCut =
+          roundedCorners[ix].expectedCut +
           roundedCorners[(ix + 1) % n].expectedCut;
       final vtxX = vertices[ix * 2];
       final vtxY = vertices[ix * 2 + 1];
@@ -196,7 +199,7 @@ class RoundedPolygon {
         // We can do full rounding, but not full smoothing.
         return (
           1,
-          (sideSize - expectedRoundCut) / (expectedCut - expectedRoundCut)
+          (sideSize - expectedRoundCut) / (expectedCut - expectedRoundCut),
         );
       } else {
         // There is enough room for rounding & smoothing.
@@ -214,9 +217,9 @@ class RoundedPolygon {
         final (roundCutRatio, cutRatio) = cutAdjusts[(i + n - 1 + delta) % n];
         allowedCuts[delta] =
             roundedCorners[i].expectedRoundCut * roundCutRatio +
-                (roundedCorners[i].expectedCut -
-                        roundedCorners[i].expectedRoundCut) *
-                    cutRatio;
+            (roundedCorners[i].expectedCut -
+                    roundedCorners[i].expectedRoundCut) *
+                cutRatio;
       }
 
       corners.add(
@@ -869,13 +872,19 @@ class RoundedPolygon {
     var maxDistSquared = 0.0;
     for (var i = 0; i < cubics.length; i++) {
       final cubic = cubics[i];
-      final anchorDistance =
-          distanceSquared(cubic.anchor0X - centerX, cubic.anchor0Y - centerY);
+      final anchorDistance = distanceSquared(
+        cubic.anchor0X - centerX,
+        cubic.anchor0Y - centerY,
+      );
       final middlePoint = cubic.pointOnCurve(0.5);
-      final middleDistance =
-          distanceSquared(middlePoint.x - centerX, middlePoint.y - centerY);
-      maxDistSquared =
-          math.max(maxDistSquared, math.max(anchorDistance, middleDistance));
+      final middleDistance = distanceSquared(
+        middlePoint.x - centerX,
+        middlePoint.y - centerY,
+      );
+      maxDistSquared = math.max(
+        maxDistSquared,
+        math.max(anchorDistance, middleDistance),
+      );
     }
 
     final distance = math.sqrt(maxDistSquared);
@@ -1049,8 +1058,9 @@ class _RoundedCorner {
       // radius calculating where the rounding circle hits the edge.
       // This uses the identity of tan(A/2) = sinA/(1 + cosA), where
       // tan(A/2) = radius/cut.
-      expectedRoundCut =
-          (sinAngle > 1e-3) ? cornerRadius * (cosAngle + 1) / sinAngle : 0;
+      expectedRoundCut = (sinAngle > 1e-3)
+          ? cornerRadius * (cosAngle + 1) / sinAngle
+          : 0;
     } else {
       // One (or both) of the sides is empty, not much we can do.
       d1 = Point.zero;
@@ -1230,14 +1240,16 @@ class _RoundedCorner {
     );
 
     // The flanking curve ends on the circle
-    final curveEnd = circleCenter +
+    final curveEnd =
+        circleCenter +
         directionVector(p.x - circleCenter.x, p.y - circleCenter.y) * actualR;
 
     // The anchor on the circle segment side is in the intersection between the
     // tangent to the circle in the circle/flanking curve boundary and the
     // linear segment.
     final circleTangent = (curveEnd - circleCenter).rotate90();
-    final anchorEnd = _lineIntersection(
+    final anchorEnd =
+        _lineIntersection(
           sideStart,
           sideDirection,
           curveEnd,
@@ -1285,7 +1297,8 @@ List<double> _verticesFromNumVerts(
 
   var arrayIndex = 0;
   for (var i = 0; i < numVertices; i++) {
-    final vertex = radialToCartesian(
+    final vertex =
+        radialToCartesian(
           radius,
           math.pi / numVertices * 2 * i,
         ) +
@@ -1405,21 +1418,23 @@ List<double> _pillStarVerticesFromNumVerts(
       0 => Point(currRadius, tProportion * vSegHalf),
       1 => radialToCartesian(currRadius, tProportion * math.pi / 2) + rectBR,
       2 => Point(hSegHalf - tProportion * hSegLen, currRadius),
-      3 => radialToCartesian(
-            currRadius,
-            math.pi / 2 + (tProportion * math.pi / 2),
-          ) +
-          rectBL,
+      3 =>
+        radialToCartesian(
+              currRadius,
+              math.pi / 2 + (tProportion * math.pi / 2),
+            ) +
+            rectBL,
       4 => Point(-currRadius, vSegHalf - tProportion * vSegLen),
       5 =>
         radialToCartesian(currRadius, math.pi + (tProportion * math.pi / 2)) +
             rectTL,
       6 => Point(-hSegHalf + tProportion * hSegLen, -currRadius),
-      7 => radialToCartesian(
-            currRadius,
-            math.pi * 1.5 + (tProportion * math.pi / 2),
-          ) +
-          rectTR,
+      7 =>
+        radialToCartesian(
+              currRadius,
+              math.pi * 1.5 + (tProportion * math.pi / 2),
+            ) +
+            rectTR,
       // 8
       _ => Point(currRadius, -vSegHalf + tProportion * vSegHalf),
     };

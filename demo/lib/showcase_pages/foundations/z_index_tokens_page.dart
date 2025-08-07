@@ -25,42 +25,42 @@ class ZIndexTokensPage extends StatelessWidget {
     final zIndexLayers = [
       _ZIndexLayer(
         name: 'Content',
-        zIndex: M3ZIndexToken.content.value,
+        zIndex: M3ZIndexToken.content,
         description: 'Base content layer',
         color: colorScheme.surface,
         borderColor: colorScheme.outline,
       ),
       _ZIndexLayer(
         name: 'Floating',
-        zIndex: M3ZIndexToken.floating.value,
+        zIndex: M3ZIndexToken.floating,
         description: 'FAB, chips, buttons',
         color: colorScheme.primaryContainer,
         borderColor: colorScheme.primary,
       ),
       _ZIndexLayer(
         name: 'Drawer',
-        zIndex: M3ZIndexToken.drawer.value,
+        zIndex: M3ZIndexToken.drawer,
         description: 'Navigation drawer',
         color: colorScheme.secondaryContainer,
         borderColor: colorScheme.secondary,
       ),
       _ZIndexLayer(
         name: 'Modal',
-        zIndex: M3ZIndexToken.modal.value,
+        zIndex: M3ZIndexToken.modal,
         description: 'Dialogs, bottom sheets',
         color: colorScheme.tertiaryContainer,
         borderColor: colorScheme.tertiary,
       ),
       _ZIndexLayer(
         name: 'Snackbar',
-        zIndex: M3ZIndexToken.snackbar.value,
+        zIndex: M3ZIndexToken.snackbar,
         description: 'Snackbars, banners',
         color: colorScheme.errorContainer,
         borderColor: colorScheme.error,
       ),
       _ZIndexLayer(
         name: 'Tooltip',
-        zIndex: M3ZIndexToken.tooltip.value,
+        zIndex: M3ZIndexToken.tooltip,
         description: 'Tooltips, top layer',
         color: colorScheme.surface,
         borderColor: colorScheme.onSurface,
@@ -70,7 +70,7 @@ class ZIndexTokensPage extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('M3ZIndex Tokens', style: textTheme.titleLarge),
+        Text('M3ZIndexes', style: textTheme.titleLarge),
         const M3Gap(M3SpacingToken.space8),
         Text(
           'Stacking order from bottom to top (lower to higher z-index)',
@@ -132,7 +132,7 @@ class ZIndexTokensPage extends StatelessWidget {
                           ),
                           const M3Gap(M3SpacingToken.space4),
                           Text(
-                            'z: ${layer.zIndex}',
+                            'z: ${layer.zIndex.value}',
                             style: textTheme.labelMedium?.copyWith(
                                 // color: _getTextColor(layer.color, colorScheme),
                                 ),
@@ -192,7 +192,7 @@ class ZIndexTokensPage extends StatelessWidget {
                     borderRadius: M3BorderRadius.small,
                   ),
                   child: Text(
-                    '${layer.zIndex}',
+                    '${layer.zIndex.value}',
                     style: textTheme.labelMedium?.copyWith(
                       fontWeight: FontWeight.bold,
                     ),
@@ -217,7 +217,7 @@ class _ZIndexLayer {
   });
 
   final String name;
-  final int zIndex;
+  final M3ZIndexToken zIndex;
   final String description;
   final Color color;
   final Color borderColor;

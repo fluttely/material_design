@@ -15,7 +15,7 @@ class MotionPage extends StatelessWidget {
         padding: M3EdgeInsets.all(M3MarginToken.mediumScreen),
         children: [
           LaunchURLText(
-            label: 'M3Motion Equals:\nM3MotionDurationToken + M3MotionCurve',
+            label: 'M3Motion (M3MotionDuration + M3MotionCurve)',
             m3Url:
                 'https://m3.material.io/styles/motion/easing-and-duration/applying-easing-and-duration',
           ),

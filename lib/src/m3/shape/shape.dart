@@ -101,8 +101,9 @@ class M3Shape extends RoundedRectangleBorder {
   ///
   /// Intermediate shape for components needing more visual emphasis than
   /// standard large but less than extra-large.
-  static const largeIncreased =
-      M3Shape(borderRadius: M3BorderRadius.largeIncreased);
+  static const largeIncreased = M3Shape(
+    borderRadius: M3BorderRadius.largeIncreased,
+  );
 
   /// Extra large rounded rectangular shape (28dp corners).
   ///
@@ -114,15 +115,17 @@ class M3Shape extends RoundedRectangleBorder {
   ///
   /// Maximum discrete shape for special emphasis components and
   /// brand-specific interface elements requiring strong visual impact.
-  static const extraLargeIncreased =
-      M3Shape(borderRadius: M3BorderRadius.extraLargeIncreased);
+  static const extraLargeIncreased = M3Shape(
+    borderRadius: M3BorderRadius.extraLargeIncreased,
+  );
 
   /// Extra extra large rounded rectangular shape (48dp corners).
   ///
   /// The largest discrete shape value, reserved for unique creative
   /// elements and scenarios requiring maximum visual emphasis.
-  static const extraExtraLarge =
-      M3Shape(borderRadius: M3BorderRadius.extraExtraLarge);
+  static const extraExtraLarge = M3Shape(
+    borderRadius: M3BorderRadius.extraExtraLarge,
+  );
 
   /// Fully rounded pill shape.
   ///

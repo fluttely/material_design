@@ -72,13 +72,13 @@ class M3ELoadingIndicator extends StatefulWidget {
     String? semanticsLabel,
     Key? key,
   }) : this._(
-          isContained: false,
-          indicatorPolygons: indicatorPolygons,
-          activeIndicatorColor: activeIndicatorColor,
-          containerColor: containerColor,
-          semanticsLabel: semanticsLabel,
-          key: key,
-        );
+         isContained: false,
+         indicatorPolygons: indicatorPolygons,
+         activeIndicatorColor: activeIndicatorColor,
+         containerColor: containerColor,
+         semanticsLabel: semanticsLabel,
+         key: key,
+       );
 
   /// Creates a contained version of [M3ELoadingIndicator].
   M3ELoadingIndicator.contained({
@@ -88,13 +88,13 @@ class M3ELoadingIndicator extends StatefulWidget {
     String? semanticsLabel,
     Key? key,
   }) : this._(
-          isContained: true,
-          indicatorPolygons: indicatorPolygons,
-          activeIndicatorColor: activeIndicatorColor,
-          containerColor: containerColor,
-          semanticsLabel: semanticsLabel,
-          key: key,
-        );
+         isContained: true,
+         indicatorPolygons: indicatorPolygons,
+         activeIndicatorColor: activeIndicatorColor,
+         containerColor: containerColor,
+         semanticsLabel: semanticsLabel,
+         key: key,
+       );
 
   M3ELoadingIndicator._({
     required bool isContained,
@@ -103,13 +103,14 @@ class M3ELoadingIndicator extends StatefulWidget {
     this.containerColor,
     this.semanticsLabel,
     super.key,
-  })  : _isContained = isContained,
-        indicatorPolygons = indicatorPolygons ??
-            M3ELoadingIndicator.indeterminateIndicatorPolygons,
-        assert(
-          indicatorPolygons == null || indicatorPolygons.length > 1,
-          'indicatorPolygons should have, at least, two RoundedPolygons',
-        );
+  }) : _isContained = isContained,
+       indicatorPolygons =
+           indicatorPolygons ??
+           M3ELoadingIndicator.indeterminateIndicatorPolygons,
+       assert(
+         indicatorPolygons == null || indicatorPolygons.length > 1,
+         'indicatorPolygons should have, at least, two RoundedPolygons',
+       );
 
   /// Whether this indicator is contained.
   final bool _isContained;
@@ -152,7 +153,7 @@ class M3ELoadingIndicator extends StatefulWidget {
   /// [M3ELoadingIndicator.indicatorPolygons] parameter when none is explicitly
   /// provided.
   static final UnmodifiableListView<RoundedPolygon>
-      indeterminateIndicatorPolygons = UnmodifiableListView(
+  indeterminateIndicatorPolygons = UnmodifiableListView(
     [
       MaterialShapes.softBurst,
       MaterialShapes.cookie9Sided,
@@ -167,7 +168,7 @@ class M3ELoadingIndicator extends StatefulWidget {
   /// The sequence of [RoundedPolygon]s that the determinate [M3ELoadingIndicator]
   /// will morph between when animating.
   static final UnmodifiableListView<RoundedPolygon>
-      determinateIndicatorPolygons = UnmodifiableListView(
+  determinateIndicatorPolygons = UnmodifiableListView(
     [
       MaterialShapes.circle,
       MaterialShapes.softBurst,
@@ -190,23 +191,26 @@ class _M3ELoadingIndicatorState extends State<M3ELoadingIndicator>
 
   late final AnimationController _controller;
 
-  late final Animation<double> _rotation =
-      Tween<double>(begin: 0, end: 1).animate(_controller);
+  late final Animation<double> _rotation = Tween<double>(
+    begin: 0,
+    end: 1,
+  ).animate(_controller);
 
-  late final Animation<double> _scale = TweenSequence<double>(
-    [
-      TweenSequenceItem(
-        tween: Tween(begin: 1, end: 1.125),
-        weight: 200 / 350,
-      ),
-      TweenSequenceItem(
-        tween: Tween(begin: 1.125, end: 1),
-        weight: 150 / 350,
-      ),
-    ],
-  )
-      .chain(CurveTween(curve: const Interval(300 / 650, 650 / 650)))
-      .animate(_controller);
+  late final Animation<double> _scale =
+      TweenSequence<double>(
+            [
+              TweenSequenceItem(
+                tween: Tween(begin: 1, end: 1.125),
+                weight: 200 / 350,
+              ),
+              TweenSequenceItem(
+                tween: Tween(begin: 1.125, end: 1),
+                weight: 150 / 350,
+              ),
+            ],
+          )
+          .chain(CurveTween(curve: const Interval(300 / 650, 650 / 650)))
+          .animate(_controller);
 
   late final Animation<double> _morphProgress = Tween<double>(begin: 0, end: 1)
       .chain(
@@ -222,12 +226,13 @@ class _M3ELoadingIndicatorState extends State<M3ELoadingIndicator>
 
     _initMorphs();
 
-    _controller = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 650),
-    )
-      ..addStatusListener(_statusListener)
-      ..forward();
+    _controller =
+        AnimationController(
+            vsync: this,
+            duration: const Duration(milliseconds: 650),
+          )
+          ..addStatusListener(_statusListener)
+          ..forward();
   }
 
   @override
@@ -312,11 +317,13 @@ class _M3ELoadingIndicatorState extends State<M3ELoadingIndicator>
   Widget build(BuildContext context) {
     late final indicatorTheme = LoadingIndicatorTheme.of(context);
 
-    final activeIndicatorColor = widget.activeIndicatorColor ??
+    final activeIndicatorColor =
+        widget.activeIndicatorColor ??
         indicatorTheme?.activeIndicatorColor ??
         Theme.of(context).colorScheme.primary;
 
-    final containerColor = widget.containerColor ??
+    final containerColor =
+        widget.containerColor ??
         indicatorTheme?.containerColor ??
         Theme.of(context).colorScheme.primaryContainer;
 
@@ -379,14 +386,14 @@ class _ActiveIndicatorPainter extends CustomPainter {
     required this.scale,
     required this.morphProgress,
   }) : super(
-          repaint: Listenable.merge([
-            morphIndex,
-            globalAngle,
-            rotation,
-            scale,
-            morphProgress,
-          ]),
-        );
+         repaint: Listenable.merge([
+           morphIndex,
+           globalAngle,
+           rotation,
+           scale,
+           morphProgress,
+         ]),
+       );
 
   final Color activeIndicatorColor;
 
@@ -408,7 +415,8 @@ class _ActiveIndicatorPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final rect = Offset.zero & size;
 
-    final angle = globalAngle.value +
+    final angle =
+        globalAngle.value +
         _kLinearRotationAngle * rotation.value +
         _kMorphRotationAngle * morphProgress.value;
 

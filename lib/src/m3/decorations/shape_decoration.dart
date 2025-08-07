@@ -84,9 +84,9 @@ class M3ShapeDecoration extends ShapeDecoration {
     super.image,
     super.gradient,
   }) : super(
-          shape: shape,
-          shadows: shadows,
-        );
+         shape: shape,
+         shadows: shadows,
+       );
 
   // /// Creates an M3ShapeDecoration from the properties of an M3BoxDecoration.
   // ///
@@ -116,9 +116,9 @@ class M3ShapeDecoration extends ShapeDecoration {
   //   );
   // }
 
-//   M3ShapeDecoration.fromBoxDecoration(M3BoxDecoration super.source)
-//       : super.fromBoxDecoration(); // error:  The generative constructor 'ShapeDecoration ShapeDecoration.fromBoxDecoration(BoxDecoration source)' is expected, but a factory was found.
-// // Try calling a different constructor of the superclass, or making the called constructor not be a factory constructor.
+  //   M3ShapeDecoration.fromBoxDecoration(M3BoxDecoration super.source)
+  //       : super.fromBoxDecoration(); // error:  The generative constructor 'ShapeDecoration ShapeDecoration.fromBoxDecoration(BoxDecoration source)' is expected, but a factory was found.
+  // // Try calling a different constructor of the superclass, or making the called constructor not be a factory constructor.
 
   // /// Creates a ShapeDecoration with filled color.
   // M3ShapeDecoration.filled({

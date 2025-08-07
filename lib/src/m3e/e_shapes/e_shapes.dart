@@ -111,19 +111,21 @@ abstract final class MaterialShapes {
   ).normalized();
 
   /// An arch shape.
-  static final RoundedPolygon arch = RoundedPolygon.fromVerticesNum(
-    4,
-    perVertexRounding: const [
-      _cornerRound100,
-      _cornerRound100,
-      _cornerRound20,
-      _cornerRound20,
-    ],
-  )
-      .transformed(
-        (Matrix4.identity()..rotateZ(_negative135Radians)).asPointTransformer(),
-      )
-      .normalized();
+  static final RoundedPolygon arch =
+      RoundedPolygon.fromVerticesNum(
+            4,
+            perVertexRounding: const [
+              _cornerRound100,
+              _cornerRound100,
+              _cornerRound20,
+              _cornerRound20,
+            ],
+          )
+          .transformed(
+            (Matrix4.identity()..rotateZ(_negative135Radians))
+                .asPointTransformer(),
+          )
+          .normalized();
 
   /// A semi-circle shape.
   static final RoundedPolygon semiCircle = RoundedPolygon.rectangle(
@@ -350,37 +352,43 @@ abstract final class MaterialShapes {
   ).normalized();
 
   /// A 7-sided cookie shape.
-  static final RoundedPolygon cookie7Sided = RoundedPolygon.star(
-    numVerticesPerRadius: 7,
-    innerRadius: 0.75,
-    rounding: _cornerRound50,
-  )
-      .transformed(
-        (Matrix4.identity()..rotateZ(_negative90Radians)).asPointTransformer(),
-      )
-      .normalized();
+  static final RoundedPolygon cookie7Sided =
+      RoundedPolygon.star(
+            numVerticesPerRadius: 7,
+            innerRadius: 0.75,
+            rounding: _cornerRound50,
+          )
+          .transformed(
+            (Matrix4.identity()..rotateZ(_negative90Radians))
+                .asPointTransformer(),
+          )
+          .normalized();
 
   /// A 9-sided cookie shape.
-  static final RoundedPolygon cookie9Sided = RoundedPolygon.star(
-    numVerticesPerRadius: 9,
-    innerRadius: 0.8,
-    rounding: _cornerRound50,
-  )
-      .transformed(
-        (Matrix4.identity()..rotateZ(_negative90Radians)).asPointTransformer(),
-      )
-      .normalized();
+  static final RoundedPolygon cookie9Sided =
+      RoundedPolygon.star(
+            numVerticesPerRadius: 9,
+            innerRadius: 0.8,
+            rounding: _cornerRound50,
+          )
+          .transformed(
+            (Matrix4.identity()..rotateZ(_negative90Radians))
+                .asPointTransformer(),
+          )
+          .normalized();
 
   /// A 12-sided cookie shape.
-  static final RoundedPolygon cookie12Sided = RoundedPolygon.star(
-    numVerticesPerRadius: 12,
-    innerRadius: 0.8,
-    rounding: _cornerRound50,
-  )
-      .transformed(
-        (Matrix4.identity()..rotateZ(_negative90Radians)).asPointTransformer(),
-      )
-      .normalized();
+  static final RoundedPolygon cookie12Sided =
+      RoundedPolygon.star(
+            numVerticesPerRadius: 12,
+            innerRadius: 0.8,
+            rounding: _cornerRound50,
+          )
+          .transformed(
+            (Matrix4.identity()..rotateZ(_negative90Radians))
+                .asPointTransformer(),
+          )
+          .normalized();
 
   /// A 4-leaf clover shape.
   static final RoundedPolygon clover4Leaf = _customPolygon(
@@ -491,51 +499,52 @@ abstract final class MaterialShapes {
   ).normalized();
 
   /// A puffy shape.
-  static final RoundedPolygon puffy = _customPolygon(
-    [
-      const _PointNRound(Point(0.5, 0.053)),
-      const _PointNRound(
-        Point(0.545, -0.04),
-        CornerRounding(radius: 0.405),
-      ),
-      const _PointNRound(
-        Point(0.670, -0.035),
-        CornerRounding(radius: 0.426),
-      ),
-      const _PointNRound(
-        Point(0.717, 0.066),
-        CornerRounding(radius: 0.574),
-      ),
-      const _PointNRound(Point(0.722, 0.128)),
-      const _PointNRound(
-        Point(0.777, 0.002),
-        CornerRounding(radius: 0.36),
-      ),
-      const _PointNRound(
-        Point(0.914, 0.149),
-        CornerRounding(radius: 0.66),
-      ),
-      const _PointNRound(
-        Point(0.926, 0.289),
-        CornerRounding(radius: 0.66),
-      ),
-      const _PointNRound(Point(0.881, 0.346)),
-      const _PointNRound(
-        Point(0.940, 0.344),
-        CornerRounding(radius: 0.126),
-      ),
-      const _PointNRound(
-        Point(1.003, 0.437),
-        CornerRounding(radius: 0.255),
-      ),
-    ],
-    2,
-    mirroring: true,
-  )
-      .transformed(
-        (Matrix4.identity()..scale(1.0, 0.742)).asPointTransformer(),
-      )
-      .normalized();
+  static final RoundedPolygon puffy =
+      _customPolygon(
+            [
+              const _PointNRound(Point(0.5, 0.053)),
+              const _PointNRound(
+                Point(0.545, -0.04),
+                CornerRounding(radius: 0.405),
+              ),
+              const _PointNRound(
+                Point(0.670, -0.035),
+                CornerRounding(radius: 0.426),
+              ),
+              const _PointNRound(
+                Point(0.717, 0.066),
+                CornerRounding(radius: 0.574),
+              ),
+              const _PointNRound(Point(0.722, 0.128)),
+              const _PointNRound(
+                Point(0.777, 0.002),
+                CornerRounding(radius: 0.36),
+              ),
+              const _PointNRound(
+                Point(0.914, 0.149),
+                CornerRounding(radius: 0.66),
+              ),
+              const _PointNRound(
+                Point(0.926, 0.289),
+                CornerRounding(radius: 0.66),
+              ),
+              const _PointNRound(Point(0.881, 0.346)),
+              const _PointNRound(
+                Point(0.940, 0.344),
+                CornerRounding(radius: 0.126),
+              ),
+              const _PointNRound(
+                Point(1.003, 0.437),
+                CornerRounding(radius: 0.255),
+              ),
+            ],
+            2,
+            mirroring: true,
+          )
+          .transformed(
+            (Matrix4.identity()..scale(1.0, 0.742)).asPointTransformer(),
+          )
+          .normalized();
 
   /// A puffy-diamond shape.
   static final RoundedPolygon puffyDiamond = _customPolygon(
@@ -753,12 +762,14 @@ abstract final class MaterialShapes {
         for (var index = 0; index < points.length; index++) {
           final i = (r.isEven) ? index : points.length - 1 - index;
           if (i > 0 || r.isEven) {
-            final a = sectionAngle * r +
+            final a =
+                sectionAngle * r +
                 ((r.isEven)
                     ? measures[i].angle
                     : sectionAngle - measures[i].angle + 2 * measures[0].angle);
 
-            final finalPoint = Point(
+            final finalPoint =
+                Point(
                       math.cos(a),
                       math.sin(a),
                     ) *
@@ -773,9 +784,9 @@ abstract final class MaterialShapes {
       final np = points.length;
       for (var i = 0; i < np * reps; i++) {
         final point = points[i % np].p.rotate(
-              (i ~/ np) * 360 / reps,
-              center: center,
-            );
+          (i ~/ np) * 360 / reps,
+          center: center,
+        );
         result.add(_PointNRound(point, points[i % np].r));
       }
     }
