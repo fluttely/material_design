@@ -74,11 +74,11 @@ class M3EdgeInsets extends EdgeInsets {
     double? right,
     double? bottom,
   ) : super.fromLTRB(
-          left ?? 0,
-          top ?? 0,
-          right ?? 0,
-          bottom ?? 0,
-        );
+        left ?? 0,
+        top ?? 0,
+        right ?? 0,
+        bottom ?? 0,
+      );
 
   /// Private constructor to prevent direct instantiation.
   M3EdgeInsets.fromLTRB(
@@ -87,11 +87,11 @@ class M3EdgeInsets extends EdgeInsets {
     IM3SpacingToken? right,
     IM3SpacingToken? bottom,
   ) : super.fromLTRB(
-          left?.value ?? 0,
-          top?.value ?? 0,
-          right?.value ?? 0,
-          bottom?.value ?? 0,
-        );
+        left?.value ?? 0,
+        top?.value ?? 0,
+        right?.value ?? 0,
+        bottom?.value ?? 0,
+      );
 
   /// Creates EdgeInsets with uniform spacing from a Material Design 3 token.
   ///
@@ -127,11 +127,11 @@ class M3EdgeInsets extends EdgeInsets {
     IM3SpacingToken? right,
     IM3SpacingToken? bottom,
   }) : super.only(
-          left: left?.value ?? 0,
-          top: top?.value ?? 0,
-          right: right?.value ?? 0,
-          bottom: bottom?.value ?? 0,
-        );
+         left: left?.value ?? 0,
+         top: top?.value ?? 0,
+         right: right?.value ?? 0,
+         bottom: bottom?.value ?? 0,
+       );
 
   /// Creates EdgeInsets with symmetric spacing from Material Design 3 tokens.
   ///
@@ -149,9 +149,9 @@ class M3EdgeInsets extends EdgeInsets {
     IM3SpacingToken? horizontal,
     IM3SpacingToken? vertical,
   }) : super.symmetric(
-          horizontal: horizontal?.value ?? 0,
-          vertical: vertical?.value ?? 0,
-        );
+         horizontal: horizontal?.value ?? 0,
+         vertical: vertical?.value ?? 0,
+       );
 
   // /// Creates EdgeInsets with horizontal spacing only.
   // ///
@@ -249,8 +249,10 @@ class M3EdgeInsets extends EdgeInsets {
   ///   factor: 1.5,
   /// );
   /// ```
-  static M3EdgeInsets forScreenWidth(double screenWidth,
-      {double factor = 1.0}) {
+  static M3EdgeInsets forScreenWidth(
+    double screenWidth, {
+    double factor = 1.0,
+  }) {
     late M3SpacingToken spacing;
 
     if (screenWidth < M3BreakpointToken.medium.value) {
@@ -474,43 +476,43 @@ class M3EdgeInsetsPatterns {
 
   /// Standard list item padding.
   static M3EdgeInsets get listItem => M3EdgeInsets.symmetric(
-        horizontal: M3SpacingToken.space16,
-        vertical: M3SpacingToken.space12,
-      );
+    horizontal: M3SpacingToken.space16,
+    vertical: M3SpacingToken.space12,
+  );
 
   /// Compact list item padding for dense lists.
   static M3EdgeInsets get listItemCompact => M3EdgeInsets.symmetric(
-        horizontal: M3SpacingToken.space16,
-        vertical: M3SpacingToken.space8,
-      );
+    horizontal: M3SpacingToken.space16,
+    vertical: M3SpacingToken.space8,
+  );
 
   /// List item padding with leading icon.
   static M3EdgeInsets get listItemWithIcon => M3EdgeInsets.only(
-        left: M3SpacingToken.space16,
-        top: M3SpacingToken.space12,
-        right: M3SpacingToken.space16,
-        bottom: M3SpacingToken.space12,
-      );
+    left: M3SpacingToken.space16,
+    top: M3SpacingToken.space12,
+    right: M3SpacingToken.space16,
+    bottom: M3SpacingToken.space12,
+  );
 
   // Button Patterns
 
   /// Standard button padding.
   static M3EdgeInsets get button => M3EdgeInsets.symmetric(
-        horizontal: M3SpacingToken.space24,
-        vertical: M3SpacingToken.space12,
-      );
+    horizontal: M3SpacingToken.space24,
+    vertical: M3SpacingToken.space12,
+  );
 
   /// Compact button padding.
   static M3EdgeInsets get buttonCompact => M3EdgeInsets.symmetric(
-        horizontal: M3SpacingToken.space16,
-        vertical: M3SpacingToken.space8,
-      );
+    horizontal: M3SpacingToken.space16,
+    vertical: M3SpacingToken.space8,
+  );
 
   /// Large button padding.
   static M3EdgeInsets get buttonLarge => M3EdgeInsets.symmetric(
-        horizontal: M3SpacingToken.space32,
-        vertical: M3SpacingToken.space16,
-      );
+    horizontal: M3SpacingToken.space32,
+    vertical: M3SpacingToken.space16,
+  );
 
   // Dialog Patterns
 
@@ -520,19 +522,19 @@ class M3EdgeInsetsPatterns {
 
   /// Dialog title padding.
   static M3EdgeInsets get dialogTitle => M3EdgeInsets.only(
-        left: M3SpacingToken.space24,
-        top: M3SpacingToken.space24,
-        right: M3SpacingToken.space24,
-        bottom: M3SpacingToken.space16,
-      );
+    left: M3SpacingToken.space24,
+    top: M3SpacingToken.space24,
+    right: M3SpacingToken.space24,
+    bottom: M3SpacingToken.space16,
+  );
 
   /// Dialog actions padding.
   static M3EdgeInsets get dialogActions => M3EdgeInsets.only(
-        left: M3SpacingToken.space24,
-        top: M3SpacingToken.space16,
-        right: M3SpacingToken.space24,
-        bottom: M3SpacingToken.space24,
-      );
+    left: M3SpacingToken.space24,
+    top: M3SpacingToken.space16,
+    right: M3SpacingToken.space24,
+    bottom: M3SpacingToken.space24,
+  );
 
   // Screen Layout Patterns
 

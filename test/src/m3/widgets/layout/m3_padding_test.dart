@@ -111,8 +111,9 @@ void main() {
       );
     });
 
-    testWidgets('uses default none when not specified in symmetric',
-        (tester) async {
+    testWidgets('uses default none when not specified in symmetric', (
+      tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
@@ -194,7 +195,9 @@ void main() {
           home: Scaffold(
             body: M3Padding(
               padding: M3EdgeInsets.only(
-                  left: M3SpacingToken.space8, bottom: M3SpacingToken.space24),
+                left: M3SpacingToken.space8,
+                bottom: M3SpacingToken.space24,
+              ),
               child: testChild,
             ),
           ),
@@ -208,8 +211,9 @@ void main() {
       );
     });
 
-    testWidgets('integrates correctly with spacing token hierarchy',
-        (tester) async {
+    testWidgets('integrates correctly with spacing token hierarchy', (
+      tester,
+    ) async {
       final spacings = [
         M3SpacingToken.none,
         M3SpacingToken.space4,

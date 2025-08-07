@@ -67,7 +67,7 @@ part 'src/m3/spacing/gap.dart';
 /// Ensures all padding uses Material Design 3 spacing tokens with support for
 /// directional, symmetric, and uniform padding patterns with debug information.
 part 'src/m3/spacing/padding.dart';
-part 'src/m3/tokens/border/border_side_resolver.dart';
+part 'src/m3/tokens/border/border_side.dart';
 
 /// **Geometry Tokens**: Spatial and dimensional design tokens.
 /// Comprehensive geometric system including borders, breakpoints, icon
@@ -131,7 +131,7 @@ part 'src/m3/tokens/shape/corner_token.dart';
 // part 'src/m3/utils/sys/m3_shape_utils.dart';
 
 /// Custom BorderRadius that enforces Material Design 3 tokens.
-part 'src/m3/tokens/shape/radius_resolver.dart';
+part 'src/m3/tokens/shape/radius.dart';
 
 /// **Spacing System**: 4dp grid-based spacing and margin tokens.
 /// Complete spacing system with base spacing (4dp-128dp), responsive

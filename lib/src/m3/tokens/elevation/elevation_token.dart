@@ -285,13 +285,13 @@ enum M3ElevationToken implements IM3ElevationToken {
   /// Returns a shadow token for a given elevation value in dp.
   /// This method contains the core logic and is the single source of truth.
   static M3ElevationToken fromValue(double value) => switch (value) {
-        >= 12 => level5,
-        >= 8 => level4,
-        >= 6 => level3,
-        >= 3 => level2,
-        >= 1 => level1,
-        _ => level0,
-      };
+    >= 12 => level5,
+    >= 8 => level4,
+    >= 6 => level3,
+    >= 3 => level2,
+    >= 1 => level1,
+    _ => level0,
+  };
 }
 
 // /// {@template m3_component_elevation_token}
@@ -442,12 +442,11 @@ extension IM3ElevationTokenVisuals on IM3ElevationToken {
   Color calculateSurfaceColor({
     required Color surface,
     required Color surfaceTint,
-  }) =>
-      M3SurfaceTint.calculateSurfaceColor(
-        surface: surface,
-        surfaceTint: surfaceTint,
-        elevation: this,
-      );
+  }) => M3SurfaceTint.calculateSurfaceColor(
+    surface: surface,
+    surfaceTint: surfaceTint,
+    elevation: this,
+  );
 
   /// Creates a high contrast surface color for accessibility.
   ///
@@ -456,12 +455,11 @@ extension IM3ElevationTokenVisuals on IM3ElevationToken {
   Color highContrastSurface({
     required Color surface,
     required Color surfaceTint,
-  }) =>
-      M3SurfaceTint.highContrastSurface(
-        surface: surface,
-        surfaceTint: surfaceTint,
-        elevation: this,
-      );
+  }) => M3SurfaceTint.highContrastSurface(
+    surface: surface,
+    surfaceTint: surfaceTint,
+    elevation: this,
+  );
 }
 
 /// Provides comparison utility methods for [IM3ElevationToken].

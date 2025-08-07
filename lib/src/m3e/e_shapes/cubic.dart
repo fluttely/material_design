@@ -22,19 +22,19 @@ class Cubic {
     double anchor1X,
     double anchor1Y,
   ) : this._raw([
-          anchor0X,
-          anchor0Y,
-          control0X,
-          control0Y,
-          control1X,
-          control1Y,
-          anchor1X,
-          anchor1Y,
-        ]);
+        anchor0X,
+        anchor0Y,
+        control0X,
+        control0Y,
+        control1X,
+        control1Y,
+        anchor1X,
+        anchor1Y,
+      ]);
 
   const Cubic._raw(List<double> points)
-      : assert(points.length == 8, 'Points array size should be 8.'),
-        _points = points;
+    : assert(points.length == 8, 'Points array size should be 8.'),
+      _points = points;
 
   /// Creates a [Cubic] from four [Point] objects representing the anchor
   /// and control points of the Bézier curve.
@@ -47,15 +47,15 @@ class Cubic {
     Point control1,
     Point anchor1,
   ) : this._raw([
-          anchor0.x,
-          anchor0.y,
-          control0.x,
-          control0.y,
-          control1.x,
-          control1.y,
-          anchor1.x,
-          anchor1.y,
-        ]);
+        anchor0.x,
+        anchor0.y,
+        control0.x,
+        control0.y,
+        control1.x,
+        control1.y,
+        anchor1.x,
+        anchor1.y,
+      ]);
 
   /// Generates a bezier curve that is a straight line between the given anchor
   /// points. The control points lie 1/3 of the distance from their respective
@@ -105,7 +105,8 @@ class Cubic {
       return Cubic.straightLine(x0, y0, x1, y1);
     }
 
-    final k = distance(x0 - centerX, y0 - centerY) *
+    final k =
+        distance(x0 - centerX, y0 - centerY) *
         4 /
         3 *
         (math.sqrt(2 * (1 - cosa)) - math.sqrt(1 - cosa * cosa)) /
@@ -126,7 +127,7 @@ class Cubic {
 
   /// Generates an empty Cubic defined at (x0, y0).
   Cubic.empty(double x0, double y0)
-      : this._raw([x0, y0, x0, y0, x0, y0, x0, y0]);
+    : this._raw([x0, y0, x0, y0, x0, y0, x0, y0]);
 
   final List<double> _points;
 
@@ -343,15 +344,15 @@ class Cubic {
 
   /// Utility function to reverse the control/anchor points for this curve.
   Cubic reverse() => Cubic(
-        anchor1X,
-        anchor1Y,
-        control1X,
-        control1Y,
-        control0X,
-        control0Y,
-        anchor0X,
-        anchor0Y,
-      );
+    anchor1X,
+    anchor1Y,
+    control1X,
+    control1Y,
+    control0X,
+    control0Y,
+    anchor0X,
+    anchor0Y,
+  );
 
   /// Adds two [Cubic] curves by adding their corresponding point coordinates.
   Cubic operator +(Cubic o) =>

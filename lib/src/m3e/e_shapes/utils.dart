@@ -51,8 +51,7 @@ Point radialToCartesian(
   double radius,
   double angleRadians, [
   Point center = Point.zero,
-]) =>
-    directionVectorFromAngle(angleRadians) * radius + center;
+]) => directionVectorFromAngle(angleRadians) * radius + center;
 
 /// Returns the square of the given number.
 double square(double x) => x * x;
@@ -373,10 +372,9 @@ Path pathFromCubics({
     );
     // Rotate the Path to to start from the given angle.
     path = path.transform(
-      (Matrix4.identity()
-            ..rotateZ(
-              -angleToFirstCubic + (startAngle * math.pi / 180),
-            ))
+      (Matrix4.identity()..rotateZ(
+            -angleToFirstCubic + (startAngle * math.pi / 180),
+          ))
           .storage,
     );
   }

@@ -51,8 +51,11 @@ void main() {
       ];
 
       for (final spacing in baseSpacings) {
-        expect(spacing.value % 4, equals(0),
-            reason: '${spacing.value} should be divisible by 4');
+        expect(
+          spacing.value % 4,
+          equals(0),
+          reason: '${spacing.value} should be divisible by 4',
+        );
       }
     });
   });
@@ -75,8 +78,10 @@ void main() {
     });
 
     test('compact screen has smaller margin than others', () {
-      expect(M3MarginToken.compactScreen.value,
-          lessThan(M3MarginToken.mediumScreen.value));
+      expect(
+        M3MarginToken.compactScreen.value,
+        lessThan(M3MarginToken.mediumScreen.value),
+      );
     });
   });
 

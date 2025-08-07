@@ -37,8 +37,10 @@ class M3VisualDensity extends VisualDensity {
   /// - Improved usability for users with motor difficulties
   ///
   /// **Best for**: Touch devices, accessibility-focused apps, senior users
-  static const M3VisualDensity comfortable =
-      M3VisualDensity(horizontal: -1, vertical: -1);
+  static const M3VisualDensity comfortable = M3VisualDensity(
+    horizontal: -1,
+    vertical: -1,
+  );
 
   /// Compact visual density (-2, -2) - Information-dense interfaces.
   ///
@@ -54,8 +56,10 @@ class M3VisualDensity extends VisualDensity {
   /// - Efficient use of screen real estate
   ///
   /// **Best for**: Desktop apps, data tables, professional tools, dashboards
-  static const M3VisualDensity compact =
-      M3VisualDensity(horizontal: -2, vertical: -2);
+  static const M3VisualDensity compact = M3VisualDensity(
+    horizontal: -2,
+    vertical: -2,
+  );
 
   /// Adaptive platform density - Automatically adjusts per platform.
   ///
@@ -91,12 +95,10 @@ class M3VisualDensity extends VisualDensity {
     return switch (platform) {
       TargetPlatform.android ||
       TargetPlatform.iOS ||
-      TargetPlatform.fuchsia =>
-        standard,
+      TargetPlatform.fuchsia => standard,
       TargetPlatform.linux ||
       TargetPlatform.macOS ||
-      TargetPlatform.windows =>
-        compact,
+      TargetPlatform.windows => compact,
     };
   }
 

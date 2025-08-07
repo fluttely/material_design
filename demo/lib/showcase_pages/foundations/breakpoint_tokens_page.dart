@@ -41,7 +41,7 @@ class BreakpointTokensPage extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Responsive Breakpoints')),
+      appBar: AppBar(title: const Text('M3Breakpoints')),
       body: ListView(
         padding: M3EdgeInsets.all(M3SpacingToken.space16),
         children: [

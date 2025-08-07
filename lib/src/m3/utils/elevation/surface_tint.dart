@@ -40,7 +40,9 @@ part of '../../../../material_design.dart';
 @immutable
 abstract interface class M3SurfaceTint {
   static Color fromElevationToken(
-      BuildContext context, IM3ElevationToken elevation) {
+    BuildContext context,
+    IM3ElevationToken elevation,
+  ) {
     return fromElevation(context, elevation.value);
   }
 

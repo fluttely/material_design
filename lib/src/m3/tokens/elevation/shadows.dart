@@ -165,11 +165,11 @@ abstract final class M3Shadows {
   /// Returns a shadow token for a given elevation value in dp.
   /// This method contains the core logic and is the single source of truth.
   static List<M3BoxShadow> fromElevation(double value) => switch (value) {
-        >= 12 => level5,
-        >= 8 => level4,
-        >= 6 => level3,
-        >= 3 => level2,
-        >= 1 => level1,
-        _ => level0,
-      };
+    >= 12 => level5,
+    >= 8 => level4,
+    >= 6 => level3,
+    >= 3 => level2,
+    >= 1 => level1,
+    _ => level0,
+  };
 }

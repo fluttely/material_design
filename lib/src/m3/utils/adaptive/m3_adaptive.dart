@@ -110,11 +110,13 @@ abstract interface class M3Adaptive {
       case M3ScreenSize.medium:
         return NavigationRail(
           destinations: destinations
-              .map((d) => NavigationRailDestination(
-                    icon: d.icon,
-                    selectedIcon: d.selectedIcon,
-                    label: Text(d.label),
-                  ))
+              .map(
+                (d) => NavigationRailDestination(
+                  icon: d.icon,
+                  selectedIcon: d.selectedIcon,
+                  label: Text(d.label),
+                ),
+              )
               .toList(),
           selectedIndex: selectedIndex,
           onDestinationSelected: onDestinationSelected,
@@ -284,8 +286,9 @@ abstract interface class M3Adaptive {
                             Expanded(
                               child: Text(
                                 title,
-                                style:
-                                    Theme.of(context).textTheme.headlineSmall,
+                                style: Theme.of(
+                                  context,
+                                ).textTheme.headlineSmall,
                               ),
                             ),
                             IconButton(
@@ -311,13 +314,16 @@ abstract interface class M3Adaptive {
         },
         transitionBuilder: (context, animation, secondaryAnimation, child) {
           return SlideTransition(
-            position: Tween<Offset>(
-              begin: const Offset(1, 0),
-              end: Offset.zero,
-            ).animate(CurvedAnimation(
-              parent: animation,
-              curve: M3MotionCurve.emphasizedDecelerate,
-            )),
+            position:
+                Tween<Offset>(
+                  begin: const Offset(1, 0),
+                  end: Offset.zero,
+                ).animate(
+                  CurvedAnimation(
+                    parent: animation,
+                    curve: M3MotionCurve.emphasizedDecelerate,
+                  ),
+                ),
             child: child,
           );
         },
@@ -541,11 +547,13 @@ class M3AdaptiveScaffold extends StatelessWidget {
             if (destinations != null)
               NavigationRail(
                 destinations: destinations!
-                    .map((d) => NavigationRailDestination(
-                          icon: d.icon,
-                          selectedIcon: d.selectedIcon,
-                          label: Text(d.label),
-                        ))
+                    .map(
+                      (d) => NavigationRailDestination(
+                        icon: d.icon,
+                        selectedIcon: d.selectedIcon,
+                        label: Text(d.label),
+                      ),
+                    )
                     .toList(),
                 selectedIndex: selectedIndex,
                 onDestinationSelected: onDestinationSelected,

@@ -208,20 +208,24 @@ class M3TextStyle extends TextStyle {
     return baseStyle.copyWith(
       letterSpacing: (baseStyle.letterSpacing ?? 0) + 0.12,
       height: math.max(baseStyle.height ?? 1.0, 1.6),
-      fontWeight: FontWeight.values[math.min(
-        FontWeight.values.indexOf(baseStyle.fontWeight ?? FontWeight.w400) + 1,
-        FontWeight.values.length - 1,
-      )],
+      fontWeight:
+          FontWeight.values[math.min(
+            FontWeight.values.indexOf(baseStyle.fontWeight ?? FontWeight.w400) +
+                1,
+            FontWeight.values.length - 1,
+          )],
     );
   }
 
   /// Creates a high contrast version of a text style.
   static TextStyle highContrast(TextStyle baseStyle) {
     return baseStyle.copyWith(
-      fontWeight: FontWeight.values[math.min(
-        FontWeight.values.indexOf(baseStyle.fontWeight ?? FontWeight.w400) + 1,
-        FontWeight.values.length - 1,
-      )],
+      fontWeight:
+          FontWeight.values[math.min(
+            FontWeight.values.indexOf(baseStyle.fontWeight ?? FontWeight.w400) +
+                1,
+            FontWeight.values.length - 1,
+          )],
     );
   }
 
@@ -252,29 +256,23 @@ class M3TextStyle extends TextStyle {
 extension M3TextStyleUtils on M3TextStyle {
   /// Gets the semantic category this token belongs to.
   M3TypeScaleCategory get category => switch (this) {
-        M3TextStyle.displayLarge ||
-        M3TextStyle.displayMedium ||
-        M3TextStyle.displaySmall =>
-          M3TypeScaleCategory.display,
-        M3TextStyle.headlineLarge ||
-        M3TextStyle.headlineMedium ||
-        M3TextStyle.headlineSmall =>
-          M3TypeScaleCategory.headline,
-        M3TextStyle.titleLarge ||
-        M3TextStyle.titleMedium ||
-        M3TextStyle.titleSmall =>
-          M3TypeScaleCategory.title,
-        M3TextStyle.bodyLarge ||
-        M3TextStyle.bodyMedium ||
-        M3TextStyle.bodySmall =>
-          M3TypeScaleCategory.body,
-        M3TextStyle.labelLarge ||
-        M3TextStyle.labelMedium ||
-        M3TextStyle.labelSmall =>
-          M3TypeScaleCategory.label,
-        _ =>
-          M3TypeScaleCategory.label, // TODO(fluttely): put default value here
-      };
+    M3TextStyle.displayLarge ||
+    M3TextStyle.displayMedium ||
+    M3TextStyle.displaySmall => M3TypeScaleCategory.display,
+    M3TextStyle.headlineLarge ||
+    M3TextStyle.headlineMedium ||
+    M3TextStyle.headlineSmall => M3TypeScaleCategory.headline,
+    M3TextStyle.titleLarge ||
+    M3TextStyle.titleMedium ||
+    M3TextStyle.titleSmall => M3TypeScaleCategory.title,
+    M3TextStyle.bodyLarge ||
+    M3TextStyle.bodyMedium ||
+    M3TextStyle.bodySmall => M3TypeScaleCategory.body,
+    M3TextStyle.labelLarge ||
+    M3TextStyle.labelMedium ||
+    M3TextStyle.labelSmall => M3TypeScaleCategory.label,
+    _ => M3TypeScaleCategory.label, // TODO(fluttely): put default value here
+  };
 
   /// Gets the line height in logical pixels.
   double get lineHeight => fontSize! * (height ?? 1.0);
@@ -323,13 +321,12 @@ extension M3TextStyleUtils on M3TextStyle {
     BuildContext context, {
     double? minFontSize,
     double? maxFontSize,
-  }) =>
-      M3TextStyle.adaptive(
-        baseStyle: this,
-        context: context,
-        minFontSize: minFontSize,
-        maxFontSize: maxFontSize,
-      );
+  }) => M3TextStyle.adaptive(
+    baseStyle: this,
+    context: context,
+    minFontSize: minFontSize,
+    maxFontSize: maxFontSize,
+  );
 
   /// Creates a text style optimized for accessibility.
   TextStyle get accessible => M3TextStyle.enhancedReadability(this);
@@ -348,21 +345,20 @@ extension M3TextStyleUtils on M3TextStyle {
 
   /// Checks if this token is suitable for long-form reading.
   bool get isReadingOptimized => switch (this) {
-        M3TextStyle.bodyLarge || M3TextStyle.bodyMedium => true,
-        _ => false,
-      };
+    M3TextStyle.bodyLarge || M3TextStyle.bodyMedium => true,
+    _ => false,
+  };
 
   /// Checks if this token is suitable for UI labels.
   bool get isLabelOptimized => category == M3TypeScaleCategory.label;
 
   /// Checks if this token is suitable for headings.
   bool get isHeadingOptimized => switch (category) {
-        M3TypeScaleCategory.display ||
-        M3TypeScaleCategory.headline ||
-        M3TypeScaleCategory.title =>
-          true,
-        _ => false,
-      };
+    M3TypeScaleCategory.display ||
+    M3TypeScaleCategory.headline ||
+    M3TypeScaleCategory.title => true,
+    _ => false,
+  };
 
   /// Creates a Text widget with this style.
   Text text(
@@ -371,26 +367,24 @@ extension M3TextStyleUtils on M3TextStyle {
     TextAlign? textAlign,
     TextOverflow? overflow,
     int? maxLines,
-  }) =>
-      Text(
-        data,
-        style: color != null ? withColor(color) : this,
-        textAlign: textAlign,
-        overflow: overflow,
-        maxLines: maxLines,
-      );
+  }) => Text(
+    data,
+    style: color != null ? withColor(color) : this,
+    textAlign: textAlign,
+    overflow: overflow,
+    maxLines: maxLines,
+  );
 
   /// Creates a SelectableText widget with this style.
   SelectableText selectableText(
     String data, {
     Color? color,
     TextAlign? textAlign,
-  }) =>
-      SelectableText(
-        data,
-        style: color != null ? withColor(color) : this,
-        textAlign: textAlign,
-      );
+  }) => SelectableText(
+    data,
+    style: color != null ? withColor(color) : this,
+    textAlign: textAlign,
+  );
 }
 
 /// Provides comparison utilities for type scale tokens.

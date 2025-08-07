@@ -4,6 +4,59 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adherves to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.26.1
+
+### 🎨 Code Quality and Documentation Improvements
+
+This release focuses on code formatting consistency, documentation enhancements, and improved developer experience through better examples and clearer API guidance.
+
+### ✨ Key Enhancements
+
+- **Consistent Code Formatting**:
+
+  - Applied consistent indentation and spacing across all Dart files
+  - Standardized constructor formatting and parameter alignment
+  - Improved code readability throughout the codebase
+
+- **Enhanced Documentation**:
+
+  - Updated README.md with improved token reference table structure
+  - Added clear separation between Constants Class and Type Safe Enum columns
+  - Fixed example code to use proper EdgeInsets pattern: `EdgeInsets.all(M3Spacings.space16)`
+  - Updated package version references to 0.26.0 in documentation
+  - Removed deprecated platform badge from README
+
+- **Demo Application Improvements**:
+
+  - Updated page titles to use consistent token naming (e.g., "M3Breakpoints", "M3Spacings")
+  - Improved label descriptions in showcase pages for better clarity
+  - Enhanced Z-Index demo with proper token usage patterns
+  - Updated motion page with cleaner labeling format
+
+- **CI/CD Optimization**:
+
+  - Simplified GitHub workflow to trigger demo deployment on pull requests
+  - Removed dependency on test completion for demo deployment
+
+- **File Structure Improvements**:
+  - Renamed token resolver files for better semantic clarity:
+    - `border_side_resolver.dart` → `border_side.dart`
+    - `radius_resolver.dart` → `radius.dart`
+
+### 🔧 Technical Improvements
+
+- **Type Safety Enhancements**: Better token type handling in demo pages
+- **Constructor Consistency**: Aligned constructor formatting across all classes
+- **Import Organization**: Cleaner import structure and organization
+
+### 📊 Impact
+
+- **Developer Experience**: More consistent codebase with better readability
+- **Documentation Quality**: Clearer examples and improved reference materials
+- **Maintainability**: Better organized code structure and naming conventions
+
+**Suggested Version Bump**: `0.27.0` - Minor version bump for documentation improvements, code formatting enhancements, and non-breaking structural changes.
+
 ## 0.26.0
 
 ### 🚀 API Refinement and Semantic Improvements
