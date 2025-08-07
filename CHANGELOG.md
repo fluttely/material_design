@@ -4,6 +4,62 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adherves to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.26.2
+
+### 🎨 Demo Application Enhancements and Documentation Improvements
+
+This release focuses on improving the demo application user experience, enhancing documentation clarity, and better code organization. The changes provide clearer navigation, improved examples, and more consistent API usage patterns.
+
+### ✨ Key Enhancements
+
+- **Demo Application Improvements**:
+
+  - **Page Organization**: Renamed demo pages for better semantic clarity:
+
+    - `spacing_page.dart` → `spacing_tokens_page.dart`
+    - `color_page.dart` → `color_tokens_page.dart`
+    - `elevation_page.dart` → `elevation_tokens_page.dart`
+    - Moved component pages to `widgets/` directory for better structure
+
+  - **Navigation Enhancement**:
+
+    - Updated navigation rail labels for consistency (e.g., "Z-Indexes" → "Z-Index", "Borders" → "Border")
+    - Improved page titles to match token naming conventions
+    - Better visual hierarchy in demo application structure
+
+  - **LaunchURLText Integration**: Enhanced demo pages with consistent `LaunchURLText` usage for better documentation linking and improved accessibility
+
+- **Documentation Enhancements**:
+
+  - **README.md Updates**:
+
+    - Improved token reference table with clearer column headers ("Class (const)" vs "Enum (not const)")
+    - Added better code examples showing both const and non-const usage patterns
+    - Enhanced API usage examples with more detailed explanations
+    - Updated elevation and motion examples for better clarity
+
+  - **Code Example Improvements**: Updated all examples to demonstrate proper const usage patterns and token access methods
+
+- **User Experience Improvements**:
+
+  - **Accessibility**: Better integration of LaunchURLText components across foundation and style pages
+  - **Visual Consistency**: Standardized page layouts and component demonstrations
+  - **Navigation Flow**: More intuitive page organization and naming conventions
+
+### 🔧 Technical Improvements
+
+- **Code Organization**: Better file structure with semantic naming conventions
+- **Demo Consistency**: Standardized demo page implementations across all token categories
+- **Documentation Links**: Improved external documentation integration through LaunchURLText components
+
+### 📊 Impact
+
+- **Developer Experience**: More intuitive demo application with clearer navigation and examples
+- **Documentation Quality**: Better organized documentation with improved code examples
+- **Learning Curve**: Easier onboarding for new developers using the design system
+
+**Suggested Version Bump**: `0.26.2` - Minor version bump for demo application enhancements, documentation improvements, and better code organization without breaking API changes.
+
 ## 0.26.1
 
 ### 🎨 Code Quality and Documentation Improvements
@@ -55,7 +111,7 @@ This release focuses on code formatting consistency, documentation enhancements,
 - **Documentation Quality**: Clearer examples and improved reference materials
 - **Maintainability**: Better organized code structure and naming conventions
 
-**Suggested Version Bump**: `0.27.0` - Minor version bump for documentation improvements, code formatting enhancements, and non-breaking structural changes.
+**Suggested Version Bump**: `0.26.1` - Minor version bump for documentation improvements, code formatting enhancements, and non-breaking structural changes.
 
 ## 0.26.0
 

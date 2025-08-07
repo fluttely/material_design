@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:material_design/material_design.dart';
+import 'package:material_design_demo/showcase_pages/widgets/launch_url_text.dart';
 
 /// A page that visually demonstrates Material Design 3 responsive breakpoints.
 class BreakpointTokensPage extends StatelessWidget {
@@ -41,10 +42,11 @@ class BreakpointTokensPage extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
-      appBar: AppBar(title: const Text('M3Breakpoints')),
+      appBar: AppBar(title: const Text('Breakpoints')),
       body: ListView(
         padding: M3EdgeInsets.all(M3SpacingToken.space16),
         children: [
+          LaunchURLText(label: 'M3Breakpoints | M3BreakpointToken'),
           Card(
             child: M3Padding(
               padding: M3EdgeInsets.all(M3SpacingToken.space16),

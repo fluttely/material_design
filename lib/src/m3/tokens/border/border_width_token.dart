@@ -31,33 +31,33 @@ abstract final class M3BorderWidths {
   /// - Default component boundaries
   static const double thin = 1;
 
-  /// Thick border width (2dp).
-  ///
-  /// Used for emphasis, selected states, and when borders need enhanced
-  /// visibility. This width creates clear visual hierarchy and draws
-  /// attention to important interactive elements or states.
-  ///
-  /// **Ideal use cases**:
-  /// - Focus indicators and selected states
-  /// - Primary action button borders
-  /// - Active/highlighted components
-  /// - Important form field borders
-  /// - Navigation element indicators
-  static const double thick = 2;
+  // /// Thick border width (2dp).
+  // ///
+  // /// Used for emphasis, selected states, and when borders need enhanced
+  // /// visibility. This width creates clear visual hierarchy and draws
+  // /// attention to important interactive elements or states.
+  // ///
+  // /// **Ideal use cases**:
+  // /// - Focus indicators and selected states
+  // /// - Primary action button borders
+  // /// - Active/highlighted components
+  // /// - Important form field borders
+  // /// - Navigation element indicators
+  // static const double thick = 2;
 
-  /// Extra thick border width (4dp).
-  ///
-  /// Reserved for special cases requiring significant visual weight and
-  /// maximum emphasis. This width creates strong visual boundaries and
-  /// is typically used for critical states or high-priority elements.
-  ///
-  /// **Ideal use cases**:
-  /// - Error state indicators
-  /// - Critical alert borders
-  /// - High-emphasis interactive elements
-  /// - Accessibility-enhanced focus indicators
-  /// - Special design accent elements
-  static const double extraThick = 4;
+  // /// Extra thick border width (4dp).
+  // ///
+  // /// Reserved for special cases requiring significant visual weight and
+  // /// maximum emphasis. This width creates strong visual boundaries and
+  // /// is typically used for critical states or high-priority elements.
+  // ///
+  // /// **Ideal use cases**:
+  // /// - Error state indicators
+  // /// - Critical alert borders
+  // /// - High-emphasis interactive elements
+  // /// - Accessibility-enhanced focus indicators
+  // /// - Special design accent elements
+  // static const double extraThick = 4;
 }
 
 /// Material Design 3 border width tokens for consistent component styling.
@@ -129,35 +129,35 @@ enum M3BorderWidthToken implements IM3Token<double> {
   /// - Card borders and dividers
   /// - List item separators
   /// - Default component boundaries
-  thin(M3BorderWidths.thin),
+  thin(M3BorderWidths.thin);
 
-  /// Thick border width (2dp).
-  ///
-  /// Used for emphasis, selected states, and when borders need enhanced
-  /// visibility. This width creates clear visual hierarchy and draws
-  /// attention to important interactive elements or states.
-  ///
-  /// **Ideal use cases**:
-  /// - Focus indicators and selected states
-  /// - Primary action button borders
-  /// - Active/highlighted components
-  /// - Important form field borders
-  /// - Navigation element indicators
-  thick(M3BorderWidths.thick),
+  // /// Thick border width (2dp).
+  // ///
+  // /// Used for emphasis, selected states, and when borders need enhanced
+  // /// visibility. This width creates clear visual hierarchy and draws
+  // /// attention to important interactive elements or states.
+  // ///
+  // /// **Ideal use cases**:
+  // /// - Focus indicators and selected states
+  // /// - Primary action button borders
+  // /// - Active/highlighted components
+  // /// - Important form field borders
+  // /// - Navigation element indicators
+  // thick(M3BorderWidths.thick),
 
-  /// Extra thick border width (4dp).
-  ///
-  /// Reserved for special cases requiring significant visual weight and
-  /// maximum emphasis. This width creates strong visual boundaries and
-  /// is typically used for critical states or high-priority elements.
-  ///
-  /// **Ideal use cases**:
-  /// - Error state indicators
-  /// - Critical alert borders
-  /// - High-emphasis interactive elements
-  /// - Accessibility-enhanced focus indicators
-  /// - Special design accent elements
-  extraThick(M3BorderWidths.extraThick);
+  // /// Extra thick border width (4dp).
+  // ///
+  // /// Reserved for special cases requiring significant visual weight and
+  // /// maximum emphasis. This width creates strong visual boundaries and
+  // /// is typically used for critical states or high-priority elements.
+  // ///
+  // /// **Ideal use cases**:
+  // /// - Error state indicators
+  // /// - Critical alert borders
+  // /// - High-emphasis interactive elements
+  // /// - Accessibility-enhanced focus indicators
+  // /// - Special design accent elements
+  // extraThick(M3BorderWidths.extraThick);
 
   /// Creates a border token with the specified value.
   const M3BorderWidthToken(this.value);

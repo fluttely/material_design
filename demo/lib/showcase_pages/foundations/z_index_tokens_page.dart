@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:material_design/material_design.dart';
+import 'package:material_design_demo/showcase_pages/widgets/launch_url_text.dart';
 
 class ZIndexTokensPage extends StatelessWidget {
   const ZIndexTokensPage({super.key});
@@ -7,8 +8,7 @@ class ZIndexTokensPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:
-          AppBar(title: const Text('Z-Index System')), // TODO(Kevin): fix title
+      appBar: AppBar(title: const Text('Z-Index')), // TODO(Kevin): fix title
       body: ListView(
         padding: M3EdgeInsets.all(M3SpacingToken.space16),
         children: [
@@ -70,7 +70,7 @@ class ZIndexTokensPage extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('M3ZIndexes', style: textTheme.titleLarge),
+        LaunchURLText(label: 'M3ZIndexes | M3ZIndexToken'),
         const M3Gap(M3SpacingToken.space8),
         Text(
           'Stacking order from bottom to top (lower to higher z-index)',

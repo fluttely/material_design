@@ -26,22 +26,34 @@ class TypographyPage extends StatelessWidget {
     ];
 
     return Scaffold(
-      appBar: AppBar(
-        title: LaunchURLText(
-          label: 'M3TextStyleToken',
-          m3Url: 'https://m3.material.io/styles/typography/type-scale-tokens',
-        ),
-      ),
-      body: ListView.builder(
-        padding: M3EdgeInsets.all(M3SpacingToken.space16),
-        itemCount: textStyles.length,
-        itemBuilder: (context, index) {
-          final (label, style) = textStyles[index];
-          return M3Padding(
-            padding: M3EdgeInsets.only(bottom: M3SpacingToken.space16),
-            child: Text(label, style: style),
-          );
-        },
+      appBar: AppBar(title: Text('Type Scale')),
+      body: Column(
+        children: [
+          M3Padding(
+            padding: M3EdgeInsets.only(left: M3SpacingToken.space12),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: LaunchURLText(
+                label: 'M3TextStyle',
+                m3Url:
+                    'https://m3.material.io/styles/typography/type-scale-tokens',
+              ),
+            ),
+          ),
+          Expanded(
+            child: ListView.builder(
+              padding: M3EdgeInsets.all(M3SpacingToken.space16),
+              itemCount: textStyles.length,
+              itemBuilder: (context, index) {
+                final (label, style) = textStyles[index];
+                return M3Padding(
+                  padding: M3EdgeInsets.only(bottom: M3SpacingToken.space16),
+                  child: Text(label, style: style),
+                );
+              },
+            ),
+          ),
+        ],
       ),
     );
   }

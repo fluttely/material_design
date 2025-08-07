@@ -7,12 +7,12 @@ class LaunchURLText extends StatelessWidget {
     super.key,
     required this.label,
     this.fontSize,
-    required this.m3Url,
+    this.m3Url,
   });
 
   final String label;
   final double? fontSize;
-  final String m3Url;
+  final String? m3Url;
 
   @override
   Widget build(BuildContext context) {
@@ -23,22 +23,26 @@ class LaunchURLText extends StatelessWidget {
         vertical: M3SpacingToken.space16,
       ),
       child: Tooltip(
-        message: m3Url,
+        message: m3Url ?? '',
         child: GestureDetector(
-          onTap: () async {
-            await launchUrl(
-              Uri.parse(m3Url),
-              webOnlyWindowName: '_blank',
-            );
-          },
+          onTap: m3Url == null
+              ? null
+              : () async {
+                  await launchUrl(
+                    Uri.parse(m3Url!),
+                    webOnlyWindowName: '_blank',
+                  );
+                },
           child: Text(
             label,
-            style: textTheme.titleLarge?.copyWith(
-              fontSize: fontSize,
-              color: Colors.blue,
-              decoration: TextDecoration.underline,
-              decorationColor: Colors.blue,
-            ),
+            style: m3Url == null
+                ? textTheme.titleLarge
+                : textTheme.titleLarge?.copyWith(
+                    fontSize: fontSize,
+                    color: Colors.blue,
+                    decoration: TextDecoration.underline,
+                    decorationColor: Colors.blue,
+                  ),
           ),
         ),
       ),

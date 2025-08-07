@@ -74,16 +74,18 @@ The smallest units of design decisions:
 
 ```dart
 // Raw spacing values (4dp grid)
-M3Spacings.space4   // 4dp
-M3Spacings.space8   // 8dp
-M3Spacings.space12  // 12dp
-// ...
+const M3Spacings.space4   // 4dp
+const M3Spacings.space8   // 8dp
+const M3Spacings.space12  // 12dp
+// OR
+M3SpacingToken.space12.value // 12dp (not const)
 
 // Raw corner values
-M3Corners.small   // 8dp
-M3Corners.medium  // 12dp
-M3Corners.large   // 16dp
-// ...
+const M3Corners.small   // 8dp
+const M3Corners.medium  // 12dp
+const M3Corners.large   // 16dp
+// OR
+M3CornerToken.large.value // 16dp (not const)
 ```
 
 #### 2. **Composite Tokens** (Applied Values)
@@ -92,13 +94,13 @@ Combinations of atomic tokens:
 
 ```dart
 // Complete border radius logic (applies radius to all corners)
-M3Shape(borderRadius: M3BorderRadius.all(M3Radius.circular(M3CornerToken.medium)))
+const M3Shape(borderRadius: M3BorderRadius.all(M3Radius.circular(M3CornerToken.medium)))
 // OR
-M3Shape(borderRadius: M3BorderRadius.all(M3Radius.medium))
+const M3Shape(borderRadius: M3BorderRadius.all(M3Radius.medium))
 // OR
-M3Shape(borderRadius: M3BorderRadius.medium)
+const M3Shape(borderRadius: M3BorderRadius.medium)
 // OR
-M3Shape.medium
+const M3Shape.medium
 
 // Complete borders
 final outlineColor = Theme.of(context).colorScheme.outline;
@@ -118,20 +120,20 @@ Higher-level design applications:
 
 ```dart
 // Elevation creates both shadow and surface tint
-M3Elevations.level3 // Elevation level 3 dp
-M3Shadows.level3 // Elevation level 3 List<M3BoxShadow>
-M3SurfaceTint.fromElevation(context, M3Elevations.level3), // Elevation level 3 surface tint color
+const M3Elevations.level3 // Elevation level 3 dp
+const M3Shadows.level3 // Elevation level 3 List<M3BoxShadow>
+const M3SurfaceTint.fromElevation(context, M3Elevations.level3), // Elevation level 3 surface tint color
 // OR
-M3ElevationToken.level3.value
-M3ElevationToken.level3.shadows
-M3ElevationToken.level3.surfaceColor(context)
+M3ElevationToken.level3.dp // Elevation level 3 dp (not const)
+M3ElevationToken.level3.shadows // Elevation level 3 List<M3BoxShadow> (not const)
+M3ElevationToken.level3.surfaceColor(context) // Elevation level 3 surface tint color (not const)
 
 // Motion duration and easing curve
-M3MotionDuration.long2,   // 500ms
-M3MotionCurve.emphasized, // emphasized easing
+const M3MotionDuration.long2,   // 500ms
+const M3MotionCurve.emphasized, // emphasized easing
 // OR
-M3Motion.emphasized.duration // 500ms
-M3Motion.emphasized.curve // emphasized easing
+M3Motion.emphasized.duration // 500ms (not const)
+M3Motion.emphasized.curve // emphasized easing (not const)
 ```
 
 ### Spacing Foundation
@@ -393,7 +395,7 @@ Of course! Your intention to categorize was correct, but the execution in Markdo
 
 These are constant values that form the foundation of your design system, ensuring consistency across spacing, colors, typography, and more.
 
-| Group                  | Token           | Constants Class         | Type Safe Enum             | Purpose                                 | Example Values                                                                                                   |
+| Group                  | Token           | Class (const)           | Enum (not const)           | Purpose                                 | Example Values                                                                                                   |
 | :--------------------- | :-------------- | :---------------------- | :------------------------- | :-------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
 | **Layout & Spacing**   | Spacing         | `M3Spacings`            | `M3SpacingToken`           | 4dp grid system for consistent spacing. | `0`, `2`, `4`, `8`, `12`, `16`, `24`, `32`, `48dp`                                                               |
 |                        | Margin          | `M3Margins`             | `M3MarginToken`            | Responsive container margins.           | `16dp`, `24dp`, `32dp`, `40dp`, `48dp`                                                                           |

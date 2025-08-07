@@ -29,10 +29,10 @@ class M3StateLayerOpacityButtonExample extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Wrap(
+    return Row(
       children: [
         _buildButtonArea(title: 'Enabled State:', onPressed: () {}),
-        const M3Gap(M3SpacingToken.space12),
+        const M3Gap(M3SpacingToken.space32),
         _buildButtonArea(title: 'Disabled State:', onPressed: null),
       ],
     );

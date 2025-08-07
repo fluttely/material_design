@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:material_design/material_design.dart';
+import 'package:material_design_demo/showcase_pages/widgets/launch_url_text.dart';
 
 /// A comprehensive page demonstrating Material Design 3 accessibility features and best practices.
 /// Shows practical examples of WCAG compliance, touch targets, semantic labels, and more.
@@ -736,8 +737,7 @@ class _AccessibilityPageState extends State<AccessibilityPage>
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(title,
-                          style: Theme.of(context).textTheme.titleLarge),
+                      LaunchURLText(label: title),
                       if (subtitle != null) ...[
                         const M3Gap(M3SpacingToken.space4),
                         Text(

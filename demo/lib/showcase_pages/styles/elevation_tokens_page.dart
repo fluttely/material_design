@@ -98,29 +98,28 @@ class ElevationPage extends StatelessWidget {
         padding: M3EdgeInsets.all(M3MarginToken.mediumScreen),
         children: [
           Text(
-            'Elevation in M3 is a combination of a surface tint and, for some components, a shadow. Below, the cards are rendered according to the official rules defined in the M3Elevation token class.',
+            'Elevation in M3 is a combination of a surface tint and, for some components, a shadow. Below, the cards are rendered according to the official rules defined in the M3Elevations | M3ElevationToken classes.',
             style: textTheme.bodyMedium,
           ),
           const M3Gap(M3SpacingToken.space16),
+          LaunchURLText(
+            label: 'M3Elevations | M3ElevationToken',
+            m3Url: 'https://m3.material.io/styles/elevation/overview',
+          ),
           _ElevationGrid(
-            title: 'M3ElevationToken (Surface Tint Color and Shadow Color)',
-            m3Link: 'https://m3.material.io/styles/elevation/overview',
+            title: '(Surface Tint Color and Shadow Color)',
             elevations: elevations,
-            subtitle: '',
           ),
           const M3Gap(M3SpacingToken.space32),
           _ElevationGrid(
-            title: 'M3ElevationToken (Surface Tint Color Only)',
-            m3Link: 'https://m3.material.io/styles/elevation/overview',
+            title: '(Surface Tint Color Only)',
             elevations: elevationsWithoutShadow,
-            subtitle: '',
           ),
           // const M3Gap(M3SpacingToken.space32),
           // _ElevationGrid(
           //   title: 'M3ComponentElevationToken true,(Elevation by Component)',
           //   m3Link: 'https://m3.material.io/styles/elevation/overview',
           //   elevations: componentElevations,
-          // subtitle: '',
           // ),
           // const M3Gap(M3SpacingToken.space32),
           // _ElevationGrid(
@@ -128,7 +127,6 @@ class ElevationPage extends StatelessWidget {
           //   m3Link:
           //       'https://m3.material.io/foundations/interaction/states/overview',
           //   elevations: interactiveStateElevations,
-          // subtitle: '',
           // ),
         ],
       ),
@@ -140,13 +138,11 @@ class ElevationPage extends StatelessWidget {
 class _ElevationGrid extends StatelessWidget {
   const _ElevationGrid({
     required this.title,
-    required this.m3Link,
     required this.elevations,
     this.subtitle,
   });
 
   final String title;
-  final String m3Link;
   final String? subtitle;
   final List<(IM3ElevationToken, bool, String)> elevations;
 
@@ -157,12 +153,9 @@ class _ElevationGrid extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        LaunchURLText(
-          label: title,
-          m3Url: m3Link,
-        ),
-        const M3Gap(M3SpacingToken.space16),
+        LaunchURLText(label: title),
         if (subtitle != null) ...[
+          const M3Gap(M3SpacingToken.space16),
           Text(
             subtitle!,
             style: textTheme.bodyMedium,
@@ -231,7 +224,9 @@ class _ElevationCard extends StatelessWidget {
             Align(
               alignment: Alignment.bottomRight,
               child: Icon(
-                elevation.hasShadow ? Icons.visibility : Icons.visibility_off,
+                useShadows && elevation.hasShadow
+                    ? Icons.visibility
+                    : Icons.visibility_off,
                 size: M3IconSizeToken.dense.value,
                 color: textTheme.bodySmall?.color?.withValues(alpha: 0.75),
               ),
