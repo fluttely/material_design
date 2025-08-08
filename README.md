@@ -16,27 +16,21 @@ A comprehensive design system toolkit that brings Google's Material Design 3 spe
 
 **[🎨 Design Tokens Spec](https://m3.material.io/foundations/design-tokens/overview)** - Understanding tokens
 
-## ✨ Why Use This Package?
+## ⚡ Why Use This Package?
 
-### For Design System Experts
+### Key Benefits
 
-- **Specification Compliance**: 100% aligned with Material Design 3 tokens
-- **Token Architecture**: Properly structured design tokens hierarchy
-- **System Consistency**: Enforced through compile-time constants
-- **Design-Development Bridge**: Direct mapping from design tools to code
-
-### For Flutter Developers
-
-- **No Magic Numbers**: Replace `EdgeInsets.all(16)` with `EdgeInsets.all(M3Spacings.space16)`
-- **IntelliSense Support**: Discover available options as you type
-- **Zero Learning Curve**: Uses familiar Flutter patterns
-- **Maintainable Code**: Update design system values in one place
+✅ **No magic numbers** - Replace `padding: 16.0` with `padding: M3Spacings.space16`  
+✅ **IntelliSense support** - IDE suggests options as you type  
+✅ **100% const when possible** - Best performance  
+✅ **Easy maintenance** - Update values in one place  
+✅ **Self-documenting code** - Descriptive names explain intent
 
 ## 📦 Installation
 
 ```yaml
 dependencies:
-  material_design: ^0.26.1
+  material_design: ^0.27.0
 ```
 
 ```bash
@@ -48,281 +42,278 @@ flutter pub add material_design
 ```dart
 import 'package:material_design/material_design.dart';
 
-// Using design tokens in your widgets
+// Simple example using const tokens
 Container(
-  padding: const EdgeInsets.all(M3Spacings.space16), // Spacing token
+  padding: const EdgeInsets.all(M3Spacings.space16),  // ✅ CONST - 16dp
   decoration: const BoxDecoration(
-    borderRadius: M3BorderRadius.medium, // Shape style token
-    boxShadow: M3Shadows.level5, // Elevation style
+    borderRadius: M3BorderRadius.medium,              // ✅ CONST - medium radius
+    boxShadow: M3ElevationShadows.level3,                      // ✅ CONST - level 3 shadow
   ),
   child: const Text(
     'Hello Material 3',
-    style: M3TextStyle.headlineMedium, // Typography style
+    style: M3TextStyle.headlineMedium,                // ✅ CONST - headline style
   ),
 ),
 ```
 
-## 📐 Design Foundations
+## 📐 Understanding Const vs Non-Const
 
-### Understanding Token Hierarchy
+### 🟢 CONST Tokens (Compile-time)
 
-Material Design 3 organizes design decisions into a clear hierarchy:
-
-#### 1. **Atomic Tokens** (Raw Values)
-
-The smallest units of design decisions:
+Fixed values that are defined at compile time. **Use these whenever possible for best performance!**
 
 ```dart
-// Raw spacing values (4dp grid)
-const M3Spacings.space4   // 4dp
-const M3Spacings.space8   // 8dp
-const M3Spacings.space12  // 12dp
-// OR
-M3SpacingToken.space12.value // 12dp (not const)
-
-// Raw corner values
-const M3Corners.small   // 8dp
-const M3Corners.medium  // 12dp
-const M3Corners.large   // 16dp
-// OR
-M3CornerToken.large.value // 16dp (not const)
+// ✅ All of these are CONST and can be used with 'const' keyword:
+const spacing = M3Spacings.space16;         // 16dp
+const radius = M3BorderRadius.medium;       // Medium BorderRadius
+const shadow = M3ElevationShadows.level3;            // Shadow list
+const textStyle = M3TextStyle.bodyLarge;    // Text style
+const duration = M3MotionDuration.medium1;  // 300ms
+const curve = M3MotionCurve.emphasized;     // Animation curve
 ```
 
-#### 2. **Composite Tokens** (Applied Values)
+### 🔵 NON-CONST Tokens (Runtime)
+
+Values that depend on context or are calculated at runtime.
+
+```dart
+// ❌ These are NOT const:
+
+// Enums return values at runtime
+final spacing = M3SpacingToken.space16.value;       // 16dp (via enum)
+final elevation = M3Elevation.level3.dp;    // 6dp (via enum)
+
+// Values that depend on context/theme
+final surfaceColor = M3SurfaceTint.fromElevation(
+  context,                                          // Needs context
+  M3ElevationDps.level3,
+);
+
+// Responsive values that change with screen size
+final margin = M3Margins.getMargin(context);        // Varies: 16dp | 24dp
+```
+
+## 📊 Complete Token and Utility Reference
+
+### Design Tokens
+
+These are constant values that form the foundation of your design system, ensuring consistency across spacing, colors, typography, and more.
+
+#### 🟢 CONST Design Tokens
+
+Use these with `const` keyword for best performance:
+
+| Group                  | Token           | Class (const)           | Purpose                                | Example Values                                                                                                                                                                                                                                                                                                 | How to Use                                                         |
+| :--------------------- | :-------------- | :---------------------- | :------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :----------------------------------------------------------------- |
+| **Layout & Spacing**   | Spacing         | `M3Spacings`            | 4dp grid system for consistent spacing | `space0` (0dp), `space2` (2dp), `space4` (4dp), `space8` (8dp), `space12` (12dp), `space16` (16dp), `space24` (24dp), `space32` (32dp), `space48` (48dp)                                                                                                                                                       | `const EdgeInsets.all(M3Spacings.space16)`                         |
+|                        | Margin          | `M3Margins`             | Responsive container margins           | `compactScreen` (16dp), `mediumScreen` (24dp), `expandedScreen` (32dp), `largeScreen` (40dp), `extraLargeScreen` (48dp)                                                                                                                                                                                        | `const EdgeInsets.symmetric(horizontal: M3Margins.compactScreen)`  |
+|                        | Spacer          | `M3Spacers`             | Pre-built spacer widgets               | `horizontal4`, `horizontal8`, `horizontal16`, `vertical4`, `vertical8`, `vertical16`, etc.                                                                                                                                                                                                                     | `M3Spacers.horizontal16`                                           |
+|                        | Icon Size       | `M3IconSizes`           | Standardized icon dimensions           | `extraSmall` (18dp), `small` (20dp), `medium` (24dp), `large` (36dp), `extraLarge` (40dp), `huge` (48dp)                                                                                                                                                                                                       | `Icon(Icons.star, size: M3IconSizes.medium)`                       |
+|                        | Visual Density  | `M3VisualDensity`       | UI density configurations              | `minimumDensity` (-3), `compactDensity` (-2), `standardDensity` (0), `comfortableDensity` (0)                                                                                                                                                                                                                  | `VisualDensity(horizontal: M3VisualDensity.standardDensity)`       |
+|                        | Z-Index         | `M3ZIndexes`            | Values for layer stacking order        | `behind` (-1), `base` (0), `dropdown` (10), `sticky` (100), `modal` (1000), `tooltip` (9999)                                                                                                                                                                                                                   | `Positioned(child: widget, zIndex: M3ZIndexes.modal)`              |
+| **Responsive**         | Breakpoint      | `M3Breakpoints`         | Breakpoints for responsive design      | `compact` (0dp), `medium` (600dp), `expanded` (840dp), `large` (1200dp), `extraLarge` (1600dp)                                                                                                                                                                                                                 | `if (width > M3Breakpoints.medium) ...`                            |
+| **Motion & Animation** | Motion Duration | `M3MotionDuration`      | Duration for animations                | `short1` (50ms), `short2` (100ms), `short3` (150ms), `short4` (200ms), `medium1` (250ms), `medium2` (300ms), `medium3` (350ms), `medium4` (400ms), `long1` (450ms), `long2` (500ms), `long3` (550ms), `long4` (600ms), `extraLong1` (700ms), `extraLong2` (800ms), `extraLong3` (900ms), `extraLong4` (1000ms) | `AnimatedContainer(duration: M3MotionDuration.medium1)`            |
+|                        | Motion Curve    | `M3MotionCurve`         | Easing curves for animations           | `emphasized`, `emphasizedAccelerate`, `emphasizedDecelerate`, `standard`, `standardAccelerate`, `standardDecelerate`, `linear`                                                                                                                                                                                 | `AnimatedContainer(curve: M3MotionCurve.emphasized)`               |
+|                        | Motion          | `M3Motion`              | Combined duration + curve settings     | `emphasized`, `emphasizedIncoming`, `emphasizedOutgoing`, `standard`, `standardIncoming`, `standardOutgoing`, `linear`                                                                                                                                                                                         | See non-const section                                              |
+| **Color & Opacity**    | Opacity         | `M3Opacities`           | General transparency values            | `opacity4` (0.04), `opacity8` (0.08), `opacity12` (0.12), `opacity16` (0.16), `opacity38` (0.38), `opacity54` (0.54), `opacity87` (0.87)                                                                                                                                                                       | `Opacity(opacity: M3Opacities.opacity38)`                          |
+|                        | State Layer     | `M3StateLayerOpacities` | Overlays for interactive states        | `hover` (0.08), `focus` (0.12), `pressed` (0.12), `dragged` (0.16)                                                                                                                                                                                                                                             | `Container(color: color.withOpacity(M3StateLayerOpacities.hover))` |
+| **Shape & Border**     | Corner          | `M3Corners`             | Individual corner values               | `none` (0dp), `extraSmall` (4dp), `small` (8dp), `medium` (12dp), `large` (16dp), `extraLarge` (28dp), `full` (circular)                                                                                                                                                                                       | `Radius.circular(M3Corners.medium)`                                |
+|                        | Radius          | `M3Radius`              | Individual corner radius values        | `none`, `extraSmall`, `small`, `medium`, `large`, `extraLarge`, `circular`                                                                                                                                                                                                                                     | `M3Radius.medium`                                                  |
+|                        | Border Radius   | `M3BorderRadius`        | Complete border radius for containers  | `none`, `extraSmall`, `small`, `medium`, `large`, `extraLarge`, `full`                                                                                                                                                                                                                                         | `BoxDecoration(borderRadius: M3BorderRadius.medium)`               |
+|                        | Shape           | `M3Shape`               | Border shapes for components           | `none`, `extraSmall`, `small`, `medium`, `large`, `extraLarge`, `full`                                                                                                                                                                                                                                         | `Card(shape: M3Shape.medium)`                                      |
+|                        | Border Width    | `M3BorderWidths`        | Border thickness values                | `none` (0dp), `thin` (1dp), `medium` (2dp), `thick` (4dp)                                                                                                                                                                                                                                                      | `Border.all(width: M3BorderWidths.thin)`                           |
+|                        | Border Side     | `M3BorderSide`          | Individual border sides                | Pre-configured border side configurations                                                                                                                                                                                                                                                                      | `M3BorderSide.thin(color)`                                         |
+|                        | Border          | `M3Border`              | Complete border specifications         | Pre-configured borders                                                                                                                                                                                                                                                                                         | `M3Border.all(color: Colors.grey)`                                 |
+| **Elevation & Shadow** | Elevation DP    | `M3ElevationDps`        | Surface elevation values in dp         | `level0` (0dp), `level1` (1dp), `level2` (3dp), `level3` (6dp), `level4` (8dp), `level5` (12dp)                                                                                                                                                                                                                | `Material(elevation: M3ElevationDps.level3)`                       |
+|                        | Shadow          | `M3ElevationShadows`    | Box shadow configurations              | `level0`, `level1`, `level2`, `level3`, `level4`, `level5`                                                                                                                                                                                                                                                     | `BoxDecoration(boxShadow: M3ElevationShadows.level3)`              |
+|                        | Elevation       | `M3Elevation`           | Complete elevation (dp + shadows)      | `level0`, `level1`, `level2`, `level3`, `level4`, `level5` - each contains both dp value and shadow list                                                                                                                                                                                                       | `M3Elevation.level3` (access `.dp` and `.shadows` properties)      |
+| **Typography**         | Text Style      | `M3TextStyle`           | Complete typography scale              | `displayLarge`, `displayMedium`, `displaySmall`, `headlineLarge`, `headlineMedium`, `headlineSmall`, `titleLarge`, `titleMedium`, `titleSmall`, `bodyLarge`, `bodyMedium`, `bodySmall`, `labelLarge`, `labelMedium`, `labelSmall`                                                                              | `Text('Hello', style: M3TextStyle.bodyLarge)`                      |
+
+#### 🔵 NON-CONST Tokens (Enums and Functions)
+
+Use these WITHOUT `const` keyword - values calculated at runtime:
+
+| Group                  | Token           | Enum/Function                                                             | Why it's not const                   | How to Use                                                                                                                                               |
+| :--------------------- | :-------------- | :------------------------------------------------------------------------ | :----------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Layout & Spacing**   | Spacing         | `M3SpacingToken`                                                          | Enum returns value via getter        | `final space = M3SpacingToken.space16.value;`                                                                                                            |
+|                        | Margin          | `M3MarginToken`                                                           | Enum returns value via getter        | `final margin = M3MarginToken.compactScreen.value;`                                                                                                      |
+|                        | Spacer          | `M3SpacerToken`                                                           | Enum returns widget via getter       | `M3SpacerToken.horizontal16.spacer`                                                                                                                      |
+|                        | Icon Size       | `M3IconSizeToken`                                                         | Enum returns value via getter        | `final size = M3IconSizeToken.medium.value;`                                                                                                             |
+|                        | Z-Index         | `M3ZIndexToken`                                                           | Enum returns value via getter        | `final zIndex = M3ZIndexToken.modal.value;`                                                                                                              |
+| **Responsive**         | Breakpoint      | `M3BreakpointToken`                                                       | Enum returns value via getter        | `final breakpoint = M3BreakpointToken.medium.value;`                                                                                                     |
+|                        | Margin (method) | `M3Margins.getMargin()`                                                   | Varies with screen size              | `final margin = M3Margins.getMargin(context);`                                                                                                           |
+| **Motion & Animation** | Motion          | ` M3Motion.x.duration` `M3Motion.x.curve`                                 | Object with duration and curve props | `final motion = M3Motion.emphasized;`<br>`duration: motion.duration,`<br>`curve: motion.curve,`                                                          |
+| **Color & Opacity**    | Opacity         | `M3OpacityToken`                                                          | Enum returns value via getter        | `final opacity = M3OpacityToken.opacity38.value;`                                                                                                        |
+|                        | State Layer     | `M3StateLayerOpacityToken`                                                | Enum returns value via getter        | `final opacity = M3StateLayerOpacityToken.hover.value;`                                                                                                  |
+|                        | Surface Tint    | `M3SurfaceTint.fromElevation()`                                           | Depends on theme/context             | `final color = M3SurfaceTint.fromElevation(context, M3ElevationDps.level3);`                                                                             |
+| **Shape & Border**     | Corner          | `M3CornerToken`                                                           | Enum returns value via getter        | `final corner = M3CornerToken.medium.value;`                                                                                                             |
+|                        | Border Width    | `M3BorderWidthToken`                                                      | Enum returns value via getter        | `final width = M3BorderWidthToken.thin.value;`                                                                                                           |
+| **Elevation & Shadow** | Elevation       | `M3Elevation.x.dp` `M3Elevation.x.shadows` `M3Elevation.x.surfaceColor()` | Enum with multiple getters           | `final elev = M3Elevation.level3.value;`<br>`final shadows = M3Elevation.level3.shadows;`<br>`final surface = M3Elevation.level3.surfaceColor(context);` |
+
+### Utility & Helper Classes
+
+These are classes that help apply design tokens in a type-safe and responsive way.
+
+| Group                   | Utility / Class          | Purpose                                    | Common Use Case                         |
+| :---------------------- | :----------------------- | :----------------------------------------- | :-------------------------------------- |
+| **Layout Helpers**      | `M3EdgeInsets`           | Type-safe padding/margin                   | Enforces use of spacing tokens          |
+|                         | `M3Padding`              | Pre-configured padding widget              | Consistent padding application          |
+|                         | `M3Gap`                  | Spacing between flex children (Row/Column) | `Row`/`Column` spacing                  |
+| **Decoration Helpers**  | `M3BoxDecoration`        | Type-safe box decoration                   | Enforces use of all style tokens        |
+|                         | `M3ShapeDecoration`      | Type-safe shape decoration                 | Enforces use of all style tokens        |
+| **Responsive Builders** | `M3ResponsiveBuilder`    | Responsive widget builder                  | Rebuilds on screen size class change    |
+|                         | `M3ResponsiveValue`      | Responsive value selection                 | Defines different values per breakpoint |
+|                         | `M3ResponsiveVisibility` | Conditional visibility                     | Shows/hides based on screen size        |
+|                         | `M3ResponsiveGrid`       | Responsive grid layout                     | Adaptive columns and spacing            |
+|                         | `M3ResponsiveScaffold`   | Adaptive navigation scaffold               | Bottom nav → Rail → Drawer              |
+| **Responsive Logic**    | `M3ScreenSize`           | Window size classification                 | Compact, Medium, Expanded, etc.         |
+|                         | `M3ResponsiveGridConfig` | Grid layout configuration                  | Columns, gutters, margins               |
+|                         | `M3ResponsiveNavigation` | Navigation pattern selection               | Determines nav type by size             |
+
+## 💡 Practical Examples
+
+### ✅ CORRECT Example - Using const when possible
+
+```dart
+class MyCard extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      // ✅ Everything here is CONST - great performance!
+      padding: const EdgeInsets.all(M3Spacings.space16),
+      margin: const EdgeInsets.symmetric(
+        horizontal: M3Margins.compactScreen,
+      ),
+      decoration: const BoxDecoration(
+        borderRadius: M3BorderRadius.medium,
+        boxShadow: M3ElevationShadows.level3,
+      ),
+      child: const Text(
+        'Card with const tokens',
+        style: M3TextStyle.bodyLarge,
+      ),
+    );
+  }
+}
+```
+
+### ❌ INCORRECT Example - Trying to use const with runtime values
+
+```dart
+class MyWrongCard extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      // ❌ ERROR! M3SpacingToken.space16.value is not const
+      padding: const EdgeInsets.all(M3SpacingToken.space16.value),
+
+      decoration: BoxDecoration(
+        // ❌ ERROR! fromElevation needs context, can't be const
+        color: const M3SurfaceTint.fromElevation(context, M3ElevationDps.level3),
+      ),
+    );
+  }
+}
+```
+
+### 🔄 Mixed Example - Const and Runtime together
+
+```dart
+class ResponsiveCard extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    // 🔵 Runtime - responsive value based on screen size
+    final margin = M3Margins.getMargin(context);
+
+    // 🔵 Runtime - color that depends on theme
+    final surfaceColor = M3SurfaceTint.fromElevation(
+      context,
+      M3ElevationDps.level2,
+    );
+
+    return Container(
+      // 🔵 Runtime - uses calculated variable
+      margin: EdgeInsets.symmetric(horizontal: margin),
+
+      // 🟢 Const - fixed values
+      padding: const EdgeInsets.all(M3Spacings.space16),
+
+      decoration: BoxDecoration(
+        // 🔵 Runtime - theme color
+        color: surfaceColor,
+
+        // 🟢 Const - fixed values
+        borderRadius: M3BorderRadius.medium,
+        boxShadow: M3ElevationShadows.level2,
+      ),
+
+      // 🟢 Const - fixed widget and style
+      child: const Text(
+        'Responsive Card',
+        style: M3TextStyle.headlineSmall,
+      ),
+    );
+  }
+}
+```
+
+## 🎯 What is a Design System?
+
+A **design system** is a collection of reusable standards and guidelines that ensure consistency across digital products. It includes:
+
+- **Design Tokens**: The atomic values of your design system (colors, spacing, typography)
+- **Foundations**: Core design principles (layout, motion, interaction patterns)
+- **Styles**: Applied design decisions (elevation, shape, typography scales)
+- **Components**: Reusable UI elements built from tokens and styles
+
+## 🎯 Token Hierarchy
+
+### 1️⃣ Atomic Tokens (Raw Values)
+
+The smallest building blocks:
+
+```dart
+// 🟢 CONST - Spacing values (4dp grid)
+const space = M3Spacings.space12;  // 12dp
+
+// 🔵 NON-CONST - Via enum
+final space = M3SpacingToken.space12.value;  // 12dp
+```
+
+### 2️⃣ Composite Tokens (Applied Values)
 
 Combinations of atomic tokens:
 
 ```dart
-// Complete border radius logic (applies radius to all corners)
-const M3Shape(borderRadius: M3BorderRadius.all(M3Radius.circular(M3CornerToken.medium)))
-// OR
-const M3Shape(borderRadius: M3BorderRadius.all(M3Radius.medium))
-// OR
-const M3Shape(borderRadius: M3BorderRadius.medium)
-// OR
-const M3Shape.medium
+// 🟢 CONST - Complete BorderRadius
+const radius = M3BorderRadius.medium;  // Applies 12dp to all corners
 
-// Complete borders
-final outlineColor = Theme.of(context).colorScheme.outline;
-// OR
-M3Border.fromBorderSide(M3BorderSide(outlineColor: outlineColor, width: M3BorderWidthToken.thin))
-// OR
-M3Border.fromBorderSide(M3BorderSide.thin(outlineColor))
-// OR
-M3Border.all(outlineColor: outlineColor, width: M3BorderWidthToken.thin)
-// OR
-M3Border.thin(outlineColor)
+// 🟢 CONST - Complete Shape for Material widgets
+const shape = M3Shape.medium;  // RoundedRectangleBorder with medium radius
 ```
 
-#### 3. **Style Tokens** (Design Decisions)
+### 3️⃣ Style Tokens (Design Decisions)
 
-Higher-level design applications:
-
-```dart
-// Elevation creates both shadow and surface tint
-const M3Elevations.level3 // Elevation level 3 dp
-const M3Shadows.level3 // Elevation level 3 List<M3BoxShadow>
-const M3SurfaceTint.fromElevation(context, M3Elevations.level3), // Elevation level 3 surface tint color
-// OR
-M3ElevationToken.level3.dp // Elevation level 3 dp (not const)
-M3ElevationToken.level3.shadows // Elevation level 3 List<M3BoxShadow> (not const)
-M3ElevationToken.level3.surfaceColor(context) // Elevation level 3 surface tint color (not const)
-
-// Motion duration and easing curve
-const M3MotionDuration.long2,   // 500ms
-const M3MotionCurve.emphasized, // emphasized easing
-// OR
-M3Motion.emphasized.duration // 500ms (not const)
-M3Motion.emphasized.curve // emphasized easing (not const)
-```
-
-### Spacing Foundation
-
-Material Design 3 uses a **4dp grid system** for consistent spatial relationships:
+High-level applications:
 
 ```dart
-// Spacing scale (multiples of 4dp)
-Padding(
-  padding: const EdgeInsets.all(M3Spacings.space16), // 16dp
-  child: Column(
-    children: [
-      Text('Title'),
-      SizedBox(height: M3Spacings.space8), // 8dp
-      Text('Subtitle'),
-    ],
-  ),
-)
+// 🟢 CONST - Elevation creates shadow and tint
+const elevation = M3ElevationDps.level3;  // 6dp
+const shadows = M3ElevationShadows.level3;       // Shadow list for 6dp
 
-// Responsive margins based on screen size
-Container(
-  margin: EdgeInsets.symmetric(
-    horizontal: M3Margins.compactScreen, // 16dp on mobile
-  ),
-)
-```
-
-### Shape System
-
-The shape system provides three levels of abstraction:
-
-```dart
-// Level 1: Raw radius values (Radius objects)
-Container(
-  decoration: BoxDecoration(
-    borderRadius: BorderRadius.only(
-      topLeft: M3Radius.large,
-      topRight: M3Radius.large,
-    ),
-  ),
-)
-
-// Level 2: Border radius (all corners)
-Container(
-  decoration: BoxDecoration(
-    borderRadius: M3BorderRadius.medium,
-  ),
-)
-
-// Level 3: Complete shapes (for Material widgets)
-Card(
-  shape: M3Shape.medium,
-  child: ...,
-)
-```
-
-### Motion Foundation
-
-Motion tokens ensure consistent animation behavior:
-
-```dart
-// Emphasized transitions
-AnimatedContainer(
-  duration: M3MotionDuration.long2,      // 500ms
-  curve: M3MotionCurve.emphasized,       // Emphasized easing
-)
-
-// Complete motion specifications
-AnimatedOpacity(
-  duration: M3Motion.emphasized.duration,  // 500ms
-  curve: M3Motion.emphasized.curve,        // Emphasized easing
-)
-```
-
-### Elevation System
-
-Elevation in Material Design 3 combines shadows and surface tint:
-
-```dart
-final elevation = M3Elevations.level5;
-
-// Using Material Widget
-Material(
-  elevation: elevation,  // 12dp elevation
-  child: ...,
-)
-
-// Using fromElevation values
-Container(
-  decoration: BoxDecoration(
-    color: M3SurfaceTint.fromElevation(context, elevation), // colorScheme.surface with 12dp elevation
-    boxShadow: M3Shadows.fromElevation(elevation),  // Level 5 shadow list (12dp elevation)
-  ),
-)
-
-// Using colorScheme and shadow tokens directly
-Container(
-  decoration: BoxDecoration(
-    color: Theme.of(context).colorScheme.surface, // (12dp elevation)
-    boxShadow: M3Shadows.level5,  // Level 5 shadow list (12dp elevation)
-  ),
-)
-```
-
-## 💻 Real-World Examples
-
-### Building a Consistent Card Component
-
-```dart
-class DesignSystemCard extends StatelessWidget {
-  final Widget child;
-  final VoidCallback? onTap;
-
-  const DesignSystemCard({
-    required this.child,
-    this.onTap,
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-      // Shape style token
-      borderRadius: M3BorderRadius.medium,
-      // Elevation token
-      elevation: M3Elevations.level3,
-      child: InkWell(
-        onTap: onTap,
-        borderRadius: M3BorderRadius.medium,
-        child: Padding(
-          // Spacing foundation token
-          padding: const EdgeInsets.all(M3Spacings.space16),
-          child: child,
-        ),
-      ),
-    );
-  }
-}
-```
-
-### Responsive Layout with Design Tokens
-
-```dart
-class ResponsiveScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-
-    // Use breakpoint tokens for responsive design
-    final isCompact = screenWidth < M3Breakpoints.compact;
-    final padding = isCompact
-        ? M3Spacings.space16
-        : M3Spacings.space24;
-
-    return Scaffold(
-      body: Padding(
-        padding: EdgeInsets.all(padding),
-        child: Column(
-          spacing: M3Spacings.space16,  // Consistent spacing
-          children: [
-            // Header with typography scale
-            Text(
-              'Design System Demo',
-              style: M3TextStyle.headlineLarge,
-            ),
-            // Content with proper margins
-            Container(
-              margin: EdgeInsets.symmetric(
-                horizontal: M3Margins.getMargin(context),
-              ),
-              child: content,
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
+// 🔵 NON-CONST - Color calculated based on theme
+final tintColor = M3SurfaceTint.fromElevation(context, elevation);
 ```
 
 ## 🎨 Design Token Philosophy
 
 ### Why Design Tokens Matter
 
-1. **Single Source of Truth**: Change a value once, update everywhere
-2. **Design-Dev Alignment**: Same language between designers and developers
-3. **Consistency**: Enforced through the type system
-4. **Scalability**: Easy to maintain and extend
-5. **Documentation**: Self-documenting code through meaningful names
+1. **Single source of truth** - Change once, update everywhere
+2. **No magic numbers** - `space16` is clearer than `16.0`
+3. **Consistency guaranteed** - Type system enforces correct usage
+4. **Easy maintenance** - Global adjustments in one place
+5. **Self-documenting code** - Names explain intent
 
 ### Token Naming Convention
 
@@ -336,14 +327,30 @@ Examples:
 
 - `M3Spacings.space16` - 16dp from spacing category
 - `M3BorderRadius.medium` - Medium border radius
-- `M3Shadows.level3` - Level 3 elevation shadow
+- `M3ElevationShadows.level3` - Level 3 elevation shadow
 
-## ⚡ Performance Considerations
+## 🚀 Performance Considerations
 
-- **Compile-time Constants**: All tokens are const values
+- **Compile-time Constants**: All tokens are const values when possible
 - **Tree-shaking**: Only included tokens are bundled
-- **Zero Runtime Overhead**: No performance penalty
+- **Zero Runtime Overhead**: No performance penalty for const tokens
 - **Hot Reload Compatible**: Instant design updates
+
+### Advantages of using CONST
+
+```dart
+// ✅ BETTER - Const widget, recreated only when necessary
+const Padding(
+  padding: EdgeInsets.all(M3Spacings.space16),
+  child: Text('Text'),
+);
+
+// ❌ WORSE - Widget recreated on every build
+Padding(
+  padding: EdgeInsets.all(16.0),  // Magic number
+  child: Text('Text'),
+);
+```
 
 ## 🔄 Migration Guide
 
@@ -361,7 +368,7 @@ Container(
 Container(
   padding: const EdgeInsets.all(M3Spacings.space16),
   margin: const EdgeInsets.symmetric(horizontal: M3Margins.mediumScreen),
-  decoration: BoxDecoration(borderRadius: M3BorderRadius.medium),
+  decoration: const BoxDecoration(borderRadius: M3BorderRadius.medium),
 )
 ```
 
@@ -385,73 +392,6 @@ class AppSpacings {
 }
 ```
 
-Of course! Your intention to categorize was correct, but the execution in Markdown could be improved. I've organized your information into two main tables, **Design Tokens** and **Utility Classes**, using a 'Group' column for the categorization you wanted. This makes the reference much clearer and more professional.
-
----
-
-## 📊 Complete Token and Utility Reference
-
-### Design Tokens
-
-These are constant values that form the foundation of your design system, ensuring consistency across spacing, colors, typography, and more.
-
-| Group                  | Token           | Class (const)           | Enum (not const)           | Purpose                                 | Example Values                                                                                                   |
-| :--------------------- | :-------------- | :---------------------- | :------------------------- | :-------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| **Layout & Spacing**   | Spacing         | `M3Spacings`            | `M3SpacingToken`           | 4dp grid system for consistent spacing. | `0`, `2`, `4`, `8`, `12`, `16`, `24`, `32`, `48dp`                                                               |
-|                        | Margin          | `M3Margins`             | `M3MarginToken`            | Responsive container margins.           | `16dp`, `24dp`, `32dp`, `40dp`, `48dp`                                                                           |
-|                        | Spacer          | `M3Spacers`             | `M3SpacerToken`            | Pre-built spacer widgets.               | horizontal/vertical spacers                                                                                      |
-|                        | Icon Size       | `M3IconSizes`           | `M3IconSizeToken`          | Standardized icon dimensions.           | `18dp`, `24dp`, `36dp`, `40dp`, `48dp`                                                                           |
-|                        | Visual Density  | `M3VisualDensity`       |                            | UI density configurations.              | `-3`, `-2`, `-1`, `0`, `comfortable`                                                                             |
-|                        | Z-Index         | `M3ZIndexes`            | `M3ZIndexToken`            | Values for layer stacking order.        | `-1`, `0`, `10`, `100`, `1000`, `9999`                                                                           |
-| **Responsive**         | Breakpoint      | `M3Breakpoints`         | `M3BreakpointToken`        | Breakpoints for responsive design.      | `0`, `600`, `840`, `1200`, `1600dp`                                                                              |
-| **Motion & Animation** | Motion Duration | `M3MotionDuration`      |                            | Duration and timing for animations.     | `50ms`, `100ms`, `300ms`, `500ms`, `1000ms`                                                                      |
-|                        | Motion Curve    | `M3MotionCurve`         |                            | Easing curves for animations.           | `emphasized`, `standard`, `linear`                                                                               |
-|                        | Motion          | `M3Motion`              |                            | Combined duration + curve settings.     | `emphasized` `emphasizedIncoming` `emphasizedOutgoing` `standard` `standardIncoming` `standardOutgoing` `linear` |
-| **Color & Opacity**    | Opacity         | `M3Opacities`           | `M3OpacityToken`           | General transparency values.            | `0.04`, `0.08`, `0.12`, `0.38`, `0.87`                                                                           |
-|                        | State Layer     | `M3StateLayerOpacities` | `M3StateLayerOpacityToken` | Overlays for interactive states.        | Hover, focus, pressed states                                                                                     |
-|                        | Surface Tint    | `M3SurfaceTint`         |                            | Dynamic surface colors.                 | Calculated from theme and elevation                                                                              |
-| **Shape & Border**     | Corner          | `M3Corners`             | `M3CornerToken`            | Individual corner values.               | Corner rounding primitives                                                                                       |
-|                        | Radius          | `M3Radius`              |                            | Individual corner radius values.        | Corner rounding primitives                                                                                       |
-|                        | Border Radius   | `M3BorderRadius`        |                            | Complete border radius for containers.  | Container corner rounding                                                                                        |
-|                        | Shape           | `M3Shape`               |                            | Border shapes for components.           | Cards, buttons, dialogs                                                                                          |
-|                        | Border Width    | `M3BorderWidths`        | `M3BorderWidthToken `      | Border thickness values.                | `0dp`, `1dp`, `2dp`, `4dp`                                                                                       |
-|                        | Border Side     | `M3BorderSide`          |                            | Individual border sides.                | Border configurations                                                                                            |
-|                        | Border          | `M3Border`              |                            | Complete border specifications.         | Outlined components                                                                                              |
-| **Elevation & Shadow** | Elevation       | `M3Elevations`          | `M3ElevationToken`         | Surface elevation levels.               | `0dp`, `1dp`, `3dp`, `6dp`, `8dp`, `12dp`                                                                        |
-|                        | Shadow          | `M3Shadows`             |                            | Box shadow configurations.              | Shadows for elevated surfaces                                                                                    |
-| **Typography**         | Text Style      | `M3TextStyle`           |                            | Complete typography scale.              | Display, Headline, Body, Label                                                                                   |
-
----
-
-### Utility & Helper Classes
-
-These are classes that help apply design tokens in a type-safe and responsive way.
-
-| Group                   | Utility / Class          | Purpose                                     | Common Use Case                         |
-| :---------------------- | :----------------------- | :------------------------------------------ | :-------------------------------------- |
-| **Layout Helpers**      | `M3EdgeInsets`           | Type-safe padding/margin.                   | Enforces use of spacing tokens          |
-|                         | `M3Padding`              | Pre-configured padding widget.              | Consistent padding application          |
-|                         | `M3Gap`                  | Spacing between flex children (Row/Column). | `Row`/`Column` spacing                  |
-| **Decoration Helpers**  | `M3BoxDecoration`        | Type-safe box decoration.                   | Enforces use of all style tokens        |
-|                         | `M3ShapeDecoration`      | Type-safe shape decoration.                 | Enforces use of all style tokens        |
-| **Responsive Builders** | `M3ResponsiveBuilder`    | Responsive widget builder.                  | Rebuilds on screen size class change    |
-|                         | `M3ResponsiveValue`      | Responsive value selection.                 | Defines different values per breakpoint |
-|                         | `M3ResponsiveVisibility` | Conditional visibility.                     | Shows/hides based on screen size        |
-|                         | `M3ResponsiveGrid`       | Responsive grid layout.                     | Adaptive columns and spacing            |
-|                         | `M3ResponsiveScaffold`   | Adaptive navigation scaffold.               | Bottom nav → Rail → Drawer              |
-| **Responsive Logic**    | `M3ScreenSize`           | Window size classification.                 | Compact, Medium, Expanded, etc.         |
-|                         | `M3ResponsiveGridConfig` | Grid layout configuration.                  | Columns, gutters, margins               |
-|                         | `M3ResponsiveNavigation` | Navigation pattern selection.               | Determines nav type by size             |
-
-## 🎯 What is a Design System?
-
-A **design system** is a collection of reusable standards and guidelines that ensure consistency across digital products. It includes:
-
-- **Design Tokens**: The atomic values of your design system (colors, spacing, typography)
-- **Foundations**: Core design principles (layout, motion, interaction patterns)
-- **Styles**: Applied design decisions (elevation, shape, typography scales)
-- **Components**: Reusable UI elements built from tokens and styles
-
 ## 🤝 Contributing
 
 We welcome contributions from both design system experts and Flutter developers!
@@ -466,11 +406,11 @@ We welcome contributions from both design system experts and Flutter developers!
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
-## 📚 Further Reading & More
+## 📚 Further Reading
 
 - [Material Design 3 Specification](https://m3.material.io/)
 - [Google's Design System Guide](https://design.google/)
-- [Flex Color Scheme](https://pub.dev/packages/flex_color_scheme)
+- [Design Tokens Community Group](https://www.designtokens.org/)
 
 ## 📄 License
 

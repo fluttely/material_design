@@ -10,7 +10,7 @@ class UtilsPage extends StatefulWidget {
 }
 
 class _UtilsPageState extends State<UtilsPage> {
-  M3ElevationToken _elevation = M3ElevationToken.level2;
+  M3Elevation _elevation = M3Elevation.level2;
   bool _runAnimations = false;
 
   @override
@@ -93,13 +93,11 @@ class _UtilsPageState extends State<UtilsPage> {
   Widget _buildTonalSurfaceShowcase() {
     return Row(
       children: [
-        Expanded(child: _buildSurfaceCard('Surface', M3ElevationToken.level0)),
+        Expanded(child: _buildSurfaceCard('Surface', M3Elevation.level0)),
         const M3Gap(M3SpacingToken.space8),
-        Expanded(
-            child: _buildSurfaceCard('Surface+1', M3ElevationToken.level1)),
+        Expanded(child: _buildSurfaceCard('Surface+1', M3Elevation.level1)),
         const M3Gap(M3SpacingToken.space8),
-        Expanded(
-            child: _buildSurfaceCard('Surface+3', M3ElevationToken.level2)),
+        Expanded(child: _buildSurfaceCard('Surface+3', M3Elevation.level2)),
       ],
     );
   }
@@ -108,18 +106,18 @@ class _UtilsPageState extends State<UtilsPage> {
     return Column(
       children: [
         Text(
-          'Elevation: ${_elevation.value.toStringAsFixed(0)}dp',
+          'Elevation: ${_elevation.dp.toStringAsFixed(0)}dp',
           style: Theme.of(context).textTheme.labelLarge,
         ),
         Slider(
-          value: _elevation.value,
-          min: M3ElevationToken.level0.value,
-          max: M3ElevationToken.level5.value,
+          value: _elevation.dp,
+          min: M3Elevation.level0.dp,
+          max: M3Elevation.level5.dp,
           divisions: 12,
-          label: '${_elevation.value.round()}dp',
+          label: '${_elevation.dp.round()}dp',
           onChanged: (newValue) {
             setState(() {
-              _elevation = M3ElevationToken.fromValue(newValue);
+              _elevation = M3Elevation.fromValue(newValue);
             });
           },
         ),
@@ -280,13 +278,13 @@ class _UtilsPageState extends State<UtilsPage> {
     );
   }
 
-  Widget _buildSurfaceCard(String label, M3ElevationToken elevation) {
+  Widget _buildSurfaceCard(String label, M3Elevation elevation) {
     return Container(
       height: 80,
       decoration: BoxDecoration(
         color: elevation.surfaceColor(context),
         borderRadius: M3BorderRadius.medium,
-        border: elevation.value == 0
+        border: elevation.dp == 0
             ? Border.all(color: Theme.of(context).colorScheme.outlineVariant)
             : null,
       ),

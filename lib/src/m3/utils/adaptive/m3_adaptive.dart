@@ -161,9 +161,7 @@ abstract interface class M3Adaptive {
       actions: actions,
       leading: leading,
       automaticallyImplyLeading: automaticallyImplyLeading,
-      elevation: isCompact
-          ? M3ElevationToken.level0.value
-          : M3ElevationToken.level1.value,
+      elevation: isCompact ? M3Elevation.level0.dp : M3Elevation.level1.dp,
     );
   }
 
@@ -314,16 +312,15 @@ abstract interface class M3Adaptive {
         },
         transitionBuilder: (context, animation, secondaryAnimation, child) {
           return SlideTransition(
-            position:
-                Tween<Offset>(
-                  begin: const Offset(1, 0),
-                  end: Offset.zero,
-                ).animate(
-                  CurvedAnimation(
-                    parent: animation,
-                    curve: M3MotionCurve.emphasizedDecelerate,
-                  ),
-                ),
+            position: Tween<Offset>(
+              begin: const Offset(1, 0),
+              end: Offset.zero,
+            ).animate(
+              CurvedAnimation(
+                parent: animation,
+                curve: M3MotionCurve.emphasizedDecelerate,
+              ),
+            ),
             child: child,
           );
         },

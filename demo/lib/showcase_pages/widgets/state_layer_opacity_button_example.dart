@@ -59,11 +59,11 @@ class _CustomButtonState extends State<CustomButton> {
 
   bool get _isEnabled => widget.onPressed != null;
 
-  M3ElevationToken get _elevation {
-    if (!_isEnabled) return M3ElevationToken.level0;
-    if (_isPressed) return M3ElevationToken.level1;
-    if (_isHovered) return M3ElevationToken.level2;
-    return M3ElevationToken.level1;
+  M3Elevation get _elevation {
+    if (!_isEnabled) return M3Elevation.level0;
+    if (_isPressed) return M3Elevation.level1;
+    if (_isHovered) return M3Elevation.level2;
+    return M3Elevation.level1;
   }
 
   double get _stateLayerOpacity {
@@ -120,7 +120,7 @@ class _CustomButtonState extends State<CustomButton> {
           duration: M3MotionDuration.short3,
           child: Material(
             type: MaterialType.canvas,
-            elevation: _elevation.value,
+            elevation: _elevation.dp,
             color: backgroundColor,
             shape: const StadiumBorder(),
             clipBehavior: Clip.antiAlias,

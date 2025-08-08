@@ -156,7 +156,7 @@ abstract class M3Elevation {
 Container(
   decoration: M3BoxDecoration(
     color: M3SurfaceTint.surfaceAt(context, 6.0),
-    boxShadow: M3Shadows.fromElevation(6.0),
+    boxShadow: M3ElevationShadows.fromElevation(6.0),
   ),
   child: content,
 )
@@ -170,7 +170,7 @@ AnimatedContainer(
   duration: M3MotionDuration.short4,
   decoration: M3BoxDecoration(
     color: M3SurfaceTint.surfaceAt(context, isPressed ? 1.0 : 3.0),
-    boxShadow: M3Shadows.fromElevation(isPressed ? 1.0 : 3.0),
+    boxShadow: M3ElevationShadows.fromElevation(isPressed ? 1.0 : 3.0),
   ),
 )
 ```
@@ -300,7 +300,7 @@ ThemeData buildM3Theme({Color? seedColor}) {
     textTheme: M3TextStyleToken.material3TextTheme,
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
-        elevation: M3ElevationToken.level1.value,
+        elevation: M3Elevation.level1.dp,
         shape: RoundedRectangleBorder(
           shape: BorderRadius.circular(M3Radius.medium),
         ),
@@ -321,7 +321,7 @@ Card(
     shape: BorderRadius.circular(M3Radius.medium),
   ),
   // Elevation
-  elevation: M3ElevationToken.level1.value,
+  elevation: M3Elevation.level1.dp,
   // Color (automático via theme)
   child: AnimatedContainer(
     // Motion

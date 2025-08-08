@@ -34,7 +34,7 @@ graph TD
     E --> E5[M3MotionDuration]
     E --> E6[M3MotionCurve]
     E --> E7[M3Radius]
-    E --> E8[M3Shadows]
+    E --> E8[M3ElevationShadows]
 
     %% Conexões de dependência
     B1 --> C1
@@ -187,9 +187,9 @@ ElevatedButton(
 
 ```dart
 // Elevação contextual
-elevationDefault: M3ElevationToken.level1  // 1dp
-elevationHover: M3ElevationToken.level2    // 3dp
-elevationDragged: M3ElevationToken.level4  // 8dp
+elevationDefault: M3Elevation.level1  // 1dp
+elevationHover: M3Elevation.level2    // 3dp
+elevationDragged: M3Elevation.level4  // 8dp
 
 // Forma padrão
 shape: M3Radius.medium  // 12dp

@@ -32,7 +32,7 @@ part of '../../../../material_design.dart';
 /// ColorScheme and applying appropriate tinting based on elevation values.
 ///
 /// **Internal Implementation**: This is a private utility used by the elevation
-/// token system. External code should use [M3ElevationToken] extensions like
+/// token system. External code should use [M3Elevation] extensions like
 /// `surfaceColor(context)` or `calculateSurfaceColor()`.
 ///
 /// Reference: https://m3.material.io/styles/elevation/applying-elevation
@@ -41,9 +41,9 @@ part of '../../../../material_design.dart';
 abstract interface class M3SurfaceTint {
   static Color fromElevationToken(
     BuildContext context,
-    IM3ElevationToken elevation,
+    M3Elevation elevation,
   ) {
-    return fromElevation(context, elevation.value);
+    return fromElevation(context, elevation.dp);
   }
 
   /// Calculates the surface color with an elevation-based tint.
@@ -72,9 +72,9 @@ abstract interface class M3SurfaceTint {
   static Color calculateSurfaceColor({
     required Color surface,
     required Color surfaceTint,
-    required IM3ElevationToken elevation,
+    required M3Elevation elevation,
   }) {
-    if (elevation.value <= 0) return surface;
+    if (elevation.dp <= 0) return surface;
 
     // Calculate tint opacity based on elevation using M3 formula
     final tintOpacity = _calculateTintOpacity(elevation);
@@ -96,13 +96,13 @@ abstract interface class M3SurfaceTint {
   /// **Formula**: `opacity = 0.12 * (1 - e^(-elevation/8))`
   ///
   /// [elevation] - The elevation token to calculate opacity for
-  /// Returns opacity value between 0.0 and 0.12
-  static double _calculateTintOpacity(IM3ElevationToken elevation) {
-    if (elevation.value <= 0) return 0;
-    if (elevation.value >= 24) return 0.12;
+  /// Returns opacity dp between 0.0 and 0.12
+  static double _calculateTintOpacity(M3Elevation elevation) {
+    if (elevation.dp <= 0) return 0;
+    if (elevation.dp >= 24) return 0.12;
 
     // Exponential curve for natural progression
-    return 0.12 * (1 - math.exp(-elevation.value / 8));
+    return 0.12 * (1 - math.exp(-elevation.dp / 8));
   }
 
   /// Creates a high contrast surface color for accessibility compliance.
@@ -124,9 +124,9 @@ abstract interface class M3SurfaceTint {
   static Color highContrastSurface({
     required Color surface,
     required Color surfaceTint,
-    required IM3ElevationToken elevation,
+    required M3Elevation elevation,
   }) {
-    if (elevation.value <= 0) return surface;
+    if (elevation.dp <= 0) return surface;
 
     // Enhanced tinting for high contrast (1.5x multiplier, max 20%)
     final tintOpacity = math.min(_calculateTintOpacity(elevation) * 1.5, 0.2);

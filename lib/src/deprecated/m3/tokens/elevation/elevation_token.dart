@@ -1,8 +1,10 @@
-part of '../../../../material_design.dart';
+part of '../../../../../material_design.dart';
 
 /// Material Design 3 elevation constants in logical pixels (dp).
+@Deprecated('Use M3ElevationDps.levelX instead')
 abstract final class M3Elevations {
   // Private constructor to prevent instantiation.
+  @deprecated
   const M3Elevations._();
 
   /// The base level, with no elevation (0 dp). Used for default surfaces.
@@ -42,14 +44,17 @@ abstract final class M3Elevations {
 /// component-specific, or custom, can be processed consistently to render
 /// surface colors and shadows according to Material Design 3 principles.
 /// {@endtemplate}
+@Deprecated('Use M3Elevation instead')
 @immutable
 abstract interface class IM3ElevationToken implements IM3Token<double> {
+  @deprecated
   double get dp;
 
   /// Determines whether this elevation profile should cast a shadow.
   ///
   /// While most elevated surfaces cast shadows, some components like [AppBar]
   /// may use elevation to apply a surface tint without casting a shadow.
+  @deprecated
   bool get hasShadow;
 }
 
@@ -84,15 +89,15 @@ abstract interface class IM3ElevationToken implements IM3Token<double> {
 /// ```dart
 /// // Apply elevation to a Card
 /// Card(
-///   elevation: M3ElevationToken.level1.value,
+///   elevation: M3ElevationToken2.level1.value,
 ///   child: content,
 /// )
 ///
 /// // Use elevation for custom surfaces
 /// Container(
 ///   decoration: BoxDecoration(
-///     boxShadow: M3ElevationToken.level2.shadows,
-///     color: M3ElevationToken.level2.surfaceColor(context),
+///     boxShadow: M3ElevationToken2.level2.shadows,
+///     color: M3ElevationToken2.level2.surfaceColor(context),
 ///   ),
 /// )
 /// ```
@@ -100,6 +105,7 @@ abstract interface class IM3ElevationToken implements IM3Token<double> {
 /// Reference: https://m3.material.io/foundations/elevation/overview
 /// {@endtemplate}
 /// ATOM
+@Deprecated('Use M3Elevation instead')
 enum M3ElevationToken implements IM3ElevationToken {
   /// The base level, with no elevation (0 dp).
   ///
@@ -148,7 +154,7 @@ enum M3ElevationToken implements IM3ElevationToken {
   /// Example:
   /// ```dart
   /// Card(
-  ///   elevation: M3ElevationToken.level1.value,
+  ///   elevation: M3ElevationToken2.level1.value,
   ///   child: content,
   /// )
   /// ```
@@ -176,7 +182,7 @@ enum M3ElevationToken implements IM3ElevationToken {
   /// Example:
   /// ```dart
   /// AppBar(
-  ///   elevation: M3ElevationToken.level2.value,
+  ///   elevation: M3ElevationToken2.level2.value,
   ///   title: Text('App Title'),
   /// )
   /// ```
@@ -204,7 +210,7 @@ enum M3ElevationToken implements IM3ElevationToken {
   /// Example:
   /// ```dart
   /// FloatingActionButton(
-  ///   elevation: M3ElevationToken.level3.value,
+  ///   elevation: M3ElevationToken2.level3.value,
   ///   onPressed: () {},
   ///   child: Icon(Icons.add),
   /// )
@@ -232,7 +238,7 @@ enum M3ElevationToken implements IM3ElevationToken {
   /// Example:
   /// ```dart
   /// Drawer(
-  ///   elevation: M3ElevationToken.level4.value,
+  ///   elevation: M3ElevationToken2.level4.value,
   ///   child: navigationContent,
   /// )
   /// ```
@@ -259,7 +265,7 @@ enum M3ElevationToken implements IM3ElevationToken {
   /// Example:
   /// ```dart
   /// AlertDialog(
-  ///   elevation: M3ElevationToken.level5.value,
+  ///   elevation: M3ElevationToken2.level5.value,
   ///   title: Text('Confirm Action'),
   ///   content: Text('Are you sure?'),
   ///   actions: actions,
@@ -300,7 +306,7 @@ enum M3ElevationToken implements IM3ElevationToken {
 // /// Each value maps directly to a specific component type, ensuring consistent
 // /// styling across an application.
 // /// {@endtemplate}
-// enum M3ComponentElevationToken implements IM3ElevationToken {
+// enum M3ComponentElevationToken implements IM3ElevationToken2 {
 //   /// Resting elevation for [Card] (1 dp).
 //   card(M3Elevations.level1),
 
@@ -364,7 +370,7 @@ enum M3ElevationToken implements IM3ElevationToken {
 // /// These elevations provide visual feedback for user interactions like hover,
 // /// focus, press, and drag.
 // /// {@endtemplate}
-// enum M3StateElevationToken implements IM3ElevationToken {
+// enum M3StateElevationToken implements IM3ElevationToken2 {
 //   /// Elevation for a [Card] in a hovered state (3 dp).
 //   cardHover(M3Elevations.level2),
 
@@ -421,58 +427,3 @@ enum M3ElevationToken implements IM3ElevationToken {
 //   @override
 //   bool get hasShadow => true;
 // }
-
-/// Provides visual calculation behaviors for any [IM3ElevationToken].
-///
-/// This extension attaches the core rendering logic to all elevation tokens,
-/// decoupling the token's definition from its visual implementation.
-extension IM3ElevationTokenVisuals on IM3ElevationToken {
-  /// The list of [M3BoxShadow]s that represent this elevation level.
-  List<M3BoxShadow> get shadows =>
-      hasShadow ? M3Shadows.fromElevationToken(this) : M3Shadows.level0;
-
-  /// Calculates the surface color using Flutter's default tint overlay.
-  Color surfaceColor(BuildContext context) =>
-      M3SurfaceTint.fromElevationToken(context, this);
-
-  /// Calculates surface color with a custom formula and tint color.
-  ///
-  /// This is a convenience method that delegates its logic to
-  /// [M3SurfaceTint.calculateSurfaceColor].
-  Color calculateSurfaceColor({
-    required Color surface,
-    required Color surfaceTint,
-  }) =>
-      M3SurfaceTint.calculateSurfaceColor(
-        surface: surface,
-        surfaceTint: surfaceTint,
-        elevation: this,
-      );
-
-  /// Creates a high contrast surface color for accessibility.
-  ///
-  /// This is a convenience method that delegates its logic to
-  /// [M3SurfaceTint.highContrastSurface].
-  Color highContrastSurface({
-    required Color surface,
-    required Color surfaceTint,
-  }) =>
-      M3SurfaceTint.highContrastSurface(
-        surface: surface,
-        surfaceTint: surfaceTint,
-        elevation: this,
-      );
-}
-
-/// Provides comparison utility methods for [IM3ElevationToken].
-extension IM3ElevationTokenComparison on IM3ElevationToken {
-  /// Checks if this elevation is higher than another token's elevation.
-  bool isHigherThan(IM3ElevationToken other) => value > other.value;
-
-  /// Checks if this elevation is lower than another token's elevation.
-  bool isLowerThan(IM3ElevationToken other) => value < other.value;
-
-  /// Returns the absolute difference in elevation between this and another
-  /// token.
-  double differenceFrom(IM3ElevationToken other) => (value - other.value).abs();
-}

@@ -1229,8 +1229,9 @@ class _AnimatedColorSwatchState extends State<_AnimatedColorSwatch>
                               width: M3BorderWidthToken.thin,
                             )
                           : null,
-                  boxShadow:
-                      _isHovered || widget.isSelected ? M3Shadows.level5 : null,
+                  boxShadow: _isHovered || widget.isSelected
+                      ? M3ElevationShadows.level5
+                      : null,
                 ),
               ),
             );

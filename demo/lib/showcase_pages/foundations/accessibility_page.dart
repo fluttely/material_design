@@ -859,7 +859,7 @@ class _AccessibilityPageState extends State<AccessibilityPage>
 
     return Card(
       color: backgroundColor,
-      elevation: M3ElevationToken.level0.value,
+      elevation: M3Elevation.level0.dp,
       shape: M3Shape(
         borderRadius: M3BorderRadius.medium,
         side: M3BorderSide(

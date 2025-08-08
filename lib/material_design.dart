@@ -11,7 +11,7 @@
 ///
 /// Then, you can access all the tokens, such as:
 /// - `M3TextStyle.headlineLarge`
-/// - `M3ElevationToken.level5`
+/// - `M3Elevation.level5`
 library;
 
 import 'dart:collection';
@@ -24,6 +24,8 @@ import 'package:material_design/material_design.dart';
 import 'package:meta/meta.dart';
 import 'package:vector_math/vector_math_64.dart' hide Colors;
 
+part 'src/deprecated/m3/tokens/elevation/elevation_token.dart';
+part 'src/deprecated/m3/tokens/elevation/shadows.dart';
 part 'src/m3/border/border.dart';
 part 'src/m3/components/container.dart';
 
@@ -78,13 +80,14 @@ part 'src/m3/tokens/border/border_side.dart';
 /// with usage guidelines.
 part 'src/m3/tokens/border/border_width_token.dart';
 part 'src/m3/tokens/elevation/box_shadow.dart';
-part 'src/m3/tokens/elevation/elevation_token.dart';
+part 'src/m3/tokens/elevation/elevation.dart';
+part 'src/m3/tokens/elevation/elevation_dps.dart';
 
 /// **Elevation System**: Tonal elevation and shadow tokens.
 /// Implements Material Design 3's primary depth indication system using
 /// surface tinting combined with complementary shadow effects for natural
 /// depth perception.
-part 'src/m3/tokens/elevation/shadows.dart';
+part 'src/m3/tokens/elevation/elevation_shadows.dart';
 
 /// Base interface for all Material Design 3 design tokens.
 /// Defines the fundamental contract for type-safe token implementation
