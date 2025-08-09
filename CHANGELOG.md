@@ -4,6 +4,39 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adherves to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.28.0
+
+### 💥 Breaking Changes
+
+- **`M3EdgeInsets` Refactor for `const` Support**: The `M3EdgeInsets` class has been completely refactored to support `const` constructors. This is a significant performance improvement but may require updates to your code.
+  - **Before**: `M3EdgeInsets.all(M3SpacingToken.space16)` (was not `const`)
+  - **After**: `const M3EdgeInsets.all(M3SpacingToken.space16)` (is now `const`)
+- **`M3Container` Deprecated**: The `M3Container` widget has been deprecated and will be removed in a future version. Use the standard `Container` with `const` `M3EdgeInsets` and `M3BoxDecoration` for better performance and flexibility.
+
+### ✨ Features
+
+- **`const` `M3EdgeInsets`**: Create `EdgeInsets` at compile time for maximum performance.
+- **`const` `M3Radius` and `M3BorderRadius`**: `const` support for all radius and border radius tokens.
+- **`const` `M3EdgeInsetsPatterns`**: All predefined padding patterns in `M3EdgeInsetsPatterns` are now `const`.
+
+### 📚 Documentation
+
+- **Complete `README.md` Overhaul**: The `README.md` has been rewritten from the ground up to be a comprehensive guide.
+  - **"The Right Way" vs. "The Wrong Way"**: Clear guidance on the best practices for using the library.
+  - **Quick Reference Tables**: Detailed tables for all design system classes, `const` tokens, and token enums.
+  - **Performance vs. Compliance Matrix**: A new section to help users choose the right approach for their needs.
+  - **Updated Examples**: All examples have been updated to use the new `const`-friendly APIs.
+
+### 🔄 Refactor
+
+- **`M3EdgeInsets`**: Rewritten to use `const` constructors and a new internal implementation that avoids `.value`.
+- **`M3Radius` and `M3BorderRadius`**: Refactored for `const` correctness and improved code formatting.
+- **`M3Elevation`**: Updated to conditionally apply shadows based on the `hasShadow` property.
+
+### 🗑️ Deprecated
+
+- **`M3Container`**: This widget is now deprecated in favor of using the standard `Container` with `const` `M3EdgeInsets` and `M3BoxDecoration`.
+
 ## 0.27.0
 
 ### Refactor

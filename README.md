@@ -6,7 +6,7 @@
 
 🎨 **A complete Material Design 3 design system implementation for Flutter**
 
-A comprehensive design system toolkit that brings Google's Material Design 3 specifications to Flutter through a carefully architected token system. This package provides production-ready design foundations, styles, and components following the official Material Design 3 guidelines.
+A comprehensive design system toolkit that brings Google's Material Design 3 specifications to Flutter through a carefully architected token system.
 
 ## 🚀 Live Demo & Resources
 
@@ -14,84 +14,171 @@ A comprehensive design system toolkit that brings Google's Material Design 3 spe
 
 **[📚 Material Design 3 Guidelines](https://m3.material.io/)** - Official specification
 
-**[🎨 Design Tokens Spec](https://m3.material.io/foundations/design-tokens/overview)** - Understanding tokens
-
-## ⚡ Why Use This Package?
-
-### Key Benefits
-
-✅ **No magic numbers** - Replace `padding: 16.0` with `padding: M3Spacings.space16`  
-✅ **IntelliSense support** - IDE suggests options as you type  
-✅ **100% const when possible** - Best performance  
-✅ **Easy maintenance** - Update values in one place  
-✅ **Self-documenting code** - Descriptive names explain intent
-
 ## 📦 Installation
 
 ```yaml
 dependencies:
-  material_design: ^0.27.0
+  material_design: ^0.28.0
 ```
 
-```bash
-flutter pub add material_design
-```
+## 🎯 Three Ways to Use This Library
 
-## 🎯 Quick Start
+### ✅ The Right Way: Material Design 3 Compliant
+
+**Use M3 wrapper classes that enforce design system rules while maintaining const performance.**
 
 ```dart
-import 'package:material_design/material_design.dart';
+// Best approach - follows M3 specs with const performance
+// Motion example - impossible to mismatch
+return AnimatedContainer(
+  duration: M3Motion.emphasized.duration, // Always correct pairing   (non-const)
+  curve: M3Motion.emphasized.curve,       // Follows M3 specs exactly (non-const)
+   // M3EdgeInsets enforces token usage + const
+  padding: const M3EdgeInsets.all(M3SpacingToken.space16), // (const)
 
-// Simple example using const tokens
-Container(
-  padding: const EdgeInsets.all(M3Spacings.space16),  // ✅ CONST - 16dp
-  decoration: const BoxDecoration(
-    borderRadius: M3BorderRadius.medium,              // ✅ CONST - medium radius
-    boxShadow: M3ElevationShadows.level3,                      // ✅ CONST - level 3 shadow
+  // M3BoxDecoration ensures all properties follow M3
+  decoration: M3BoxDecoration(
+    borderRadius: M3BorderRadius.medium,             // (const)
+    boxShadow: M3Elevation.level3.shadows,           // (non-const)
+    color: M3Elevation.level3.surfaceColor(context), // (non-const)
   ),
+
   child: const Text(
-    'Hello Material 3',
-    style: M3TextStyle.headlineMedium,                // ✅ CONST - headline style
+    'Perfect M3 Implementation',
+    style: M3TextStyle.headlineMedium,                // (const)
   ),
-),
+);
 ```
 
-## 📐 Understanding Const vs Non-Const
+**Why this is best:**
 
-### 🟢 CONST Tokens (Compile-time)
+- ✅ Forces Material Design 3 compliance
+- ✅ Type-safe token usage
+- ✅ Const performance where possible
+- ✅ Impossible to break design system rules
 
-Fixed values that are defined at compile time. **Use these whenever possible for best performance!**
+---
 
-```dart
-// ✅ All of these are CONST and can be used with 'const' keyword:
-const spacing = M3Spacings.space16;         // 16dp
-const radius = M3BorderRadius.medium;       // Medium BorderRadius
-const shadow = M3ElevationShadows.level3;            // Shadow list
-const textStyle = M3TextStyle.bodyLarge;    // Text style
-const duration = M3MotionDuration.medium1;  // 300ms
-const curve = M3MotionCurve.emphasized;     // Animation curve
-```
+### ⚠️ The Flexible Way: Trading Compliance for Freedom
 
-### 🔵 NON-CONST Tokens (Runtime)
-
-Values that depend on context or are calculated at runtime.
+**Use const tokens directly with Flutter widgets. More flexible but can break M3 guidelines.**
 
 ```dart
-// ❌ These are NOT const:
+// Intermediate approach - flexible but can violate M3
+Container(
+  // Using const tokens but might mix incorrectly
+  padding: const EdgeInsets.all(M3Spacings.space16), // (const)
 
-// Enums return values at runtime
-final spacing = M3SpacingToken.space16.value;       // 16dp (via enum)
-final elevation = M3Elevation.level3.dp;    // 6dp (via enum)
+  decoration: const BoxDecoration(
+    borderRadius: M3BorderRadius.medium,             // (const)
+    boxShadow: M3ElevationShadows.level3,            // (const)
+    color: Colors.purple, // ⚠️ Missing surface tint. Not M3 surface color! (const)
+  ),
 
-// Values that depend on context/theme
-final surfaceColor = M3SurfaceTint.fromElevation(
-  context,                                          // Needs context
-  M3ElevationDps.level3,
+  child: const Text(
+    'Partial M3 Implementation',
+    style: M3TextStyle.headlineMedium,               // (const)
+  ),
 );
 
-// Responsive values that change with screen size
-final margin = M3Margins.getMargin(context);        // Varies: 16dp | 24dp
+// Motion example - easy to mismatch
+AnimatedContainer(
+  duration: M3MotionDuration.long2, // ⚠️ Is this the right duration? (const)
+  curve: M3MotionCurve.standard,    // ⚠️ Wrong curve for long2!      (const)
+);
 ```
+
+**Trade-offs:**
+
+- ⚠️ Can mix incompatible tokens
+- ⚠️ May violate M3 specifications
+- ✅ More flexibility for custom designs
+- ✅ Still has const performance
+
+---
+
+### ❌ The Wrong Way: Worst of Both Worlds
+
+**Using token enums with `.value` - loses const performance AND design system benefits.**
+
+```dart
+// DON'T DO THIS - no benefits, only drawbacks
+Container(
+  // ❌ Lost const performance
+  padding: EdgeInsets.all(M3SpacingToken.space16.value), // (non-const)
+
+  decoration: BoxDecoration(
+    // ❌ Still not const
+    borderRadius: BorderRadius.circular(M3CornerToken.medium.value), // (non-const)
+
+    // ❌ Can still break M3 rules
+    boxShadow: [
+      BoxShadow(
+        offset: const Offset(0, 2),  // ❌ Random shadow values
+        blurRadius: M3SpacingToken.space4.value,  // ❌ Why use spacing for blur?
+      ),
+    ],
+  ),
+
+  child: Text(
+    'Worst Implementation',
+    // ❌ Mixing approaches inconsistently
+    style: TextStyle(fontSize: 17),
+  ),
+);
+```
+
+**Why this is wrong:**
+
+- ❌ No const performance (using `.value`)
+- ❌ No design system enforcement
+- ❌ Verbose without benefits
+- ❌ Easy to misuse tokens
+
+## 📊 Quick Reference
+
+### Design System Classes (Use These First)
+
+| Class             | Purpose                             | Example                                                   |
+| :---------------- | :---------------------------------- | :-------------------------------------------------------- |
+| `M3EdgeInsets`    | Type-safe padding/margin with const | `const M3EdgeInsets.all(M3SpacingToken.space16)`          |
+| `M3BoxDecoration` | Complete M3 decoration              | `M3BoxDecoration(elevation: M3Elevation.level3)`          |
+| `M3Gap`           | Auto-directional spacing            | `M3Gap(M3SpacingToken.space16)`                           |
+| `M3Motion`        | Paired duration + curve             | `M3Motion.emphasized`                                     |
+| `M3Elevation`     | Complete elevation concept          | `M3Elevation.level3` (includes dp, shadows, surfaceColor) |
+
+### Const Tokens (When You Need Flexibility)
+
+| Token                | Values                                      | Usage                                      |
+| :------------------- | :------------------------------------------ | :----------------------------------------- |
+| `M3Spacings`         | `space4`, `space8`, `space16`, `space24`... | `const EdgeInsets.all(M3Spacings.space16)` |
+| `M3BorderRadius`     | `small`, `medium`, `large`...               | `BorderRadius: M3BorderRadius.medium`      |
+| `M3ElevationShadows` | `level0` to `level5`                        | `boxShadow: M3ElevationShadows.level3`     |
+| `M3TextStyle`        | `displayLarge`, `bodyMedium`...             | `style: M3TextStyle.headlineMedium`        |
+
+### Token Enums (Avoid Using .value)
+
+| ⚠️ Avoid                               | Why         | Use Instead                   |
+| :------------------------------------- | :---------- | :---------------------------- |
+| `M3SpacingToken.space16.value`         | Loses const | `M3Spacings.space16`          |
+| `M3CornerToken.medium.value`           | No benefit  | `M3Corners.medium`            |
+| `M3OpacityToken.disabledContent.value` | Verbose     | `M3Opacities.disabledContent` |
+
+## 🎯 Summary
+
+### Choose Your Approach
+
+1. **Need Material Design 3 compliance?** → Use M3 wrapper classes
+2. **Need flexibility with good performance?** → Use const tokens directly
+3. **Never do this** → Don't use `.value` on token enums
+
+### Performance vs Compliance Matrix
+
+| Approach     | M3 Compliance | Performance             | Flexibility | Recommendation  |
+| :----------- | :------------ | :---------------------- | :---------- | :-------------- |
+| M3 Classes   | ✅ Perfect    | ✅ Const where possible | ⚠️ Limited  | **Use this**    |
+| Const Tokens | ⚠️ Manual     | ✅ Full const           | ✅ High     | Use when needed |
+| Token.value  | ❌ None       | ❌ No const             | ⚠️ Medium   | **Avoid**       |
 
 ## 📊 Complete Token and Utility Reference
 
@@ -170,258 +257,14 @@ These are classes that help apply design tokens in a type-safe and responsive wa
 |                         | `M3ResponsiveGridConfig` | Grid layout configuration                  | Columns, gutters, margins               |
 |                         | `M3ResponsiveNavigation` | Navigation pattern selection               | Determines nav type by size             |
 
-## 💡 Practical Examples
-
-### ✅ CORRECT Example - Using const when possible
-
-```dart
-class MyCard extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      // ✅ Everything here is CONST - great performance!
-      padding: const EdgeInsets.all(M3Spacings.space16),
-      margin: const EdgeInsets.symmetric(
-        horizontal: M3Margins.compactScreen,
-      ),
-      decoration: const BoxDecoration(
-        borderRadius: M3BorderRadius.medium,
-        boxShadow: M3ElevationShadows.level3,
-      ),
-      child: const Text(
-        'Card with const tokens',
-        style: M3TextStyle.bodyLarge,
-      ),
-    );
-  }
-}
-```
-
-### ❌ INCORRECT Example - Trying to use const with runtime values
-
-```dart
-class MyWrongCard extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      // ❌ ERROR! M3SpacingToken.space16.value is not const
-      padding: const EdgeInsets.all(M3SpacingToken.space16.value),
-
-      decoration: BoxDecoration(
-        // ❌ ERROR! fromElevation needs context, can't be const
-        color: const M3SurfaceTint.fromElevation(context, M3ElevationDps.level3),
-      ),
-    );
-  }
-}
-```
-
-### 🔄 Mixed Example - Const and Runtime together
-
-```dart
-class ResponsiveCard extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    // 🔵 Runtime - responsive value based on screen size
-    final margin = M3Margins.getMargin(context);
-
-    // 🔵 Runtime - color that depends on theme
-    final surfaceColor = M3SurfaceTint.fromElevation(
-      context,
-      M3ElevationDps.level2,
-    );
-
-    return Container(
-      // 🔵 Runtime - uses calculated variable
-      margin: EdgeInsets.symmetric(horizontal: margin),
-
-      // 🟢 Const - fixed values
-      padding: const EdgeInsets.all(M3Spacings.space16),
-
-      decoration: BoxDecoration(
-        // 🔵 Runtime - theme color
-        color: surfaceColor,
-
-        // 🟢 Const - fixed values
-        borderRadius: M3BorderRadius.medium,
-        boxShadow: M3ElevationShadows.level2,
-      ),
-
-      // 🟢 Const - fixed widget and style
-      child: const Text(
-        'Responsive Card',
-        style: M3TextStyle.headlineSmall,
-      ),
-    );
-  }
-}
-```
-
-## 🎯 What is a Design System?
-
-A **design system** is a collection of reusable standards and guidelines that ensure consistency across digital products. It includes:
-
-- **Design Tokens**: The atomic values of your design system (colors, spacing, typography)
-- **Foundations**: Core design principles (layout, motion, interaction patterns)
-- **Styles**: Applied design decisions (elevation, shape, typography scales)
-- **Components**: Reusable UI elements built from tokens and styles
-
-## 🎯 Token Hierarchy
-
-### 1️⃣ Atomic Tokens (Raw Values)
-
-The smallest building blocks:
-
-```dart
-// 🟢 CONST - Spacing values (4dp grid)
-const space = M3Spacings.space12;  // 12dp
-
-// 🔵 NON-CONST - Via enum
-final space = M3SpacingToken.space12.value;  // 12dp
-```
-
-### 2️⃣ Composite Tokens (Applied Values)
-
-Combinations of atomic tokens:
-
-```dart
-// 🟢 CONST - Complete BorderRadius
-const radius = M3BorderRadius.medium;  // Applies 12dp to all corners
-
-// 🟢 CONST - Complete Shape for Material widgets
-const shape = M3Shape.medium;  // RoundedRectangleBorder with medium radius
-```
-
-### 3️⃣ Style Tokens (Design Decisions)
-
-High-level applications:
-
-```dart
-// 🟢 CONST - Elevation creates shadow and tint
-const elevation = M3ElevationDps.level3;  // 6dp
-const shadows = M3ElevationShadows.level3;       // Shadow list for 6dp
-
-// 🔵 NON-CONST - Color calculated based on theme
-final tintColor = M3SurfaceTint.fromElevation(context, elevation);
-```
-
-## 🎨 Design Token Philosophy
-
-### Why Design Tokens Matter
-
-1. **Single source of truth** - Change once, update everywhere
-2. **No magic numbers** - `space16` is clearer than `16.0`
-3. **Consistency guaranteed** - Type system enforces correct usage
-4. **Easy maintenance** - Global adjustments in one place
-5. **Self-documenting code** - Names explain intent
-
-### Token Naming Convention
-
-Our tokens follow Material Design 3's semantic naming:
-
-```
-M3[Category][Subcategory].descriptor
-```
-
-Examples:
-
-- `M3Spacings.space16` - 16dp from spacing category
-- `M3BorderRadius.medium` - Medium border radius
-- `M3ElevationShadows.level3` - Level 3 elevation shadow
-
-## 🚀 Performance Considerations
-
-- **Compile-time Constants**: All tokens are const values when possible
-- **Tree-shaking**: Only included tokens are bundled
-- **Zero Runtime Overhead**: No performance penalty for const tokens
-- **Hot Reload Compatible**: Instant design updates
-
-### Advantages of using CONST
-
-```dart
-// ✅ BETTER - Const widget, recreated only when necessary
-const Padding(
-  padding: EdgeInsets.all(M3Spacings.space16),
-  child: Text('Text'),
-);
-
-// ❌ WORSE - Widget recreated on every build
-Padding(
-  padding: EdgeInsets.all(16.0),  // Magic number
-  child: Text('Text'),
-);
-```
-
-## 🔄 Migration Guide
-
-### From Magic Numbers
-
-```dart
-// Before: Magic numbers everywhere
-Container(
-  padding: const EdgeInsets.all(16.0),
-  margin: const EdgeInsets.symmetric(horizontal: 24.0),
-  decoration: BoxDecoration(borderRadius: BorderRadius.circular(12.0)),
-)
-
-// After: Self-documenting design tokens
-Container(
-  padding: const EdgeInsets.all(M3Spacings.space16),
-  margin: const EdgeInsets.symmetric(horizontal: M3Margins.mediumScreen),
-  decoration: const BoxDecoration(borderRadius: M3BorderRadius.medium),
-)
-```
-
-### From Custom Design Systems
-
-If you have an existing design system, map your values to Material Design 3 tokens:
-
-```dart
-// Your old system
-class AppSpacings {
-  static const double small = 8;
-  static const double medium = 16;
-  static const double large = 24;
-}
-
-// Migration mapping
-class AppSpacings {
-  static const double small = M3Spacings.space8;
-  static const double medium = M3Spacings.space16;
-  static const double large = M3Spacings.space24;
-}
-```
-
-## 🤝 Contributing
-
-We welcome contributions from both design system experts and Flutter developers!
-
-### Areas for Contribution
-
-- Additional composite tokens
-- Component implementations
-- Documentation improvements
-- Example applications
-- Design tool integrations
-
-See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
-
 ## 📚 Further Reading
 
 - [Material Design 3 Specification](https://m3.material.io/)
-- [Google's Design System Guide](https://design.google/)
-- [Design Tokens Community Group](https://www.designtokens.org/)
+- [Full API Documentation](https://pub.dev/documentation/material_design/latest/)
 
 ## 📄 License
 
-This project is licensed under the BSD License - see the [LICENSE](LICENSE) file for details.
-
-## 🙏 Acknowledgments
-
-- Google Material Design Team for the M3 specification
-- Flutter Team for the excellent framework
-- Design Tokens Community Group for standardization efforts
-- All our [contributors](https://github.com/fluttely/material_design/graphs/contributors)
+BSD License - see [LICENSE](LICENSE) file
 
 ---
 

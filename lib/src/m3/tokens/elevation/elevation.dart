@@ -50,9 +50,9 @@ part of '../../../../material_design.dart';
 class M3Elevation {
   const M3Elevation._({
     required this.dp,
-    required this.shadows,
     required this.hasShadow,
-  });
+    required List<M3BoxShadow> shadows,
+  }) : _shadows = shadows;
 
   /// The elevation logical pixels (dp).
   ///
@@ -60,9 +60,9 @@ class M3Elevation {
   /// basis for calculating shadow intensity and surface tint color.
   final double dp;
 
-  final List<M3BoxShadow> shadows;
-
   final bool hasShadow;
+  final List<M3BoxShadow> _shadows;
+  List<M3BoxShadow> get shadows => hasShadow ? _shadows : [];
 
   /// Calculates the surface color using Flutter's default tint overlay.
   Color surfaceColor(BuildContext context) =>

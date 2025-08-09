@@ -70,18 +70,18 @@ class M3BorderRadius extends BorderRadius {
     M3Radius top = M3Radius.zero,
     M3Radius bottom = M3Radius.zero,
   }) : super.vertical(
-         top: top,
-         bottom: bottom,
-       );
+          top: top,
+          bottom: bottom,
+        );
 
   /// Creates horizontal border radius (left or right).
   const M3BorderRadius.horizontal({
     M3Radius left = M3Radius.zero,
     M3Radius right = M3Radius.zero,
   }) : super.horizontal(
-         left: left,
-         right: right,
-       );
+          left: left,
+          right: right,
+        );
 
   /// Creates border radius with different tokens for each corner.
   const M3BorderRadius.only({
@@ -90,11 +90,11 @@ class M3BorderRadius extends BorderRadius {
     M3Radius bottomLeft = M3Radius.zero,
     M3Radius bottomRight = M3Radius.zero,
   }) : super.only(
-         topLeft: topLeft,
-         topRight: topRight,
-         bottomLeft: bottomLeft,
-         bottomRight: bottomRight,
-       );
+          topLeft: topLeft,
+          topRight: topRight,
+          bottomLeft: bottomLeft,
+          bottomRight: bottomRight,
+        );
 
   /// No border radius - sharp rectangular corners.
   ///
@@ -146,9 +146,8 @@ class M3BorderRadius extends BorderRadius {
   ///
   /// Maximum discrete border radius for special emphasis components
   /// and brand-specific interface elements requiring strong visual impact.
-  static const extraLargeIncreased = M3BorderRadius.all(
-    M3Radius.extraLargeIncreased,
-  );
+  static const extraLargeIncreased =
+      M3BorderRadius.all(M3Radius.extraLargeIncreased);
 
   /// Extra extra large uniform border radius (48dp all corners).
   ///

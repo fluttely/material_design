@@ -27,7 +27,6 @@ import 'package:vector_math/vector_math_64.dart' hide Colors;
 part 'src/deprecated/m3/tokens/elevation/elevation_token.dart';
 part 'src/deprecated/m3/tokens/elevation/shadows.dart';
 part 'src/m3/border/border.dart';
-part 'src/m3/components/container.dart';
 
 /// Custom box decoration that enforces Material Design 3 tokens.
 part 'src/m3/decorations/box_decoration.dart';
