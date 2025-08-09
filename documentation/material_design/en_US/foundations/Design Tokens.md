@@ -250,7 +250,7 @@ ElevatedButton(
     shape: RoundedRectangleBorder(
       shape: M3Shape.medium.value, // ✅ Active shape
     ),
-    elevation: M3ElevationToken.level1.value, // ✅ Active elevation
+    elevation: M3Elevation.level1.dp, // ✅ Active elevation
   ),
   child: Text('Button'),
 )
@@ -354,7 +354,7 @@ ThemeData buildM3Theme() {
         shape: RoundedRectangleBorder(
           shape: M3Shape.medium.value, // ✅ Active shape token
         ),
-        elevation: M3ElevationToken.level1.value, // ✅ Active elevation token
+        elevation: M3Elevation.level1.dp, // ✅ Active elevation token
       ),
     ),
   );

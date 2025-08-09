@@ -73,13 +73,13 @@ class EnhancedThemePage extends StatelessWidget {
             //   Column(
             //     children: [
             //       Card(
-            //         elevation: M3ElevationToken.card,
+            //         elevation: M3Elevation.card,
             //         child: M3Padding(
             //           padding: const M3EdgeInsets.all(M3SpacingToken.space16),
             //           child: SizedBox(
             //             width: double.infinity,
             //             child: Text(
-            //               'Standard Card (${M3ElevationToken.card}dp)',
+            //               'Standard Card (${M3Elevation.card}dp)',
             //               style: Theme.of(context).textTheme.titleMedium,
             //             ),
             //           ),
@@ -87,13 +87,13 @@ class EnhancedThemePage extends StatelessWidget {
             //       ),
             //       const const M3Gap(M3SpacingToken.space8),
             //       Card(
-            //         elevation: M3ElevationToken.appBar,
+            //         elevation: M3Elevation.appBar,
             //         child: M3Padding(
             //           padding: const M3EdgeInsets.all(M3SpacingToken.space16),
             //           child: SizedBox(
             //             width: double.infinity,
             //             child: Text(
-            //               'Elevated appBar (${M3ElevationToken.appBar}dp)',
+            //               'Elevated appBar (${M3Elevation.appBar}dp)',
             //               style: Theme.of(context).textTheme.titleMedium,
             //             ),
             //           ),
@@ -101,13 +101,13 @@ class EnhancedThemePage extends StatelessWidget {
             //       ),
             //       const const M3Gap(M3SpacingToken.space8),
             //       Card(
-            //         elevation: M3ElevationToken.level5,
+            //         elevation: M3Elevation.level5,
             //         child: M3Padding(
             //           padding: const M3EdgeInsets.all(M3SpacingToken.space16),
             //           child: SizedBox(
             //             width: double.infinity,
             //             child: Text(
-            //               'High Elevation Card (${M3ElevationToken.level5}dp)',
+            //               'High Elevation Card (${M3Elevation.level5}dp)',
             //               style: Theme.of(context).textTheme.titleMedium,
             //             ),
             //           ),

@@ -11,21 +11,21 @@ class ElevationPage extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
 
     final elevations = [
-      (M3ElevationToken.level0, true, 'Level 0'),
-      (M3ElevationToken.level1, true, 'Level 1'),
-      (M3ElevationToken.level2, true, 'Level 2'),
-      (M3ElevationToken.level3, true, 'Level 3'),
-      (M3ElevationToken.level4, true, 'Level 4'),
-      (M3ElevationToken.level5, true, 'Level 5'),
+      (M3Elevation.level0, true, 'Level 0'),
+      (M3Elevation.level1, true, 'Level 1'),
+      (M3Elevation.level2, true, 'Level 2'),
+      (M3Elevation.level3, true, 'Level 3'),
+      (M3Elevation.level4, true, 'Level 4'),
+      (M3Elevation.level5, true, 'Level 5'),
     ];
 
     final elevationsWithoutShadow = [
-      (M3ElevationToken.level0, false, 'Level 0'),
-      (M3ElevationToken.level1, false, 'Level 1'),
-      (M3ElevationToken.level2, false, 'Level 2'),
-      (M3ElevationToken.level3, false, 'Level 3'),
-      (M3ElevationToken.level4, false, 'Level 4'),
-      (M3ElevationToken.level5, false, 'Level 5'),
+      (M3Elevation.level0, false, 'Level 0'),
+      (M3Elevation.level1, false, 'Level 1'),
+      (M3Elevation.level2, false, 'Level 2'),
+      (M3Elevation.level3, false, 'Level 3'),
+      (M3Elevation.level4, false, 'Level 4'),
+      (M3Elevation.level5, false, 'Level 5'),
     ];
 
     // final componentElevations = [
@@ -98,12 +98,12 @@ class ElevationPage extends StatelessWidget {
         padding: M3EdgeInsets.all(M3MarginToken.mediumScreen),
         children: [
           Text(
-            'Elevation in M3 is a combination of a surface tint and, for some components, a shadow. Below, the cards are rendered according to the official rules defined in the M3Elevations | M3ElevationToken classes.',
+            'Elevation in M3 is a combination of a surface tint and, for some components, a shadow. Below, the cards are rendered according to the official rules defined in the M3ElevationDps | M3Elevation classes.',
             style: textTheme.bodyMedium,
           ),
           const M3Gap(M3SpacingToken.space16),
           LaunchURLText(
-            label: 'M3Elevations | M3ElevationToken',
+            label: 'M3ElevationDps | M3Elevation',
             m3Url: 'https://m3.material.io/styles/elevation/overview',
           ),
           _ElevationGrid(
@@ -144,7 +144,7 @@ class _ElevationGrid extends StatelessWidget {
 
   final String title;
   final String? subtitle;
-  final List<(IM3ElevationToken, bool, String)> elevations;
+  final List<(M3Elevation, bool, String)> elevations;
 
   @override
   Widget build(BuildContext context) {
@@ -187,7 +187,7 @@ class _ElevationCard extends StatelessWidget {
     required this.name,
   });
 
-  final IM3ElevationToken elevation;
+  final M3Elevation elevation;
   final bool useShadows;
   final String name;
 
@@ -216,7 +216,7 @@ class _ElevationCard extends StatelessWidget {
             ),
             const M3Gap(M3SpacingToken.space4),
             Text(
-              '${elevation.value.toStringAsFixed(0)} dp',
+              '${elevation.dp.toStringAsFixed(0)} dp',
               style: textTheme.bodySmall,
             ),
             const Spacer(),

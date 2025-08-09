@@ -1,17 +1,4 @@
-part of '../../../../material_design.dart';
-
-/// {@template m3_shadow_color}
-/// The standard shadow color for Material Design 3 elevation system.
-///
-/// This color (black with 15% opacity, #26000000) is specifically calibrated
-/// to provide optimal shadow contrast across both light and dark themes while
-/// maintaining accessibility standards.
-///
-/// The 15% opacity ensures shadows are visible but not overwhelming, creating
-/// subtle depth cues that enhance the visual hierarchy without competing with
-/// content for attention.
-/// {@endtemplate}
-const Color _color = Color(0x26000000);
+part of '../../../../../material_design.dart';
 
 /// A collection of pre-defined, specification-compliant raw shadow values
 /// for the Material Design 3 system.
@@ -22,6 +9,7 @@ const Color _color = Color(0x26000000);
 /// For general-purpose, semantic usage, prefer using [M3Shadows].
 /// Reference: https://m3.material.io/styles/elevation/shadows
 /// IT'S NOT AN ATOM
+@Deprecated('Use M3ElevationShadows.levelX instead')
 abstract final class M3Shadows {
   // Private constructor to prevent instantiation.
   const M3Shadows._();
@@ -157,19 +145,19 @@ abstract final class M3Shadows {
     ),
   ];
 
-  /// Returns a shadow token for a given M3ElevationToken.
+  /// Returns a shadow token for a given M3Elevation.
   /// This method now delegates the logic to fromElevationValue.
-  static List<M3BoxShadow> fromElevationToken(IM3ElevationToken elevation) =>
+  static List<M3BoxShadow> fromElevationToken(M3ElevationToken elevation) =>
       fromElevation(elevation.value);
 
   /// Returns a shadow token for a given elevation value in dp.
   /// This method contains the core logic and is the single source of truth.
   static List<M3BoxShadow> fromElevation(double value) => switch (value) {
-    >= 12 => level5,
-    >= 8 => level4,
-    >= 6 => level3,
-    >= 3 => level2,
-    >= 1 => level1,
-    _ => level0,
-  };
+        >= 12 => level5,
+        >= 8 => level4,
+        >= 6 => level3,
+        >= 3 => level2,
+        >= 1 => level1,
+        _ => level0,
+      };
 }

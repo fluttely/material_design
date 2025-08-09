@@ -4,6 +4,76 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adherves to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.28.0
+
+### 💥 Breaking Changes
+
+- **`M3EdgeInsets` Refactor for `const` Support**: The `M3EdgeInsets` class has been completely refactored to support `const` constructors. This is a significant performance improvement but may require updates to your code.
+  - **Before**: `M3EdgeInsets.all(M3SpacingToken.space16)` (was not `const`)
+  - **After**: `const M3EdgeInsets.all(M3SpacingToken.space16)` (is now `const`)
+- **`M3Container` Deprecated**: The `M3Container` widget has been deprecated and will be removed in a future version. Use the standard `Container` with `const` `M3EdgeInsets` and `M3BoxDecoration` for better performance and flexibility.
+
+### ✨ Features
+
+- **`const` `M3EdgeInsets`**: Create `EdgeInsets` at compile time for maximum performance.
+- **`const` `M3Radius` and `M3BorderRadius`**: `const` support for all radius and border radius tokens.
+- **`const` `M3EdgeInsetsPatterns`**: All predefined padding patterns in `M3EdgeInsetsPatterns` are now `const`.
+
+### 📚 Documentation
+
+- **Complete `README.md` Overhaul**: The `README.md` has been rewritten from the ground up to be a comprehensive guide.
+  - **"The Right Way" vs. "The Wrong Way"**: Clear guidance on the best practices for using the library.
+  - **Quick Reference Tables**: Detailed tables for all design system classes, `const` tokens, and token enums.
+  - **Performance vs. Compliance Matrix**: A new section to help users choose the right approach for their needs.
+  - **Updated Examples**: All examples have been updated to use the new `const`-friendly APIs.
+
+### 🔄 Refactor
+
+- **`M3EdgeInsets`**: Rewritten to use `const` constructors and a new internal implementation that avoids `.value`.
+- **`M3Radius` and `M3BorderRadius`**: Refactored for `const` correctness and improved code formatting.
+- **`M3Elevation`**: Updated to conditionally apply shadows based on the `hasShadow` property.
+
+### 🗑️ Deprecated
+
+- **`M3Container`**: This widget is now deprecated in favor of using the standard `Container` with `const` `M3EdgeInsets` and `M3BoxDecoration`.
+
+## 0.27.0
+
+### Refactor
+
+- **Elevation System Overhaul**: The elevation token system has been completely refactored for clarity, performance, and adherence to Material 3 principles.
+  - The previous `M3ElevationToken` enum has been replaced by a more powerful and intuitive `M3Elevation` class system.
+  - `M3Shadows` has been renamed to `M3ElevationShadows` to better reflect its purpose.
+  - Introduced `M3ElevationDps` for direct access to elevation dp values as compile-time constants.
+
+### Features
+
+- **New Elevation API**:
+  - `M3Elevation`: A new class-based system (`M3Elevation.level1`, `M3Elevation.level2`, etc.) that bundles `dp`, `shadows`, and `surfaceColor(context)` in a single, easy-to-use token.
+  - `M3ElevationDps`: Provides direct `const double` values for each elevation level (e.g., `M3ElevationDps.level3` is `6.0`).
+  - `M3ElevationShadows`: Provides direct `const List<BoxShadow>` values for each elevation level (e.g., `M3ElevationShadows.level3`).
+- **Improved Type Safety**: The new API enhances type safety and reduces ambiguity between elevation values, shadows, and surface tints.
+
+### Documentation
+
+- **Complete README Overhaul**: The `README.md` has been rewritten from the ground up to be a comprehensive and easy-to-understand guide.
+  - **Const vs. Non-Const**: Clear distinction and explanation of compile-time (`const`) vs. runtime tokens.
+  - **Token Reference Tables**: Added detailed tables for all design tokens and utility classes, showing their purpose, class names, and usage examples.
+  - **Practical Examples**: Updated and improved examples demonstrating correct usage, including "do's and don'ts".
+  - **Philosophy & Hierarchy**: Refined explanations of the design system's philosophy and token hierarchy.
+- **Updated In-Code Documentation**: All new and refactored classes (`M3Elevation`, `M3ElevationDps`, `M3ElevationShadows`) have been thoroughly documented.
+
+### Fixes
+
+- **Consistency**: Ensured all examples and internal usages throughout the package now use the new, consistent elevation API.
+- Corrected various references in the documentation to point to the new elevation and shadow classes.
+
+### Deprecated
+
+- **`M3ElevationToken`**: This enum is now deprecated. Use the `M3Elevation` class or `M3ElevationDps` constants instead.
+- **`M3Elevations`**: This class is now deprecated. Use `M3ElevationDps` instead.
+- **`M3Shadows`**: This class is now deprecated. Use `M3ElevationShadows` instead.
+
 ## 0.26.2
 
 ### 🎨 Demo Application Enhancements and Documentation Improvements

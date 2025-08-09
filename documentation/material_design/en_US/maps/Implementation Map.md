@@ -245,7 +245,7 @@ class M3LightTheme {
 
   static AppBarTheme _buildAppBarTheme(ColorScheme colorScheme) {
     return AppBarTheme(
-      elevation: M3ElevationToken.level0.value,
+      elevation: M3Elevation.level0.value,
       surfaceTintColor: colorScheme.surfaceTint,
       backgroundColor: colorScheme.surface,
       foregroundColor: colorScheme.onSurface,

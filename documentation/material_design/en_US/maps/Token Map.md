@@ -201,7 +201,7 @@ ElevatedButton(
     shape: RoundedRectangleBorder(
       shape: M3Shape.medium.value, // ✅ Active shape token
     ),
-    elevation: M3ElevationToken.level1.value, // ✅ Active elevation token
+    elevation: M3Elevation.level1.dp, // ✅ Active elevation token
   ),
 )
 ```
@@ -213,7 +213,7 @@ ElevatedButton(
 // Use active tokens directly:
 
 Card(
-  elevation: M3ElevationToken.level1.value,     // ✅ Active elevation
+  elevation: M3Elevation.level1.dp,     // ✅ Active elevation
   shape: RoundedRectangleBorder(
     shape: M3Shape.medium.value,    // ✅ Active shape
   ),
@@ -265,9 +265,9 @@ level4: 8dp   // Bottom navigation
 level5: 12dp  // App bars, bottom sheets
 
 // ✅ Component-specific elevation also available
-bottomSheet: M3ElevationToken.level1
-card: M3ElevationToken.level1
-fab: M3ElevationToken.level3
+bottomSheet: M3Elevation.level1
+card: M3Elevation.level1
+fab: M3Elevation.level3
 ```
 
 ### 📱 M3BreakpointToken - ✅ **Fully Active**
