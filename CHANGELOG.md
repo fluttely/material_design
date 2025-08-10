@@ -4,6 +4,33 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adherves to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.30.0-dev
+
+### ✨ Features
+
+- **Material Design 3 Adaptive System**: Complete implementation of the Material Design 3 adaptive design system in `lib/src/foundations/adaptive.dart`. This comprehensive system includes:
+  - **Window Size Classes**: Five breakpoints (compact: 0-599dp, medium: 600-839dp, expanded: 840-1199dp, large: 1200-1599dp, extra-large: 1600dp+) following the official Material Design 3 specifications
+  - **Canonical Layouts**: Support for single-pane, list-detail, supporting pane, and feed layout patterns with automatic recommendations based on screen size
+  - **Adaptive Grid System**: Complete 12-column grid system with responsive margins and gutters
+  - **Navigation Recommendations**: Automatic navigation type suggestions (bottom navigation, navigation rail, navigation drawer) based on window size class
+  - **Responsive Utilities**: Helper methods for responsive calculations, orientation detection, and layout decisions
+
+### 📚 Documentation
+
+- **Enhanced README.md**: Updated with new "Material Design 3 (2025)" branding and comprehensive documentation improvements:
+  - **Adaptive Design Examples**: Complete example code showing how to use `AdaptiveConfig` for responsive layouts
+  - **Responsive Layout Guide**: Step-by-step guide for implementing adaptive layouts with different navigation patterns
+  - **Enhanced Feature List**: Updated feature highlights with new adaptive design capabilities
+  - **Improved Code Examples**: More comprehensive usage examples with better formatting and clarity
+
+### 🔄 Refactor
+
+- **Public API Enhancement**: Updated main export file to include the new adaptive design system, making it available through the public API
+
+### 🧹 Chores
+
+- **Code Cleanup**: Removed obsolete entries from `.gitignore` for better repository organization
+
 ## 0.29.0-dev
 
 ### 💥 Breaking Changes

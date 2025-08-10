@@ -27,6 +27,13 @@ import 'package:meta/meta.dart';
 /// ```
 @immutable
 abstract class DesignToken<T> {
+  /// Creates a design token with the given [value], [name], and optional [description].
+  const DesignToken(
+    this.value,
+    this.name, {
+    this.description,
+  });
+
   /// The value stored by this token.
   final T value;
 
@@ -35,13 +42,6 @@ abstract class DesignToken<T> {
 
   /// Optional description of the token's purpose.
   final String? description;
-
-  /// Creates a design token with the given [value], [name], and optional [description].
-  const DesignToken(
-    this.value,
-    this.name, {
-    this.description,
-  });
 
   /// Returns the token value.
   T resolve() => value;
@@ -125,9 +125,6 @@ class ReferenceToken<T> extends DesignToken<T> {
 /// ```
 @immutable
 class SystemToken<T> extends DesignToken<T> {
-  /// The reference token this system token is derived from.
-  final ReferenceToken<T>? referenceToken;
-
   /// Creates a system token derived from a reference token.
   ///
   /// System tokens provide semantic meaning to reference values.
@@ -152,6 +149,9 @@ class SystemToken<T> extends DesignToken<T> {
       description: description ?? reference.description,
     );
   }
+
+  /// The reference token this system token is derived from.
+  final ReferenceToken<T>? referenceToken;
 
   /// Factory constructor for creating system tokens with custom transformation.
   static SystemToken<T> transform<T, R>(
@@ -195,18 +195,6 @@ class SystemToken<T> extends DesignToken<T> {
 /// ```
 @immutable
 class ComponentToken<T> extends DesignToken<T> {
-  /// The system token this component token is derived from.
-  final SystemToken<T>? systemToken;
-
-  /// The component this token belongs to.
-  final String component;
-
-  /// The specific variant of the component (optional).
-  final String? variant;
-
-  /// The state this token applies to (optional).
-  final String? state;
-
   /// Creates a component token for a specific UI component.
   ///
   /// Component tokens provide component-specific customization while
@@ -214,8 +202,8 @@ class ComponentToken<T> extends DesignToken<T> {
   const ComponentToken(
     super.value,
     super.name, {
-    this.systemToken,
     required this.component,
+    this.systemToken,
     this.variant,
     this.state,
     super.description,
@@ -250,6 +238,18 @@ class ComponentToken<T> extends DesignToken<T> {
       description: description ?? system.description,
     );
   }
+
+  /// The system token this component token is derived from.
+  final SystemToken<T>? systemToken;
+
+  /// The component this token belongs to.
+  final String component;
+
+  /// The specific variant of the component (optional).
+  final String? variant;
+
+  /// The state this token applies to (optional).
+  final String? state;
 
   /// Factory constructor for creating component tokens with custom transformation.
   static ComponentToken<T> transform<T, R>(
@@ -290,16 +290,16 @@ class ComponentToken<T> extends DesignToken<T> {
   /// Returns the full token hierarchy as a list.
   List<DesignToken<T>> getTokenHierarchy() {
     final hierarchy = <DesignToken<T>>[this];
-    
+
     if (systemToken != null) {
       hierarchy.add(systemToken!);
-      
+
       final reference = systemToken!.getReference();
       if (reference != null) {
         hierarchy.add(reference);
       }
     }
-    
+
     return hierarchy;
   }
 
@@ -311,17 +311,17 @@ class ComponentToken<T> extends DesignToken<T> {
     String? state,
   }) {
     final parts = <String>[component.toLowerCase()];
-    
+
     if (variant != null && variant.isNotEmpty) {
       parts.add(variant.toLowerCase());
     }
-    
+
     if (state != null && state.isNotEmpty) {
       parts.add(state.toLowerCase());
     }
-    
+
     parts.add(tokenName.toLowerCase());
-    
+
     return parts.join('.');
   }
 }
@@ -374,8 +374,8 @@ class TokenResolver {
     if (referenceToken == null) return true; // Valid if no reference token
 
     // Check that values are consistent through hierarchy
-    return token.value == systemToken.value || 
-           systemToken.value == referenceToken.value;
+    return token.value == systemToken.value ||
+        systemToken.value == referenceToken.value;
   }
 }
 
@@ -404,7 +404,7 @@ extension DesignTokenExtensions<T> on DesignToken<T> {
       ..writeln('$tokenType Token: $name')
       ..writeln('Value: $value')
       ..writeln('Type: $T');
-    
+
     if (description != null) {
       buffer.writeln('Description: $description');
     }
@@ -412,11 +412,11 @@ extension DesignTokenExtensions<T> on DesignToken<T> {
     if (this is ComponentToken<T>) {
       final componentToken = this as ComponentToken<T>;
       buffer.writeln('Component: ${componentToken.component}');
-      
+
       if (componentToken.variant != null) {
         buffer.writeln('Variant: ${componentToken.variant}');
       }
-      
+
       if (componentToken.state != null) {
         buffer.writeln('State: ${componentToken.state}');
       }
