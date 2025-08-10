@@ -4,6 +4,22 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adherves to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.29.0-dev
+
+### 💥 Breaking Changes
+
+- **Complete Token System Refactor**: The entire token system has been refactored to a new, more robust, and unified API. All old token files have been removed and replaced by a new centralized design token system. This is a major breaking change that will require a complete migration.
+
+### ✨ Features
+
+- **New Design Token System**: A new, unified design token system has been introduced in `lib/src/foundations/design_tokens.dart`. This new system provides a more consistent and scalable architecture for managing design tokens.
+- **Hierarchical Tokens**: The new system implements a three-tier token hierarchy (reference, system, and component tokens) for better organization and maintainability.
+
+### 🔄 Refactor
+
+- **Consolidated Token Files**: All token-related files have been removed and replaced by a single, centralized token system. This simplifies the project structure and makes it easier to manage tokens.
+- **Updated Main Export**: The main `material_design.dart` file has been updated to export the new design token system.
+
 ## 0.28.0
 
 ### 💥 Breaking Changes
