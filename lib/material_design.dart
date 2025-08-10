@@ -41,6 +41,7 @@
 /// ```
 library;
 
-export 'src/foundations/adaptive.dart';
 // Foundations
+export 'src/foundations/accessibility.dart';
+export 'src/foundations/adaptive.dart';
 export 'src/foundations/design_tokens.dart';
