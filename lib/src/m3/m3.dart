@@ -53,19 +53,15 @@ export 'mt/color/m3_color_utils.dart';
 export 'mt/sys/m3_shape_utils.dart';
 
 /// Component tokens for buttons
-export 'tokens/comp/button/m3_comp_button.dart';
-export 'tokens/interfaces/m3_token.dart';
+export 'tokens/sys/interfaces/m3_token.dart';
 
 /// Reference color tokens - base atomic color values
-export 'tokens/ref/color/m3_ref_opacity.dart';
 
 /// Reference Tokens
 ///
 /// Base tokens that form the foundation of the Material Design 3 system.
 /// These tokens represent the atomic values from which all other tokens derive.
 
-export 'tokens/ref/color/m3_ref_palette.dart';
-export 'tokens/ref/typography/m3_ref_typeface.dart';
 
 /// System Tokens
 ///
@@ -73,7 +69,6 @@ export 'tokens/ref/typography/m3_ref_typeface.dart';
 /// These provide meaning and context to the base reference values.
 
 /// System color tokens - semantic color roles
-export 'tokens/sys/color/m3_color_scheme_token.dart';
 
 /// System elevation tokens - shadow and depth
 export 'tokens/sys/elevation/m3_elevation_token.dart';
@@ -101,4 +96,4 @@ export 'tokens/sys/state/m3_opacity_token.dart';
 export 'tokens/sys/state/m3_state_layer_opacity_token.dart';
 
 /// System typography tokens - text styles and scales
-export 'tokens/sys/typography/m3_type_scale_token.dart';
+export 'tokens/sys/typography/m3_text_style_token.dart';

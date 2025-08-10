@@ -112,13 +112,13 @@ class _MaterialDesignDemoState extends State<MaterialDesignDemo>
       cardTheme: CardThemeData(
         elevation: 1,
         shape: RoundedRectangleBorder(
-          borderRadius: M3BorderRadiusToken.medium.value,
+          borderRadius: M3ShapeToken.medium.borderRadius,
         ),
       ),
       filledButtonTheme: FilledButtonThemeData(
         style: FilledButton.styleFrom(
           shape: RoundedRectangleBorder(
-            borderRadius: M3BorderRadiusToken.full.value,
+            borderRadius: M3ShapeToken.full.borderRadius,
           ),
         ),
       ),
@@ -146,13 +146,13 @@ class _MaterialDesignDemoState extends State<MaterialDesignDemo>
       cardTheme: CardThemeData(
         elevation: 1,
         shape: RoundedRectangleBorder(
-          borderRadius: M3BorderRadiusToken.medium.value,
+          borderRadius: M3ShapeToken.medium.borderRadius,
         ),
       ),
       filledButtonTheme: FilledButtonThemeData(
         style: FilledButton.styleFrom(
           shape: RoundedRectangleBorder(
-            borderRadius: M3BorderRadiusToken.full.value,
+            borderRadius: M3ShapeToken.full.borderRadius,
           ),
         ),
       ),
@@ -241,7 +241,7 @@ class _DemoHomePageState extends State<DemoHomePage>
           appBar: _buildAppBar(context, colorScheme),
           body: _buildResponsiveBody(context, breakpoint),
           floatingActionButton: _buildFloatingActionButton(context),
-          bottomNavigationBar: breakpoint == M3WindowSizeClass.compact
+          bottomNavigationBar: breakpoint == M3ScreenSize.compact
               ? _buildBottomNavigationBar(context)
               : null,
         );
@@ -250,16 +250,16 @@ class _DemoHomePageState extends State<DemoHomePage>
   }
 
   /// Determines the current M3 breakpoint based on screen width
-  M3WindowSizeClass _getCurrentBreakpoint(double width) {
+  M3ScreenSize _getCurrentBreakpoint(double width) {
     if (width < M3BreakpointToken.medium.value)
-      return M3WindowSizeClass.compact;
+      return M3ScreenSize.compact;
     if (width < M3BreakpointToken.expanded.value)
-      return M3WindowSizeClass.medium;
+      return M3ScreenSize.medium;
     if (width < M3BreakpointToken.large.value)
-      return M3WindowSizeClass.expanded;
+      return M3ScreenSize.expanded;
     if (width < M3BreakpointToken.extraLarge.value)
-      return M3WindowSizeClass.large;
-    return M3WindowSizeClass.extraLarge;
+      return M3ScreenSize.large;
+    return M3ScreenSize.extraLarge;
   }
 
   /// Builds the responsive app bar with M3 specifications
@@ -292,15 +292,15 @@ class _DemoHomePageState extends State<DemoHomePage>
 
   /// Builds the responsive body layout based on current breakpoint
   Widget _buildResponsiveBody(
-      BuildContext context, M3WindowSizeClass breakpoint) {
+      BuildContext context, M3ScreenSize breakpoint) {
     switch (breakpoint) {
-      case M3WindowSizeClass.compact:
+      case M3ScreenSize.compact:
         return _buildCompactLayout(context);
-      case M3WindowSizeClass.medium:
-      case M3WindowSizeClass.expanded:
+      case M3ScreenSize.medium:
+      case M3ScreenSize.expanded:
         return _buildMediumLayout(context);
-      case M3WindowSizeClass.large:
-      case M3WindowSizeClass.extraLarge:
+      case M3ScreenSize.large:
+      case M3ScreenSize.extraLarge:
         return _buildLargeLayout(context);
     }
   }
@@ -643,7 +643,7 @@ class _DemoHomePageState extends State<DemoHomePage>
                           width: token.value,
                           color: Theme.of(context).colorScheme.outline,
                         ),
-                        borderRadius: M3BorderRadiusToken.small.value,
+                        borderRadius: M3ShapeToken.small.borderRadius,
                       ),
                       child: Text(
                         '${token.name}\n${token.value}px',
@@ -723,9 +723,9 @@ class _DemoHomePageState extends State<DemoHomePage>
                       height: 60,
                       decoration: BoxDecoration(
                         color: Theme.of(context).colorScheme.surfaceContainer,
-                        borderRadius: M3BorderRadiusToken.values
+                        borderRadius: M3ShapeToken.values
                             .firstWhere((r) => r.name == token.name)
-                            .value,
+                            .borderRadius,
                       ),
                       child: Center(
                         child: Text(
@@ -1249,7 +1249,7 @@ class _ColorSwatch extends StatelessWidget {
           height: 40,
           decoration: BoxDecoration(
             color: color,
-            borderRadius: M3BorderRadiusToken.small.value,
+            borderRadius: M3ShapeToken.small.borderRadius,
             border: Border.all(
               color:
                   Theme.of(context).colorScheme.outline.withValues(alpha: 0.2),
@@ -1313,7 +1313,7 @@ class _OpacityExample extends StatelessWidget {
                 .colorScheme
                 .primary
                 .withValues(alpha: token.value),
-            borderRadius: M3BorderRadiusToken.small.value,
+            borderRadius: M3ShapeToken.small.borderRadius,
           ),
         ),
         SizedBox(height: M3SpacingToken.space4.value),

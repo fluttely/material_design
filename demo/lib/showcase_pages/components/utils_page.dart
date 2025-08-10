@@ -196,19 +196,19 @@ class _UtilsPageState extends State<UtilsPage> {
         // TODO(kevin): enhance this feature
         _buildShapeExample('None', M3ShapeUtils.squared()),
         _buildShapeExample(
-            'XS', M3ShapeUtils.rounded(M3RadiusToken.extraSmall.value.x)),
+            'XS', M3ShapeUtils.rounded(M3ShapeToken.extraSmall.radius.x)),
         _buildShapeExample(
-            'Small', M3ShapeUtils.rounded(M3RadiusToken.small.value.x)),
+            'Small', M3ShapeUtils.rounded(M3ShapeToken.small.radius.x)),
         _buildShapeExample(
-            'Medium', M3ShapeUtils.rounded(M3RadiusToken.medium.value.x)),
+            'Medium', M3ShapeUtils.rounded(M3ShapeToken.medium.radius.x)),
         _buildShapeExample(
-            'Large', M3ShapeUtils.rounded(M3RadiusToken.large.value.x)),
+            'Large', M3ShapeUtils.rounded(M3ShapeToken.large.radius.x)),
         _buildShapeExample(
-            'XL', M3ShapeUtils.rounded(M3RadiusToken.extraLarge.value.x)),
+            'XL', M3ShapeUtils.rounded(M3ShapeToken.extraLarge.radius.x)),
         _buildShapeExample(
-            'Top', M3ShapeUtils.topRounded(M3RadiusToken.large.value.x)),
+            'Top', M3ShapeUtils.topRounded(M3ShapeToken.large.radius.x)),
         _buildShapeExample(
-            'Bottom', M3ShapeUtils.bottomRounded(M3RadiusToken.large.value.x)),
+            'Bottom', M3ShapeUtils.bottomRounded(M3ShapeToken.large.radius.x)),
       ],
     );
   }

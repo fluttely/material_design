@@ -132,14 +132,15 @@ enum M3VisualDensityToken implements IM3VisualDensityToken {
   }
 
   /// Gets the recommended density token based on screen size category.
-  static M3VisualDensityToken forScreenSize(ScreenSize screenSize) {
+  static M3VisualDensityToken forScreenSize(M3ScreenSize screenSize) {
     switch (screenSize) {
-      case ScreenSize.small:
+      case M3ScreenSize.compact:
         return compact; // Maximize content on small screens
-      case ScreenSize.medium:
+      case M3ScreenSize.medium:
         return standard; // Balanced approach
-      case ScreenSize.large:
-      case ScreenSize.extraLarge:
+      case M3ScreenSize.expanded:
+      case M3ScreenSize.large:
+      case M3ScreenSize.extraLarge:
         return comfortable; // More spacing on large screens
     }
   }
@@ -256,19 +257,4 @@ extension IM3VisualDensityContext on BuildContext {
   ThemeData withVisualDensity(IM3VisualDensityToken densityToken) {
     return Theme.of(this).copyWith(visualDensity: densityToken.value);
   }
-}
-
-/// Screen size categories for density selection.
-enum ScreenSize {
-  /// Small screens (phones in portrait, small tablets).
-  small,
-
-  /// Medium screens (phones in landscape, medium tablets).
-  medium,
-
-  /// Large screens (large tablets, small desktops).
-  large,
-
-  /// Extra large screens (large desktops, TVs).
-  extraLarge,
 }

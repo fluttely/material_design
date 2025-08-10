@@ -91,7 +91,7 @@ enum M3ElevationToken implements IM3ElevationToken {
 /// Each value maps directly to a specific component type, ensuring consistent
 /// styling across an application.
 /// {@endtemplate}
-enum M3ComponentElevationToken implements IM3ElevationToken {
+enum _M3ComponentElevationToken implements IM3ElevationToken {
   /// Resting elevation for [Card] (1 dp).
   card(_kM3ElevationLevel1),
 
@@ -140,7 +140,7 @@ enum M3ComponentElevationToken implements IM3ElevationToken {
   /// Resting elevation for [Chip] (0 dp).
   chip(_kM3ElevationLevel0);
 
-  const M3ComponentElevationToken(this.value, {this.hasShadow = true});
+  const _M3ComponentElevationToken(this.value, {this.hasShadow = true});
 
   @override
   final double value;
@@ -155,7 +155,7 @@ enum M3ComponentElevationToken implements IM3ElevationToken {
 /// These elevations provide visual feedback for user interactions like hover,
 /// focus, press, and drag.
 /// {@endtemplate}
-enum M3StateElevationToken implements IM3ElevationToken {
+enum _M3StateElevationToken implements IM3ElevationToken {
   /// Elevation for a [Card] in a hovered state (3 dp).
   cardHover(_kM3ElevationLevel2),
 
@@ -204,7 +204,7 @@ enum M3StateElevationToken implements IM3ElevationToken {
   /// Elevation for a [NavigationRail] indicator in a focused state (3 dp).
   navigationRailIndicatorFocus(_kM3ElevationLevel2);
 
-  const M3StateElevationToken(this.value);
+  const _M3StateElevationToken(this.value);
 
   @override
   final double value;

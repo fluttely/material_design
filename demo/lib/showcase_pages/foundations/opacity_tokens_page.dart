@@ -106,7 +106,7 @@ class OpacityTokensPage extends StatelessWidget {
       height: 90,
       decoration: BoxDecoration(
         color: color,
-        borderRadius: M3BorderRadiusToken.medium.value,
+        borderRadius: M3ShapeToken.medium.borderRadius,
         border: Border.all(color: textColor.withValues(alpha: 0.2)),
       ),
       child: Center(
