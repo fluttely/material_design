@@ -6,7 +6,7 @@
 /// beautiful and consistent user interfaces.
 ///
 /// ## Design Token System
-/// 
+///
 /// The library implements the Material Design 3 token hierarchy:
 /// - **Reference tokens**: Raw values (colors, numbers, strings)
 /// - **System tokens**: Semantic tokens derived from reference tokens
@@ -17,20 +17,20 @@
 /// Import this file to access the complete Material Design 3 system:
 /// ```dart
 /// import 'package:material_design/material_design.dart';
-/// 
+///
 /// // Create reference tokens
 /// const primaryRef = ReferenceToken<Color>(
-///   Color(0xFF6750A4), 
+///   Color(0xFF6750A4),
 ///   'purple.40'
 /// );
-/// 
+///
 /// // Create system tokens
 /// const primaryColor = SystemToken<Color>(
 ///   Color(0xFF6750A4),
 ///   'color.primary',
 ///   referenceToken: primaryRef,
 /// );
-/// 
+///
 /// // Create component tokens
 /// const buttonBackground = ComponentToken<Color>(
 ///   Color(0xFF6750A4),
@@ -41,5 +41,6 @@
 /// ```
 library;
 
+export 'src/foundations/adaptive.dart';
 // Foundations
 export 'src/foundations/design_tokens.dart';
