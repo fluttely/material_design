@@ -4,6 +4,27 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adherves to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.31.0-dev
+
+### ✨ Features
+
+- **Accessibility Tools for Flutter**: A comprehensive collection of widgets and utilities to simplify the implementation of accessibility features in Flutter applications. This new feature, located in `lib/src/foundations/accessibility.dart`, includes:
+  - **`AccessibilityProvider`**: A centralized provider to manage configurations like dynamic text scaling, high-contrast themes, and touch target sizing.
+  - **`TouchTargetSpec`**: Defines minimum touch target sizes (48x48dp) and spacing to ensure usability.
+  - **`ContrastUtils`**: Utilities for calculating and validating WCAG contrast ratios.
+  - **`FocusIndicatorSpec`**: Specifications for focus indicators to improve keyboard navigation.
+  - **`AccessibilityValidator`**: A tool to validate widgets against accessibility requirements.
+  - **`AccessibleTouchTarget`**: A widget to ensure minimum touch target size for interactive elements.
+  - **And much more**: Includes utilities for screen readers, keyboard navigation, live regions, and color blindness simulation.
+
+### 📚 Documentation
+
+- **Enhanced README.md**: Updated with a new section on "Accessibility Tools for Flutter", including an integrated usage example.
+
+### 🧹 Chores
+
+- **Updated .gitignore**: Added `documentation` to the list of ignored directories.
+
 ## 0.30.0-dev
 
 ### ✨ Features

@@ -21,7 +21,7 @@ To use this package, add `material_design` as a dependency in your `pubspec.yaml
 
 ```yaml
 dependencies:
-  material_design: ^0.30.0-dev
+  material_design: ^0.31.0-dev
 ```
 
 Then, import the library in your Dart code:
@@ -221,6 +221,68 @@ class NavigationDrawer extends StatelessWidget {
   const NavigationDrawer({super.key, required this.selectedIndex, required this.children});
   @override
   Widget build(BuildContext context) => SizedBox(width: 250, child: Column(children: children));
+}
+```
+
+---
+
+### Accessibility Tools for Flutter
+
+A collection of widgets and utilities to simplify the implementation of accessibility features in Flutter applications. This library provides a centralized `AccessibilityProvider` to manage configurations like dynamic text scaling, high-contrast themes, and touch target sizing.
+
+### Integrated usage example
+
+```dart
+class AccessibleApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return AccessibilityProvider(
+      config: AccessibilityConfig.fromPlatform(context),
+      child: MaterialApp(
+        theme: ThemeData(
+          colorScheme: context.isHighContrast
+              ? HighContrastTheme.createHighContrastScheme(ColorScheme.light())
+              : ColorScheme.light(),
+        ),
+        home: AccessibleScreen(),
+      ),
+    );
+  }
+}
+
+class AccessibleButton extends StatelessWidget {
+  final String label;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final config = context.accessibility;
+
+    return AccessibleTouchTarget(
+      minSize: config.touchTargetSize,
+      semanticLabel: ScreenReaderUtils.buttonLabel(
+        text: label,
+        isEnabled: true,
+      ),
+      onTap: () {
+        onTap();
+        AccessibilityAnnouncer.announcePolite(
+          context,
+          '$label activated',
+        );
+      },
+      child: AnimatedContainer(
+        duration: config.getAnimationDuration(Duration(milliseconds: 200)),
+        curve: config.getAnimationCurve(Curves.easeInOut),
+        child: Text(
+          label,
+          style: config.applyToTextStyle(
+            Theme.of(context).textTheme.labelLarge!,
+          ),
+        ),
+      ),
+    );
+  }
 }
 ```
 
