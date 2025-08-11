@@ -45,4 +45,7 @@ library;
 export 'src/foundations/accessibility.dart';
 export 'src/foundations/adaptive.dart';
 export 'src/foundations/design_tokens.dart';
+export 'src/styles/elevation/elevation_system.dart';
+export 'src/styles/motion/duration.dart';
+export 'src/styles/motion/easing.dart';
 export 'src/styles/shape/shape_system.dart';
