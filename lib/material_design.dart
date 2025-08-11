@@ -45,3 +45,4 @@ library;
 export 'src/foundations/accessibility.dart';
 export 'src/foundations/adaptive.dart';
 export 'src/foundations/design_tokens.dart';
+export 'src/styles/shape/shape_system.dart';

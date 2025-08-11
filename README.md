@@ -21,7 +21,7 @@ To use this package, add `material_design` as a dependency in your `pubspec.yaml
 
 ```yaml
 dependencies:
-  material_design: ^0.31.0-dev
+  material_design: ^0.32.0-dev
 ```
 
 Then, import the library in your Dart code:
@@ -285,6 +285,204 @@ class AccessibleButton extends StatelessWidget {
   }
 }
 ```
+
+---
+
+## 🎨 Shape Library Usage Examples
+
+Explore various ways to use the shape library in your Flutter application, from basic setup to advanced customization.
+
+## Basic Usage
+
+### 1. Applying a Predefined Shape
+
+Use `MaterialShapes` with a scale value (e.g., `ShapeScale.medium`) for quick and consistent rounded corners.
+
+```dart
+// Basic usage with a scale value
+Container(
+  decoration: ShapeDecoration(
+    shape: MaterialShapes.rounded(ShapeScale.medium),
+    color: Theme.of(context).colorScheme.surface,
+  ),
+  child: content,
+);
+```
+
+### 2. Creating an Asymmetric Shape
+
+Define custom shapes by specifying individual corner radii.
+
+```dart
+// Shape with different corner radii
+final customShape = MaterialShapes.roundedWith(
+  CornerShape(
+    topLeft: ShapeScale.large,
+    topRight: ShapeScale.large,
+    bottomLeft: ShapeScale.none,
+    bottomRight: ShapeScale.none,
+  ),
+);
+```
+
+### 3. Using the ShapeContainer Widget
+
+Simplified shape application with the convenience widget.
+
+```dart
+ShapeContainer(
+  radius: ShapeScale.medium,
+  color: Colors.blue,
+  elevation: 2.0,
+  padding: const EdgeInsets.all(16.0),
+  child: const Text('Content with shape'),
+);
+```
+
+## Theming & Schemes
+
+### 4. Defining a Custom ShapeScheme
+
+Create consistent corner styles across your app.
+
+```dart
+// Custom shape scheme definition
+final shapeScheme = ShapeScheme(
+  cornerFamily: CornerFamily.cut,
+  medium: 16.0, // Custom radius value
+);
+
+// Get a shape from the scheme
+final cardShape = shapeScheme.getShape(shapeScheme.medium);
+```
+
+### 5. Integrating Shapes with ThemeExtension
+
+Make shapes available throughout your app's theme.
+
+```dart
+MaterialApp(
+  theme: ThemeData(
+    extensions: [
+      ShapeTheme(
+        scheme: ShapeScheme.cut, // Base scheme
+        cardShape: MaterialShapes.continuous(20), // Override
+      ),
+    ],
+  ),
+);
+```
+
+### 6. Accessing Shapes from the Theme
+
+Use context extension for easy access.
+
+```dart
+class MyWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final cardShape = context.shapeTheme.effectiveCardShape;
+
+    return Card(
+      shape: cardShape,
+      child: content,
+    );
+  }
+}
+```
+
+## Advanced Usage
+
+### 7. Creating Custom Shaped Components
+
+Align components with your design system.
+
+```dart
+class CustomButton extends StatelessWidget {
+  final VoidCallback onPressed;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      shape: ComponentShapes.button,
+      color: Theme.of(context).colorScheme.primary,
+      child: InkWell(
+        onTap: onPressed,
+        customBorder: ComponentShapes.button,
+        child: Container(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 24.0,
+            vertical: 10.0,
+          ),
+          child: child,
+        ),
+      ),
+    );
+  }
+}
+```
+
+### 8. Animating Between Shapes
+
+Create smooth shape transitions.
+
+```dart
+class AnimatedShapeWidget extends StatefulWidget {
+  @override
+  _AnimatedShapeWidgetState createState() => _AnimatedShapeWidgetState();
+}
+
+class _AnimatedShapeWidgetState extends State<AnimatedShapeWidget>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _animation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      duration: const Duration(milliseconds: 300),
+      vsync: this,
+    );
+    _animation = CurvedAnimation(
+      parent: _controller,
+      curve: Curves.easeInOut,
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: _animation,
+      builder: (context, child) {
+        final shape = ShapeUtils.lerpShapes(
+          MaterialShapes.rounded(ShapeScale.small),
+          MaterialShapes.rounded(ShapeScale.large),
+          _animation.value,
+        );
+
+        return Container(
+          decoration: ShapeDecoration(
+            shape: shape!,
+            color: Colors.blue,
+          ),
+          child: child,
+        );
+      },
+      child: content,
+    );
+  }
+}
+```
+
+## Key Features
+
+- **Consistent Design**: Predefined shapes maintain visual harmony
+- **Customization**: Full control over individual corners
+- **Theming Integration**: Works seamlessly with Flutter's theming system
+- **Performance**: Optimized for smooth animations
+- **Convenience**: Helper widgets reduce boilerplate code
 
 ---
 

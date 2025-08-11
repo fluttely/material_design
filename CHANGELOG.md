@@ -4,6 +4,20 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adherves to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.32.0-dev
+
+### ✨ Features
+
+- **Material Design 3 Shape System**: Implemented the complete Material Design 3 shape system in `lib/src/styles/shape/shape_system.dart`. This feature includes:
+  - **`ShapeScale`**: Defines the corner radius scale from `none` (0dp) to `full` (circular).
+  - **`CornerShape`**: Allows for creating shapes with individual corner radii.
+  - **`CornerFamily`**: Supports both `rounded` and `cut` corner styles.
+  - **`ShapeScheme`**: A complete shape scheme for consistent application-wide shapes.
+  - **`MaterialShapes`**: A factory for creating various shape borders like `rounded`, `cut`, and `continuous`.
+  - **`ComponentShapes`**: Predefined shapes for common Material Design 3 components.
+  - **`ShapeTheme`**: A Theme extension for integrating the shape system with Flutter's theme.
+  - **`ShapeContainer`**: A widget for applying shapes to its child.
+
 ## 0.31.0-dev
 
 ### ✨ Features
