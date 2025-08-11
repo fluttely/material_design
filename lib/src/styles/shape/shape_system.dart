@@ -142,10 +142,13 @@ class CornerShape {
 
   /// The radius for the top-left corner.
   final double topLeft;
+
   /// The radius for the top-right corner.
   final double topRight;
+
   /// The radius for the bottom-right corner.
   final double bottomRight;
+
   /// The radius for the bottom-left corner.
   final double bottomLeft;
 
@@ -639,15 +642,13 @@ class ShapeTheme extends ThemeExtension<ShapeTheme> {
   final ShapeBorder? textFieldShape;
 
   /// Gets the effective button shape.
-  ShapeBorder get effectiveButtonShape =>
-      buttonShape ?? ComponentShapes.button;
+  ShapeBorder get effectiveButtonShape => buttonShape ?? ComponentShapes.button;
 
   /// Gets the effective card shape.
   ShapeBorder get effectiveCardShape => cardShape ?? ComponentShapes.card;
 
   /// Gets the effective dialog shape.
-  ShapeBorder get effectiveDialogShape =>
-      dialogShape ?? ComponentShapes.dialog;
+  ShapeBorder get effectiveDialogShape => dialogShape ?? ComponentShapes.dialog;
 
   /// Gets the effective bottom sheet shape.
   ShapeBorder get effectiveBottomSheetShape =>
@@ -791,17 +792,20 @@ class ShapeUtils {
     if (a.runtimeType == b.runtimeType) {
       if (a is RoundedRectangleBorder && b is RoundedRectangleBorder) {
         return RoundedRectangleBorder(
-          borderRadius: BorderRadiusGeometry.lerp(a.borderRadius, b.borderRadius, t)!,
+          borderRadius:
+              BorderRadiusGeometry.lerp(a.borderRadius, b.borderRadius, t)!,
         );
       }
       if (a is BeveledRectangleBorder && b is BeveledRectangleBorder) {
         return BeveledRectangleBorder(
-          borderRadius: BorderRadiusGeometry.lerp(a.borderRadius, b.borderRadius, t)!,
+          borderRadius:
+              BorderRadiusGeometry.lerp(a.borderRadius, b.borderRadius, t)!,
         );
       }
       if (a is ContinuousRectangleBorder && b is ContinuousRectangleBorder) {
         return ContinuousRectangleBorder(
-          borderRadius: BorderRadiusGeometry.lerp(a.borderRadius, b.borderRadius, t)!,
+          borderRadius:
+              BorderRadiusGeometry.lerp(a.borderRadius, b.borderRadius, t)!,
         );
       }
     }
