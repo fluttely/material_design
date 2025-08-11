@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adherves to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.33.0-dev
+
+### ✨ Features
+
+- **Motion System**: Implemented the complete Material Design 3 motion system, including easing and duration tokens.
+  - **`duration.dart`**: Provides standardized durations for animations.
+  - **`easing.dart`**: Provides standard easing curves for natural and expressive motion.
+
+### 📚 Documentation
+
+- **`README.md` Overhaul**: The `README.md` has been completely rewritten to be more concise and provide better examples for all features.
+
 ## 0.32.0-dev
 
 ### ✨ Features

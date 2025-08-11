@@ -17,13 +17,13 @@ void main() {
       expect(ShapeScale.extraLarge, 28.0);
       expect(ShapeScale.full, 9999.0);
     });
-    
+
     test('getFullRadius should calculate correctly', () {
       final size = Size(100, 50);
       expect(ShapeScale.getFullRadius(size), 25.0);
     });
   });
-  
+
   group('CornerShape', () {
     test('should create uniform corners', () {
       final shape = CornerShape.all(10.0);
@@ -32,50 +32,50 @@ void main() {
       expect(shape.bottomLeft, 10.0);
       expect(shape.bottomRight, 10.0);
     });
-    
+
     test('should convert to BorderRadius', () {
       final shape = CornerShape.top(16.0);
       final borderRadius = shape.toBorderRadius();
-      
+
       expect(borderRadius.topLeft.x, 16.0);
       expect(borderRadius.topRight.x, 16.0);
       expect(borderRadius.bottomLeft.x, 0.0);
       expect(borderRadius.bottomRight.x, 0.0);
     });
   });
-  
+
   group('ShapeScheme', () {
     test('should create correct shapes for corner family', () {
       final roundedScheme = ShapeScheme(cornerFamily: CornerFamily.rounded);
       final cutScheme = ShapeScheme(cornerFamily: CornerFamily.cut);
-      
+
       final roundedShape = roundedScheme.getShape(12.0);
       final cutShape = cutScheme.getShape(12.0);
-      
+
       expect(roundedShape, isA<RoundedRectangleBorder>());
       expect(cutShape, isA<BeveledRectangleBorder>());
     });
   });
-  
+
   group('ComponentShapes', () {
     test('button should have full radius', () {
       final buttonShape = ComponentShapes.button as RoundedRectangleBorder;
       final radius = buttonShape.borderRadius as BorderRadius;
-      
+
       expect(radius.topLeft.x, ShapeScale.full);
     });
-    
+
     test('card should have medium radius', () {
       final cardShape = ComponentShapes.card as RoundedRectangleBorder;
       final radius = cardShape.borderRadius as BorderRadius;
-      
+
       expect(radius.topLeft.x, ShapeScale.medium);
     });
-    
+
     test('dialog should have extra large radius', () {
       final dialogShape = ComponentShapes.dialog as RoundedRectangleBorder;
       final radius = dialogShape.borderRadius as BorderRadius;
-      
+
       expect(radius.topLeft.x, ShapeScale.extraLarge);
     });
   });
