@@ -18,7 +18,7 @@ Build beautiful Flutter apps aligned with Material Design 3 guidelines using rea
 
 ```yaml
 dependencies:
-  material_design: ^0.33.0-dev
+  material_design: ^0.34.0-dev
 ```
 
 ```dart
@@ -42,6 +42,40 @@ Container(
   child: Text('Hello Material Design 3'),
 );
 ```
+
+### Elevation System
+
+```dart
+// Basic usage
+Container(
+  decoration: ElevationUtils.createElevatedDecoration(
+    color: theme.colorScheme.surface,
+    elevation: MaterialElevation.level2,
+    borderRadius: BorderRadius.circular(12),
+  ),
+  child: content,
+);
+
+// Using the helper widget
+ElevatedSurface(
+  elevation: ComponentElevation.cardElevated,
+  borderRadius: BorderRadius.circular(12),
+  padding: EdgeInsets.all(16),
+  child: Text('Elevated Card'),
+);
+
+// Elevation animation
+AnimatedContainer(
+  duration: MaterialDuration.short3,
+  decoration: BoxDecoration(
+    boxShadow: MaterialShadows.getShadows(
+      isHovered ? 2 : 1,
+    ),
+  ),
+);
+```
+
+If you want, I can also **integrate this block directly into your README** in a consistent style with your other sections so it matches perfectly.
 
 ### Motion System (Duration & Easing)
 
