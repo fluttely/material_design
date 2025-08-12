@@ -4,6 +4,72 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adherves to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.35.0-dev
+
+### 🚀 Major Release - Design Token Architecture
+
+This version introduces a complete architectural overhaul with a professional token-based design system, making this package suitable for enterprise applications.
+
+### ✨ Features
+
+- **Design Token System Architecture**: Complete implementation of the three-tier token hierarchy (Reference → System → Component tokens)
+  - **Reference Tokens**: Raw values for elevation, shadow opacity, and tonal overlays
+  - **System Tokens**: Semantic elevation levels with proper token relationships
+  - **Component Tokens**: Component-specific elevation values for Cards, Buttons, FABs, Dialogs, and Navigation components
+  - **Token Resolver**: Advanced token validation and hierarchy management
+  - **Context Extensions**: Easy access to tokens via `context.cardElevation`, `context.buttonDuration`, etc.
+
+- **Enhanced Elevation System**: Completely rewritten elevation system with token architecture
+  - **ElevatedSurface Widget**: Professional elevated surface widget with token support
+  - **MaterialElevation**: Utility class for state-based elevation management
+  - **Tonal Elevation**: Full dark theme support with primary overlay calculations
+  - **State Management**: Hover, pressed, dragged, and disabled elevation states
+  - **Performance Optimized**: Const constructors and efficient token resolution
+
+- **Motion System Enhancement**: Expanded motion system with comprehensive token support
+  - **Duration Tokens**: Component-specific animation durations
+  - **Easing Tokens**: Component-specific animation curves
+  - **Choreographed Animations**: MotionChoreographer for complex animation sequences
+  - **Context Access**: Easy access via `context.buttonDuration`, `context.fabEasing`, etc.
+
+- **Shape System Enhancement**: Improved shape system with better token integration
+  - **Shape Tokens**: Component-specific shape definitions
+  - **Context Extensions**: Access shapes via context for better DX
+  - **Performance Improvements**: Optimized shape calculations
+
+### 📚 Documentation
+
+- **Complete README Overhaul**: Comprehensive documentation rewrite featuring:
+  - Professional package description and value proposition
+  - Complete API documentation with examples
+  - Token system explanation and usage patterns
+  - Advanced usage patterns and custom theme extensions
+  - Testing guidelines and best practices
+  - Component-specific token reference tables
+  - Enterprise-ready examples and patterns
+
+### 🔧 Developer Experience
+
+- **Type Safety**: Full TypeScript-style type safety with strongly typed tokens
+- **IDE Support**: Enhanced IntelliSense and autocomplete support
+- **Self-Documenting**: Every token includes metadata and descriptions
+- **Debugging Tools**: Token debugging utilities and validation helpers
+- **Performance**: Const constructors throughout for optimal performance
+
+### 🏗️ Architecture
+
+- **Enterprise-Ready**: Scalable architecture suitable for large applications
+- **Maintainable**: Clear separation of concerns with token hierarchy
+- **Extensible**: Easy to extend with custom tokens and components
+- **Testable**: Comprehensive token validation and testing utilities
+
+### 🔄 Breaking Changes
+
+- **Elevation API**: The elevation system has been completely rewritten with token-based architecture. Migration guide available in README.
+- **Component Access**: Component-specific values now accessed via context extensions (e.g., `context.cardElevation.elevated`)
+
+This release establishes the foundation for a professional, enterprise-grade Material Design 3 implementation in Flutter.
+
 ## 0.34.0-dev
 
 ### ✨ Features

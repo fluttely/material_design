@@ -1,125 +1,487 @@
-/// Material Design 3 easing curves system.
+/// Material Design 3 easing curves system with design tokens.
 ///
 /// This file implements the Material Design 3 motion easing specifications
-/// including standard curves for different types of animations and transitions.
+/// using the design token hierarchy system for maintainable and scalable
+/// easing management.
 ///
-/// Easing curves control the rate of change of an animation over time,
-/// creating more natural and expressive motion.
+/// Token Hierarchy:
+/// - Reference tokens: Raw cubic-bezier values
+/// - System tokens: Semantic easing curves
+/// - Component tokens: Component-specific easing curves
 ///
 /// Based on Material Design 3 specifications:
 /// https://m3.material.io/styles/motion/easing-and-duration/tokens-specs
 library;
 
 import 'package:flutter/animation.dart';
+import 'package:material_design/material_design.dart';
+
+// ============================================================================
+// REFERENCE TOKENS - Raw cubic-bezier control points
+// ============================================================================
+
+/// Container for cubic-bezier control points.
+class CubicBezierPoints {
+  const CubicBezierPoints(this.x1, this.y1, this.x2, this.y2);
+
+  final double x1;
+  final double y1;
+  final double x2;
+  final double y2;
+
+  Cubic toCurve() => Cubic(x1, y1, x2, y2);
+}
+
+/// Reference tokens for cubic-bezier easing values.
+class EasingReferenceTokens {
+  EasingReferenceTokens._();
+
+  // Standard curves
+  static const standardPoints = ReferenceToken<CubicBezierPoints>(
+    CubicBezierPoints(0.2, 0, 0, 1),
+    'easing.standard',
+    description: 'Standard emphasized decelerate curve',
+  );
+
+  static const standardLegacyPoints = ReferenceToken<CubicBezierPoints>(
+    CubicBezierPoints(0.4, 0, 0.2, 1),
+    'easing.standardLegacy',
+    description: 'Legacy Material Design standard curve',
+  );
+
+  // Emphasized curves
+  static const emphasizedPoints = ReferenceToken<CubicBezierPoints>(
+    CubicBezierPoints(0.2, 0, 0, 1),
+    'easing.emphasized',
+    description: 'Emphasized curve for important transitions',
+  );
+
+  static const emphasizedDeceleratePoints = ReferenceToken<CubicBezierPoints>(
+    CubicBezierPoints(0.05, 0.7, 0.1, 1),
+    'easing.emphasizedDecelerate',
+    description: 'Emphasized decelerate for incoming elements',
+  );
+
+  static const emphasizedAcceleratePoints = ReferenceToken<CubicBezierPoints>(
+    CubicBezierPoints(0.3, 0, 0.8, 0.15),
+    'easing.emphasizedAccelerate',
+    description: 'Emphasized accelerate for exiting elements',
+  );
+
+  // Basic curves
+  static const deceleratedPoints = ReferenceToken<CubicBezierPoints>(
+    CubicBezierPoints(0, 0, 0, 1),
+    'easing.decelerated',
+    description: 'Decelerated curve for entering elements',
+  );
+
+  static const acceleratedPoints = ReferenceToken<CubicBezierPoints>(
+    CubicBezierPoints(0.3, 0, 1, 1),
+    'easing.accelerated',
+    description: 'Accelerated curve for leaving elements',
+  );
+
+  // Linear (no easing)
+  static const linearPoints = ReferenceToken<CubicBezierPoints>(
+    CubicBezierPoints(0, 0, 1, 1),
+    'easing.linear',
+    description: 'Linear curve with no easing',
+  );
+
+  // Extended curves
+  static const fastOutSlowInPoints = ReferenceToken<CubicBezierPoints>(
+    CubicBezierPoints(0.4, 0, 0.2, 1),
+    'easing.fastOutSlowIn',
+    description: 'Android legacy fast out slow in',
+  );
+
+  static const fastOutLinearInPoints = ReferenceToken<CubicBezierPoints>(
+    CubicBezierPoints(0.4, 0, 1, 1),
+    'easing.fastOutLinearIn',
+    description: 'Fast out linear in curve',
+  );
+
+  static const linearOutSlowInPoints = ReferenceToken<CubicBezierPoints>(
+    CubicBezierPoints(0, 0, 0.2, 1),
+    'easing.linearOutSlowIn',
+    description: 'Linear out slow in curve',
+  );
+}
+
+// ============================================================================
+// SYSTEM TOKENS - Semantic easing curves
+// ============================================================================
+
+/// System tokens for standard easing curves.
+class EasingSystemTokens {
+  EasingSystemTokens._();
+
+  static final SystemToken<Curve> standard =
+      SystemToken.transform<Curve, CubicBezierPoints>(
+    EasingReferenceTokens.standardPoints,
+    systemName: 'easing.standard',
+    transformer: (points) => points.toCurve(),
+    description: 'Standard curve for most transitions',
+  );
+
+  static final SystemToken<Curve> standardLegacy =
+      SystemToken.transform<Curve, CubicBezierPoints>(
+    EasingReferenceTokens.standardLegacyPoints,
+    systemName: 'easing.standardLegacy',
+    transformer: (points) => points.toCurve(),
+    description: 'Legacy standard curve for compatibility',
+  );
+
+  static final SystemToken<Curve> emphasized =
+      SystemToken.transform<Curve, CubicBezierPoints>(
+    EasingReferenceTokens.emphasizedPoints,
+    systemName: 'easing.emphasized',
+    transformer: (points) => points.toCurve(),
+    description: 'Emphasized curve for important transitions',
+  );
+
+  static final SystemToken<Curve> emphasizedDecelerate =
+      SystemToken.transform<Curve, CubicBezierPoints>(
+    EasingReferenceTokens.emphasizedDeceleratePoints,
+    systemName: 'easing.emphasizedDecelerate',
+    transformer: (points) => points.toCurve(),
+    description: 'Dramatic deceleration for incoming elements',
+  );
+
+  static final SystemToken<Curve> emphasizedAccelerate =
+      SystemToken.transform<Curve, CubicBezierPoints>(
+    EasingReferenceTokens.emphasizedAcceleratePoints,
+    systemName: 'easing.emphasizedAccelerate',
+    transformer: (points) => points.toCurve(),
+    description: 'Dramatic acceleration for exiting elements',
+  );
+
+  static final SystemToken<Curve> decelerated =
+      SystemToken.transform<Curve, CubicBezierPoints>(
+    EasingReferenceTokens.deceleratedPoints,
+    systemName: 'easing.decelerated',
+    transformer: (points) => points.toCurve(),
+    description: 'Decelerated curve for entering elements',
+  );
+
+  static final SystemToken<Curve> accelerated =
+      SystemToken.transform<Curve, CubicBezierPoints>(
+    EasingReferenceTokens.acceleratedPoints,
+    systemName: 'easing.accelerated',
+    transformer: (points) => points.toCurve(),
+    description: 'Accelerated curve for leaving elements',
+  );
+
+  static const linear = SystemToken<Curve>(
+    Curves.linear,
+    'easing.linear',
+    description: 'Linear curve with constant rate of change',
+  );
+}
+
+/// System tokens for extended easing curves.
+class ExtendedEasingSystemTokens {
+  ExtendedEasingSystemTokens._();
+
+  static final SystemToken<Curve> fastOutSlowIn =
+      SystemToken.transform<Curve, CubicBezierPoints>(
+    EasingReferenceTokens.fastOutSlowInPoints,
+    systemName: 'easing.extended.fastOutSlowIn',
+    transformer: (points) => points.toCurve(),
+    description: 'Fast out slow in for Android compatibility',
+  );
+
+  static final SystemToken<Curve> fastOutLinearIn =
+      SystemToken.transform<Curve, CubicBezierPoints>(
+    EasingReferenceTokens.fastOutLinearInPoints,
+    systemName: 'easing.extended.fastOutLinearIn',
+    transformer: (points) => points.toCurve(),
+    description: 'Fast out linear in curve',
+  );
+
+  static final SystemToken<Curve> linearOutSlowIn =
+      SystemToken.transform<Curve, CubicBezierPoints>(
+    EasingReferenceTokens.linearOutSlowInPoints,
+    systemName: 'easing.extended.linearOutSlowIn',
+    transformer: (points) => points.toCurve(),
+    description: 'Linear out slow in curve',
+  );
+
+  // Bounce curves
+  static const bounceIn = SystemToken<Curve>(
+    Curves.bounceIn,
+    'easing.extended.bounceIn',
+    description: 'Bounce in curve for playful animations',
+  );
+
+  static const bounceOut = SystemToken<Curve>(
+    Curves.bounceOut,
+    'easing.extended.bounceOut',
+    description: 'Bounce out curve for playful animations',
+  );
+
+  static const bounceInOut = SystemToken<Curve>(
+    Curves.bounceInOut,
+    'easing.extended.bounceInOut',
+    description: 'Bounce in and out curve for playful animations',
+  );
+
+  // Elastic curves
+  static const elasticIn = SystemToken<Curve>(
+    Curves.elasticIn,
+    'easing.extended.elasticIn',
+    description: 'Elastic in curve for spring-like animations',
+  );
+
+  static const elasticOut = SystemToken<Curve>(
+    Curves.elasticOut,
+    'easing.extended.elasticOut',
+    description: 'Elastic out curve for spring-like animations',
+  );
+
+  static const elasticInOut = SystemToken<Curve>(
+    Curves.elasticInOut,
+    'easing.extended.elasticInOut',
+    description: 'Elastic in and out curve for spring-like animations',
+  );
+}
+
+// ============================================================================
+// COMPONENT TOKENS - Component-specific easing curves
+// ============================================================================
+
+/// Component tokens for panel animations.
+class PanelEasingTokens {
+  PanelEasingTokens._();
+
+  static final expand = ComponentToken<Curve>.fromSystem(
+    EasingSystemTokens.emphasizedDecelerate,
+    component: 'Panel',
+    tokenName: 'easing',
+    state: 'expand',
+    description: 'Panel expansion easing',
+  );
+
+  static final collapse = ComponentToken<Curve>.fromSystem(
+    EasingSystemTokens.emphasizedAccelerate,
+    component: 'Panel',
+    tokenName: 'easing',
+    state: 'collapse',
+    description: 'Panel collapse easing',
+  );
+}
+
+/// Component tokens for FAB animations.
+class FABEasingTokens {
+  FABEasingTokens._();
+
+  static final show = ComponentToken<Curve>.fromSystem(
+    EasingSystemTokens.decelerated,
+    component: 'FAB',
+    tokenName: 'easing',
+    state: 'show',
+    description: 'FAB show animation easing',
+  );
+
+  static final hide = ComponentToken<Curve>.fromSystem(
+    EasingSystemTokens.accelerated,
+    component: 'FAB',
+    tokenName: 'easing',
+    state: 'hide',
+    description: 'FAB hide animation easing',
+  );
+
+  static final transform = ComponentToken<Curve>.fromSystem(
+    EasingSystemTokens.emphasized,
+    component: 'FAB',
+    tokenName: 'easing',
+    state: 'transform',
+    description: 'FAB transformation easing',
+  );
+}
+
+/// Component tokens for sheet animations.
+class SheetEasingTokens {
+  SheetEasingTokens._();
+
+  static final bottomSheetOpen = ComponentToken<Curve>.fromSystem(
+    EasingSystemTokens.emphasizedDecelerate,
+    component: 'BottomSheet',
+    tokenName: 'easing',
+    state: 'open',
+    description: 'Bottom sheet opening easing',
+  );
+
+  static final bottomSheetClose = ComponentToken<Curve>.fromSystem(
+    EasingSystemTokens.accelerated,
+    component: 'BottomSheet',
+    tokenName: 'easing',
+    state: 'close',
+    description: 'Bottom sheet closing easing',
+  );
+
+  static final sideSheetOpen = ComponentToken<Curve>.fromSystem(
+    EasingSystemTokens.emphasizedDecelerate,
+    component: 'SideSheet',
+    tokenName: 'easing',
+    state: 'open',
+    description: 'Side sheet opening easing',
+  );
+
+  static final sideSheetClose = ComponentToken<Curve>.fromSystem(
+    EasingSystemTokens.accelerated,
+    component: 'SideSheet',
+    tokenName: 'easing',
+    state: 'close',
+    description: 'Side sheet closing easing',
+  );
+}
+
+/// Component tokens for dialog animations.
+class DialogEasingTokens {
+  DialogEasingTokens._();
+
+  static final open = ComponentToken<Curve>.fromSystem(
+    EasingSystemTokens.decelerated,
+    component: 'Dialog',
+    tokenName: 'easing',
+    state: 'open',
+    description: 'Dialog opening easing',
+  );
+
+  static final close = ComponentToken<Curve>.fromSystem(
+    EasingSystemTokens.accelerated,
+    component: 'Dialog',
+    tokenName: 'easing',
+    state: 'close',
+    description: 'Dialog closing easing',
+  );
+}
+
+/// Component tokens for navigation animations.
+class NavigationEasingTokens {
+  NavigationEasingTokens._();
+
+  static final transition = ComponentToken<Curve>.fromSystem(
+    EasingSystemTokens.emphasized,
+    component: 'Navigation',
+    tokenName: 'easing',
+    state: 'transition',
+    description: 'Navigation transition easing',
+  );
+
+  static final tabSwitch = ComponentToken<Curve>.fromSystem(
+    EasingSystemTokens.standard,
+    component: 'Tab',
+    tokenName: 'easing',
+    state: 'switch',
+    description: 'Tab switch animation easing',
+  );
+
+  static final drawerSlide = ComponentToken<Curve>.fromSystem(
+    EasingSystemTokens.emphasizedDecelerate,
+    component: 'Drawer',
+    tokenName: 'easing',
+    state: 'slide',
+    description: 'Navigation drawer slide easing',
+  );
+}
+
+/// Component tokens for selection control animations.
+class SelectionEasingTokens {
+  SelectionEasingTokens._();
+
+  static final switchToggle = ComponentToken<Curve>.fromSystem(
+    EasingSystemTokens.standard,
+    component: 'Switch',
+    tokenName: 'easing',
+    state: 'toggle',
+    description: 'Switch toggle animation easing',
+  );
+
+  static final checkboxToggle = ComponentToken<Curve>.fromSystem(
+    EasingSystemTokens.standard,
+    component: 'Checkbox',
+    tokenName: 'easing',
+    state: 'toggle',
+    description: 'Checkbox toggle animation easing',
+  );
+
+  static final radioSelect = ComponentToken<Curve>.fromSystem(
+    EasingSystemTokens.standard,
+    component: 'Radio',
+    tokenName: 'easing',
+    state: 'select',
+    description: 'Radio selection animation easing',
+  );
+}
+
+/// Component tokens for feedback animations.
+class FeedbackEasingTokens {
+  FeedbackEasingTokens._();
+
+  static final ripple = ComponentToken<Curve>.fromSystem(
+    EasingSystemTokens.decelerated,
+    component: 'Ripple',
+    tokenName: 'easing',
+    description: 'Ripple effect easing',
+  );
+
+  static final hover = ComponentToken<Curve>.fromSystem(
+    EasingSystemTokens.standard,
+    component: 'Hover',
+    tokenName: 'easing',
+    description: 'Hover effect easing',
+  );
+
+  static final focus = ComponentToken<Curve>.fromSystem(
+    EasingSystemTokens.standard,
+    component: 'Focus',
+    tokenName: 'easing',
+    description: 'Focus effect easing',
+  );
+}
+
+/// Component tokens for progress indicators.
+class ProgressEasingTokens {
+  ProgressEasingTokens._();
+
+  static final linear = ComponentToken<Curve>.fromSystem(
+    EasingSystemTokens.linear,
+    component: 'Progress',
+    tokenName: 'easing',
+    state: 'linear',
+    description: 'Linear progress indicator easing',
+  );
+
+  static final circular = ComponentToken<Curve>.fromSystem(
+    EasingSystemTokens.linear,
+    component: 'Progress',
+    tokenName: 'easing',
+    state: 'circular',
+    description: 'Circular progress indicator easing',
+  );
+}
+
+// ============================================================================
+// PUBLIC API - Easing utilities and helpers
+// ============================================================================
 
 /// Material Design 3 easing curves.
-///
-/// Provides the four main easing curves used in Material Design 3:
-/// - Standard: For most transitions
-/// - Emphasized: For important or larger transitions
-/// - Decelerated: For incoming elements
-/// - Accelerated: For exiting elements
-///
-/// Reference: https://m3.material.io/styles/motion/easing-and-duration/applying-easing-and-duration
 class MaterialEasing {
   MaterialEasing._();
 
-  /// Standard easing curve (Emphasized Decelerate).
-  ///
-  /// Used for most transitions and animations.
-  /// Creates smooth, natural motion that feels responsive.
-  ///
-  /// Cubic-bezier: (0.2, 0.0, 0.0, 1.0)
-  ///
-  /// Use cases:
-  /// - View transitions
-  /// - Component state changes
-  /// - Most general animations
-  static const Curve standard = Cubic(0.2, 0, 0, 1);
-
-  /// Legacy standard curve (for backwards compatibility).
-  ///
-  /// The previous Material Design standard curve.
-  /// Cubic-bezier: (0.4, 0.0, 0.2, 1.0)
-  static const Curve standardLegacy = Cubic(0.4, 0, 0.2, 1);
-
-  /// Emphasized easing curve.
-  ///
-  /// Used for large, expressive transitions that need extra attention.
-  /// Creates more dramatic motion with stronger acceleration and deceleration.
-  ///
-  /// Cubic-bezier: (0.2, 0.0, 0.0, 1.0)
-  /// Note: In M3, this is the same as standard
-  ///
-  /// Use cases:
-  /// - Page transitions
-  /// - Large panel movements
-  /// - Hero animations
-  /// - Morphing shapes
-  static const Curve emphasized = Cubic(0.2, 0, 0, 1);
-
-  /// Emphasized decelerate easing curve.
-  ///
-  /// Starts fast and slows down dramatically.
-  /// Creates a sense of something arriving or settling into place.
-  ///
-  /// Cubic-bezier: (0.05, 0.7, 0.1, 1.0)
-  ///
-  /// Use cases:
-  /// - Incoming elements
-  /// - Opening animations
-  /// - Expanding content
-  static const Curve emphasizedDecelerate = Cubic(0.05, 0.7, 0.1, 1);
-
-  /// Emphasized accelerate easing curve.
-  ///
-  /// Starts slowly and speeds up dramatically.
-  /// Creates a sense of something departing quickly.
-  ///
-  /// Cubic-bezier: (0.3, 0.0, 0.8, 0.15)
-  ///
-  /// Use cases:
-  /// - Exiting elements
-  /// - Closing animations
-  /// - Collapsing content
-  static const Curve emphasizedAccelerate = Cubic(0.3, 0, 0.8, 0.15);
-
-  /// Decelerated easing curve.
-  ///
-  /// Enters quickly and slows down.
-  /// Used for elements entering the screen.
-  ///
-  /// Cubic-bezier: (0.0, 0.0, 0.0, 1.0)
-  ///
-  /// Use cases:
-  /// - Fade in animations
-  /// - Slide in from edge
-  /// - Pop-up appearances
-  static const Curve decelerated = Cubic(0, 0, 0, 1);
-
-  /// Accelerated easing curve.
-  ///
-  /// Starts slowly and speeds up.
-  /// Used for elements leaving the screen.
-  ///
-  /// Cubic-bezier: (0.3, 0.0, 1.0, 1.0)
-  ///
-  /// Use cases:
-  /// - Fade out animations
-  /// - Slide out to edge
-  /// - Dismissal animations
-  static const Curve accelerated = Cubic(0.3, 0, 1, 1);
-
-  /// Linear easing (no easing).
-  ///
-  /// Constant rate of change.
-  /// Use sparingly, as it appears mechanical.
-  ///
-  /// Use cases:
-  /// - Progress indicators
-  /// - Continuous rotations
-  /// - When motion should be predictable
-  static const Curve linear = Curves.linear;
+  // Standard curves
+  static Curve get standard => EasingSystemTokens.standard.value;
+  static Curve get standardLegacy => EasingSystemTokens.standardLegacy.value;
+  static Curve get emphasized => EasingSystemTokens.emphasized.value;
+  static Curve get emphasizedDecelerate =>
+      EasingSystemTokens.emphasizedDecelerate.value;
+  static Curve get emphasizedAccelerate =>
+      EasingSystemTokens.emphasizedAccelerate.value;
+  static Curve get decelerated => EasingSystemTokens.decelerated.value;
+  static Curve get accelerated => EasingSystemTokens.accelerated.value;
+  static Curve get linear => EasingSystemTokens.linear.value;
 
   /// Gets the appropriate easing curve for a given animation type.
   static Curve getEasing(MotionType type) {
@@ -138,7 +500,6 @@ class MaterialEasing {
   }
 
   /// Returns the reverse of an easing curve.
-  /// Useful for exit animations that mirror entrance animations.
   static Curve reverse(Curve curve) {
     if (curve == decelerated) return accelerated;
     if (curve == accelerated) return decelerated;
@@ -148,123 +509,56 @@ class MaterialEasing {
   }
 
   /// Creates a custom cubic bezier curve.
-  ///
-  /// Parameters should be between 0.0 and 1.0.
   static Curve custom(double x1, double y1, double x2, double y2) {
     return Cubic(x1, y1, x2, y2);
   }
+
+  /// Gets an easing token by its semantic name.
+  static DesignToken<Curve>? getToken(String name) {
+    final tokens = <String, DesignToken<Curve>>{
+      'standard': EasingSystemTokens.standard,
+      'emphasized': EasingSystemTokens.emphasized,
+      'emphasizedDecelerate': EasingSystemTokens.emphasizedDecelerate,
+      'emphasizedAccelerate': EasingSystemTokens.emphasizedAccelerate,
+      'decelerated': EasingSystemTokens.decelerated,
+      'accelerated': EasingSystemTokens.accelerated,
+      'linear': EasingSystemTokens.linear,
+    };
+    return tokens[name];
+  }
+}
+
+/// Extended easing curves.
+class MaterialEasingExtended {
+  MaterialEasingExtended._();
+
+  // Symmetric transitions
+  static Curve get fastOutSlowIn =>
+      ExtendedEasingSystemTokens.fastOutSlowIn.value;
+  static Curve get fastOutLinearIn =>
+      ExtendedEasingSystemTokens.fastOutLinearIn.value;
+  static Curve get linearOutSlowIn =>
+      ExtendedEasingSystemTokens.linearOutSlowIn.value;
+
+  // Bounce curves
+  static Curve get bounceIn => ExtendedEasingSystemTokens.bounceIn.value;
+  static Curve get bounceOut => ExtendedEasingSystemTokens.bounceOut.value;
+  static Curve get bounceInOut => ExtendedEasingSystemTokens.bounceInOut.value;
+
+  // Elastic curves
+  static Curve get elasticIn => ExtendedEasingSystemTokens.elasticIn.value;
+  static Curve get elasticOut => ExtendedEasingSystemTokens.elasticOut.value;
+  static Curve get elasticInOut =>
+      ExtendedEasingSystemTokens.elasticInOut.value;
 }
 
 /// Types of motion for selecting appropriate easing curves.
 enum MotionType {
-  /// Elements entering the view.
   incoming,
-
-  /// Elements leaving the view.
   outgoing,
-
-  /// Elements transitioning between states.
   transition,
-
-  /// Continuous or looping animations.
   persistent,
-
-  /// Large, important transitions.
   emphasized,
-}
-
-/// Extended easing curves for specific use cases.
-class MaterialEasingExtended {
-  MaterialEasingExtended._();
-
-  // Symmetric transitions (same curve for both directions)
-
-  /// Fast out, slow in (Android legacy).
-  /// Cubic-bezier: (0.4, 0.0, 0.2, 1.0)
-  static const Curve fastOutSlowIn = Cubic(0.4, 0, 0.2, 1);
-
-  /// Fast out, linear in.
-  /// Cubic-bezier: (0.4, 0.0, 1.0, 1.0)
-  static const Curve fastOutLinearIn = Cubic(0.4, 0, 1, 1);
-
-  /// Linear out, slow in.
-  /// Cubic-bezier: (0.0, 0.0, 0.2, 1.0)
-  static const Curve linearOutSlowIn = Cubic(0, 0, 0.2, 1);
-
-  // Bounce curves for playful animations
-
-  /// Bounce in curve.
-  static const Curve bounceIn = Curves.bounceIn;
-
-  /// Bounce out curve.
-  static const Curve bounceOut = Curves.bounceOut;
-
-  /// Bounce in and out curve.
-  static const Curve bounceInOut = Curves.bounceInOut;
-
-  // Elastic curves for spring-like animations
-
-  /// Elastic in curve.
-  static const Curve elasticIn = Curves.elasticIn;
-
-  /// Elastic out curve.
-  static const Curve elasticOut = Curves.elasticOut;
-
-  /// Elastic in and out curve.
-  static const Curve elasticInOut = Curves.elasticInOut;
-}
-
-/// Predefined animation curves for common Material Design 3 patterns.
-class MaterialAnimationCurves {
-  MaterialAnimationCurves._();
-
-  /// Curve for expanding panels or cards.
-  static const Curve expandPanel = MaterialEasing.emphasizedDecelerate;
-
-  /// Curve for collapsing panels or cards.
-  static const Curve collapsePanel = MaterialEasing.emphasizedAccelerate;
-
-  /// Curve for showing FAB.
-  static const Curve showFab = MaterialEasing.decelerated;
-
-  /// Curve for hiding FAB.
-  static const Curve hideFab = MaterialEasing.accelerated;
-
-  /// Curve for opening bottom sheets.
-  static const Curve openBottomSheet = MaterialEasing.emphasizedDecelerate;
-
-  /// Curve for closing bottom sheets.
-  static const Curve closeBottomSheet = MaterialEasing.accelerated;
-
-  /// Curve for opening dialogs.
-  static const Curve openDialog = MaterialEasing.decelerated;
-
-  /// Curve for closing dialogs.
-  static const Curve closeDialog = MaterialEasing.accelerated;
-
-  /// Curve for navigation transitions.
-  static const Curve navigation = MaterialEasing.emphasized;
-
-  /// Curve for tab transitions.
-  static const Curve tabTransition = MaterialEasing.standard;
-
-  /// Curve for switch toggle.
-  static const Curve switchToggle = MaterialEasing.standard;
-
-  /// Curve for checkbox toggle.
-  static const Curve checkboxToggle = MaterialEasing.standard;
-
-  /// Curve for progress indicators.
-  static const Curve progressIndicator = MaterialEasing.linear;
-
-  /// Curve for ripple effects.
-  static const Curve ripple = MaterialEasing.decelerated;
-
-  /// Curve for hover effects.
-  static const Curve hover = MaterialEasing.standard;
-
-  /// Curve for focus effects.
-  static const Curve focus = MaterialEasing.standard;
 }
 
 /// Utilities for working with easing curves.
@@ -272,8 +566,6 @@ class EasingUtils {
   EasingUtils._();
 
   /// Chains two curves together.
-  /// The first curve is applied from 0.0 to [split],
-  /// and the second from [split] to 1.0.
   static Curve chain(Curve first, Curve second, [double split = 0.5]) {
     return Interval(
       0,
@@ -296,7 +588,7 @@ class EasingUtils {
 
   /// Creates a staggered animation curve for list items.
   static Curve stagger(int index, int total, Curve baseCurve) {
-    final delay = index / total * 0.5; // 50% of time for stagger
+    final delay = index / total * 0.5;
     return Interval(
       delay,
       delay + 0.5,
@@ -305,7 +597,6 @@ class EasingUtils {
   }
 
   /// Converts a cubic-bezier string to a Curve.
-  /// Format: "cubic-bezier(x1, y1, x2, y2)"
   static Curve? fromCubicBezier(String bezier) {
     final regex = RegExp(
       r'cubic-bezier\s*\(\s*([0-9.]+)\s*,\s*([0-9.]+)\s*,\s*([0-9.]+)\s*,\s*([0-9.]+)\s*\)',
@@ -353,3 +644,30 @@ class TwoPartCurve extends Curve {
     }
   }
 }
+
+// /// Extension methods for easy access to easing tokens.
+// extension EasingContext on BuildContext {
+//   /// Gets the panel easing tokens.
+//   PanelEasingTokens get panelEasing => PanelEasingTokens();
+
+//   /// Gets the FAB easing tokens.
+//   FABEasingTokens get fabEasing => FABEasingTokens();
+
+//   /// Gets the sheet easing tokens.
+//   SheetEasingTokens get sheetEasing => SheetEasingTokens();
+
+//   /// Gets the dialog easing tokens.
+//   DialogEasingTokens get dialogEasing => DialogEasingTokens();
+
+//   /// Gets the navigation easing tokens.
+//   NavigationEasingTokens get navigationEasing => NavigationEasingTokens();
+
+//   /// Gets the selection easing tokens.
+//   SelectionEasingTokens get selectionEasing => SelectionEasingTokens();
+
+//   /// Gets the feedback easing tokens.
+//   FeedbackEasingTokens get feedbackEasing => FeedbackEasingTokens();
+
+//   /// Gets the progress easing tokens.
+//   ProgressEasingTokens get progressEasing => ProgressEasingTokens();
+// }

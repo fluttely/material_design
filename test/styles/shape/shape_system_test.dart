@@ -1,7 +1,5 @@
 // test/styles/shape/shape_system_test.dart
 
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:material_design/material_design.dart';
@@ -19,14 +17,14 @@ void main() {
     });
 
     test('getFullRadius should calculate correctly', () {
-      final size = Size(100, 50);
+      const size = Size(100, 50);
       expect(ShapeScale.getFullRadius(size), 25.0);
     });
   });
 
   group('CornerShape', () {
     test('should create uniform corners', () {
-      final shape = CornerShape.all(10.0);
+      const shape = CornerShape.all(10);
       expect(shape.topLeft, 10.0);
       expect(shape.topRight, 10.0);
       expect(shape.bottomLeft, 10.0);
@@ -34,7 +32,7 @@ void main() {
     });
 
     test('should convert to BorderRadius', () {
-      final shape = CornerShape.top(16.0);
+      const shape = CornerShape.top(16);
       final borderRadius = shape.toBorderRadius();
 
       expect(borderRadius.topLeft.x, 16.0);
@@ -46,11 +44,14 @@ void main() {
 
   group('ShapeScheme', () {
     test('should create correct shapes for corner family', () {
-      final roundedScheme = ShapeScheme(cornerFamily: CornerFamily.rounded);
-      final cutScheme = ShapeScheme(cornerFamily: CornerFamily.cut);
+      final roundedScheme =
+          ShapeScheme(cornerFamilyToken: ShapeFamilySystemTokens.rounded);
+      final cutScheme =
+          ShapeScheme(cornerFamilyToken: ShapeFamilySystemTokens.cut);
 
-      final roundedShape = roundedScheme.getShape(12.0);
-      final cutShape = cutScheme.getShape(12.0);
+      final roundedShape =
+          roundedScheme.getShape(ShapeScaleSystemTokens.medium);
+      final cutShape = cutScheme.getShape(ShapeScaleSystemTokens.medium);
 
       expect(roundedShape, isA<RoundedRectangleBorder>());
       expect(cutShape, isA<BeveledRectangleBorder>());
