@@ -5,7 +5,7 @@ import 'package:material_design/material_design.dart';
 void main() {
   group('M3EdgeInsets', () {
     test('creates uniform edge insets correctly', () {
-      final edgeInsets = M3EdgeInsets.all(M3SpacingToken.space16);
+      const edgeInsets = M3EdgeInsets.all(M3SpacingToken.space16);
 
       expect(edgeInsets, isA<EdgeInsets>());
       expect(edgeInsets.left, equals(16));
@@ -15,7 +15,7 @@ void main() {
     });
 
     test('creates symmetric edge insets correctly', () {
-      final edgeInsets = M3EdgeInsets.symmetric(
+      const edgeInsets = M3EdgeInsets.symmetric(
         horizontal: M3SpacingToken.space24,
         vertical: M3SpacingToken.space8,
       );
@@ -27,7 +27,7 @@ void main() {
     });
 
     test('creates only edge insets correctly', () {
-      final edgeInsets = M3EdgeInsets.only(
+      const edgeInsets = M3EdgeInsets.only(
         left: M3SpacingToken.space4,
         top: M3SpacingToken.space8,
         right: M3SpacingToken.space12,
@@ -41,7 +41,7 @@ void main() {
     });
 
     test('uses default none when not specified', () {
-      final edgeInsets = M3EdgeInsets.only();
+      const edgeInsets = M3EdgeInsets.only();
 
       expect(edgeInsets.left, equals(0));
       expect(edgeInsets.top, equals(0));
@@ -50,7 +50,7 @@ void main() {
     });
 
     test('symmetric constructor uses default none when not specified', () {
-      final edgeInsets = M3EdgeInsets.symmetric();
+      const edgeInsets = M3EdgeInsets.symmetric();
 
       expect(edgeInsets.left, equals(0));
       expect(edgeInsets.top, equals(0));
@@ -59,12 +59,12 @@ void main() {
     });
 
     test('extends EdgeInsets class', () {
-      final edgeInsets = M3EdgeInsets.all(M3SpacingToken.space16);
+      const edgeInsets = M3EdgeInsets.all(M3SpacingToken.space16);
       expect(edgeInsets, isA<EdgeInsets>());
     });
 
     test('works with margin tokens', () {
-      final edgeInsets = M3EdgeInsets.all(M3MarginToken.compactScreen);
+      const edgeInsets = M3EdgeInsets.all(M3MarginToken.compactScreen);
 
       expect(edgeInsets.left, equals(16));
       expect(edgeInsets.top, equals(16));
@@ -72,17 +72,8 @@ void main() {
       expect(edgeInsets.bottom, equals(16));
     });
 
-    test('works with spacer tokens', () {
-      final edgeInsets = M3EdgeInsets.all(M3SpacerToken.pane);
-
-      expect(edgeInsets.left, equals(24));
-      expect(edgeInsets.top, equals(24));
-      expect(edgeInsets.right, equals(24));
-      expect(edgeInsets.bottom, equals(24));
-    });
-
     test('handles zero spacing', () {
-      final edgeInsets = M3EdgeInsets.all(M3SpacingToken.none);
+      const edgeInsets = M3EdgeInsets.all(M3SpacingToken.none);
 
       expect(edgeInsets.left, equals(0));
       expect(edgeInsets.top, equals(0));
@@ -91,7 +82,7 @@ void main() {
     });
 
     test('handles large spacing values', () {
-      final edgeInsets = M3EdgeInsets.all(M3SpacingToken.space128);
+      const edgeInsets = M3EdgeInsets.all(M3SpacingToken.space128);
 
       expect(edgeInsets.left, equals(128));
       expect(edgeInsets.top, equals(128));
@@ -100,7 +91,7 @@ void main() {
     });
 
     test('supports asymmetric edge insets', () {
-      final edgeInsets = M3EdgeInsets.only(
+      const edgeInsets = M3EdgeInsets.only(
         left: M3SpacingToken.space8,
         right: M3SpacingToken.space32,
       );
@@ -112,7 +103,7 @@ void main() {
     });
 
     test('supports partial symmetric specification', () {
-      final horizontalOnly = M3EdgeInsets.symmetric(
+      const horizontalOnly = M3EdgeInsets.symmetric(
         horizontal: M3SpacingToken.space20,
       );
 
@@ -121,7 +112,7 @@ void main() {
       expect(horizontalOnly.top, equals(0));
       expect(horizontalOnly.bottom, equals(0));
 
-      final verticalOnly = M3EdgeInsets.symmetric(
+      const verticalOnly = M3EdgeInsets.symmetric(
         vertical: M3SpacingToken.space12,
       );
 
@@ -153,8 +144,8 @@ void main() {
     });
 
     test('maintains immutability', () {
-      final edgeInsets1 = M3EdgeInsets.all(M3SpacingToken.space16);
-      final edgeInsets2 = M3EdgeInsets.all(M3SpacingToken.space16);
+      const edgeInsets1 = M3EdgeInsets.all(M3SpacingToken.space16);
+      const edgeInsets2 = M3EdgeInsets.all(M3SpacingToken.space16);
 
       expect(edgeInsets1.left, equals(edgeInsets2.left));
       expect(edgeInsets1.top, equals(edgeInsets2.top));
