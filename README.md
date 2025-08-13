@@ -18,7 +18,7 @@ A comprehensive design system toolkit that brings Google's Material Design 3 spe
 
 ```yaml
 dependencies:
-  material_design: ^0.28.0
+  material_design: ^0.28.1
 ```
 
 ## 🎯 Three Ways to Use This Library
@@ -36,16 +36,16 @@ return AnimatedContainer(
    // M3EdgeInsets enforces token usage + const
   padding: const M3EdgeInsets.all(M3SpacingToken.space16), // (const)
 
-  // M3BoxDecoration ensures all properties follow M3
-  decoration: M3BoxDecoration(
-    borderRadius: M3BorderRadius.medium,             // (const)
-    boxShadow: M3Elevation.level3.shadows,           // (non-const)
-    color: M3Elevation.level3.surfaceColor(context), // (non-const)
+  // M3ShapeDecoration ensures all properties follow M3
+  decoration: M3ShapeDecoration(
+    shape: M3Shape.medium,                                         // (const)
+    boxShadow: M3Elevation.level3.shadows,                         // (non-const)
+    color: M3Elevation.level3.surfaceColor(context),               // (non-const)
   ),
 
   child: const Text(
     'Perfect M3 Implementation',
-    style: M3TextStyle.headlineMedium,                // (const)
+    style: Theme.of(context).textTheme.headlineMedium,             // (non-const)
   ),
 );
 ```
@@ -65,26 +65,22 @@ return AnimatedContainer(
 
 ```dart
 // Intermediate approach - flexible but can violate M3
-Container(
+AnimatedContainer(
+  duration: M3MotionDuration.long2, // ⚠️ Is this the right duration? (const)
+  curve: M3MotionCurve.standard,    // ⚠️ Wrong curve for long2!      (const)
   // Using const tokens but might mix incorrectly
   padding: const EdgeInsets.all(M3Spacings.space16), // (const)
 
-  decoration: const BoxDecoration(
-    borderRadius: M3BorderRadius.medium,             // (const)
+  decoration: ShapeDecoration(
+    borderRadius: M3Shape.medium,                    // (const)
     boxShadow: M3ElevationShadows.level3,            // (const)
-    color: Colors.purple, // ⚠️ Missing surface tint. Not M3 surface color! (const)
+    color: M3Elevation.level3.surfaceColor(context), // (non-const)
   ),
 
   child: const Text(
     'Partial M3 Implementation',
     style: M3TextStyle.headlineMedium,               // (const)
   ),
-);
-
-// Motion example - easy to mismatch
-AnimatedContainer(
-  duration: M3MotionDuration.long2, // ⚠️ Is this the right duration? (const)
-  curve: M3MotionCurve.standard,    // ⚠️ Wrong curve for long2!      (const)
 );
 ```
 
@@ -118,6 +114,7 @@ Container(
         blurRadius: M3SpacingToken.space4.value,  // ❌ Why use spacing for blur?
       ),
     ],
+    color: Colors.purple, // ❌ Missing surface tint. Not M3 surface color! (const)
   ),
 
   child: Text(
@@ -135,34 +132,175 @@ Container(
 - ❌ Verbose without benefits
 - ❌ Easy to misuse tokens
 
-## 📊 Quick Reference
+## 📖 How to Use Each Class
 
-### Design System Classes (Use These First)
+### ✅ 🎯 Design System Classes (Use These First - M3 Compliant)
 
-| Class             | Purpose                             | Example                                                   |
-| :---------------- | :---------------------------------- | :-------------------------------------------------------- |
-| `M3EdgeInsets`    | Type-safe padding/margin with const | `const M3EdgeInsets.all(M3SpacingToken.space16)`          |
-| `M3BoxDecoration` | Complete M3 decoration              | `M3BoxDecoration(elevation: M3Elevation.level3)`          |
-| `M3Gap`           | Auto-directional spacing            | `M3Gap(M3SpacingToken.space16)`                           |
-| `M3Motion`        | Paired duration + curve             | `M3Motion.emphasized`                                     |
-| `M3Elevation`     | Complete elevation concept          | `M3Elevation.level3` (includes dp, shadows, surfaceColor) |
+#### Typography & Text
 
-### Const Tokens (When You Need Flexibility)
+| Class         | Purpose                                            | Example                                            |
+| :------------ | :------------------------------------------------- | :------------------------------------------------- |
+| `M3TextStyle` | Complete typography scale                          | `Text('Hello', style: M3TextStyle.headlineMedium)` |
+|               | `displayLarge`, `displayMedium`, `displaySmall`    | Display text styles                                |
+|               | `headlineLarge`, `headlineMedium`, `headlineSmall` | Headline text styles                               |
+|               | `titleLarge`, `titleMedium`, `titleSmall`          | Title text styles                                  |
+|               | `bodyLarge`, `bodyMedium`, `bodySmall`             | Body text styles                                   |
+|               | `labelLarge`, `labelMedium`, `labelSmall`          | Label text styles                                  |
 
-| Token                | Values                                      | Usage                                      |
-| :------------------- | :------------------------------------------ | :----------------------------------------- |
-| `M3Spacings`         | `space4`, `space8`, `space16`, `space24`... | `const EdgeInsets.all(M3Spacings.space16)` |
-| `M3BorderRadius`     | `small`, `medium`, `large`...               | `BorderRadius: M3BorderRadius.medium`      |
-| `M3ElevationShadows` | `level0` to `level5`                        | `boxShadow: M3ElevationShadows.level3`     |
-| `M3TextStyle`        | `displayLarge`, `bodyMedium`...             | `style: M3TextStyle.headlineMedium`        |
+#### Spacing & Layout
 
-### Token Enums (Avoid Using .value)
+| Class          | Purpose                                     | Example                                                               |
+| :------------- | :------------------------------------------ | :-------------------------------------------------------------------- |
+| `M3EdgeInsets` | Type-safe padding/margin with const         | `const M3EdgeInsets.all(M3SpacingToken.space16)`                      |
+|                | `.all()`, `.symmetric()`, `.only()`         | Different padding patterns                                            |
+|                | `.fromLTRB()`                               | Custom directional padding                                            |
+| `M3Padding`    | Pre-configured padding widget               | `M3Padding.all(token: M3SpacingToken.space16, child: widget)`         |
+|                | `.symmetric()`, `.only()`                   | Directional padding widgets                                           |
+| `M3Gap`        | Auto-directional spacing in Flex            | `Column(children: [widget1, M3Gap(M3SpacingToken.space16), widget2])` |
+|                | Automatically switches between width/height | Based on parent Row/Column                                            |
+|                | `horizontal4` to `horizontal48`             | Horizontal spacers                                                    |
+|                | `vertical4` to `vertical48`                 | Vertical spacers                                                      |
 
-| ⚠️ Avoid                               | Why         | Use Instead                   |
-| :------------------------------------- | :---------- | :---------------------------- |
-| `M3SpacingToken.space16.value`         | Loses const | `M3Spacings.space16`          |
-| `M3CornerToken.medium.value`           | No benefit  | `M3Corners.medium`            |
-| `M3OpacityToken.disabledContent.value` | Verbose     | `M3Opacities.disabledContent` |
+#### Shape & Borders
+
+| Class            | Purpose                                       | Example                                                                          |
+| :--------------- | :-------------------------------------------- | :------------------------------------------------------------------------------- |
+| `M3Shape`        | RoundedRectangleBorder shapes                 | `Card(shape: M3Shape.medium)`                                                    |
+|                  | `none`, `extraSmall`, `small`                 | 0dp, 4dp, 8dp corners                                                            |
+|                  | `medium`, `large`, `extraLarge`               | 12dp, 16dp, 28dp corners                                                         |
+|                  | `full`                                        | Circular/stadium shape                                                           |
+| `M3BorderRadius` | BorderRadius for containers                   | `Container(decoration: BoxDecoration(borderRadius: M3BorderRadius.medium))`      |
+|                  | `none`, `extraSmall`, `small`                 | 0dp, 4dp, 8dp radius                                                             |
+|                  | `medium`, `large`, `extraLarge`               | 12dp, 16dp, 28dp radius                                                          |
+|                  | `full`                                        | Circular radius                                                                  |
+| `M3Radius`       | Individual Radius values                      | `ClipRRect(borderRadius: BorderRadius.all(M3Radius.medium))`                     |
+|                  | Same variants as BorderRadius                 | For individual corner control                                                    |
+| `M3BorderSide`   | Border side configurations                    | `Border(top: M3BorderSide.thin(color: Colors.grey))`                             |
+|                  | `.none()`, `.thin()`, `.medium()`, `.thick()` | 0dp, 1dp, 2dp, 4dp widths                                                        |
+| `M3Border`       | Complete border specifications                | `Container(decoration: BoxDecoration(border: M3Border.all(color: Colors.grey)))` |
+|                  | `.all()`, `.symmetric()`                      | Full and partial borders                                                         |
+
+#### Decorations
+
+| Class               | Purpose                          | Example                                                                    |
+| :------------------ | :------------------------------- | :------------------------------------------------------------------------- |
+| `M3ShapeDecoration` | Shape-based decoration           | `M3ShapeDecoration(shape: M3Shape.medium, color: Colors.blue)`             |
+|                     | Enforces M3 shape tokens         | With elevation and shadows                                                 |
+| `M3BoxDecoration`   | Box-based decoration             | `M3BoxDecoration(borderRadius: M3BorderRadius.medium, color: Colors.blue)` |
+|                     | Enforces M3 border radius tokens | With elevation and shadows                                                 |
+
+#### Elevation & Shadows
+
+| Class         | Purpose                         | Example                       |
+| :------------ | :------------------------------ | :---------------------------- |
+| `M3Elevation` | Complete elevation system       | `M3Elevation.level3`          |
+|               | `.dp` property                  | Access elevation dp value     |
+|               | `.shadows` property             | Access shadow list            |
+|               | `.surfaceColor(context)` method | Get tinted surface color      |
+|               | `level0` to `level5`            | 0dp, 1dp, 3dp, 6dp, 8dp, 12dp |
+
+#### Motion & Animation
+
+| Class      | Purpose                 | Example                                                                                       |
+| :--------- | :---------------------- | :-------------------------------------------------------------------------------------------- |
+| `M3Motion` | Paired duration + curve | `AnimatedContainer(duration: M3Motion.emphasized.duration, curve: M3Motion.emphasized.curve)` |
+|            | `emphasized`            | 500ms with emphasized curve                                                                   |
+|            | `emphasizedIncoming`    | 400ms with decelerate curve                                                                   |
+|            | `emphasizedOutgoing`    | 200ms with accelerate curve                                                                   |
+|            | `standard`              | 300ms with standard curve                                                                     |
+|            | `standardIncoming`      | 250ms with decelerate curve                                                                   |
+|            | `standardOutgoing`      | 200ms with accelerate curve                                                                   |
+|            | `linear`                | 200ms with linear curve                                                                       |
+
+#### Responsive Layout
+
+| Class                    | Purpose                  | Example                                                                     |
+| :----------------------- | :----------------------- | :-------------------------------------------------------------------------- |
+| `M3ResponsiveBuilder`    | Rebuilds on size change  | `M3ResponsiveBuilder(builder: (context, screenSize) => ...)`                |
+| `M3ResponsiveValue<T>`   | Returns value by size    | `M3ResponsiveValue(compact: 2, medium: 3, expanded: 4).get(context)`        |
+| `M3ResponsiveVisibility` | Show/hide by screen size | `M3ResponsiveVisibility(visibleOn: [M3ScreenSize.expanded], child: widget)` |
+| `M3ResponsiveGrid`       | Adaptive grid layout     | `M3ResponsiveGrid(children: widgets, maxCrossAxisExtent: 200)`              |
+| `M3ResponsiveScaffold`   | Adaptive navigation      | `M3ResponsiveScaffold(destinations: [...], body: widget)`                   |
+| `M3ResponsiveGridConfig` | Grid configuration       | `M3ResponsiveGridConfig.fromScreenSize(screenSize)`                         |
+| `M3ResponsiveNavigation` | Navigation type selector | `M3ResponsiveNavigation.getNavigationType(screenSize)`                      |
+
+#### Available Token Enums (Use wrapper classes instead)
+
+| Enum                       | Wrapper Class Alternative               | Best Practice                |
+| :------------------------- | :-------------------------------------- | :--------------------------- |
+| `M3SpacingToken`           | `M3EdgeInsets`, `M3Padding`, `M3Gap`    | Use wrappers for type safety |
+| `M3CornerToken`            | `M3Shape`, `M3BorderRadius`, `M3Radius` | Use shape classes            |
+| `M3OpacityToken`           | Direct `M3Opacities` values             | Use const values             |
+| `M3IconSizeToken`          | Direct `M3IconSizes` values             | Use const values             |
+| `M3MarginToken`            | `M3Margins.getMargin(context)`          | Use responsive method        |
+| `M3BorderWidthToken`       | `M3BorderSide`, `M3Border`              | Use border classes           |
+| `M3StateLayerOpacityToken` | Direct `M3StateLayerOpacities` values   | Use const values             |
+| `M3BreakpointToken`        | `M3ResponsiveBuilder`, `M3ScreenSize`   | Use responsive utilities     |
+| `M3ZIndexToken`            | Direct `M3ZIndexes` values              | Use const values             |
+
+### 🔧 Helper Functions & Utilities
+
+| Utility                         | Purpose                                | Example                                                              |
+| :------------------------------ | :------------------------------------- | :------------------------------------------------------------------- |
+| `M3ScreenSize`                  | Get current screen size classification | `final size = M3ScreenSize.fromContext(context)`                     |
+| `M3SurfaceTint.fromElevation()` | Calculate tinted surface color         | `color: M3SurfaceTint.fromElevation(context, M3ElevationDps.level3)` |
+| `M3Margins.getMargin()`         | Get responsive margin                  | `padding: EdgeInsets.all(M3Margins.getMargin(context))`              |
+| Extension methods               | Various Flutter widget extensions      | Applied automatically when imported                                  |
+
+### ✅ ⚠️ For Maximum Flexibility: Using const Tokens Directly
+
+#### Spacing & Layout Tokens
+
+| Token Class       | Values                                                                                                                  | Usage                                                                              |
+| :---------------- | :---------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------- |
+| `M3Spacings`      | `space0`, `space2`, `space4`, `space8`, `space12`, `space16`, `space24`, `space32`, `space48`                           | `const EdgeInsets.all(M3Spacings.space16)`                                         |
+| `M3Margins`       | `compactScreen` (16dp), `mediumScreen` (24dp), `expandedScreen` (32dp), `largeScreen` (40dp), `extraLargeScreen` (48dp) | `EdgeInsets.symmetric(horizontal: M3Margins.compactScreen)`                        |
+| `M3Spacers`       | Pre-built spacer widgets                                                                                                | `M3Spacers.horizontal16`                                                           |
+| `M3IconSizes`     | `extraSmall` (18dp), `small` (20dp), `medium` (24dp), `large` (36dp), `extraLarge` (40dp), `huge` (48dp)                | `Icon(Icons.star, size: M3IconSizes.medium)`                                       |
+| `M3VisualDensity` | `minimumDensity` (-3), `compactDensity` (-2), `standardDensity` (0), `comfortableDensity` (0)                           | `Theme(visualDensity: VisualDensity(horizontal: M3VisualDensity.standardDensity))` |
+| `M3ZIndexes`      | `behind` (-1), `base` (0), `dropdown` (10), `sticky` (100), `modal` (1000), `tooltip` (9999)                            | `Stack(children: [Positioned(z: M3ZIndexes.modal, child: widget)])`                |
+
+#### Shape & Border Tokens
+
+| Token Class      | Values                                                                                                                   | Usage                                    |
+| :--------------- | :----------------------------------------------------------------------------------------------------------------------- | :--------------------------------------- |
+| `M3Corners`      | `none` (0dp), `extraSmall` (4dp), `small` (8dp), `medium` (12dp), `large` (16dp), `extraLarge` (28dp), `full` (circular) | `Radius.circular(M3Corners.medium)`      |
+| `M3BorderWidths` | `none` (0dp), `thin` (1dp), `medium` (2dp), `thick` (4dp)                                                                | `Border.all(width: M3BorderWidths.thin)` |
+
+#### Motion Tokens
+
+| Token Class        | Values                                                                                                                         | Usage                                                   |
+| :----------------- | :----------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------ |
+| `M3MotionDuration` | `short1-4` (50-200ms), `medium1-4` (250-400ms), `long1-4` (450-600ms), `extraLong1-4` (700-1000ms)                             | `AnimatedContainer(duration: M3MotionDuration.medium2)` |
+| `M3MotionCurve`    | `emphasized`, `emphasizedAccelerate`, `emphasizedDecelerate`, `standard`, `standardAccelerate`, `standardDecelerate`, `linear` | `AnimatedContainer(curve: M3MotionCurve.emphasized)`    |
+
+#### Visual Effect Tokens
+
+| Token Class             | Values                                                                                                                                   | Usage                                                              |
+| :---------------------- | :--------------------------------------------------------------------------------------------------------------------------------------- | :----------------------------------------------------------------- |
+| `M3Opacities`           | `opacity4` (0.04), `opacity8` (0.08), `opacity12` (0.12), `opacity16` (0.16), `opacity38` (0.38), `opacity54` (0.54), `opacity87` (0.87) | `Opacity(opacity: M3Opacities.opacity38)`                          |
+| `M3StateLayerOpacities` | `hover` (0.08), `focus` (0.12), `pressed` (0.12), `dragged` (0.16)                                                                       | `Container(color: color.withOpacity(M3StateLayerOpacities.hover))` |
+| `M3ElevationDps`        | `level0` (0dp), `level1` (1dp), `level2` (3dp), `level3` (6dp), `level4` (8dp), `level5` (12dp)                                          | `Material(elevation: M3ElevationDps.level3)`                       |
+| `M3ElevationShadows`    | `level0`, `level1`, `level2`, `level3`, `level4`, `level5`                                                                               | `BoxDecoration(boxShadow: M3ElevationShadows.level3)`              |
+
+#### Responsive Tokens
+
+| Token Class     | Values                                                                                         | Usage                                   |
+| :-------------- | :--------------------------------------------------------------------------------------------- | :-------------------------------------- |
+| `M3Breakpoints` | `compact` (0dp), `medium` (600dp), `expanded` (840dp), `large` (1200dp), `extraLarge` (1600dp) | `if (width > M3Breakpoints.medium) ...` |
+
+### ⚠️ Token Enums (Avoid Using .value Directly)
+
+#### ❌ Why to Avoid
+
+| ❌ Don't Do This                    | ⚠️ Problem                | ✅ Do This Instead                                                 |
+| :---------------------------------- | :------------------------ | :----------------------------------------------------------------- |
+| `M3SpacingToken.space16.value`      | Loses const performance   | `M3Spacings.space16` or `M3EdgeInsets.all(M3SpacingToken.space16)` |
+| `M3CornerToken.medium.value`        | No design system benefit  | `M3Corners.medium` or `M3Shape.medium`                             |
+| `M3OpacityToken.opacity38.value`    | Verbose without advantage | `M3Opacities.opacity38`                                            |
+| `M3IconSizeToken.medium.value`      | Not const                 | `M3IconSizes.medium`                                               |
+| `M3MarginToken.compactScreen.value` | Runtime calculation       | `M3Margins.compactScreen` or `M3Margins.getMargin(context)`        |
+| `M3BorderWidthToken.thin.value`     | No type safety            | `M3BorderWidths.thin` or `M3BorderSide.thin()`                     |
 
 ## 🎯 Summary
 

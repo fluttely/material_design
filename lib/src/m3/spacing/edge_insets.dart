@@ -76,220 +76,260 @@ class M3EdgeInsets extends EdgeInsets {
   }) : super.only(
           left: left == null
               ? 0
-              : left == M3SpacingToken.none
-                  ? M3Spacings.none
-                  : left == M3SpacingToken.space4
-                      ? M3Spacings.space4
-                      : left == M3SpacingToken.space8
-                          ? M3Spacings.space8
-                          : left == M3SpacingToken.space12
-                              ? M3Spacings.space12
-                              : left == M3SpacingToken.space16
-                                  ? M3Spacings.space16
-                                  : left == M3SpacingToken.space20
-                                      ? M3Spacings.space20
-                                      : left == M3SpacingToken.space24
-                                          ? M3Spacings.space24
-                                          : left == M3SpacingToken.space28
-                                              ? M3Spacings.space28
-                                              : left == M3SpacingToken.space32
-                                                  ? M3Spacings.space32
+              : left == M3MarginToken.compactScreen
+                  ? M3Margins.compactScreen
+                  : left == M3MarginToken.mediumScreen
+                      ? M3Margins.mediumScreen
+                      : left == M3MarginToken.expandedScreen
+                          ? M3Margins.expandedScreen
+                          : left == M3MarginToken.largeScreen
+                              ? M3Margins.largeScreen
+                              : left == M3MarginToken.extraLargeScreen
+                                  ? M3Margins.extraLargeScreen
+                                  : left == M3SpacingToken.none
+                                      ? M3Spacings.none
+                                      : left == M3SpacingToken.space4
+                                          ? M3Spacings.space4
+                                          : left == M3SpacingToken.space8
+                                              ? M3Spacings.space8
+                                              : left == M3SpacingToken.space12
+                                                  ? M3Spacings.space12
                                                   : left ==
-                                                          M3SpacingToken.space36
-                                                      ? M3Spacings.space36
+                                                          M3SpacingToken.space16
+                                                      ? M3Spacings.space16
                                                       : left ==
                                                               M3SpacingToken
-                                                                  .space40
-                                                          ? M3Spacings.space40
+                                                                  .space20
+                                                          ? M3Spacings.space20
                                                           : left ==
                                                                   M3SpacingToken
-                                                                      .space48
+                                                                      .space24
                                                               ? M3Spacings
-                                                                  .space48
+                                                                  .space24
                                                               : left ==
                                                                       M3SpacingToken
-                                                                          .space56
+                                                                          .space28
                                                                   ? M3Spacings
-                                                                      .space56
+                                                                      .space28
                                                                   : left ==
                                                                           M3SpacingToken
-                                                                              .space64
+                                                                              .space32
                                                                       ? M3Spacings
-                                                                          .space64
+                                                                          .space32
                                                                       : left ==
-                                                                              M3SpacingToken.space72
-                                                                          ? M3Spacings.space72
-                                                                          : left == M3SpacingToken.space80
-                                                                              ? M3Spacings.space80
-                                                                              : left == M3SpacingToken.space96
-                                                                                  ? M3Spacings.space96
-                                                                                  : left == M3SpacingToken.space128
-                                                                                      ? M3Spacings.space128
-                                                                                      : left == M3SpacingToken.infinity
-                                                                                          ? M3Spacings.infinity
-                                                                                          : M3Spacings.none,
+                                                                              M3SpacingToken.space36
+                                                                          ? M3Spacings.space36
+                                                                          : left == M3SpacingToken.space40
+                                                                              ? M3Spacings.space40
+                                                                              : left == M3SpacingToken.space48
+                                                                                  ? M3Spacings.space48
+                                                                                  : left == M3SpacingToken.space56
+                                                                                      ? M3Spacings.space56
+                                                                                      : left == M3SpacingToken.space64
+                                                                                          ? M3Spacings.space64
+                                                                                          : left == M3SpacingToken.space72
+                                                                                              ? M3Spacings.space72
+                                                                                              : left == M3SpacingToken.space80
+                                                                                                  ? M3Spacings.space80
+                                                                                                  : left == M3SpacingToken.space96
+                                                                                                      ? M3Spacings.space96
+                                                                                                      : left == M3SpacingToken.space128
+                                                                                                          ? M3Spacings.space128
+                                                                                                          : left == M3SpacingToken.infinity
+                                                                                                              ? M3Spacings.infinity
+                                                                                                              : M3Spacings.none,
           top: top == null
               ? 0
-              : top == M3SpacingToken.none
-                  ? M3Spacings.none
-                  : top == M3SpacingToken.space4
-                      ? M3Spacings.space4
-                      : top == M3SpacingToken.space8
-                          ? M3Spacings.space8
-                          : top == M3SpacingToken.space12
-                              ? M3Spacings.space12
-                              : top == M3SpacingToken.space16
-                                  ? M3Spacings.space16
-                                  : top == M3SpacingToken.space20
-                                      ? M3Spacings.space20
-                                      : top == M3SpacingToken.space24
-                                          ? M3Spacings.space24
-                                          : top == M3SpacingToken.space28
-                                              ? M3Spacings.space28
-                                              : top == M3SpacingToken.space32
-                                                  ? M3Spacings.space32
+              : top == M3MarginToken.compactScreen
+                  ? M3Margins.compactScreen
+                  : top == M3MarginToken.mediumScreen
+                      ? M3Margins.mediumScreen
+                      : top == M3MarginToken.expandedScreen
+                          ? M3Margins.expandedScreen
+                          : top == M3MarginToken.largeScreen
+                              ? M3Margins.largeScreen
+                              : top == M3MarginToken.extraLargeScreen
+                                  ? M3Margins.extraLargeScreen
+                                  : top == M3SpacingToken.none
+                                      ? M3Spacings.none
+                                      : top == M3SpacingToken.space4
+                                          ? M3Spacings.space4
+                                          : top == M3SpacingToken.space8
+                                              ? M3Spacings.space8
+                                              : top == M3SpacingToken.space12
+                                                  ? M3Spacings.space12
                                                   : top ==
-                                                          M3SpacingToken.space36
-                                                      ? M3Spacings.space36
+                                                          M3SpacingToken.space16
+                                                      ? M3Spacings.space16
                                                       : top ==
                                                               M3SpacingToken
-                                                                  .space40
-                                                          ? M3Spacings.space40
+                                                                  .space20
+                                                          ? M3Spacings.space20
                                                           : top ==
                                                                   M3SpacingToken
-                                                                      .space48
+                                                                      .space24
                                                               ? M3Spacings
-                                                                  .space48
+                                                                  .space24
                                                               : top ==
                                                                       M3SpacingToken
-                                                                          .space56
+                                                                          .space28
                                                                   ? M3Spacings
-                                                                      .space56
+                                                                      .space28
                                                                   : top ==
                                                                           M3SpacingToken
-                                                                              .space64
+                                                                              .space32
                                                                       ? M3Spacings
-                                                                          .space64
+                                                                          .space32
                                                                       : top ==
-                                                                              M3SpacingToken.space72
-                                                                          ? M3Spacings.space72
-                                                                          : top == M3SpacingToken.space80
-                                                                              ? M3Spacings.space80
-                                                                              : top == M3SpacingToken.space96
-                                                                                  ? M3Spacings.space96
-                                                                                  : top == M3SpacingToken.space128
-                                                                                      ? M3Spacings.space128
-                                                                                      : top == M3SpacingToken.infinity
-                                                                                          ? M3Spacings.infinity
-                                                                                          : M3Spacings.none,
+                                                                              M3SpacingToken.space36
+                                                                          ? M3Spacings.space36
+                                                                          : top == M3SpacingToken.space40
+                                                                              ? M3Spacings.space40
+                                                                              : top == M3SpacingToken.space48
+                                                                                  ? M3Spacings.space48
+                                                                                  : top == M3SpacingToken.space56
+                                                                                      ? M3Spacings.space56
+                                                                                      : top == M3SpacingToken.space64
+                                                                                          ? M3Spacings.space64
+                                                                                          : top == M3SpacingToken.space72
+                                                                                              ? M3Spacings.space72
+                                                                                              : top == M3SpacingToken.space80
+                                                                                                  ? M3Spacings.space80
+                                                                                                  : top == M3SpacingToken.space96
+                                                                                                      ? M3Spacings.space96
+                                                                                                      : top == M3SpacingToken.space128
+                                                                                                          ? M3Spacings.space128
+                                                                                                          : top == M3SpacingToken.infinity
+                                                                                                              ? M3Spacings.infinity
+                                                                                                              : M3Spacings.none,
           right: right == null
               ? 0
-              : right == M3SpacingToken.none
-                  ? M3Spacings.none
-                  : right == M3SpacingToken.space4
-                      ? M3Spacings.space4
-                      : right == M3SpacingToken.space8
-                          ? M3Spacings.space8
-                          : right == M3SpacingToken.space12
-                              ? M3Spacings.space12
-                              : right == M3SpacingToken.space16
-                                  ? M3Spacings.space16
-                                  : right == M3SpacingToken.space20
-                                      ? M3Spacings.space20
-                                      : right == M3SpacingToken.space24
-                                          ? M3Spacings.space24
-                                          : right == M3SpacingToken.space28
-                                              ? M3Spacings.space28
-                                              : right == M3SpacingToken.space32
-                                                  ? M3Spacings.space32
+              : right == M3MarginToken.compactScreen
+                  ? M3Margins.compactScreen
+                  : right == M3MarginToken.mediumScreen
+                      ? M3Margins.mediumScreen
+                      : right == M3MarginToken.expandedScreen
+                          ? M3Margins.expandedScreen
+                          : right == M3MarginToken.largeScreen
+                              ? M3Margins.largeScreen
+                              : right == M3MarginToken.extraLargeScreen
+                                  ? M3Margins.extraLargeScreen
+                                  : right == M3SpacingToken.none
+                                      ? M3Spacings.none
+                                      : right == M3SpacingToken.space4
+                                          ? M3Spacings.space4
+                                          : right == M3SpacingToken.space8
+                                              ? M3Spacings.space8
+                                              : right == M3SpacingToken.space12
+                                                  ? M3Spacings.space12
                                                   : right ==
-                                                          M3SpacingToken.space36
-                                                      ? M3Spacings.space36
+                                                          M3SpacingToken.space16
+                                                      ? M3Spacings.space16
                                                       : right ==
                                                               M3SpacingToken
-                                                                  .space40
-                                                          ? M3Spacings.space40
+                                                                  .space20
+                                                          ? M3Spacings.space20
                                                           : right ==
                                                                   M3SpacingToken
-                                                                      .space48
+                                                                      .space24
                                                               ? M3Spacings
-                                                                  .space48
+                                                                  .space24
                                                               : right ==
                                                                       M3SpacingToken
-                                                                          .space56
+                                                                          .space28
                                                                   ? M3Spacings
-                                                                      .space56
+                                                                      .space28
                                                                   : right ==
                                                                           M3SpacingToken
-                                                                              .space64
+                                                                              .space32
                                                                       ? M3Spacings
-                                                                          .space64
+                                                                          .space32
                                                                       : right ==
-                                                                              M3SpacingToken.space72
-                                                                          ? M3Spacings.space72
-                                                                          : right == M3SpacingToken.space80
-                                                                              ? M3Spacings.space80
-                                                                              : right == M3SpacingToken.space96
-                                                                                  ? M3Spacings.space96
-                                                                                  : right == M3SpacingToken.space128
-                                                                                      ? M3Spacings.space128
-                                                                                      : right == M3SpacingToken.infinity
-                                                                                          ? M3Spacings.infinity
-                                                                                          : M3Spacings.none,
+                                                                              M3SpacingToken.space36
+                                                                          ? M3Spacings.space36
+                                                                          : right == M3SpacingToken.space40
+                                                                              ? M3Spacings.space40
+                                                                              : right == M3SpacingToken.space48
+                                                                                  ? M3Spacings.space48
+                                                                                  : right == M3SpacingToken.space56
+                                                                                      ? M3Spacings.space56
+                                                                                      : right == M3SpacingToken.space64
+                                                                                          ? M3Spacings.space64
+                                                                                          : right == M3SpacingToken.space72
+                                                                                              ? M3Spacings.space72
+                                                                                              : right == M3SpacingToken.space80
+                                                                                                  ? M3Spacings.space80
+                                                                                                  : right == M3SpacingToken.space96
+                                                                                                      ? M3Spacings.space96
+                                                                                                      : right == M3SpacingToken.space128
+                                                                                                          ? M3Spacings.space128
+                                                                                                          : right == M3SpacingToken.infinity
+                                                                                                              ? M3Spacings.infinity
+                                                                                                              : M3Spacings.none,
           bottom: bottom == null
               ? 0
-              : bottom == M3SpacingToken.none
-                  ? M3Spacings.none
-                  : bottom == M3SpacingToken.space4
-                      ? M3Spacings.space4
-                      : bottom == M3SpacingToken.space8
-                          ? M3Spacings.space8
-                          : bottom == M3SpacingToken.space12
-                              ? M3Spacings.space12
-                              : bottom == M3SpacingToken.space16
-                                  ? M3Spacings.space16
-                                  : bottom == M3SpacingToken.space20
-                                      ? M3Spacings.space20
-                                      : bottom == M3SpacingToken.space24
-                                          ? M3Spacings.space24
-                                          : bottom == M3SpacingToken.space28
-                                              ? M3Spacings.space28
-                                              : bottom == M3SpacingToken.space32
-                                                  ? M3Spacings.space32
+              : bottom == M3MarginToken.compactScreen
+                  ? M3Margins.compactScreen
+                  : bottom == M3MarginToken.mediumScreen
+                      ? M3Margins.mediumScreen
+                      : bottom == M3MarginToken.expandedScreen
+                          ? M3Margins.expandedScreen
+                          : bottom == M3MarginToken.largeScreen
+                              ? M3Margins.largeScreen
+                              : bottom == M3MarginToken.extraLargeScreen
+                                  ? M3Margins.extraLargeScreen
+                                  : bottom == M3SpacingToken.none
+                                      ? M3Spacings.none
+                                      : bottom == M3SpacingToken.space4
+                                          ? M3Spacings.space4
+                                          : bottom == M3SpacingToken.space8
+                                              ? M3Spacings.space8
+                                              : bottom == M3SpacingToken.space12
+                                                  ? M3Spacings.space12
                                                   : bottom ==
-                                                          M3SpacingToken.space36
-                                                      ? M3Spacings.space36
+                                                          M3SpacingToken.space16
+                                                      ? M3Spacings.space16
                                                       : bottom ==
                                                               M3SpacingToken
-                                                                  .space40
-                                                          ? M3Spacings.space40
+                                                                  .space20
+                                                          ? M3Spacings.space20
                                                           : bottom ==
                                                                   M3SpacingToken
-                                                                      .space48
+                                                                      .space24
                                                               ? M3Spacings
-                                                                  .space48
+                                                                  .space24
                                                               : bottom ==
                                                                       M3SpacingToken
-                                                                          .space56
+                                                                          .space28
                                                                   ? M3Spacings
-                                                                      .space56
+                                                                      .space28
                                                                   : bottom ==
                                                                           M3SpacingToken
-                                                                              .space64
+                                                                              .space32
                                                                       ? M3Spacings
-                                                                          .space64
+                                                                          .space32
                                                                       : bottom ==
-                                                                              M3SpacingToken.space72
-                                                                          ? M3Spacings.space72
-                                                                          : bottom == M3SpacingToken.space80
-                                                                              ? M3Spacings.space80
-                                                                              : bottom == M3SpacingToken.space96
-                                                                                  ? M3Spacings.space96
-                                                                                  : bottom == M3SpacingToken.space128
-                                                                                      ? M3Spacings.space128
-                                                                                      : bottom == M3SpacingToken.infinity
-                                                                                          ? M3Spacings.infinity
-                                                                                          : M3Spacings.none,
+                                                                              M3SpacingToken.space36
+                                                                          ? M3Spacings.space36
+                                                                          : bottom == M3SpacingToken.space40
+                                                                              ? M3Spacings.space40
+                                                                              : bottom == M3SpacingToken.space48
+                                                                                  ? M3Spacings.space48
+                                                                                  : bottom == M3SpacingToken.space56
+                                                                                      ? M3Spacings.space56
+                                                                                      : bottom == M3SpacingToken.space64
+                                                                                          ? M3Spacings.space64
+                                                                                          : bottom == M3SpacingToken.space72
+                                                                                              ? M3Spacings.space72
+                                                                                              : bottom == M3SpacingToken.space80
+                                                                                                  ? M3Spacings.space80
+                                                                                                  : bottom == M3SpacingToken.space96
+                                                                                                      ? M3Spacings.space96
+                                                                                                      : bottom == M3SpacingToken.space128
+                                                                                                          ? M3Spacings.space128
+                                                                                                          : bottom == M3SpacingToken.infinity
+                                                                                                              ? M3Spacings.infinity
+                                                                                                              : M3Spacings.none,
         );
 
   /// Creates EdgeInsets with uniform spacing from a Material Design 3 token.
