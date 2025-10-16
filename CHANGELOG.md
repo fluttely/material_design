@@ -4,6 +4,19 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adherves to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 1.0.0-dev.10 (unreleased)
+
+### ✨ Features
+
+- **Navigation Component Specifications**: Complete Material Design 3 navigation specs implementation
+  - **Top App Bar**: `TopAppBarSpec` with all variants (center, small, medium, large), heights (64dp, 112dp, 152dp), scrolling behaviors, title positioning and scaling, and all spacing metrics
+  - **Navigation Bar**: `NavigationBarSpec` with 80dp height, 3-5 destinations, 64x32dp active indicator pill, icon and label spacing, and item padding
+  - **Navigation Rail**: `NavigationRailSpec` with 80dp width (256dp extended), 3-7 destinations, alignment options (top, center, bottom), 56x32dp active indicator, and all sizing/spacing metrics
+
+### 🔧 Internal
+
+- **Component Architecture**: Added navigation component specification pattern to the system
+
 ## 1.0.0-dev.9
 
 ### ✨ Features
