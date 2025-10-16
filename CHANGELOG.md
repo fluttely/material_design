@@ -4,6 +4,26 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adherves to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 1.0.0-dev.9
+
+### ✨ Features
+
+- **Card Component Specifications**: Complete Material Design 3 card specifications implementation
+  - **Card Variants**: ElevatedCardSpec, FilledCardSpec, OutlinedCardSpec with proper elevation and visual treatment
+  - **CardVariant & CardLayout Enums**: Type-safe variant and layout management (elevated, filled, outlined) × (standard, compact, large, media, action)
+  - **Design Token Architecture**: Full token hierarchy with card-specific reference, system, and component tokens
+  - **State Layer Support**: Complete interaction state specifications with proper opacity values
+  - **Layout Helpers**: CardLayoutHelper with padding management for different layout types (media, action, header, etc.)
+  - **Background Helpers**: CardBackgroundHelper for color management across variants and themes
+  - **Utility Functions**: CardSpecUtils for variant selection, elevation management, and decoration creation
+  - **Material Compliance**: Exact M3 specifications (12dp corner radius, proper elevation levels, 80dp minimum height)
+
+### 🔧 Internal
+
+- **Version Bump**: Updated package version to 1.0.0-dev.9
+- **Component Architecture**: Extended component specification pattern to containment components
+- **Token System Expansion**: Added card-specific token hierarchy to complete containment component specifications
+
 ## 1.0.0-dev.8
 
 ### ✨ Features
@@ -27,12 +47,23 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
   - **Extended FAB Support**: Text label support with proper spacing and minimum width constraints
 
 - **Icon Button Component Specifications**: Complete icon button system implementation
+
   - **Icon Button Variants**: StandardIconButtonSpec, FilledIconButtonSpec, FilledTonalIconButtonSpec, OutlinedIconButtonSpec
   - **Size Variants**: SmallIconButtonSpec (40x40dp), Standard (48x48dp), LargeIconButtonSpec (56x56dp)
   - **IconButtonSize & IconButtonStyle Enums**: Type-safe size and style variant management
   - **Toggle Support**: Toggleable icon button specifications with state management
   - **Component Token Integration**: Full token hierarchy with icon button specific tokens
   - **Utility Functions**: IconButtonSpecUtils for spec selection and state management
+
+- **Card Component Specifications**: Complete Material Design 3 card specifications implementation
+  - **Card Variants**: ElevatedCardSpec, FilledCardSpec, OutlinedCardSpec with proper elevation and visual treatment
+  - **CardVariant & CardLayout Enums**: Type-safe variant and layout management (elevated, filled, outlined) × (standard, compact, large, media, action)
+  - **Design Token Architecture**: Full token hierarchy with card-specific reference, system, and component tokens
+  - **State Layer Support**: Complete interaction state specifications with proper opacity values
+  - **Layout Helpers**: CardLayoutHelper with padding management for different layout types (media, action, header, etc.)
+  - **Background Helpers**: CardBackgroundHelper for color management across variants and themes
+  - **Utility Functions**: CardSpecUtils for variant selection, elevation management, and decoration creation
+  - **Material Compliance**: Exact M3 specifications (12dp corner radius, proper elevation levels, 80dp minimum height)
 
 ### 🔧 Internal
 
