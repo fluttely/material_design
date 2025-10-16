@@ -4,6 +4,42 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adherves to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 1.0.0-dev.8
+
+### ✨ Features
+
+- **Button Component Specifications**: Complete Material Design 3 button specifications implementation
+
+  - **ButtonSpec Base Class**: Abstract specification class for all button variants
+  - **Button Variants**: ElevatedButtonSpec, FilledButtonSpec, FilledTonalButtonSpec, OutlinedButtonSpec, TextButtonSpec
+  - **Design Token Integration**: Full token hierarchy with Reference → System → Component tokens
+  - **State Layer Support**: Complete interaction state specifications (hover, focus, pressed, dragged, disabled)
+  - **Utility Functions**: ButtonSpecUtils for width calculations, padding management, and state handling
+  - **Material Compliance**: Exact M3 specifications (40dp height, 20dp corner radius, proper elevation levels)
+
+- **FAB Component Specifications**: Comprehensive Floating Action Button specifications
+
+  - **FAB Variants**: SmallFABSpec (40x40dp), RegularFABSpec (56x56dp), LargeFABSpec (96x96dp), ExtendedFABSpec
+  - **FABSize Enum**: Type-safe size variants with proper dimensions and icon sizes
+  - **Elevation States**: Complete elevation specifications for all interaction states
+  - **Design Token Architecture**: Full token hierarchy integration with FAB-specific tokens
+  - **Utility Functions**: FABSpecUtils for size-based spec selection and width calculations
+  - **Extended FAB Support**: Text label support with proper spacing and minimum width constraints
+
+- **Icon Button Component Specifications**: Complete icon button system implementation
+  - **Icon Button Variants**: StandardIconButtonSpec, FilledIconButtonSpec, FilledTonalIconButtonSpec, OutlinedIconButtonSpec
+  - **Size Variants**: SmallIconButtonSpec (40x40dp), Standard (48x48dp), LargeIconButtonSpec (56x56dp)
+  - **IconButtonSize & IconButtonStyle Enums**: Type-safe size and style variant management
+  - **Toggle Support**: Toggleable icon button specifications with state management
+  - **Component Token Integration**: Full token hierarchy with icon button specific tokens
+  - **Utility Functions**: IconButtonSpecUtils for spec selection and state management
+
+### 🔧 Internal
+
+- **Version Bump**: Updated package version to 1.0.0-dev.8
+- **Component Architecture**: Established consistent component specification pattern across all action components
+- **Token System Expansion**: Extended design token system to cover all button and FAB component specifications
+
 ## 0.35.0-dev
 
 ### 🚀 Major Release - Design Token Architecture
@@ -13,6 +49,7 @@ This version introduces a complete architectural overhaul with a professional to
 ### ✨ Features
 
 - **Design Token System Architecture**: Complete implementation of the three-tier token hierarchy (Reference → System → Component tokens)
+
   - **Reference Tokens**: Raw values for elevation, shadow opacity, and tonal overlays
   - **System Tokens**: Semantic elevation levels with proper token relationships
   - **Component Tokens**: Component-specific elevation values for Cards, Buttons, FABs, Dialogs, and Navigation components
@@ -20,6 +57,7 @@ This version introduces a complete architectural overhaul with a professional to
   - **Context Extensions**: Easy access to tokens via `context.cardElevation`, `context.buttonDuration`, etc.
 
 - **Enhanced Elevation System**: Completely rewritten elevation system with token architecture
+
   - **ElevatedSurface Widget**: Professional elevated surface widget with token support
   - **MaterialElevation**: Utility class for state-based elevation management
   - **Tonal Elevation**: Full dark theme support with primary overlay calculations
@@ -27,6 +65,7 @@ This version introduces a complete architectural overhaul with a professional to
   - **Performance Optimized**: Const constructors and efficient token resolution
 
 - **Motion System Enhancement**: Expanded motion system with comprehensive token support
+
   - **Duration Tokens**: Component-specific animation durations
   - **Easing Tokens**: Component-specific animation curves
   - **Choreographed Animations**: MotionChoreographer for complex animation sequences
