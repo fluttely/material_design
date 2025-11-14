@@ -1,0 +1,1 @@
+agora eu preciso de ajuda para pensar no commit message, no CHANGELOG.md, no README.md na e mudanca de versao e no que mais for necessario para poder lancar as mudancas no pub.dev de maneira profisional. nao commite nem suba para o pub dev. apenas me passe o passo a passo.
