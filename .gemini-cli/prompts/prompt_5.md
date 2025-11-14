@@ -1,1 +1,0 @@
-preciso que vc deixe o meu example o mais parecido com o visual e estrutura desse site, claro que os principios sao um pouco diferentes mas eles são complementos, utilize apenas como base https://flutterweb-wasm.web.app/

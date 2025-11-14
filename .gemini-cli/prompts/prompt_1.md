@@ -1,1 +1,0 @@
-Você estava refatorando a minha lib para satisfzer todas as diretrizes mais atuais do material 3, https://m3.material.io/, ja refatoramos juntos o breakpoint, density, spacing e motion, falta vc refatorar o restante dos arquivos do meu projeto

@@ -1,1 +1,0 @@
- /Users/kevinkobori/Documents/flutter/fluttely/material_design_system/packages/material_toolkit/packages/material_design/example/.dart_tool/flutter_build/57d23ca65447351d821a029ccb551340/native_assets.json: 
