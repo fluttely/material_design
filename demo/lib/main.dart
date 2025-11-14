@@ -587,40 +587,18 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
   /// - 56dp touch target height as per M3 guidelines
   /// - Rounded 16dp corners following M3 shape tokens
   /// - Semantic icon and label positioning
-  dynamic _buildNavigationRailItem({
+  Widget _buildNavigationRailItem({
     required NavigationRailDestination destination,
     required int index,
     required bool isSelected,
     required VoidCallback onTap,
   }) {
-    // return _NavigationRailItem(
-    //   destination: destination,
-    //   index: index,
-    //   isSelected: isSelected,
-    //   onTap: onTap,
-    // );
-
-    //  NavigationRail(
-    //         selectedIndex: _selectedIndex,
-    //         onDestinationSelected: (index) {
-    //           setState(() {
-    //             _selectedIndex = index;
-    //           });
-    //         },
-    //         labelType: NavigationRailLabelType.selected,
-    //         destinations: const [
-    return NavigationRailDestination(
-      icon: Icon(Icons.foundation_outlined),
-      selectedIcon: Icon(Icons.foundation),
-      label: Text('Foundations'),
+    return _NavigationRailItem(
+      destination: destination,
+      index: index,
+      isSelected: isSelected,
+      onTap: onTap,
     );
-    // NavigationRailDestination(
-    //   icon: Icon(Icons.style_outlined),
-    //   selectedIcon: Icon(Icons.style),
-    //   label: Text('Styles'),
-    //     ),
-    //   ],
-    // ),
   }
 }
 

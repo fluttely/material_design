@@ -5,7 +5,7 @@ cp -r build/web/* .
 git add .
 git commit -m "Update demo"
 git push origin gh-pages
-git checkout master
+git checkout main
 
 # chmod +x deploy.sh
 # ./deploy.sh
