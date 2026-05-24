@@ -609,16 +609,16 @@ class _DemoHomePageState extends State<DemoHomePage>
           spacing: M3Spacings.space16,
           children: [
             _OpacityExample(
-                stateLayerOpacity: M3StateLayerOpacityToken.hover,
+                stateLayerOpacity: M3StateLayerOpacities.hover,
                 label: 'Hover'),
             _OpacityExample(
-                stateLayerOpacity: M3StateLayerOpacityToken.focus,
+                stateLayerOpacity: M3StateLayerOpacities.focus,
                 label: 'Focus'),
             _OpacityExample(
-                stateLayerOpacity: M3StateLayerOpacityToken.pressed,
+                stateLayerOpacity: M3StateLayerOpacities.pressed,
                 label: 'Pressed'),
             _OpacityExample(
-                stateLayerOpacity: M3StateLayerOpacityToken.dragged,
+                stateLayerOpacity: M3StateLayerOpacities.dragged,
                 label: 'Dragged'),
           ],
         ),
@@ -637,12 +637,13 @@ class _DemoHomePageState extends State<DemoHomePage>
         Row(
           spacing: M3Spacings.space16,
           children: [
-            M3BorderWidthToken.none,
-            M3BorderWidthToken.thin,
-          ].map((token) {
+            ('none', M3BorderWidths.none),
+            ('thin', M3BorderWidths.thin),
+          ].map((entry) {
+            final (name, width) = entry;
             final borderSide = M3BorderSide(
               outlineColor: borderColor,
-              width: token,
+              width: width,
             );
             return Expanded(
                 child: Container(
@@ -657,7 +658,7 @@ class _DemoHomePageState extends State<DemoHomePage>
                 borderRadius: M3BorderRadius.small,
               ),
               child: Text(
-                '${token.name}\n${token.value}px',
+                '$name\n${width}px',
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.bodySmall,
               ),
@@ -722,7 +723,7 @@ class _DemoHomePageState extends State<DemoHomePage>
         Row(
           spacing: M3Spacings.space16,
           children: [
-            M3BorderRadius.zero,
+            M3BorderRadius.none,
             M3BorderRadius.small,
             M3BorderRadius.medium,
             M3BorderRadius.large,
@@ -1221,12 +1222,12 @@ class _AnimatedColorSwatchState extends State<_AnimatedColorSwatch>
                   border: widget.isSelected
                       ? M3Border.all(
                           outlineColor: widget.outlineColor,
-                          width: M3BorderWidthToken.thin,
+                          width: M3BorderWidths.thin,
                         )
                       : _isHovered
                           ? M3Border.all(
                               outlineColor: widget.outlineColor,
-                              width: M3BorderWidthToken.thin,
+                              width: M3BorderWidths.thin,
                             )
                           : null,
                   boxShadow: _isHovered || widget.isSelected
@@ -1303,7 +1304,7 @@ class _SpacingExample extends StatelessWidget {
 }
 
 class _OpacityExample extends StatelessWidget {
-  final M3StateLayerOpacityToken stateLayerOpacity;
+  final double stateLayerOpacity;
   final String label;
 
   const _OpacityExample({required this.stateLayerOpacity, required this.label});
@@ -1319,13 +1320,13 @@ class _OpacityExample extends StatelessWidget {
             color: Theme.of(context)
                 .colorScheme
                 .primary
-                .withValues(alpha: stateLayerOpacity.value),
+                .withValues(alpha: stateLayerOpacity),
             borderRadius: M3BorderRadius.small,
           ),
         ),
         const SizedBox(height: M3Spacings.space4),
         Text(
-          '$label\n${(stateLayerOpacity.value * 100).toInt()}%',
+          '$label\n${(stateLayerOpacity * 100).toInt()}%',
           textAlign: TextAlign.center,
           style: Theme.of(context).textTheme.bodySmall,
         ),
@@ -1372,7 +1373,7 @@ class _ColorPickerButton extends StatelessWidget {
                         border: M3Border.all(
                           outlineColor:
                               Theme.of(context).colorScheme.outlineVariant,
-                          width: M3BorderWidthToken.thin,
+                          width: M3BorderWidths.thin,
                         ),
                       ),
                     ),
