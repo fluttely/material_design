@@ -1,14 +1,13 @@
 name: material_design
-description: "The fastest path to consistent Material Design UIs in Flutter. Build beautiful apps aligned with official metrics and guidelines using a powerful set of ready-to-use design tokens and helper widgets."
-version: 0.28.1
-# author: Kevin Kobori <https://www.linkedin.com/in/kevin-kobori/>
+description: "A Material Design 3 contract for Flutter. Enforces M3 tokens system-wide, replacing free primitives with type-safe M3 equivalents."
+version: 1.0.0-dev.1
 homepage:
 repository: https://github.com/fluttely/material_design
 issue_tracker: https://github.com/fluttely/material_design/issues
 
 environment:
-  sdk: ">=3.0.0 <4.0.0"
-  flutter: ">=3.10.0"
+  sdk: ">=3.3.0 <4.0.0"
+  flutter: ">=3.19.0"
 
 dependencies:
   flutter:
