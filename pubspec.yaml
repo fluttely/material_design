@@ -1,6 +1,6 @@
 name: material_design
 description: "A Material Design 3 contract for Flutter. Enforces M3 tokens system-wide, replacing free primitives with type-safe M3 equivalents."
-version: 1.0.0-dev.22
+version: 1.0.0-dev.23
 homepage:
 repository: https://github.com/fluttely/material_design
 issue_tracker: https://github.com/fluttely/material_design/issues
