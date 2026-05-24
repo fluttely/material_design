@@ -115,7 +115,7 @@ void main() {
 
     test('integrates correctly with radius token hierarchy', () {
       final radii = [
-        M3Radius.zero,
+        M3Radius.none,
         M3Radius.extraSmall,
         M3Radius.small,
         M3Radius.medium,
