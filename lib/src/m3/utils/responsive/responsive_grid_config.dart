@@ -14,10 +14,10 @@ class M3ResponsiveGridConfig {
 
   factory M3ResponsiveGridConfig.forScreenSize(M3ScreenSize screenSize) {
     return M3ResponsiveGridConfig(
-      columns: M3Breakpoints.getRecommendedColumns(screenSize),
-      gutter: M3Breakpoints.getGutterWidth(screenSize),
-      margin: M3Breakpoints.getMargin(screenSize),
-      maxWidth: M3Breakpoints.getBodyWidth(screenSize),
+      columns: screenSize.columns,
+      gutter: screenSize.gutterWidth,
+      margin: screenSize.pageMargin,
+      maxWidth: screenSize.bodyWidth,
     );
   }
 

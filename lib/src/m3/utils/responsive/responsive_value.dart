@@ -72,7 +72,7 @@ class M3ResponsiveValue<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenSize = M3Breakpoints.getScreenSizeFromContext(context);
+    final screenSize = M3ScreenSize.of(context);
     final value = _getValue(screenSize);
     return builder(context, value);
   }
