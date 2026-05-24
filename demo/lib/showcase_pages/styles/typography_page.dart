@@ -30,7 +30,7 @@ class TypographyPage extends StatelessWidget {
       body: Column(
         children: [
           M3Padding(
-            padding: M3EdgeInsets.only(left: M3SpacingToken.space12),
+            padding: M3EdgeInsets.only(left: M3Spacings.space12),
             child: Align(
               alignment: Alignment.centerLeft,
               child: LaunchURLText(
@@ -42,12 +42,12 @@ class TypographyPage extends StatelessWidget {
           ),
           Expanded(
             child: ListView.builder(
-              padding: M3EdgeInsets.all(M3SpacingToken.space16),
+              padding: M3EdgeInsets.all(M3Spacings.space16),
               itemCount: textStyles.length,
               itemBuilder: (context, index) {
                 final (label, style) = textStyles[index];
                 return M3Padding(
-                  padding: M3EdgeInsets.only(bottom: M3SpacingToken.space16),
+                  padding: M3EdgeInsets.only(bottom: M3Spacings.space16),
                   child: Text(label, style: style),
                 );
               },

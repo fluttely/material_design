@@ -20,7 +20,7 @@ class _UtilsPageState extends State<UtilsPage> {
         title: const Text('M3 Utilities Showcase'),
       ),
       body: SingleChildScrollView(
-        padding: M3EdgeInsets.all(M3SpacingToken.space16),
+        padding: M3EdgeInsets.all(M3Spacings.space16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -66,17 +66,17 @@ class _UtilsPageState extends State<UtilsPage> {
           'Responsive Display Text',
           style: M3TextStyle.responsiveDisplay(context),
         ),
-        const M3Gap(M3SpacingToken.space8),
+        const M3Gap(M3Spacings.space8),
         Text(
           'This text has enhanced readability for better accessibility.',
           style: M3TextStyle.enhancedReadability(textTheme.bodyLarge!),
         ),
-        const M3Gap(M3SpacingToken.space16),
+        const M3Gap(M3Spacings.space16),
         _buildHighContrastShowcase(textTheme),
-        const M3Gap(M3SpacingToken.space16),
+        const M3Gap(M3Spacings.space16),
         Container(
           width: double.infinity,
-          padding: M3EdgeInsets.all(M3SpacingToken.space12),
+          padding: M3EdgeInsets.all(M3Spacings.space12),
           decoration: ShapeDecoration(
             color: Theme.of(context).colorScheme.surfaceContainer,
             shape: M3Shape.small,
@@ -94,9 +94,9 @@ class _UtilsPageState extends State<UtilsPage> {
     return Row(
       children: [
         Expanded(child: _buildSurfaceCard('Surface', M3Elevation.level0)),
-        const M3Gap(M3SpacingToken.space8),
+        const M3Gap(M3Spacings.space8),
         Expanded(child: _buildSurfaceCard('Surface+1', M3Elevation.level1)),
-        const M3Gap(M3SpacingToken.space8),
+        const M3Gap(M3Spacings.space8),
         Expanded(child: _buildSurfaceCard('Surface+3', M3Elevation.level2)),
       ],
     );
@@ -121,7 +121,7 @@ class _UtilsPageState extends State<UtilsPage> {
             });
           },
         ),
-        const M3Gap(M3SpacingToken.space8),
+        const M3Gap(M3Spacings.space8),
         AnimatedContainer(
           duration: M3MotionDuration.medium2,
           curve: M3Motion.standard.curve,
@@ -150,14 +150,14 @@ class _UtilsPageState extends State<UtilsPage> {
           icon: Icon(_runAnimations ? Icons.visibility_off : Icons.visibility),
           label: Text(_runAnimations ? 'Hide' : 'Animate'),
         ),
-        const M3Gap(M3SpacingToken.space16),
+        const M3Gap(M3Spacings.space16),
         AnimatedOpacity(
           opacity: _runAnimations ? 1.0 : 0.0,
           duration: animationDuration,
           curve: animationCurve,
           child: _buildMotionCard('Fade In', Icons.opacity),
         ),
-        const M3Gap(M3SpacingToken.space8),
+        const M3Gap(M3Spacings.space8),
         AnimatedSlide(
           offset: _runAnimations ? Offset.zero : const Offset(0, 0.5),
           duration: animationDuration,
@@ -169,7 +169,7 @@ class _UtilsPageState extends State<UtilsPage> {
             child: _buildMotionCard('Slide Up', Icons.arrow_upward_rounded),
           ),
         ),
-        const M3Gap(M3SpacingToken.space8),
+        const M3Gap(M3Spacings.space8),
         AnimatedScale(
           scale: _runAnimations ? 1.0 : 0.8,
           duration: animationDuration,
@@ -187,8 +187,8 @@ class _UtilsPageState extends State<UtilsPage> {
 
   // Widget _buildShapeShowcase() {
   //   return Wrap(
-  //     spacing: M3SpacingToken.space8.value,
-  //     runSpacing: M3SpacingToken.space8.value,
+  //     spacing: M3Spacings.space8.value,
+  //     runSpacing: M3Spacings.space8.value,
   //     alignment: WrapAlignment.center,
   //     children: [
   //       // TODO(kevin): enhance this feature
@@ -250,10 +250,10 @@ class _UtilsPageState extends State<UtilsPage> {
   }) {
     return Card(
       margin: M3EdgeInsets.only(
-        bottom: M3SpacingToken.space16,
+        bottom: M3Spacings.space16,
       ),
       child: M3Padding(
-        padding: M3EdgeInsets.all(M3SpacingToken.space16),
+        padding: M3EdgeInsets.all(M3Spacings.space16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -263,14 +263,14 @@ class _UtilsPageState extends State<UtilsPage> {
                   icon,
                   color: Theme.of(context).colorScheme.primary,
                 ),
-                const M3Gap(M3SpacingToken.space12),
+                const M3Gap(M3Spacings.space12),
                 Text(
                   title,
                   style: Theme.of(context).textTheme.headlineSmall,
                 ),
               ],
             ),
-            const M3Gap(M3SpacingToken.space16),
+            const M3Gap(M3Spacings.space16),
             content,
           ],
         ),
@@ -301,8 +301,8 @@ class _UtilsPageState extends State<UtilsPage> {
     final colorScheme = Theme.of(context).colorScheme;
     return Container(
       padding: M3EdgeInsets.symmetric(
-        horizontal: M3SpacingToken.space16,
-        vertical: M3SpacingToken.space12,
+        horizontal: M3Spacings.space16,
+        vertical: M3Spacings.space12,
       ),
       decoration: ShapeDecoration(
         color: colorScheme.secondaryContainer,
@@ -311,7 +311,7 @@ class _UtilsPageState extends State<UtilsPage> {
       child: Row(
         children: [
           Icon(icon, color: colorScheme.onSecondaryContainer),
-          const M3Gap(M3SpacingToken.space12),
+          const M3Gap(M3Spacings.space12),
           Text(
             label,
             style: Theme.of(context)

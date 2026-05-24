@@ -53,16 +53,14 @@ class _VisualDensityPageState extends State<VisualDensityPage> {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Visual Density'),
       ),
       body: Padding(
         padding: M3EdgeInsets.symmetric(
-          vertical: M3SpacingToken.space8,
-          horizontal: M3SpacingToken.space16,
+          vertical: M3Spacings.space8,
+          horizontal: M3Spacings.space16,
         ),
         child: Column(
           children: [
@@ -96,7 +94,7 @@ class _VisualDensityPageState extends State<VisualDensityPage> {
   Widget _buildDensitySelector() {
     return M3Padding(
       padding: M3EdgeInsets.symmetric(
-        vertical: M3SpacingToken.space8,
+        vertical: M3Spacings.space8,
       ),
       child: SegmentedButton<VisualDensity>(
         segments: _densityOptions
@@ -138,12 +136,12 @@ class _VisualDensityPageState extends State<VisualDensityPage> {
   /// Constrói a lista de exemplo para visualizar a densidade.
   Widget _buildDemoList() {
     return ListView.builder(
-      padding: M3EdgeInsets.symmetric(vertical: M3SpacingToken.space16),
+      padding: M3EdgeInsets.symmetric(vertical: M3Spacings.space16),
       itemCount: 6,
       itemBuilder: (context, index) {
         return Card(
           child: M3Padding(
-            padding: M3EdgeInsets.all(M3SpacingToken.space16),
+            padding: M3EdgeInsets.all(M3Spacings.space16),
             child: Column(
               children: [
                 ListTile(
@@ -152,12 +150,12 @@ class _VisualDensityPageState extends State<VisualDensityPage> {
                   subtitle: const Text('Item subtitle'),
                   trailing: Switch(value: index.isEven, onChanged: (_) {}),
                 ),
-                const M3Gap(M3SpacingToken.space8),
+                const M3Gap(M3Spacings.space8),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     TextButton(onPressed: () {}, child: const Text('Action 1')),
-                    const M3Gap(M3SpacingToken.space8),
+                    const M3Gap(M3Spacings.space8),
                     ElevatedButton(
                         onPressed: () {}, child: const Text('Action 2')),
                   ],
