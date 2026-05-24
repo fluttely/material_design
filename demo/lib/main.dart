@@ -14,7 +14,9 @@ import 'package:provider/provider.dart';
 import 'color_picker.dart';
 import 'showcase_pages/foundations/accessibility_page.dart';
 import 'showcase_pages/foundations/adaptive_page.dart';
+import 'showcase_pages/foundations/interaction_page.dart';
 import 'showcase_pages/styles/color_tokens_page.dart';
+import 'showcase_pages/styles/tonal_palette_page.dart';
 import 'showcase_pages/styles/elevation_tokens_page.dart';
 import 'showcase_pages/styles/motion_page.dart';
 import 'showcase_pages/styles/shape_page.dart';
@@ -99,9 +101,11 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
     const OpacityTokensPage(),
     const AccessibilityPage(),
     const AdaptivePage(),
+    const InteractionPage(),
 
     // Styles - Visual design elements
     const ColorTokensPage(),
+    const TonalPalettePage(),
     const TypographyPage(),
     const ElevationPage(),
     const ShapePage(),
@@ -212,6 +216,11 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
         selectedIcon: Icon(Icons.devices),
         label: Text('Adaptive'),
       ),
+      NavigationRailDestination(
+        icon: Icon(Icons.touch_app_outlined),
+        selectedIcon: Icon(Icons.touch_app),
+        label: Text('Interaction'),
+      ),
     ];
   }
 
@@ -226,6 +235,11 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
         icon: Icon(Icons.format_paint_outlined),
         selectedIcon: Icon(Icons.format_paint),
         label: Text('Color'),
+      ),
+      NavigationRailDestination(
+        icon: Icon(Icons.palette_outlined),
+        selectedIcon: Icon(Icons.palette),
+        label: Text('Tonal'),
       ),
       NavigationRailDestination(
         icon: Icon(Icons.text_fields_outlined),
