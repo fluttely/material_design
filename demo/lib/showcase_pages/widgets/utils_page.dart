@@ -64,12 +64,12 @@ class _UtilsPageState extends State<UtilsPage> {
       children: [
         Text(
           'Responsive Display Text',
-          style: M3TextStyle.responsiveDisplay(context),
+          style: M3TextUtils.responsiveDisplay(context),
         ),
         const M3Gap(M3Spacings.space8),
         Text(
           'This text has enhanced readability for better accessibility.',
-          style: M3TextStyle.enhancedReadability(textTheme.bodyLarge!),
+          style: M3TextUtils.dyslexiaFriendly(textTheme.bodyLarge!),
         ),
         const M3Gap(M3Spacings.space16),
         _buildHighContrastShowcase(textTheme),
@@ -83,7 +83,7 @@ class _UtilsPageState extends State<UtilsPage> {
           ),
           child: Text(
             'function total(items) => items.reduce((a, b) => a + b.price, 0);',
-            style: M3TextStyle.monoVariant(textTheme.bodyMedium!),
+            style: M3TextUtils.mono(textTheme.bodyMedium!),
           ),
         ),
       ],
@@ -237,7 +237,7 @@ class _UtilsPageState extends State<UtilsPage> {
         ),
         Text(
           'High Contrast',
-          style: M3TextStyle.highContrast(textTheme.titleMedium!),
+          style: M3TextUtils.highContrast(textTheme.titleMedium!),
         ),
       ],
     );

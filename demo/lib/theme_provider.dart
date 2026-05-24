@@ -8,55 +8,25 @@ class ThemeProvider with ChangeNotifier {
   ThemeMode get themeMode => _themeMode;
   Color get seedColor => _seedColor;
 
-  ThemeData get lightTheme => ThemeData(
-        useMaterial3: true,
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: _seedColor,
-          brightness: Brightness.light,
-        ),
-        visualDensity: M3VisualDensity.comfortable,
-        textTheme: TextTheme(
-          displayLarge: M3TextStyle.displayLarge,
-          displayMedium: M3TextStyle.displayMedium,
-          displaySmall: M3TextStyle.displaySmall,
-          headlineLarge: M3TextStyle.headlineLarge,
-          headlineMedium: M3TextStyle.headlineMedium,
-          headlineSmall: M3TextStyle.headlineSmall,
-          titleLarge: M3TextStyle.titleLarge,
-          titleMedium: M3TextStyle.titleMedium,
-          titleSmall: M3TextStyle.titleSmall,
-          bodyLarge: M3TextStyle.bodyLarge,
-          bodyMedium: M3TextStyle.bodyMedium,
-          bodySmall: M3TextStyle.bodySmall,
-          labelLarge: M3TextStyle.labelLarge,
-          labelMedium: M3TextStyle.labelMedium,
-          labelSmall: M3TextStyle.labelSmall,
+  ThemeData get lightTheme => M3TextTheme.applyToTheme(
+        ThemeData(
+          useMaterial3: true,
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: _seedColor,
+            brightness: Brightness.light,
+          ),
+          visualDensity: M3VisualDensity.comfortable,
         ),
       );
 
-  ThemeData get darkTheme => ThemeData(
-        useMaterial3: true,
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: _seedColor,
-          brightness: Brightness.dark,
-        ),
-        visualDensity: M3VisualDensity.comfortable,
-        textTheme: TextTheme(
-          displayLarge: M3TextStyle.displayLarge,
-          displayMedium: M3TextStyle.displayMedium,
-          displaySmall: M3TextStyle.displaySmall,
-          headlineLarge: M3TextStyle.headlineLarge,
-          headlineMedium: M3TextStyle.headlineMedium,
-          headlineSmall: M3TextStyle.headlineSmall,
-          titleLarge: M3TextStyle.titleLarge,
-          titleMedium: M3TextStyle.titleMedium,
-          titleSmall: M3TextStyle.titleSmall,
-          bodyLarge: M3TextStyle.bodyLarge,
-          bodyMedium: M3TextStyle.bodyMedium,
-          bodySmall: M3TextStyle.bodySmall,
-          labelLarge: M3TextStyle.labelLarge,
-          labelMedium: M3TextStyle.labelMedium,
-          labelSmall: M3TextStyle.labelSmall,
+  ThemeData get darkTheme => M3TextTheme.applyToTheme(
+        ThemeData(
+          useMaterial3: true,
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: _seedColor,
+            brightness: Brightness.dark,
+          ),
+          visualDensity: M3VisualDensity.comfortable,
         ),
       );
 

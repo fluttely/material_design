@@ -8,25 +8,25 @@ class TypographyPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textStyles = [
-      ('Display Large', M3TextStyle.displayLarge),
-      ('Display Medium', M3TextStyle.displayMedium),
-      ('Display Small', M3TextStyle.displaySmall),
-      ('Headline Large', M3TextStyle.headlineLarge),
-      ('Headline Medium', M3TextStyle.headlineMedium),
-      ('Headline Small', M3TextStyle.headlineSmall),
-      ('Title Large', M3TextStyle.titleLarge),
-      ('Title Medium', M3TextStyle.titleMedium),
-      ('Title Small', M3TextStyle.titleSmall),
-      ('Body Large', M3TextStyle.bodyLarge),
-      ('Body Medium', M3TextStyle.bodyMedium),
-      ('Body Small', M3TextStyle.bodySmall),
-      ('Label Large', M3TextStyle.labelLarge),
-      ('Label Medium', M3TextStyle.labelMedium),
-      ('Label Small', M3TextStyle.labelSmall),
+      ('Display Large', M3TypeScale.displayLarge),
+      ('Display Medium', M3TypeScale.displayMedium),
+      ('Display Small', M3TypeScale.displaySmall),
+      ('Headline Large', M3TypeScale.headlineLarge),
+      ('Headline Medium', M3TypeScale.headlineMedium),
+      ('Headline Small', M3TypeScale.headlineSmall),
+      ('Title Large', M3TypeScale.titleLarge),
+      ('Title Medium', M3TypeScale.titleMedium),
+      ('Title Small', M3TypeScale.titleSmall),
+      ('Body Large', M3TypeScale.bodyLarge),
+      ('Body Medium', M3TypeScale.bodyMedium),
+      ('Body Small', M3TypeScale.bodySmall),
+      ('Label Large', M3TypeScale.labelLarge),
+      ('Label Medium', M3TypeScale.labelMedium),
+      ('Label Small', M3TypeScale.labelSmall),
     ];
 
     return Scaffold(
-      appBar: AppBar(title: Text('Type Scale')),
+      appBar: AppBar(title: const Text('Type Scale')),
       body: Column(
         children: [
           M3Padding(
@@ -34,7 +34,7 @@ class TypographyPage extends StatelessWidget {
             child: Align(
               alignment: Alignment.centerLeft,
               child: LaunchURLText(
-                label: 'M3TextStyle',
+                label: 'M3TypeScale',
                 m3Url:
                     'https://m3.material.io/styles/typography/type-scale-tokens',
               ),

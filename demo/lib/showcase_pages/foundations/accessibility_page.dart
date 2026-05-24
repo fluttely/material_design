@@ -414,25 +414,37 @@ class _AccessibilityPageState extends State<AccessibilityPage>
   Widget _buildFormShowcase() {
     return Column(
       children: [
-        M3Accessibility.accessibleTextField(
-          label: 'Email Address',
-          hint: 'Enter your email',
-          required: true,
-          keyboardType: TextInputType.emailAddress,
-          onChanged: (value) {},
+        Semantics(
+          label: 'Email Address, required',
+          child: TextField(
+            keyboardType: TextInputType.emailAddress,
+            decoration: const InputDecoration(
+              labelText: 'Email Address *',
+              hintText: 'Enter your email',
+              border: OutlineInputBorder(),
+            ),
+            onChanged: (_) {},
+          ),
         ),
         const M3Gap(M3Spacings.space16),
-        M3Accessibility.accessibleTextField(
+        Semantics(
           label: 'Message',
-          hint: 'Optional message',
-          maxLines: 3,
-          onChanged: (value) {},
+          child: TextField(
+            maxLines: 3,
+            decoration: const InputDecoration(
+              labelText: 'Message',
+              hintText: 'Optional message',
+              border: OutlineInputBorder(),
+            ),
+            onChanged: (_) {},
+          ),
         ),
         const M3Gap(M3Spacings.space8),
-        M3Accessibility.accessibleCheckbox(
+        CheckboxListTile(
           value: _acceptTerms,
-          label: 'I accept the terms and conditions',
+          title: const Text('I accept the terms and conditions'),
           onChanged: (value) => setState(() => _acceptTerms = value ?? false),
+          controlAffinity: ListTileControlAffinity.leading,
         ),
       ],
     );
@@ -450,7 +462,8 @@ class _AccessibilityPageState extends State<AccessibilityPage>
         Row(
           children: [
             Expanded(
-              child: M3Accessibility.focusIndicator(
+              child: M3FocusRing(
+                borderRadius: M3BorderRadius.medium,
                 child: Card(
                   child: ListTile(
                     title: const Text('Focus Target 1'),
@@ -460,8 +473,8 @@ class _AccessibilityPageState extends State<AccessibilityPage>
               ),
             ),
             const M3Gap(M3Spacings.space8),
-            M3Accessibility.focusIndicator(
-              // isCircle: true, // TODO(kevin): now
+            M3FocusRing(
+              borderRadius: BorderRadius.circular(24),
               child: IconButton(
                 icon: const Icon(Icons.share),
                 onPressed: () {},

@@ -57,7 +57,7 @@ class _AdaptivePageState extends State<AdaptivePage> {
                         style: Theme.of(context).textTheme.bodyMedium,
                       ),
                       Text(
-                        'Is compact: ${M3Breakpoints.isCompact(context)}',
+                        'Is compact: ${M3ScreenSize.of(context) == M3ScreenSize.compact}',
                         style: Theme.of(context).textTheme.bodyMedium,
                       ),
                     ],
@@ -237,19 +237,13 @@ class _AdaptivePageState extends State<AdaptivePage> {
   }
 
   String _getScreenSizeName(BuildContext context) {
-    final screenSize = M3Breakpoints.getScreenSizeFromContext(context);
-    switch (screenSize) {
-      case M3ScreenSize.compact:
-        return 'Compact';
-      case M3ScreenSize.medium:
-        return 'Medium';
-      case M3ScreenSize.expanded:
-        return 'Expanded';
-      case M3ScreenSize.large:
-        return 'Large';
-      case M3ScreenSize.extraLarge:
-        return 'Extra Large';
-    }
+    return switch (M3ScreenSize.of(context)) {
+      M3ScreenSize.compact => 'Compact',
+      M3ScreenSize.medium => 'Medium',
+      M3ScreenSize.expanded => 'Expanded',
+      M3ScreenSize.large => 'Large',
+      M3ScreenSize.extraLarge => 'Extra Large',
+    };
   }
 
   void _showAdaptiveDialog(BuildContext context) {

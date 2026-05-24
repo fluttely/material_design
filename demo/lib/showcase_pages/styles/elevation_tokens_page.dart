@@ -212,7 +212,7 @@ class _ElevationCard extends StatelessWidget {
             Align(
               alignment: Alignment.bottomRight,
               child: Icon(
-                useShadows && elevation.hasShadow
+                useShadows && elevation.dp > 0
                     ? Icons.visibility
                     : Icons.visibility_off,
                 size: M3IconSizes.dense,
