@@ -327,7 +327,7 @@ abstract interface class M3Accessibility {
               ),
             ),
           ),
-          const M3Gap(M3SpacingToken.space8),
+          const M3Gap(M3Spacings.space8),
           Expanded(
             child: GestureDetector(
               onTap: onChanged != null ? () => onChanged(!value) : null,
