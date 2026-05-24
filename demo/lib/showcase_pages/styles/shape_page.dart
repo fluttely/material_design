@@ -11,15 +11,12 @@ class ShapePage extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
 
     final shapes = [
-      ('None', M3Shape.zero),
+      ('None', M3Shape.none),
       ('Extra Small', M3Shape.extraSmall),
       ('Small', M3Shape.small),
       ('Medium', M3Shape.medium),
       ('Large', M3Shape.large),
-      ('Large Increased', M3Shape.largeIncreased),
       ('Extra Large', M3Shape.extraLarge),
-      ('Extra Large Increased', M3Shape.extraLargeIncreased),
-      ('Extra Extra Large', M3Shape.extraExtraLarge),
       ('Full (Stadium)', M3Shape.full),
     ];
 
@@ -28,7 +25,7 @@ class ShapePage extends StatelessWidget {
       body: Column(
         children: [
           M3Padding(
-            padding: M3EdgeInsets.only(left: M3SpacingToken.space12),
+            padding: M3EdgeInsets.only(left: M3Spacings.space12),
             child: Align(
               alignment: Alignment.centerLeft,
               child: Column(
@@ -51,12 +48,12 @@ class ShapePage extends StatelessWidget {
           ),
           Expanded(
             child: GridView.builder(
-              padding: M3EdgeInsets.all(M3MarginToken.mediumScreen),
+              padding: M3EdgeInsets.all(M3Margins.mediumScreen),
               gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
                 maxCrossAxisExtent: 200,
                 childAspectRatio: 1.5,
-                mainAxisSpacing: M3SpacingToken.space16.value,
-                crossAxisSpacing: M3SpacingToken.space16.value,
+                mainAxisSpacing: M3Spacings.space16,
+                crossAxisSpacing: M3Spacings.space16,
               ),
               itemCount: shapes.length,
               itemBuilder: (context, index) {

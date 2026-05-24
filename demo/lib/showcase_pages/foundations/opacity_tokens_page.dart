@@ -9,17 +9,17 @@ class OpacityTokensPage extends StatelessWidget {
 
   // Lists of tokens defined as constants for better performance and organization.
   static const _stateLayerOpacities = [
-    (label: 'Hover', token: M3StateLayerOpacityToken.hover),
-    (label: 'Focus', token: M3StateLayerOpacityToken.focus),
-    (label: 'Pressed', token: M3StateLayerOpacityToken.pressed),
-    (label: 'Dragged', token: M3StateLayerOpacityToken.dragged),
+    (label: 'Hover', token: M3StateLayerOpacities.hover),
+    (label: 'Focus', token: M3StateLayerOpacities.focus),
+    (label: 'Pressed', token: M3StateLayerOpacities.pressed),
+    (label: 'Dragged', token: M3StateLayerOpacities.dragged),
   ];
 
   static const _generalOpacities = [
-    (label: 'Disabled Content', token: M3OpacityToken.disabledContent),
-    (label: 'Disabled Container', token: M3OpacityToken.disabledContainer),
-    (label: 'Divider', token: M3OpacityToken.divider),
-    (label: 'Backdrop', token: M3OpacityToken.backdrop),
+    (label: 'Disabled Content', token: M3Opacities.disabledContent),
+    (label: 'Disabled Container', token: M3Opacities.disabledContainer),
+    (label: 'Divider', token: M3Opacities.divider),
+    (label: 'Backdrop', token: M3Opacities.backdrop),
   ];
 
   @override
@@ -29,7 +29,7 @@ class OpacityTokensPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text('Opacity')),
       body: ListView(
-        padding: M3EdgeInsets.all(M3SpacingToken.space16),
+        padding: M3EdgeInsets.all(M3Spacings.space16),
         children: [
           // Section for state layer opacities.
           _buildSection(
@@ -52,7 +52,7 @@ class OpacityTokensPage extends StatelessWidget {
           ),
           // Section with a practical example.
           LaunchURLText(label: 'Practical Example'),
-          const M3Gap(M3SpacingToken.space12),
+          const M3Gap(M3Spacings.space12),
           const M3StateLayerOpacityButtonExample(),
         ],
       ),
@@ -64,29 +64,29 @@ class OpacityTokensPage extends StatelessWidget {
     required BuildContext context,
     required String title,
     required String url,
-    required List<({String label, IM3Token token})> tokens,
+    required List<({String label, double token})> tokens,
     required Color baseColor,
   }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         LaunchURLText(label: title, m3Url: url),
-        const M3Gap(M3SpacingToken.space16),
+        const M3Gap(M3Spacings.space16),
         Wrap(
-          spacing: M3SpacingToken.space16.value,
-          runSpacing: M3SpacingToken.space16.value,
+          spacing: M3Spacings.space16,
+          runSpacing: M3Spacings.space16,
           children: tokens.map((token) {
             return _buildOpacityTile(
               label: token.label,
-              value: token.token.value,
+              value: token.token,
               // Applies the opacity to the section's base color.
-              color: baseColor.withValues(alpha: token.token.value),
+              color: baseColor.withValues(alpha: token.token),
               // The text color is the base color without opacity, to ensure contrast.
               textColor: baseColor,
             );
           }).toList(),
         ),
-        const M3Gap(M3SpacingToken.space32),
+        const M3Gap(M3Spacings.space32),
       ],
     );
   }
