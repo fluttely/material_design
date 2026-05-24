@@ -32,7 +32,7 @@ class M3ResponsiveBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenSize = M3BreakpointToken.getScreenSizeFromContext(context);
+    final screenSize = M3Breakpoints.getScreenSizeFromContext(context);
     return builder(context, screenSize);
   }
 }

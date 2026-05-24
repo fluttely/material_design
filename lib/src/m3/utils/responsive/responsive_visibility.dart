@@ -32,7 +32,7 @@ class M3ResponsiveVisibility extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenSize = M3BreakpointToken.getScreenSizeFromContext(context);
+    final screenSize = M3Breakpoints.getScreenSizeFromContext(context);
     return visibleOn.contains(screenSize) ? child : replacement;
   }
 }
