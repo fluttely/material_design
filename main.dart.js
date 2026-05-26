@@ -91564,7 +91564,7 @@ n=m.aJ(s==null?n.k3:s)}return A.bM(A.bQ(A.b([j,B.O,A.cM(A.at(A.b([k,A.R(l,o,o,o,
 $S:567}
 A.Nc.prototype={
 D(a){var s=null,r=A.k(a).ax
-return A.dp(A.ew(s,!0,s,s,B.BN),A.kS(A.b([this.QT(r.b,a,"M3StateLayerOpacities | M3StateLayerOpacityToken",B.OA,"https://m3.material.io/foundations/interaction/states/state-layers"),this.QT(r.k3,a,"M3Opacities | M3OpacityToken",B.Nq,u.M),A.dv("Practical Example",s),B.ax,B.QI],t.p),new A.aq(16,16,16,16)),s,s,s,s)},
+return A.dp(A.ew(s,!0,s,s,B.BN),A.kS(A.b([this.QT(r.b,a,"M3StateLayerOpacities | M3StateLayerOpacityToken",B.OA,u.M),this.QT(r.k3,a,"M3Opacities | M3OpacityToken",B.Nq,"https://m3.material.io/foundations/interaction/states/state-layers"),A.dv("Practical Example",s),B.ax,B.QI],t.p),new A.aq(16,16,16,16)),s,s,s,s)},
 QT(a,b,c,d,e){var s=A.dv(c,e),r=A.a5(d).h("S<1,e>")
 r=A.a3(new A.S(d,new A.abm(this,a),r),r.h("ao.E"))
 return A.at(A.b([s,B.O,A.k4(B.as,r,B.c5,B.as,16,16),B.e4],t.p),B.D,B.j,B.k)}}
