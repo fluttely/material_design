@@ -4,6 +4,35 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adherves to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 1.0.0
+
+### 💥 Breaking Changes
+
+- **Strict M3 Contract**: This release completely stabilizes the core API, transforming the package into a strict **design contract** that enforces Material Design 3 system-wide. Free primitives (`double`, `int`, etc.) are now replaced with type-safe M3 extension type wrappers, making it impossible to deviate from the specification.
+- **Type-Safe Extension Types**: Introduced extension types `M3SpacingValue`, `M3BorderWidthValue`, and `M3OpacityValue` that wrap raw `double` values to enforce type safety in M3 APIs.
+- **Removed Enums**: Removed all token enums (`M3SpacingToken`, `M3BorderWidthToken`, `M3OpacityToken`, etc.) and the `.value` pattern to avoid boilerplate and double allocations. All token accesses are now done directly via static constants in classes like `M3Spacings`, `M3BorderWidths`, `M3Opacities`, `M3Corners`, etc.
+- **Strict Shape Scale**: The shape scale has been aligned to the strict Material Design 3 specification of exactly 7 levels: `none` (0dp, renamed from `zero`), `extraSmall` (4dp), `small` (8dp), `medium` (12dp), `large` (16dp), `extraLarge` (28dp), and `full` (9999dp).
+- **Reworked Wrapper Classes**: Rewrote `M3EdgeInsets`, `M3Gap`, `M3Padding`, `M3BorderSide`, `M3Border`, `M3Radius`, and `M3BorderRadius` to accept only their corresponding type-safe extension types instead of raw `double` or enum values.
+- **Typography System Overhaul**: Replaced the previous `M3TextStyle` and `M3TextStyleToken` APIs with:
+  - `M3TypeScale`: A static const class offering the 15 official Material Design 3 text styles directly as `TextStyle` instances.
+  - `M3TextTheme`: Helpers to build and apply standard `TextTheme` instances.
+  - `M3TextUtils`: Separated all utility adjustments (like dyslexia-friendly scaling, high-contrast weight boosting, responsive displays, and fallback font stacks) into a dedicated class.
+- **Removed Breakpoint Enums**: Merged screen size and responsive breakpoint logic, moving factory methods directly to `M3ScreenSize` and removing redundant enums.
+- **Cleaned Up Deprecated APIs**: Completely deleted the `deprecated/` folder, old token interfaces, and unused code.
+
+### ✨ Features
+
+- **`M3StateLayer` Widget**: A new state-layer container that automatically applies the correct M3 semi-transparent state overlay (hover: 8%, focus: 10%, pressed: 10%, dragged: 16%) over its child based on interaction.
+- **`M3FocusRing` Widget**: A keyboard-activated focus indicator widget that renders a 3dp thickness secondary color border with a 3dp offset gap, adhering directly to the official M3 focus ring guidelines.
+- **`M3ColorScheme` and `M3TonalPalette`**: Enhanced the color scheme extensions with state layer builders (`hoverLayerOn`, `focusLayerOn`, `pressLayerOn`, `dragLayerOn`) and introduced `M3TonalPalette` outlining the official tonal axis keys (from 0 to 100).
+- **Type-safe Spacings and Margins**: Unified the spacing scale from `none` to `space128` (based on 4dp grids), and introduced standard screen margin values in `M3Margins`.
+
+### 🔄 Refactor
+
+- **SDK Requirement Bump**: Minimum SDK version bumped to Dart `>=3.3.0 <4.0.0` and Flutter `>=3.19.0` to leverage modern extension types.
+- **Unified Barrel File**: Streamlined the package's barrel file `material_design.dart` to expose everything under clean module parts.
+- **Demo & Example App Updates**: Migrated both demo and example applications to consume the new type-safe 1.0.0 APIs, including new showcases for interaction states, state layers, and tonal palettes.
+
 ## 0.28.1
 
 ### ✨ Features

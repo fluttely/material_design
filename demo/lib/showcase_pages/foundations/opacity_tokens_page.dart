@@ -36,7 +36,7 @@ class OpacityTokensPage extends StatelessWidget {
             context: context,
             title: 'M3StateLayerOpacities | M3StateLayerOpacityToken',
             url:
-                'https://m3.material.io/foundations/interaction/states/state-layers',
+                'https://m3.material.io/foundations/interaction/states/overview',
             tokens: _stateLayerOpacities,
             baseColor: colorScheme.primary,
           ),
@@ -46,7 +46,7 @@ class OpacityTokensPage extends StatelessWidget {
             title: 'M3Opacities | M3OpacityToken',
             // The official link for states, which covers the "disabled" state.
             url:
-                'https://m3.material.io/foundations/interaction/states/overview',
+                'https://m3.material.io/foundations/interaction/states/state-layers',
             tokens: _generalOpacities,
             baseColor: colorScheme.onSurface,
           ),

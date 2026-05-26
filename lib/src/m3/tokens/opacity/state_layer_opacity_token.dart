@@ -6,7 +6,7 @@ part of '../../../../material_design.dart';
 /// communicate its current interaction state. The overlay color comes from the
 /// component's "content" color (e.g. onPrimary, onSurface).
 ///
-/// Reference: https://m3.material.io/foundations/interaction/states/state-layers
+/// Reference: https://m3.material.io/foundations/interaction/states/overview
 abstract final class M3StateLayerOpacities {
   /// Hover state overlay opacity (8%).
   static const M3OpacityValue hover = M3OpacityValue(0.08);
