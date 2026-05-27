@@ -141,8 +141,8 @@ class _UtilsPageState extends State<UtilsPage> {
   }
 
   Widget _buildMotionPatternsShowcase() {
-    final animationDuration = M3Motion.emphasizedIncoming.duration;
-    final animationCurve = M3Motion.emphasizedIncoming.curve;
+    const animationDuration = M3Motion.emphasizedIncomingDuration;
+    const animationCurve = M3Motion.emphasizedIncomingCurve;
     return Column(
       children: [
         ElevatedButton.icon(

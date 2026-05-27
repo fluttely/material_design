@@ -130,7 +130,7 @@ class M3MotionCurve extends ThreePointCubic {
 /// See: https://m3.material.io/styles/motion/easing-and-duration/tokens-specs
 class M3Motion {
   /// Creates a motion scheme combining [duration] and [curve].
-  const M3Motion({
+  const M3Motion._({
     required this.duration,
     required this.curve,
   });
@@ -148,48 +148,69 @@ class M3Motion {
 
   // --- Emphasized Motion Tokens ---
 
+  static const emphasizedDuration = M3MotionDuration.long2;
+  static const emphasizedCurve = M3MotionCurve.emphasized;
+
   /// Emphasized motion for elements on-screen at start and end (500ms).
-  static const emphasized = M3Motion(
-    duration: M3MotionDuration.long2,
-    curve: M3MotionCurve.emphasized,
+  static const emphasized = M3Motion._(
+    duration: emphasizedDuration,
+    curve: emphasizedCurve,
   );
 
+  static const emphasizedIncomingDuration = M3MotionDuration.long1;
+  static const emphasizedIncomingCurve = M3MotionCurve.emphasizedDecelerate;
+  
   /// Emphasized motion for elements entering the screen (450ms).
-  static const emphasizedIncoming = M3Motion(
-    duration: M3MotionDuration.long1,
-    curve: M3MotionCurve.emphasizedDecelerate,
+  static const emphasizedIncoming = M3Motion._(
+    duration: emphasizedIncomingDuration,
+    curve: emphasizedIncomingCurve,
   );
+
+  static const emphasizedOutgoingDuration = M3MotionDuration.short3;
+  static const emphasizedOutgoingCurve = M3MotionCurve.emphasizedAccelerate;
 
   /// Emphasized motion for elements exiting the screen (150ms).
-  static const emphasizedOutgoing = M3Motion(
-    duration: M3MotionDuration.short3,
-    curve: M3MotionCurve.emphasizedAccelerate,
+  static const emphasizedOutgoing = M3Motion._(
+    duration: emphasizedOutgoingDuration,
+    curve: emphasizedOutgoingCurve,
   );
 
   // --- Standard Motion Tokens ---
 
+  static const standardDuration = M3MotionDuration.medium2;
+  static const standardCurve = M3MotionCurve.standard;
+
   /// Standard motion for elements on-screen at start and end (300ms).
-  static const standard = M3Motion(
-    duration: M3MotionDuration.medium2,
-    curve: M3MotionCurve.standard,
+  static const standard = M3Motion._(
+    duration: standardDuration,
+    curve: standardCurve,
   );
+
+  static const standardIncomingDuration = M3MotionDuration.medium1;
+  static const standardIncomingCurve = M3MotionCurve.standardDecelerate;
 
   /// Standard motion for elements entering the screen (250ms).
-  static const standardIncoming = M3Motion(
-    duration: M3MotionDuration.medium1,
-    curve: M3MotionCurve.standardDecelerate,
+  static const standardIncoming = M3Motion._(
+    duration: standardIncomingDuration,
+    curve: standardIncomingCurve,
   );
+
+  static const standardOutgoingDuration = M3MotionDuration.short4;
+  static const standardOutgoingCurve = M3MotionCurve.standardAccelerate;
 
   /// Standard motion for elements exiting the screen (200ms).
-  static const standardOutgoing = M3Motion(
-    duration: M3MotionDuration.short4,
-    curve: M3MotionCurve.standardAccelerate,
+  static const standardOutgoing = M3Motion._(
+    duration: standardOutgoingDuration,
+    curve: standardOutgoingCurve,
   );
 
+  static const linearDuration = M3MotionDuration.short3;
+  static const linearCurve = M3MotionCurve.linear;
+
   /// Linear interpolation scheme (150ms).
-  static const linear = M3Motion(
-    duration: M3MotionDuration.short3,
-    curve: M3MotionCurve.linear,
+  static const linear = M3Motion._(
+    duration: linearDuration,
+    curve: linearCurve,
   );
 
   /// Gets an appropriate duration based on motion distance.
