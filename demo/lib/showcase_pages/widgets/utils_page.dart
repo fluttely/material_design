@@ -111,8 +111,8 @@ class _UtilsPageState extends State<UtilsPage> {
         ),
         Slider(
           value: _elevation.dp,
-          min: M3Elevation.level0.dp,
-          max: M3Elevation.level5.dp,
+          min: M3Elevation.level0Dp,
+          max: M3Elevation.level5Dp,
           divisions: 12,
           label: '${_elevation.dp.round()}dp',
           onChanged: (newValue) {
@@ -123,8 +123,8 @@ class _UtilsPageState extends State<UtilsPage> {
         ),
         const M3Gap(M3Spacings.s8),
         AnimatedContainer(
-          duration: M3MotionDuration.medium2,
-          curve: M3Motion.standard.curve,
+          curve: M3Motion.standardCurve,
+          duration: M3Motion.standardDuration,
           decoration: ShapeDecoration(
             color: _elevation.surfaceColor(context),
             shape: M3Shape.large,
@@ -141,8 +141,8 @@ class _UtilsPageState extends State<UtilsPage> {
   }
 
   Widget _buildMotionPatternsShowcase() {
-    const animationDuration = M3Motion.emphasizedIncomingDuration;
     const animationCurve = M3Motion.emphasizedIncomingCurve;
+    const animationDuration = M3Motion.emphasizedIncomingDuration;
     return Column(
       children: [
         ElevatedButton.icon(
@@ -176,7 +176,7 @@ class _UtilsPageState extends State<UtilsPage> {
           curve: animationCurve,
           child: AnimatedOpacity(
             opacity: _runAnimations ? 1.0 : 0.0,
-            duration: M3MotionDuration.medium2,
+            duration: M3Motion.standardDuration,
             curve: Curves.easeIn,
             child: _buildMotionCard('Scale In', Icons.zoom_in_rounded),
           ),

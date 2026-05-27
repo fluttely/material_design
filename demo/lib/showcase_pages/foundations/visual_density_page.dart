@@ -58,13 +58,13 @@ class _VisualDensityPageState extends State<VisualDensityPage> {
         title: const Text('Visual Density'),
       ),
       body: Padding(
-        padding: M3EdgeInsets.symmetric(
+        padding: const M3EdgeInsets.symmetric(
           vertical: M3Spacings.s8,
           horizontal: M3Spacings.s16,
         ),
         child: Column(
           children: [
-            Align(
+            const Align(
               alignment: Alignment.centerLeft,
               child: LaunchURLText(label: 'M3VisualDensity'),
             ),
