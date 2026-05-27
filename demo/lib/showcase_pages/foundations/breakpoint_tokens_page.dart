@@ -23,11 +23,7 @@ class BreakpointTokensPage extends StatelessWidget {
       min: M3Breakpoints.expanded,
       icon: Icons.laptop_mac_rounded
     ),
-    (
-      label: 'Large',
-      min: M3Breakpoints.large,
-      icon: Icons.desktop_mac_rounded
-    ),
+    (label: 'Large', min: M3Breakpoints.large, icon: Icons.desktop_mac_rounded),
     (
       label: 'Extra Large',
       min: M3Breakpoints.extraLarge,
@@ -174,8 +170,7 @@ class _BreakpointVisualizer extends StatelessWidget {
     required this.currentWidth,
   });
 
-  final List<({String label, IconData icon, double min})>
-      breakpoints;
+  final List<({String label, IconData icon, double min})> breakpoints;
   final double currentWidth;
 
   @override
@@ -206,8 +201,8 @@ class _BreakpointVisualizer extends StatelessWidget {
                       ? breakpoints[index + 1].min
                       : visualizationMaxWidth;
                   final rangeWidth = nextMin - current.min;
-                  final bool isActive = currentWidth >= current.min &&
-                      currentWidth < nextMin;
+                  final bool isActive =
+                      currentWidth >= current.min && currentWidth < nextMin;
 
                   return Expanded(
                     flex: rangeWidth.round(),

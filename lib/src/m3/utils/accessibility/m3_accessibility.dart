@@ -44,7 +44,8 @@ abstract interface class M3Accessibility {
 
   // --- Contrast validation ---
 
-  /// Whether [foreground] meets WCAG contrast requirements against [background].
+  /// Whether [foreground] meets WCAG contrast requirements against
+  /// [background].
   static bool meetsContrastRequirement({
     required Color foreground,
     required Color background,
@@ -52,8 +53,9 @@ abstract interface class M3Accessibility {
     bool useEnhanced = false,
   }) {
     final ratio = M3ColorUtils.calculateContrast(foreground, background);
-    final required =
-        useEnhanced ? enhancedContrast : (isLargeText ? minContrastLarge : minContrastNormal);
+    final required = useEnhanced
+        ? enhancedContrast
+        : (isLargeText ? minContrastLarge : minContrastNormal);
     return ratio >= required;
   }
 
@@ -64,8 +66,9 @@ abstract interface class M3Accessibility {
     bool isLargeText = false,
     bool useEnhanced = false,
   }) {
-    final required =
-        useEnhanced ? enhancedContrast : (isLargeText ? minContrastLarge : minContrastNormal);
+    final required = useEnhanced
+        ? enhancedContrast
+        : (isLargeText ? minContrastLarge : minContrastNormal);
     return M3ColorUtils.adjustForAccessibility(
       color,
       background,
@@ -168,6 +171,7 @@ abstract interface class M3Accessibility {
 
 /// Centralized accessibility configuration for the application.
 class M3AccessibilityConfig {
+  /// Creates an accessibility configuration.
   const M3AccessibilityConfig({
     this.highContrast = false,
     this.reducedMotion = false,
@@ -176,6 +180,7 @@ class M3AccessibilityConfig {
     this.textScaleFactor = 1.0,
   });
 
+  /// Builds an accessibility configuration from the given [context].
   factory M3AccessibilityConfig.fromContext(BuildContext context) {
     final mq = MediaQuery.of(context);
     return M3AccessibilityConfig(
@@ -186,10 +191,19 @@ class M3AccessibilityConfig {
     );
   }
 
+  /// Whether high-contrast mode is enabled.
   final bool highContrast;
+
+  /// Whether animations should be reduced or disabled.
   final bool reducedMotion;
+
+  /// Whether the user has configured large/accessible text sizing.
   final bool largeText;
+
+  /// Whether the user prefers dyslexia-friendly typography adjustments.
   final bool dyslexiaFriendly;
+
+  /// The text scale factor determined by system settings.
   final double textScaleFactor;
 
   /// Applies accessibility settings to [base] theme.

@@ -39,6 +39,7 @@ part of '../../../../material_design.dart';
 /// {@endtemplate}
 @immutable
 abstract interface class M3SurfaceTint {
+  /// Returns the tinted surface color for the given elevation token.
   static Color fromElevationToken(
     BuildContext context,
     M3Elevation elevation,
@@ -51,10 +52,10 @@ abstract interface class M3SurfaceTint {
   /// This method is a convenient wrapper around Flutter's
   /// [ElevationOverlay.applySurfaceTint]. It fetches the `surface` and
   /// `surfaceTint` colors from the current theme's `ColorScheme` and applies
-  /// the tint based on the provided [elevation] in logical pixels (dp).
+  /// the tint based on the provided [elevationValue] in logical pixels (dp).
   ///
   /// - [context]: The `BuildContext` used to access the current theme.
-  /// - [elevation]: The elevation of the surface, which determines the
+  /// - [elevationValue]: The elevation of the surface, which determines the
   ///   amount of tint to apply.
   ///
   /// Returns the final, tinted surface color.

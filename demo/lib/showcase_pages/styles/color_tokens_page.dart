@@ -172,8 +172,7 @@ class ColorTokensPage extends StatelessWidget {
             ),
           ),
           SingleChildScrollView(
-            padding:
-                M3EdgeInsets.symmetric(horizontal: M3Margins.mediumScreen),
+            padding: M3EdgeInsets.symmetric(horizontal: M3Margins.mediumScreen),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

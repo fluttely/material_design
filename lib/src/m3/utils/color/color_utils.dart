@@ -10,20 +10,25 @@ part of '../../../../../material_design.dart';
 abstract interface class M3ColorUtils {
   // --- Color manipulation ---
 
-  /// Blends [color1] and [color2] at the given [ratio] (0 = color1, 1 = color2).
+  /// Blends [color1] and [color2] at the given [ratio]
+  /// (0 = color1, 1 = color2).
   static Color blend(Color color1, Color color2, double ratio) =>
       Color.lerp(color1, color2, ratio) ?? color1;
 
   /// Increases the lightness of [color] by [amount] (0–1).
   static Color lighten(Color color, double amount) {
     final hsl = HSLColor.fromColor(color);
-    return hsl.withLightness((hsl.lightness + amount).clamp(0.0, 1.0)).toColor();
+    return hsl
+        .withLightness((hsl.lightness + amount).clamp(0.0, 1.0))
+        .toColor();
   }
 
   /// Decreases the lightness of [color] by [amount] (0–1).
   static Color darken(Color color, double amount) {
     final hsl = HSLColor.fromColor(color);
-    return hsl.withLightness((hsl.lightness - amount).clamp(0.0, 1.0)).toColor();
+    return hsl
+        .withLightness((hsl.lightness - amount).clamp(0.0, 1.0))
+        .toColor();
   }
 
   /// Increases the saturation of [color] by [amount] (0–1).
@@ -95,7 +100,8 @@ abstract interface class M3ColorUtils {
   static bool meetsLargeTextAA(Color foreground, Color background) =>
       calculateContrast(foreground, background) >= 3.0;
 
-  /// Adjusts [color] lightness until it meets [minContrast] against [background].
+  /// Adjusts [color] lightness until it meets [minContrast] against
+  /// [background].
   ///
   /// Uses binary search over the HSL lightness axis. For HCT-accurate results
   /// use `material_color_utilities`.
@@ -109,15 +115,24 @@ abstract interface class M3ColorUtils {
     final hsl = HSLColor.fromColor(color);
     final shouldLighten = background.computeLuminance() > 0.5;
 
-    double lo = 0, hi = 1;
+    double lo = 0;
+    double hi = 1;
     while (hi - lo > 0.005) {
       final mid = (lo + hi) / 2;
       final testColor = hsl.withLightness(mid).toColor();
       final passes = calculateContrast(testColor, background) >= minContrast;
       if (shouldLighten) {
-        if (passes) lo = mid; else hi = mid;
+        if (passes) {
+          lo = mid;
+        } else {
+          hi = mid;
+        }
       } else {
-        if (passes) hi = mid; else lo = mid;
+        if (passes) {
+          hi = mid;
+        } else {
+          lo = mid;
+        }
       }
     }
     return hsl.withLightness(shouldLighten ? lo : hi).toColor();
@@ -148,7 +163,11 @@ abstract interface class M3ColorUtils {
     Color tone(int t) => hsl.withLightness(t / 100.0).toColor();
     return {
       for (final t in M3TonalPalette.all)
-        t: t == 0 ? Colors.black : t == 100 ? Colors.white : tone(t),
+        t: t == 0
+            ? Colors.black
+            : t == 100
+                ? Colors.white
+                : tone(t),
     };
   }
 

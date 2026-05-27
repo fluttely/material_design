@@ -7,7 +7,8 @@ part of '../../../../material_design.dart';
 /// Text('Hello', style: M3TypeScale.bodyLarge)
 /// ```
 ///
-/// To build Flutter's [TextTheme] from this scale, use [M3TextTheme.toTextTheme].
+/// To build Flutter's [TextTheme] from this scale, use
+/// [M3TextTheme.toTextTheme].
 ///
 /// Reference: https://m3.material.io/styles/typography/type-scale-tokens
 abstract final class M3TypeScale {

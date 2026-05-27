@@ -3,7 +3,8 @@ part of '../../../../material_design.dart';
 /// Material Design 3 corner radius values in density-independent pixels (dp).
 ///
 /// Strictly aligned with the 7-level M3 shape scale:
-/// none(0), extraSmall(4), small(8), medium(12), large(16), extraLarge(28), full(9999).
+/// none(0), extraSmall(4), small(8), medium(12), large(16),
+/// extraLarge(28), full(9999).
 ///
 /// Reference: https://m3.material.io/foundations/shape/shape-scale
 abstract final class M3Corners {

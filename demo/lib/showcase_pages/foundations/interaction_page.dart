@@ -20,7 +20,8 @@ class _InteractionPageState extends State<InteractionPage> {
         children: [
           LaunchURLText(
             label: 'M3StateLayer | M3FocusRing | M3InteractionState',
-            m3Url: 'https://m3.material.io/foundations/interaction/states/overview',
+            m3Url:
+                'https://m3.material.io/foundations/interaction/states/overview',
           ),
           const M3Gap(M3Spacings.space16),
           _buildStateLayerSection(),
@@ -88,10 +89,14 @@ class _InteractionPageState extends State<InteractionPage> {
               spacing: M3Spacings.space8,
               runSpacing: M3Spacings.space8,
               children: [
-                _buildOpacityChip('hover', M3StateLayerOpacities.hover, colorScheme),
-                _buildOpacityChip('focus', M3StateLayerOpacities.focus, colorScheme),
-                _buildOpacityChip('pressed', M3StateLayerOpacities.pressed, colorScheme),
-                _buildOpacityChip('dragged', M3StateLayerOpacities.dragged, colorScheme),
+                _buildOpacityChip(
+                    'hover', M3StateLayerOpacities.hover, colorScheme),
+                _buildOpacityChip(
+                    'focus', M3StateLayerOpacities.focus, colorScheme),
+                _buildOpacityChip(
+                    'pressed', M3StateLayerOpacities.pressed, colorScheme),
+                _buildOpacityChip(
+                    'dragged', M3StateLayerOpacities.dragged, colorScheme),
               ],
             ),
           ],
@@ -317,7 +322,8 @@ class _InteractionPageState extends State<InteractionPage> {
                         width: 48,
                         height: 48,
                         decoration: BoxDecoration(
-                          color: colorScheme.primary.withValues(alpha: s.opacity),
+                          color:
+                              colorScheme.primary.withValues(alpha: s.opacity),
                           border: Border.all(
                             color: colorScheme.outline.withValues(alpha: 0.3),
                           ),
@@ -356,7 +362,8 @@ class _InteractionPageState extends State<InteractionPage> {
                                         .textTheme
                                         .labelSmall
                                         ?.copyWith(
-                                          color: colorScheme.onSecondaryContainer,
+                                          color:
+                                              colorScheme.onSecondaryContainer,
                                         ),
                                   ),
                                 ),
@@ -364,7 +371,10 @@ class _InteractionPageState extends State<InteractionPage> {
                             ),
                             Text(
                               s.description,
-                              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodySmall
+                                  ?.copyWith(
                                     color: colorScheme.onSurfaceVariant,
                                   ),
                             ),

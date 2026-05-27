@@ -26,7 +26,6 @@ enum M3InteractionState {
 /// opacity comes from [M3StateLayerOpacities].
 ///
 /// Handles hover, focus, press, and drag states automatically via [InkWell].
-/// For custom state control, pass an explicit [state].
 ///
 /// ```dart
 /// M3StateLayer(
@@ -36,6 +35,7 @@ enum M3InteractionState {
 /// )
 /// ```
 class M3StateLayer extends StatelessWidget {
+  /// Creates an M3 state layer overlay.
   const M3StateLayer({
     required this.child,
     required this.overlayColor,
@@ -48,15 +48,23 @@ class M3StateLayer extends StatelessWidget {
     this.borderRadius,
   });
 
+  /// The child widget that receives the state layer overlay.
   final Widget child;
 
   /// The base color for the overlay. Typically `colorScheme.onSurface`,
   /// `colorScheme.onPrimary`, etc.
   final Color overlayColor;
 
+  /// Callback when the state layer is tapped.
   final VoidCallback? onTap;
+
+  /// Callback when the state layer is long pressed.
   final VoidCallback? onLongPress;
+
+  /// Callback when the hover state changes.
   final ValueChanged<bool>? onHover;
+
+  /// FocusNode to listen to focus state changes.
   final FocusNode? focusNode;
 
   /// Whether interaction states (hover, press, focus) are active.
@@ -85,20 +93,16 @@ class M3StateLayer extends StatelessWidget {
 
   Color? _resolveOverlayColor(Set<WidgetState> states) {
     if (states.contains(WidgetState.dragged)) {
-      return overlayColor.withValues(
-          alpha: M3StateLayerOpacities.dragged);
+      return overlayColor.withValues(alpha: M3StateLayerOpacities.dragged);
     }
     if (states.contains(WidgetState.pressed)) {
-      return overlayColor.withValues(
-          alpha: M3StateLayerOpacities.pressed);
+      return overlayColor.withValues(alpha: M3StateLayerOpacities.pressed);
     }
     if (states.contains(WidgetState.focused)) {
-      return overlayColor.withValues(
-          alpha: M3StateLayerOpacities.focus);
+      return overlayColor.withValues(alpha: M3StateLayerOpacities.focus);
     }
     if (states.contains(WidgetState.hovered)) {
-      return overlayColor.withValues(
-          alpha: M3StateLayerOpacities.hover);
+      return overlayColor.withValues(alpha: M3StateLayerOpacities.hover);
     }
     return null;
   }

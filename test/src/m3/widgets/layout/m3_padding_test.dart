@@ -1,3 +1,6 @@
+// The test code constructs various widgets dynamically for comparison,
+// so constant constructors cannot always be preferred here.
+// ignore_for_file: prefer_const_constructors
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:material_design/material_design.dart';

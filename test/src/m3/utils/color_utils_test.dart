@@ -130,8 +130,7 @@ void main() {
         final contrast = M3ColorUtils.calculateContrast(black, white);
         expect(contrast, equals(21.0));
 
-        final sameColorContrast =
-            M3ColorUtils.calculateContrast(black, black);
+        final sameColorContrast = M3ColorUtils.calculateContrast(black, black);
         expect(sameColorContrast, equals(1.0));
       });
 

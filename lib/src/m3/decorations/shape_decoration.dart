@@ -5,6 +5,8 @@ part of '../../../../material_design.dart';
 /// Accepts only [M3Shape] and [M3BoxShadow] arguments, preventing arbitrary
 /// shape values that break the design system's visual consistency.
 class M3ShapeDecoration extends ShapeDecoration {
+  /// Creates a shape decoration using Material Design 3 shape and shadow
+  /// tokens.
   const M3ShapeDecoration({
     required M3Shape shape,
     List<M3BoxShadow>? shadows,

@@ -9,14 +9,14 @@ part of '../../../../material_design.dart';
 /// Reference: https://m3.material.io/foundations/interaction/states/overview
 abstract final class M3StateLayerOpacities {
   /// Hover state overlay opacity (8%).
-  static const M3OpacityValue hover = M3OpacityValue(0.08);
+  static const M3OpacityValue hover = M3OpacityValue._(0.08);
 
   /// Focus state overlay opacity (10%).
-  static const M3OpacityValue focus = M3OpacityValue(0.10);
+  static const M3OpacityValue focus = M3OpacityValue._(0.10);
 
   /// Pressed state overlay opacity (10%).
-  static const M3OpacityValue pressed = M3OpacityValue(0.10);
+  static const M3OpacityValue pressed = M3OpacityValue._(0.10);
 
   /// Dragged state overlay opacity (16%).
-  static const M3OpacityValue dragged = M3OpacityValue(0.16);
+  static const M3OpacityValue dragged = M3OpacityValue._(0.16);
 }

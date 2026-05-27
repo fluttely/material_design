@@ -17,7 +17,8 @@ class TonalPalettePage extends StatelessWidget {
         children: [
           LaunchURLText(
             label: 'M3TonalPalette | M3ColorSchemeTokens',
-            m3Url: 'https://m3.material.io/styles/color/the-color-system/key-colors-tones',
+            m3Url:
+                'https://m3.material.io/styles/color/the-color-system/key-colors-tones',
           ),
           const M3Gap(M3Spacings.space16),
           _buildTonalPaletteSection(context, colorScheme),

@@ -609,11 +609,9 @@ class _DemoHomePageState extends State<DemoHomePage>
           spacing: M3Spacings.space16,
           children: [
             _OpacityExample(
-                stateLayerOpacity: M3StateLayerOpacities.hover,
-                label: 'Hover'),
+                stateLayerOpacity: M3StateLayerOpacities.hover, label: 'Hover'),
             _OpacityExample(
-                stateLayerOpacity: M3StateLayerOpacities.focus,
-                label: 'Focus'),
+                stateLayerOpacity: M3StateLayerOpacities.focus, label: 'Focus'),
             _OpacityExample(
                 stateLayerOpacity: M3StateLayerOpacities.pressed,
                 label: 'Pressed'),

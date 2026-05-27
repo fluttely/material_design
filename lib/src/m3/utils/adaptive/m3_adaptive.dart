@@ -215,7 +215,7 @@ abstract interface class M3Adaptive {
             children: [
               if (title != null) ...[
                 M3Padding(
-                  padding: M3EdgeInsets.all(M3Spacings.space16),
+                  padding: const M3EdgeInsets.all(M3Spacings.space16),
                   child: Text(
                     title,
                     style: Theme.of(context).textTheme.headlineSmall,
@@ -254,14 +254,13 @@ abstract interface class M3Adaptive {
               children: [
                 if (title != null) ...[
                   M3Padding(
-                    padding: M3EdgeInsets.all(M3Spacings.space16),
+                    padding: const M3EdgeInsets.all(M3Spacings.space16),
                     child: Row(
                       children: [
                         Expanded(
                           child: Text(
                             title,
-                            style:
-                                Theme.of(context).textTheme.headlineSmall,
+                            style: Theme.of(context).textTheme.headlineSmall,
                           ),
                         ),
                         IconButton(
@@ -409,7 +408,10 @@ abstract interface class M3Adaptive {
 
 /// The primary input method used on the current platform.
 enum InputMethodType {
+  /// Touch input (e.g. mobile device).
   touch,
+
+  /// Mouse input (e.g. desktop/web browser).
   mouse,
 }
 
@@ -417,6 +419,7 @@ enum InputMethodType {
 /// size: compact uses a bottom bar, medium uses a rail, expanded+ uses a
 /// drawer.
 class M3AdaptiveScaffold extends StatelessWidget {
+  /// Creates an adaptive scaffold.
   const M3AdaptiveScaffold({
     required this.body,
     super.key,
@@ -429,13 +432,28 @@ class M3AdaptiveScaffold extends StatelessWidget {
     this.navigationTrailing,
   });
 
+  /// The main content of the scaffold.
   final Widget body;
+
+  /// The list of navigation destinations to display.
   final List<NavigationDestination>? destinations;
+
+  /// The index of the currently selected navigation destination.
   final int selectedIndex;
+
+  /// Callback when a navigation destination is selected.
   final ValueChanged<int>? onDestinationSelected;
+
+  /// Optional app bar to display at the top.
   final PreferredSizeWidget? appBar;
+
+  /// Optional floating action button to display.
   final Widget? floatingActionButton;
+
+  /// Optional leading widget for navigation rail/drawer.
   final Widget? navigationLeading;
+
+  /// Optional trailing widget for navigation rail/drawer.
   final Widget? navigationTrailing;
 
   @override

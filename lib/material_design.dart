@@ -13,7 +13,6 @@ import 'dart:math' as math;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:meta/meta.dart';
 import 'package:vector_math/vector_math_64.dart' hide Colors;
 
 part 'src/m3/border/border.dart';

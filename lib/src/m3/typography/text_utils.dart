@@ -67,7 +67,8 @@ abstract final class M3TextUtils {
     );
   }
 
-  /// Boosts the font weight of [base] by one step for high-contrast readability.
+  /// Boosts the font weight of [base] by one step for high-contrast
+  /// readability.
   static TextStyle highContrast(TextStyle base) {
     return base.copyWith(
       fontWeight: FontWeight.values[math.min(

@@ -7,7 +7,7 @@ void main() {
     test('package exports all necessary components', () {
       expect(M3Spacings.space16, isA<M3SpacingValue>());
       expect(M3Shape.medium, isA<RoundedRectangleBorder>());
-      expect(const M3BorderRadius.all(M3Radius.small), isA<M3BorderRadius>());
+      expect(M3BorderRadius.small, isA<M3BorderRadius>());
     });
   });
 }

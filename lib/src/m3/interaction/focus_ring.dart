@@ -15,6 +15,7 @@ part of '../../../material_design.dart';
 /// )
 /// ```
 class M3FocusRing extends StatefulWidget {
+  /// Creates an M3 focus ring widget.
   const M3FocusRing({
     required this.child,
     super.key,
@@ -25,6 +26,7 @@ class M3FocusRing extends StatefulWidget {
     this.focusNode,
   });
 
+  /// The widget that receives keyboard focus and displays the ring.
   final Widget child;
 
   /// Ring color. Defaults to `colorScheme.secondary`.
@@ -39,6 +41,7 @@ class M3FocusRing extends StatefulWidget {
   /// Corner radius of the ring. Inferred from the child's shape when null.
   final BorderRadius? borderRadius;
 
+  /// Custom focus node to listen to focus state changes.
   final FocusNode? focusNode;
 
   @override
@@ -69,8 +72,7 @@ class _M3FocusRingState extends State<M3FocusRing> {
 
   @override
   Widget build(BuildContext context) {
-    final ringColor =
-        widget.color ?? Theme.of(context).colorScheme.secondary;
+    final ringColor = widget.color ?? Theme.of(context).colorScheme.secondary;
     final radius = widget.borderRadius ?? BorderRadius.zero;
 
     return Focus(
@@ -81,10 +83,8 @@ class _M3FocusRingState extends State<M3FocusRing> {
         decoration: _hasFocus
             ? BoxDecoration(
                 borderRadius: radius.add(
-                      BorderRadius.circular(
-                          widget.ringOffset + widget.ringWidth),
-                    )
-                    as BorderRadius,
+                  BorderRadius.circular(widget.ringOffset + widget.ringWidth),
+                ) as BorderRadius,
                 border: Border.all(
                   color: ringColor,
                   width: widget.ringWidth,
@@ -92,9 +92,8 @@ class _M3FocusRingState extends State<M3FocusRing> {
               )
             : null,
         child: Padding(
-          padding: _hasFocus
-              ? EdgeInsets.all(widget.ringOffset)
-              : EdgeInsets.zero,
+          padding:
+              _hasFocus ? EdgeInsets.all(widget.ringOffset) : EdgeInsets.zero,
           child: widget.child,
         ),
       ),

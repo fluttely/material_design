@@ -6,6 +6,8 @@ part of '../../../../../material_design.dart';
 ///
 /// Reference: https://m3.material.io/foundations/shape/shape-scale
 class M3Radius extends Radius {
+  /// Creates a circular M3 radius of a given value.
+  // ignore: use_super_parameters
   const M3Radius(double value) : super.circular(value);
 
   /// No corner radius (0dp).

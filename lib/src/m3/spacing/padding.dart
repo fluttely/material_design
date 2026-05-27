@@ -15,6 +15,7 @@ part of '../../../../material_design.dart';
 /// )
 /// ```
 class M3Padding extends Padding {
+  /// Creates an M3 padding widget with enforced M3 spacing.
   const M3Padding({
     required M3EdgeInsets super.padding,
     super.child,

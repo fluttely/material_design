@@ -7,6 +7,7 @@ part of '../../../../material_design.dart';
 ///
 /// Reference: https://m3.material.io/foundations/shape/shape-scale
 class M3Shape extends RoundedRectangleBorder {
+  /// Creates an M3 shape with optional border side and border radius.
   const M3Shape({
     M3BorderSide super.side = M3BorderSide.none,
     M3BorderRadius super.borderRadius = M3BorderRadius.none,

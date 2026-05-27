@@ -7,6 +7,7 @@ part of '../../../../material_design.dart';
 /// [M3ElevationVisuals] to compute tinted surface colors.
 ///
 /// Reference: https://m3.material.io/foundations/elevation/overview
+// ignore: use_enums
 class M3Elevation {
   const M3Elevation._({
     required this.dp,
@@ -70,7 +71,8 @@ class M3Elevation {
 
 /// Color and tinting utilities for [M3Elevation].
 extension M3ElevationVisuals on M3Elevation {
-  /// Returns the surface color tinted for this elevation using the current theme.
+  /// Returns the surface color tinted for this elevation using the current
+  /// theme.
   Color surfaceColor(BuildContext context) =>
       M3SurfaceTint.fromElevationToken(context, this);
 

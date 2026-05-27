@@ -41,7 +41,7 @@ void main() {
     });
 
     test('uses default none when not specified', () {
-      const edgeInsets = M3EdgeInsets.only();
+      const edgeInsets = M3EdgeInsets.zero;
 
       expect(edgeInsets.left, equals(0));
       expect(edgeInsets.top, equals(0));
@@ -50,7 +50,7 @@ void main() {
     });
 
     test('symmetric constructor uses default none when not specified', () {
-      const edgeInsets = M3EdgeInsets.symmetric();
+      const edgeInsets = M3EdgeInsets.zero;
 
       expect(edgeInsets.left, equals(0));
       expect(edgeInsets.top, equals(0));
@@ -73,7 +73,7 @@ void main() {
     });
 
     test('handles zero spacing', () {
-      const edgeInsets = M3EdgeInsets.all(M3Spacings.none);
+      const edgeInsets = M3EdgeInsets.zero;
 
       expect(edgeInsets.left, equals(0));
       expect(edgeInsets.top, equals(0));

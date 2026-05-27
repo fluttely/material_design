@@ -12,14 +12,17 @@ part of '../../../material_design.dart';
 /// M3EdgeInsets.only(top: M3Spacings.space8, bottom: M3Spacings.space24)
 /// ```
 class M3EdgeInsets extends EdgeInsets {
+  /// Creates an insets where all sides have the same [value] spacing.
   const M3EdgeInsets.all(M3SpacingValue value)
       : super.fromLTRB(value, value, value, value);
 
+  /// Creates symmetric insets with [horizontal] and [vertical] spacing.
   const M3EdgeInsets.symmetric({
     M3SpacingValue horizontal = M3Spacings.none,
     M3SpacingValue vertical = M3Spacings.none,
   }) : super.fromLTRB(horizontal, vertical, horizontal, vertical);
 
+  /// Creates insets with only the specified sides having non-zero spacing.
   const M3EdgeInsets.only({
     M3SpacingValue left = M3Spacings.none,
     M3SpacingValue top = M3Spacings.none,
@@ -27,12 +30,13 @@ class M3EdgeInsets extends EdgeInsets {
     M3SpacingValue bottom = M3Spacings.none,
   }) : super.fromLTRB(left, top, right, bottom);
 
+  /// Creates insets from left, top, right, and bottom spacing values.
   const M3EdgeInsets.fromLTRB(
-    M3SpacingValue left,
-    M3SpacingValue top,
-    M3SpacingValue right,
-    M3SpacingValue bottom,
-  ) : super.fromLTRB(left, top, right, bottom);
+    M3SpacingValue super.left,
+    M3SpacingValue super.top,
+    M3SpacingValue super.right,
+    M3SpacingValue super.bottom,
+  ) : super.fromLTRB();
 
   /// Zero insets on all sides.
   static const M3EdgeInsets zero = M3EdgeInsets.all(M3Spacings.none);

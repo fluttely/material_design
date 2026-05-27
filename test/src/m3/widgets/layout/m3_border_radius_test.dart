@@ -5,7 +5,7 @@ import 'package:material_design/material_design.dart';
 void main() {
   group('M3BorderRadius', () {
     test('creates uniform border radius correctly', () {
-      const borderRadius = M3BorderRadius.all(M3Radius.medium);
+      const borderRadius = M3BorderRadius.medium;
 
       expect(borderRadius, isA<BorderRadius>());
       expect(borderRadius.topLeft.x, equals(12));
@@ -52,7 +52,7 @@ void main() {
     });
 
     test('uses default none radius when not specified', () {
-      const borderRadius = M3BorderRadius.only();
+      const borderRadius = M3BorderRadius.none;
 
       expect(borderRadius.topLeft.x, equals(0));
       expect(borderRadius.topRight.x, equals(0));
@@ -61,7 +61,7 @@ void main() {
     });
 
     test('vertical constructor uses default none when not specified', () {
-      const borderRadius = M3BorderRadius.vertical();
+      const borderRadius = M3BorderRadius.none;
 
       expect(borderRadius.topLeft.x, equals(0));
       expect(borderRadius.topRight.x, equals(0));
@@ -70,7 +70,7 @@ void main() {
     });
 
     test('horizontal constructor uses default none when not specified', () {
-      const borderRadius = M3BorderRadius.horizontal();
+      const borderRadius = M3BorderRadius.none;
 
       expect(borderRadius.topLeft.x, equals(0));
       expect(borderRadius.topRight.x, equals(0));
@@ -79,12 +79,12 @@ void main() {
     });
 
     test('extends BorderRadius class', () {
-      const borderRadius = M3BorderRadius.all(M3Radius.medium);
+      const borderRadius = M3BorderRadius.medium;
       expect(borderRadius, isA<BorderRadius>());
     });
 
     test('works with full radius token', () {
-      const borderRadius = M3BorderRadius.all(M3Radius.full);
+      const borderRadius = M3BorderRadius.full;
 
       expect(borderRadius.topLeft.x, equals(9999));
       expect(borderRadius.topRight.x, equals(9999));
@@ -105,7 +105,7 @@ void main() {
     });
 
     test('creates equal x and y values for circular radius', () {
-      const borderRadius = M3BorderRadius.all(M3Radius.medium);
+      const borderRadius = M3BorderRadius.medium;
 
       expect(borderRadius.topLeft.x, equals(borderRadius.topLeft.y));
       expect(borderRadius.topRight.x, equals(borderRadius.topRight.y));

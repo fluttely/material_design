@@ -1,5 +1,6 @@
 part of '../../../material_design.dart';
 
+/// Material Design 3 motion duration tokens.
 class M3MotionDuration extends Duration {
   const M3MotionDuration._({super.milliseconds});
 
@@ -40,18 +41,23 @@ class M3MotionDuration extends Duration {
   static const M3MotionDuration long4 = M3MotionDuration._(milliseconds: 600);
 
   /// 700ms — major view changes.
-  static const M3MotionDuration extraLong1 = M3MotionDuration._(milliseconds: 700);
+  static const M3MotionDuration extraLong1 =
+      M3MotionDuration._(milliseconds: 700);
 
   /// 800ms — complex layout changes.
-  static const M3MotionDuration extraLong2 = M3MotionDuration._(milliseconds: 800);
+  static const M3MotionDuration extraLong2 =
+      M3MotionDuration._(milliseconds: 800);
 
   /// 900ms — large-scale transitions.
-  static const M3MotionDuration extraLong3 = M3MotionDuration._(milliseconds: 900);
+  static const M3MotionDuration extraLong3 =
+      M3MotionDuration._(milliseconds: 900);
 
   /// 1000ms — maximum duration transitions.
-  static const M3MotionDuration extraLong4 = M3MotionDuration._(milliseconds: 1000);
+  static const M3MotionDuration extraLong4 =
+      M3MotionDuration._(milliseconds: 1000);
 }
 
+/// Material Design 3 motion curves.
 class M3MotionCurve extends ThreePointCubic {
   const M3MotionCurve._(super.a1, super.b1, super.midpoint, super.a2, super.b2);
 
@@ -123,12 +129,16 @@ class M3MotionCurve extends ThreePointCubic {
 ///
 /// See: https://m3.material.io/styles/motion/easing-and-duration/tokens-specs
 class M3Motion {
+  /// Creates a motion scheme combining [duration] and [curve].
   const M3Motion({
     required this.duration,
     required this.curve,
   });
 
+  /// The duration of the motion transition.
   final M3MotionDuration duration;
+
+  /// The easing curve of the motion transition.
   final M3MotionCurve curve;
 
   /// Creates an [Animatable] for this motion scheme.
@@ -213,16 +223,30 @@ class M3Motion {
 
 /// Motion distance categories for selecting appropriate durations.
 enum M3MotionDistance {
+  /// Short travel distance (usually inside a single component).
   short,
+
+  /// Medium travel distance (transitions across sibling components).
   medium,
+
+  /// Long travel distance (full screen transitions or dialog entries).
   long,
+
+  /// Extra long travel distance (large screen layout changes).
   extraLong,
 }
 
 /// Motion types for selecting appropriate easing curves.
 enum M3MotionType {
+  /// Transition type for elements entering the screen.
   incoming,
+
+  /// Transition type for elements exiting the screen.
   outgoing,
+
+  /// Transition type for elements residing persistently on the screen.
   persistent,
+
+  /// Transition type for generic animation behaviors.
   standard,
 }

@@ -101,12 +101,20 @@ enum M3ScreenSize {
 
   // --- Comparison helpers ---
 
+  /// Whether this size class is at least [other].
   bool isAtLeast(M3ScreenSize other) => index >= other.index;
+
+  /// Whether this size class is at most [other].
   bool isAtMost(M3ScreenSize other) => index <= other.index;
 
+  /// Whether this size class represents a mobile screen.
   bool get isMobile =>
       this == M3ScreenSize.compact || this == M3ScreenSize.medium;
+
+  /// Whether this size class represents a tablet screen.
   bool get isTablet => this == M3ScreenSize.expanded;
+
+  /// Whether this size class represents a desktop screen.
   bool get isDesktop =>
       this == M3ScreenSize.large || this == M3ScreenSize.extraLarge;
 }

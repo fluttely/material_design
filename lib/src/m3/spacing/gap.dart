@@ -180,26 +180,32 @@ class M3Gap extends StatelessWidget {
 /// )
 /// ```
 extension M3GapExtensions on M3Gap {
+  /// Creates a gap with no spacing (0dp).
   static M3Gap none({Key? key, Axis? orientation}) {
     return M3Gap(M3Spacings.none, key: key, orientation: orientation);
   }
 
+  /// Creates an extra-small gap (4dp).
   static M3Gap extraSmall({Key? key, Axis? orientation}) {
     return M3Gap(M3Spacings.space4, key: key, orientation: orientation);
   }
 
+  /// Creates a small gap (8dp).
   static M3Gap small({Key? key, Axis? orientation}) {
     return M3Gap(M3Spacings.space8, key: key, orientation: orientation);
   }
 
+  /// Creates a medium gap (16dp).
   static M3Gap medium({Key? key, Axis? orientation}) {
     return M3Gap(M3Spacings.space16, key: key, orientation: orientation);
   }
 
+  /// Creates a large gap (24dp).
   static M3Gap large({Key? key, Axis? orientation}) {
     return M3Gap(M3Spacings.space24, key: key, orientation: orientation);
   }
 
+  /// Creates an extra-large gap (32dp).
   static M3Gap extraLarge({Key? key, Axis? orientation}) {
     return M3Gap(M3Spacings.space32, key: key, orientation: orientation);
   }

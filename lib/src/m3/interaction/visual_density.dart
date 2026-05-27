@@ -6,6 +6,7 @@ part of '../../../material_design.dart';
 /// more compact interfaces (desktop-friendly); higher values add breathing room
 /// (touch-friendly).
 class M3VisualDensity extends VisualDensity {
+  /// Creates a visual density configuration.
   const M3VisualDensity({super.horizontal = 0.0, super.vertical = 0.0});
 
   /// Standard density (0, 0) — M3 baseline. Good for mixed touch/mouse apps.
@@ -76,12 +77,10 @@ extension M3VisualDensityUtils on M3VisualDensity {
       VisualDensity.lerp(this, other, t);
 
   /// Whether this density is suitable for touch interfaces (≥ -1).
-  bool get isTouchFriendly =>
-      horizontal >= -1.0 && vertical >= -1.0;
+  bool get isTouchFriendly => horizontal >= -1.0 && vertical >= -1.0;
 
   /// Whether this density is optimized for desktop use (≤ 0).
-  bool get isDesktopOptimized =>
-      horizontal <= 0.0 && vertical <= 0.0;
+  bool get isDesktopOptimized => horizontal <= 0.0 && vertical <= 0.0;
 }
 
 /// Context-aware visual density utilities.
