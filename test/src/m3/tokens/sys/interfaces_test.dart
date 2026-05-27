@@ -4,30 +4,30 @@ import 'package:material_design/material_design.dart';
 void main() {
   group('M3SpacingValue extension type', () {
     test('implements double', () {
-      const value = M3Spacings.space16;
+      const value = M3Spacings.s16;
       expect(value, isA<double>());
       expect(value, equals(16.0));
     });
 
     test('is usable as a double in arithmetic', () {
-      const value = M3Spacings.space16;
+      const value = M3Spacings.s16;
       expect(value * 2, equals(32.0));
-      expect(value + M3Spacings.space8, equals(24.0));
+      expect(value + M3Spacings.s8, equals(24.0));
     });
 
     test('const values are identical', () {
-      const v1 = M3Spacings.space16;
-      const v2 = M3Spacings.space16;
+      const v1 = M3Spacings.s16;
+      const v2 = M3Spacings.s16;
       expect(identical(v1, v2), isTrue);
     });
 
     test('values are consistent across access', () {
-      expect(M3Spacings.space16, equals(M3Spacings.space16));
-      expect(M3Spacings.space24, equals(M3Spacings.space24));
+      expect(M3Spacings.s16, equals(M3Spacings.s16));
+      expect(M3Spacings.s24, equals(M3Spacings.s24));
     });
 
     test('is a subtype of M3SpacingValue', () {
-      expect(M3Spacings.space16, isA<M3SpacingValue>());
+      expect(M3Spacings.s16, isA<M3SpacingValue>());
     });
   });
 

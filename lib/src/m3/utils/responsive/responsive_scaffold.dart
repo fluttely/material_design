@@ -97,7 +97,7 @@ class M3ResponsiveScaffold extends StatelessWidget {
                     selectedIndex: selectedIndex,
                     onDestinationSelected: onDestinationSelected,
                     children: [
-                      const M3Gap(M3Spacings.space12),
+                      const M3Gap(M3Spacings.s12),
                       ...destinations.map((dest) {
                         return NavigationDrawerDestination(
                           icon: dest.icon,

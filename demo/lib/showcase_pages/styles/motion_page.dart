@@ -106,12 +106,12 @@ class _MotionShowcaseState extends State<_MotionShowcase>
     final textTheme = Theme.of(context).textTheme;
 
     return M3Padding(
-      padding: M3EdgeInsets.only(bottom: M3Spacings.space16),
+      padding: M3EdgeInsets.only(bottom: M3Spacings.s16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(widget.title, style: textTheme.titleMedium),
-          const M3Gap(M3Spacings.space8),
+          const M3Gap(M3Spacings.s8),
           AnimatedBuilder(
             animation: _animation,
             builder: (context, child) {

@@ -11,55 +11,55 @@ abstract final class M3Spacings {
   static const M3SpacingValue none = M3SpacingValue._(0);
 
   /// 4dp spacing token.
-  static const M3SpacingValue space4 = M3SpacingValue._(4);
+  static const M3SpacingValue s4 = M3SpacingValue._(4);
 
   /// 8dp spacing token.
-  static const M3SpacingValue space8 = M3SpacingValue._(8);
+  static const M3SpacingValue s8 = M3SpacingValue._(8);
 
   /// 12dp spacing token.
-  static const M3SpacingValue space12 = M3SpacingValue._(12);
+  static const M3SpacingValue s12 = M3SpacingValue._(12);
 
   /// 16dp spacing token — the most commonly used M3 spacing value.
-  static const M3SpacingValue space16 = M3SpacingValue._(16);
+  static const M3SpacingValue s16 = M3SpacingValue._(16);
 
   /// 20dp spacing token.
-  static const M3SpacingValue space20 = M3SpacingValue._(20);
+  static const M3SpacingValue s20 = M3SpacingValue._(20);
 
   /// 24dp spacing token.
-  static const M3SpacingValue space24 = M3SpacingValue._(24);
+  static const M3SpacingValue s24 = M3SpacingValue._(24);
 
   /// 28dp spacing token.
-  static const M3SpacingValue space28 = M3SpacingValue._(28);
+  static const M3SpacingValue s28 = M3SpacingValue._(28);
 
   /// 32dp spacing token.
-  static const M3SpacingValue space32 = M3SpacingValue._(32);
+  static const M3SpacingValue s32 = M3SpacingValue._(32);
 
   /// 36dp spacing token.
-  static const M3SpacingValue space36 = M3SpacingValue._(36);
+  static const M3SpacingValue s36 = M3SpacingValue._(36);
 
   /// 40dp spacing token.
-  static const M3SpacingValue space40 = M3SpacingValue._(40);
+  static const M3SpacingValue s40 = M3SpacingValue._(40);
 
   /// 48dp spacing token.
-  static const M3SpacingValue space48 = M3SpacingValue._(48);
+  static const M3SpacingValue s48 = M3SpacingValue._(48);
 
   /// 56dp spacing token.
-  static const M3SpacingValue space56 = M3SpacingValue._(56);
+  static const M3SpacingValue s56 = M3SpacingValue._(56);
 
   /// 64dp spacing token.
-  static const M3SpacingValue space64 = M3SpacingValue._(64);
+  static const M3SpacingValue s64 = M3SpacingValue._(64);
 
   /// 72dp spacing token.
-  static const M3SpacingValue space72 = M3SpacingValue._(72);
+  static const M3SpacingValue s72 = M3SpacingValue._(72);
 
   /// 80dp spacing token.
-  static const M3SpacingValue space80 = M3SpacingValue._(80);
+  static const M3SpacingValue s80 = M3SpacingValue._(80);
 
   /// 96dp spacing token.
-  static const M3SpacingValue space96 = M3SpacingValue._(96);
+  static const M3SpacingValue s96 = M3SpacingValue._(96);
 
   /// 128dp spacing token.
-  static const M3SpacingValue space128 = M3SpacingValue._(128);
+  static const M3SpacingValue s128 = M3SpacingValue._(128);
 
   /// Infinite spacing — for flexible layouts.
   static const M3SpacingValue infinity = M3SpacingValue._(double.infinity);

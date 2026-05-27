@@ -67,8 +67,8 @@ enum M3ScreenSize {
 
   /// Recommended gutter width in dp for this size class.
   double get gutterWidth => switch (this) {
-        M3ScreenSize.compact => M3Spacings.space16,
-        _ => M3Spacings.space24,
+        M3ScreenSize.compact => M3Spacings.s16,
+        _ => M3Spacings.s24,
       };
 
   /// Recommended horizontal page margin in dp for this size class.

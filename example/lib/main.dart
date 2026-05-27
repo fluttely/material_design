@@ -281,7 +281,7 @@ class _DemoHomePageState extends State<DemoHomePage>
           currentColor: widget.currentSeedColor,
           onColorChanged: widget.onSeedColorChange,
         ),
-        const SizedBox(height: M3Spacings.space8),
+        const SizedBox(height: M3Spacings.s8),
       ],
     );
   }
@@ -302,7 +302,7 @@ class _DemoHomePageState extends State<DemoHomePage>
 
   /// Compact layout for mobile devices
   Widget _buildCompactLayout(BuildContext context) {
-    return _buildMainContent(context, padding: M3Spacings.space16);
+    return _buildMainContent(context, padding: M3Spacings.s16);
   }
 
   /// Medium layout for tablets and small desktops
@@ -312,7 +312,7 @@ class _DemoHomePageState extends State<DemoHomePage>
         _buildNavigationRail(context),
         const VerticalDivider(thickness: 1, width: 1),
         Expanded(
-          child: _buildMainContent(context, padding: M3Spacings.space24),
+          child: _buildMainContent(context, padding: M3Spacings.s24),
         ),
       ],
     );
@@ -326,7 +326,7 @@ class _DemoHomePageState extends State<DemoHomePage>
         const VerticalDivider(thickness: 1, width: 1),
         Expanded(
           flex: 2,
-          child: _buildMainContent(context, padding: M3Spacings.space32),
+          child: _buildMainContent(context, padding: M3Spacings.s32),
         ),
         const VerticalDivider(thickness: 1, width: 1),
         Expanded(
@@ -444,12 +444,12 @@ class _DemoHomePageState extends State<DemoHomePage>
   /// Builds the side panel for large screens
   Widget _buildSidePanel(BuildContext context) {
     return SingleChildScrollView(
-      padding: EdgeInsets.all(M3Spacings.space16),
+      padding: EdgeInsets.all(M3Spacings.s16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _buildInfoCard(context),
-          const SizedBox(height: M3Spacings.space16),
+          const SizedBox(height: M3Spacings.s16),
           _buildQuickActions(context),
         ],
       ),
@@ -476,7 +476,7 @@ class _DemoHomePageState extends State<DemoHomePage>
   Widget _buildInfoCard(BuildContext context) {
     return Card(
       child: Padding(
-        padding: EdgeInsets.all(M3Spacings.space16),
+        padding: EdgeInsets.all(M3Spacings.s16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -484,14 +484,14 @@ class _DemoHomePageState extends State<DemoHomePage>
               'Material Design 3 Library Demo',
               style: Theme.of(context).textTheme.headlineSmall,
             ),
-            const SizedBox(height: M3Spacings.space8),
+            const SizedBox(height: M3Spacings.s8),
             Text(
               'This demo showcases the key features of the Material Design 3 library, including design tokens, components, and utilities.',
               style: Theme.of(context).textTheme.bodyMedium,
             ),
-            const SizedBox(height: M3Spacings.space12),
+            const SizedBox(height: M3Spacings.s12),
             Wrap(
-              spacing: M3Spacings.space8,
+              spacing: M3Spacings.s8,
               children: [
                 Chip(
                   label: Text(
@@ -534,17 +534,17 @@ class _DemoHomePageState extends State<DemoHomePage>
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text('Spacing Tokens', style: Theme.of(context).textTheme.titleMedium),
-        const SizedBox(height: M3Spacings.space8),
+        const SizedBox(height: M3Spacings.s8),
         Wrap(
-          spacing: M3Spacings.space8,
-          runSpacing: M3Spacings.space8,
+          spacing: M3Spacings.s8,
+          runSpacing: M3Spacings.s8,
           children: [
-            M3Spacings.space4,
-            M3Spacings.space8,
-            M3Spacings.space12,
-            M3Spacings.space16,
-            M3Spacings.space24,
-            M3Spacings.space32,
+            M3Spacings.s4,
+            M3Spacings.s8,
+            M3Spacings.s12,
+            M3Spacings.s16,
+            M3Spacings.s24,
+            M3Spacings.s32,
           ].map((token) => _SpacingExample(spacing: token)).toList(),
         ),
       ],
@@ -557,12 +557,12 @@ class _DemoHomePageState extends State<DemoHomePage>
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text('Visual Density', style: Theme.of(context).textTheme.titleMedium),
-        const SizedBox(height: M3Spacings.space8),
+        const SizedBox(height: M3Spacings.s8),
         Wrap(
-          spacing: M3Spacings.space8,
+          spacing: M3Spacings.s8,
           children: _buildDensityChips(),
         ),
-        const SizedBox(height: M3Spacings.space8),
+        const SizedBox(height: M3Spacings.s8),
         Card(
           color: Theme.of(context).colorScheme.onPrimary,
           child: ListTile(
@@ -604,9 +604,9 @@ class _DemoHomePageState extends State<DemoHomePage>
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text('Opacity Tokens', style: Theme.of(context).textTheme.titleMedium),
-        const SizedBox(height: M3Spacings.space8),
+        const SizedBox(height: M3Spacings.s8),
         Row(
-          spacing: M3Spacings.space16,
+          spacing: M3Spacings.s16,
           children: [
             _OpacityExample(
                 stateLayerOpacity: M3StateLayerOpacities.hover, label: 'Hover'),
@@ -631,9 +631,9 @@ class _DemoHomePageState extends State<DemoHomePage>
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text('M3Border Tokens', style: Theme.of(context).textTheme.titleMedium),
-        const SizedBox(height: M3Spacings.space8),
+        const SizedBox(height: M3Spacings.s8),
         Row(
-          spacing: M3Spacings.space16,
+          spacing: M3Spacings.s16,
           children: [
             ('none', M3BorderWidths.none),
             ('thin', M3BorderWidths.thin),
@@ -645,7 +645,7 @@ class _DemoHomePageState extends State<DemoHomePage>
             );
             return Expanded(
                 child: Container(
-              padding: EdgeInsets.all(M3Spacings.space12),
+              padding: EdgeInsets.all(M3Spacings.s12),
               decoration: M3BoxDecoration(
                 border: M3Border(
                   top: borderSide,
@@ -672,10 +672,10 @@ class _DemoHomePageState extends State<DemoHomePage>
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text('Color Scheme', style: Theme.of(context).textTheme.titleMedium),
-        const SizedBox(height: M3Spacings.space8),
+        const SizedBox(height: M3Spacings.s8),
         Wrap(
-          spacing: M3Spacings.space8,
-          runSpacing: M3Spacings.space8,
+          spacing: M3Spacings.s8,
+          runSpacing: M3Spacings.s8,
           children: [
             _ColorSwatch(color: colorScheme.primary, label: 'Primary'),
             _ColorSwatch(color: colorScheme.secondary, label: 'Secondary'),
@@ -697,7 +697,7 @@ class _DemoHomePageState extends State<DemoHomePage>
       children: [
         Text('Typography Scale',
             style: Theme.of(context).textTheme.titleMedium),
-        const SizedBox(height: M3Spacings.space8),
+        const SizedBox(height: M3Spacings.s8),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -717,9 +717,9 @@ class _DemoHomePageState extends State<DemoHomePage>
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text('Shape Tokens', style: Theme.of(context).textTheme.titleMedium),
-        const SizedBox(height: M3Spacings.space8),
+        const SizedBox(height: M3Spacings.s8),
         Row(
-          spacing: M3Spacings.space16,
+          spacing: M3Spacings.s16,
           children: [
             M3BorderRadius.none,
             M3BorderRadius.small,
@@ -754,7 +754,7 @@ class _DemoHomePageState extends State<DemoHomePage>
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text('Elevation', style: Theme.of(context).textTheme.titleMedium),
-        const SizedBox(height: M3Spacings.space8),
+        const SizedBox(height: M3Spacings.s8),
         Text('Current elevation: ${_elevation.toInt()}'),
         Slider(
           value: _elevation,
@@ -763,11 +763,11 @@ class _DemoHomePageState extends State<DemoHomePage>
           divisions: 5,
           onChanged: (value) => setState(() => _elevation = value),
         ),
-        const SizedBox(height: M3Spacings.space8),
+        const SizedBox(height: M3Spacings.s8),
         Card(
           elevation: _elevation,
           child: Padding(
-            padding: EdgeInsets.all(M3Spacings.space16),
+            padding: EdgeInsets.all(M3Spacings.s16),
             child: Text('Card with elevation ${_elevation.toInt()}'),
           ),
         ),
@@ -780,10 +780,10 @@ class _DemoHomePageState extends State<DemoHomePage>
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text('Buttons', style: Theme.of(context).textTheme.titleMedium),
-        const SizedBox(height: M3Spacings.space8),
+        const SizedBox(height: M3Spacings.s8),
         Wrap(
-          spacing: M3Spacings.space8,
-          runSpacing: M3Spacings.space8,
+          spacing: M3Spacings.s8,
+          runSpacing: M3Spacings.s8,
           children: [
             ElevatedButton(
               onPressed: () {},
@@ -820,19 +820,19 @@ class _DemoHomePageState extends State<DemoHomePage>
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text('Cards', style: Theme.of(context).textTheme.titleMedium),
-        const SizedBox(height: M3Spacings.space8),
+        const SizedBox(height: M3Spacings.s8),
         Row(
           children: [
             Expanded(
               child: Card(
                 child: Padding(
-                  padding: EdgeInsets.all(M3Spacings.space16),
+                  padding: EdgeInsets.all(M3Spacings.s16),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text('Elevated Card',
                           style: Theme.of(context).textTheme.titleSmall),
-                      const SizedBox(height: M3Spacings.space8),
+                      const SizedBox(height: M3Spacings.s8),
                       Text('Default Material 3 card with elevation',
                           style: Theme.of(context).textTheme.bodySmall),
                     ],
@@ -840,17 +840,17 @@ class _DemoHomePageState extends State<DemoHomePage>
                 ),
               ),
             ),
-            const SizedBox(width: M3Spacings.space8),
+            const SizedBox(width: M3Spacings.s8),
             Expanded(
               child: Card.outlined(
                 child: Padding(
-                  padding: EdgeInsets.all(M3Spacings.space16),
+                  padding: EdgeInsets.all(M3Spacings.s16),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text('Outlined Card',
                           style: Theme.of(context).textTheme.titleSmall),
-                      const SizedBox(height: M3Spacings.space8),
+                      const SizedBox(height: M3Spacings.s8),
                       Text('Card with outline border',
                           style: Theme.of(context).textTheme.bodySmall),
                     ],
@@ -869,10 +869,10 @@ class _DemoHomePageState extends State<DemoHomePage>
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text('Chips', style: Theme.of(context).textTheme.titleMedium),
-        const SizedBox(height: M3Spacings.space8),
+        const SizedBox(height: M3Spacings.s8),
         Wrap(
-          spacing: M3Spacings.space8,
-          runSpacing: M3Spacings.space8,
+          spacing: M3Spacings.s8,
+          runSpacing: M3Spacings.s8,
           children: [
             const Chip(
               label: Text('Assist Chip'),
@@ -903,12 +903,12 @@ class _DemoHomePageState extends State<DemoHomePage>
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text('Navigation', style: Theme.of(context).textTheme.titleMedium),
-        const SizedBox(height: M3Spacings.space8),
+        const SizedBox(height: M3Spacings.s8),
         const Text('Navigation components adapt based on screen size:'),
-        const SizedBox(height: M3Spacings.space8),
+        const SizedBox(height: M3Spacings.s8),
         Wrap(
-          spacing: M3Spacings.space8,
-          runSpacing: M3Spacings.space8,
+          spacing: M3Spacings.s8,
+          runSpacing: M3Spacings.s8,
           children: [
             const Chip(
               label: Text('NavigationRail (≥ Medium)'),
@@ -927,19 +927,19 @@ class _DemoHomePageState extends State<DemoHomePage>
   Widget _buildQuickActions(BuildContext context) {
     return Card(
       child: Padding(
-        padding: EdgeInsets.all(M3Spacings.space16),
+        padding: EdgeInsets.all(M3Spacings.s16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text('Quick Actions',
                 style: Theme.of(context).textTheme.titleMedium),
-            const SizedBox(height: M3Spacings.space12),
+            const SizedBox(height: M3Spacings.s12),
             FilledButton.icon(
               onPressed: widget.onThemeToggle,
               icon: Icon(widget.isDark ? Icons.light_mode : Icons.dark_mode),
               label: Text(widget.isDark ? 'Light Mode' : 'Dark Mode'),
             ),
-            const SizedBox(height: M3Spacings.space8),
+            const SizedBox(height: M3Spacings.s8),
             OutlinedButton.icon(
               onPressed: () {
                 _componentAnimationController.forward().then((_) {
@@ -960,7 +960,7 @@ class _DemoHomePageState extends State<DemoHomePage>
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text('Theme Controls', style: Theme.of(context).textTheme.titleMedium),
-        const SizedBox(height: M3Spacings.space8),
+        const SizedBox(height: M3Spacings.s8),
         SwitchListTile(
           title: const Text('Dark Mode'),
           subtitle: const Text('Toggle between light and dark themes'),
@@ -976,9 +976,9 @@ class _DemoHomePageState extends State<DemoHomePage>
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text('Seed Colors', style: Theme.of(context).textTheme.titleMedium),
-        const SizedBox(height: M3Spacings.space8),
+        const SizedBox(height: M3Spacings.s8),
         Wrap(
-          spacing: M3Spacings.space8,
+          spacing: M3Spacings.s8,
           children: [
             Colors.blue,
             Colors.red,
@@ -1004,7 +1004,7 @@ class _DemoHomePageState extends State<DemoHomePage>
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text('Animations', style: Theme.of(context).textTheme.titleMedium),
-        const SizedBox(height: M3Spacings.space8),
+        const SizedBox(height: M3Spacings.s8),
         AnimatedBuilder(
           animation: _componentAnimationController,
           builder: (context, child) {
@@ -1012,14 +1012,14 @@ class _DemoHomePageState extends State<DemoHomePage>
               scale: 1.0 + (_componentAnimationController.value * 0.1),
               child: Card(
                 child: Padding(
-                  padding: EdgeInsets.all(M3Spacings.space16),
+                  padding: EdgeInsets.all(M3Spacings.s16),
                   child: Row(
                     children: [
                       Icon(
                         Icons.animation,
                         color: Theme.of(context).colorScheme.primary,
                       ),
-                      const SizedBox(height: M3Spacings.space8),
+                      const SizedBox(height: M3Spacings.s8),
                       const Text('Animated component demo'),
                     ],
                   ),
@@ -1038,17 +1038,17 @@ class _DemoHomePageState extends State<DemoHomePage>
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _buildInfoCard(context),
-        const SizedBox(height: M3Spacings.space24),
+        const SizedBox(height: M3Spacings.s24),
         _SectionCard(
           title: 'Foundations',
           subtitle: 'Design tokens and system foundations',
           children: [
             _buildSpacingDemo(),
-            const SizedBox(height: M3Spacings.space16),
+            const SizedBox(height: M3Spacings.s16),
             _buildVisualDensityDemo(),
-            const SizedBox(height: M3Spacings.space16),
+            const SizedBox(height: M3Spacings.s16),
             _buildOpacityDemo(),
-            const SizedBox(height: M3Spacings.space16),
+            const SizedBox(height: M3Spacings.s16),
             _buildBorderDemo(),
           ],
         ),
@@ -1066,11 +1066,11 @@ class _DemoHomePageState extends State<DemoHomePage>
       subtitle: 'Colors, typography, shapes, and elevation',
       children: [
         _buildColorDemo(colorScheme),
-        const SizedBox(height: M3Spacings.space16),
+        const SizedBox(height: M3Spacings.s16),
         _buildTypographyDemo(textTheme),
-        const SizedBox(height: M3Spacings.space16),
+        const SizedBox(height: M3Spacings.s16),
         _buildShapeDemo(),
-        const SizedBox(height: M3Spacings.space16),
+        const SizedBox(height: M3Spacings.s16),
         _buildElevationDemo(),
       ],
     );
@@ -1083,11 +1083,11 @@ class _DemoHomePageState extends State<DemoHomePage>
       subtitle: 'Material Design 3 components showcase',
       children: [
         _buildButtonsDemo(),
-        const SizedBox(height: M3Spacings.space16),
+        const SizedBox(height: M3Spacings.s16),
         _buildCardsDemo(),
-        const SizedBox(height: M3Spacings.space16),
+        const SizedBox(height: M3Spacings.s16),
         _buildChipsDemo(),
-        const SizedBox(height: M3Spacings.space16),
+        const SizedBox(height: M3Spacings.s16),
         _buildNavigationDemo(),
       ],
     );
@@ -1102,9 +1102,9 @@ class _DemoHomePageState extends State<DemoHomePage>
       subtitle: 'Test theme switching and adaptive behavior',
       children: [
         _buildThemeControls(),
-        const SizedBox(height: M3Spacings.space16),
+        const SizedBox(height: M3Spacings.s16),
         _buildSeedColorPicker(colorScheme),
-        const SizedBox(height: M3Spacings.space16),
+        const SizedBox(height: M3Spacings.s16),
         _buildAnimationDemo(),
       ],
     );
@@ -1126,13 +1126,13 @@ class _SectionCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: Padding(
-        padding: EdgeInsets.all(M3Spacings.space16),
+        padding: EdgeInsets.all(M3Spacings.s16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(title, style: Theme.of(context).textTheme.headlineSmall),
             Text(subtitle, style: Theme.of(context).textTheme.bodyMedium),
-            const SizedBox(height: M3Spacings.space16),
+            const SizedBox(height: M3Spacings.s16),
             ...children,
           ],
         ),
@@ -1262,7 +1262,7 @@ class _ColorSwatch extends StatelessWidget {
             ),
           ),
         ),
-        const SizedBox(height: M3Spacings.space4),
+        const SizedBox(height: M3Spacings.s4),
         Text(
           label,
           textAlign: TextAlign.center,
@@ -1290,7 +1290,7 @@ class _SpacingExample extends StatelessWidget {
             borderRadius: M3BorderRadius.extraSmall,
           ),
         ),
-        const SizedBox(height: M3Spacings.space4),
+        const SizedBox(height: M3Spacings.s4),
         Text(
           '${spacing}px',
           textAlign: TextAlign.center,
@@ -1322,7 +1322,7 @@ class _OpacityExample extends StatelessWidget {
             borderRadius: M3BorderRadius.small,
           ),
         ),
-        const SizedBox(height: M3Spacings.space4),
+        const SizedBox(height: M3Spacings.s4),
         Text(
           '$label\n${(stateLayerOpacity * 100).toInt()}%',
           textAlign: TextAlign.center,
@@ -1375,7 +1375,7 @@ class _ColorPickerButton extends StatelessWidget {
                         ),
                       ),
                     ),
-                    const SizedBox(height: M3Spacings.space12),
+                    const SizedBox(height: M3Spacings.s12),
                     Text(
                       '#${color.toARGB32().toRadixString(16).padLeft(8, '0').substring(2).toUpperCase()}',
                     ),

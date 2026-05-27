@@ -39,8 +39,8 @@ Version `1.0.0` introduces complete type safety and enforces constraints at comp
 
 | Concept | Standard Flutter (Error-Prone) | Material Design 3 Contract (Type-Safe) |
 | :--- | :--- | :--- |
-| **Padding** | `EdgeInsets.all(17.3)` (Arbitrary value) | `const M3EdgeInsets.all(M3Spacings.space16)` (Type-safe token) |
-| **Spacing** | `SizedBox(width: 14)` (Unregulated spacing) | `M3Gap(M3Spacings.space12)` (Auto-detects layout direction) |
+| **Padding** | `EdgeInsets.all(17.3)` (Arbitrary value) | `const M3EdgeInsets.all(M3Spacings.s16)` (Type-safe token) |
+| **Spacing** | `SizedBox(width: 14)` (Unregulated spacing) | `M3Gap(M3Spacings.s12)` (Auto-detects layout direction) |
 | **Corners** | `BorderRadius.circular(15)` (Violates shape scale) | `M3BorderRadius.medium` or `M3BorderRadius.all(M3Radius.medium)` (12dp) |
 | **Borders** | `BorderSide(width: 1.5)` (Off-spec thickness) | `const M3BorderSide.thin(color)` (1dp) or `M3BorderSide.thick(color)` (2dp) |
 | **Shadows** | `BoxShadow(blurRadius: 4)` (Manual shadow configuration) | `M3ElevationShadows.level2` or `M3Elevation.level2.shadows` |
@@ -56,21 +56,21 @@ Version `1.0.0` introduces complete type safety and enforces constraints at comp
 
 #### Type-safe Spacing Values
 Raw doubles are wrapped by the `M3SpacingValue` extension type. Static constants are organized in classes.
-* `M3Spacings`: Spacing values on a 4dp grid scale: `none` (0dp), `space4`, `space8`, `space12`, `space16`, `space20`, `space24`, `space28`, `space32`, `space36`, `space40`, `space48`, `space56`, `space64`, `space72`, `space80`, `space96`, `space128`, and `infinity`.
+* `M3Spacings`: Spacing values on a 4dp grid scale: `none` (0dp), `s4`, `s8`, `s12`, `s16`, `s20`, `s24`, `s28`, `s32`, `s36`, `s40`, `s48`, `s56`, `s64`, `s72`, `s80`, `s96`, `s128`, and `infinity`.
 * `M3Margins`: Margins tailored for responsive screen layouts: `compactScreen` (16dp), `mediumScreen` (24dp), `expandedScreen` (24dp), `largeScreen` (24dp), and `extraLargeScreen` (24dp).
 * `M3Spacers`: Predefined spacing helper values such as `pane` (24dp).
 
 #### Layout Wrappers
 * `M3EdgeInsets`: Enforces `M3SpacingValue` tokens on all constructors:
   ```dart
-  const M3EdgeInsets.all(M3Spacings.space16)
-  const M3EdgeInsets.symmetric(horizontal: M3Margins.compactScreen, vertical: M3Spacings.space8)
-  const M3EdgeInsets.only(top: M3Spacings.space24, bottom: M3Spacings.space12)
+  const M3EdgeInsets.all(M3Spacings.s16)
+  const M3EdgeInsets.symmetric(horizontal: M3Margins.compactScreen, vertical: M3Spacings.s8)
+  const M3EdgeInsets.only(top: M3Spacings.s24, bottom: M3Spacings.s12)
   ```
 * `M3Padding`: A drop-in replacement for Flutter's `Padding` widget that accepts only `M3EdgeInsets`:
   ```dart
   M3Padding(
-    padding: const M3EdgeInsets.all(M3Spacings.space16),
+    padding: const M3EdgeInsets.all(M3Spacings.s16),
     child: child,
   )
   ```
@@ -79,7 +79,7 @@ Raw doubles are wrapped by the `M3SpacingValue` extension type. Static constants
   Column(
     children: [
       Text('Header'),
-      M3Gap(M3Spacings.space16), // Renders as vertical spacing
+      M3Gap(M3Spacings.s16), // Renders as vertical spacing
       Text('Body'),
     ],
   )
@@ -341,7 +341,7 @@ class PremiumCardShowcase extends StatelessWidget {
         child: AnimatedContainer(
           duration: M3Motion.emphasized.duration,
           curve: M3Motion.emphasized.curve,
-          padding: const M3EdgeInsets.all(M3Spacings.space24),
+          padding: const M3EdgeInsets.all(M3Spacings.s24),
           decoration: M3BoxDecoration(
             color: colorScheme.surfaceAtElevation(M3Elevation.level1),
             borderRadius: M3BorderRadius.large,
@@ -361,14 +361,14 @@ class PremiumCardShowcase extends StatelessWidget {
                   color: colorScheme.primary,
                 ),
               ),
-              const M3Gap(M3Spacings.space8),
+              const M3Gap(M3Spacings.s8),
               Text(
                 'Material 3 Contract Design',
                 style: M3TypeScale.titleLarge.copyWith(
                   color: colorScheme.onSurface,
                 ),
               ),
-              const M3Gap(M3Spacings.space16),
+              const M3Gap(M3Spacings.s16),
               Text(
                 'Every spacing parameter, border width, opacity, and text scale '
                 'is validated at compile time.',

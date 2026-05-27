@@ -162,7 +162,7 @@ class ColorTokensPage extends StatelessWidget {
       body: Column(
         children: [
           M3Padding(
-            padding: M3EdgeInsets.only(left: M3Spacings.space16),
+            padding: M3EdgeInsets.only(left: M3Spacings.s16),
             child: Align(
               alignment: Alignment.centerLeft,
               child: const LaunchURLText(
@@ -182,7 +182,7 @@ class ColorTokensPage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       LaunchURLText(label: 'Key Colors'),
-                      const M3Gap(M3Spacings.space16),
+                      const M3Gap(M3Spacings.s16),
                       ...keyColors.map(
                         (p) => _KeyColorChip(
                             name: p.$1, color: p.$2, onColor: p.$3),
@@ -198,10 +198,10 @@ class ColorTokensPage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       LaunchURLText(label: 'Scheme'),
-                      const M3Gap(M3Spacings.space16),
+                      const M3Gap(M3Spacings.s16),
                       Wrap(
-                        spacing: M3Spacings.space8,
-                        runSpacing: M3Spacings.space8,
+                        spacing: M3Spacings.s8,
+                        runSpacing: M3Spacings.s8,
                         children: allColors
                             .map(
                               (p) => _ColorChip(
@@ -242,9 +242,9 @@ class _KeyColorChip extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
 
     return M3Padding(
-      padding: M3EdgeInsets.only(bottom: M3Spacings.space8),
+      padding: M3EdgeInsets.only(bottom: M3Spacings.s8),
       child: Container(
-        padding: M3EdgeInsets.all(M3Spacings.space16),
+        padding: M3EdgeInsets.all(M3Spacings.s16),
         decoration: M3BoxDecoration(
           color: color,
           borderRadius: M3BorderRadius.medium,
@@ -287,7 +287,7 @@ class _ColorChip extends StatelessWidget {
 
     return Container(
       width: 150,
-      padding: M3EdgeInsets.all(M3Spacings.space8),
+      padding: M3EdgeInsets.all(M3Spacings.s8),
       decoration: BoxDecoration(
         color: color,
         borderRadius: M3BorderRadius.small,

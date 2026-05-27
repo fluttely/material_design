@@ -40,12 +40,12 @@ class BreakpointTokensPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text('Breakpoints')),
       body: ListView(
-        padding: M3EdgeInsets.all(M3Spacings.space16),
+        padding: M3EdgeInsets.all(M3Spacings.s16),
         children: [
           LaunchURLText(label: 'M3Breakpoints | M3BreakpointToken'),
           Card(
             child: M3Padding(
-              padding: M3EdgeInsets.all(M3Spacings.space16),
+              padding: M3EdgeInsets.all(M3Spacings.s16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -53,19 +53,19 @@ class BreakpointTokensPage extends StatelessWidget {
                     'Live Breakpoint Demo',
                     style: textTheme.headlineSmall,
                   ),
-                  const M3Gap(M3Spacings.space8),
+                  const M3Gap(M3Spacings.s8),
                   Text(
                     'Your current screen width is ${currentWidth.toInt()}dp. The active breakpoint is highlighted below.',
                     style: textTheme.bodyMedium,
                   ),
-                  const M3Gap(M3Spacings.space40),
+                  const M3Gap(M3Spacings.s40),
                   _BreakpointVisualizer(
                     breakpoints: _breakpoints,
                     currentWidth: currentWidth,
                   ),
-                  const M3Gap(M3Spacings.space16),
+                  const M3Gap(M3Spacings.s16),
                   const Divider(),
-                  const M3Gap(M3Spacings.space16),
+                  const M3Gap(M3Spacings.s16),
                   // Generate the list of breakpoints from the single source of truth.
                   ..._buildBreakpointList(context, currentWidth),
                 ],
@@ -126,7 +126,7 @@ class _BreakpointInfoRow extends StatelessWidget {
 
     return M3Padding(
       padding: M3EdgeInsets.symmetric(
-        vertical: M3Spacings.space8,
+        vertical: M3Spacings.s8,
       ),
       child: Row(
         children: [
@@ -136,7 +136,7 @@ class _BreakpointInfoRow extends StatelessWidget {
                 ? colorScheme.primary
                 : colorScheme.surfaceContainerHighest,
           ),
-          const M3Gap(M3Spacings.space16),
+          const M3Gap(M3Spacings.s16),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

@@ -7,9 +7,9 @@ part of '../../../material_design.dart';
 ///
 /// Example:
 /// ```dart
-/// M3EdgeInsets.all(M3Spacings.space16)
+/// M3EdgeInsets.all(M3Spacings.s16)
 /// M3EdgeInsets.symmetric(horizontal: M3Margins.compactScreen)
-/// M3EdgeInsets.only(top: M3Spacings.space8, bottom: M3Spacings.space24)
+/// M3EdgeInsets.only(top: M3Spacings.s8, bottom: M3Spacings.s24)
 /// ```
 class M3EdgeInsets extends EdgeInsets {
   /// Creates an insets where all sides have the same [value] spacing.
@@ -45,21 +45,21 @@ class M3EdgeInsets extends EdgeInsets {
 /// Common M3 EdgeInsets patterns.
 abstract final class M3EdgeInsetsPatterns {
   /// Standard card padding (16dp all sides).
-  static const M3EdgeInsets card = M3EdgeInsets.all(M3Spacings.space16);
+  static const M3EdgeInsets card = M3EdgeInsets.all(M3Spacings.s16);
 
   /// Dialog content padding (24dp all sides).
-  static const M3EdgeInsets dialog = M3EdgeInsets.all(M3Spacings.space24);
+  static const M3EdgeInsets dialog = M3EdgeInsets.all(M3Spacings.s24);
 
   /// List item padding (horizontal 16dp, vertical 8dp).
   static const M3EdgeInsets listItem = M3EdgeInsets.symmetric(
-    horizontal: M3Spacings.space16,
-    vertical: M3Spacings.space8,
+    horizontal: M3Spacings.s16,
+    vertical: M3Spacings.s8,
   );
 
-  /// Button padding (horizontal 24dp, vertical 10dp → use space12 as closest).
+  /// Button padding (horizontal 24dp, vertical 10dp → use s12 as closest).
   static const M3EdgeInsets button = M3EdgeInsets.symmetric(
-    horizontal: M3Spacings.space24,
-    vertical: M3Spacings.space12,
+    horizontal: M3Spacings.s24,
+    vertical: M3Spacings.s12,
   );
 
   /// Compact screen page margin (horizontal 16dp).

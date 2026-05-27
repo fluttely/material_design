@@ -29,7 +29,7 @@ class OpacityTokensPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text('Opacity')),
       body: ListView(
-        padding: M3EdgeInsets.all(M3Spacings.space16),
+        padding: M3EdgeInsets.all(M3Spacings.s16),
         children: [
           // Section for state layer opacities.
           _buildSection(
@@ -52,7 +52,7 @@ class OpacityTokensPage extends StatelessWidget {
           ),
           // Section with a practical example.
           LaunchURLText(label: 'Practical Example'),
-          const M3Gap(M3Spacings.space12),
+          const M3Gap(M3Spacings.s12),
           const M3StateLayerOpacityButtonExample(),
         ],
       ),
@@ -71,10 +71,10 @@ class OpacityTokensPage extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         LaunchURLText(label: title, m3Url: url),
-        const M3Gap(M3Spacings.space16),
+        const M3Gap(M3Spacings.s16),
         Wrap(
-          spacing: M3Spacings.space16,
-          runSpacing: M3Spacings.space16,
+          spacing: M3Spacings.s16,
+          runSpacing: M3Spacings.s16,
           children: tokens.map((token) {
             return _buildOpacityTile(
               label: token.label,
@@ -86,7 +86,7 @@ class OpacityTokensPage extends StatelessWidget {
             );
           }).toList(),
         ),
-        const M3Gap(M3Spacings.space32),
+        const M3Gap(M3Spacings.s32),
       ],
     );
   }

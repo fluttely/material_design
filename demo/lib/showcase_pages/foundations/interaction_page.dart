@@ -16,18 +16,18 @@ class _InteractionPageState extends State<InteractionPage> {
     return Scaffold(
       appBar: AppBar(title: const Text('Interaction & Focus')),
       body: ListView(
-        padding: M3EdgeInsets.all(M3Spacings.space16),
+        padding: M3EdgeInsets.all(M3Spacings.s16),
         children: [
           LaunchURLText(
             label: 'M3StateLayer | M3FocusRing | M3InteractionState',
             m3Url:
                 'https://m3.material.io/foundations/interaction/states/overview',
           ),
-          const M3Gap(M3Spacings.space16),
+          const M3Gap(M3Spacings.s16),
           _buildStateLayerSection(),
-          const M3Gap(M3Spacings.space24),
+          const M3Gap(M3Spacings.s24),
           _buildFocusRingSection(),
-          const M3Gap(M3Spacings.space24),
+          const M3Gap(M3Spacings.s24),
           _buildOpacityTokenSection(),
         ],
       ),
@@ -38,12 +38,12 @@ class _InteractionPageState extends State<InteractionPage> {
     final colorScheme = Theme.of(context).colorScheme;
     return Card(
       child: M3Padding(
-        padding: M3EdgeInsets.all(M3Spacings.space16),
+        padding: M3EdgeInsets.all(M3Spacings.s16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text('M3StateLayer', style: Theme.of(context).textTheme.titleLarge),
-            const M3Gap(M3Spacings.space4),
+            const M3Gap(M3Spacings.s4),
             Text(
               'Semi-transparent overlay that communicates interaction state. '
               'Hover, focus, press, and drag each apply a different opacity.',
@@ -51,7 +51,7 @@ class _InteractionPageState extends State<InteractionPage> {
                     color: colorScheme.onSurfaceVariant,
                   ),
             ),
-            const M3Gap(M3Spacings.space24),
+            const M3Gap(M3Spacings.s24),
 
             // Live interactive card
             _buildInteractiveCard(
@@ -60,14 +60,14 @@ class _InteractionPageState extends State<InteractionPage> {
               backgroundColor: colorScheme.primaryContainer,
               foregroundColor: colorScheme.onPrimaryContainer,
             ),
-            const M3Gap(M3Spacings.space12),
+            const M3Gap(M3Spacings.s12),
             _buildInteractiveCard(
               label: 'Secondary surface',
               overlayColor: colorScheme.onSecondaryContainer,
               backgroundColor: colorScheme.secondaryContainer,
               foregroundColor: colorScheme.onSecondaryContainer,
             ),
-            const M3Gap(M3Spacings.space12),
+            const M3Gap(M3Spacings.s12),
             _buildInteractiveCard(
               label: 'Disabled state',
               overlayColor: colorScheme.onSurface,
@@ -77,17 +77,17 @@ class _InteractionPageState extends State<InteractionPage> {
               ),
               enabled: false,
             ),
-            const M3Gap(M3Spacings.space24),
+            const M3Gap(M3Spacings.s24),
 
             // State opacity reference
             Text(
               'State layer opacities (M3StateLayerOpacities)',
               style: Theme.of(context).textTheme.titleSmall,
             ),
-            const M3Gap(M3Spacings.space12),
+            const M3Gap(M3Spacings.s12),
             Wrap(
-              spacing: M3Spacings.space8,
-              runSpacing: M3Spacings.space8,
+              spacing: M3Spacings.s8,
+              runSpacing: M3Spacings.s8,
               children: [
                 _buildOpacityChip(
                     'hover', M3StateLayerOpacities.hover, colorScheme),
@@ -123,7 +123,7 @@ class _InteractionPageState extends State<InteractionPage> {
           color: backgroundColor,
           borderRadius: M3BorderRadius.medium,
         ),
-        padding: M3EdgeInsets.symmetric(horizontal: M3Spacings.space16),
+        padding: M3EdgeInsets.symmetric(horizontal: M3Spacings.s16),
         child: Row(
           children: [
             Icon(
@@ -131,7 +131,7 @@ class _InteractionPageState extends State<InteractionPage> {
               color: foregroundColor,
               size: M3IconSizes.medium,
             ),
-            const M3Gap(M3Spacings.space12),
+            const M3Gap(M3Spacings.s12),
             Text(
               label,
               style: Theme.of(context).textTheme.bodyLarge?.copyWith(
@@ -147,8 +147,8 @@ class _InteractionPageState extends State<InteractionPage> {
   Widget _buildOpacityChip(String label, double opacity, ColorScheme cs) {
     return Container(
       padding: M3EdgeInsets.symmetric(
-        horizontal: M3Spacings.space12,
-        vertical: M3Spacings.space8,
+        horizontal: M3Spacings.s12,
+        vertical: M3Spacings.s8,
       ),
       decoration: BoxDecoration(
         color: cs.primary.withValues(alpha: opacity),
@@ -168,12 +168,12 @@ class _InteractionPageState extends State<InteractionPage> {
     final colorScheme = Theme.of(context).colorScheme;
     return Card(
       child: M3Padding(
-        padding: M3EdgeInsets.all(M3Spacings.space16),
+        padding: M3EdgeInsets.all(M3Spacings.s16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text('M3FocusRing', style: Theme.of(context).textTheme.titleLarge),
-            const M3Gap(M3Spacings.space4),
+            const M3Gap(M3Spacings.s4),
             Text(
               '3dp ring with 3dp gap around focused components. '
               'Tab through these elements to see the animated focus indicator.',
@@ -181,10 +181,10 @@ class _InteractionPageState extends State<InteractionPage> {
                     color: colorScheme.onSurfaceVariant,
                   ),
             ),
-            const M3Gap(M3Spacings.space24),
+            const M3Gap(M3Spacings.s24),
             Wrap(
-              spacing: M3Spacings.space16,
-              runSpacing: M3Spacings.space16,
+              spacing: M3Spacings.s16,
+              runSpacing: M3Spacings.s16,
               children: [
                 // Button-style focus ring
                 M3FocusRing(
@@ -218,8 +218,8 @@ class _InteractionPageState extends State<InteractionPage> {
                     borderRadius: M3BorderRadius.medium,
                     child: Container(
                       padding: M3EdgeInsets.symmetric(
-                        horizontal: M3Spacings.space16,
-                        vertical: M3Spacings.space12,
+                        horizontal: M3Spacings.s16,
+                        vertical: M3Spacings.s12,
                       ),
                       decoration: BoxDecoration(
                         color: colorScheme.surfaceContainer,
@@ -231,9 +231,9 @@ class _InteractionPageState extends State<InteractionPage> {
                 ),
               ],
             ),
-            const M3Gap(M3Spacings.space16),
+            const M3Gap(M3Spacings.s16),
             Container(
-              padding: M3EdgeInsets.all(M3Spacings.space12),
+              padding: M3EdgeInsets.all(M3Spacings.s12),
               decoration: BoxDecoration(
                 color: colorScheme.tertiaryContainer.withValues(alpha: 0.4),
                 borderRadius: M3BorderRadius.small,
@@ -245,7 +245,7 @@ class _InteractionPageState extends State<InteractionPage> {
                     size: M3IconSizes.dense,
                     color: colorScheme.tertiary,
                   ),
-                  const M3Gap(M3Spacings.space8),
+                  const M3Gap(M3Spacings.s8),
                   Expanded(
                     child: Text(
                       'Press Tab to navigate between elements and see the focus ring animate in.',
@@ -298,7 +298,7 @@ class _InteractionPageState extends State<InteractionPage> {
 
     return Card(
       child: M3Padding(
-        padding: M3EdgeInsets.all(M3Spacings.space16),
+        padding: M3EdgeInsets.all(M3Spacings.s16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -306,16 +306,16 @@ class _InteractionPageState extends State<InteractionPage> {
               'M3InteractionState',
               style: Theme.of(context).textTheme.titleLarge,
             ),
-            const M3Gap(M3Spacings.space4),
+            const M3Gap(M3Spacings.s4),
             Text(
               'Each state applies a specific overlay opacity from M3StateLayerOpacities.',
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                     color: colorScheme.onSurfaceVariant,
                   ),
             ),
-            const M3Gap(M3Spacings.space16),
+            const M3Gap(M3Spacings.s16),
             ...states.map((s) => M3Padding(
-                  padding: M3EdgeInsets.only(bottom: M3Spacings.space12),
+                  padding: M3EdgeInsets.only(bottom: M3Spacings.s12),
                   child: Row(
                     children: [
                       Container(
@@ -335,7 +335,7 @@ class _InteractionPageState extends State<InteractionPage> {
                           color: colorScheme.primary,
                         ),
                       ),
-                      const M3Gap(M3Spacings.space16),
+                      const M3Gap(M3Spacings.s16),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -346,11 +346,11 @@ class _InteractionPageState extends State<InteractionPage> {
                                   s.label,
                                   style: Theme.of(context).textTheme.titleSmall,
                                 ),
-                                const M3Gap(M3Spacings.space8),
+                                const M3Gap(M3Spacings.s8),
                                 Container(
                                   padding: M3EdgeInsets.symmetric(
-                                    horizontal: M3Spacings.space4,
-                                    vertical: M3Spacings.space4,
+                                    horizontal: M3Spacings.s4,
+                                    vertical: M3Spacings.s4,
                                   ),
                                   decoration: BoxDecoration(
                                     color: colorScheme.secondaryContainer,

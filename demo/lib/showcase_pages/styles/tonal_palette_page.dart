@@ -13,20 +13,20 @@ class TonalPalettePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text('Tonal Palette')),
       body: ListView(
-        padding: M3EdgeInsets.all(M3Spacings.space16),
+        padding: M3EdgeInsets.all(M3Spacings.s16),
         children: [
           LaunchURLText(
             label: 'M3TonalPalette | M3ColorSchemeTokens',
             m3Url:
                 'https://m3.material.io/styles/color/the-color-system/key-colors-tones',
           ),
-          const M3Gap(M3Spacings.space16),
+          const M3Gap(M3Spacings.s16),
           _buildTonalPaletteSection(context, colorScheme),
-          const M3Gap(M3Spacings.space24),
+          const M3Gap(M3Spacings.s24),
           _buildStateColorsSection(context, colorScheme),
-          const M3Gap(M3Spacings.space24),
+          const M3Gap(M3Spacings.s24),
           _buildSurfaceElevationSection(context, colorScheme),
-          const M3Gap(M3Spacings.space24),
+          const M3Gap(M3Spacings.s24),
           _buildContrastSection(context, colorScheme),
         ],
       ),
@@ -38,7 +38,7 @@ class TonalPalettePage extends StatelessWidget {
 
     return Card(
       child: M3Padding(
-        padding: M3EdgeInsets.all(M3Spacings.space16),
+        padding: M3EdgeInsets.all(M3Spacings.s16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -46,7 +46,7 @@ class TonalPalettePage extends StatelessWidget {
               'M3TonalPalette',
               style: Theme.of(context).textTheme.titleLarge,
             ),
-            const M3Gap(M3Spacings.space4),
+            const M3Gap(M3Spacings.s4),
             Text(
               'Tones 0–100 generated from the primary seed color. '
               'M3 uses HCT space; this lib approximates with HSL.',
@@ -54,7 +54,7 @@ class TonalPalettePage extends StatelessWidget {
                     color: cs.onSurfaceVariant,
                   ),
             ),
-            const M3Gap(M3Spacings.space16),
+            const M3Gap(M3Spacings.s16),
             // Tone strip
             ClipRRect(
               borderRadius: M3BorderRadius.medium,
@@ -84,16 +84,16 @@ class TonalPalettePage extends StatelessWidget {
                 }).toList(),
               ),
             ),
-            const M3Gap(M3Spacings.space12),
+            const M3Gap(M3Spacings.s12),
             Wrap(
-              spacing: M3Spacings.space8,
-              runSpacing: M3Spacings.space8,
+              spacing: M3Spacings.s8,
+              runSpacing: M3Spacings.s8,
               children: M3TonalPalette.all.map((tone) {
                 final color = palette[tone]!;
                 final isLight = M3ColorUtils.isLight(color);
                 return Container(
                   width: 56,
-                  padding: M3EdgeInsets.symmetric(vertical: M3Spacings.space8),
+                  padding: M3EdgeInsets.symmetric(vertical: M3Spacings.s8),
                   decoration: BoxDecoration(
                     color: color,
                     borderRadius: M3BorderRadius.small,
@@ -136,7 +136,7 @@ class TonalPalettePage extends StatelessWidget {
 
     return Card(
       child: M3Padding(
-        padding: M3EdgeInsets.all(M3Spacings.space16),
+        padding: M3EdgeInsets.all(M3Spacings.s16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -144,7 +144,7 @@ class TonalPalettePage extends StatelessWidget {
               'M3ColorSchemeTokens — State layers',
               style: Theme.of(context).textTheme.titleLarge,
             ),
-            const M3Gap(M3Spacings.space4),
+            const M3Gap(M3Spacings.s4),
             Text(
               'Extension on ColorScheme that returns the correct overlay color '
               'for each M3 interaction state.',
@@ -152,10 +152,10 @@ class TonalPalettePage extends StatelessWidget {
                     color: cs.onSurfaceVariant,
                   ),
             ),
-            const M3Gap(M3Spacings.space16),
+            const M3Gap(M3Spacings.s16),
             ...stateColors.map(
               (entry) => M3Padding(
-                padding: M3EdgeInsets.only(bottom: M3Spacings.space8),
+                padding: M3EdgeInsets.only(bottom: M3Spacings.s8),
                 child: Row(
                   children: [
                     Container(
@@ -169,7 +169,7 @@ class TonalPalettePage extends StatelessWidget {
                         ),
                       ),
                     ),
-                    const M3Gap(M3Spacings.space12),
+                    const M3Gap(M3Spacings.s12),
                     Text(
                       entry.$1,
                       style: Theme.of(context).textTheme.bodyMedium,
@@ -196,7 +196,7 @@ class TonalPalettePage extends StatelessWidget {
 
     return Card(
       child: M3Padding(
-        padding: M3EdgeInsets.all(M3Spacings.space16),
+        padding: M3EdgeInsets.all(M3Spacings.s16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -204,7 +204,7 @@ class TonalPalettePage extends StatelessWidget {
               'M3ColorSchemeTokens — Surface tint',
               style: Theme.of(context).textTheme.titleLarge,
             ),
-            const M3Gap(M3Spacings.space4),
+            const M3Gap(M3Spacings.s4),
             Text(
               'surfaceAtElevation applies the primary tint color at increasing '
               'opacity as elevation increases — the M3 tonal elevation system.',
@@ -212,7 +212,7 @@ class TonalPalettePage extends StatelessWidget {
                     color: cs.onSurfaceVariant,
                   ),
             ),
-            const M3Gap(M3Spacings.space16),
+            const M3Gap(M3Spacings.s16),
             Row(
               children: elevations
                   .map(
@@ -221,7 +221,7 @@ class TonalPalettePage extends StatelessWidget {
                         message: '${e.elevation.dp.toInt()}dp',
                         child: Container(
                           height: 64,
-                          margin: M3EdgeInsets.only(right: M3Spacings.space4),
+                          margin: M3EdgeInsets.only(right: M3Spacings.s4),
                           decoration: BoxDecoration(
                             color: cs.surfaceAtElevation(e.elevation),
                             borderRadius: M3BorderRadius.small,
@@ -260,7 +260,7 @@ class TonalPalettePage extends StatelessWidget {
 
     return Card(
       child: M3Padding(
-        padding: M3EdgeInsets.all(M3Spacings.space16),
+        padding: M3EdgeInsets.all(M3Spacings.s16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -268,21 +268,21 @@ class TonalPalettePage extends StatelessWidget {
               'M3ColorSchemeTokens — isAccessible',
               style: Theme.of(context).textTheme.titleLarge,
             ),
-            const M3Gap(M3Spacings.space4),
+            const M3Gap(M3Spacings.s4),
             Text(
               'Checks if a foreground/background pair meets WCAG AA (4.5:1).',
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                     color: cs.onSurfaceVariant,
                   ),
             ),
-            const M3Gap(M3Spacings.space16),
+            const M3Gap(M3Spacings.s16),
             ...pairs.map((p) {
               final accessible = cs.isAccessible(p.$2, p.$3);
               final ratio = M3ColorUtils.calculateContrast(p.$2, p.$3);
               return M3Padding(
-                padding: M3EdgeInsets.only(bottom: M3Spacings.space12),
+                padding: M3EdgeInsets.only(bottom: M3Spacings.s12),
                 child: Container(
-                  padding: M3EdgeInsets.all(M3Spacings.space12),
+                  padding: M3EdgeInsets.all(M3Spacings.s12),
                   decoration: BoxDecoration(
                     color: p.$3,
                     borderRadius: M3BorderRadius.small,
@@ -303,7 +303,7 @@ class TonalPalettePage extends StatelessWidget {
                           ),
                         ),
                       ),
-                      const M3Gap(M3Spacings.space8),
+                      const M3Gap(M3Spacings.s8),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [

@@ -18,7 +18,7 @@ part of '../../../../material_design.dart';
 /// Column(
 ///   children: [
 ///     Text('First item'),
-///     M3Gap(M3Spacings.space16),
+///     M3Gap(M3Spacings.s16),
 ///     Text('Second item'),
 ///   ],
 /// )
@@ -29,7 +29,7 @@ part of '../../../../material_design.dart';
 /// Row(
 ///   children: [
 ///     Icon(Icons.star),
-///     M3Gap(M3Spacings.space8),
+///     M3Gap(M3Spacings.s8),
 ///     Text('Starred'),
 ///   ],
 /// )
@@ -38,7 +38,7 @@ part of '../../../../material_design.dart';
 /// ### Manual Orientation Override
 /// ```dart
 /// M3Gap(
-///   M3Spacings.space24,
+///   M3Spacings.s24,
 ///   orientation: Axis.horizontal,
 /// )
 /// ```
@@ -56,10 +56,10 @@ part of '../../../../material_design.dart';
 /// ## Design Token Integration
 ///
 /// All spacing values come from Material Design 3 spacing tokens:
-/// - `M3Spacings.space4` - 4dp (tight spacing)
-/// - `M3Spacings.space8` - 8dp (small spacing)
-/// - `M3Spacings.space16` - 16dp (standard spacing)
-/// - `M3Spacings.space24` - 24dp (large spacing)
+/// - `M3Spacings.s4` - 4dp (tight spacing)
+/// - `M3Spacings.s8` - 8dp (small spacing)
+/// - `M3Spacings.s16` - 16dp (standard spacing)
+/// - `M3Spacings.s24` - 24dp (large spacing)
 /// - And many more predefined tokens...
 ///
 /// ## Performance
@@ -187,27 +187,27 @@ extension M3GapExtensions on M3Gap {
 
   /// Creates an extra-small gap (4dp).
   static M3Gap extraSmall({Key? key, Axis? orientation}) {
-    return M3Gap(M3Spacings.space4, key: key, orientation: orientation);
+    return M3Gap(M3Spacings.s4, key: key, orientation: orientation);
   }
 
   /// Creates a small gap (8dp).
   static M3Gap small({Key? key, Axis? orientation}) {
-    return M3Gap(M3Spacings.space8, key: key, orientation: orientation);
+    return M3Gap(M3Spacings.s8, key: key, orientation: orientation);
   }
 
   /// Creates a medium gap (16dp).
   static M3Gap medium({Key? key, Axis? orientation}) {
-    return M3Gap(M3Spacings.space16, key: key, orientation: orientation);
+    return M3Gap(M3Spacings.s16, key: key, orientation: orientation);
   }
 
   /// Creates a large gap (24dp).
   static M3Gap large({Key? key, Axis? orientation}) {
-    return M3Gap(M3Spacings.space24, key: key, orientation: orientation);
+    return M3Gap(M3Spacings.s24, key: key, orientation: orientation);
   }
 
   /// Creates an extra-large gap (32dp).
   static M3Gap extraLarge({Key? key, Axis? orientation}) {
-    return M3Gap(M3Spacings.space32, key: key, orientation: orientation);
+    return M3Gap(M3Spacings.s32, key: key, orientation: orientation);
   }
 }
 
@@ -218,7 +218,7 @@ extension M3GapExtensions on M3Gap {
 /// Column(
 ///   children: M3GapUtils.addGaps(
 ///     [Text('Item 1'), Text('Item 2'), Text('Item 3')],
-///     M3Spacings.space16,
+///     M3Spacings.s16,
 ///   ),
 /// )
 /// ```

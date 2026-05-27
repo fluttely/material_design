@@ -17,7 +17,7 @@ class _M3ExpressivePageState extends State<M3ExpressivePage> {
         title: const Text('M3 Expressive'),
       ),
       // body: SingleChildScrollView(
-      //   padding: M3EdgeInsets.all(M3SpacingToken.space16),
+      //   padding: M3EdgeInsets.all(M3SpacingToken.s16),
       //   child: Column(
       //     crossAxisAlignment: CrossAxisAlignment.start,
       //     children: [
@@ -26,28 +26,28 @@ class _M3ExpressivePageState extends State<M3ExpressivePage> {
       //         m3Url:
       //             'https://m3.material.io/foundations/layout/understanding-layout/spacing',
       //       ),
-      //       const M3Gap(M3SpacingToken.space8),
+      //       const M3Gap(M3SpacingToken.s8),
       //       Text(
       //         'Material Design uses a 4dp base unit for spacing. This creates visual rhythm and hierarchy.',
       //         style: textTheme.bodyMedium,
       //       ),
-      //       const M3Gap(M3SpacingToken.space16),
+      //       const M3Gap(M3SpacingToken.s16),
       //       ...spacings.map((token) => _buildSpacingDemo(token.$1, token.$2)),
-      //       const M3Gap(M3SpacingToken.space32),
+      //       const M3Gap(M3SpacingToken.s32),
       //       const LaunchURLText(
       //         label: 'M3MarginToken (by screen sizes)',
       //         m3Url:
       //             'https://m3.material.io/foundations/layout/applying-layout/compact',
       //       ),
-      //       const M3Gap(M3SpacingToken.space8),
+      //       const M3Gap(M3SpacingToken.s8),
       //       ...margins.map((margin) => _buildSpacingDemo(margin.$1, margin.$2)),
-      //       const M3Gap(M3SpacingToken.space32),
+      //       const M3Gap(M3SpacingToken.s32),
       //       const LaunchURLText(
       //         label: 'M3SpacerToken (between two panes)',
       //         m3Url:
       //             'https://m3.material.io/foundations/layout/understanding-layout/spacing',
       //       ),
-      //       const M3Gap(M3SpacingToken.space8),
+      //       const M3Gap(M3SpacingToken.s8),
       //       ...spacers.map((spacer) => _buildSpacingDemo(spacer.$1, spacer.$2)),
       //     ],
       //   ),
@@ -89,7 +89,7 @@ class _M3ExpressivePageState extends State<M3ExpressivePage> {
   //             overflow: TextOverflow.ellipsis,
   //           ),
   //         ),
-  //         const M3Gap(M3SpacingToken.space16),
+  //         const M3Gap(M3SpacingToken.s16),
   //         Expanded(
   //           child: isInfinity
   //               ? Text(

@@ -14,7 +14,7 @@ void main() {
         MaterialApp(
           home: Scaffold(
             body: M3Padding(
-              padding: M3EdgeInsets.all(M3Spacings.space16),
+              padding: M3EdgeInsets.all(M3Spacings.s16),
               child: testChild,
             ),
           ),
@@ -31,10 +31,10 @@ void main() {
           home: Scaffold(
             body: M3Padding(
               padding: M3EdgeInsets.only(
-                left: M3Spacings.space8,
-                top: M3Spacings.space12,
-                right: M3Spacings.space16,
-                bottom: M3Spacings.space20,
+                left: M3Spacings.s8,
+                top: M3Spacings.s12,
+                right: M3Spacings.s16,
+                bottom: M3Spacings.s20,
               ),
               child: testChild,
             ),
@@ -55,8 +55,8 @@ void main() {
           home: Scaffold(
             body: M3Padding(
               padding: M3EdgeInsets.symmetric(
-                horizontal: M3Spacings.space24,
-                vertical: M3Spacings.space16,
+                horizontal: M3Spacings.s24,
+                vertical: M3Spacings.s16,
               ),
               child: testChild,
             ),
@@ -77,10 +77,10 @@ void main() {
           home: Scaffold(
             body: M3Padding(
               padding: M3EdgeInsets.fromLTRB(
-                M3Spacings.space8,
-                M3Spacings.space16,
-                M3Spacings.space24,
-                M3Spacings.space32,
+                M3Spacings.s8,
+                M3Spacings.s16,
+                M3Spacings.s24,
+                M3Spacings.s32,
               ),
               child: testChild,
             ),
@@ -100,7 +100,7 @@ void main() {
         MaterialApp(
           home: Scaffold(
             body: M3Padding(
-              padding: M3EdgeInsets.only(left: M3Spacings.space16),
+              padding: M3EdgeInsets.only(left: M3Spacings.s16),
               child: testChild,
             ),
           ),
@@ -122,7 +122,7 @@ void main() {
           home: Scaffold(
             body: M3Padding(
               padding: M3EdgeInsets.symmetric(
-                horizontal: M3Spacings.space24,
+                horizontal: M3Spacings.s24,
               ),
               child: testChild,
             ),
@@ -139,7 +139,7 @@ void main() {
 
     test('extends Padding class', () {
       final padding = M3Padding(
-        padding: M3EdgeInsets.all(M3Spacings.space16),
+        padding: M3EdgeInsets.all(M3Spacings.s16),
         child: testChild,
       );
       expect(padding, isA<Padding>());
@@ -150,7 +150,7 @@ void main() {
         MaterialApp(
           home: Scaffold(
             body: M3Padding(
-              padding: M3EdgeInsets.all(M3Spacings.space16),
+              padding: M3EdgeInsets.all(M3Spacings.s16),
               child: testChild,
             ),
           ),
@@ -181,7 +181,7 @@ void main() {
         MaterialApp(
           home: Scaffold(
             body: M3Padding(
-              padding: M3EdgeInsets.all(M3Spacings.space128),
+              padding: M3EdgeInsets.all(M3Spacings.s128),
               child: testChild,
             ),
           ),
@@ -198,8 +198,8 @@ void main() {
           home: Scaffold(
             body: M3Padding(
               padding: M3EdgeInsets.only(
-                left: M3Spacings.space8,
-                bottom: M3Spacings.space24,
+                left: M3Spacings.s8,
+                bottom: M3Spacings.s24,
               ),
               child: testChild,
             ),
@@ -219,11 +219,11 @@ void main() {
     ) async {
       final spacings = [
         M3Spacings.none,
-        M3Spacings.space4,
-        M3Spacings.space8,
-        M3Spacings.space16,
-        M3Spacings.space32,
-        M3Spacings.space64,
+        M3Spacings.s4,
+        M3Spacings.s8,
+        M3Spacings.s16,
+        M3Spacings.s32,
+        M3Spacings.s64,
       ];
 
       for (final spacing in spacings) {

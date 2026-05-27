@@ -5,7 +5,7 @@ import 'package:material_design/material_design.dart';
 void main() {
   group('Material Design Package', () {
     test('package exports all necessary components', () {
-      expect(M3Spacings.space16, isA<M3SpacingValue>());
+      expect(M3Spacings.s16, isA<M3SpacingValue>());
       expect(M3Shape.medium, isA<RoundedRectangleBorder>());
       expect(M3BorderRadius.small, isA<M3BorderRadius>());
     });

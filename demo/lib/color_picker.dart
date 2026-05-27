@@ -9,8 +9,8 @@ Future<Color?> showColorPickerDialog(BuildContext context) {
         title: const Text('Pick a seed color'),
         content: SingleChildScrollView(
           child: Wrap(
-            spacing: M3Spacings.space8,
-            runSpacing: M3Spacings.space8,
+            spacing: M3Spacings.s8,
+            runSpacing: M3Spacings.s8,
             children: [
               Colors.red,
               Colors.pink,

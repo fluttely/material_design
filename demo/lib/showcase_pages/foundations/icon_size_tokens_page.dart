@@ -10,7 +10,7 @@ class IconSizeTokensPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text('Icon Sizes')),
       body: ListView(
-        padding: M3EdgeInsets.all(M3Spacings.space16),
+        padding: M3EdgeInsets.all(M3Spacings.s16),
         children: [
           _buildIconSizeSection(context),
         ],
@@ -31,10 +31,10 @@ class IconSizeTokensPage extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         LaunchURLText(label: 'M3IconSizes | M3IconSizeToken'),
-        const M3Gap(M3Spacings.space16),
+        const M3Gap(M3Spacings.s16),
         Wrap(
-          spacing: M3Spacings.space16,
-          runSpacing: M3Spacings.space16,
+          spacing: M3Spacings.s16,
+          runSpacing: M3Spacings.s16,
           crossAxisAlignment: WrapCrossAlignment.center,
           children: iconSizes.map((iconSize) {
             final (label, value) = iconSize;
@@ -42,7 +42,7 @@ class IconSizeTokensPage extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Icon(Icons.directions_boat_filled, size: value),
-                const M3Gap(M3Spacings.space8),
+                const M3Gap(M3Spacings.s8),
                 Text('$label (${value.toInt()}dp)'),
               ],
             );

@@ -10,7 +10,7 @@ part of '../../../../material_design.dart';
 ///
 /// ```dart
 /// M3Padding(
-///   padding: M3EdgeInsets.all(M3Spacings.space16),
+///   padding: M3EdgeInsets.all(M3Spacings.s16),
 ///   child: Text('Consistently padded text'),
 /// )
 /// ```

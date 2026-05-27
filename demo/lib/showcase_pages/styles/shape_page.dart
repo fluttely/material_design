@@ -25,7 +25,7 @@ class ShapePage extends StatelessWidget {
       body: Column(
         children: [
           M3Padding(
-            padding: M3EdgeInsets.only(left: M3Spacings.space12),
+            padding: M3EdgeInsets.only(left: M3Spacings.s12),
             child: Align(
               alignment: Alignment.centerLeft,
               child: Column(
@@ -52,8 +52,8 @@ class ShapePage extends StatelessWidget {
               gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
                 maxCrossAxisExtent: 200,
                 childAspectRatio: 1.5,
-                mainAxisSpacing: M3Spacings.space16,
-                crossAxisSpacing: M3Spacings.space16,
+                mainAxisSpacing: M3Spacings.s16,
+                crossAxisSpacing: M3Spacings.s16,
               ),
               itemCount: shapes.length,
               itemBuilder: (context, index) {

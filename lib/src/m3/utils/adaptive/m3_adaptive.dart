@@ -215,7 +215,7 @@ abstract interface class M3Adaptive {
             children: [
               if (title != null) ...[
                 M3Padding(
-                  padding: const M3EdgeInsets.all(M3Spacings.space16),
+                  padding: const M3EdgeInsets.all(M3Spacings.s16),
                   child: Text(
                     title,
                     style: Theme.of(context).textTheme.headlineSmall,
@@ -254,7 +254,7 @@ abstract interface class M3Adaptive {
               children: [
                 if (title != null) ...[
                   M3Padding(
-                    padding: const M3EdgeInsets.all(M3Spacings.space16),
+                    padding: const M3EdgeInsets.all(M3Spacings.s16),
                     child: Row(
                       children: [
                         Expanded(
