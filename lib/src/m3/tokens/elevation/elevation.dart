@@ -32,40 +32,70 @@ class M3Elevation {
         _ => level0,
       };
 
+  /// The dp value for [level0] elevation.
+  static const double level0Dp = 0;
+  /// The shadows for [level0] elevation.
+  static const List<M3BoxShadow> level0Shadows = <M3BoxShadow>[];
+
   /// No elevation (0dp) — default surfaces, navigation rails.
-  static const level0 = M3Elevation._(
-    dp: 0,
-    shadows: [],
+  static const M3Elevation level0 = M3Elevation._(
+    dp: level0Dp,
+    shadows: level0Shadows,
   );
+
+  /// The dp value for [level1] elevation.
+  static const double level1Dp = M3ElevationDps.level1;
+  /// The shadows for [level1] elevation.
+  static const List<M3BoxShadow> level1Shadows = M3ElevationShadows.level1;
 
   /// Subtle elevation (1dp) — cards at rest, chips, bottom sheets.
-  static const level1 = M3Elevation._(
-    dp: M3ElevationDps.level1,
-    shadows: M3ElevationShadows.level1,
+  static const M3Elevation level1 = M3Elevation._(
+    dp: level1Dp,
+    shadows: level1Shadows,
   );
+
+  /// The dp value for [level2] elevation.
+  static const double level2Dp = M3ElevationDps.level2;
+  /// The shadows for [level2] elevation.
+  static const List<M3BoxShadow> level2Shadows = M3ElevationShadows.level2;
 
   /// Distinct elevation (3dp) — menus, app bars, navigation drawers.
-  static const level2 = M3Elevation._(
-    dp: M3ElevationDps.level2,
-    shadows: M3ElevationShadows.level2,
+  static const M3Elevation level2 = M3Elevation._(
+    dp: level2Dp,
+    shadows: level2Shadows,
   );
+
+  /// The dp value for [level3] elevation.
+  static const double level3Dp = M3ElevationDps.level3;
+  /// The shadows for [level3] elevation.
+  static const List<M3BoxShadow> level3Shadows = M3ElevationShadows.level3;
 
   /// Prominent elevation (6dp) — FABs, snackbars, dialogs.
-  static const level3 = M3Elevation._(
-    dp: M3ElevationDps.level3,
-    shadows: M3ElevationShadows.level3,
+  static const M3Elevation level3 = M3Elevation._(
+    dp: level3Dp,
+    shadows: level3Shadows,
   );
+
+  /// The dp value for [level4] elevation.
+  static const double level4Dp = M3ElevationDps.level4;
+  /// The shadows for [level4] elevation.
+  static const List<M3BoxShadow> level4Shadows = M3ElevationShadows.level4;
 
   /// High elevation (8dp) — navigation drawers, modal surfaces.
-  static const level4 = M3Elevation._(
-    dp: M3ElevationDps.level4,
-    shadows: M3ElevationShadows.level4,
+  static const M3Elevation level4 = M3Elevation._(
+    dp: level4Dp,
+    shadows: level4Shadows,
   );
 
+  /// The dp value for [level5] elevation.
+  static const double level5Dp = M3ElevationDps.level5;
+  /// The shadows for [level5] elevation.
+  static const List<M3BoxShadow> level5Shadows = M3ElevationShadows.level5;
+
   /// Maximum elevation (12dp) — modal dialogs, critical overlays.
-  static const level5 = M3Elevation._(
-    dp: M3ElevationDps.level5,
-    shadows: M3ElevationShadows.level5,
+  static const M3Elevation level5 = M3Elevation._(
+    dp: level5Dp,
+    shadows: level5Shadows,
   );
 }
 

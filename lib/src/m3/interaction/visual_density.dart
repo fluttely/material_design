@@ -9,21 +9,36 @@ class M3VisualDensity extends VisualDensity {
   /// Creates a visual density configuration.
   const M3VisualDensity({super.horizontal = 0.0, super.vertical = 0.0});
 
+  /// The horizontal density value for [standard].
+  static const double standardHorizontal = 0;
+  /// The vertical density value for [standard].
+  static const double standardVertical = 0;
+
   /// Standard density (0, 0) — M3 baseline. Good for mixed touch/mouse apps.
   static const M3VisualDensity standard = M3VisualDensity();
+
+  /// The horizontal density value for [comfortable].
+  static const double comfortableHorizontal = -1;
+  /// The vertical density value for [comfortable].
+  static const double comfortableVertical = -1;
 
   /// Comfortable density (-1, -1) — larger touch targets. Recommended for
   /// touch-primary apps and accessibility-focused interfaces.
   static const M3VisualDensity comfortable = M3VisualDensity(
-    horizontal: -1,
-    vertical: -1,
+    horizontal: comfortableHorizontal,
+    vertical: comfortableVertical,
   );
+
+  /// The horizontal density value for [compact].
+  static const double compactHorizontal = -2;
+  /// The vertical density value for [compact].
+  static const double compactVertical = -2;
 
   /// Compact density (-2, -2) — maximizes information density. Best for
   /// desktop apps, data tables, and professional tools.
   static const M3VisualDensity compact = M3VisualDensity(
-    horizontal: -2,
-    vertical: -2,
+    horizontal: compactHorizontal,
+    vertical: compactVertical,
   );
 
   /// Resolves to [comfortable] on mobile/touch platforms and [standard] on
