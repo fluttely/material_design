@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 1.0.0-dev.35
+
+### 🧹 Chore
+
+- **Toolchain moved to Flutter 3.47.0 (stable)**: The development SDK was a seven-month-old `master` build. `flutter pub get` on 3.47 migrated `analysis_options.yaml` in the package and the example to exclude build and platform directories; those migrations are kept.
+- **Stray diagnostic file removed**: `demo/test/_probe_test.dart` was a throwaway used to reproduce the blank-page report and should never have been committed.
+
+### 📦 Packaging
+
+- **`.pubignore` restored**: It was introduced alongside a `1.0.0` release commit that was later dropped in favour of continuing the `dev` series, and went with it. Without it the published archive is 692 KB, bundling `demo/` (a full Flutter project) and `documentation/` (an Obsidian vault tracked in git despite being listed in `.gitignore`). With it, 135 KB.
+
 ## 1.0.0-dev.34
 
 ### 🐛 Bug Fixes

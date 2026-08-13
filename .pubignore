@@ -1,0 +1,47 @@
+# Controls what ships in the pub.dev archive.
+#
+# NOTE: a .pubignore at the package root replaces .gitignore for pub's
+# purposes, so the standard build artefacts are repeated here.
+
+# --- Build artefacts ---
+.dart_tool/
+build/
+**/doc/api/
+*.iml
+.idea/
+.vscode/
+.DS_Store
+
+# --- Not useful to consumers ---
+# The showcase app. It is a full Flutter project (~1.1 MB of platform
+# scaffolding) and is published as a web demo instead:
+# https://fluttely.github.io/material_design/
+demo/
+
+# Obsidian vault of working notes. Tracked in git, but not documentation
+# anyone installing the package needs.
+documentation/
+
+# Agent/editor scratch files.
+.gemini-cli
+.claude-cli
+CLAUDE.md
+GEMINI.md
+utils.js
+testing
+.env
+
+# --- example/: keep the Dart, drop the platform scaffolding ---
+# pub.dev renders example/lib/main.dart and example/README.md; the native
+# runners are ~880 KB of noise in the archive.
+example/android/
+example/ios/
+example/linux/
+example/macos/
+example/windows/
+example/web/
+example/.dart_tool/
+example/build/
+example/pubspec.lock
+example/test/
+example/*.iml
