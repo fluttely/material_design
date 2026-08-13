@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 1.0.0-dev.34
+
+### 🐛 Bug Fixes
+
+`M3TextTheme.applyToTheme` blanked the text colors it was handed. Every `Text` in a dark theme rendered black on a dark surface — the type scale was applied, and the theme's own palette was thrown away with it.
+
+- **`M3TextTheme.applyToTheme` merges instead of replacing**: It called `theme.copyWith(textTheme: toTextTheme())`. `M3TypeScale` carries metrics only — no style defines a `color` — and `copyWith` swaps the whole `TextTheme`, discarding the brightness-aware one that `ThemeData`'s constructor had already resolved via `defaultTextTheme.merge(textTheme)`. All fifteen styles came out with `color: null`, which the engine paints as black, in both themes. It now merges onto `theme.textTheme`, so `TextStyle.merge` overwrites only the non-null metric fields and the resolved color survives. The `fontFamily` that `Typography` supplies was being lost the same way, and is likewise preserved.
+
+### ✅ Tests
+
+- **Regression coverage for the type scale applied to a theme**: Asserts that light and dark resolve to different non-null colors while the M3 metrics still land, and renders a `Text` under a dark theme to confirm the painted color is light rather than black.
+
 ## 1.0.0
 
 `1.0.0` turns the package from a collection of tokens into a **design contract**: M3 scales are expressed as types, and stepping outside them requires saying so.

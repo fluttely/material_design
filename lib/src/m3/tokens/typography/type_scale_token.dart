@@ -172,6 +172,12 @@ abstract final class M3TextTheme {
       );
 
   /// Applies the M3 type scale to an existing [ThemeData].
+  ///
+  /// The scale is *merged* onto [ThemeData.textTheme] rather than replacing
+  /// it, so the brightness-aware colors that [ThemeData] resolved from its
+  /// [Typography] survive. Replacing the theme outright would leave every
+  /// [TextStyle.color] null, and the engine paints null as black — which
+  /// renders as unreadable black text on a dark theme.
   static ThemeData applyToTheme(ThemeData theme) =>
-      theme.copyWith(textTheme: toTextTheme());
+      theme.copyWith(textTheme: theme.textTheme.merge(toTextTheme()));
 }

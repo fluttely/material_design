@@ -38,6 +38,53 @@ void main() {
     });
   });
 
+  group('M3TextTheme.applyToTheme', () {
+    ThemeData themeFor(Brightness brightness) => M3TextTheme.applyToTheme(
+          ThemeData(
+            useMaterial3: true,
+            colorScheme: ColorScheme.fromSeed(
+              seedColor: const Color(0xFF6750A4),
+              brightness: brightness,
+            ),
+          ),
+        );
+
+    test('keeps the theme colors and applies the scale metrics', () {
+      final light = themeFor(Brightness.light).textTheme;
+      final dark = themeFor(Brightness.dark).textTheme;
+
+      // A null color paints as black, so a dark theme would be unreadable.
+      expect(light.bodyMedium?.color, isNotNull);
+      expect(dark.bodyMedium?.color, isNotNull);
+      expect(dark.bodyMedium?.color, isNot(light.bodyMedium?.color));
+
+      expect(dark.bodyMedium?.fontSize, M3TypeScale.bodyMedium.fontSize);
+      expect(
+        dark.bodyMedium?.letterSpacing,
+        M3TypeScale.bodyMedium.letterSpacing,
+      );
+      expect(dark.displayLarge?.fontSize, M3TypeScale.displayLarge.fontSize);
+    });
+
+    testWidgets('dark theme renders body text light, not black',
+        (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          theme: themeFor(Brightness.dark),
+          home: const Scaffold(body: Text('Spacing uses a 4dp base unit.')),
+        ),
+      );
+
+      final rendered = tester.widget<RichText>(find.byType(RichText));
+      final color = rendered.text.style?.color;
+
+      expect(color, isNotNull);
+      expect(color, isNot(const Color(0xFF000000)));
+      // Light-on-dark: the resolved color must be bright.
+      expect(color!.computeLuminance(), greaterThan(0.5));
+    });
+  });
+
   group('M3TextUtils.clampedScaler', () {
     testWidgets('caps the user scale factor without touching the style',
         (tester) async {
