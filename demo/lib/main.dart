@@ -461,8 +461,7 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
               child: Column(
                 children: [
                   // Foundations section
-                  Divider(
-                      indent: M3Spacings.s8, endIndent: M3Spacings.s8),
+                  Divider(indent: M3Spacings.s8, endIndent: M3Spacings.s8),
                   const LaunchURLText(
                     label: 'Foundations',
                     fontSize: 12,
@@ -485,8 +484,7 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
                     );
                   }),
 
-                  Divider(
-                      indent: M3Spacings.s8, endIndent: M3Spacings.s8),
+                  Divider(indent: M3Spacings.s8, endIndent: M3Spacings.s8),
 
                   // Styles section
                   const LaunchURLText(
@@ -522,8 +520,7 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
             padding: M3EdgeInsets.symmetric(vertical: M3Spacings.s8),
             child: Column(
               children: [
-                Divider(
-                    indent: M3Spacings.s8, endIndent: M3Spacings.s8),
+                Divider(indent: M3Spacings.s8, endIndent: M3Spacings.s8),
 
                 // Dark mode switch
                 Column(

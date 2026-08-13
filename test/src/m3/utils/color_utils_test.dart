@@ -207,16 +207,8 @@ void main() {
         }
       });
 
-      test('tonalPalette returns correct tonal values', () {
-        const sourceColor = Colors.red;
-        final palette = M3ColorUtils.tonalPalette(sourceColor);
-
-        expect(palette, hasLength(M3TonalPalette.all.length));
-        expect(palette[M3TonalPalette.black], equals(Colors.black));
-        expect(palette[M3TonalPalette.white], equals(Colors.white));
-        expect(palette.keys, contains(M3TonalPalette.tone50));
-        expect(palette.keys, contains(M3TonalPalette.tone95));
-      });
+      // Tonal palettes moved to M3TonalPalette (real HCT); see
+      // test/src/m3/tokens/color/tonal_palette_test.dart.
 
       test('isLight correctly identifies light colors', () {
         expect(M3ColorUtils.isLight(Colors.white), isTrue);

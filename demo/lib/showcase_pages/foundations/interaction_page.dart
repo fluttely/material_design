@@ -204,7 +204,7 @@ class _InteractionPageState extends State<InteractionPage> {
                 ),
                 // Icon button focus ring
                 M3FocusRing(
-                  borderRadius: BorderRadius.circular(24),
+                  borderRadius: M3BorderRadius.full,
                   child: IconButton.filled(
                     onPressed: () {},
                     icon: const Icon(Icons.favorite_rounded),

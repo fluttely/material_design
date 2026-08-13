@@ -111,8 +111,8 @@ class _UtilsPageState extends State<UtilsPage> {
         ),
         Slider(
           value: _elevation.dp,
-          min: M3Elevation.level0Dp,
-          max: M3Elevation.level5Dp,
+          min: M3ElevationDps.level0,
+          max: M3ElevationDps.level5,
           divisions: 12,
           label: '${_elevation.dp.round()}dp',
           onChanged: (newValue) {
@@ -284,7 +284,7 @@ class _UtilsPageState extends State<UtilsPage> {
       decoration: BoxDecoration(
         color: elevation.surfaceColor(context),
         borderRadius: M3BorderRadius.medium,
-        border: elevation.dp == 0
+        border: elevation == M3Elevation.level0
             ? Border.all(color: Theme.of(context).colorScheme.outlineVariant)
             : null,
       ),

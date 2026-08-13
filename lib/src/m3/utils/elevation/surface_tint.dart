@@ -1,4 +1,4 @@
-part of '../../../../material_design.dart';
+part of '../../../color.dart';
 
 /// {@template m3_tonal_color}
 /// Internal utility class for Material Design 3 surface tint calculations.
@@ -136,4 +136,34 @@ abstract interface class M3SurfaceTint {
       surface,
     );
   }
+}
+
+/// Color and tinting utilities for [M3Elevation].
+extension M3ElevationVisuals on M3Elevation {
+  /// Returns the surface color tinted for this elevation using the current
+  /// theme.
+  Color surfaceColor(BuildContext context) =>
+      M3SurfaceTint.fromElevationToken(context, this);
+
+  /// Returns the surface color tinted for this elevation using explicit colors.
+  Color calculateSurfaceColor({
+    required Color surface,
+    required Color surfaceTint,
+  }) =>
+      M3SurfaceTint.calculateSurfaceColor(
+        surface: surface,
+        surfaceTint: surfaceTint,
+        elevation: this,
+      );
+
+  /// Returns a high-contrast surface color for accessibility.
+  Color highContrastSurface({
+    required Color surface,
+    required Color surfaceTint,
+  }) =>
+      M3SurfaceTint.highContrastSurface(
+        surface: surface,
+        surfaceTint: surfaceTint,
+        elevation: this,
+      );
 }

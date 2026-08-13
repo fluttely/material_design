@@ -1,4 +1,4 @@
-part of '../../../material_design.dart';
+part of '../../expressive.dart';
 
 // These epsilon values are used internally to determine when two points are
 // the same, within some reasonable roundoff error. The distance epsilon is

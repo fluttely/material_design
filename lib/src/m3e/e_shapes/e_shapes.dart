@@ -1,4 +1,4 @@
-part of '../../../material_design.dart';
+part of '../../expressive.dart';
 
 /// Material Design 3 Expressive predefined shapes collection.
 ///

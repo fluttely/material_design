@@ -1,35 +1,17 @@
-part of '../../../material_design.dart';
-
-/// The possible interaction states a Material Design 3 component can be in.
-///
-/// Each state has a corresponding opacity defined in [M3StateLayerOpacities].
-/// The overlay color is always the component's "content" color (e.g. onPrimary,
-/// onSurface) applied at the state's opacity.
-enum M3InteractionState {
-  /// The pointer is hovering over the component (8% overlay).
-  hover,
-
-  /// The component has keyboard or programmatic focus (10% overlay).
-  focus,
-
-  /// The component is being pressed (10% overlay).
-  pressed,
-
-  /// The component is being dragged (16% overlay).
-  dragged,
-}
+part of '../../interaction.dart';
 
 /// Applies a Material Design 3 state-layer overlay to its [child].
 ///
 /// A state layer is a semi-transparent color overlay that communicates the
-/// current interaction state. The color comes from [overlayColor] and the
-/// opacity comes from [M3StateLayerOpacities].
+/// current interaction state. The color comes from [overlayColor]; the opacity
+/// comes from [M3InteractionState.stateLayerOpacity].
 ///
-/// Handles hover, focus, press, and drag states automatically via [InkWell].
+/// Hover, focus, press, and drag are handled automatically.
 ///
 /// ```dart
 /// M3StateLayer(
 ///   overlayColor: colorScheme.onSurface,
+///   borderRadius: M3BorderRadius.medium,
 ///   onTap: () {},
 ///   child: MyWidget(),
 /// )
@@ -45,7 +27,7 @@ class M3StateLayer extends StatelessWidget {
     this.onHover,
     this.focusNode,
     this.enabled = true,
-    this.borderRadius,
+    this.borderRadius = M3BorderRadius.none,
   });
 
   /// The child widget that receives the state layer overlay.
@@ -70,8 +52,9 @@ class M3StateLayer extends StatelessWidget {
   /// Whether interaction states (hover, press, focus) are active.
   final bool enabled;
 
-  /// Corner radius applied to the ripple clip region.
-  final BorderRadius? borderRadius;
+  /// Corner radius applied to the ripple clip region. Match this to the
+  /// surrounding component's shape.
+  final M3BorderRadius borderRadius;
 
   @override
   Widget build(BuildContext context) {
@@ -92,32 +75,15 @@ class M3StateLayer extends StatelessWidget {
   }
 
   Color? _resolveOverlayColor(Set<WidgetState> states) {
-    if (states.contains(WidgetState.dragged)) {
-      return overlayColor.withValues(alpha: M3StateLayerOpacities.dragged);
-    }
-    if (states.contains(WidgetState.pressed)) {
-      return overlayColor.withValues(alpha: M3StateLayerOpacities.pressed);
-    }
-    if (states.contains(WidgetState.focused)) {
-      return overlayColor.withValues(alpha: M3StateLayerOpacities.focus);
-    }
-    if (states.contains(WidgetState.hovered)) {
-      return overlayColor.withValues(alpha: M3StateLayerOpacities.hover);
-    }
-    return null;
-  }
-}
-
-/// Extension on [ColorScheme] for computing M3 state layer colors.
-extension M3ColorSchemeStateLayers on ColorScheme {
-  /// Returns the state-layer color for [base] at the given [state].
-  Color stateLayerColor(Color base, M3InteractionState state) {
-    final opacity = switch (state) {
-      M3InteractionState.hover => M3StateLayerOpacities.hover,
-      M3InteractionState.focus => M3StateLayerOpacities.focus,
-      M3InteractionState.pressed => M3StateLayerOpacities.pressed,
-      M3InteractionState.dragged => M3StateLayerOpacities.dragged,
+    // Ordered by M3 precedence: the strongest active state wins.
+    final state = switch (states) {
+      _ when states.contains(WidgetState.dragged) => M3InteractionState.dragged,
+      _ when states.contains(WidgetState.pressed) => M3InteractionState.pressed,
+      _ when states.contains(WidgetState.focused) => M3InteractionState.focus,
+      _ when states.contains(WidgetState.hovered) => M3InteractionState.hover,
+      _ => null,
     };
-    return base.withValues(alpha: opacity);
+    if (state == null) return null;
+    return overlayColor.withValues(alpha: state.stateLayerOpacity);
   }
 }

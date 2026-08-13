@@ -1,4 +1,4 @@
-part of '../../../material_design.dart';
+part of '../../expressive.dart';
 
 /// This class is used to animate between start and end polygons objects.
 ///

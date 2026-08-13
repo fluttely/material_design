@@ -1,4 +1,4 @@
-part of '../../../../material_design.dart';
+part of '../../../tokens.dart';
 
 /// Material Design 3 type scale — all 15 text styles as compile-time constants.
 ///

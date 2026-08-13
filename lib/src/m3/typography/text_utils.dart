@@ -1,29 +1,36 @@
-part of '../../../material_design.dart';
+part of '../../typography.dart';
 
 /// Utility methods for working with M3 text styles.
 ///
 /// Keeps manipulation logic separate from [M3TypeScale] token constants.
 abstract final class M3TextUtils {
-  /// Scales [baseStyle] respecting the system text scale factor.
+  /// Returns the ambient [TextScaler] clamped to a scale-factor range.
   ///
-  /// Clamps the result to [minFontSize] and [maxFontSize] when provided.
-  static TextStyle adaptive({
-    required TextStyle baseStyle,
-    required BuildContext context,
-    double? minFontSize,
-    double? maxFontSize,
+  /// Pass the result to a [Text] widget's `textScaler` when a layout genuinely
+  /// cannot absorb unbounded user text scaling:
+  ///
+  /// ```dart
+  /// Text(
+  ///   label,
+  ///   style: M3TypeScale.labelLarge,
+  ///   textScaler: M3TextUtils.clampedScaler(context, maxScaleFactor: 1.5),
+  /// )
+  /// ```
+  ///
+  /// To clamp a whole subtree instead, prefer Flutter's
+  /// [MediaQuery.withClampedTextScaling].
+  ///
+  /// Clamping fights the user's accessibility setting, so reach for it only
+  /// after the layout itself has been made to flex.
+  static TextScaler clampedScaler(
+    BuildContext context, {
+    double minScaleFactor = 0.0,
+    double maxScaleFactor = double.infinity,
   }) {
-    final textScaler = MediaQuery.of(context).textScaler;
-    var size = textScaler.scale(baseStyle.fontSize!);
-
-    if (minFontSize != null) size = math.max(size, minFontSize);
-    if (maxFontSize != null) size = math.min(size, maxFontSize);
-
-    final height = baseStyle.height != null
-        ? baseStyle.height! * (baseStyle.fontSize! / size)
-        : null;
-
-    return baseStyle.copyWith(fontSize: size, height: height);
+    return MediaQuery.textScalerOf(context).clamp(
+      minScaleFactor: minScaleFactor,
+      maxScaleFactor: maxScaleFactor,
+    );
   }
 
   /// Returns the display style appropriate for the current screen width.
@@ -34,15 +41,17 @@ abstract final class M3TextUtils {
     return M3TypeScale.displayLarge;
   }
 
-  /// Applies OpenDyslexic-friendly adjustments: wider spacing and taller lines.
+  /// Widens letter spacing and opens up line height to aid readability for
+  /// dyslexic readers.
+  ///
+  /// This adjusts metrics only — it does not swap in a dyslexia-specific
+  /// typeface. To do that, combine it with [withFontFamily] and a font you
+  /// bundle yourself.
   static TextStyle dyslexiaFriendly(TextStyle base) {
     return base.copyWith(
       letterSpacing: (base.letterSpacing ?? 0) + 0.12,
       height: math.max(base.height ?? 1.0, 1.6),
-      fontWeight: FontWeight.values[math.min(
-        FontWeight.values.indexOf(base.fontWeight ?? FontWeight.w400) + 1,
-        FontWeight.values.length - 1,
-      )],
+      fontWeight: _bolder(base.fontWeight),
     );
   }
 
@@ -69,13 +78,13 @@ abstract final class M3TextUtils {
 
   /// Boosts the font weight of [base] by one step for high-contrast
   /// readability.
-  static TextStyle highContrast(TextStyle base) {
-    return base.copyWith(
-      fontWeight: FontWeight.values[math.min(
-        FontWeight.values.indexOf(base.fontWeight ?? FontWeight.w400) + 1,
-        FontWeight.values.length - 1,
-      )],
-    );
+  static TextStyle highContrast(TextStyle base) =>
+      base.copyWith(fontWeight: _bolder(base.fontWeight));
+
+  /// Returns the next heavier [FontWeight], saturating at [FontWeight.w900].
+  static FontWeight _bolder(FontWeight? weight) {
+    final index = FontWeight.values.indexOf(weight ?? FontWeight.w400);
+    return FontWeight.values[math.min(index + 1, FontWeight.values.length - 1)];
   }
 }
 

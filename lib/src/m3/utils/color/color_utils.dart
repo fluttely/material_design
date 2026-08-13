@@ -1,4 +1,4 @@
-part of '../../../../../material_design.dart';
+part of '../../../color.dart';
 
 /// Color manipulation and accessibility utilities for Material Design 3.
 ///
@@ -151,24 +151,6 @@ abstract interface class M3ColorUtils {
       hsl.withHue((hsl.hue + 120) % 360).toColor(),
       hsl.withHue((hsl.hue + 240) % 360).toColor(),
     ];
-  }
-
-  /// Generates an approximate tonal palette for [sourceColor].
-  ///
-  /// Keys match [M3TonalPalette] tones (0–100). Values approximate the
-  /// HCT-space lightness using luma-based HSL. For production accuracy use
-  /// `material_color_utilities`.
-  static Map<int, Color> tonalPalette(Color sourceColor) {
-    final hsl = HSLColor.fromColor(sourceColor);
-    Color tone(int t) => hsl.withLightness(t / 100.0).toColor();
-    return {
-      for (final t in M3TonalPalette.all)
-        t: t == 0
-            ? Colors.black
-            : t == 100
-                ? Colors.white
-                : tone(t),
-    };
   }
 
   /// Whether [color] is perceived as light (luminance > 0.5).

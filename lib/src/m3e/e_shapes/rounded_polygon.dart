@@ -1,4 +1,4 @@
-part of '../../../material_design.dart';
+part of '../../expressive.dart';
 
 /// The RoundedPolygon class allows simple construction of polygonal shapes
 /// with optional rounding at the vertices. Polygons can be constructed with

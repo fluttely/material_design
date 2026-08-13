@@ -1,4 +1,4 @@
-part of '../../../../material_design.dart';
+part of '../../shape.dart';
 
 /// Custom box decoration that enforces Material Design 3 tokens.
 class M3BoxDecoration extends BoxDecoration {

@@ -1,4 +1,4 @@
-part of '../../../../material_design.dart';
+part of '../../../adaptive.dart';
 
 /// A widget that provides responsive values based on the current window size
 /// class.

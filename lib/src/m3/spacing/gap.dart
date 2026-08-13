@@ -1,4 +1,4 @@
-part of '../../../../material_design.dart';
+part of '../../layout.dart';
 
 /// Material Design 3 Gap widget with automatic orientation detection.
 ///

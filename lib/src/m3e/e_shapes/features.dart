@@ -1,4 +1,4 @@
-part of '../../../material_design.dart';
+part of '../../expressive.dart';
 
 /// While a polygon's shape can be drawn solely using a list of [Cubic] objects
 /// representing its raw curves and lines, features add an extra layer of

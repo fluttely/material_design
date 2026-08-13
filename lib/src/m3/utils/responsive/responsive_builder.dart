@@ -1,4 +1,4 @@
-part of '../../../../material_design.dart';
+part of '../../../adaptive.dart';
 
 /// A responsive builder widget that rebuilds when the window size class
 /// changes.

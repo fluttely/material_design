@@ -1,11 +1,11 @@
-part of '../../../../../material_design.dart';
+part of '../../../adaptive.dart';
 
 /// Accessibility constants and utilities for Material Design 3.
 ///
 /// Provides WCAG contrast thresholds, touch target sizes, and helpers for
 /// motion and high-contrast theming. Does not construct concrete widgets.
 @immutable
-abstract interface class M3Accessibility {
+abstract final class M3Accessibility {
   // --- Touch target sizes ---
 
   /// Minimum touch target for mobile (48dp).

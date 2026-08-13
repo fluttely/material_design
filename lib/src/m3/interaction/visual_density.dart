@@ -1,4 +1,4 @@
-part of '../../../material_design.dart';
+part of '../../interaction.dart';
 
 /// Material Design 3 visual density tokens.
 ///
@@ -11,6 +11,7 @@ class M3VisualDensity extends VisualDensity {
 
   /// The horizontal density value for [standard].
   static const double standardHorizontal = 0;
+
   /// The vertical density value for [standard].
   static const double standardVertical = 0;
 
@@ -19,6 +20,7 @@ class M3VisualDensity extends VisualDensity {
 
   /// The horizontal density value for [comfortable].
   static const double comfortableHorizontal = -1;
+
   /// The vertical density value for [comfortable].
   static const double comfortableVertical = -1;
 
@@ -31,6 +33,7 @@ class M3VisualDensity extends VisualDensity {
 
   /// The horizontal density value for [compact].
   static const double compactHorizontal = -2;
+
   /// The vertical density value for [compact].
   static const double compactVertical = -2;
 

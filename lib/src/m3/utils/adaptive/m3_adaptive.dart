@@ -1,4 +1,4 @@
-part of '../../../../../material_design.dart';
+part of '../../../adaptive.dart';
 
 /// Adaptive design utilities for Material Design 3.
 ///

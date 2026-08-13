@@ -1,4 +1,4 @@
-part of '../../../material_design.dart';
+part of '../../expressive.dart';
 
 const _kContainerSize = 48.0;
 const _kActiveIndicatorSize = 38.0;

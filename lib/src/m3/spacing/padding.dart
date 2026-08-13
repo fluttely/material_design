@@ -1,4 +1,4 @@
-part of '../../../../material_design.dart';
+part of '../../layout.dart';
 
 /// Material Design 3 Padding widget with design token enforcement.
 ///

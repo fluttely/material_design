@@ -1,4 +1,4 @@
-part of '../../../../material_design.dart';
+part of '../../../adaptive.dart';
 
 /// A responsive grid widget that follows Material Design 3 guidelines.
 ///
@@ -36,9 +36,7 @@ class M3ResponsiveGrid extends StatelessWidget {
           constraints: config.maxWidth != null
               ? BoxConstraints(maxWidth: config.maxWidth!)
               : null,
-          padding: M3EdgeInsets.symmetric(
-            horizontal: M3SpacingValue._(config.margin),
-          ),
+          padding: M3EdgeInsets.symmetric(horizontal: config.margin),
           child: GridView.count(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),

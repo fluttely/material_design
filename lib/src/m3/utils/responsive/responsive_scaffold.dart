@@ -1,4 +1,4 @@
-part of '../../../../material_design.dart';
+part of '../../../adaptive.dart';
 
 /// A responsive scaffold that automatically adjusts navigation based on window
 /// size.

@@ -1,4 +1,4 @@
-part of '../../../../material_design.dart';
+part of '../../../tokens.dart';
 
 /// Material Design 3 state layer opacity tokens.
 ///
@@ -19,4 +19,29 @@ abstract final class M3StateLayerOpacities {
 
   /// Dragged state overlay opacity (16%).
   static const M3OpacityValue dragged = M3OpacityValue._(0.16);
+}
+
+/// The interaction states a Material Design 3 component can be in.
+///
+/// Each state carries the overlay opacity the M3 spec assigns to it, so the
+/// state-to-opacity mapping lives in exactly one place.
+///
+/// Reference: https://m3.material.io/foundations/interaction/states/overview
+enum M3InteractionState {
+  /// The pointer is hovering over the component (8% overlay).
+  hover(M3StateLayerOpacities.hover),
+
+  /// The component has keyboard or programmatic focus (10% overlay).
+  focus(M3StateLayerOpacities.focus),
+
+  /// The component is being pressed (10% overlay).
+  pressed(M3StateLayerOpacities.pressed),
+
+  /// The component is being dragged (16% overlay).
+  dragged(M3StateLayerOpacities.dragged);
+
+  const M3InteractionState(this.stateLayerOpacity);
+
+  /// The state layer overlay opacity for this state.
+  final M3OpacityValue stateLayerOpacity;
 }

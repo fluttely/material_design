@@ -1,4 +1,4 @@
-part of '../../../../material_design.dart';
+part of '../../../adaptive.dart';
 
 /// Helper class for responsive navigation patterns.
 ///

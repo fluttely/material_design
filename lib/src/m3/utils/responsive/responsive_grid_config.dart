@@ -1,4 +1,4 @@
-part of '../../../../material_design.dart';
+part of '../../../adaptive.dart';
 
 /// Layout configuration for responsive grid layouts.
 ///
@@ -26,12 +26,12 @@ class M3ResponsiveGridConfig {
   /// The number of columns in the grid.
   final int columns;
 
-  /// The spacing between grid columns in dp.
-  final double gutter;
+  /// The spacing between grid columns.
+  final M3SpacingValue gutter;
 
-  /// The page margin in dp.
-  final double margin;
+  /// The horizontal page margin.
+  final M3SpacingValue margin;
 
-  /// Optional maximum content width in dp.
-  final double? maxWidth;
+  /// Optional maximum content width.
+  final M3BreakpointValue? maxWidth;
 }

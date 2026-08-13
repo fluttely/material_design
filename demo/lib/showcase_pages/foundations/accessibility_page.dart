@@ -295,7 +295,7 @@ class _AccessibilityPageState extends State<AccessibilityPage>
                     ),
                     child: InkWell(
                       onTap: () => _showSnackBar('48dp - Perfect!'),
-                      borderRadius: BorderRadius.circular(24),
+                      borderRadius: M3BorderRadius.full,
                       child: const Icon(Icons.check, size: 24),
                     ),
                   ),
@@ -474,7 +474,7 @@ class _AccessibilityPageState extends State<AccessibilityPage>
             ),
             const M3Gap(M3Spacings.s8),
             M3FocusRing(
-              borderRadius: BorderRadius.circular(24),
+              borderRadius: M3BorderRadius.full,
               child: IconButton(
                 icon: const Icon(Icons.share),
                 onPressed: () {},

@@ -1,17 +1,21 @@
 name: material_design
 description: "A Material Design 3 contract for Flutter. Enforces M3 tokens system-wide, replacing free primitives with type-safe M3 equivalents."
-version: 1.0.0-dev.31
-homepage:
+version: 1.0.0-dev.32
 repository: https://github.com/fluttely/material_design
 issue_tracker: https://github.com/fluttely/material_design/issues
 
 environment:
-  sdk: ">=3.3.0 <4.0.0"
-  flutter: ">=3.19.0"
+  # Color.withValues / Color.a / toARGB32 landed in Flutter 3.27 (Dart 3.6).
+  # The package will not compile below this.
+  sdk: ">=3.6.0 <4.0.0"
+  flutter: ">=3.27.0"
 
 dependencies:
   flutter:
     sdk: flutter
+  # Pinned by the Flutter SDK; the range stays wide so it never blocks an
+  # upgrade. Used by M3TonalPalette for real HCT tone generation.
+  material_color_utilities: ">=0.11.0 <0.14.0"
   meta: ^1.15.0
   vector_math: ^2.1.4
 

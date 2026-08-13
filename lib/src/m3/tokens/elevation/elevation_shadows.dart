@@ -1,4 +1,4 @@
-part of '../../../../material_design.dart';
+part of '../../../tokens.dart';
 
 const Color _m3ShadowColor = Color(0x26000000);
 

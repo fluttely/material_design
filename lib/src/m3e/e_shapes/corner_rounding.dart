@@ -1,4 +1,4 @@
-part of '../../../material_design.dart';
+part of '../../expressive.dart';
 
 /// Defines the amount and quality around a given vertex of a shape.
 /// [radius] defines the radius of the circle which forms the basis of

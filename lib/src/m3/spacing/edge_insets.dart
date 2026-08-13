@@ -1,4 +1,4 @@
-part of '../../../material_design.dart';
+part of '../../layout.dart';
 
 /// Material Design 3 [EdgeInsets] that enforces M3 spacing tokens.
 ///
@@ -42,7 +42,14 @@ class M3EdgeInsets extends EdgeInsets {
   static const M3EdgeInsets zero = M3EdgeInsets.all(M3Spacings.none);
 }
 
-/// Common M3 EdgeInsets patterns.
+/// Component padding patterns specified by Material Design 3.
+///
+/// Every entry here is a value the M3 spec states outright. Patterns whose
+/// spec value falls off the 4dp grid are deliberately absent rather than
+/// rounded to the nearest token — a button's 40dp minimum height, for
+/// instance, is a size constraint and not a padding token, so approximating
+/// it here would smuggle an off-spec value into a package that promises
+/// none.
 abstract final class M3EdgeInsetsPatterns {
   /// Standard card padding (16dp all sides).
   static const M3EdgeInsets card = M3EdgeInsets.all(M3Spacings.s16);
@@ -54,12 +61,6 @@ abstract final class M3EdgeInsetsPatterns {
   static const M3EdgeInsets listItem = M3EdgeInsets.symmetric(
     horizontal: M3Spacings.s16,
     vertical: M3Spacings.s8,
-  );
-
-  /// Button padding (horizontal 24dp, vertical 10dp → use s12 as closest).
-  static const M3EdgeInsets button = M3EdgeInsets.symmetric(
-    horizontal: M3Spacings.s24,
-    vertical: M3Spacings.s12,
   );
 
   /// Compact screen page margin (horizontal 16dp).

@@ -1,4 +1,4 @@
-part of '../../../../material_design.dart';
+part of '../../shape.dart';
 
 /// Material Design 3 ShapeDecoration with design token enforcement.
 ///

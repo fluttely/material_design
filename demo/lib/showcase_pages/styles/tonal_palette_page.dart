@@ -34,7 +34,7 @@ class TonalPalettePage extends StatelessWidget {
   }
 
   Widget _buildTonalPaletteSection(BuildContext context, ColorScheme cs) {
-    final palette = M3ColorUtils.tonalPalette(cs.primary);
+    final palette = M3TonalPalette.fromColor(cs.primary);
 
     return Card(
       child: M3Padding(
@@ -48,8 +48,8 @@ class TonalPalettePage extends StatelessWidget {
             ),
             const M3Gap(M3Spacings.s4),
             Text(
-              'Tones 0–100 generated from the primary seed color. '
-              'M3 uses HCT space; this lib approximates with HSL.',
+              'Tones 0–100 generated from the primary seed color in HCT '
+              'space — the same math Material Design uses.',
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                     color: cs.onSurfaceVariant,
                   ),
@@ -59,8 +59,8 @@ class TonalPalettePage extends StatelessWidget {
             ClipRRect(
               borderRadius: M3BorderRadius.medium,
               child: Row(
-                children: M3TonalPalette.all.map((tone) {
-                  final color = palette[tone]!;
+                children: M3Tones.values.map((tone) {
+                  final color = palette[tone];
                   final isLight = M3ColorUtils.isLight(color);
                   return Expanded(
                     child: Tooltip(
@@ -88,8 +88,8 @@ class TonalPalettePage extends StatelessWidget {
             Wrap(
               spacing: M3Spacings.s8,
               runSpacing: M3Spacings.s8,
-              children: M3TonalPalette.all.map((tone) {
-                final color = palette[tone]!;
+              children: M3Tones.values.map((tone) {
+                final color = palette[tone];
                 final isLight = M3ColorUtils.isLight(color);
                 return Container(
                   width: 56,

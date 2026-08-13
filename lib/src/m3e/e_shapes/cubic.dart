@@ -1,4 +1,4 @@
-part of '../../../material_design.dart';
+part of '../../expressive.dart';
 
 /// This class holds the anchor and control point data for a single cubic
 /// Bézier curve, with anchor points ([anchor0X], [anchor0Y]) and ([anchor1X],

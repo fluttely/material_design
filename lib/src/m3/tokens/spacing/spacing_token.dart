@@ -1,9 +1,13 @@
-part of '../../../../material_design.dart';
+part of '../../../tokens.dart';
 
-/// Type-safe wrapper for M3 spacing values. Implements [double] so it can
-/// be passed directly to any Flutter API that accepts a [double], while
-/// preventing arbitrary raw doubles from being used in M3-typed APIs.
-extension type const M3SpacingValue._(double _) implements double {}
+/// Type-safe wrapper for M3 spacing values.
+///
+/// Implements [double] so it can be passed directly to any Flutter API that
+/// accepts a [double], while preventing arbitrary raw doubles from being used
+/// in M3-typed APIs.
+///
+/// See [M3Contract] for the escape hatch when you must step outside the scale.
+extension type const M3SpacingValue._(double dp) implements double {}
 
 /// Material Design 3 spacing tokens based on a 4dp grid system.
 abstract final class M3Spacings {
@@ -63,6 +67,31 @@ abstract final class M3Spacings {
 
   /// Infinite spacing — for flexible layouts.
   static const M3SpacingValue infinity = M3SpacingValue._(double.infinity);
+
+  /// The finite spacing scale, in ascending order.
+  ///
+  /// Excludes [infinity], which is a layout directive rather than a step on
+  /// the 4dp grid.
+  static const List<M3SpacingValue> values = <M3SpacingValue>[
+    none,
+    s4,
+    s8,
+    s12,
+    s16,
+    s20,
+    s24,
+    s28,
+    s32,
+    s36,
+    s40,
+    s48,
+    s56,
+    s64,
+    s72,
+    s80,
+    s96,
+    s128,
+  ];
 }
 
 /// Material Design 3 margin tokens for responsive screen layouts.

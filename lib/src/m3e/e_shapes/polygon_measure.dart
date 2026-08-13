@@ -1,4 +1,4 @@
-part of '../../../material_design.dart';
+part of '../../expressive.dart';
 
 /// A measured polygon that holds information about cubics and their associated
 /// outline progress values along the shape's perimeter.

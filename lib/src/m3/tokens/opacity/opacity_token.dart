@@ -1,9 +1,9 @@
-part of '../../../../material_design.dart';
+part of '../../../tokens.dart';
 
 /// Type-safe wrapper for M3 opacity values. Implements [double] so it can be
 /// passed to any Flutter API that accepts opacity, while preventing arbitrary
 /// values in M3-typed APIs.
-extension type const M3OpacityValue._(double _) implements double {}
+extension type const M3OpacityValue._(double alpha) implements double {}
 
 /// Material Design 3 general opacity tokens.
 abstract final class M3Opacities {
