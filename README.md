@@ -2,7 +2,7 @@
 
 [![pub version](https://img.shields.io/pub/v/material_design.svg)](https://pub.dev/packages/material_design)
 [![license](https://img.shields.io/badge/license-BSD-blue.svg)](/LICENSE)
-[![Flutter Version](https://img.shields.io/badge/flutter-%3E%3D3.19.0-blue)](https://flutter.dev)
+[![Flutter Version](https://img.shields.io/badge/flutter-%3E%3D3.27.0-blue)](https://flutter.dev)
 
 🎨 **A complete Material Design 3 design system contract for Flutter**
 
@@ -23,15 +23,61 @@ dependencies:
   material_design: ^1.0.0
 ```
 
+**Requirements:** Flutter `>=3.27.0`, Dart `>=3.6.0`. The package uses `Color.withValues` and `Color.a`, which landed in Flutter 3.27, and extension types, which landed in Dart 3.3.
+
 ---
 
 ## 📐 The Design Contract Philosophy (v1.0.0)
 
-Version `1.0.0` introduces complete type safety and enforces constraints at compilation time:
+Version `1.0.0` moves the design system from documentation into the type system.
 
-1. **Primitive Replacement:** Instead of raw double values, APIs accept specific M3 extension types (`M3SpacingValue`, `M3BorderWidthValue`, `M3OpacityValue`).
-2. **Zero Enums:** Token enums are eliminated. They encouraged the `.value` antipattern and bypassed `const` benefits. All values are now accessed directly as static compile-time constants.
-3. **Strict Conformity:** Custom values outside the M3 specifications are restricted, making layout deviations harder to implement.
+**1. Primitive replacement.** APIs accept M3 extension types — `M3SpacingValue`, `M3CornerValue`, `M3BorderWidthValue`, `M3OpacityValue`, `M3IconSizeValue`, `M3BreakpointValue`, `M3ElevationDpValue`, `M3ZIndexValue`, `M3ToneValue` — instead of bare `double` and `int`. Every scale in the package is covered; there is no family that quietly still takes a raw number.
+
+**2. No scalar token enums.** The old `M3SpacingToken.space16.value` pattern is gone. It cost a `.value` unwrap at every call site and, worse, it broke `const`. Scalar tokens are now static constants you use directly.
+
+This is *not* a ban on `enum`. Two kinds of type still are one, and should be:
+
+| Kind | Example | Why an enum |
+| :--- | :--- | :--- |
+| **Composite tokens** | `M3Motion`, `M3Elevation` | You read `duration` **and** `curve` together, never unwrap to one number. Stays `const`, gains `values` and exhaustive `switch`. |
+| **Selectors** | `M3ScreenSize`, `M3InteractionState`, `M3MotionDistance` | These name a situation, not a value. |
+
+The rule is precise: **no token that must be unwrapped to be used.**
+
+**3. Deviation is possible, deliberate, and greppable.**
+
+Extension types are erased at runtime, so a cast will always defeat them:
+
+```dart
+const leaked = 17.3 as M3SpacingValue; // compiles. No Dart design prevents this.
+```
+
+Rather than claim a guarantee the language cannot give, the package routes every intentional deviation through one identifier — [`M3Contract`](#-when-you-must-break-the-contract):
+
+```dart
+M3EdgeInsets.all(M3Contract.spacing(18)) // off the 4dp grid, on purpose
+```
+
+Which means you can audit deviations with a single `grep`, and ban them in review. A contract you can measure compliance against beats one that merely claims to be airtight.
+
+---
+
+## 🧱 Package Architecture
+
+The package is nine modules with a one-directional dependency graph:
+
+```text
+tokens ──┬─> shape ──┬─> interaction
+         ├─> layout ─┤
+         ├─> color ──┴─> adaptive
+         └─> typography
+motion  ─────────────────> interaction, adaptive
+expressive (standalone)
+```
+
+`import 'package:material_design/material_design.dart'` gives you all of them.
+
+The token layer is deliberately a single Dart library: the type-safe wrappers depend on library-private constructors to keep off-scale values out, and splitting them further would force those constructors public. Every other module is a real boundary — internals stay internal.
 
 ---
 
@@ -175,15 +221,19 @@ These widgets implement core Material Design 3 interactive states without manual
     child: childWidget,
   )
   ```
-* `M3FocusRing`: Follows the official M3 guidelines for keyboard navigation indicators. Displays a 3dp thickness ring with a 3dp offset gap around its child when focused:
+* `M3FocusRing`: Draws the official M3 keyboard focus indicator — a `M3FocusIndicator.thickness` (3dp) ring set `M3FocusIndicator.offset` (3dp) away from the component:
   ```dart
   M3FocusRing(
-    child: TextButton(
+    borderRadius: M3BorderRadius.full,
+    child: IconButton(
       onPressed: () {},
-      child: const Text('Focus Me'),
+      icon: const Icon(Icons.star),
     ),
   )
   ```
+  The ring's 6dp inset is reserved **whether or not the child is focused**. Adding it on focus would shift the control the instant a user tabs to it — a moving target for exactly the people who navigate by keyboard. The trade is a constant, predictable 6dp of padding.
+
+  `M3FocusRing` observes focus; it never takes it. Its child must contain something focusable for the ring to appear.
 
 ---
 
@@ -208,7 +258,15 @@ ThemeData(
 
 #### M3TextUtils
 Utility class that decouples runtime manipulations from static style tokens:
-* `M3TextUtils.adaptive(...)` - Scales the font size respecting the user's accessibility text scaling factor.
+* `M3TextUtils.clampedScaler(context, maxScaleFactor: ...)` - Returns the ambient `TextScaler` capped to a range, for the rare layout that genuinely cannot absorb unbounded text scaling:
+  ```dart
+  Text(
+    label,
+    style: M3TypeScale.labelLarge,
+    textScaler: M3TextUtils.clampedScaler(context, maxScaleFactor: 1.5),
+  )
+  ```
+  Clamping fights the user's accessibility setting — reach for it only after the layout itself has been made to flex. To clamp a whole subtree, prefer Flutter's `MediaQuery.withClampedTextScaling`.
 * `M3TextUtils.responsiveDisplay(context)` - Resolves the optimal display typography variant (`displayLarge`/`Medium`/`Small`) based on the width of the display window.
 * `M3TextUtils.dyslexiaFriendly(style)` - Alters font weight, spacing, and line height to make the text style easier to read.
 * `M3TextUtils.mono(style)` - Returns a monospace variant matching system stacks.
@@ -220,14 +278,23 @@ Utility class that decouples runtime manipulations from static style tokens:
 
 * `M3ColorSchemeTokens`: Extends `ColorScheme` to expose state-layer colors, container disabled values, and accessibility helpers:
   ```dart
-  final hoveredPrimary = colorScheme.hoverLayerOn(colorScheme.primary);
+  final hovered = colorScheme.stateLayerColor(
+    colorScheme.onSurface,
+    M3InteractionState.hover,
+  );
   final disabledText = colorScheme.disabledContent(colorScheme.onSurface);
   final elevatedSurface = colorScheme.surfaceAtElevation(M3Elevation.level2);
   final isAccessible = colorScheme.isAccessible(colorScheme.primary, colorScheme.surface);
   ```
-* `M3TonalPalette`: Holds references to the M3 tonal system (tone 0/black to tone 100/white). Useful for custom palette mapping or layout gradients:
+* `M3TonalPalette` / `M3CorePalette`: Real tonal palette generation in HCT space — the same math Material Design itself uses, via `material_color_utilities`. A seed color's hue and chroma are held fixed while lightness sweeps the 13 `M3Tones` stops:
   ```dart
-  const primaryTone = M3TonalPalette.tone40;
+  final palette = M3TonalPalette.fromSeed(const Color(0xFF6750A4));
+  palette[M3Tones.t40]; // light-scheme `primary`
+  palette[M3Tones.t80]; // dark-scheme `primary`
+
+  final core = M3CorePalette.fromSeed(seed);
+  core.neutral[M3Tones.t99];  // light-scheme `surface`
+  core.error[M3Tones.t40];    // fixed red, regardless of seed
   ```
 * `M3Opacities` & `M3StateLayerOpacities`: Exposes type-safe opacities:
   * `M3Opacities.disabledContent` (38% opacity)
@@ -295,6 +362,8 @@ Pairs duration with curve characteristics according to official transition guide
   ```
 * `M3MotionDuration`: Offers standalone durations ranging from `short1` (50ms) to `extraLong4` (1000ms).
 * `M3MotionCurve`: Exposes independent easing curve constants (e.g. `M3MotionCurve.emphasized`).
+* `M3Motion.emphasizedDuration` / `M3Motion.emphasizedCurve` (and one pair per scheme): flat aliases for `const` contexts, where a field access such as `M3Motion.emphasized.duration` is not permitted.
+* `M3Motion.durationFor(M3MotionDistance.long)` and `M3Motion.curveFor(M3MotionType.incoming)`: pick a token by intent. Both return M3 types, not bare `Duration`/`Curve`.
 
 ---
 
@@ -303,6 +372,32 @@ Pairs duration with curve characteristics according to official transition guide
 Includes experimental expressive elements:
 * `M3ELoadingIndicator`: Dynamic morphing loading animations.
 * `RoundedPolygon`: Tools in `e_shapes` to define custom rounded polygons, shapes, and morphing matrices.
+
+---
+
+## 🔓 When you must break the contract
+
+Sometimes the design system is not the authority — a brand asset is genuinely 18dp, a third-party spec disagrees, an animation passes through values between two tokens. `M3Contract` is the one sanctioned way out:
+
+```dart
+M3Contract.spacing(18)      // → M3SpacingValue
+M3Contract.corner(10)       // → M3CornerValue
+M3Contract.borderWidth(1.5) // → M3BorderWidthValue
+M3Contract.opacity(0.42)    // → M3OpacityValue  (asserts 0.0–1.0)
+M3Contract.iconSize(18)     // → M3IconSizeValue
+M3Contract.breakpoint(720)  // → M3BreakpointValue
+M3Contract.elevationDp(2)   // → M3ElevationDpValue
+M3Contract.zIndex(42)       // → M3ZIndexValue
+```
+
+Because every deviation names the same identifier, compliance becomes measurable:
+
+```sh
+# How far has this codebase drifted from Material Design 3?
+grep -rn 'M3Contract\.' lib/ | wc -l
+```
+
+Teams that want zero drift can fail CI on any hit. Teams migrating an existing app can watch the number fall. Either way the deviations are visible, which is more than an "unbreakable" contract with a silent cast in it would give you.
 
 ---
 
@@ -317,7 +412,7 @@ By designing the system using **extension types** and **static const** reference
 
 ## 🌟 Premium Code Showcase
 
-Below is a complete implementation of a card displaying hover overlay actions, keyboard focus highlights, spacing limits, and motion transitions using the Material Design 3 design contract APIs:
+Below is a complete implementation of a card displaying hover overlay actions, keyboard focus highlights, spacing limits, and motion transitions using the Material Design 3 design contract APIs. It is compiled and rendered by the test suite (`test/readme_showcase_test.dart`), so it cannot drift from the API:
 
 ```dart
 import 'package:flutter/material.dart';
@@ -370,8 +465,8 @@ class PremiumCardShowcase extends StatelessWidget {
               ),
               const M3Gap(M3Spacings.s16),
               Text(
-                'Every spacing parameter, border width, opacity, and text scale '
-                'is validated at compile time.',
+                'Every spacing, border width, opacity, and text style here '
+                'flows through an M3 token.',
                 style: M3TypeScale.bodyMedium.copyWith(
                   color: colorScheme.disabledContent(colorScheme.onSurface),
                 ),

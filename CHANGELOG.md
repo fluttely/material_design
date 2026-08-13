@@ -2,36 +2,129 @@
 
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adherves to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## 1.0.0
 
+`1.0.0` turns the package from a collection of tokens into a **design contract**: M3 scales are expressed as types, and stepping outside them requires saying so.
+
+This release breaks every call site from `0.28.x`. The [migration guide](#migration-from-028x) below maps each old name to its replacement.
+
 ### 💥 Breaking Changes
 
-- **Strict M3 Contract**: This release completely stabilizes the core API, transforming the package into a strict **design contract** that enforces Material Design 3 system-wide. Free primitives (`double`, `int`, etc.) are now replaced with type-safe M3 extension type wrappers, making it impossible to deviate from the specification.
-- **Type-Safe Extension Types**: Introduced extension types `M3SpacingValue`, `M3BorderWidthValue`, and `M3OpacityValue` that wrap raw `double` values to enforce type safety in M3 APIs.
-- **Removed Enums**: Removed all token enums (`M3SpacingToken`, `M3BorderWidthToken`, `M3OpacityToken`, etc.) and the `.value` pattern to avoid boilerplate and double allocations. All token accesses are now done directly via static constants in classes like `M3Spacings`, `M3BorderWidths`, `M3Opacities`, `M3Corners`, etc.
-- **Strict Shape Scale**: The shape scale has been aligned to the strict Material Design 3 specification of exactly 7 levels: `none` (0dp, renamed from `zero`), `extraSmall` (4dp), `small` (8dp), `medium` (12dp), `large` (16dp), `extraLarge` (28dp), and `full` (9999dp).
-- **Reworked Wrapper Classes**: Rewrote `M3EdgeInsets`, `M3Gap`, `M3Padding`, `M3BorderSide`, `M3Border`, `M3Radius`, and `M3BorderRadius` to accept only their corresponding type-safe extension types instead of raw `double` or enum values.
-- **Typography System Overhaul**: Replaced the previous `M3TextStyle` and `M3TextStyleToken` APIs with:
-  - `M3TypeScale`: A static const class offering the 15 official Material Design 3 text styles directly as `TextStyle` instances.
-  - `M3TextTheme`: Helpers to build and apply standard `TextTheme` instances.
-  - `M3TextUtils`: Separated all utility adjustments (like dyslexia-friendly scaling, high-contrast weight boosting, responsive displays, and fallback font stacks) into a dedicated class.
-- **Removed Breakpoint Enums**: Merged screen size and responsive breakpoint logic, moving factory methods directly to `M3ScreenSize` and removing redundant enums.
-- **Cleaned Up Deprecated APIs**: Completely deleted the `deprecated/` folder, old token interfaces, and unused code.
+- **Type-safe token values everywhere.** Every scale is now an extension type over its primitive: `M3SpacingValue`, `M3BorderWidthValue`, `M3OpacityValue`, `M3CornerValue`, `M3IconSizeValue`, `M3BreakpointValue`, `M3ElevationDpValue`, `M3ZIndexValue`, `M3ToneValue`. They `implement` their representation type, so they pass straight into any Flutter API that takes a `double`/`int`.
+- **Scalar token enums removed.** `M3SpacingToken`, `M3CornerToken`, `M3BorderWidthToken`, `M3OpacityToken`, `M3IconSizeToken`, `M3ZIndexToken`, `M3BreakpointToken`, `M3MarginToken`, `M3SpacerToken`, `M3StateLayerOpacityToken`, `M3ElevationToken` and the `IM3Token` interface are gone, along with the `.value` unwrap that cost `const`-ness at every call site.
+- **`M3Motion` and `M3Elevation` are now enums.** These are *composite* tokens — you read `duration`+`curve` and `dp`+`shadows` together, never unwrap them to one number — so an enum is the right shape. They stay `const`, and gain `values` and exhaustive `switch`. See the philosophy section of the README for the precise rule.
+- **`M3Contract` is the single escape hatch.** Extension types are erased at runtime, so `17.3 as M3SpacingValue` has always compiled and no Dart design can stop it. Instead of claiming otherwise, deviations now route through `M3Contract.spacing(18)`, `M3Contract.corner(10)`, and friends — one greppable identifier you can audit or ban.
+- **Strict 7-level shape scale.** `none` (0dp, renamed from `zero`), `extraSmall`, `small`, `medium`, `large`, `extraLarge`, `full`. `M3Radius` now takes an `M3CornerValue` rather than any `double`.
+- **Typography overhaul.** `M3TextStyle`/`M3TextStyleToken`/`M3TypeScaleCategory` are replaced by `M3TypeScale` (the 15 styles as `const TextStyle`), `M3TextTheme` (build a Flutter `TextTheme`), and `M3TextUtils` (transformations).
+- **`M3TextUtils.adaptive` removed.** It pre-scaled `fontSize` and then rewrote `height` so absolute line height stayed *fixed* while the font grew — text overlapped at high text-scale settings — and it double-scaled, since `Text` applies the ambient `TextScaler` on top. Replaced by `M3TextUtils.clampedScaler(context, maxScaleFactor: …)`, which returns a clamped `TextScaler` to hand to `Text`.
+- **`ColorScheme` state layer helpers deduplicated.** `hoverLayerOn` / `focusLayerOn` / `pressLayerOn` / `dragLayerOn` and the parallel `M3ColorSchemeStateLayers` extension collapse into one `colorScheme.stateLayerColor(base, M3InteractionState.hover)`. The state-to-opacity mapping now lives once, on `M3InteractionState.stateLayerOpacity`.
+- **`M3ColorUtils.tonalPalette` removed** in favour of the real `M3TonalPalette` (see Features). The old one approximated HCT with HSL lightness.
+- **`M3EdgeInsetsPatterns.button` removed.** Its own doc admitted it rounded a 10dp spec value to the nearest 12dp token — an off-spec value inside a package that promises none.
+- **`M3Motion.getDurationByDistance` / `getEasingByType` renamed** to `durationFor` / `curveFor`, and they now return `M3MotionDuration` / `M3MotionCurve` instead of widening to bare `Duration` / `Curve`.
+- **SDK floor corrected to Flutter `>=3.27.0`, Dart `>=3.6.0`.** The package already used `Color.withValues` and `Color.a`, which do not exist below 3.27 — the previously declared `>=3.19.0` would not have compiled.
+- **`M3Accessibility`** is now `abstract final class` rather than `abstract interface class`; it is a namespace of statics and was never implementable.
+- **Deprecated APIs deleted:** the `deprecated/` folder, dead commented-out code, and the orphaned `M3Container` file that was never exported.
 
 ### ✨ Features
 
-- **`M3StateLayer` Widget**: A new state-layer container that automatically applies the correct M3 semi-transparent state overlay (hover: 8%, focus: 10%, pressed: 10%, dragged: 16%) over its child based on interaction.
-- **`M3FocusRing` Widget**: A keyboard-activated focus indicator widget that renders a 3dp thickness secondary color border with a 3dp offset gap, adhering directly to the official M3 focus ring guidelines.
-- **`M3ColorScheme` and `M3TonalPalette`**: Enhanced the color scheme extensions with state layer builders (`hoverLayerOn`, `focusLayerOn`, `pressLayerOn`, `dragLayerOn`) and introduced `M3TonalPalette` outlining the official tonal axis keys (from 0 to 100).
-- **Type-safe Spacings and Margins**: Unified the spacing scale from `none` to `space128` (based on 4dp grids), and introduced standard screen margin values in `M3Margins`.
+- **Real tonal palettes.** `M3TonalPalette` and `M3CorePalette` generate colors in HCT space through `material_color_utilities` — the same math Material Design uses. `M3TonalPalette.fromSeed(seed)[M3Tones.t40]` reproduces the Material baseline `primary` exactly (verified in the test suite). `M3CorePalette.fromSeed` yields all six palettes (primary, secondary, tertiary, neutral, neutralVariant, error).
+- **`M3Tones`** — the 13 tone stops (0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 95, 99, 100) as typed constants.
+- **`M3StateLayer`** — applies the correct M3 overlay for hover (8%), focus (10%), pressed (10%), and dragged (16%), with M3 precedence when several states are active at once.
+- **`M3FocusRing`** — the official 3dp ring at a 3dp offset. The inset is reserved whether or not the child is focused, so tabbing to a control never shifts it. The ring observes focus rather than taking it, and adds no tab stop of its own.
+- **`M3FocusIndicator`** — focus ring `thickness` and `offset` as their own tokens, kept off `M3BorderWidths` so 3dp cannot leak into ordinary component outlines.
+- **`values` lists on every scale** — `M3Spacings.values`, `M3Corners.values`, `M3BorderWidths.values`, `M3IconSizes.values`, `M3ZIndexes.values`, `M3Breakpoints.values`, `M3ElevationDps.values`, `M3Tones.values` — for building galleries and property tests without hand-maintained lists.
+- **`M3LayoutWidths`** — body (1040dp), pane (360dp), ultraWide (1920dp) and unbounded, replacing magic numbers previously inlined in `M3ScreenSize`.
+- **`M3ScreenSize.minWidth`**, and `gutterWidth`/`pageMargin` now return `M3SpacingValue` rather than bare doubles.
 
-### 🔄 Refactor
+### 🏗 Architecture
 
-- **SDK Requirement Bump**: Minimum SDK version bumped to Dart `>=3.3.0 <4.0.0` and Flutter `>=3.19.0` to leverage modern extension types.
-- **Unified Barrel File**: Streamlined the package's barrel file `material_design.dart` to expose everything under clean module parts.
-- **Demo & Example App Updates**: Migrated both demo and example applications to consume the new type-safe 1.0.0 APIs, including new showcases for interaction states, state layers, and tonal palettes.
+- **The package is now nine modules**, not one 56-file `part of` monolith: `tokens`, `motion`, `shape`, `layout`, `color`, `typography`, `interaction`, `adaptive`, `expressive`. `material_design.dart` is a barrel of `export`s and the dependency graph runs one way. Private members are now genuinely private to their module.
+- The token layer stays a single library by design — the type-safe wrappers need library-private constructors, and splitting them would force those public and dissolve the contract.
+
+### ✅ Tests
+
+- Test count raised from 88 to 158, covering the areas the rewrite left unverified: tonal palette generation (against Material's own baseline), focus ring layout stability and focus semantics, state layer precedence, motion scheme/alias consistency, breakpoint boundaries, text scaling, elevation, and the token scales themselves (4dp grid adherence, ordering, spec values).
+- The README showcase is compiled and rendered by `test/readme_showcase_test.dart`, so documentation cannot drift from the API.
+
+---
+
+## Migration from 0.28.x
+
+### Scalar tokens: drop `.value`, use the constant
+
+| 0.28.x | 1.0.0 |
+| :--- | :--- |
+| `M3SpacingToken.space16` / `.value` | `M3Spacings.s16` |
+| `M3SpacingToken.space4` … `space128` | `M3Spacings.s4` … `s128` |
+| `M3MarginToken.compactScreen` | `M3Margins.compactScreen` |
+| `M3SpacerToken.pane` | `M3Spacers.pane` |
+| `M3CornerToken.zero` | `M3Corners.none` |
+| `M3CornerToken.medium.value` | `M3Corners.medium` |
+| `M3BorderWidthToken.thin.value` | `M3BorderWidths.thin` |
+| `M3OpacityToken.disabledContent.value` | `M3Opacities.disabledContent` |
+| `M3StateLayerOpacityToken.hover.value` | `M3StateLayerOpacities.hover` |
+| `M3IconSizeToken.standard.value` | `M3IconSizes.standard` |
+| `M3ZIndexToken.modal.value` | `M3ZIndexes.modal` |
+| `M3BreakpointToken.expanded.value` | `M3Breakpoints.expanded` |
+| `M3ElevationToken.level3` | `M3Elevation.level3` |
+| `M3Elevation.level3Dp` | `M3ElevationDps.level3` |
+| `M3Shadows.level2` | `M3ElevationShadows.level2` |
+
+### Typography
+
+| 0.28.x | 1.0.0 |
+| :--- | :--- |
+| `M3TextStyle.bodyLarge` | `M3TypeScale.bodyLarge` |
+| `M3TextStyleUtils.*` | `M3TextUtils.*` |
+| `M3TypeScaleCategory.*` | removed — use the 15 named styles |
+| `M3TextUtils.adaptive(...)` | `M3TextUtils.clampedScaler(context, maxScaleFactor: …)` on `Text.textScaler` |
+
+### Color
+
+| 0.28.x | 1.0.0 |
+| :--- | :--- |
+| `colorScheme.hoverLayerOn(c)` | `colorScheme.stateLayerColor(c, M3InteractionState.hover)` |
+| `colorScheme.focusLayerOn(c)` | `colorScheme.stateLayerColor(c, M3InteractionState.focus)` |
+| `colorScheme.pressLayerOn(c)` | `colorScheme.stateLayerColor(c, M3InteractionState.pressed)` |
+| `colorScheme.dragLayerOn(c)` | `colorScheme.stateLayerColor(c, M3InteractionState.dragged)` |
+| `M3ColorUtils.tonalPalette(c)` | `M3TonalPalette.fromColor(c)` |
+| `M3TonalPalette.tone40` (an `int`) | `M3Tones.t40`, or `palette[M3Tones.t40]` for the color |
+
+### Responsive
+
+| 0.28.x | 1.0.0 |
+| :--- | :--- |
+| `M3BreakpointToken.getScreenSize(context)` | `M3ScreenSize.of(context)` |
+| `M3BreakpointToken.fromWidth(w)` | `M3ScreenSize.fromWidth(w)` |
+
+### Motion
+
+| 0.28.x | 1.0.0 |
+| :--- | :--- |
+| `MotionDistance` / `MotionType` | `M3MotionDistance` / `M3MotionType` |
+| `M3MotionDuration.extralong1` | `M3MotionDuration.extraLong1` |
+| `M3Motion.getDurationByDistance(d)` | `M3Motion.durationFor(d)` |
+| `M3Motion.getEasingByType(t)` | `M3Motion.curveFor(t)` |
+
+### Values that are no longer on a scale
+
+Anything that was a raw `double` and is now rejected by the type system was, by definition, off-spec. Two ways forward:
+
+```dart
+// Preferred: snap to the nearest token.
+M3EdgeInsets.all(M3Spacings.s16)
+
+// When the value is genuinely required: say so, once, visibly.
+M3EdgeInsets.all(M3Contract.spacing(17.3))
+```
+
+Then audit what is left:
+
+```sh
+grep -rn 'M3Contract\.' lib/
+```
 
 ## 0.28.1
 
