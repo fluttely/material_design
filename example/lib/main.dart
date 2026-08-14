@@ -341,6 +341,25 @@ class _TypographySection extends StatelessWidget {
         for (final (name, style) in _styles) Text(name, style: style),
         const M3Gap(M3Spacings.s16),
         Text(
+          'Emphasized counterparts keep size and line height, so swapping one '
+          'in never reflows the layout — only the weight changes:',
+          style: M3TypeScale.bodyMedium,
+        ),
+        const M3Gap(M3Spacings.s8),
+        for (final (name, style) in _styles.take(4))
+          Row(
+            children: [
+              Expanded(child: Text(name, style: style)),
+              Expanded(
+                child: Text(
+                  name,
+                  style: M3EmphasizedTypeScale.of(style),
+                ),
+              ),
+            ],
+          ),
+        const M3Gap(M3Spacings.s16),
+        Text(
           'M3TextUtils.mono — code-friendly variant of any style',
           style: M3TextUtils.mono(M3TypeScale.bodyMedium),
         ),

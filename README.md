@@ -151,6 +151,20 @@ Text('Section', style: M3TypeScale.headlineSmall);
 Text('Body', style: M3TypeScale.bodyMedium);
 ```
 
+**Emphasis is part of the scale, not a `copyWith`** (M3 Expressive, experimental).
+Each role has an emphasized counterpart that keeps its size and line height — so
+swapping it in never reflows the layout — and only goes one weight step up:
+
+```dart
+Text('Balance', style: M3TypeScale.titleMedium),
+Text(r'R$ 12.480', style: M3EmphasizedTypeScale.headlineLarge),
+
+// Or map any baseline style to its counterpart:
+style: isSelected
+    ? M3EmphasizedTypeScale.of(M3TypeScale.bodyLarge)
+    : M3TypeScale.bodyLarge,
+```
+
 `M3TextTheme.applyToTheme(theme)` merges them into a `ThemeData` (see Quick start).
 `M3TextUtils` covers the runtime cases: `clampedScaler` (bounded text scaling —
 last resort, it fights the user's accessibility setting), `responsiveDisplay`,
