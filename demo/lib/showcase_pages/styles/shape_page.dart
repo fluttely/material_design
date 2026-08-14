@@ -39,7 +39,7 @@ class ShapePage extends StatelessWidget {
                   Icon(Icons.keyboard_arrow_down_rounded),
                   LaunchURLText(
                     label: 'M3Shape',
-                    m3Url:
+                    url:
                         'https://m3.material.io/styles/shape/corner-radius-scale',
                   ),
                 ],

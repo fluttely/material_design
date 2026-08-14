@@ -6,6 +6,8 @@ part of '../../../tokens.dart';
 extension type const M3OpacityValue._(double alpha) implements double {}
 
 /// Material Design 3 general opacity tokens.
+///
+/// Spec: https://m3.material.io/foundations/interaction/states/state-layers
 abstract final class M3Opacities {
   /// Disabled content opacity (38%).
   static const M3OpacityValue disabledContent = M3OpacityValue._(0.38);
@@ -18,4 +20,12 @@ abstract final class M3Opacities {
 
   /// Backdrop / scrim opacity (50%).
   static const M3OpacityValue backdrop = M3OpacityValue._(0.5);
+
+  /// Every general opacity token, in ascending order.
+  static const List<M3OpacityValue> values = <M3OpacityValue>[
+    disabledContainer,
+    divider,
+    disabledContent,
+    backdrop,
+  ];
 }

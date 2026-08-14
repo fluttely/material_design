@@ -5,16 +5,20 @@ part of '../../expressive.dart';
 
 /// Defines the visual properties of [M3ELoadingIndicator] widgets.
 ///
-/// Used by [LoadingIndicatorTheme] to control the visual properties of
+/// Used by [M3ELoadingIndicatorTheme] to control the visual properties of
 /// loading indicators in a widget subtree.
 ///
-/// To obtain this configuration, use [LoadingIndicatorTheme.of] to access
-/// the closest ancestor [LoadingIndicatorTheme] of the current [BuildContext].
+/// To obtain this configuration, use [M3ELoadingIndicatorTheme.of] to access
+/// the closest ancestor [M3ELoadingIndicatorTheme] of the current
+/// [BuildContext].
 ///
 /// See also:
 ///
-///  * [LoadingIndicatorTheme], an [InheritedWidget] that propagates the
+///  * [M3ELoadingIndicatorTheme], an [InheritedWidget] that propagates the
 ///    theme down its subtree.
+///
+/// See <https://m3.material.io/components/loading-indicator/overview>.
+@experimental
 @immutable
 class M3ELoadingIndicatorThemeData with Diagnosticable {
   /// Creates the set of properties used to configure [M3ELoadingIndicator]
@@ -104,8 +108,8 @@ class M3ELoadingIndicatorThemeData with Diagnosticable {
   }
 }
 
-/// An inherited widget that defines the configuration for [M3ELoadingIndicator]s
-/// in this widget's subtree.
+/// An inherited widget that defines the configuration for
+/// [M3ELoadingIndicator]s in this widget's subtree.
 ///
 /// Values specified here are used for [M3ELoadingIndicator] properties that are
 /// not given an explicit non-null value.
@@ -116,18 +120,21 @@ class M3ELoadingIndicatorThemeData with Diagnosticable {
 /// indicator color.
 ///
 /// ```dart
-/// const LoadingIndicatorTheme(
-///   data: LoadingIndicatorThemeData(
+/// const M3ELoadingIndicatorTheme(
+///   data: M3ELoadingIndicatorThemeData(
 ///     activeIndicatorColor: Colors.red,
 ///   ),
-///   child: LoadingIndicator(),
+///   child: M3ELoadingIndicator(),
 /// )
 /// ```
 /// {@end-tool}
-class LoadingIndicatorTheme extends InheritedTheme {
+///
+/// See <https://m3.material.io/components/loading-indicator/overview>.
+@experimental
+class M3ELoadingIndicatorTheme extends InheritedTheme {
   /// Creates a theme that controls the configurations for [M3ELoadingIndicator]
   /// widgets.
-  const LoadingIndicatorTheme({
+  const M3ELoadingIndicatorTheme({
     required this.data,
     required super.child,
     super.key,
@@ -136,26 +143,26 @@ class LoadingIndicatorTheme extends InheritedTheme {
   /// The properties for descendant [M3ELoadingIndicator] widgets.
   final M3ELoadingIndicatorThemeData data;
 
-  /// Returns the [data] from the closest [LoadingIndicatorTheme] ancestor. If
-  /// there is no ancestor, it returns null.
+  /// Returns the [data] from the closest [M3ELoadingIndicatorTheme] ancestor.
+  /// If there is no ancestor, it returns null.
   ///
   /// Typical usage is as follows:
   ///
   /// ```dart
-  /// LoadingIndicatorThemeData? theme = LoadingIndicatorTheme.of(context);
+  /// final theme = M3ELoadingIndicatorTheme.of(context);
   /// ```
   static M3ELoadingIndicatorThemeData? of(BuildContext context) {
     return context
-        .dependOnInheritedWidgetOfExactType<LoadingIndicatorTheme>()
+        .dependOnInheritedWidgetOfExactType<M3ELoadingIndicatorTheme>()
         ?.data;
   }
 
   @override
   Widget wrap(BuildContext context, Widget child) {
-    return LoadingIndicatorTheme(data: data, child: child);
+    return M3ELoadingIndicatorTheme(data: data, child: child);
   }
 
   @override
-  bool updateShouldNotify(LoadingIndicatorTheme oldWidget) =>
+  bool updateShouldNotify(M3ELoadingIndicatorTheme oldWidget) =>
       data != oldWidget.data;
 }

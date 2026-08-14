@@ -1,31 +1,36 @@
 part of '../../expressive.dart';
 
-/// While a polygon's shape can be drawn solely using a list of [Cubic] objects
-/// representing its raw curves and lines, features add an extra layer of
-/// context to groups of cubics. Features group cubics into (straight) edges,
-/// convex corners, or concave corners. For example, rounding a rectangle adds
+/// While a polygon's shape can be drawn solely using a list of [M3ECubic]
+/// objects representing its raw curves and lines, features add an extra
+/// layer of context to groups of cubics. Features group cubics into
+/// (straight) edges, convex corners, or concave corners. For example,
+/// rounding a rectangle adds
 /// many cubics around its edges, but the rectangle's overall number of corners
-/// remains the same. [Morph] therefore uses this grouping for several reasons:
+/// remains the same. [M3EMorph] therefore uses this grouping for several
+/// reasons:
 ///   - Noise Reduction: Grouping cubics reduces the amount of noise introduced
 ///     by individual cubics (as seen in the rounded rectangle example).
-///   - Mapping Base: The grouping serves as the base set for [Morph]'s mapping
-///     process.
-///   - Curve Type Mapping: [Morph] maps similar curve types (convex, concave)
-///     together. Note that edges or features created with
-///     [Feature.buildIgnorableFeature] are ignored in the default mapping.
+///   - Mapping Base: The grouping serves as the base set for [M3EMorph]'s
+///     mapping process.
+///   - Curve Type Mapping: [M3EMorph] maps similar curve types (convex,
+///     concave) together. Note that edges or features created with
+///     [M3EFeature.buildIgnorableFeature] are ignored in the default mapping.
 ///
 /// By using features, you can manipulate polygon shapes with more context and
 /// control.
-abstract class Feature {
-  /// Creates a [Feature] with the given list of [Cubic] curves.
+///
+/// See <https://m3.material.io/styles/shape/shape-scale-tokens>.
+@experimental
+abstract class M3EFeature {
+  /// Creates a [M3EFeature] with the given list of [M3ECubic] curves.
   ///
   /// This is the base constructor for all feature types. The [cubics] list
   /// must contain at least one cubic and must be continuous (each cubic's
   /// end anchor point must match the next cubic's start anchor point).
-  const Feature(List<Cubic> cubics) : _cubics = cubics;
+  const M3EFeature(List<M3ECubic> cubics) : _cubics = cubics;
 
-  /// Group a list of [Cubic] objects to a feature that should be ignored in
-  /// the default [Morph] mapping. The feature can have any indentation.
+  /// Group a list of [M3ECubic] objects to a feature that should be ignored in
+  /// the default [M3EMorph] mapping. The feature can have any indentation.
   ///
   /// Sometimes, it's helpful to ignore certain features when morphing shapes.
   /// This is because only the features you mark as important will be smoothly
@@ -35,47 +40,48 @@ abstract class Feature {
   /// matching.
   ///
   /// For example, given a 12-pointed star, marking all concave corners as
-  /// ignorable will create a [Morph] that only considers the outer corners of
-  /// the star. As a result, depending on the morphed to shape, the animation
-  /// may have fewer intersections and rotations. Another example for the other
-  /// way around is a [Morph] between a pointed up triangle to a square.
+  /// ignorable will create a [M3EMorph] that only considers the outer corners
+  /// of the star. As a result, depending on the morphed to shape, the
+  /// animation may have fewer intersections and rotations. Another example
+  /// for the other way around is a [M3EMorph] between a pointed up triangle
+  /// to a square.
   /// Marking the square's top edge as a convex corner matches it to the
   /// triangle's upper corner. Instead of moving triangle's upper corner to one
   /// of rectangle's corners, the animation now splits the triangle to match
   /// squares' outer corners.
   ///
   /// Throws [ArgumentError] for lists of empty cubics or non-continuous cubics.
-  factory Feature.buildIgnorableFeature(List<Cubic> cubics) =>
-      _validated(EdgeFeature(cubics));
+  factory M3EFeature.buildIgnorableFeature(List<M3ECubic> cubics) =>
+      _validated(M3EEdgeFeature(cubics));
 
-  /// Group a [Cubic] object to an edge (neither inward or outward
+  /// Group a [M3ECubic] object to an edge (neither inward or outward
   /// identification in a shape).
   ///
   /// Throws [ArgumentError] for lists of empty cubics or non-continuous cubics.
-  factory Feature.buildEdge(Cubic cubic) => EdgeFeature([cubic]);
+  factory M3EFeature.buildEdge(M3ECubic cubic) => M3EEdgeFeature([cubic]);
 
-  /// Group a list of [Cubic] objects to a convex corner (outward indentation
+  /// Group a list of [M3ECubic] objects to a convex corner (outward indentation
   /// in a shape).
   ///
   /// Throws [ArgumentError] for lists of empty cubics or non-continuous cubics
-  factory Feature.buildConvexCorner(List<Cubic> cubics) =>
-      _validated(CornerFeature(cubics));
+  factory M3EFeature.buildConvexCorner(List<M3ECubic> cubics) =>
+      _validated(M3ECornerFeature(cubics));
 
-  /// Group a list of [Cubic] objects to a concave corner (inward indentation
+  /// Group a list of [M3ECubic] objects to a concave corner (inward indentation
   /// in a shape).
   ///
   /// Throws [ArgumentError] for lists of empty cubics or non-continuous cubics
-  factory Feature.buildConcaveCorner(List<Cubic> cubics) =>
-      _validated(CornerFeature(cubics, convex: false));
+  factory M3EFeature.buildConcaveCorner(List<M3ECubic> cubics) =>
+      _validated(M3ECornerFeature(cubics, convex: false));
 
-  static Feature _validated(Feature feature) {
+  static M3EFeature _validated(M3EFeature feature) {
     if (feature._cubics.isEmpty) {
       throw ArgumentError('Features need at least one cubic.');
     }
 
     if (!_isContinuous(feature)) {
       throw ArgumentError(
-        'Feature must be continuous, with the anchor points of all cubics '
+        'M3EFeature must be continuous, with the anchor points of all cubics '
         'matching the anchor points of the preceding and succeeding cubics',
       );
     }
@@ -83,13 +89,12 @@ abstract class Feature {
     return feature;
   }
 
-  static bool _isContinuous(Feature feature) {
-    const distanceEpsilon = 1e-5;
+  static bool _isContinuous(M3EFeature feature) {
     var prevCubic = feature._cubics.first;
     for (var i = 1; i < feature._cubics.length; i++) {
       final cubic = feature._cubics[i];
-      if ((cubic.anchor0X - prevCubic.anchor1X).abs() > distanceEpsilon ||
-          (cubic.anchor0Y - prevCubic.anchor1Y).abs() > distanceEpsilon) {
+      if ((cubic.anchor0X - prevCubic.anchor1X).abs() > _distanceEpsilon ||
+          (cubic.anchor0Y - prevCubic.anchor1Y).abs() > _distanceEpsilon) {
         return false;
       }
       prevCubic = cubic;
@@ -97,53 +102,54 @@ abstract class Feature {
     return true;
   }
 
-  final List<Cubic> _cubics;
+  final List<M3ECubic> _cubics;
 
-  /// Returns unmodifiable list of [Cubic].
-  List<Cubic> get cubics => UnmodifiableListView(_cubics);
+  /// Returns unmodifiable list of [M3ECubic].
+  List<M3ECubic> get cubics => UnmodifiableListView(_cubics);
 
-  /// Whether this Feature gets ignored in the Morph mapping. See
-  /// [Feature.buildIgnorableFeature] for more details
+  /// Whether this M3EFeature gets ignored in the M3EMorph mapping. See
+  /// [M3EFeature.buildIgnorableFeature] for more details
   bool get isIgnorableFeature;
 
-  /// Whether this Feature is an Edge with no inward or outward indentation.
+  /// Whether this M3EFeature is an Edge with no inward or outward indentation.
   bool get isEdge;
 
-  /// Whether this Feature is a corner.
+  /// Whether this M3EFeature is a corner.
   bool get isCorner;
 
-  /// Whether this Feature is a convex corner (outward indentation in a shape).
+  /// Whether this feature is a convex corner (outward indentation in a shape).
   bool get isConvexCorner;
 
-  /// Whether this Feature is a concave corner (inward indentation in a shape).
+  /// Whether this feature is a concave corner (inward indentation in a shape).
   bool get isConcaveCorner;
 
-  /// Transforms the points in this [Feature] with the given [PointTransformer]
-  /// and returns a new [Feature].
-  Feature transformed(PointTransformer f);
+  /// Transforms the points in this [M3EFeature] with the given
+  /// [M3EPointTransformer] and returns a new [M3EFeature].
+  M3EFeature transformed(M3EPointTransformer f);
 
-  /// Returns a new [Feature] with the points that define the shape of this
-  /// [Feature] in reversed order.
-  Feature reversed();
+  /// Returns a new [M3EFeature] with the points that define the shape of this
+  /// [M3EFeature] in reversed order.
+  M3EFeature reversed();
 }
 
 /// Edges have only a list of the cubic curves which make up the edge. Edges
 /// lie between corners and have no vertex or concavity; the curves are simply
-/// straight lines (represented by [Cubic] curves).
+/// straight lines (represented by [M3ECubic] curves).
 /// A feature representing an edge of a polygon shape.
 ///
 /// Edges have no vertex or concavity and are composed of cubic curves that
 /// represent straight lines between corners. Edge features are marked as
-/// ignorable in the default [Morph] mapping process.
-class EdgeFeature extends Feature {
-  /// Creates an [EdgeFeature] with the given list of [Cubic] curves.
+/// ignorable in the default [M3EMorph] mapping process.
+@experimental
+class M3EEdgeFeature extends M3EFeature {
+  /// Creates an [M3EEdgeFeature] with the given list of [M3ECubic] curves.
   ///
   /// The cubics should represent straight line segments that form the edge
   /// of a polygon between two corners.
-  EdgeFeature(super._cubics);
+  M3EEdgeFeature(super._cubics);
 
   @override
-  Feature transformed(PointTransformer f) => EdgeFeature(
+  M3EFeature transformed(M3EPointTransformer f) => M3EEdgeFeature(
         List.generate(
           _cubics.length,
           (i) => _cubics[i].transformed(f),
@@ -151,7 +157,7 @@ class EdgeFeature extends Feature {
       );
 
   @override
-  Feature reversed() => EdgeFeature(
+  M3EFeature reversed() => M3EEdgeFeature(
         List.generate(
           _cubics.length,
           (i) => _cubics[_cubics.length - 1 - i].reverse(),
@@ -186,13 +192,14 @@ class EdgeFeature extends Feature {
 /// Corners contain cubic curves that describe how the corner is rounded
 /// and include a flag indicating whether the corner is convex (outward)
 /// or concave (inward). Corner features are not ignored in the default
-/// [Morph] mapping process.
-class CornerFeature extends Feature {
-  /// Creates a [CornerFeature] with the given list of [Cubic] curves.
+/// [M3EMorph] mapping process.
+@experimental
+class M3ECornerFeature extends M3EFeature {
+  /// Creates a [M3ECornerFeature] with the given list of [M3ECubic] curves.
   ///
   /// The [convex] parameter determines whether this corner bends outward
   /// (convex = true, the default) or inward (concave = false) from the shape.
-  const CornerFeature(super._cubics, {this.convex = true});
+  const M3ECornerFeature(super._cubics, {this.convex = true});
 
   /// Whether this corner is convex (outward indentation) or concave (inward).
   ///
@@ -202,7 +209,7 @@ class CornerFeature extends Feature {
   final bool convex;
 
   @override
-  Feature transformed(PointTransformer f) => CornerFeature(
+  M3EFeature transformed(M3EPointTransformer f) => M3ECornerFeature(
         List.generate(
           _cubics.length,
           (i) => _cubics[i].transformed(f),
@@ -211,13 +218,14 @@ class CornerFeature extends Feature {
       );
 
   @override
-  Feature reversed() => CornerFeature(
+  M3EFeature reversed() => M3ECornerFeature(
         List.generate(
           _cubics.length,
           (i) => _cubics[_cubics.length - 1 - i].reverse(),
         ),
-        // TODO: b/369320447 - Revert flag negation when [RoundedPolygon]
-        // ignores orientation for setting the flag.
+        // TODO(fluttely): upstream b/369320447 — drop this negation once
+        // M3ERoundedPolygon ignores orientation when setting the convex flag;
+        // until then reversing a feature has to flip it by hand.
         convex: !convex,
       );
 

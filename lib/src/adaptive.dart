@@ -20,5 +20,6 @@ part 'm3/utils/responsive/responsive_navigation.dart';
 part 'm3/utils/responsive/responsive_scaffold.dart';
 part 'm3/utils/responsive/responsive_value.dart';
 part 'm3/utils/responsive/responsive_visibility.dart';
+part 'm3/utils/responsive/canonical_layouts.dart';
 part 'm3/utils/adaptive/m3_adaptive.dart';
 part 'm3/utils/accessibility/m3_accessibility.dart';

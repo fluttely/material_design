@@ -141,6 +141,27 @@ abstract final class M3TypeScale {
     letterSpacing: 0.5,
     fontWeight: FontWeight.w500,
   );
+
+  /// The 15 styles, largest to smallest within each category.
+  ///
+  /// Index-aligned with [M3EmphasizedTypeScale.values].
+  static const List<TextStyle> values = <TextStyle>[
+    displayLarge,
+    displayMedium,
+    displaySmall,
+    headlineLarge,
+    headlineMedium,
+    headlineSmall,
+    titleLarge,
+    titleMedium,
+    titleSmall,
+    bodyLarge,
+    bodyMedium,
+    bodySmall,
+    labelLarge,
+    labelMedium,
+    labelSmall,
+  ];
 }
 
 /// Builds Flutter's [TextTheme] from the M3 type scale.

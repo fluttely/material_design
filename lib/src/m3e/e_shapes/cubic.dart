@@ -5,14 +5,21 @@ part of '../../expressive.dart';
 /// [anchor1Y]) at either end and control points ([control0X], [control0Y])
 /// and ([control1X], [control1Y]) determining the slope of the curve between
 /// the anchor points.
+///
+/// Cubics are the atoms every expressive shape is built from: an
+/// [M3ERoundedPolygon] is a contiguous ring of them, and an [M3EMorph]
+/// animates by interpolating matched pairs.
+///
+/// See <https://m3.material.io/styles/shape/shape-scale-tokens>.
+@experimental
 @immutable
-class Cubic {
-  /// Creates a Cubic that holds the anchor and control point data for a
+class M3ECubic {
+  /// Creates a M3ECubic that holds the anchor and control point data for a
   /// single Bézier curve, with anchor points ([anchor0X], [anchor0Y]) and
   /// ([anchor1X], [anchor1Y]) at either end and control points ([control0X],
   /// [control0Y]) and ([control1X], [control1Y]) determining the slope of the
   /// curve between the anchor points.
-  Cubic(
+  M3ECubic(
     double anchor0X,
     double anchor0Y,
     double control0X,
@@ -32,20 +39,20 @@ class Cubic {
           anchor1Y,
         ]);
 
-  const Cubic._raw(List<double> points)
+  const M3ECubic._raw(List<double> points)
       : assert(points.length == 8, 'Points array size should be 8.'),
         _points = points;
 
-  /// Creates a [Cubic] from four [Point] objects representing the anchor
+  /// Creates a [M3ECubic] from four [M3EPoint] objects representing the anchor
   /// and control points of the Bézier curve.
   ///
-  /// This is an internal constructor used for performance optimizations.
-  @internal
-  Cubic.fromPoints(
-    Point anchor0,
-    Point control0,
-    Point control1,
-    Point anchor1,
+  /// Library-private: it exists for the corner-rounding maths and is not part
+  /// of the public surface.
+  M3ECubic._fromPoints(
+    M3EPoint anchor0,
+    M3EPoint control0,
+    M3EPoint control1,
+    M3EPoint anchor1,
   ) : this._raw([
           anchor0.x,
           anchor0.y,
@@ -60,19 +67,19 @@ class Cubic {
   /// Generates a bezier curve that is a straight line between the given anchor
   /// points. The control points lie 1/3 of the distance from their respective
   /// anchor points.
-  factory Cubic.straightLine(
+  factory M3ECubic.straightLine(
     double x0,
     double y0,
     double x1,
     double y1,
   ) {
-    return Cubic._raw([
+    return M3ECubic._raw([
       x0,
       y0,
-      lerp(x0, x1, 1 / 3),
-      lerp(y0, y1, 1 / 3),
-      lerp(x0, x1, 2 / 3),
-      lerp(y0, y1, 2 / 3),
+      _lerp(x0, x1, 1 / 3),
+      _lerp(y0, y1, 1 / 3),
+      _lerp(x0, x1, 2 / 3),
+      _lerp(y0, y1, 2 / 3),
       x1,
       y1,
     ]);
@@ -83,9 +90,10 @@ class Cubic {
   /// smallest of the two possible arcs around the entire 360-degree circle.
   /// Arcs of greater than 180 degrees should use more than one arc together.
   /// Note that p0 and p1 should be equidistant from the center.
-  // TODO(material_design): consider a more general function (maybe in addition to this) that
-  // allows caller to get a list of curves surpassing 180 degrees.
-  factory Cubic.circularArc(
+  // TODO(fluttely): consider a more general function (maybe in addition to
+  // this one) that lets the caller get a list of curves surpassing 180
+  // degrees, so callers do not have to stitch the arcs themselves.
+  factory M3ECubic.circularArc(
     double centerX,
     double centerY,
     double x0,
@@ -93,8 +101,8 @@ class Cubic {
     double x1,
     double y1,
   ) {
-    final p0d = directionVector(x0 - centerX, y0 - centerY);
-    final p1d = directionVector(x1 - centerX, y1 - centerY);
+    final p0d = _directionVector(x0 - centerX, y0 - centerY);
+    final p1d = _directionVector(x1 - centerX, y1 - centerY);
     final rotatedP0 = p0d.rotate90();
     final rotatedP1 = p1d.rotate90();
     final clockwise = rotatedP0.dotProductXY(x1 - centerX, y1 - centerY) >= 0;
@@ -102,17 +110,17 @@ class Cubic {
 
     // p0 ~= p1
     if (cosa > 0.999) {
-      return Cubic.straightLine(x0, y0, x1, y1);
+      return M3ECubic.straightLine(x0, y0, x1, y1);
     }
 
-    final k = distance(x0 - centerX, y0 - centerY) *
+    final k = _distance(x0 - centerX, y0 - centerY) *
         4 /
         3 *
         (math.sqrt(2 * (1 - cosa)) - math.sqrt(1 - cosa * cosa)) /
         (1 - cosa) *
         (clockwise ? 1 : -1);
 
-    return Cubic(
+    return M3ECubic(
       x0,
       y0,
       x0 + rotatedP0.x * k,
@@ -124,8 +132,8 @@ class Cubic {
     );
   }
 
-  /// Generates an empty Cubic defined at (x0, y0).
-  Cubic.empty(double x0, double y0)
+  /// Generates an empty M3ECubic defined at (x0, y0).
+  M3ECubic.empty(double x0, double y0)
       : this._raw([x0, y0, x0, y0, x0, y0, x0, y0]);
 
   final List<double> _points;
@@ -169,9 +177,9 @@ class Cubic {
   ///
   /// [t] is the distance along the curve between the anchor points, where 0
   /// is at anchor0 and 1 is at anchor1
-  Point pointOnCurve(double t) {
+  M3EPoint pointOnCurve(double t) {
     final u = 1 - t;
-    return Point(
+    return M3EPoint(
       anchor0X * (u * u * u) +
           control0X * (3 * t * u * u) +
           control1X * (3 * t * t * u) +
@@ -185,24 +193,25 @@ class Cubic {
 
   /// Returns true if this curve has effectively zero length.
   ///
-  /// A curve is considered to have zero length if the distance between
-  /// its anchor points is less than [distanceEpsilon].
+  /// A curve is considered to have zero length if the distance between its
+  /// anchor points is below the roundoff tolerance used across this module
+  /// (1e-5, small enough to stay under a pixel on any reasonable display).
   bool zeroLength() =>
-      (anchor0X - anchor1X).abs() < distanceEpsilon &&
-      (anchor0Y - anchor1Y).abs() < distanceEpsilon;
+      (anchor0X - anchor1X).abs() < _distanceEpsilon &&
+      (anchor0Y - anchor1Y).abs() < _distanceEpsilon;
 
   /// Returns true if the angle from this curve to the [next] curve is convex.
   ///
   /// This determines if the turn from this curve to the next one bends outward
   /// (convex) or inward (concave) when traversing the shape.
-  bool convexTo(Cubic next) {
-    final prevVertex = Point(anchor0X, anchor0Y);
-    final currVertex = Point(anchor1X, anchor1Y);
-    final nextVertex = Point(next.anchor1X, next.anchor1Y);
-    return convex(prevVertex, currVertex, nextVertex);
+  bool convexTo(M3ECubic next) {
+    final prevVertex = M3EPoint(anchor0X, anchor0Y);
+    final currVertex = M3EPoint(anchor1X, anchor1Y);
+    final nextVertex = M3EPoint(next.anchor1X, next.anchor1Y);
+    return _convex(prevVertex, currVertex, nextVertex);
   }
 
-  bool _zeroIsh(double value) => value.abs() < distanceEpsilon;
+  bool _zeroIsh(double value) => value.abs() < _distanceEpsilon;
 
   /// Returns the true bounds of this curve, filling [bounds] with the
   /// axis-aligned bounding box values for left, top, right, and bottom,
@@ -311,13 +320,12 @@ class Cubic {
 
   /// Returns two Cubics, created by splitting this curve at the given
   /// distance of [t] between the original starting and ending anchor points.
-  // TODO(material_design): cartesian optimization?
-  (Cubic, Cubic) split(double t) {
+  (M3ECubic, M3ECubic) split(double t) {
     final u = 1 - t;
     final point = pointOnCurve(t);
 
     return (
-      Cubic(
+      M3ECubic(
         anchor0X,
         anchor0Y,
         anchor0X * u + control0X * t,
@@ -327,8 +335,7 @@ class Cubic {
         point.x,
         point.y,
       ),
-      Cubic(
-        // TODO(material_design): should calculate once and share the result.
+      M3ECubic(
         point.x,
         point.y,
         control0X * (u * u) + control1X * (2 * u * t) + anchor1X * (t * t),
@@ -342,7 +349,7 @@ class Cubic {
   }
 
   /// Utility function to reverse the control/anchor points for this curve.
-  Cubic reverse() => Cubic(
+  M3ECubic reverse() => M3ECubic(
         anchor1X,
         anchor1Y,
         control1X,
@@ -353,22 +360,24 @@ class Cubic {
         anchor0Y,
       );
 
-  /// Adds two [Cubic] curves by adding their corresponding point coordinates.
-  Cubic operator +(Cubic o) =>
-      Cubic._raw(List.generate(8, (i) => _points[i] + o._points[i]));
+  /// Adds two [M3ECubic] curves by adding their corresponding point
+  /// coordinates.
+  M3ECubic operator +(M3ECubic o) =>
+      M3ECubic._raw(List.generate(8, (i) => _points[i] + o._points[i]));
 
-  /// Multiplies all point coordinates of this [Cubic] by a scalar value.
-  Cubic operator *(double x) =>
-      Cubic._raw(List.generate(8, (i) => _points[i] * x));
+  /// Multiplies all point coordinates of this [M3ECubic] by a scalar value.
+  M3ECubic operator *(double x) =>
+      M3ECubic._raw(List.generate(8, (i) => _points[i] * x));
 
-  /// Divides all point coordinates of this [Cubic] by a scalar value.
-  Cubic operator /(double x) => this * (1.0 / x);
+  /// Divides all point coordinates of this [M3ECubic] by a scalar value.
+  M3ECubic operator /(double x) => this * (1.0 / x);
 
-  /// Returns a new [Cubic] with all points transformed by the given function.
+  /// Returns a new [M3ECubic] with all points transformed by the given
+  /// function.
   ///
-  /// The [PointTransformer] function is applied to each anchor and control point
-  /// to create a new transformed curve.
-  Cubic transformed(PointTransformer f) {
+  /// The [M3EPointTransformer] function is applied to each anchor and control
+  /// point to create a new transformed curve.
+  M3ECubic transformed(M3EPointTransformer f) {
     final newCubic = _MutableCubic();
     for (var i = 0; i < 8; i++) {
       newCubic._points[i] = _points[i];
@@ -391,7 +400,7 @@ class Cubic {
       return true;
     }
 
-    if (other is! Cubic) {
+    if (other is! M3ECubic) {
       return false;
     }
 
@@ -412,30 +421,30 @@ class Cubic {
   int get hashCode => _points.hashCode;
 }
 
-/// Mutable version of [Cubic], used mostly for performance critical paths so
-/// we can avoid creating new [Cubic]s
+/// Mutable version of [M3ECubic], used mostly for performance critical paths so
+/// we can avoid creating new [M3ECubic]s
 ///
-/// This is used in Morph.forEachCubic, reusing a [_MutableCubic] instance to
-/// avoid creating new [Cubic]s.
-class _MutableCubic extends Cubic {
+/// This is used in M3EMorph.forEachCubic, reusing a [_MutableCubic] instance to
+/// avoid creating new [M3ECubic]s.
+class _MutableCubic extends M3ECubic {
   _MutableCubic() : super._raw(List.filled(8, 0));
 
-  void _transformOnePoint(PointTransformer f, int ix) {
+  void _transformOnePoint(M3EPointTransformer f, int ix) {
     final result = f(_points[ix], _points[ix + 1]);
     _points[ix] = result.$1;
     _points[ix + 1] = result.$2;
   }
 
-  void transform(PointTransformer f) {
+  void transform(M3EPointTransformer f) {
     _transformOnePoint(f, 0);
     _transformOnePoint(f, 2);
     _transformOnePoint(f, 4);
     _transformOnePoint(f, 6);
   }
 
-  void interpolate(Cubic c1, Cubic c2, double progress) {
+  void interpolate(M3ECubic c1, M3ECubic c2, double progress) {
     for (var i = 0; i < 8; i++) {
-      _points[i] = lerp(c1._points[i], c2._points[i], progress);
+      _points[i] = _lerp(c1._points[i], c2._points[i], progress);
     }
   }
 }

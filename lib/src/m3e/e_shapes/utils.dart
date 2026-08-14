@@ -6,11 +6,11 @@ part of '../../expressive.dart';
 // pixel on any reasonable sized display.
 /// Epsilon value used to determine when two points are the same within
 /// reasonable roundoff error for distance calculations.
-const distanceEpsilon = 1e-5;
+const _distanceEpsilon = 1e-5;
 
 /// Epsilon value used to determine when two angles are the same within
 /// reasonable roundoff error.
-const angleEpsilon = 1e-6;
+const _angleEpsilon = 1e-6;
 
 // This epsilon is based on the observation that people tend to see e.g.
 // collinearity much more relaxed than what is mathematically correct. This
@@ -18,72 +18,74 @@ const angleEpsilon = 1e-6;
 // that allow higher tolerances.
 /// Relaxed epsilon value for operations that allow higher tolerances,
 /// based on human perception of geometric features like collinearity.
-const relaxedDistanceEpsilon = 5e-3;
+// ignore: unused_element, kept to mirror the upstream geometry library.
+const _relaxedDistanceEpsilon = 5e-3;
 
 /// Two times pi constant.
-const double twoPi = math.pi * 2;
+const double _twoPi = math.pi * 2;
 
 /// Calculates the Euclidean distance from origin to point (x, y).
-double distance(double x, double y) => math.sqrt(x * x + y * y);
+double _distance(double x, double y) => math.sqrt(x * x + y * y);
 
 /// Calculates the squared Euclidean distance from origin to point (x, y).
 /// Useful when you only need to compare distances without needing the
 /// actual value.
-double distanceSquared(double x, double y) => x * x + y * y;
+double _distanceSquared(double x, double y) => x * x + y * y;
 
 /// Returns unit vector representing the direction to this point from (0, 0).
-Point directionVector(double x, double y) {
-  final d = distance(x, y);
+M3EPoint _directionVector(double x, double y) {
+  final d = _distance(x, y);
   assert(d > 0, 'Required distance greater than zero.');
-  return Point(x / d, y / d);
+  return M3EPoint(x / d, y / d);
 }
 
 /// Creates a unit vector pointing in the direction of the given angle.
 /// [angleRadians] is the angle in radians from the positive x-axis.
-Point directionVectorFromAngle(double angleRadians) =>
-    Point(math.cos(angleRadians), math.sin(angleRadians));
+M3EPoint _directionVectorFromAngle(double angleRadians) =>
+    M3EPoint(math.cos(angleRadians), math.sin(angleRadians));
 
 /// Converts polar coordinates to Cartesian coordinates.
 /// [radius] is the distance from the center.
 /// [angleRadians] is the angle in radians from the positive x-axis.
 /// [center] is the center point (defaults to origin).
-Point radialToCartesian(
+M3EPoint _radialToCartesian(
   double radius,
   double angleRadians, [
-  Point center = Point.zero,
+  M3EPoint center = M3EPoint.zero,
 ]) =>
-    directionVectorFromAngle(angleRadians) * radius + center;
+    _directionVectorFromAngle(angleRadians) * radius + center;
 
 /// Returns the square of the given number.
-double square(double x) => x * x;
+double _square(double x) => x * x;
 
 /// Linearly interpolates between [start] and [stop] with [fraction] fraction
 /// between them.
-double lerp(double start, double stop, double fraction) {
+double _lerp(double start, double stop, double fraction) {
   return start * (1 - fraction) + stop * fraction;
 }
 
 /// Similar to num % mod, but ensures the result is always positive.
 ///
-/// For example: 4 % 3 = positiveModulo(4, 3) = 1, but: -4 % 3 = -1
-/// positiveModulo(-4, 3) = 2.
-double positiveModulo(double num, double mod) => (num % mod + mod) % mod;
+/// For example: 4 % 3 = _positiveModulo(4, 3) = 1, but: -4 % 3 = -1
+/// _positiveModulo(-4, 3) = 2.
+double _positiveModulo(double num, double mod) => (num % mod + mod) % mod;
 
 /// Returns whether C is on the line defined by the two points AB.
-bool collinearIsh(
+// ignore: unused_element, kept to mirror the upstream geometry library.
+bool _collinearIsh(
   double aX,
   double aY,
   double bX,
   double bY,
   double cX,
   double cY, [
-  double tolerance = distanceEpsilon,
+  double tolerance = _distanceEpsilon,
 ]) {
   // The dot product of a perpendicular angle is 0. By rotating one of the
   // vectors, we save the calculations to convert the dot product to degrees
   // afterwards.
-  final ab = Point(bX - aX, bY - aY).rotate90();
-  final ac = Point(cX - aX, cY - aY);
+  final ab = M3EPoint(bX - aX, bY - aY).rotate90();
+  final ac = M3EPoint(cX - aX, cY - aY);
   final dotProduct = ab.dotProduct(ac).abs();
   final relativeTolerance = tolerance * ab.getDistance() * ac.getDistance();
 
@@ -92,7 +94,7 @@ bool collinearIsh(
 
 /// Approximates whether corner at this vertex is concave or convex, based on
 /// the relationship of the prev->curr/curr->next vectors.
-bool convex(Point previous, Point current, Point next) {
+bool _convex(M3EPoint previous, M3EPoint current, M3EPoint next) {
   // TODO(username): This is a fast, but not reliable calculation.
   return (current - previous).clockwise(next - current);
 }
@@ -104,7 +106,8 @@ bool convex(Point previous, Point current, Point next) {
 // NTS: Does it make sense to split the function f in 2, one to generate a
 // candidate, of a custom type T (i.e. (Float) -> T), and one to evaluate it
 // ( (T) -> Float )?
-double findMinimum(
+// ignore: unused_element, kept to mirror the upstream geometry library.
+double _findMinimum(
   double v0,
   double v1,
   double Function(double) f, {
@@ -138,7 +141,7 @@ double findMinimum(
 ///
 /// If [start] and [end] are supplied, only that range is searched,
 /// and only that range need to be sorted.
-int binarySearchBy<E, K>(
+int _binarySearchBy<E, K>(
   List<E> sortedList,
   K Function(E element) keyOf,
   int Function(K, K) compare,
@@ -146,9 +149,9 @@ int binarySearchBy<E, K>(
   int start = 0,
   int? end,
 ]) {
-  end = RangeError.checkValidRange(start, end, sortedList.length);
+  final checkedEnd = RangeError.checkValidRange(start, end, sortedList.length);
   var min = start;
-  var max = end;
+  var max = checkedEnd;
   final key = value;
   while (min < max) {
     final mid = min + ((max - min) >> 1);
@@ -165,12 +168,13 @@ int binarySearchBy<E, K>(
 }
 
 /// Extension on [double] that provides value coercion methods.
-extension DoubleCoerceExtensions on double {
+extension _DoubleCoerceExtensions on double {
   /// Ensures this value is at least [minimumValue].
   double coerceAtLeast(double minimumValue) =>
       this < minimumValue ? minimumValue : this;
 
   /// Ensures this value is at most [maximumValue].
+  // ignore: unused_element, kept to mirror the upstream geometry library.
   double coerceAtMost(double maximumValue) {
     return this > maximumValue ? maximumValue : this;
   }
@@ -184,9 +188,9 @@ extension DoubleCoerceExtensions on double {
 }
 
 /// Extension on [Matrix4] that provides point transformation utilities.
-extension Matrix4PointTransformer on Matrix4 {
-  /// Converts this matrix to a [PointTransformer] function.
-  PointTransformer asPointTransformer() {
+extension _Matrix4PointTransformer on Matrix4 {
+  /// Converts this matrix to a [M3EPointTransformer] function.
+  M3EPointTransformer asPointTransformer() {
     return (x, y) {
       final vector = transform3(Vector3(x, y, 0));
       return (vector.x, vector.y);
@@ -194,9 +198,12 @@ extension Matrix4PointTransformer on Matrix4 {
   }
 }
 
-/// Extension on [RoundedPolygon] that provides [Path] conversion utilities.
-extension RoundedPolygonToPathExtension on RoundedPolygon {
-  /// Returns a [Path] representation for a [RoundedPolygon] shape. Note that
+/// Extension on [M3ERoundedPolygon] that provides [Path] conversion utilities.
+///
+/// See <https://m3.material.io/styles/shape/shape-scale-tokens>.
+@experimental
+extension M3ERoundedPolygonToPath on M3ERoundedPolygon {
+  /// Returns a [Path] representation for a [M3ERoundedPolygon] shape. Note that
   /// there is some rounding happening (to the nearest thousandth), to work
   /// around rendering artifacts introduced by some points being just slightly
   /// off from each other (far less than a pixel). This also allows for a more
@@ -223,7 +230,7 @@ extension RoundedPolygonToPathExtension on RoundedPolygon {
     bool closePath = true,
     Path? path,
   }) {
-    return pathFromCubics(
+    return _pathFromCubics(
       path: path ?? Path(),
       startAngle: startAngle,
       repeatPath: repeatPath,
@@ -235,11 +242,14 @@ extension RoundedPolygonToPathExtension on RoundedPolygon {
   }
 }
 
-/// Extension on [Morph] that provides [Path] conversion utilities.
-extension MorphToPathExtension on Morph {
-  /// Returns a [Path] for a [Morph].
+/// Extension on [M3EMorph] that provides [Path] conversion utilities.
+///
+/// See <https://m3.material.io/styles/shape/shape-scale-tokens>.
+@experimental
+extension M3EMorphToPath on M3EMorph {
+  /// Returns a [Path] for a [M3EMorph].
   ///
-  /// [progress] is the [Morph]'s progress.
+  /// [progress] is the [M3EMorph]'s progress.
   ///
   /// [path] is a [Path] to reset and set with the new path data.
   ///
@@ -256,15 +266,15 @@ extension MorphToPathExtension on Morph {
   /// [closePath] is whether or not to close the created [Path].
   ///
   /// [rotationPivotX] is the rotation pivot on the X axis. By default it's set
-  /// to 0, and that should align with Morph instances that were created for
-  /// [RoundedPolygon] with zero centerX. In case the [RoundedPolygon] were
-  /// normalized (i. e. moved to (0.5, 0.5)), or where created with a different
-  /// centerX coordinated, this pivot point may need to be aligned to support a
-  /// proper rotation.
+  /// to 0, and that should align with M3EMorph instances that were created for
+  /// [M3ERoundedPolygon] with zero centerX. In case the [M3ERoundedPolygon]
+  /// were normalized (i. e. moved to (0.5, 0.5)), or where created with a
+  /// different centerX coordinated, this pivot point may need to be aligned
+  /// to support a proper rotation.
   ///
   /// [rotationPivotY] is the rotation pivot on the Y axis. By default it's set
-  /// to 0, and that should align with Morph instances that were created for
-  /// [RoundedPolygon] with zero centerY. In case the RoundedPolygon were
+  /// to 0, and that should align with M3EMorph instances that were created for
+  /// [M3ERoundedPolygon] with zero centerY. In case the M3ERoundedPolygon were
   /// normalized (i. e. moves to (0.5, 0.5)), or where created with a different
   /// centerY coordinated, this pivot point may need to be aligned to support a
   /// proper rotation.
@@ -277,7 +287,7 @@ extension MorphToPathExtension on Morph {
     double rotationPivotY = 0,
     Path? path,
   }) {
-    return pathFromCubics(
+    return _pathFromCubics(
       path: path ?? Path(),
       startAngle: startAngle,
       repeatPath: repeatPath,
@@ -289,7 +299,7 @@ extension MorphToPathExtension on Morph {
   }
 }
 
-/// Returns a [Path] for a [Cubic] list.
+/// Returns a [Path] for a [M3ECubic] list.
 ///
 /// [path] is a [Path] to reset and set with the new path data.
 ///
@@ -305,22 +315,23 @@ extension MorphToPathExtension on Morph {
 ///
 /// [closePath] is whether or not to close the created [Path].
 ///
-/// [cubics] is list of [Cubic]s to build path from.
+/// [cubics] is list of [M3ECubic]s to build path from.
 ///
 /// [rotationPivotX] is the rotation pivot on the X axis.
 ///
 /// [rotationPivotY] is the rotation pivot on the Y axis.
-Path pathFromCubics({
+Path _pathFromCubics({
   required Path path,
   required int startAngle,
   required bool repeatPath,
   required bool closePath,
-  required List<Cubic> cubics,
+  required List<M3ECubic> cubics,
   required double rotationPivotX,
   required double rotationPivotY,
 }) {
   var first = true;
-  Cubic? firstCubic;
+  M3ECubic? firstCubic;
+  var result = path;
 
   path.reset();
 
@@ -372,7 +383,7 @@ Path pathFromCubics({
       cubics[0].anchor0X - rotationPivotX,
     );
     // Rotate the Path to to start from the given angle.
-    path = path.transform(
+    result = path.transform(
       (Matrix4.identity()
             ..rotateZ(
               -angleToFirstCubic + (startAngle * math.pi / 180),
@@ -381,5 +392,5 @@ Path pathFromCubics({
     );
   }
 
-  return path;
+  return result;
 }

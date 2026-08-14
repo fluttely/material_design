@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:material_design/material_design.dart';
 import 'package:material_design_demo/showcase_pages/foundations/border_tokens_page.dart';
+import 'package:material_design_demo/showcase_pages/foundations/canonical_layouts_page.dart';
 import 'package:material_design_demo/showcase_pages/foundations/breakpoint_tokens_page.dart';
+import 'package:material_design_demo/showcase_pages/foundations/component_tokens_page.dart';
 import 'package:material_design_demo/showcase_pages/foundations/icon_size_tokens_page.dart';
 import 'package:material_design_demo/showcase_pages/foundations/opacity_tokens_page.dart';
 import 'package:material_design_demo/showcase_pages/foundations/spacing_tokens_page.dart';
@@ -16,11 +18,13 @@ import 'showcase_pages/foundations/accessibility_page.dart';
 import 'showcase_pages/foundations/adaptive_page.dart';
 import 'showcase_pages/foundations/interaction_page.dart';
 import 'showcase_pages/foundations/responsive_page.dart';
+import 'showcase_pages/styles/color_schemes_page.dart';
 import 'showcase_pages/styles/color_tokens_page.dart';
 import 'showcase_pages/styles/tonal_palette_page.dart';
 import 'showcase_pages/styles/elevation_tokens_page.dart';
 import 'showcase_pages/styles/motion_page.dart';
 import 'showcase_pages/styles/shape_page.dart';
+import 'showcase_pages/styles/spring_page.dart';
 import 'showcase_pages/styles/typography_page.dart';
 import 'showcase_pages/widgets/utils_page.dart';
 import 'theme_provider.dart';
@@ -99,19 +103,23 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
     const ZIndexTokensPage(),
     const BorderTokensPage(),
     const IconSizeTokensPage(),
+    const ComponentTokensPage(),
     const OpacityTokensPage(),
     const AccessibilityPage(),
     const AdaptivePage(),
     const ResponsivePage(),
+    const CanonicalLayoutsPage(),
     const InteractionPage(),
 
     // Styles - Visual design elements
     const ColorTokensPage(),
+    const ColorSchemesPage(),
     const TonalPalettePage(),
     const TypographyPage(),
     const ElevationPage(),
     const ShapePage(),
     const MotionPage(),
+    const SpringPage(),
 
     // Utilities
     const UtilsPage(),
@@ -206,6 +214,11 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
         label: Text('Icon Sizes'),
       ),
       NavigationRailDestination(
+        icon: Icon(Icons.widgets_outlined),
+        selectedIcon: Icon(Icons.widgets),
+        label: Text('Components'),
+      ),
+      NavigationRailDestination(
         icon: Icon(Icons.opacity_outlined),
         selectedIcon: Icon(Icons.opacity),
         label: Text('Opacity'),
@@ -226,6 +239,11 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
         label: Text('Responsive'),
       ),
       NavigationRailDestination(
+        icon: Icon(Icons.view_quilt_outlined),
+        selectedIcon: Icon(Icons.view_quilt),
+        label: Text('Layouts'),
+      ),
+      NavigationRailDestination(
         icon: Icon(Icons.touch_app_outlined),
         selectedIcon: Icon(Icons.touch_app),
         label: Text('Interaction'),
@@ -244,6 +262,11 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
         icon: Icon(Icons.format_paint_outlined),
         selectedIcon: Icon(Icons.format_paint),
         label: Text('Color'),
+      ),
+      NavigationRailDestination(
+        icon: Icon(Icons.gradient_outlined),
+        selectedIcon: Icon(Icons.gradient),
+        label: Text('Schemes'),
       ),
       NavigationRailDestination(
         icon: Icon(Icons.palette_outlined),
@@ -269,6 +292,11 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
         icon: Icon(Icons.animation_outlined),
         selectedIcon: Icon(Icons.animation),
         label: Text('Motion'),
+      ),
+      NavigationRailDestination(
+        icon: Icon(Icons.waves_outlined),
+        selectedIcon: Icon(Icons.waves),
+        label: Text('Springs'),
       ),
     ];
   }
@@ -489,7 +517,7 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
           ),
           child: const LaunchURLText(
             label: 'Flutter M3 Demo',
-            m3Url: 'https://flutterweb-wasm.web.app/',
+            url: 'https://flutterweb-wasm.web.app/',
           ),
         ),
       ],
@@ -523,7 +551,7 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
           // Header with M3 link - Fixed at top
           const LaunchURLText(
             label: 'M3',
-            m3Url: 'https://m3.material.io/',
+            url: 'https://m3.material.io/',
           ),
 
           // Scrollable content area
@@ -536,7 +564,7 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
                   const LaunchURLText(
                     label: 'Foundations',
                     fontSize: 12,
-                    m3Url: 'https://m3.material.io/foundations',
+                    url: 'https://m3.material.io/foundations',
                   ),
 
                   // Foundations navigation items
@@ -561,7 +589,7 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
                   const LaunchURLText(
                     label: 'Styles',
                     fontSize: 12,
-                    m3Url: 'https://m3.material.io/styles',
+                    url: 'https://m3.material.io/styles',
                   ),
 
                   // Styles navigation items
@@ -693,7 +721,8 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
                 const LaunchURLText(
                   label: 'Demo',
                   fontSize: 10,
-                  m3Url: 'https://flutterweb-wasm.web.app/',
+                  url:
+                      'https://github.com/fluttely/material_design/tree/main/demo',
                 ),
 
                 const M3Gap(M3Spacings.s8),

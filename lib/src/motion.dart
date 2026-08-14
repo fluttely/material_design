@@ -6,5 +6,9 @@
 library;
 
 import 'package:flutter/material.dart';
+import 'package:flutter/physics.dart';
+// `@experimental` is not re-exported by flutter/material, unlike @immutable.
+import 'package:meta/meta.dart';
 
 part 'm3/motion/motion.dart';
+part 'm3/motion/spring.dart';

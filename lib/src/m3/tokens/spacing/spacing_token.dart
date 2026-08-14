@@ -10,6 +10,8 @@ part of '../../../tokens.dart';
 extension type const M3SpacingValue._(double dp) implements double {}
 
 /// Material Design 3 spacing tokens based on a 4dp grid system.
+///
+/// Spec: https://m3.material.io/foundations/layout/understanding-layout/spacing
 abstract final class M3Spacings {
   /// No spacing (0dp).
   static const M3SpacingValue none = M3SpacingValue._(0);
@@ -97,6 +99,8 @@ abstract final class M3Spacings {
 /// Material Design 3 margin tokens for responsive screen layouts.
 ///
 /// Maps to the five M3 window size classes.
+///
+/// Spec: https://m3.material.io/foundations/layout/applying-layout
 abstract final class M3Margins {
   /// Compact screen margin (16dp).
   static const M3SpacingValue compactScreen = M3SpacingValue._(16);
@@ -112,10 +116,26 @@ abstract final class M3Margins {
 
   /// Extra-large screen margin (24dp).
   static const M3SpacingValue extraLargeScreen = M3SpacingValue._(24);
+
+  /// The margin scale, ordered by window size class.
+  ///
+  /// Index-aligned with [M3ScreenSize.values].
+  static const List<M3SpacingValue> values = <M3SpacingValue>[
+    compactScreen,
+    mediumScreen,
+    expandedScreen,
+    largeScreen,
+    extraLargeScreen,
+  ];
 }
 
 /// Standard spacer widths for multi-pane layouts.
+///
+/// Spec: https://m3.material.io/foundations/layout/understanding-layout/parts-of-layout
 abstract final class M3Spacers {
   /// Standard pane spacer (24dp).
   static const M3SpacingValue pane = M3SpacingValue._(24);
+
+  /// Every spacer token.
+  static const List<M3SpacingValue> values = <M3SpacingValue>[pane];
 }

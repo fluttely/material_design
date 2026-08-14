@@ -6,11 +6,11 @@ part of '../../expressive.dart';
 /// This class is used to match cubics between shapes that lie at similar
 /// outline progress positions, particularly useful for morphing animations
 /// between different polygon shapes.
-class MeasuredPolygon {
-  MeasuredPolygon._({
-    required Measurer measurer,
-    required List<ProgressableFeature> features,
-    required List<Cubic> cubics,
+class _MeasuredPolygon {
+  _MeasuredPolygon._({
+    required _Measurer measurer,
+    required List<_ProgressableFeature> features,
+    required List<M3ECubic> cubics,
     required List<double> outlineProgress,
   })  : assert(
           outlineProgress.length == cubics.length + 1,
@@ -26,13 +26,13 @@ class MeasuredPolygon {
         ),
         _measurer = measurer,
         _features = features {
-    final measuredCubics = <MeasuredCubic>[];
+    final measuredCubics = <_MeasuredCubic>[];
     var startOutlineProgress = 0.0;
     for (var i = 0; i < cubics.length; i++) {
       // Filter out "empty" cubics.
-      if ((outlineProgress[i + 1] - outlineProgress[i]) > distanceEpsilon) {
+      if ((outlineProgress[i + 1] - outlineProgress[i]) > _distanceEpsilon) {
         measuredCubics.add(
-          MeasuredCubic(
+          _MeasuredCubic(
             measurer: measurer,
             cubic: cubics[i],
             startOutlineProgress: startOutlineProgress,
@@ -51,7 +51,7 @@ class MeasuredPolygon {
     _cubics = measuredCubics;
   }
 
-  /// Creates a [MeasuredPolygon] by measuring the given [polygon] using the
+  /// Creates a [_MeasuredPolygon] by measuring the given [polygon] using the
   /// specified [measurer].
   ///
   /// This factory method extracts the cubics from the polygon's features,
@@ -61,12 +61,12 @@ class MeasuredPolygon {
   /// [measurer] the measurement algorithm to use for calculating cubic sizes
   /// and positions.
   /// [polygon] the polygon to measure and convert to a measured polygon.
-  factory MeasuredPolygon.measurePolygon(
-    Measurer measurer,
-    RoundedPolygon polygon,
+  factory _MeasuredPolygon.measurePolygon(
+    _Measurer measurer,
+    M3ERoundedPolygon polygon,
   ) {
-    final cubics = <Cubic>[];
-    final featureToCubic = <(Feature, int)>[];
+    final cubics = <M3ECubic>[];
+    final featureToCubic = <(M3EFeature, int)>[];
 
     // Get the cubics from the polygon, at the same time, extract the features
     // and keep a reference to the representative cubic we will use.
@@ -77,7 +77,7 @@ class MeasuredPolygon {
       for (var cubicIndex = 0;
           cubicIndex < feature.cubics.length;
           cubicIndex++) {
-        if (feature is CornerFeature &&
+        if (feature is M3ECornerFeature &&
             cubicIndex == feature.cubics.length ~/ 2) {
           featureToCubic.add((feature, cubics.length));
         }
@@ -104,12 +104,12 @@ class MeasuredPolygon {
       outlineProgress[i] = measures[i] / totalMeasure;
     }
 
-    final features = List<ProgressableFeature>.generate(
+    final features = List<_ProgressableFeature>.generate(
       featureToCubic.length,
       (i) {
         final ix = featureToCubic[i].$2;
-        return ProgressableFeature(
-          positiveModulo(
+        return _ProgressableFeature(
+          _positiveModulo(
             (outlineProgress[ix] + outlineProgress[ix + 1]) / 2,
             1,
           ),
@@ -118,7 +118,7 @@ class MeasuredPolygon {
       },
     );
 
-    return MeasuredPolygon._(
+    return _MeasuredPolygon._(
       measurer: measurer,
       features: features,
       cubics: cubics,
@@ -126,23 +126,23 @@ class MeasuredPolygon {
     );
   }
 
-  final Measurer _measurer;
+  final _Measurer _measurer;
 
-  late final List<MeasuredCubic> _cubics;
+  late final List<_MeasuredCubic> _cubics;
 
-  final List<ProgressableFeature> _features;
+  final List<_ProgressableFeature> _features;
 
   /// Returns an unmodifiable view of the features in this measured polygon.
   ///
   /// Each feature represents a characteristic outline segment with its
   /// associated outline progress position.
-  List<ProgressableFeature> get features => UnmodifiableListView(_features);
+  List<_ProgressableFeature> get features => UnmodifiableListView(_features);
 
   /// Returns the first measured cubic in this polygon.
-  MeasuredCubic get first => _cubics.first;
+  _MeasuredCubic get first => _cubics.first;
 
   /// Returns the last measured cubic in this polygon.
-  MeasuredCubic get last => _cubics.last;
+  _MeasuredCubic get last => _cubics.last;
 
   /// Returns the number of measured cubics in this polygon.
   int get length => _cubics.length;
@@ -150,13 +150,13 @@ class MeasuredPolygon {
   /// Returns the measured cubic at the specified [index].
   ///
   /// Throws [RangeError] if [index] is out of bounds.
-  MeasuredCubic operator [](int index) => _cubics[index];
+  _MeasuredCubic operator [](int index) => _cubics[index];
 
   /// Returns the measured cubic at the specified [index], or null if the
   /// index is out of bounds.
   ///
   /// [index] the index of the cubic to retrieve.
-  MeasuredCubic? getOrNull(int index) {
+  _MeasuredCubic? getOrNull(int index) {
     final length = _cubics.length;
 
     if (index < 0 || index >= length) {
@@ -167,7 +167,7 @@ class MeasuredPolygon {
   }
 
   /// Finds the point in the input list of measured cubics that pass the given
-  /// outline progress, and generates a new MeasuredPolygon (equivalent to
+  /// outline progress, and generates a new _MeasuredPolygon (equivalent to
   /// this), that starts at that point. This usually means cutting the cubic
   /// that crosses the outline progress (unless the cut is at one of its ends).
   /// For example, given outline progress 0.4f and measured cubics on these
@@ -183,12 +183,12 @@ class MeasuredPolygon {
   /// at 0.
   ///
   /// c2b [0 -> 0.1] c3 [0.1 -> 0.6] c1 [0.6 -> 0.8] c2a [0.8 -> 1.0]
-  MeasuredPolygon cutAndShift(double cuttingPoint) {
+  _MeasuredPolygon cutAndShift(double cuttingPoint) {
     if (cuttingPoint < 0 && cuttingPoint > 1) {
       throw ArgumentError('Cutting point is expected to be between 0 and 1');
     }
 
-    if (cuttingPoint < distanceEpsilon) return this;
+    if (cuttingPoint < _distanceEpsilon) return this;
 
     // Find the index of cubic we want to cut
     final targetIndex = _cubics.indexWhere(
@@ -231,7 +231,7 @@ class MeasuredPolygon {
         retOutlineProgress[i] = 1;
       } else {
         final cubicIndex = (targetIndex + i - 1) % _cubics.length;
-        retOutlineProgress[i] = positiveModulo(
+        retOutlineProgress[i] = _positiveModulo(
           _cubics[cubicIndex]._endOutlineProgress - cuttingPoint,
           1,
         );
@@ -241,15 +241,15 @@ class MeasuredPolygon {
     // Shift the feature's outline progress too.
     final newFeatures = [
       for (var i = 0; i < _features.length; i++)
-        ProgressableFeature(
-          positiveModulo(_features[i].progress - cuttingPoint, 1),
+        _ProgressableFeature(
+          _positiveModulo(_features[i].progress - cuttingPoint, 1),
           _features[i].feature,
         ),
     ];
 
     // Filter out all empty cubics (i.e. start and end anchor are (almost) the
     // same point.)
-    return MeasuredPolygon._(
+    return _MeasuredPolygon._(
       measurer: _measurer,
       features: newFeatures,
       cubics: retCubics,
@@ -258,7 +258,7 @@ class MeasuredPolygon {
   }
 }
 
-/// A MeasuredCubic holds information about the cubic itself, the feature
+/// A _MeasuredCubic holds information about the cubic itself, the feature
 /// (if any) associated with it, and the outline progress values (start and
 /// end) for the cubic. This information is used to match cubics between shapes
 /// that lie at similar outline progress positions along their respective
@@ -266,7 +266,7 @@ class MeasuredPolygon {
 ///
 /// Outline progress is a value in [0..1) that represents the distance traveled
 /// along the overall outline path of the shape.
-class MeasuredCubic {
+class _MeasuredCubic {
   /// Creates a measured cubic with the specified measurer, cubic curve,
   /// and outline progress range.
   ///
@@ -274,7 +274,7 @@ class MeasuredCubic {
   /// [cubic] the cubic Bézier curve being measured.
   /// [startOutlineProgress] the starting outline progress value (0-1).
   /// [endOutlineProgress] the ending outline progress value (0-1).
-  MeasuredCubic({
+  _MeasuredCubic({
     required this.measurer,
     required this.cubic,
     required double startOutlineProgress,
@@ -298,10 +298,10 @@ class MeasuredCubic {
   }
 
   /// The measurement algorithm used to measure this cubic.
-  final Measurer measurer;
+  final _Measurer measurer;
 
   /// The cubic Bézier curve being measured.
-  final Cubic cubic;
+  final M3ECubic cubic;
 
   /// The measured size of this cubic according to the measurer.
   late final double measuredSize;
@@ -338,8 +338,8 @@ class MeasuredCubic {
     _endOutlineProgress = endOutlineProgress;
   }
 
-  /// Cut this [MeasuredCubic] into two at the given outline progress value.
-  (MeasuredCubic, MeasuredCubic) cutAtProgress(double cutOutlineProgress) {
+  /// Cut this [_MeasuredCubic] into two at the given outline progress value.
+  (_MeasuredCubic, _MeasuredCubic) cutAtProgress(double cutOutlineProgress) {
     // Floating point errors further up can cause cutOutlineProgress to land
     // just slightly outside of the start/end progress for this cubic, so we
     // limit it to those bounds to avoid further errors later
@@ -360,20 +360,21 @@ class MeasuredCubic {
     );
 
     if (t < 0 || t > 1) {
-      throw ArgumentError('Cubic cut point is expected to be between 0 and 1.');
+      throw ArgumentError(
+          'M3ECubic cut point is expected to be between 0 and 1.');
     }
 
     // c1/c2 are the two new cubics, then we return MeasuredCubics created
     // from them.
     final (c1, c2) = cubic.split(t);
     return (
-      MeasuredCubic(
+      _MeasuredCubic(
         measurer: measurer,
         cubic: c1,
         startOutlineProgress: _startOutlineProgress,
         endOutlineProgress: boundedCutOutlineProgress,
       ),
-      MeasuredCubic(
+      _MeasuredCubic(
         measurer: measurer,
         cubic: c2,
         startOutlineProgress: boundedCutOutlineProgress,
@@ -384,7 +385,7 @@ class MeasuredCubic {
 
   @override
   String toString() {
-    return 'MeasuredCubic(outlineProgress='
+    return '_MeasuredCubic(outlineProgress='
         '[$_startOutlineProgress .. $_endOutlineProgress], '
         'size=$measuredSize, cubic=$cubic)';
   }
@@ -392,18 +393,18 @@ class MeasuredCubic {
 
 /// Interface for measuring a cubic. Implementations can use whatever algorithm
 /// desired to produce these measurement values.
-abstract interface class Measurer {
-  const Measurer();
+abstract interface class _Measurer {
+  const _Measurer();
 
   /// Returns size of given cubic, according to however the implementation
   /// wants to measure the size (angle, length, etc). It has to be greater or
   /// equal to 0.
-  double measureCubic(Cubic c);
+  double measureCubic(M3ECubic c);
 
   /// Given a cubic and a measure that should be between 0 and the value
   /// returned by measureCubic (if not, it will be capped), finds the parameter
   /// t of the cubic at which that measure is reached.
-  double findCubicCutPoint(Cubic c, double m);
+  double findCubicCutPoint(M3ECubic c, double m);
 }
 
 /// Approximates the arc lengths of cubics by splitting the arc into segments
@@ -415,31 +416,31 @@ abstract interface class Measurer {
 /// This measurer uses a segmented approach to calculate approximate arc
 /// lengths by dividing each cubic into multiple segments and summing the
 /// linear distances between consecutive points on the curve.
-class LengthMeasurer implements Measurer {
-  /// Creates a new [LengthMeasurer] instance.
+class _LengthMeasurer implements _Measurer {
+  /// Creates a new [_LengthMeasurer] instance.
   ///
   /// This measurer approximates arc lengths by splitting cubic curves into
   /// segments and calculating their linear distances.
-  const LengthMeasurer();
+  const _LengthMeasurer();
 
   // The minimum number needed to achieve up to 98.5% accuracy from the true
   // arc length See PolygonMeasureTest.measureCircle
   static const _segments = 3;
 
   @override
-  double measureCubic(Cubic c) {
+  double measureCubic(M3ECubic c) {
     return _closestProgressTo(c, double.infinity).$2;
   }
 
   @override
-  double findCubicCutPoint(Cubic c, double m) {
+  double findCubicCutPoint(M3ECubic c, double m) {
     return _closestProgressTo(c, m).$1;
   }
 
-  (double, double) _closestProgressTo(Cubic cubic, double threshold) {
+  (double, double) _closestProgressTo(M3ECubic cubic, double threshold) {
     var total = 0.0;
     var remainder = threshold;
-    var prev = Point(cubic.anchor0X, cubic.anchor0Y);
+    var prev = M3EPoint(cubic.anchor0X, cubic.anchor0Y);
 
     for (var i = 0; i <= _segments; i++) {
       final progress = i / _segments;

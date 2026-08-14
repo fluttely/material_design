@@ -5,7 +5,7 @@ part of '../../expressive.dart';
 /// Since progress is in the [0..1) interval and wraps, there is a special case
 /// when [progressTo] < [progressFrom]. For example, if the progress range is
 /// 0.7 to 0.2, both 0.8 and 0.1 are inside and 0.5 is outside.
-bool progressInRange(double progress, double progressFrom, double progressTo) {
+bool _progressInRange(double progress, double progressFrom, double progressTo) {
   if (progressTo >= progressFrom) {
     return progress >= progressFrom && progress <= progressTo;
   } else {
@@ -15,13 +15,13 @@ bool progressInRange(double progress, double progressFrom, double progressTo) {
 
 /// Maps from one set of progress values to another. This is used to retrieve
 /// the value on one shape that maps to the appropriate value on the other.
-double linearMap(List<double> xValues, List<double> yValues, double x) {
+double _linearMap(List<double> xValues, List<double> yValues, double x) {
   assert(x >= 0 && x <= 1, 'Invalid progress $x');
 
   var segmentStartIndex = -1;
 
   for (var i = 0; i < xValues.length; i++) {
-    if (progressInRange(x, xValues[i], xValues[(i + 1) % xValues.length])) {
+    if (_progressInRange(x, xValues[i], xValues[(i + 1) % xValues.length])) {
       segmentStartIndex = i;
       break;
     }
@@ -32,25 +32,25 @@ double linearMap(List<double> xValues, List<double> yValues, double x) {
   }
 
   final segmentEndIndex = (segmentStartIndex + 1) % xValues.length;
-  final segmentSizeX = positiveModulo(
+  final segmentSizeX = _positiveModulo(
     xValues[segmentEndIndex] - xValues[segmentStartIndex],
     1,
   );
-  final segmentSizeY = positiveModulo(
+  final segmentSizeY = _positiveModulo(
     yValues[segmentEndIndex] - yValues[segmentStartIndex],
     1,
   );
   final positionInSegment = segmentSizeX < 0.001
       ? 0.5
-      : positiveModulo(x - xValues[segmentStartIndex], 1) / segmentSizeX;
+      : _positiveModulo(x - xValues[segmentStartIndex], 1) / segmentSizeX;
 
-  return positiveModulo(
+  return _positiveModulo(
     yValues[segmentStartIndex] + segmentSizeY * positionInSegment,
     1,
   );
 }
 
-/// [DoubleMapper] creates mappings from values in the [0..1) source space to
+/// [_DoubleMapper] creates mappings from values in the [0..1) source space to
 /// values in the [0..1) target space, and back. This mapping is created given
 /// a finite list of representative mappings, and this is extended to the whole
 /// interval by linear interpolation, and wrapping around.
@@ -70,8 +70,8 @@ double linearMap(List<double> xValues, List<double> yValues, double x) {
 /// [0.25 .. 1] } x = (y + 0.5) / 1.5 This is used to create mappings of
 /// progress values between the start and end shape, which is then used to
 /// insert new curves and match curves overall.
-class DoubleMapper {
-  DoubleMapper(List<(double, double)> mappings) {
+class _DoubleMapper {
+  _DoubleMapper(List<(double, double)> mappings) {
     _sourceValues = List.filled(mappings.length, 0);
     _targetValues = List.filled(mappings.length, 0);
     for (var i = 0; i < mappings.length; i++) {
@@ -79,10 +79,11 @@ class DoubleMapper {
       _sourceValues[i] = pair.$1;
       _targetValues[i] = pair.$2;
     }
-    validateProgress(_sourceValues);
-    validateProgress(_targetValues);
+    _validateProgress(_sourceValues);
+    _validateProgress(_targetValues);
   }
-  static final identity = DoubleMapper([
+  // ignore: unused_field, kept to mirror the upstream geometry library.
+  static final identity = _DoubleMapper([
     (0.0, 0.0),
     (0.5, 0.5),
   ]);
@@ -92,17 +93,17 @@ class DoubleMapper {
   late final List<double> _targetValues;
 
   /// Maps a value from the source to the target space.
-  double map(double x) => linearMap(_sourceValues, _targetValues, x);
+  double map(double x) => _linearMap(_sourceValues, _targetValues, x);
 
   /// Maps a value from the target back to the source space.
-  double mapBack(double x) => linearMap(_targetValues, _sourceValues, x);
+  double mapBack(double x) => _linearMap(_targetValues, _sourceValues, x);
 }
 
 /// Verifies that a list of progress values are all in the range [0.0, 1.0)
 /// and are monotonically increasing, allowing at most one wraparound.
 ///
 /// Throws [ArgumentError] if validation fails.
-void validateProgress(List<double> p) {
+void _validateProgress(List<double> p) {
   if (p.isEmpty) {
     throw ArgumentError('List is empty.');
   }
@@ -119,7 +120,7 @@ void validateProgress(List<double> p) {
       );
     }
 
-    if (progressDistance(curr, prev).abs() <= distanceEpsilon) {
+    if (_progressDistance(curr, prev).abs() <= _distanceEpsilon) {
       throw ArgumentError(
         'FloatMapping - Progress repeats a value: ${p.join(', ')}',
       );
@@ -140,7 +141,7 @@ void validateProgress(List<double> p) {
 
 /// Distance between two progress values, considering wrap-around.
 /// For example, the distance between 0.99 and 0.0 is 0.01.
-double progressDistance(double p1, double p2) {
+double _progressDistance(double p1, double p2) {
   final diff = (p1 - p2).abs();
   return math.min(diff, 1.0 - diff);
 }

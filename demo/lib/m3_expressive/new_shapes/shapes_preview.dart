@@ -1,3 +1,7 @@
+// The M3 Expressive shape engine is @experimental by design; a showcase for it
+// necessarily opts in.
+// ignore_for_file: experimental_member_use
+
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
@@ -14,49 +18,49 @@ class ShapesPreview extends StatefulWidget {
 
 class _ShapesPreviewState extends State<ShapesPreview>
     with SingleTickerProviderStateMixin {
-  static final List<({RoundedPolygon shape, String title})> _shapes = [
-    (shape: MaterialShapes.circle, title: 'Circle'),
-    (shape: MaterialShapes.square, title: 'Square'),
-    (shape: MaterialShapes.slanted, title: 'Slanted'),
-    (shape: MaterialShapes.arch, title: 'Arch'),
-    (shape: MaterialShapes.semiCircle, title: 'Semicircle'),
-    (shape: MaterialShapes.oval, title: 'Oval'),
-    (shape: MaterialShapes.pill, title: 'Pill'),
-    (shape: MaterialShapes.triangle, title: 'Triangle'),
-    (shape: MaterialShapes.arrow, title: 'Arrow'),
-    (shape: MaterialShapes.fan, title: 'Fan'),
-    (shape: MaterialShapes.diamond, title: 'Diamond'),
-    (shape: MaterialShapes.clamShell, title: 'Clammshell'),
-    (shape: MaterialShapes.pentagon, title: 'Pentagon'),
-    (shape: MaterialShapes.gem, title: 'Gem'),
-    (shape: MaterialShapes.verySunny, title: 'Very sunny'),
-    (shape: MaterialShapes.sunny, title: 'Sunny'),
-    (shape: MaterialShapes.cookie4Sided, title: '4-sided cookie'),
-    (shape: MaterialShapes.cookie6Sided, title: '6-sided cookie'),
-    (shape: MaterialShapes.cookie7Sided, title: '8-sided cookie'),
-    (shape: MaterialShapes.cookie9Sided, title: '9-sided cookie'),
-    (shape: MaterialShapes.cookie12Sided, title: '12-sided cookie'),
-    (shape: MaterialShapes.clover4Leaf, title: '4-leaf clover'),
-    (shape: MaterialShapes.clover8Leaf, title: '8-leaf clover'),
-    (shape: MaterialShapes.burst, title: 'Burst'),
-    (shape: MaterialShapes.softBurst, title: 'Soft burst'),
-    (shape: MaterialShapes.boom, title: 'Boom'),
-    (shape: MaterialShapes.softBoom, title: 'Soft boom'),
-    (shape: MaterialShapes.puffyDiamond, title: 'Puffy diamond'),
-    (shape: MaterialShapes.puffy, title: 'Puffy'),
-    (shape: MaterialShapes.flower, title: 'Flower'),
-    (shape: MaterialShapes.ghostish, title: 'Ghost-ish'),
-    (shape: MaterialShapes.pixelCircle, title: 'Pixel circle'),
-    (shape: MaterialShapes.pixelTriangle, title: 'Pixel triangle'),
-    (shape: MaterialShapes.bun, title: 'Bun'),
-    (shape: MaterialShapes.heart, title: 'Heart'),
+  static final List<({M3ERoundedPolygon shape, String title})> _shapes = [
+    (shape: M3EShapes.circle, title: 'Circle'),
+    (shape: M3EShapes.square, title: 'Square'),
+    (shape: M3EShapes.slanted, title: 'Slanted'),
+    (shape: M3EShapes.arch, title: 'Arch'),
+    (shape: M3EShapes.semiCircle, title: 'Semicircle'),
+    (shape: M3EShapes.oval, title: 'Oval'),
+    (shape: M3EShapes.pill, title: 'Pill'),
+    (shape: M3EShapes.triangle, title: 'Triangle'),
+    (shape: M3EShapes.arrow, title: 'Arrow'),
+    (shape: M3EShapes.fan, title: 'Fan'),
+    (shape: M3EShapes.diamond, title: 'Diamond'),
+    (shape: M3EShapes.clamShell, title: 'Clammshell'),
+    (shape: M3EShapes.pentagon, title: 'Pentagon'),
+    (shape: M3EShapes.gem, title: 'Gem'),
+    (shape: M3EShapes.verySunny, title: 'Very sunny'),
+    (shape: M3EShapes.sunny, title: 'Sunny'),
+    (shape: M3EShapes.cookie4Sided, title: '4-sided cookie'),
+    (shape: M3EShapes.cookie6Sided, title: '6-sided cookie'),
+    (shape: M3EShapes.cookie7Sided, title: '8-sided cookie'),
+    (shape: M3EShapes.cookie9Sided, title: '9-sided cookie'),
+    (shape: M3EShapes.cookie12Sided, title: '12-sided cookie'),
+    (shape: M3EShapes.clover4Leaf, title: '4-leaf clover'),
+    (shape: M3EShapes.clover8Leaf, title: '8-leaf clover'),
+    (shape: M3EShapes.burst, title: 'Burst'),
+    (shape: M3EShapes.softBurst, title: 'Soft burst'),
+    (shape: M3EShapes.boom, title: 'Boom'),
+    (shape: M3EShapes.softBoom, title: 'Soft boom'),
+    (shape: M3EShapes.puffyDiamond, title: 'Puffy diamond'),
+    (shape: M3EShapes.puffy, title: 'Puffy'),
+    (shape: M3EShapes.flower, title: 'Flower'),
+    (shape: M3EShapes.ghostish, title: 'Ghost-ish'),
+    (shape: M3EShapes.pixelCircle, title: 'Pixel circle'),
+    (shape: M3EShapes.pixelTriangle, title: 'Pixel triangle'),
+    (shape: M3EShapes.bun, title: 'Bun'),
+    (shape: M3EShapes.heart, title: 'Heart'),
   ];
 
   late final ValueNotifier<int> _shapeIndex;
 
   late final ValueNotifier<int> _morphIndex;
 
-  late final List<Morph> _morphs;
+  late final List<M3EMorph> _morphs;
 
   late final AnimationController _controller;
 
@@ -95,10 +99,10 @@ class _ShapesPreviewState extends State<ShapesPreview>
     _shapeIndex = ValueNotifier(0);
     _morphIndex = ValueNotifier(0);
 
-    _morphs = <Morph>[];
+    _morphs = <M3EMorph>[];
     for (var i = 0; i < _shapes.length; i++) {
       _morphs.add(
-        Morph(
+        M3EMorph(
           _shapes[i].shape,
           _shapes[(i + 1) % _shapes.length].shape,
         ),
@@ -167,7 +171,7 @@ class _ShapesPreviewState extends State<ShapesPreview>
             child: AspectRatio(
               aspectRatio: 1,
               child: CustomPaint(
-                painter: _MorphPainter(
+                painter: _M3EMorphPainter(
                   morphs: _morphs,
                   morphIndex: _morphIndex,
                   progress: _controller,
@@ -191,8 +195,8 @@ class _ShapesPreviewState extends State<ShapesPreview>
   }
 }
 
-class _MorphPainter extends CustomPainter {
-  _MorphPainter({
+class _M3EMorphPainter extends CustomPainter {
+  _M3EMorphPainter({
     required this.morphs,
     required this.morphIndex,
     required this.progress,
@@ -201,7 +205,7 @@ class _MorphPainter extends CustomPainter {
           repaint: Listenable.merge([morphIndex, progress]),
         );
 
-  final List<Morph> morphs;
+  final List<M3EMorph> morphs;
 
   final ValueListenable<int> morphIndex;
 
@@ -226,7 +230,7 @@ class _MorphPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(_MorphPainter oldDelegate) {
+  bool shouldRepaint(_M3EMorphPainter oldDelegate) {
     return oldDelegate.morphs != morphs ||
         oldDelegate.morphIndex != morphIndex ||
         oldDelegate.progress != progress ||

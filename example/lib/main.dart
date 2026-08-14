@@ -9,9 +9,14 @@
 //   3. Elevation & surfaces    8. Adaptive & responsive
 //   4. Typography              9. Accessibility
 //   5. Color                  10. M3 Expressive (experimental)
-//                             11. Breaking the contract (M3Contract)
+//   5b. Schemes & contrast    11. Breaking the contract (M3Contract)
 //
 // Live version of everything here: https://fluttely.github.io/material_design/
+//
+// Section 10 uses the M3 Expressive module, whose API is marked @experimental
+// because Material is still iterating on it upstream. Opting in is a decision,
+// so the analyzer warns — this file acknowledges it once, deliberately:
+// ignore_for_file: experimental_member_use
 
 import 'package:flutter/material.dart';
 import 'package:material_design/material_design.dart';
@@ -87,9 +92,11 @@ class ExampleHomePage extends StatelessWidget {
           _ElevationSection(),
           _TypographySection(),
           _ColorSection(),
+          _SchemeSection(),
           _InteractionSection(),
           _MotionSection(),
           _AdaptiveSection(),
+          _ComponentTokensSection(),
           _AccessibilitySection(),
           _ExpressiveSection(),
           _ContractSection(),
@@ -335,6 +342,25 @@ class _TypographySection extends StatelessWidget {
         for (final (name, style) in _styles) Text(name, style: style),
         const M3Gap(M3Spacings.s16),
         Text(
+          'Emphasized counterparts keep size and line height, so swapping one '
+          'in never reflows the layout — only the weight changes:',
+          style: M3TypeScale.bodyMedium,
+        ),
+        const M3Gap(M3Spacings.s8),
+        for (final (name, style) in _styles.take(4))
+          Row(
+            children: [
+              Expanded(child: Text(name, style: style)),
+              Expanded(
+                child: Text(
+                  name,
+                  style: M3EmphasizedTypeScale.of(style),
+                ),
+              ),
+            ],
+          ),
+        const M3Gap(M3Spacings.s16),
+        Text(
           'M3TextUtils.mono — code-friendly variant of any style',
           style: M3TextUtils.mono(M3TypeScale.bodyMedium),
         ),
@@ -405,6 +431,181 @@ class _ColorSection extends StatelessWidget {
     return Chip(
       avatar: CircleAvatar(backgroundColor: color),
       label: Text(label, style: M3TypeScale.labelMedium),
+    );
+  }
+}
+
+// ═════════════════════════════════════════════════════════════════════════
+// 5b. COLOR SCHEMES — M3ColorSchemes, M3SchemeVariant, M3ContrastLevels
+// ═════════════════════════════════════════════════════════════════════════
+
+class _SchemeSection extends StatefulWidget {
+  const _SchemeSection();
+
+  @override
+  State<_SchemeSection> createState() => _SchemeSectionState();
+}
+
+class _SchemeSectionState extends State<_SchemeSection> {
+  M3SchemeVariant _variant = M3SchemeVariant.tonalSpot;
+  M3ContrastLevelValue _contrast = M3ContrastLevels.standard;
+
+  static const _seed = Color(0xFF6750A4);
+
+  @override
+  Widget build(BuildContext context) {
+    // The variant and the contrast level are tokens, not loose values: you
+    // cannot pass `2.7` as a contrast level or invent a tenth variant.
+    final scheme = M3ColorSchemes.fromSeed(
+      seedColor: _seed,
+      variant: _variant,
+      contrastLevel: _contrast,
+      brightness: Theme.of(context).brightness,
+    );
+
+    return _Section(
+      title: '5b. Color schemes, variants & contrast',
+      children: [
+        Text('Variant', style: M3TypeScale.labelLarge),
+        const M3Gap(M3Spacings.s8),
+        Wrap(
+          spacing: M3Spacings.s8,
+          runSpacing: M3Spacings.s8,
+          children: [
+            for (final variant in M3SchemeVariant.values)
+              ChoiceChip(
+                label: Text(variant.name, style: M3TypeScale.labelMedium),
+                selected: _variant == variant,
+                onSelected: (_) => setState(() => _variant = variant),
+              ),
+          ],
+        ),
+        const M3Gap(M3Spacings.s16),
+        Text('Contrast', style: M3TypeScale.labelLarge),
+        const M3Gap(M3Spacings.s8),
+        Wrap(
+          spacing: M3Spacings.s8,
+          children: [
+            for (final (label, level) in const <(String, M3ContrastLevelValue)>[
+              ('reduced', M3ContrastLevels.reduced),
+              ('standard', M3ContrastLevels.standard),
+              ('medium', M3ContrastLevels.medium),
+              ('high', M3ContrastLevels.high),
+            ])
+              ChoiceChip(
+                label: Text(label, style: M3TypeScale.labelMedium),
+                selected: _contrast == level,
+                onSelected: (_) => setState(() => _contrast = level),
+              ),
+          ],
+        ),
+        const M3Gap(M3Spacings.s16),
+        Row(
+          children: M3GapUtils.addGaps(
+            [
+              for (final (label, bg, fg) in <(String, Color, Color)>[
+                ('primary', scheme.primary, scheme.onPrimary),
+                (
+                  'primaryContainer',
+                  scheme.primaryContainer,
+                  scheme.onPrimaryContainer
+                ),
+                ('tertiary', scheme.tertiary, scheme.onTertiary),
+                ('surface', scheme.surface, scheme.onSurface),
+              ])
+                Expanded(
+                  child: Container(
+                    height: M3Spacings.s64,
+                    alignment: Alignment.center,
+                    decoration: M3BoxDecoration(
+                      color: bg,
+                      borderRadius: M3BorderRadius.small,
+                    ),
+                    child: Text(
+                      label,
+                      textAlign: TextAlign.center,
+                      style: M3TypeScale.labelSmall.copyWith(color: fg),
+                    ),
+                  ),
+                ),
+            ],
+            M3Spacings.s8,
+          ),
+        ),
+        const M3Gap(M3Spacings.s16),
+        Text(
+          'onSurface/surface contrast: '
+          '${M3ColorUtils.calculateContrast(scheme.onSurface, scheme.surface).toStringAsFixed(2)}:1',
+          style: M3TypeScale.bodyMedium,
+        ),
+        const M3Gap(M3Spacings.s16),
+        Text(
+          'Brand colors harmonized into this scheme — a bounded HCT hue shift, '
+          'so they belong without becoming a different color:',
+          style: M3TypeScale.bodyMedium,
+        ),
+        const M3Gap(M3Spacings.s8),
+        Row(
+          children: M3GapUtils.addGaps(
+            [
+              for (final (name, source) in const <(String, Color)>[
+                ('success', Color(0xFF2E7D32)),
+                ('warning', Color(0xFFF9A825)),
+                ('info', Color(0xFF0277BD)),
+              ])
+                Expanded(
+                  child: _ExtendedColorTile(
+                    color: M3ExtendedColor.harmonized(
+                      name: name,
+                      source: source,
+                      harmonizeWith: scheme.primary,
+                      brightness: Theme.of(context).brightness,
+                    ),
+                    raw: source,
+                  ),
+                ),
+            ],
+            M3Spacings.s8,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _ExtendedColorTile extends StatelessWidget {
+  const _ExtendedColorTile({required this.color, required this.raw});
+
+  final M3ExtendedColor color;
+  final Color raw;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Container(
+          height: M3Spacings.s20,
+          decoration: M3BoxDecoration(
+            color: raw,
+            borderRadius: M3BorderRadius.extraSmall,
+          ),
+        ),
+        const M3Gap(M3Spacings.s4),
+        Container(
+          padding: const M3EdgeInsets.all(M3Spacings.s8),
+          decoration: M3BoxDecoration(
+            color: color.colorContainer,
+            borderRadius: M3BorderRadius.small,
+          ),
+          child: Text(
+            color.name,
+            textAlign: TextAlign.center,
+            style: M3TypeScale.labelMedium.copyWith(
+              color: color.onColorContainer,
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
@@ -511,7 +712,104 @@ class _MotionSectionState extends State<_MotionSection> {
           '${M3Motion.durationFor(M3MotionDistance.long).inMilliseconds}ms',
           style: M3TypeScale.bodyMedium,
         ),
+        const M3Gap(M3Spacings.s24),
+        Text(
+          'M3 Expressive springs are the physics-based alternative: '
+          'interruptible and velocity-aware. Tap to launch both.',
+          style: M3TypeScale.bodyMedium,
+        ),
+        const M3Gap(M3Spacings.s8),
+        const _SpringDemo(),
       ],
+    );
+  }
+}
+
+/// Runs the same distance under a bouncy spatial spring and a critically
+/// damped effects spring, so the difference is visible rather than described.
+class _SpringDemo extends StatefulWidget {
+  const _SpringDemo();
+
+  @override
+  State<_SpringDemo> createState() => _SpringDemoState();
+}
+
+class _SpringDemoState extends State<_SpringDemo>
+    with TickerProviderStateMixin {
+  late final AnimationController _spatial = AnimationController.unbounded(
+    vsync: this,
+  );
+  late final AnimationController _effects = AnimationController.unbounded(
+    vsync: this,
+  );
+
+  @override
+  void dispose() {
+    _spatial.dispose();
+    _effects.dispose();
+    super.dispose();
+  }
+
+  void _run() {
+    for (final (controller, spring) in <(AnimationController, M3ESpring)>[
+      // Spatial springs move things and are allowed to overshoot.
+      (_spatial, M3MotionScheme.expressive.spatial(M3MotionSpeed.fast)),
+      // Effects springs change color/opacity and never overshoot.
+      (_effects, M3MotionScheme.expressive.effects(M3MotionSpeed.standard)),
+    ]) {
+      final from = controller.value > 0.5 ? 1.0 : 0.0;
+      controller
+        ..value = from
+        ..animateWith(
+          spring.simulation(start: from, end: 1 - from),
+        );
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
+    return GestureDetector(
+      onTap: _run,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          for (final (label, controller, bouncy)
+              in <(String, AnimationController, bool)>[
+            ('spatial · fast — overshoots', _spatial, true),
+            ('effects · standard — never overshoots', _effects, false),
+          ]) ...[
+            Text(label, style: M3TypeScale.labelMedium),
+            const M3Gap(M3Spacings.s4),
+            SizedBox(
+              height: M3Spacings.s40,
+              child: AnimatedBuilder(
+                animation: controller,
+                builder: (context, child) => Align(
+                  // Values outside 0..1 are exactly the overshoot.
+                  alignment: Alignment(
+                    (controller.value.clamp(-0.2, 1.2) * 2) - 1,
+                    0,
+                  ),
+                  child: child,
+                ),
+                child: Container(
+                  width: M3Spacings.s32,
+                  height: M3Spacings.s32,
+                  decoration: M3BoxDecoration(
+                    color: bouncy
+                        ? colorScheme.primary
+                        : colorScheme.tertiaryContainer,
+                    borderRadius: M3BorderRadius.full,
+                  ),
+                ),
+              ),
+            ),
+            const M3Gap(M3Spacings.s8),
+          ],
+        ],
+      ),
     );
   }
 }
@@ -560,7 +858,27 @@ class _AdaptiveSection extends StatelessWidget {
             style: M3TypeScale.bodySmall,
           ),
         ),
+        const M3Gap(M3Spacings.s16),
+        Text(
+          'The three canonical layouts. Note they collapse differently on a '
+          'phone: list-detail replaces, supporting-pane stacks.',
+          style: M3TypeScale.bodyMedium,
+        ),
         const M3Gap(M3Spacings.s8),
+        SizedBox(
+          height: M3Spacings.s96,
+          child: M3SupportingPaneLayout(
+            primary: _PaneBox(
+              label: 'primary',
+              color: Theme.of(context).colorScheme.primaryContainer,
+            ),
+            supporting: _PaneBox(
+              label: 'supporting',
+              color: Theme.of(context).colorScheme.tertiaryContainer,
+            ),
+          ),
+        ),
+        const M3Gap(M3Spacings.s16),
         FilledButton(
           onPressed: () => M3Adaptive.showAdaptiveDialog<void>(
             context: context,
@@ -576,6 +894,100 @@ class _AdaptiveSection extends StatelessWidget {
             ],
           ),
           child: const Text('M3Adaptive.showAdaptiveDialog'),
+        ),
+      ],
+    );
+  }
+}
+
+/// A labelled block standing in for a real pane in the layout demo.
+class _PaneBox extends StatelessWidget {
+  const _PaneBox({required this.label, required this.color});
+
+  final String label;
+  final Color color;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      alignment: Alignment.center,
+      decoration: M3BoxDecoration(
+        color: color,
+        borderRadius: M3BorderRadius.small,
+      ),
+      child: Text(label, style: M3TypeScale.labelLarge),
+    );
+  }
+}
+
+// ═════════════════════════════════════════════════════════════════════════
+// 8b. COMPONENT MEASUREMENTS — M3ButtonHeights, M3FabSizes, M3ListItemHeights
+// ═════════════════════════════════════════════════════════════════════════
+
+class _ComponentTokensSection extends StatelessWidget {
+  const _ComponentTokensSection();
+
+  @override
+  Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
+    return _Section(
+      title: '8b. Component measurements',
+      children: [
+        Text(
+          'The spec numbers for individual components, so a control you build '
+          'by hand matches the built-in one beside it. Values only — this '
+          'package does not ship M3 components.',
+          style: M3TypeScale.bodyMedium,
+        ),
+        const M3Gap(M3Spacings.s16),
+        Text('M3ButtonHeights', style: M3TypeScale.labelLarge),
+        const M3Gap(M3Spacings.s8),
+        for (final (name, height) in const <(String, M3SpacingValue)>[
+          ('extraSmall', M3ButtonHeights.extraSmall),
+          ('small', M3ButtonHeights.small),
+          ('medium', M3ButtonHeights.medium),
+        ])
+          M3Padding(
+            padding: const M3EdgeInsets.only(bottom: M3Spacings.s8),
+            child: Row(
+              children: [
+                Container(
+                  height: height,
+                  width: M3Spacings.s128,
+                  alignment: Alignment.center,
+                  decoration: M3BoxDecoration(
+                    color: colorScheme.secondaryContainer,
+                    borderRadius: M3BorderRadius.full,
+                  ),
+                  child: Text(
+                    '$name ${height.toInt()}dp',
+                    style: M3TypeScale.labelMedium,
+                  ),
+                ),
+                const M3Gap(M3Spacings.s12, orientation: Axis.horizontal),
+                // These are visual heights, not touch targets.
+                if (height < M3Accessibility.minTouchTargetMobile)
+                  Expanded(
+                    child: Text(
+                      'below the 48dp touch target — expand the tap area, '
+                      'not the box',
+                      style: M3TypeScale.bodySmall.copyWith(
+                        color: colorScheme.error,
+                      ),
+                    ),
+                  ),
+              ],
+            ),
+          ),
+        const M3Gap(M3Spacings.s8),
+        Text(
+          'Also: M3FabSizes.standard ${M3FabSizes.standard.toInt()}dp · '
+          'M3AppBarHeights.small ${M3AppBarHeights.small.toInt()}dp · '
+          'M3NavigationSizes.drawerWidth '
+          '${M3NavigationSizes.drawerWidth.toInt()}dp · '
+          'M3ListItemHeights.twoLine ${M3ListItemHeights.twoLine.toInt()}dp',
+          style: M3TypeScale.bodySmall,
         ),
       ],
     );
@@ -655,15 +1067,20 @@ class _ExpressiveSection extends StatelessWidget {
                 height: M3Spacings.s64,
                 child: M3ELoadingIndicator.contained(),
               ),
+              // M3EShapeBorder puts a polygon anywhere Flutter takes a
+              // ShapeBorder — no CustomPainter needed.
               for (final shape in [
-                MaterialShapes.sunny,
-                MaterialShapes.cookie7Sided,
-                MaterialShapes.flower,
-                MaterialShapes.heart,
+                M3EShapes.sunny,
+                M3EShapes.cookie7Sided,
+                M3EShapes.flower,
+                M3EShapes.heart,
               ])
-                CustomPaint(
-                  size: const Size.square(M3Spacings.s48),
-                  painter: _PolygonPainter(shape, colorScheme.primary),
+                SizedBox.square(
+                  dimension: M3Spacings.s48,
+                  child: Material(
+                    shape: M3EShapeBorder(shape),
+                    color: colorScheme.primary,
+                  ),
                 ),
             ],
             M3Spacings.s16,
@@ -672,27 +1089,6 @@ class _ExpressiveSection extends StatelessWidget {
       ],
     );
   }
-}
-
-/// Draws a normalized (unit-space) [RoundedPolygon] scaled to the canvas.
-class _PolygonPainter extends CustomPainter {
-  const _PolygonPainter(this.polygon, this.color);
-
-  final RoundedPolygon polygon;
-  final Color color;
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final matrix = Matrix4.diagonal3Values(size.width, size.height, 1);
-    canvas.drawPath(
-      polygon.toPath().transform(matrix.storage),
-      Paint()..color = color,
-    );
-  }
-
-  @override
-  bool shouldRepaint(_PolygonPainter oldDelegate) =>
-      oldDelegate.polygon != polygon || oldDelegate.color != color;
 }
 
 // ═════════════════════════════════════════════════════════════════════════

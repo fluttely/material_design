@@ -389,25 +389,25 @@ abstract interface class M3Adaptive {
   // --- Platform Adaptations ---
 
   /// Returns whether the current platform primarily uses touch input.
-  static InputMethodType inputMethodType(BuildContext context) {
+  static M3InputMethodType inputMethodType(BuildContext context) {
     return switch (Theme.of(context).platform) {
       TargetPlatform.iOS ||
       TargetPlatform.android ||
       TargetPlatform.fuchsia =>
-        InputMethodType.touch,
-      _ => InputMethodType.mouse,
+        M3InputMethodType.touch,
+      _ => M3InputMethodType.mouse,
     };
   }
 
   // --- Private Helpers ---
 
   static double _adaptiveButtonSize(BuildContext context) {
-    return inputMethodType(context) == InputMethodType.touch ? 48.0 : 32.0;
+    return inputMethodType(context) == M3InputMethodType.touch ? 48.0 : 32.0;
   }
 }
 
 /// The primary input method used on the current platform.
-enum InputMethodType {
+enum M3InputMethodType {
   /// Touch input (e.g. mobile device).
   touch,
 

@@ -151,12 +151,59 @@ Text('Section', style: M3TypeScale.headlineSmall);
 Text('Body', style: M3TypeScale.bodyMedium);
 ```
 
+**Emphasis is part of the scale, not a `copyWith`** (M3 Expressive, experimental).
+Each role has an emphasized counterpart at the same font size and line height, so
+swapping it in never changes the vertical rhythm. Weight goes one step up (400→500,
+or 500→700 for titles and labels); tracking moves only on the roles the spec adjusts,
+so a line can end up marginally wider:
+
+```dart
+Text('Balance', style: M3TypeScale.titleMedium),
+Text(r'R$ 12.480', style: M3EmphasizedTypeScale.headlineLarge),
+
+// Or map any baseline style to its counterpart:
+style: isSelected
+    ? M3EmphasizedTypeScale.of(M3TypeScale.bodyLarge)
+    : M3TypeScale.bodyLarge,
+```
+
 `M3TextTheme.applyToTheme(theme)` merges them into a `ThemeData` (see Quick start).
 `M3TextUtils` covers the runtime cases: `clampedScaler` (bounded text scaling —
 last resort, it fights the user's accessibility setting), `responsiveDisplay`,
 `dyslexiaFriendly`, `mono`, `highContrast`, `withFontFamily`.
 
 ### 5. Color
+
+Build a scheme with the variant and contrast level as tokens rather than raw values:
+
+```dart
+final scheme = M3ColorSchemes.fromSeed(
+  seedColor: brandPurple,
+  variant: M3SchemeVariant.expressive,   // 9 spec variants
+  contrastLevel: M3ContrastLevels.high,  // reduced / standard / medium / high
+);
+
+// Better: follow the user's own contrast and brightness settings.
+final scheme = M3ColorSchemes.fromContext(context, seedColor: brandPurple);
+```
+
+Brand colors that must survive inside a seeded scheme get harmonized — a bounded hue
+shift in HCT, the spec algorithm, not an HSL approximation:
+
+```dart
+final green = M3ColorUtils.harmonize(brandGreen, scheme.primary);
+
+// Or as the four M3 custom-color roles, carried through the theme:
+ThemeData(extensions: [
+  M3ExtendedColors.of(
+    {'success': brandGreen, 'warning': brandAmber},
+    harmonizeWith: scheme.primary,
+    brightness: Brightness.light,
+  ),
+]);
+final success = M3ExtendedColors.from(context)['success']!;
+Text('Saved', style: TextStyle(color: success.onColorContainer));
+```
 
 Real HCT tonal palettes — the same math Material uses, via
 `material_color_utilities`:
@@ -211,6 +258,24 @@ AnimatedContainer(
 );
 ```
 
+**Springs (M3 Expressive, experimental).** M3 Expressive added a physics model
+alongside durations: springs are interruptible and velocity-aware, so a gesture handed
+off mid-flight continues instead of restarting.
+
+```dart
+// Pick a scheme once; select by intent, never by number.
+final spring = M3MotionScheme.expressive.spatial(M3MotionSpeed.fast);
+
+controller.animateWith(
+  spring.simulation(start: controller.value, end: 1, velocity: flingVelocity),
+);
+AnimatedContainer(/* … */); // or hand `spring.description` to a physics widget
+```
+
+`spatial()` springs move things and may overshoot; `effects()` springs change color
+and opacity and never do. Schemes: `M3MotionScheme.expressive` (Material's default)
+and `.standard` (utilitarian, minimal bounce). Speeds: `slow`, `standard`, `fast`.
+
 Schemes: `emphasized`, `emphasizedIncoming`, `emphasizedOutgoing`, `standard`,
 `standardIncoming`, `standardOutgoing`, `linear`. For `const` contexts use the flat
 aliases (`M3Motion.emphasizedDuration`). Pick by intent with
@@ -233,10 +298,49 @@ M3ResponsiveVisibility(visibleOn: const [M3ScreenSize.expanded], child: sidebar)
 M3ResponsiveScaffold(destinations: …);   // bottom bar → rail → drawer, automatically
 ```
 
+**The three canonical layouts** are ready-made, and each handles the compact case the
+way the spec says — which is not the same way for all three:
+
+```dart
+// List-detail: on a phone the detail *replaces* the list, and back returns.
+M3ListDetailLayout(
+  list: MailList(onSelect: (id) => setState(() => _selected = id)),
+  detail: _selected == null ? null : MailDetail(_selected!),
+  onNavigateBack: () => setState(() => _selected = null),
+);
+
+// Supporting pane: on a phone the support *stacks below* — it is part of the
+// same task, not a destination you navigate to.
+M3SupportingPaneLayout(primary: Editor(), supporting: PropertiesPanel());
+
+// Feed: columns, gutters and margins all follow the window size class.
+M3FeedLayout(children: cards);
+```
+
+`M3CanonicalLayout` exposes the shared policy (`displayModeOf`, `paneWidthFor`) if you
+need to make the same decision for a layout the package doesn't ship.
+
 Breakpoints (`M3Breakpoints`: 0/600/840/1200/1600) are tokens too. `M3Adaptive`
 bundles static helpers: `responsiveLayout`, `adaptivePadding`, `adaptiveNavigation`,
 `showAdaptiveDialog` (fullscreen on phones, dialog on desktop), `showAdaptiveSheet`
 (bottom sheet ↔ side panel), `adaptiveButton` (48dp touch / 32dp mouse targets).
+
+### 8b. Component measurements
+
+The spec's per-component numbers, so a custom control lands on the same
+measurements as the built-in one beside it. **Values only** — this package does not
+ship M3 components; Flutter's Material library owns those.
+
+```dart
+M3ButtonHeights.medium;              // 56dp — the five Expressive size classes
+M3FabSizes.standard;                 // 56dp
+M3AppBarHeights.large;               // 152dp
+M3NavigationSizes.extendedRailWidth; // 256dp
+M3ListItemHeights.twoLine;           // 72dp
+```
+
+Note that `M3ButtonHeights.extraSmall` (32dp) and `.small` (40dp) are *visual*
+heights below the 48dp touch minimum — expand the tap area, not the box.
 
 ### 9. Accessibility
 
@@ -252,18 +356,32 @@ theme to the user's contrast/motion/text-size settings.
 
 ### 10. M3 Expressive (experimental)
 
-The 2025 M3 Expressive primitives, in the `m3e` module:
+The 2025 M3 Expressive primitives, in the `m3e` module. Every symbol is prefixed
+`M3E` and annotated `@experimental`: Material is still iterating on this upstream, so
+the analyzer will tell you when you opt in.
 
 - **`M3ELoadingIndicator`** (+ `.contained()`) — the morphing loading indicator that
   replaces most indeterminate spinners.
-- **`MaterialShapes`** — the official 35-shape library (`circle` … `heart`) as
-  `RoundedPolygon`s, plus `Morph` for shape-to-shape animation and `toPath()` to
-  draw them.
+- **`M3EShapes`** — the official 35-shape library (`circle` … `heart`) as
+  `M3ERoundedPolygon`s, plus `M3EMorph` for shape-to-shape animation and `toPath()`
+  to draw them.
 
-> ⚠️ The shape engine currently exports unprefixed names (`Point`, `Cubic`,
-> `Morph`, `lerp`, …). If they collide with your imports, use
-> `import 'package:material_design/material_design.dart' hide Point;` — a scoped
-> `M3E` namespace is planned.
+- **`M3EShapeBorder`** — puts those shapes anywhere Flutter takes a `ShapeBorder`,
+  and **morphs for free**: lerping two of them runs the real morph algorithm rather
+  than crossfading outlines, so any implicit animation morphs.
+
+```dart
+// ignore_for_file: experimental_member_use
+Card(shape: M3EShapeBorder(M3EShapes.cookie7Sided));
+
+AnimatedContainer(
+  duration: M3Motion.emphasized.duration,
+  decoration: ShapeDecoration(
+    color: color,
+    shape: M3EShapeBorder(expanded ? M3EShapes.burst : M3EShapes.circle),
+  ),
+);
+```
 
 ---
 
@@ -300,6 +418,21 @@ the package is honest about that instead of pretending otherwise.)
    composite tokens (`M3Motion`, `M3Elevation` — two fields read together) and
    selectors (`M3ScreenSize`, `M3InteractionState` — they name a situation).
 3. **Deviation is explicit and greppable** — `M3Contract`, above.
+
+### What this package deliberately does not ship
+
+**M3 components.** No buttons, menus, toolbars, split buttons, or FAB menus. Flutter's
+Material library owns those, and a second `FilledButton` here would become migration
+debt for every consumer the day Flutter changes its own. What the package ships
+instead is the *contract* those components are built from — including their
+measurements, in `M3ButtonHeights` and friends, so a control you build by hand lands
+on the same numbers as the built-in one beside it.
+
+The one exception is M3 Expressive widgets Flutter does not have yet
+(`M3ELoadingIndicator` today). Each is a stopgap, marked `@experimental`, and gets
+removed when Flutter ships the real thing — the 2025 Expressive components are
+tracked in [flutter/flutter#168813](https://github.com/flutter/flutter/issues/168813)
+and are deliberately *not* reimplemented here while that work is in flight.
 
 ### Architecture
 

@@ -19,6 +19,17 @@ abstract final class M3StateLayerOpacities {
 
   /// Dragged state overlay opacity (16%).
   static const M3OpacityValue dragged = M3OpacityValue._(0.16);
+
+  /// Every state layer opacity, in ascending order.
+  ///
+  /// Index-aligned with [M3InteractionState.values] except for ordering ties
+  /// between [focus] and [pressed], which share 10%.
+  static const List<M3OpacityValue> values = <M3OpacityValue>[
+    hover,
+    focus,
+    pressed,
+    dragged,
+  ];
 }
 
 /// The interaction states a Material Design 3 component can be in.

@@ -140,18 +140,27 @@ abstract interface class M3ColorUtils {
 
   // --- Color generation ---
 
-  /// Returns five colors harmonious with [base]: two analogous, one
-  /// complementary, and two triadic.
-  static List<Color> harmonious(Color base) {
-    final hsl = HSLColor.fromColor(base);
-    return [
-      hsl.withHue((hsl.hue + 30) % 360).toColor(),
-      hsl.withHue((hsl.hue - 30 + 360) % 360).toColor(),
-      hsl.withHue((hsl.hue + 180) % 360).toColor(),
-      hsl.withHue((hsl.hue + 120) % 360).toColor(),
-      hsl.withHue((hsl.hue + 240) % 360).toColor(),
-    ];
-  }
+  /// Rotates [designColor]'s hue toward [sourceColor] so the two read as part
+  /// of the same palette, without letting it become a different color.
+  ///
+  /// This is Material's own blend algorithm, operating in HCT: the hue moves
+  /// by at most 15°, and chroma and tone are preserved. Use it to fit a fixed
+  /// brand color into a seeded scheme.
+  ///
+  /// ```dart
+  /// final brandGreen = M3ColorUtils.harmonize(
+  ///   const Color(0xFF2E7D32),
+  ///   colorScheme.primary,
+  /// );
+  /// ```
+  ///
+  /// Replaces the pre-2.0 `harmonious`, which shifted hues on the HSL wheel by
+  /// fixed amounts — a different operation that the spec does not define.
+  ///
+  /// Spec: https://m3.material.io/styles/color/advanced/define-new-colors
+  static Color harmonize(Color designColor, Color sourceColor) => Color(
+        mcu.Blend.harmonize(designColor.toARGB32(), sourceColor.toARGB32()),
+      );
 
   /// Whether [color] is perceived as light (luminance > 0.5).
   static bool isLight(Color color) => color.computeLuminance() > 0.5;

@@ -4,6 +4,377 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 1.6.0
+
+Six development milestones, released together as one version. Each is written up
+below under the number it carried while in progress; only `1.6.0` was published, so
+only `1.6.0` has a section of its own. Between them they pay off the namespace debt an
+audit found in the 1.0 surface and close the roadmap's colour, motion, typography,
+shape and layout phases — the package now covers every M3 style area and models all
+three M3 token layers.
+
+> **On the version number.** This release contains breaking changes and is still a
+> minor bump. `0.28.1` went straight to `1.0.0`, so nobody is on `1.x`, and spending
+> `2.0.0` on cleanup that no one has to migrate through would misstate the package's
+> maturity for the rest of its life. Breaking changes stay allowed on `1.x` until the
+> package has real adopters; after that they take a major. There are no deprecation
+> shims either — the old names are gone, and the migration table at the end maps every
+> one of them.
+
+### 1.1.0 — API hygiene and the documentation triad *(internal)*
+
+An audit of the 1.0 surface against https://m3.material.io/ turned up namespace and
+consistency debt that gets more expensive to fix with every adopter. `1.0.x` has none
+yet, so it is being paid off now, before the roadmap adds anything on top of it.
+
+The headline problem: importing `package:material_design/material_design.dart` used
+to drop `Point`, `Cubic`, `Morph`, `lerp`, `distance`, `square`, `convex`, `twoPi` and
+two dozen more unprefixed names into your namespace. That is a collision waiting to
+happen in any file that also touches `dart:ui` or `vector_math`.
+
+#### 💥 Breaking Changes
+
+- **The M3 Expressive geometry engine is namespaced.** Every public type is now
+  prefixed: `M3EPoint`, `M3ECubic`, `M3ECornerRounding`, `M3EFeature`,
+  `M3ERoundedPolygon`, `M3EMorph`, `M3EShapes`, `M3ELoadingIndicatorTheme`,
+  `M3EPointTransformer`, and the `toPath` extensions. Prefixing was chosen over the
+  alternative of moving the engine to an opt-in library, because
+  `M3ELoadingIndicator`'s own API takes `M3ERoundedPolygon` — a split would have
+  forced two imports for one widget.
+- **The engine's helpers are private now.** `lerp`, `distance`, `square`, `convex`,
+  `interpolate`, `radialToCartesian`, `binarySearchBy`, `pathFromCubics`,
+  `featureMapper`, `distanceEpsilon`, `twoPi`, `Measurer`, `LengthMeasurer`,
+  `MeasuredPolygon`, `MeasuredCubic`, `DoubleMapper`, `DistanceVertex`,
+  `ProgressableFeature` and the `DoubleCoerce`/`Matrix4` extensions were
+  implementation details of the morph algorithm that happened to be reachable. The
+  two members annotated `@internal` — `Cubic.fromPoints` and
+  `RoundedPolygon.fromFeatures` — are genuinely private rather than merely
+  documented as off-limits.
+- **`MaterialShapes` is `M3EShapes`.** The source had carried a `// TODO: rename it`
+  since it landed; it was also the only token-like class in the package without an
+  `M3` prefix.
+- **`InputMethodType` is `M3InputMethodType`.** The last unprefixed symbol outside
+  the expressive module.
+- **`M3ColorUtils.harmonious` is replaced by `M3ColorUtils.harmonize`.** The old one
+  rotated hues on the HSL wheel by fixed amounts (±30°, ±120°, 180°) and returned
+  five colors — an operation Material does not define. `harmonize(designColor,
+  sourceColor)` is the spec algorithm: a bounded hue shift in HCT via
+  `Blend.harmonize`, so a fixed brand color can be pulled into a seeded scheme
+  without becoming a different color.
+
+#### ✨ Features
+
+- **The whole `m3e` module is `@experimental`.** Material is still iterating on
+  Expressive upstream, and the package had no way to say so — there were zero
+  `@experimental` annotations in `lib/`. Opting in is now a visible decision the
+  analyzer reports, rather than something a reader has to infer from a doc comment.
+- **`values` lists on the remaining scales.** `M3Margins`, `M3Spacers`,
+  `M3Opacities`, `M3StateLayerOpacities` and `M3LayoutWidths` had none, so galleries
+  and property tests were hand-maintaining their own copies and silently going stale.
+  `M3Margins.values` is index-aligned with `M3ScreenSize.values`, and the lists that
+  would otherwise be misleading exclude layout directives rather than sorting them as
+  values (`M3Spacings.values` still omits `infinity`; `M3LayoutWidths.values` omits
+  `unbounded`).
+- **`M3Border.none` is `const`.** It was the only `none` in the shape family declared
+  as a mutable static, which quietly cost `const`-ness at every call site that used it.
+
+#### ✅ Tests
+
+- **Property tests for the scale contract** (`values_lists_test.dart`): every
+  numeric scale is asserted ascending, the new `values` lists are asserted complete,
+  `M3Margins` is checked against `M3ScreenSize.pageMargin` index by index, and
+  `M3Border.none` is asserted usable in a `const` context. 160 tests to 167.
+
+#### 📚 Documentation
+
+- **Spec URLs on the token classes**, per the traceability rule in `CLAUDE.md`.
+- README, `example/`, and the demo updated for the new names; the example and the
+  shape showcase now carry an explicit `ignore_for_file: experimental_member_use`
+  with a comment explaining what opting in means.
+
+### 1.2.0 — Colour schemes, variants and contrast *(internal)*
+
+Roadmap phase 1: the color system. The package generated real HCT tonal palettes but
+stopped short of *schemes* — a consumer who wanted a vibrant or high-contrast scheme
+dropped out of the contract and back to raw Flutter calls, and a consumer with brand
+colors had no spec-correct way to fit them into a seeded palette.
+
+#### ✨ Features
+
+- **`M3ColorSchemes` builds schemes with tokens instead of loose values.**
+  `fromSeed(seedColor:, variant:, brightness:, contrastLevel:)`, plus `light`, `dark`,
+  and `fromContext`. It wraps Flutter's own `ColorScheme.fromSeed` rather than
+  reimplementing the Material pipeline: the SDK already runs
+  `material_color_utilities` and is kept in step with the spec, so a second pipeline
+  here would only drift from it. What the package adds is the contract —
+  a typed variant and a typed contrast level in place of a `double` that silently
+  accepts `2.7`.
+- **`M3SchemeVariant`** — the nine spec variants (`tonalSpot`, `fidelity`,
+  `monochrome`, `neutral`, `vibrant`, `expressive`, `content`, `rainbow`,
+  `fruitSalad`) as a selector that resolves to Flutter's `DynamicSchemeVariant`. A
+  test asserts the mapping stays exhaustive, so an SDK that adds a tenth variant
+  fails the build rather than silently going out of date.
+- **`M3ContrastLevels`** — `reduced` (-1.0), `standard` (0.0), `medium` (0.5), `high`
+  (1.0), with `M3Contract.contrastLevel` as the escape hatch. `M3ContrastLevels.of(context)`
+  reads the platform's accessibility setting: hard-coding standard contrast is the
+  most common accessibility bug in a seeded theme, and `M3ColorSchemes.fromContext`
+  now makes the correct thing the short thing.
+- **`M3ColorUtils.harmonize`** — the spec's HCT blend, replacing the HSL hue-wheel
+  arithmetic removed in 1.1.0. It rotates a fixed brand color at most 15° toward the
+  seed so it belongs to the scheme without becoming a different color.
+- **`M3ExtendedColor` and `M3ExtendedColors`** — M3 "custom colors": a brand color
+  expanded into the four spec roles (`color`, `onColor`, `colorContainer`,
+  `onColorContainer`) at the tone stops the spec fixes per brightness, optionally
+  harmonized, and carried through the theme as a `ThemeExtension`.
+  `M3ExtendedColors.from(context)` returns an empty set rather than throwing when the
+  extension is absent, so a widget degrades instead of crashing.
+
+#### ✅ Tests
+
+- Scheme equivalence against Flutter for identical inputs, exhaustiveness of the
+  variant mapping, a contrast assertion that measures the actual onSurface/surface
+  ratio rather than trusting the parameter, the four role tone stops in both
+  brightnesses, and theme round-tripping. 167 tests to 182.
+
+#### 📚 Documentation
+
+- README color section, a new `5b` section in the single-file example with live
+  variant and contrast selectors, and a **Schemes** page in the demo showing all nine
+  variants, the four contrast levels with their measured ratios, and harmonization
+  side by side with the raw brand colors.
+
+### 1.3.0 — Expressive spring motion *(internal)*
+
+Roadmap phase 2: the motion physics system. M3 Expressive (2025) made springs the
+primary motion model alongside the duration/curve pairs the package already shipped.
+A duration animates a value over a fixed time no matter what the user did; a spring
+carries velocity, so a gesture handed off mid-flight continues instead of restarting.
+
+This release also removes an analysis blind spot that had been hiding since the
+expressive module landed.
+
+#### ✨ Features
+
+- **`M3ESpring`** — the twelve published Material spring tokens as a composite enum
+  (`damping` and `stiffness` are read together, never unwrapped), with
+  `description` returning a Flutter `SpringDescription` and `simulation(start:, end:,
+  velocity:)` a ready `SpringSimulation`. Values are taken from the Material source
+  rather than inferred: standard spatial springs are damped 0.9 at stiffness
+  300/700/1400, expressive spatial 0.8/0.8/0.6 at 200/380/800.
+- **`M3MotionScheme`** — `expressive` (Material's default) and `standard`
+  (utilitarian), selected by intent through `spatial(speed)` and `effects(speed)`
+  rather than by naming a token. The split matters: spatial springs move things and
+  are allowed to overshoot, effects springs change color and opacity and are
+  critically damped, because a shape that overshoots feels alive while a color that
+  overshoots looks like a bug. Both schemes ship the *same* effects springs —
+  expression belongs to movement, not to color — and a test asserts it.
+- **`M3MotionSpeed`** and **`M3MotionSpringKind`** as the accompanying selectors.
+
+#### 🐛 Bug Fixes
+
+- **`M3EPoint.angleDegrees` returned neither degrees nor radians.** It computed
+  `angleRadians * pi / 180` — the degrees-to-radians factor applied to a value that
+  was already in radians. It now converts properly (`* 180 / pi`), covered by a
+  regression test. Technically breaking, but the getter never produced a usable
+  number and nothing in the package, demo, or example read it.
+
+#### 🏗 Architecture
+
+- **The expressive module is analysed again.** `analysis_options.yaml` had excluded
+  `lib/src/m3e/**` since the module landed, so a third of the package was never
+  linted — which is how the `angleDegrees` bug survived. The exclusion is gone and
+  the module is clean under `very_good_analysis`: 19 missing API docs written, two
+  `Matrix4.scale` calls migrated to `scaleByDouble` (verified bit-identical for these
+  arguments), two parameter reassignments replaced with locals, and six TODOs either
+  given an owner and a reason or deleted as stale. A comment records the trap that
+  hid it: `analyzer.exclude` suppresses a path even when you name it explicitly on
+  the command line.
+
+#### ✅ Tests
+
+- Spring spec values, the scheme/speed selector matrix, and physics assertions that
+  actually run the simulation — a bouncy spring is asserted to overshoot, a
+  critically damped one never to, every token to settle at its target, and initial
+  velocity to advance the curve. 182 tests to 199.
+
+#### 📚 Documentation
+
+- README motion section, a spring runner in the example that shows overshoot against
+  a critically damped baseline, and a **Springs** page in the demo with the full
+  token table and a velocity hand-off demo.
+
+### 1.4.0 — The emphasized type scale *(internal)*
+
+Roadmap phase 3: the emphasized type scale. M3 Expressive made emphasis part of the
+type system rather than something each call site improvises with
+`copyWith(fontWeight: FontWeight.bold)` — which is how a codebase ends up with four
+different ideas of what "bold" means.
+
+#### ✨ Features
+
+- **`M3EmphasizedTypeScale`** — the 15 roles again, one weight step heavier. Each
+  emphasized style keeps its baseline's `fontSize` and line height, so swapping one
+  in never reflows a layout; only weight changes, plus tracking on the few roles the
+  spec adjusts. Two relationships, both from the spec: roles that are regular (400)
+  become medium (500), and roles already medium — the titles and labels — become
+  bold (700). A test asserts both invariants across all 15 rather than trusting the
+  table.
+- **`M3EmphasizedTypeScale.of(style)`** maps a baseline style to its counterpart and
+  returns anything else unchanged, so `isSelected ? M3EmphasizedTypeScale.of(s) : s`
+  is safe on a customised style.
+- **`M3TypeScale.values`** — the 15 baseline styles as an ordered list, index-aligned
+  with the emphasized ones. Every other scale in the package already had `values`;
+  the type scale was the exception.
+
+#### ✅ Tests
+
+- Writing the property tests surfaced a spec fact worth recording: `titleSmall` and
+  `labelLarge` are **metrically identical** (14sp / 20 line height / 0.1 tracking /
+  weight 500), so the 15 roles collapse to 14 distinct `TextStyle` values. That makes
+  `of()` a lookup by value rather than by role — harmless, because the pair's
+  emphasized forms are identical too, but now asserted and documented rather than
+  discovered by whoever hits it next. 199 tests to 210.
+
+#### 📚 Documentation
+
+- README typography section, a baseline-vs-emphasized comparison in the example, and
+  the demo's typography page extended to show all 15 pairs with the numeric proof
+  that the swap is layout-safe.
+
+### 1.5.0 — Shape adapters and component tokens *(internal)*
+
+Roadmap phase 4: shape adapters and the component token layer. The 35-shape
+Expressive library shipped in 1.0 but could only produce a `Path`, which meant a
+`CustomPainter` and no `Card`, no `Material`, no clipped ripple. And the package
+implemented M3's system token layer while leaving the component layer — the actual
+per-component measurements — undocumented, so anyone building a custom control was
+back to guessing.
+
+#### ✨ Features
+
+- **`M3EShapeBorder`** — an `OutlinedBorder` around any `M3ERoundedPolygon`, so the
+  shape library drops into `Card(shape:)`, `Material(shape:)`, `ShapeDecoration`, and
+  clips an `InkWell` ripple. The polygon is fitted to the layout rect by its own
+  bounds, so shapes that are not normalised still fill the box.
+- **Morphing comes for free.** `lerpFrom`/`lerpTo` run the real `M3EMorph` algorithm
+  rather than crossfading two outlines, so any implicit animation that lerps a shape
+  morphs it — an `AnimatedContainer` with a `ShapeDecoration` is enough. Mid-morph
+  frames are fitted to the *union* of the two endpoints' bounds rather than to each
+  frame's own bounds, which would otherwise make the shape breathe as it ran; a test
+  pins that. Endpoints settle back to plain borders so a finished animation stops
+  paying for morph setup on every paint.
+- **`M3EShapeMorph`** — the implicit-animation wrapper, for when the shape is the only
+  thing animating.
+- **The component token layer**: `M3ButtonHeights` (the five Expressive size classes),
+  `M3FabSizes`, `M3AppBarHeights`, `M3NavigationSizes`, `M3ListItemHeights` — all
+  typed `M3SpacingValue`, all on the 4dp grid (asserted). Values only: this package
+  still does not ship M3 components, because Flutter's Material library owns them and
+  duplicating one would create migration debt the day Flutter changes it. What the
+  package can usefully own is the numbers, so a custom control lands on the same
+  measurements as the built-in one beside it.
+- **`M3ResponsiveNavigation.getRailWidth` returns a token** (`M3SpacingValue`) drawn
+  from `M3NavigationSizes` instead of the `256.0`/`80.0` literals it had inlined —
+  roadmap item 5.3, closed early because the token layer landed here. The 256dp
+  extended width was verified against Flutter's own `NavigationRail.minExtendedWidth`
+  default rather than taken from memory.
+
+#### ✅ Tests
+
+- Shape fitting is pinned by ratio rather than by absolute size, because
+  `Path.getBounds()` is conservative for cubics — it includes control points, so an
+  exactly-fitted shape measures a few percent over its rect. Doubling the rect must
+  double the path exactly, and shifting the rect must shift it exactly; those hold to
+  1e-4 regardless of the conservative bound.
+- Component values are asserted against the spec and against each other (a standard
+  FAB is a medium button; the drawer is a layout pane; each list line adds 16dp).
+- One assertion documents a trap instead of hiding it: `M3ButtonHeights.extraSmall`
+  (32dp) and `.small` (40dp) are **below** the 48dp mobile touch minimum. That is the
+  spec — they are visual heights, and Material expands the tap area around them
+  rather than growing the button. Now stated in the doc comment and asserted.
+  210 tests to 238.
+
+#### 📚 Documentation
+
+- README gains the shape-border usage and a component-measurements section; the
+  example draws its expressive shapes through `Material(shape:)` instead of a
+  hand-rolled painter; the demo gains a component tokens page and a morph demo.
+
+### 1.6.0 — Canonical layouts and the scope boundary
+
+Roadmap phase 5: the canonical layouts. M3 names three — list-detail, supporting
+pane, and feed — and the interesting part is that they do **not** collapse the same
+way on a phone. Getting that wrong is the usual bug: apps hide supporting content
+behind navigation because that is what list-detail does, even though the support is
+part of the same task rather than a separate destination.
+
+This release also closes the roadmap's phase 6 by writing the decision down instead
+of writing code.
+
+#### ✨ Features
+
+- **`M3ListDetailLayout`** — list beside detail on expanded windows; on compact the
+  detail *replaces* the list and `onNavigateBack` returns, wired through `PopScope` so
+  the system back gesture works. `placeholder` fills the detail pane when nothing is
+  selected and both panes fit.
+- **`M3SupportingPaneLayout`** — primary beside supporting; on compact the support
+  *stacks below* rather than being navigated to. `supportingFirst` flips the order.
+- **`M3FeedLayout`** — a grid whose column count, gutters, and page margin all come
+  from the window size class (1/2/3/4/5 columns). `itemColumns` overrides only the
+  classes you name, so a denser phone grid does not mean restating the other four.
+- **`M3CanonicalLayout`** — the shared policy, exposed: `displayModeFor`,
+  `displayModeOf`, `paneWidthFor`. Two panes need expanded (840dp) or wider, because
+  at medium a 360dp pane leaves the primary narrower than a phone.
+
+#### 📚 Documentation
+
+- **The scope boundary is now in the README rather than implied.** The package does
+  not ship M3 components — Flutter's Material library owns them, and duplicating one
+  creates migration debt the day Flutter changes it. The package ships the contract
+  they are built from, including their measurements. The single exception is an
+  Expressive widget Flutter lacks (`M3ELoadingIndicator`), which is a marked stopgap
+  and gets removed when Flutter ships its own. The 2025 Expressive components
+  (button groups, split button, FAB menu, toolbars) are deliberately *not*
+  reimplemented while flutter/flutter#168813 is in flight — that is roadmap phase 6,
+  and the answer is to wait.
+- README adaptive section, a supporting-pane miniature in the example, and a demo
+  page with all three layouts live at the current window size.
+- **The emphasized type scale is described precisely now.** The README said swapping
+  in an emphasized style "never reflows the layout", which overclaims: size and line
+  height are identical, so the vertical rhythm is safe, but tracking moves on the
+  roles the spec adjusts, so a line can come out marginally wider.
+- **Closes a triad gap `1.5.0` left**: the component tokens reached the README and the
+  demo but never the example. Auditing the coverage map caught it, which is what that
+  map is for. `example/lib/main.dart` now has an `8b` section, including the
+  below-touch-target warning rendered from the real
+  `M3Accessibility.minTouchTargetMobile` comparison rather than a hardcoded note.
+
+#### ✅ Tests
+
+- The collapse behaviour is asserted at real widths rather than described: at 400dp
+  the detail replaces the list while the supporting pane stacks *and stays visible*;
+  at 1000dp both go side by side; the feed's column count and gutters are read off
+  the actual `SliverGridDelegate` at five widths. 238 tests to 251.
+
+---
+
+### Migration from 1.0.x
+
+| 1.0.x | 1.1.0 |
+| :--- | :--- |
+| `MaterialShapes.heart` | `M3EShapes.heart` |
+| `RoundedPolygon` | `M3ERoundedPolygon` |
+| `Morph` | `M3EMorph` |
+| `Point` / `Cubic` / `Feature` | `M3EPoint` / `M3ECubic` / `M3EFeature` |
+| `CornerRounding` | `M3ECornerRounding` |
+| `PointTransformer` | `M3EPointTransformer` |
+| `LoadingIndicatorTheme` | `M3ELoadingIndicatorTheme` |
+| `InputMethodType` | `M3InputMethodType` |
+| `M3ColorUtils.harmonious(base)` → 5 colors | `M3ColorUtils.harmonize(design, source)` → 1 color |
+| `lerp`, `distance`, `Measurer`, … | removed from the public API |
+
+Code that uses the expressive module now needs
+`// ignore_for_file: experimental_member_use`, or an equivalent analyzer option.
+
 ## 1.0.1
 
 The three consumer-facing surfaces — README, `example/`, and the hosted demo — had
@@ -43,47 +414,11 @@ code changed.
 
 ## 1.0.0
 
-First stable release of the design contract. See the `1.0.0-dev` series for the change-by-change history, and the migration guide below for moving from `0.28.x`.
-
-### 🧹 Chore
-
-- **Version**: `1.0.0-dev.35` to `1.0.0`.
-- **`homepage:`**: Dropped the empty key; `repository:` already points at the source.
-
-### 📦 Packaging
-
-- **Published archive reduced from 692 KB to 134 KB**: Added `.pubignore`. `demo/` is a complete Flutter project (~1.1 MB of platform scaffolding) that ships as a hosted web demo instead, and `documentation/` is an Obsidian vault of working notes listed in `.gitignore` yet still tracked, so pub was bundling both.
-- **`example/`**: Kept `lib/` and `pubspec.yaml`, which pub.dev renders, and dropped the native runners beneath them.
-- A root `.pubignore` replaces `.gitignore` for pub's purposes, so the standard build artefacts are repeated in it.
-
-## 1.0.0-dev.35
-
-### 🧹 Chore
-
-- **Toolchain moved to Flutter 3.47.0 (stable)**: The development SDK was a seven-month-old `master` build. `flutter pub get` on 3.47 migrated `analysis_options.yaml` in the package and the example to exclude build and platform directories; those migrations are kept.
-- **Stray diagnostic file removed**: `demo/test/_probe_test.dart` was a throwaway used to reproduce the blank-page report and should never have been committed.
-
-### 📦 Packaging
-
-- **`.pubignore` restored**: It was introduced alongside a `1.0.0` release commit that was later dropped in favour of continuing the `dev` series, and went with it. Without it the published archive is 692 KB, bundling `demo/` (a full Flutter project) and `documentation/` (an Obsidian vault tracked in git despite being listed in `.gitignore`). With it, 135 KB.
-
-## 1.0.0-dev.34
-
-### 🐛 Bug Fixes
-
-`M3TextTheme.applyToTheme` blanked the text colors it was handed. Every `Text` in a dark theme rendered black on a dark surface — the type scale was applied, and the theme's own palette was thrown away with it.
-
-- **`M3TextTheme.applyToTheme` merges instead of replacing**: It called `theme.copyWith(textTheme: toTextTheme())`. `M3TypeScale` carries metrics only — no style defines a `color` — and `copyWith` swaps the whole `TextTheme`, discarding the brightness-aware one that `ThemeData`'s constructor had already resolved via `defaultTextTheme.merge(textTheme)`. All fifteen styles came out with `color: null`, which the engine paints as black, in both themes. It now merges onto `theme.textTheme`, so `TextStyle.merge` overwrites only the non-null metric fields and the resolved color survives. The `fontFamily` that `Typography` supplies was being lost the same way, and is likewise preserved.
-
-### ✅ Tests
-
-- **Regression coverage for the type scale applied to a theme**: Asserts that light and dark resolve to different non-null colors while the M3 metrics still land, and renders a `Text` under a dark theme to confirm the painted color is light rather than black.
-
-## 1.0.0
-
 `1.0.0` turns the package from a collection of tokens into a **design contract**: M3 scales are expressed as types, and stepping outside them requires saying so.
 
 This release breaks every call site from `0.28.x`. The [migration guide](#migration-from-028x) below maps each old name to its replacement.
+
+**On the `1.0.0-dev` series.** Thirty-five dev builds led here, but only three reached pub.dev — `1.0.0-dev.8`, `1.0.0-dev.9` and `1.0.0-dev.10`, documented in their own sections below. `1.0.0-dev.1` through `1.0.0-dev.7` and `1.0.0-dev.11` through `1.0.0-dev.35` were internal to this release: they exist as commits, never as installable versions, so their changes are described here rather than listed as versions nobody could depend on.
 
 ### 💥 Breaking Changes
 
@@ -112,6 +447,7 @@ This release breaks every call site from `0.28.x`. The [migration guide](#migrat
 - **`values` lists on every scale** — `M3Spacings.values`, `M3Corners.values`, `M3BorderWidths.values`, `M3IconSizes.values`, `M3ZIndexes.values`, `M3Breakpoints.values`, `M3ElevationDps.values`, `M3Tones.values` — for building galleries and property tests without hand-maintained lists.
 - **`M3LayoutWidths`** — body (1040dp), pane (360dp), ultraWide (1920dp) and unbounded, replacing magic numbers previously inlined in `M3ScreenSize`.
 - **`M3ScreenSize.minWidth`**, and `gutterWidth`/`pageMargin` now return `M3SpacingValue` rather than bare doubles.
+- **`M3TextTheme.applyToTheme` merges rather than replaces.** `M3TypeScale` carries metrics only — no style defines a `color` — so `theme.copyWith(textTheme: toTextTheme())` would swap out the whole `TextTheme`, discarding the brightness-aware one `ThemeData`'s constructor already resolved. All fifteen styles would come out with `color: null`, which the engine paints black, in both themes. Merging onto `theme.textTheme` means `TextStyle.merge` overwrites only the non-null metric fields, so the resolved color and the `fontFamily` `Typography` supplies both survive.
 
 ### 🏗 Architecture
 
@@ -122,6 +458,18 @@ This release breaks every call site from `0.28.x`. The [migration guide](#migrat
 
 - Test count raised from 88 to 158, covering the areas the rewrite left unverified: tonal palette generation (against Material's own baseline), focus ring layout stability and focus semantics, state layer precedence, motion scheme/alias consistency, breakpoint boundaries, text scaling, elevation, and the token scales themselves (4dp grid adherence, ordering, spec values).
 - The README showcase is compiled and rendered by `test/readme_showcase_test.dart`, so documentation cannot drift from the API.
+- Regression coverage for the type scale applied to a theme: light and dark must resolve to different non-null colors while the M3 metrics still land, and a `Text` rendered under a dark theme must paint light rather than black.
+
+### 📦 Packaging
+
+- **Published archive is 134 KB rather than 692 KB**, thanks to `.pubignore`. `demo/` is a complete Flutter project (~1.1 MB of platform scaffolding) that ships as a hosted web demo instead, and `documentation/` is an Obsidian vault of working notes listed in `.gitignore` yet still tracked — pub was bundling both.
+- **`example/`**: keeps `lib/` and `pubspec.yaml`, which pub.dev renders, and drops the native runners beneath them.
+- A root `.pubignore` replaces `.gitignore` for pub's purposes, so the standard build artefacts are repeated in it.
+
+### 🧹 Chore
+
+- **Toolchain on Flutter 3.47.0 (stable)**: development had been on a seven-month-old `master` build. `flutter pub get` on 3.47 migrated `analysis_options.yaml` in the package and the example to exclude build and platform directories; those migrations are kept.
+- **`homepage:`**: dropped the empty key; `repository:` already points at the source.
 
 ---
 
@@ -200,6 +548,222 @@ Then audit what is left:
 ```sh
 grep -rn 'M3Contract\.' lib/
 ```
+
+## 1.0.0-dev.10
+
+### 💥 Breaking Changes
+
+- **Consumer utilities migrated to the 1.0.0 API**: `M3Adaptive`, `M3Accessibility`, `M3ResponsiveBuilder`, `M3ResponsiveGrid`, `M3ResponsiveGridConfig`, `M3ResponsiveScaffold`, `M3ResponsiveValue` and `M3ResponsiveVisibility` now consume static token constants rather than the removed enums.
+
+### 🔄 Refactor
+
+- **`M3ResponsiveGridConfig`**: Simplified to plain fields now that the values it carries no longer need unwrapping.
+
+
+## 1.0.0-dev.9
+
+### 💥 Breaking Changes
+
+- **`deprecated/` folder deleted**: `M3ElevationToken`, `M3Elevations` and `M3Shadows` were deprecated in `0.27.0` and are now removed. Use `M3Elevation`, `M3ElevationDps` and `M3ElevationShadows`.
+
+### 🧹 Chore
+
+- **Dead commented-out code removed** throughout, including a large block in `M3ShapeDecoration` and the commented section headers that padded the barrel file.
+- Roughly 1,470 lines deleted, 11 added.
+
+
+## 1.0.0-dev.8
+
+### 💥 Breaking Changes
+
+- **`M3TypeScaleCategory` enum removed**: the five categories (display, headline, title, body, label) were a grouping in the specification, not a value anyone needed at runtime.
+- **`M3TextStyle` utility extensions removed**: the responsive, accessible and adaptive text-style helpers are gone pending a rewrite that separates tokens from transformations.
+
+### 🔄 Refactor
+
+- Reduced the typography files by roughly 310 lines ahead of the type scale rewrite.
+
+
+## 0.35.0-dev
+
+### 🚀 Major Release - Design Token Architecture
+
+This version introduces a complete architectural overhaul with a professional token-based design system, making this package suitable for enterprise applications.
+
+### ✨ Features
+
+- **Design Token System Architecture**: Complete implementation of the three-tier token hierarchy (Reference → System → Component tokens)
+  - **Reference Tokens**: Raw values for elevation, shadow opacity, and tonal overlays
+  - **System Tokens**: Semantic elevation levels with proper token relationships
+  - **Component Tokens**: Component-specific elevation values for Cards, Buttons, FABs, Dialogs, and Navigation components
+  - **Token Resolver**: Advanced token validation and hierarchy management
+  - **Context Extensions**: Easy access to tokens via `context.cardElevation`, `context.buttonDuration`, etc.
+
+- **Enhanced Elevation System**: Completely rewritten elevation system with token architecture
+  - **ElevatedSurface Widget**: Professional elevated surface widget with token support
+  - **MaterialElevation**: Utility class for state-based elevation management
+  - **Tonal Elevation**: Full dark theme support with primary overlay calculations
+  - **State Management**: Hover, pressed, dragged, and disabled elevation states
+  - **Performance Optimized**: Const constructors and efficient token resolution
+
+- **Motion System Enhancement**: Expanded motion system with comprehensive token support
+  - **Duration Tokens**: Component-specific animation durations
+  - **Easing Tokens**: Component-specific animation curves
+  - **Choreographed Animations**: MotionChoreographer for complex animation sequences
+  - **Context Access**: Easy access via `context.buttonDuration`, `context.fabEasing`, etc.
+
+- **Shape System Enhancement**: Improved shape system with better token integration
+  - **Shape Tokens**: Component-specific shape definitions
+  - **Context Extensions**: Access shapes via context for better DX
+  - **Performance Improvements**: Optimized shape calculations
+
+### 📚 Documentation
+
+- **Complete README Overhaul**: Comprehensive documentation rewrite featuring:
+  - Professional package description and value proposition
+  - Complete API documentation with examples
+  - Token system explanation and usage patterns
+  - Advanced usage patterns and custom theme extensions
+  - Testing guidelines and best practices
+  - Component-specific token reference tables
+  - Enterprise-ready examples and patterns
+
+### 🔧 Developer Experience
+
+- **Type Safety**: Full TypeScript-style type safety with strongly typed tokens
+- **IDE Support**: Enhanced IntelliSense and autocomplete support
+- **Self-Documenting**: Every token includes metadata and descriptions
+- **Debugging Tools**: Token debugging utilities and validation helpers
+- **Performance**: Const constructors throughout for optimal performance
+
+### 🏗️ Architecture
+
+- **Enterprise-Ready**: Scalable architecture suitable for large applications
+- **Maintainable**: Clear separation of concerns with token hierarchy
+- **Extensible**: Easy to extend with custom tokens and components
+- **Testable**: Comprehensive token validation and testing utilities
+
+### 🔄 Breaking Changes
+
+- **Elevation API**: The elevation system has been completely rewritten with token-based architecture. Migration guide available in README.
+- **Component Access**: Component-specific values now accessed via context extensions (e.g., `context.cardElevation.elevated`)
+
+This release establishes the foundation for a professional, enterprise-grade Material Design 3 implementation in Flutter.
+
+
+## 0.34.0-dev
+
+### ✨ Features
+
+- **Material Design 3 Elevation System**: Implemented the complete Material Design 3 elevation system in `lib/src/styles/elevation/elevation_system.dart`. This feature includes:
+  - **`MaterialElevation`**: Defines the standard elevation levels from 0 to 5.
+  - **`MaterialShadows`**: Provides the box shadows for each elevation level.
+  - **`TonalElevation`**: Implements tonal elevation for dark themes.
+  - **`ElevatedSurface`**: A widget that applies elevation to its child.
+  - **`ComponentElevation`**: Predefined elevation values for common Material Design 3 components.
+
+### 📚 Documentation
+
+- **`README.md` Update**: Added a new section for the Elevation System with usage examples.
+
+### 🔄 Refactor
+
+- **Public API Enhancement**: Updated main export file to include the new elevation system, making it available through the public API.
+
+
+## 0.33.0-dev
+
+### ✨ Features
+
+- **Motion System**: Implemented the complete Material Design 3 motion system, including easing and duration tokens.
+  - **`duration.dart`**: Provides standardized durations for animations.
+  - **`easing.dart`**: Provides standard easing curves for natural and expressive motion.
+
+### 📚 Documentation
+
+- **`README.md` Overhaul**: The `README.md` has been completely rewritten to be more concise and provide better examples for all features.
+
+
+## 0.32.0-dev
+
+### ✨ Features
+
+- **Material Design 3 Shape System**: Implemented the complete Material Design 3 shape system in `lib/src/styles/shape/shape_system.dart`. This feature includes:
+  - **`ShapeScale`**: Defines the corner radius scale from `none` (0dp) to `full` (circular).
+  - **`CornerShape`**: Allows for creating shapes with individual corner radii.
+  - **`CornerFamily`**: Supports both `rounded` and `cut` corner styles.
+  - **`ShapeScheme`**: A complete shape scheme for consistent application-wide shapes.
+  - **`MaterialShapes`**: A factory for creating various shape borders like `rounded`, `cut`, and `continuous`.
+  - **`ComponentShapes`**: Predefined shapes for common Material Design 3 components.
+  - **`ShapeTheme`**: A Theme extension for integrating the shape system with Flutter's theme.
+  - **`ShapeContainer`**: A widget for applying shapes to its child.
+
+
+## 0.31.0-dev
+
+### ✨ Features
+
+- **Accessibility Tools for Flutter**: A comprehensive collection of widgets and utilities to simplify the implementation of accessibility features in Flutter applications. This new feature, located in `lib/src/foundations/accessibility.dart`, includes:
+  - **`AccessibilityProvider`**: A centralized provider to manage configurations like dynamic text scaling, high-contrast themes, and touch target sizing.
+  - **`TouchTargetSpec`**: Defines minimum touch target sizes (48x48dp) and spacing to ensure usability.
+  - **`ContrastUtils`**: Utilities for calculating and validating WCAG contrast ratios.
+  - **`FocusIndicatorSpec`**: Specifications for focus indicators to improve keyboard navigation.
+  - **`AccessibilityValidator`**: A tool to validate widgets against accessibility requirements.
+  - **`AccessibleTouchTarget`**: A widget to ensure minimum touch target size for interactive elements.
+  - **And much more**: Includes utilities for screen readers, keyboard navigation, live regions, and color blindness simulation.
+
+### 📚 Documentation
+
+- **Enhanced README.md**: Updated with a new section on "Accessibility Tools for Flutter", including an integrated usage example.
+
+### 🧹 Chores
+
+- **Updated .gitignore**: Added `documentation` to the list of ignored directories.
+
+
+## 0.30.0-dev
+
+### ✨ Features
+
+- **Material Design 3 Adaptive System**: Complete implementation of the Material Design 3 adaptive design system in `lib/src/foundations/adaptive.dart`. This comprehensive system includes:
+  - **Window Size Classes**: Five breakpoints (compact: 0-599dp, medium: 600-839dp, expanded: 840-1199dp, large: 1200-1599dp, extra-large: 1600dp+) following the official Material Design 3 specifications
+  - **Canonical Layouts**: Support for single-pane, list-detail, supporting pane, and feed layout patterns with automatic recommendations based on screen size
+  - **Adaptive Grid System**: Complete 12-column grid system with responsive margins and gutters
+  - **Navigation Recommendations**: Automatic navigation type suggestions (bottom navigation, navigation rail, navigation drawer) based on window size class
+  - **Responsive Utilities**: Helper methods for responsive calculations, orientation detection, and layout decisions
+
+### 📚 Documentation
+
+- **Enhanced README.md**: Updated with new "Material Design 3 (2025)" branding and comprehensive documentation improvements:
+  - **Adaptive Design Examples**: Complete example code showing how to use `AdaptiveConfig` for responsive layouts
+  - **Responsive Layout Guide**: Step-by-step guide for implementing adaptive layouts with different navigation patterns
+  - **Enhanced Feature List**: Updated feature highlights with new adaptive design capabilities
+  - **Improved Code Examples**: More comprehensive usage examples with better formatting and clarity
+
+### 🔄 Refactor
+
+- **Public API Enhancement**: Updated main export file to include the new adaptive design system, making it available through the public API
+
+### 🧹 Chores
+
+- **Code Cleanup**: Removed obsolete entries from `.gitignore` for better repository organization
+
+
+## 0.29.0-dev
+
+### 💥 Breaking Changes
+
+- **Complete Token System Refactor**: The entire token system has been refactored to a new, more robust, and unified API. All old token files have been removed and replaced by a new centralized design token system. This is a major breaking change that will require a complete migration.
+
+### ✨ Features
+
+- **New Design Token System**: A new, unified design token system has been introduced in `lib/src/foundations/design_tokens.dart`. This new system provides a more consistent and scalable architecture for managing design tokens.
+- **Hierarchical Tokens**: The new system implements a three-tier token hierarchy (reference, system, and component tokens) for better organization and maintainability.
+
+### 🔄 Refactor
+
+- **Consolidated Token Files**: All token-related files have been removed and replaced by a single, centralized token system. This simplifies the project structure and makes it easier to manage tokens.
+- **Updated Main Export**: The main `material_design.dart` file has been updated to export the new design token system.
 
 ## 0.28.1
 
@@ -2213,3 +2777,525 @@ Text('Title', style: M3TypeScaleToken.headlineMedium)
 - **Obsidian Integration**: Added complete Obsidian vault configuration for seamless documentation editing
 - **Workspace Setup**: Pre-configured workspace with proper graph view and navigation settings
 - **Core Plugins**: Enabled essential plugins for documentation workflow (file explorer, search, graph, backlinks)
+
+## 0.8.0
+
+### 🔄 BREAKING CHANGES
+
+- **Elevation System Overhaul**: Complete refactor of the elevation token system with improved type safety and API consistency
+  - **Removed `M3TonalColor` class**: Replaced with internal `_M3TonalColor` implementation accessed through elevation tokens
+  - **Removed `M3Shadow` class**: Replaced with internal `_M3ShadowToken` implementation accessed through elevation tokens
+  - **New Unified API**: All elevation-related functionality now accessed through `M3ElevationToken.levelX.shadows` and `M3ElevationToken.levelX.surfaceColor(context)`
+
+### ✨ Major Features
+
+- **New Token Interface System**: Introduced `IM3Token<T>` interface for consistent token architecture across the library
+- **Enhanced Elevation Tokens**:
+  - Added `M3ElevationToken` enum with 6 predefined levels (level0-level5)
+  - Added `M3ComponentElevationToken` enum for component-specific elevations (card, button, fab, appBar, etc.)
+  - Added `M3StateElevationToken` enum for interactive state elevations (hover, pressed, focus, etc.)
+- **Improved Type Safety**: All elevation tokens now implement `IM3ElevationToken` interface with consistent `value` and `hasShadow` properties
+- **Advanced Extension Methods**: Added `IM3ElevationTokenVisuals` and `IM3ElevationTokenComparison` extensions for enhanced functionality
+
+### 🎯 Enhanced Developer Experience
+
+- **Simplified API**: Unified access pattern for shadows and surface colors through elevation tokens
+- **Better Documentation**: Comprehensive inline documentation with Material 3 specification references
+- **Component-Specific Tokens**: Predefined elevation values for all major Material 3 components
+- **State-Aware Elevations**: Built-in support for interactive states (hover, pressed, focus, drag)
+
+### 🏗️ Architectural Improvements
+
+- **Modular Design**: Elevation system split into focused modules (`_m3_shadow_token.dart`, `_m3_tonal_color.dart`)
+- **Consistent Naming**: All elevation-related classes follow unified naming conventions
+- **Better Abstraction**: Internal implementation details hidden behind clean public APIs
+- **Enhanced Performance**: Optimized shadow and surface color calculations
+
+### 🐛 Bug Fixes
+
+- **Demo Application**: Fixed incorrect elevation token usage in demo surface cards
+- **Documentation**: Corrected widget references and improved code examples
+- **Code Quality**: Updated analysis configuration to use `very_good_analysis` for stricter linting
+
+### 📚 Documentation Updates
+
+- **README.md**: Updated examples to use new elevation token API
+- **ENHANCED_FEATURES.md**: Refreshed elevation examples with current API patterns
+- **Inline Documentation**: Added comprehensive documentation throughout the elevation system
+- **Example Applications**: Updated demo and example apps to showcase new elevation capabilities
+
+### 🔧 Migration Guide
+
+**Before (v0.7.5):**
+
+```dart
+// Old API - no longer available
+Container(
+  decoration: BoxDecoration(
+    color: M3TonalColor.surface3(context),
+    boxShadow: M3ShadowToken.fromElevation(4.5),
+  ),
+)
+```
+
+**After (v0.8.0):**
+
+```dart
+// New unified API
+Container(
+  decoration: BoxDecoration(
+    color: M3ElevationToken.level3.surfaceColor(context),
+    boxShadow: M3ElevationToken.level3.shadows,
+  ),
+)
+
+// Or for custom elevation values
+final elevation = M3ElevationToken.fromValue(4.5);
+Container(
+  decoration: BoxDecoration(
+    color: elevation.surfaceColor(context),
+    boxShadow: elevation.shadows,
+  ),
+)
+```
+
+### 🎨 Component Usage Examples
+
+```dart
+// Component-specific elevations
+Card(
+  elevation: M3ComponentElevationToken.card.value,
+  surfaceTintColor: Theme.of(context).colorScheme.surfaceTint,
+)
+
+// State-aware elevations
+AnimatedContainer(
+  decoration: BoxDecoration(
+    color: isHovered
+      ? M3StateElevationToken.cardHover.surfaceColor(context)
+      : M3ComponentElevationToken.card.surfaceColor(context),
+    boxShadow: isHovered
+      ? M3StateElevationToken.cardHover.shadows
+      : M3ComponentElevationToken.card.shadows,
+  ),
+)
+```
+
+
+## 0.7.5
+
+### Enhanced Demo Experience
+
+- **Live Demo Integration**: Added prominent live demo section to README.md with direct link to interactive showcase
+  - Featured interactive demo at `https://fluttely.github.io/material_design/` with comprehensive token visualization
+  - Reorganized README structure with dedicated demo section for better user onboarding
+  - Added links to additional resources including Material Design 3 guidelines and Flutter M3 documentation
+
+### Major Demo Application Improvements
+
+- **Comprehensive Documentation**: Added extensive inline documentation throughout the demo application
+
+  - Complete component and class documentation with detailed feature descriptions
+  - Enhanced code comments explaining Material Design 3 implementation patterns
+  - Improved developer experience with clear architectural explanations
+
+- **Enhanced Navigation Experience**:
+
+  - Custom NavigationRail implementation with Material Design 3 hover animations and state layer effects
+  - Improved mobile navigation with floating hamburger menu and proper M3 specifications
+  - Better visual hierarchy with organized Foundation, Styles, and Components sections
+  - Fixed bottom controls layout with proper spacing and alignment
+
+- **Material Design 3 Compliance**:
+  - Updated `WindowSizeClass` references to use `M3WindowSizeClass` for proper M3 alignment
+  - Enhanced theme implementation with proper Material 3 color schemes and component theming
+  - Added `useMaterial3: true` flag to theme configurations for full M3 compliance
+  - Improved adaptive layouts following M3 responsive navigation patterns
+
+### Example Application Enhancements
+
+- **Advanced Theme System**: Enhanced example application with sophisticated theming capabilities
+
+  - Added smooth theme transition animations with AnimationController
+  - Comprehensive Material 3 component theme implementations for both light and dark modes
+  - Enhanced AppBar, Card, and Button theming with proper M3 specifications
+  - Improved color scheme generation with dynamic seed color support
+
+- **Better Code Organization**: Restructured example application with improved architecture
+  - Enhanced documentation with detailed class and method descriptions
+  - Better separation of concerns with dedicated theme building methods
+  - Improved code readability and maintenance
+
+### User Experience Improvements
+
+- **Updated Application Titles**: Changed demo app title to "Material Design 3 Token Showcase" for better clarity
+- **Enhanced Visual Design**: Improved navigation item styling with proper M3 indicators and hover effects
+- **Better Resource Links**: Updated and reorganized links to Material Design documentation and resources
+- **Improved Accessibility**: Enhanced touch targets and navigation patterns following M3 accessibility guidelines
+
+### Development Experience
+
+- **Code Quality**: Extensive code documentation and architectural improvements
+- **Better Examples**: Enhanced example implementations demonstrating proper M3 patterns
+- **Maintainability**: Improved code organization and separation of concerns
+
+
+## 0.7.4
+
+### CI/CD & Deployment
+
+- **GitHub Actions Workflow**: Added automated deployment workflow for demo application
+  - Introduced `.github/workflows/deploy-demo.yml` with GitHub Pages deployment
+  - Supports both push-to-main and manual workflow dispatch triggers
+  - Automated Flutter web build with proper base href configuration
+- **Custom Domain Setup**: Added CNAME file for custom domain deployment at `material-design.fluttely.com`
+- **Local Deployment Script**: Created `demo/deploy.sh` script for manual deployment workflows
+- **Deploy Status Badge**: Added GitHub Actions deploy status badge to README.md
+
+### Bug Fixes
+
+- **Color Display Enhancement**: Fixed color picker button styling in example application
+  - Added outline border to color circles for better visibility
+  - Improved color hex code display with robust string formatting
+  - Replaced dynamic spacing token with fixed spacing value for stability
+
+### Documentation
+
+- **README Updates**: Updated package version references from `0.7.3` to `0.7.4` across documentation
+- **Version Consistency**: Synchronized version numbers across all package files and dependencies
+
+### Development
+
+- **Dependency Updates**: Updated pubspec.lock files in both demo and example applications
+- **Version Alignment**: Maintained consistent versioning across the project structure
+
+
+## 0.7.3
+
+### Features
+
+- **New Simplified Demo Application**: Added a complete new `demo/` directory containing a streamlined, single-file demonstration of the Material Design library
+  - Consolidated all key library features into one scrollable page for easier user onboarding
+  - Features comprehensive showcase of foundations (spacing, visual density, opacity, borders), styles (colors, typography, shapes, elevation), and components (buttons, cards, chips)
+  - Interactive theme controls with dark/light mode toggle and seed color picker with 8 preset colors
+  - Live breakpoint detection and adaptive layout behavior
+  - Fully localized in English for global accessibility
+  - Cross-platform support (Android, iOS, Web, Windows, macOS, Linux)
+
+### Enhanced Developer Experience
+
+- **Improved Example Navigation**: The original complex example application has been refined with better navigation structure
+- **Better Library Accessibility**: Users now have two options:
+  - `demo/` - Simple, single-file showcase for quick library evaluation and testing
+  - `example/` - Comprehensive, detailed showcase for in-depth exploration of advanced features
+- **Reduced Complexity**: New developers can now easily understand and test the library features without navigating through complex multi-page structures
+
+### Documentation
+
+- **Updated README.md**: Enhanced documentation to reflect the new demo structure and improved library presentation
+- **Analysis Configuration**: Updated `analysis_options.yaml` for better code quality and consistency
+
+### Migration Guide
+
+For users upgrading from v0.7.2:
+
+- No breaking changes to the core library APIs
+- The original `example/` app remains fully functional with all existing features
+- The new `demo/` app provides an alternative, simplified entry point for library evaluation
+- All existing code using the library tokens and utilities will continue to work without modification
+
+### Development
+
+- **Multi-Platform Support**: Both demo and example applications support all Flutter target platforms
+- **Dependency Management**: Proper dependency isolation between demo and example applications
+- **Build Configuration**: Complete build configurations for all supported platforms in the new demo app
+
+
+## 0.7.2
+
+### Features
+
+- **Enhanced Documentation**: Completely revamped README.md with improved structure, clearer value proposition, and comprehensive feature highlights
+- **Professional Presentation**: Added visual emoji indicators, popularity badge, and enhanced package description for better discoverability
+- **Better Developer Experience**: Improved code examples with proper formatting, better context, and clearer inline documentation
+- **Resource Organization**: Added dedicated sections for additional resources, contributing guidelines, and license information
+- **Elevation System Enhancement**: Improved elevation token interface with clearer property naming and better shadow interpolation
+
+### Refactor
+
+- **Token Organization**: Major reorganization of the token system for better structure and maintainability:
+  - Moved button component tokens to `lib/src/m3/tokens/comp/button/` for better component organization
+  - Relocated shadow tokens to `lib/src/m3/tokens/sys/elevation/` to align with elevation system
+  - Moved geometry tokens (`border`, `breakpoint`, `icon_size`, `z_index`) to `lib/src/m3/tokens/sys/geometry/` for better categorization
+  - Relocated visual density token to `lib/src/m3/tokens/sys/interaction/` to align with interaction patterns
+- **Import Structure**: Updated main export file (`m3.dart`) to reflect new token organization and maintain backward compatibility
+- **Elevation Token Improvements**:
+  - Renamed `dp` property to `value` across all elevation tokens for consistency with other token patterns
+  - Enhanced shadow interpolation algorithm for smoother transitions between elevation levels
+  - Improved elevation interface documentation and method signatures
+
+### Documentation
+
+- **README Improvements**:
+  - Added compelling tagline and clear value proposition
+  - Introduced comprehensive "Key Features" section highlighting type safety, completeness, and production readiness
+  - Enhanced code examples with better formatting and clearer explanations
+  - Fixed inconsistent example formatting and corrected token usage patterns
+  - Added proper installation instructions and usage examples
+  - Included dedicated sections for additional resources and community contributions
+  - Updated migration guide with more comprehensive examples showing the evolution from v0.6.1 to v0.7.0+
+
+### Fix
+
+- **Example App Updates**:
+  - Fixed elevation token usage throughout example app to use new `.value` property
+  - Updated accessibility showcase to use correct elevation values
+  - Improved code formatting and consistency across showcase pages
+  - Removed obsolete commented code and examples for cleaner codebase
+
+### Chore
+
+- **Example Dependencies**: Updated example app's pubspec.lock to reflect new version
+- **Code Cleanup**: Removed unused example code and improved formatting consistency
+
+
+## 0.7.1
+
+### Fix
+
+- Corrected state layer opacity values to align with the latest Material Design 3 guidelines.
+- Adjusted border token values for better consistency.
+
+### Docs
+
+- Updated `README.md` with minor corrections.
+
+### Chore
+
+- Removed duplicated and unused files from the example application.
+
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+
+## 0.7.0
+
+### BREAKING CHANGES
+
+- **Tokens:** The Material 3 token system has been completely refactored for better organization and clarity.
+  - System tokens are now organized under `lib/src/m3/tokens/sys/`. This includes `Color`, `Elevation`, `Motion`, `Shape`, `Spacing`, and `Typography`.
+  - Many token files have been moved, renamed, or consolidated. Please refer to the updated documentation for the new token structure.
+  - The `M3Theme` class has been removed as part of this refactoring.
+
+### Features
+
+- **Components:** Added a new Material 3 Button component (`M3CompButton`).
+- **Tokens:** Introduced new system tokens for `Elevation`, `Motion`, `Shape`, `Spacing`, and `StateLayerOpacity`.
+
+### Refactor
+
+- Refactored the entire token system to align more closely with the official Material Design 3 specifications.
+- Renamed and moved several internal utilities and classes to a new `mt` (Material Toolkit) namespace for better internal structure.
+- Updated the example application to reflect all the latest changes and new APIs.
+- Renamed the "Density" showcase page to "Visual Density" for clarity.
+
+### Chores
+
+- Updated `.gitignore` to exclude new generated files.
+- Updated `README.md` with the latest information.
+
+
+## 0.6.2
+
+### Major Refactoring: Token System Overhaul
+
+- **Shape System**: Replaced `BoxDecoration` with `ShapeDecoration` across the example app for better semantics. Introduced `M3BorderRadius` and converted `M3Radius` from `double` to `Radius` constants, providing a more robust and type-safe way to define shapes.
+- **Motion Tokens**: Consolidated motion-related tokens. `M3MotionDuration` and `M3MotionEasing` have been merged into a single, more organized `m3_motion.dart` file under the `sys` directory, improving clarity and discoverability.
+- **File Structure**: Reorganized the token file structure to better align with the Material Design 3 system. Legacy and unused token files like `M3ColorRoles`, `m3_radius.dart` (the old `double` based one), and `m3_examples.dart` have been removed to streamline the package.
+
+### Breaking Changes
+
+- **Removed `M3ColorRoles`**: The static `M3ColorRoles` class has been removed. Please use the color scheme provided by the `M3Theme` or `Theme.of(context).colorScheme` for semantic color access.
+- **Removed `M3Radius` (as `double`)**: The `M3Radius` class that provided `double` values has been replaced by `M3BorderRadius` (which provides `BorderRadius` objects) and a new `M3Radius` class that provides `Radius` objects.
+- **Consolidated Motion Tokens**: `M3MotionDuration` and `M3MotionEasing` are no longer separate files. Import `package:material_design/material_design.dart` and use the `M3MotionDuration` and `M3MotionEasing` classes directly.
+
+### Enhancements & Fixes
+
+- **Code Cleanup**: Performed a general code cleanup, removing obsolete files and refactoring the example app for better readability and consistency.
+- **Shape Implementation**: Consistently replaced `BorderRadius.circular()` with the new `M3BorderRadius` constants throughout the example app.
+- **New `md` Module**: Introduced a new `md` module for future development, starting with a new barrel file `md.dart`.
+
+
+## 0.6.1
+
+### Refinements and Internationalization
+
+- **Refactored README**: Simplified the documentation to focus on core features and improve clarity.
+- **Internationalized Example App**: All user-facing strings in the accessibility showcase are now in English, making the example more accessible to a global audience.
+- **Code Cleanup**: Minor code cleanup and refactoring in the example app for better readability and maintenance.
+
+
+## 0.6.0
+
+### New Features
+
+- **Complete M3 Theme System**: Introduced `M3Theme`, an integrated theme builder that generates a complete `ThemeData` from a seed color, with full support for light, dark, and high-contrast modes.
+- **Comprehensive Accessibility Utilities**: Added the `M3Accessibility` class, providing a suite of tools for building WCAG-compliant UIs, including accessible form fields, focus indicators, contrast checking, and touch target enforcement.
+- **Adaptive Design System**: Implemented the `M3Adaptive` class with helpers for responsive layouts (`M3Adaptive.responsiveLayout`), adaptive navigation (`M3AdaptiveScaffold`), and adaptive components that adjust to different screen sizes and platforms.
+- **Advanced Token Utilities**: Added new utility classes for enhanced token functionality:
+  - `M3TypeScale`: Responsive and accessible typography helpers.
+  - `M3ColorUtils`: Color manipulation and contrast validation.
+  - `M3ShapeUtils`: Responsive and brand-specific shape generation.
+  - `M3MotionUtils`: Contextual animation patterns (fade, slide, scale).
+
+### Breaking Changes
+
+- **Token Architecture Refactor**: The entire token system has been restructured to follow the official Material Design 3 hierarchy:
+  - **Reference Tokens (Ref)**: Foundational values (e.g., `M3RefPalette`, `M3RefDuration`).
+  - **System Tokens (Sys)**: Semantic roles (e.g., `M3SysColor`).
+  - **Component Tokens (Comp)**: Component-specific values (e.g., `M3CompButton`).
+- The old token structure is now considered legacy and will be deprecated in a future version.
+
+### Enhancements & Fixes
+
+- **Example App Overhaul**: The example app has been completely reorganized into `Foundations`, `Styles`, and `Components` sections to provide a comprehensive showcase of all new features and the new token architecture.
+- **Documentation**: Massively updated `README.md` and added `ENHANCED_FEATURES.md` to document the new capabilities.
+- **Code Quality**: Refactored numerous widgets and classes for better organization, consistency, and adherence to M3 specifications.
+
+
+## 0.5.1
+
+- **BREAKING**: Renamed `M3Margins` to `M3Margin` and `M3Spacers` to `M3Spacer` for better naming consistency.
+- **DOCS**: Updated `README.md` to reflect the new class names and provide clearer examples.
+- **CHORE**: Updated the example app to use the new `M3Margin` and `M3Spacer` classes.
+
+
+## 0.5.0
+
+- **BREAKING**: Token classes are now `abstract class` instead of `abstract final class` to allow for extension.
+- **BREAKING**: Change dart version from `3.8.1` to `>=2.17.0 <4.0.0` to allow for extension.
+- **BREAKING**: The `equatable` dependency has been removed.
+- **FEAT**: Added `M3Margins` and `M3Spacers` classes for more semantic layout spacing.
+- **FEAT**: Added new radius and shape tokens (`largeIncreased`, `extraLargeIncreased`, `extraExtraLarge`).
+- **FEAT**: The example app has been revamped to better demonstrate the updated tokens, including a new `LaunchURLText` widget.
+- **CHORE**: Lowered the minimum Dart SDK requirement from `3.8.1` to `2.17.0` for wider project compatibility.
+- **CHORE**: As restrições do SDK do Flutter e do Dart foram atualizadas.
+- **CHORE**: `very_good_analysis` has been commented out in `analysis_options.yaml`.
+- **DOCS**: `README.md` has been updated with the latest changes.
+
+
+## 0.4.1
+
+- **BREAKING**: Renamed `M3Opacity` to `M3StateLayerOpacity` to better reflect its purpose.
+- **feat**: Added `LaunchURLText` widget to the example app for styled URL links.
+- **feat**: Added `M3StateLayerOpacityButtonExample` to demonstrate state layer opacity on a custom button.
+- **refactor**: Updated the example app to consistently use `Theme.of(context).textTheme` for typography.
+- **docs**: Updated `README.md` with the latest changes and examples.
+
+
+## 0.4.0
+
+- **BREAKING**: `M3Motion` has been refactored into `M3MotionDuration` and `M3MotionEasing` to better align with the Material Design 3 specifications.
+- **BREAKING**: `M3Density` has been removed and replaced with `M3VisualDensity`, which uses Flutter's native `VisualDensity` class.
+- **FEAT**: Added new icon sizes: `dense`, `medium`, `large`, and `extraLarge` to `M3IconSize`.
+- **FEAT**: The `M3Shadow` implementation has been revised, including a new `fromElevation` method.
+- **FEAT**: Added the `url_launcher` dependency for opening URLs.
+- **FIX**: The Z-Index section on the example page has been reworked for a better visual demonstration.
+- **CHORE**: Various formatting and code cleanup improvements in the example app.
+
+
+## 0.3.0
+
+- **Breaking Change:** Renamed all tokens from `Material*` to `M3*` (e.g., `MaterialTonalColor` to `M3TonalColor`) to align with Material Design 3 naming conventions and avoid conflicts with Flutter's `Material` class.
+- **Breaking Change:** Reorganized the file structure by moving all token files to `lib/src/m3/tokens/` and renaming them with the `m3_` prefix (e.g., `motion.dart` to `m3_motion.dart`). This improves clarity and consistency.
+- **Feat:** Implemented a responsive layout in the example app using `NavigationRail` and `NavigationDrawer` to showcase the `M3Breakpoint` token.
+- **Fix:** Updated the copyright year in the `LICENSE` file.
+- **Chore:** Updated `pubspec.yaml` by removing the `homepage` field and adding `issue_tracker`.
+
+
+## 0.2.6
+
+- **Feat:** Added `MaterialDensity` token to control UI density.
+- **Refactor:** Replaced `MaterialColorScheme.create` with `ColorScheme.fromSeed` to align with Flutter's core API.
+- **Refactor:** Refined motion tokens by separating them into `MotionEasing` and `MotionDuration` for more granular control.
+- **Example:** Added a new `DensityPage` to the example app to showcase the `MaterialDensity` token.
+- **Example:** Updated the example app to use the new motion tokens and `ColorScheme.fromSeed`.
+
+
+## 0.2.5
+
+- **Refactor:** The `MaterialMotionToken` has been renamed to `MotionScheme` to better align with the Material Design 3 specifications.
+- **Feature:** Introduced `MotionDurations` and `MotionEasings` classes to provide more granular control over animation durations and easing curves.
+- **Example:** Simplified the elevation page logic and updated the motion page to use the new `MotionScheme`.
+
+
+## 0.2.4
+
+- **Refactor:** Renamed `MaterialSurface` to `MaterialTonalColor` and its method `getTintedColor` to `fromElevation` for better alignment with Material Design 3 terminology, where tonal colors are applied based on surface elevation.
+- **Refactor:** Renamed `MaterialColorSchemes` to `MaterialColorScheme` to maintain consistency with Flutter's `ColorScheme`.
+- **Feat:** Added detailed comments to `MaterialBreakpoint` explaining the different breakpoint values based on the Material Design 3 guidelines.
+- **Feat:** Added `allLevels` to `MaterialElevation`, providing a convenient list of all elevation levels.
+- **Fix:** Ignored `.vscode/` and `.env` files in `.gitignore` to avoid committing editor-specific settings and environment variables.
+- **Example:** Updated the example app to use `MaterialTonalColor.fromElevation` and other related changes.
+
+
+## 0.2.3
+
+- **Docs:** Added detailed examples to `README.md` for `MaterialBorder`, `MaterialOpacity`, `MaterialBreakpoint`, `MaterialIconSize`, and `MaterialZIndex`.
+- **Example:** Added a new `MotionPage` to the example app to showcase all `MaterialMotion` tokens.
+- **Example:** Updated the `OtherTokensPage` in the example app to include showcases for `MaterialBreakpoint`, `MaterialIconSize`, and `MaterialZIndex`.
+- **Refactor:** Renamed `MotionToken` to `MaterialMotionToken` for better clarity and consistency.
+- **Fix:** Removed `MaterialBorder.none` as it was redundant (equivalent to `0`).
+
+
+## 0.2.2
+
+### Changed
+
+- **Improved** `README.md` with clearer instructions and updated usage examples.
+
+
+## 0.2.1
+
+### Changed
+
+- **Renamed** `MaterialColorSchemes` to `MaterialColorScheme`.
+- **Removed** static schemes `lightScheme` and `darkScheme`; use the `create()` method instead.
+
+
+## 0.2.0
+
+### Added
+
+- **`MaterialSurface` Utility**: Introduced a new utility class with a `getTintedColor()` method to easily apply Material 3 surface tint based on elevation. This encapsulates the `ElevationOverlay` logic into a clean, reusable token.
+
+
+## 0.1.0
+
+### Added
+
+- **Complete Material 3 Token System**:
+
+  - `MaterialColorSchemes`: Light and dark color schemes generated from a seed color.
+  - `MaterialTypeScale`: Full set of 15 M3 text styles (Display, Headline, Title, Body, Label).
+  - `MaterialShape`: `ShapeBorder` tokens for all M3 corner radius levels.
+  - `MaterialShadow`: `BoxShadow` tokens aligned with the 6 elevation levels of M3.
+  - `MaterialBorder`: Tokens for border widths.
+
+- **Style Guide Example**: The example app was completely rewritten to serve as a visual style guide for all tokens.
+- **Barrel Files**: Added barrel files for easy token import by category (`color`, `typography`, `geometry`, etc.).
+
+### Changed
+
+- **Refactored `MaterialOpacity`**: Aligned with M3 state layer values (Hover, Focus, Press, Drag) and disabled opacities.
+- **Refactored `MaterialRadius`**: Values adjusted to match the M3 corner radius token scale.
+- **Refactored `MaterialIconSize`**: Simplified to focus on the default 24dp size, with guidance for contextual usage.
+- **Refactored `motion.dart`**: Fixed `asTween` return type to `Animatable<T>` to ensure proper typing.
+
+
+## 0.0.1
+
+### Added
+
+- Introduced `MaterialElevation` tokens for consistent elevation styling.

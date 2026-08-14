@@ -10,6 +10,8 @@ library;
 
 import 'package:flutter/material.dart';
 import 'package:material_color_utilities/material_color_utilities.dart' as mcu;
+// `@experimental` is not re-exported by flutter/material, unlike @immutable.
+import 'package:meta/meta.dart';
 
 part 'm3/tokens/contract.dart';
 part 'm3/tokens/spacing/spacing_token.dart';
@@ -25,4 +27,7 @@ part 'm3/tokens/elevation/box_shadow.dart';
 part 'm3/tokens/elevation/elevation_shadows.dart';
 part 'm3/tokens/elevation/elevation.dart';
 part 'm3/tokens/typography/type_scale_token.dart';
+part 'm3/tokens/typography/emphasized_type_scale.dart';
 part 'm3/tokens/color/tonal_palette.dart';
+part 'm3/tokens/color/scheme_variant.dart';
+part 'm3/tokens/component/component_tokens.dart';
