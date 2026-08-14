@@ -4,67 +4,307 @@
 [![license](https://img.shields.io/badge/license-BSD-blue.svg)](/LICENSE)
 [![Flutter Version](https://img.shields.io/badge/flutter-%3E%3D3.27.0-blue)](https://flutter.dev)
 
-🎨 **A complete Material Design 3 design system contract for Flutter**
+**A Material Design 3 design contract for Flutter.** Instead of documenting the M3
+spec and hoping everyone follows it, this package expresses the spec as Dart types:
+APIs take `M3SpacingValue` instead of `double`, so an off-scale value is a compile
+error, not a design-review comment.
 
-This library is a **design contract** rather than a repository of free-floating tokens. It enforces Material Design 3 guidelines system-wide by replacing standard Flutter primitives (`double`, `int`, `EdgeInsets`, etc.) with type-safe M3 equivalents. An application that consumes this library will, by construction, strictly adhere to the official Material Design 3 specifications.
+- 🌟 **[Live demo](https://fluttely.github.io/material_design/)** — every token,
+  interactive
+- 📋 **[example/lib/main.dart](example/lib/main.dart)** — the whole API in one
+  copy-pasteable file
+- 📚 **[Official M3 guidelines](https://m3.material.io/)**
 
-## 🚀 Live Demo & Resources
+## Why
 
-**[🌟 Interactive Design System Explorer](https://fluttely.github.io/material_design/)** - Explore all tokens with live examples
+| Plain Flutter (anything compiles) | With the contract (only M3 compiles) |
+| :--- | :--- |
+| `EdgeInsets.all(17.3)` | `const M3EdgeInsets.all(M3Spacings.s16)` |
+| `SizedBox(height: 14)` | `const M3Gap(M3Spacings.s12)` |
+| `BorderRadius.circular(15)` | `M3BorderRadius.medium` — 12dp |
+| `BoxShadow(blurRadius: 4)` | `M3ElevationShadows.level2` |
+| `Opacity(opacity: 0.35)` | `M3Opacities.disabledContent` — 38% |
+| `TextStyle(fontSize: 15)` | `M3TypeScale.bodyLarge` — 16sp, 24 height |
+| `Duration(milliseconds: 280)` + guessed curve | `M3Motion.standard` — 300ms + standard easing |
+| hand-built focus border | `M3FocusRing(child: …)` — official 3dp ring, 3dp offset |
 
-**[📚 Material Design 3 Guidelines](https://m3.material.io/)** - Official specification
+Everything is `const`, extension types are erased at compile time, and unused code
+tree-shakes away — the contract costs nothing at runtime.
 
-## 📦 Installation
-
-Add `material_design` to your `pubspec.yaml`:
+## Install
 
 ```yaml
 dependencies:
   material_design: ^1.0.0
 ```
 
-**Requirements:** Flutter `>=3.27.0`, Dart `>=3.6.0`. The package uses `Color.withValues` and `Color.a`, which landed in Flutter 3.27, and extension types, which landed in Dart 3.3.
+Requires Flutter `>=3.27.0` / Dart `>=3.6.0` (uses `Color.withValues` and extension
+types).
+
+## Quick start
+
+```dart
+import 'package:flutter/material.dart';
+import 'package:material_design/material_design.dart';
+
+MaterialApp(
+  // Merges the M3 type scale into your theme without losing its colors.
+  theme: M3TextTheme.applyToTheme(
+    ThemeData(
+      useMaterial3: true,
+      colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF6750A4)),
+    ),
+  ),
+  home: const HomePage(),
+);
+```
+
+Then build with tokens instead of numbers:
+
+```dart
+Card(
+  shape: M3Shape.medium, // 12dp corners
+  child: M3Padding(
+    padding: const M3EdgeInsets.all(M3Spacings.s16),
+    child: Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text('Title', style: M3TypeScale.titleMedium),
+        const M3Gap(M3Spacings.s8), // knows it's inside a Column
+        Text('Body', style: M3TypeScale.bodyMedium),
+      ],
+    ),
+  ),
+);
+```
 
 ---
 
-## 📐 The Design Contract Philosophy (v1.0.0)
+## API tour
 
-Version `1.0.0` moves the design system from documentation into the type system.
+Each family below has a page in the [live demo](https://fluttely.github.io/material_design/)
+and a section in [example/lib/main.dart](example/lib/main.dart), in this same order.
 
-**1. Primitive replacement.** APIs accept M3 extension types — `M3SpacingValue`, `M3CornerValue`, `M3BorderWidthValue`, `M3OpacityValue`, `M3IconSizeValue`, `M3BreakpointValue`, `M3ElevationDpValue`, `M3ZIndexValue`, `M3ToneValue` — instead of bare `double` and `int`. Every scale in the package is covered; there is no family that quietly still takes a raw number.
+### 1. Spacing & layout
 
-**2. No scalar token enums.** The old `M3SpacingToken.space16.value` pattern is gone. It cost a `.value` unwrap at every call site and, worse, it broke `const`. Scalar tokens are now static constants you use directly.
-
-This is *not* a ban on `enum`. Two kinds of type still are one, and should be:
-
-| Kind | Example | Why an enum |
-| :--- | :--- | :--- |
-| **Composite tokens** | `M3Motion`, `M3Elevation` | You read `duration` **and** `curve` together, never unwrap to one number. Stays `const`, gains `values` and exhaustive `switch`. |
-| **Selectors** | `M3ScreenSize`, `M3InteractionState`, `M3MotionDistance` | These name a situation, not a value. |
-
-The rule is precise: **no token that must be unwrapped to be used.**
-
-**3. Deviation is possible, deliberate, and greppable.**
-
-Extension types are erased at runtime, so a cast will always defeat them:
+- **`M3Spacings`** — the 4dp grid: `none`, `s4` … `s128`, `infinity`, plus
+  `M3Spacings.values` for galleries.
+- **`M3Margins`** (16dp compact / 24dp elsewhere) and **`M3Spacers.pane`** (24dp).
+- **`M3EdgeInsets`** — `all`, `symmetric`, `only`, `fromLTRB`, every parameter an
+  `M3SpacingValue`. **`M3EdgeInsetsPatterns`** ships common recipes (`card`,
+  `dialog`, `listItem`, `compactPage`, `expandedPage`).
+- **`M3Padding`** — `Padding` that only accepts `M3EdgeInsets`.
+- **`M3Gap`** — a spacer that detects whether it sits in a `Row`, `Column`, `Wrap`,
+  or scrollable and orients itself. `M3GapUtils.addGaps(children, M3Spacings.s8)`
+  interleaves gaps into an existing list.
 
 ```dart
-const leaked = 17.3 as M3SpacingValue; // compiles. No Dart design prevents this.
+Column(
+  children: [
+    const Text('Header'),
+    const M3Gap(M3Spacings.s16), // vertical here, horizontal in a Row
+    const Text('Body'),
+  ],
+);
 ```
 
-Rather than claim a guarantee the language cannot give, the package routes every intentional deviation through one identifier — [`M3Contract`](#-when-you-must-break-the-contract):
+### 2. Shape & borders
+
+The M3 shape scale has exactly seven stops: `none` 0 · `extraSmall` 4 · `small` 8 ·
+`medium` 12 · `large` 16 · `extraLarge` 28 · `full` (pill). Each shape type extends
+its Flutter counterpart, so they drop in anywhere:
+
+```dart
+Card(shape: M3Shape.medium);                       // RoundedRectangleBorder
+Container(
+  decoration: M3BoxDecoration(
+    borderRadius: M3BorderRadius.large,            // BorderRadius
+    border: M3Border.thin(colorScheme.outline),    // Border, 1dp
+  ),
+);
+const M3BorderRadius.only(topLeft: M3Radius.large, topRight: M3Radius.none);
+```
+
+Border widths are their own scale — `M3BorderWidths`: `none` 0, `thin` 1, `thick` 2,
+`extraThick` 4 — with named constructors `M3BorderSide.thin/thick/extraThick(color)`.
+
+### 3. Elevation & surfaces
+
+`M3Elevation` is a composite token: each level carries its dp **and** its shadows.
+
+```dart
+M3Elevation.level2.dp;                    // 3.0
+M3Elevation.level2.shadows;               // ready-made shadow list
+M3Elevation.level2.surfaceColor(context); // surface blended with tint at 3dp
+colorScheme.surfaceAtElevation(M3Elevation.level2); // same, from the scheme
+```
+
+Levels: 0, 1, 3, 6, 8, 12 dp. Static shadow lists: `M3ElevationShadows.level0…5`.
+`M3ShapeDecoration` pairs an `M3Shape` with those shadows for `Container.decoration`.
+
+### 4. Typography
+
+The 15 M3 styles as `const TextStyle`s with exact spec metrics:
+
+```dart
+Text('Section', style: M3TypeScale.headlineSmall);
+Text('Body', style: M3TypeScale.bodyMedium);
+```
+
+`M3TextTheme.applyToTheme(theme)` merges them into a `ThemeData` (see Quick start).
+`M3TextUtils` covers the runtime cases: `clampedScaler` (bounded text scaling —
+last resort, it fights the user's accessibility setting), `responsiveDisplay`,
+`dyslexiaFriendly`, `mono`, `highContrast`, `withFontFamily`.
+
+### 5. Color
+
+Real HCT tonal palettes — the same math Material uses, via
+`material_color_utilities`:
+
+```dart
+final palette = M3TonalPalette.fromSeed(const Color(0xFF6750A4));
+palette[M3Tones.t40];                  // light-scheme primary
+palette[M3Tones.t80];                  // dark-scheme primary
+
+final core = M3CorePalette.fromSeed(seed);
+core.neutral[M3Tones.t99];             // light surface
+core.error[M3Tones.t40];               // spec red, independent of seed
+```
+
+On `ColorScheme`: `stateLayerColor(base, M3InteractionState.hover)`,
+`disabledContent(base)` (38%), `disabledContainer(base)` (12%),
+`surfaceAtElevation(level)`, `isAccessible(fg, bg)`.
+`M3ColorUtils` adds WCAG contrast math (`calculateContrast`, `meetsWCAGAA/AAA`,
+`adjustForAccessibility`) and color manipulation.
+Opacity tokens: `M3Opacities` (38/12/12/50%) and `M3StateLayerOpacities`
+(hover 8%, focus 10%, pressed 10%, dragged 16%).
+
+### 6. Interaction states & focus
+
+```dart
+M3StateLayer(                       // hover/focus/press/drag overlays, M3 precedence
+  overlayColor: colorScheme.onSurface,
+  borderRadius: M3BorderRadius.medium,
+  onTap: () {},
+  child: content,
+);
+
+M3FocusRing(                        // official 3dp ring at 3dp offset
+  borderRadius: M3BorderRadius.full,
+  child: IconButton(onPressed: () {}, icon: const Icon(Icons.star)),
+);
+```
+
+`M3FocusRing` reserves its 6dp inset even when unfocused, so tabbing never shifts
+the control; it observes focus and never takes it.
+`M3VisualDensity` provides `standard`/`comfortable`/`compact`,
+`forPlatform(platform)` and `forScreenSize(size)`.
+
+### 7. Motion
+
+Duration and curve travel together — you never pair them by hand:
+
+```dart
+AnimatedContainer(
+  duration: M3Motion.emphasized.duration, // 500ms
+  curve: M3Motion.emphasized.curve,       // emphasized easing
+);
+```
+
+Schemes: `emphasized`, `emphasizedIncoming`, `emphasizedOutgoing`, `standard`,
+`standardIncoming`, `standardOutgoing`, `linear`. For `const` contexts use the flat
+aliases (`M3Motion.emphasizedDuration`). Pick by intent with
+`M3Motion.durationFor(M3MotionDistance.long)` /
+`M3Motion.curveFor(M3MotionType.incoming)`. Raw scales: `M3MotionDuration.short1…extraLong4`
+(50–1000ms), `M3MotionCurve.*` (the official cubics).
+
+### 8. Adaptive & responsive
+
+`M3ScreenSize` is the M3 window-size-class selector, and everything else keys off it:
+
+```dart
+final size = M3ScreenSize.of(context);   // compact / medium / expanded / large / extraLarge
+size.columns;                            // 4 / 8 / 12
+size.isAtLeast(M3ScreenSize.medium);
+
+M3ResponsiveValue<int>(compact: 2, medium: 4, expanded: 6,
+  builder: (context, cols) => grid(cols));
+M3ResponsiveVisibility(visibleOn: const [M3ScreenSize.expanded], child: sidebar);
+M3ResponsiveScaffold(destinations: …);   // bottom bar → rail → drawer, automatically
+```
+
+Breakpoints (`M3Breakpoints`: 0/600/840/1200/1600) are tokens too. `M3Adaptive`
+bundles static helpers: `responsiveLayout`, `adaptivePadding`, `adaptiveNavigation`,
+`showAdaptiveDialog` (fullscreen on phones, dialog on desktop), `showAdaptiveSheet`
+(bottom sheet ↔ side panel), `adaptiveButton` (48dp touch / 32dp mouse targets).
+
+### 9. Accessibility
+
+```dart
+M3Accessibility.minTouchTarget(context);           // 48dp touch, 32dp desktop
+M3Accessibility.meetsContrastRequirement(foreground: fg, background: bg);
+M3Accessibility.shouldReduceMotion(context);
+M3Accessibility.adaptiveDuration(context: context, normal: d); // honors reduce-motion
+```
+
+`M3AccessibilityConfig.fromContext(context).applyToTheme(theme)` adapts a whole
+theme to the user's contrast/motion/text-size settings.
+
+### 10. M3 Expressive (experimental)
+
+The 2025 M3 Expressive primitives, in the `m3e` module:
+
+- **`M3ELoadingIndicator`** (+ `.contained()`) — the morphing loading indicator that
+  replaces most indeterminate spinners.
+- **`MaterialShapes`** — the official 35-shape library (`circle` … `heart`) as
+  `RoundedPolygon`s, plus `Morph` for shape-to-shape animation and `toPath()` to
+  draw them.
+
+> ⚠️ The shape engine currently exports unprefixed names (`Point`, `Cubic`,
+> `Morph`, `lerp`, …). If they collide with your imports, use
+> `import 'package:material_design/material_design.dart' hide Point;` — a scoped
+> `M3E` namespace is planned.
+
+---
+
+## Breaking the contract, deliberately
+
+Sometimes the design system is not the authority — a brand asset really is 18dp.
+`M3Contract` is the one sanctioned way out:
 
 ```dart
 M3EdgeInsets.all(M3Contract.spacing(18)) // off the 4dp grid, on purpose
 ```
 
-Which means you can audit deviations with a single `grep`, and ban them in review. A contract you can measure compliance against beats one that merely claims to be airtight.
+Factories exist for every scale: `spacing`, `corner`, `borderWidth`, `opacity`,
+`iconSize`, `breakpoint`, `elevationDp`, `zIndex`. Because every deviation names the
+same identifier, compliance is measurable:
 
----
+```sh
+grep -rn 'M3Contract\.' lib/ | wc -l   # how far has this app drifted from M3?
+```
 
-## 🧱 Package Architecture
+Zero-drift teams fail CI on any hit; migrating teams watch the number fall. Either
+way deviations are visible — which beats an "unbreakable" contract with a silent
+`as`-cast in it. (Extension types are erased at runtime, so a cast always compiles;
+the package is honest about that instead of pretending otherwise.)
 
-The package is nine modules with a one-directional dependency graph:
+## The rules behind the API
+
+1. **Primitive replacement.** Every scale is an extension type
+   (`M3SpacingValue`, `M3CornerValue`, …) with a library-private constructor. No
+   family quietly still takes a raw `double`.
+2. **No token that must be unwrapped.** Scalar tokens are `static const` values used
+   directly — the old `M3SpacingToken.space16.value` pattern is gone; it cost
+   `const`-ness at every call site. Enums remain only where they're right:
+   composite tokens (`M3Motion`, `M3Elevation` — two fields read together) and
+   selectors (`M3ScreenSize`, `M3InteractionState` — they name a situation).
+3. **Deviation is explicit and greppable** — `M3Contract`, above.
+
+### Architecture
+
+Nine modules, one-directional dependencies; `import 'package:material_design/material_design.dart'`
+gives you all of them:
 
 ```text
 tokens ──┬─> shape ──┬─> interaction
@@ -75,344 +315,11 @@ motion  ─────────────────> interaction, adapti
 expressive (standalone)
 ```
 
-`import 'package:material_design/material_design.dart'` gives you all of them.
+## Showcase
 
-The token layer is deliberately a single Dart library: the type-safe wrappers depend on library-private constructors to keep off-scale values out, and splitting them further would force those constructors public. Every other module is a real boundary — internals stay internal.
-
----
-
-## ⚖️ Flutter Defaults vs. Material Design 3 Contract
-
-| Concept | Standard Flutter (Error-Prone) | Material Design 3 Contract (Type-Safe) |
-| :--- | :--- | :--- |
-| **Padding** | `EdgeInsets.all(17.3)` (Arbitrary value) | `const M3EdgeInsets.all(M3Spacings.s16)` (Type-safe token) |
-| **Spacing** | `SizedBox(width: 14)` (Unregulated spacing) | `M3Gap(M3Spacings.s12)` (Auto-detects layout direction) |
-| **Corners** | `BorderRadius.circular(15)` (Violates shape scale) | `M3BorderRadius.medium` or `M3BorderRadius.all(M3Radius.medium)` (12dp) |
-| **Borders** | `BorderSide(width: 1.5)` (Off-spec thickness) | `const M3BorderSide.thin(color)` (1dp) or `M3BorderSide.thick(color)` (2dp) |
-| **Shadows** | `BoxShadow(blurRadius: 4)` (Manual shadow configuration) | `M3ElevationShadows.level2` or `M3Elevation.level2.shadows` |
-| **Opacity** | `Opacity(opacity: 0.35)` (Arbitrary opacity) | `M3Opacities.disabledContent` (Strict 38% opacity) |
-| **Typography** | `TextStyle(fontSize: 15)` (Non-standard size) | `M3TypeScale.bodyLarge` (Strict 16sp, height 24/16, weight 400) |
-| **Focus Indicators** | Custom active border layout (High manual styling) | `M3FocusRing(child: ...)` (Official 3dp offset + 3dp thickness secondary ring) |
-
----
-
-## 📖 How to Use the APIs
-
-### 1. Spacing & Layout
-
-#### Type-safe Spacing Values
-Raw doubles are wrapped by the `M3SpacingValue` extension type. Static constants are organized in classes.
-* `M3Spacings`: Spacing values on a 4dp grid scale: `none` (0dp), `s4`, `s8`, `s12`, `s16`, `s20`, `s24`, `s28`, `s32`, `s36`, `s40`, `s48`, `s56`, `s64`, `s72`, `s80`, `s96`, `s128`, and `infinity`.
-* `M3Margins`: Margins tailored for responsive screen layouts: `compactScreen` (16dp), `mediumScreen` (24dp), `expandedScreen` (24dp), `largeScreen` (24dp), and `extraLargeScreen` (24dp).
-* `M3Spacers`: Predefined spacing helper values such as `pane` (24dp).
-
-#### Layout Wrappers
-* `M3EdgeInsets`: Enforces `M3SpacingValue` tokens on all constructors:
-  ```dart
-  const M3EdgeInsets.all(M3Spacings.s16)
-  const M3EdgeInsets.symmetric(horizontal: M3Margins.compactScreen, vertical: M3Spacings.s8)
-  const M3EdgeInsets.only(top: M3Spacings.s24, bottom: M3Spacings.s12)
-  ```
-* `M3Padding`: A drop-in replacement for Flutter's `Padding` widget that accepts only `M3EdgeInsets`:
-  ```dart
-  M3Padding(
-    padding: const M3EdgeInsets.all(M3Spacings.s16),
-    child: child,
-  )
-  ```
-* `M3Gap`: Auto-directional layout spacer. Placed inside a `Row`, `Column`, `Flex`, or `Wrap`, it automatically determines its orientation and renders the correct spacing size:
-  ```dart
-  Column(
-    children: [
-      Text('Header'),
-      M3Gap(M3Spacings.s16), // Renders as vertical spacing
-      Text('Body'),
-    ],
-  )
-  ```
-  *Extensions for rapid spacing declarations are available:* `M3Gap.small()`, `M3Gap.medium()`, and `M3Gap.large()`.
-
----
-
-### 2. Shape & Borders
-
-#### Strict M3 Shape Scale (Exactly 7 levels)
-The design system defines exactly 7 shape corner-radius values:
-1. `none` (0dp)
-2. `extraSmall` (4dp)
-3. `small` (8dp)
-4. `medium` (12dp)
-5. `large` (16dp)
-6. `extraLarge` (28dp)
-7. `full` (9999dp - pill/circular shapes)
-
-#### Shape Wrappers
-* `M3Radius`: Represents individual corner radius values corresponding to the M3 shape scale:
-  ```dart
-  const radius = M3Radius.medium; // 12dp circular corner
-  ```
-* `M3BorderRadius`: Standard collections of `M3Radius` values:
-  ```dart
-  const borderRadius = M3BorderRadius.medium; // 12dp uniform radius
-  const customRadius = M3BorderRadius.only(topLeft: M3Radius.large, topRight: M3Radius.none);
-  ```
-* `M3Shape`: Implements `RoundedRectangleBorder` matching the M3 shape scale:
-  ```dart
-  Card(shape: M3Shape.medium)
-  ```
-* `M3BorderSide`: Enforces `M3BorderWidthValue` tokens (`M3BorderWidths.none`/`thin`/`thick`/`extraThick`):
-  ```dart
-  M3BorderSide(outlineColor: colorScheme.outline, width: M3BorderWidths.thin)
-  // Or using named constructors:
-  const M3BorderSide.thin(colorScheme.outline)
-  const M3BorderSide.thick(colorScheme.outline)
-  ```
-* `M3Border`: A custom `Border` wrapper ensuring all sides utilize `M3BorderSide` configurations:
-  ```dart
-  M3Border.all(outlineColor: colorScheme.outline, width: M3BorderWidths.thin)
-  M3Border.thin(colorScheme.outline)
-  ```
-
----
-
-### 3. Decorations & Shadows
-
-* `M3BoxDecoration`: Ensures borders, border radii, and shadows utilize M3 design contract elements:
-  ```dart
-  Container(
-    decoration: const M3BoxDecoration(
-      color: Colors.blue,
-      borderRadius: M3BorderRadius.medium,
-      border: M3Border.thin(Colors.black),
-    ),
-  )
-  ```
-* `M3ShapeDecoration`: Enforces `M3Shape` parameters for shape-based background rendering:
-  ```dart
-  Container(
-    decoration: const M3ShapeDecoration(
-      color: Colors.blue,
-      shape: M3Shape.large,
-    ),
-  )
-  ```
-* `M3Elevation`: Encapsulates elevation properties. Direct properties provide DP levels, pre-generated shadow parameters, and tinted overlay colors based on ambient context:
-  * `M3Elevation.level0` to `level5` (covering 0dp, 1dp, 3dp, 6dp, 8dp, and 12dp respectively).
-  * `.dp` - Accesses raw elevation double value.
-  * `.shadows` - Returns list of `M3BoxShadow` definitions.
-  * `.surfaceColor(context)` - Computes the correct M3 surface color blended with the surface tint at this elevation level.
-* `M3ElevationShadows`: Offers static access to shadow lists:
-  ```dart
-  BoxDecoration(boxShadow: M3ElevationShadows.level2)
-  ```
-
----
-
-### 4. Interaction Widgets
-
-These widgets implement core Material Design 3 interactive states without manually configuring state details:
-
-* `M3StateLayer`: Wraps a child widget and automatically applies the standard semi-transparent state layer color (on hover, focus, press, or drag interaction) at official M3 state layer opacities:
-  ```dart
-  M3StateLayer(
-    overlayColor: colorScheme.onSurface,
-    borderRadius: M3BorderRadius.medium,
-    onTap: () {},
-    child: childWidget,
-  )
-  ```
-* `M3FocusRing`: Draws the official M3 keyboard focus indicator — a `M3FocusIndicator.thickness` (3dp) ring set `M3FocusIndicator.offset` (3dp) away from the component:
-  ```dart
-  M3FocusRing(
-    borderRadius: M3BorderRadius.full,
-    child: IconButton(
-      onPressed: () {},
-      icon: const Icon(Icons.star),
-    ),
-  )
-  ```
-  The ring's 6dp inset is reserved **whether or not the child is focused**. Adding it on focus would shift the control the instant a user tabs to it — a moving target for exactly the people who navigate by keyboard. The trade is a constant, predictable 6dp of padding.
-
-  `M3FocusRing` observes focus; it never takes it. Its child must contain something focusable for the ring to appear.
-
----
-
-### 5. Typography
-
-All typography styles strictly match the 15 standard Material Design 3 type scale configurations, categorized into Display, Headline, Title, Body, and Label.
-
-#### M3TypeScale
-Use these static properties directly where `TextStyle` is expected:
-```dart
-Text('Section Title', style: M3TypeScale.headlineSmall)
-Text('Body text description', style: M3TypeScale.bodyMedium)
-```
-
-#### M3TextTheme
-Allows you to map these text styles directly to the standard Flutter `TextTheme`:
-```dart
-ThemeData(
-  textTheme: M3TextTheme.toTextTheme(),
-)
-```
-
-#### M3TextUtils
-Utility class that decouples runtime manipulations from static style tokens:
-* `M3TextUtils.clampedScaler(context, maxScaleFactor: ...)` - Returns the ambient `TextScaler` capped to a range, for the rare layout that genuinely cannot absorb unbounded text scaling:
-  ```dart
-  Text(
-    label,
-    style: M3TypeScale.labelLarge,
-    textScaler: M3TextUtils.clampedScaler(context, maxScaleFactor: 1.5),
-  )
-  ```
-  Clamping fights the user's accessibility setting — reach for it only after the layout itself has been made to flex. To clamp a whole subtree, prefer Flutter's `MediaQuery.withClampedTextScaling`.
-* `M3TextUtils.responsiveDisplay(context)` - Resolves the optimal display typography variant (`displayLarge`/`Medium`/`Small`) based on the width of the display window.
-* `M3TextUtils.dyslexiaFriendly(style)` - Alters font weight, spacing, and line height to make the text style easier to read.
-* `M3TextUtils.mono(style)` - Returns a monospace variant matching system stacks.
-* `M3TextUtils.highContrast(style)` - Safely boosts the font weight by one step.
-
----
-
-### 6. Color & Opacity
-
-* `M3ColorSchemeTokens`: Extends `ColorScheme` to expose state-layer colors, container disabled values, and accessibility helpers:
-  ```dart
-  final hovered = colorScheme.stateLayerColor(
-    colorScheme.onSurface,
-    M3InteractionState.hover,
-  );
-  final disabledText = colorScheme.disabledContent(colorScheme.onSurface);
-  final elevatedSurface = colorScheme.surfaceAtElevation(M3Elevation.level2);
-  final isAccessible = colorScheme.isAccessible(colorScheme.primary, colorScheme.surface);
-  ```
-* `M3TonalPalette` / `M3CorePalette`: Real tonal palette generation in HCT space — the same math Material Design itself uses, via `material_color_utilities`. A seed color's hue and chroma are held fixed while lightness sweeps the 13 `M3Tones` stops:
-  ```dart
-  final palette = M3TonalPalette.fromSeed(const Color(0xFF6750A4));
-  palette[M3Tones.t40]; // light-scheme `primary`
-  palette[M3Tones.t80]; // dark-scheme `primary`
-
-  final core = M3CorePalette.fromSeed(seed);
-  core.neutral[M3Tones.t99];  // light-scheme `surface`
-  core.error[M3Tones.t40];    // fixed red, regardless of seed
-  ```
-* `M3Opacities` & `M3StateLayerOpacities`: Exposes type-safe opacities:
-  * `M3Opacities.disabledContent` (38% opacity)
-  * `M3Opacities.disabledContainer` (12% opacity)
-  * `M3Opacities.divider` (12% opacity)
-  * `M3StateLayerOpacities.hover` (8% opacity)
-  * `M3StateLayerOpacities.focus` (10% opacity)
-  * `M3StateLayerOpacities.pressed` (10% opacity)
-
----
-
-### 7. Responsive Design
-
-* `M3ScreenSize`: Represents standard M3 window size classes (`compact`, `medium`, `expanded`, `large`, `extraLarge`):
-  ```dart
-  final size = M3ScreenSize.of(context);
-  if (size >= M3ScreenSize.medium) { ... }
-  ```
-* `M3ResponsiveBuilder`: Rebuilds widgets when the screen size changes:
-  ```dart
-  M3ResponsiveBuilder(
-    builder: (context, screenSize) {
-      if (screenSize <= M3ScreenSize.compact) return MobileLayout();
-      return DesktopLayout();
-    },
-  )
-  ```
-* `M3ResponsiveValue<T>`: Picks the correct value based on the current window size class:
-  ```dart
-  final crossAxisCount = const M3ResponsiveValue<int>(
-    compact: 2,
-    medium: 4,
-    expanded: 6,
-  ).of(context);
-  ```
-* `M3ResponsiveVisibility`: Visually show/hide a widget under specific screen classes:
-  ```dart
-  M3ResponsiveVisibility(
-    visibleOn: const [M3ScreenSize.expanded, M3ScreenSize.large],
-    child: sidebarWidget,
-  )
-  ```
-* `M3ResponsiveGrid`: Renders children in an adaptive M3 column grid layout.
-* `M3ResponsiveScaffold`: Renders components using responsive navigation (switching between bottom navigation, navigation rails, and permanent drawers depending on screen space).
-
----
-
-### 8. Motion & Animation
-
-Pairs duration with curve characteristics according to official transition guidelines.
-
-* `M3Motion`: Exposes predefined animation motion profiles:
-  * `M3Motion.emphasized` (500ms, Emphasized Curve) - Main enter/exit transitions.
-  * `M3Motion.emphasizedIncoming` (450ms, Emphasized Decelerate)
-  * `M3Motion.emphasizedOutgoing` (150ms, Emphasized Accelerate)
-  * `M3Motion.standard` (300ms, Standard Curve)
-  * `M3Motion.standardIncoming` (250ms, Standard Decelerate)
-  * `M3Motion.standardOutgoing` (200ms, Standard Accelerate)
-  ```dart
-  AnimatedContainer(
-    duration: M3Motion.emphasized.duration,
-    curve: M3Motion.emphasized.curve,
-    // ...
-  )
-  ```
-* `M3MotionDuration`: Offers standalone durations ranging from `short1` (50ms) to `extraLong4` (1000ms).
-* `M3MotionCurve`: Exposes independent easing curve constants (e.g. `M3MotionCurve.emphasized`).
-* `M3Motion.emphasizedDuration` / `M3Motion.emphasizedCurve` (and one pair per scheme): flat aliases for `const` contexts, where a field access such as `M3Motion.emphasized.duration` is not permitted.
-* `M3Motion.durationFor(M3MotionDistance.long)` and `M3Motion.curveFor(M3MotionType.incoming)`: pick a token by intent. Both return M3 types, not bare `Duration`/`Curve`.
-
----
-
-### 9. Expressive Layouts (M3 Expressive)
-
-Includes experimental expressive elements:
-* `M3ELoadingIndicator`: Dynamic morphing loading animations.
-* `RoundedPolygon`: Tools in `e_shapes` to define custom rounded polygons, shapes, and morphing matrices.
-
----
-
-## 🔓 When you must break the contract
-
-Sometimes the design system is not the authority — a brand asset is genuinely 18dp, a third-party spec disagrees, an animation passes through values between two tokens. `M3Contract` is the one sanctioned way out:
-
-```dart
-M3Contract.spacing(18)      // → M3SpacingValue
-M3Contract.corner(10)       // → M3CornerValue
-M3Contract.borderWidth(1.5) // → M3BorderWidthValue
-M3Contract.opacity(0.42)    // → M3OpacityValue  (asserts 0.0–1.0)
-M3Contract.iconSize(18)     // → M3IconSizeValue
-M3Contract.breakpoint(720)  // → M3BreakpointValue
-M3Contract.elevationDp(2)   // → M3ElevationDpValue
-M3Contract.zIndex(42)       // → M3ZIndexValue
-```
-
-Because every deviation names the same identifier, compliance becomes measurable:
-
-```sh
-# How far has this codebase drifted from Material Design 3?
-grep -rn 'M3Contract\.' lib/ | wc -l
-```
-
-Teams that want zero drift can fail CI on any hit. Teams migrating an existing app can watch the number fall. Either way the deviations are visible, which is more than an "unbreakable" contract with a silent cast in it would give you.
-
----
-
-## ⚡ Performance Advantages
-
-By designing the system using **extension types** and **static const** references, the library enforces design limits at compile time with **zero runtime overhead**:
-
-* **Tree Shaking:** Unused classes or utilities are completely removed from the compiled binary.
-* **Const Constructors:** Wrapper configurations (`M3EdgeInsets`, `M3BorderRadius`, etc.) use standard Dart compile-time const allocation, keeping widget rebuild cycles fast.
-
----
-
-## 🌟 Premium Code Showcase
-
-Below is a complete implementation of a card displaying hover overlay actions, keyboard focus highlights, spacing limits, and motion transitions using the Material Design 3 design contract APIs. It is compiled and rendered by the test suite (`test/readme_showcase_test.dart`), so it cannot drift from the API:
+A card with hover overlays, keyboard focus, tokenized spacing and motion — compiled
+and rendered by `test/readme_showcase_test.dart`, so this snippet cannot drift from
+the API:
 
 ```dart
 import 'package:flutter/material.dart';
@@ -480,14 +387,13 @@ class PremiumCardShowcase extends StatelessWidget {
 }
 ```
 
----
+## Versioning
 
-## 📄 License
+`1.0.x` is young and has no deprecation baggage: API corrections ship as renames
+with a migration table in the [CHANGELOG](CHANGELOG.md). Upcoming work (Expressive
+spring motion tokens, color scheme variants, emphasized type scale) follows the
+same contract rules.
 
-BSD 3-Clause License - see [LICENSE](LICENSE) file
+## License
 
----
-
-<p align="center">
-  <strong>Enforce consistency, prevent visual drift, and build beautiful Flutter apps with Material Design 3.</strong>
-</p>
+BSD 3-Clause — see [LICENSE](LICENSE).

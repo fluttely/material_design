@@ -44,11 +44,11 @@ class _UtilsPageState extends State<UtilsPage> {
               icon: Icons.animation_rounded,
               content: _buildMotionPatternsShowcase(),
             ),
-            // _buildSection(
-            //   title: 'Shape System',
-            //   icon: Icons.rounded_corner_rounded,
-            //   content: _buildShapeShowcase(),
-            // ),
+            _buildSection(
+              title: 'M3Contract — the escape hatch',
+              icon: Icons.gavel_rounded,
+              content: _buildContractShowcase(),
+            ),
           ],
         ),
       ),
@@ -185,45 +185,50 @@ class _UtilsPageState extends State<UtilsPage> {
     );
   }
 
-  // Widget _buildShapeShowcase() {
-  //   return Wrap(
-  //     spacing: M3Spacings.s8.value,
-  //     runSpacing: M3Spacings.s8.value,
-  //     alignment: WrapAlignment.center,
-  //     children: [
-  //       // TODO(kevin): enhance this feature
-  //       _buildShapeExample('None', M3ShapeUtils.squared()),
-  //       _buildShapeExample(
-  //           'XS',
-  //           M3ShapeUtils.rounded(
-  //               M3Radius.extraSmall.value.dp)),
-  //       _buildShapeExample(
-  //           'Small',
-  //           M3ShapeUtils.rounded(
-  //               M3Radius.small.value.dp)),
-  //       _buildShapeExample(
-  //           'Medium',
-  //           M3ShapeUtils.rounded(
-  //               M3Radius.medium.value.dp)),
-  //       _buildShapeExample(
-  //           'Large',
-  //           M3ShapeUtils.rounded(
-  //               M3Radius.large.value.dp)),
-  //       _buildShapeExample(
-  //           'XL',
-  //           M3ShapeUtils.rounded(
-  //               M3BorderRadius.extraLarge.radius.value.dp)),
-  //       _buildShapeExample(
-  //           'Top',
-  //           M3ShapeUtils.topRounded(
-  //               M3Radius.large.value.dp)),
-  //       _buildShapeExample(
-  //           'Bottom',
-  //           M3ShapeUtils.bottomRounded(
-  //               M3Radius.large.value.dp)),
-  //     ],
-  //   );
-  // }
+  Widget _buildContractShowcase() {
+    final colorScheme = Theme.of(context).colorScheme;
+    final textTheme = Theme.of(context).textTheme;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Every deliberate off-scale value routes through M3Contract, so a '
+          'single grep audits all deviations from the Material Design 3 '
+          'scales in your codebase:',
+          style: textTheme.bodyMedium,
+        ),
+        const M3Gap(M3Spacings.s8),
+        Container(
+          width: double.infinity,
+          padding: M3EdgeInsets.all(M3Spacings.s12),
+          decoration: ShapeDecoration(
+            color: colorScheme.surfaceContainer,
+            shape: M3Shape.small,
+          ),
+          child: Text(
+            r"grep -rn 'M3Contract\.' lib/",
+            style: M3TextUtils.mono(M3TypeScale.bodySmall),
+          ),
+        ),
+        const M3Gap(M3Spacings.s16),
+        Container(
+          padding: M3EdgeInsets.all(M3Contract.spacing(18)),
+          decoration: ShapeDecoration(
+            color: colorScheme.tertiaryContainer,
+            shape: M3Shape.medium,
+          ),
+          child: Text(
+            'This container uses M3EdgeInsets.all(M3Contract.spacing(18)) — '
+            'an intentionally off-scale 18dp padding, made explicit and '
+            'greppable.',
+            style: textTheme.bodyMedium?.copyWith(
+              color: colorScheme.onTertiaryContainer,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
 
   // --- Helper Widgets ---
 

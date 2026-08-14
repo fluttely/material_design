@@ -152,8 +152,11 @@ class _ShapesPreviewState extends State<ShapesPreview>
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return RepaintBoundary(
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           ConstrainedBox(
@@ -168,13 +171,14 @@ class _ShapesPreviewState extends State<ShapesPreview>
                   morphs: _morphs,
                   morphIndex: _morphIndex,
                   progress: _controller,
+                  color: colorScheme.onSurface,
                 ),
                 willChange: true,
                 child: const SizedBox.expand(),
               ),
             ),
           ),
-          const SizedBox(height: 40),
+          const M3Gap(M3Spacings.s40),
           ValueListenableBuilder(
             valueListenable: _shapeIndex,
             builder: (context, index, child) {
@@ -192,6 +196,7 @@ class _MorphPainter extends CustomPainter {
     required this.morphs,
     required this.morphIndex,
     required this.progress,
+    required this.color,
   }) : super(
           repaint: Listenable.merge([morphIndex, progress]),
         );
@@ -201,6 +206,8 @@ class _MorphPainter extends CustomPainter {
   final ValueListenable<int> morphIndex;
 
   final Animation<double> progress;
+
+  final Color color;
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -213,7 +220,7 @@ class _MorphPainter extends CustomPainter {
         path,
         Paint()
           ..style = PaintingStyle.fill
-          ..color = const Color(0xFF201D23),
+          ..color = color,
       )
       ..restore();
   }
@@ -222,7 +229,8 @@ class _MorphPainter extends CustomPainter {
   bool shouldRepaint(_MorphPainter oldDelegate) {
     return oldDelegate.morphs != morphs ||
         oldDelegate.morphIndex != morphIndex ||
-        oldDelegate.progress != progress;
+        oldDelegate.progress != progress ||
+        oldDelegate.color != color;
   }
 }
 
@@ -279,12 +287,8 @@ class __AnimatedTitleState extends State<_AnimatedTitle>
         return Text(
           widget.title,
           textAlign: TextAlign.center,
-          style: TextStyle(
-            fontFamily: 'DMSans',
-            fontSize: 40,
-            letterSpacing: -2,
+          style: Theme.of(context).textTheme.headlineMedium?.copyWith(
             fontVariations: [FontVariation.weight(_width.value)],
-            color: const Color(0xFF201D23),
           ),
         );
       },

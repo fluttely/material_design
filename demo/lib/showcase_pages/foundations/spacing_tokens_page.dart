@@ -64,7 +64,7 @@ class _SpacingPageState extends State<SpacingPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const LaunchURLText(
-              label: 'M3Spacings | M3SpacingToken (for Padding)',
+              label: 'M3Spacings (for Padding)',
               m3Url:
                   'https://m3.material.io/foundations/layout/understanding-layout/spacing',
             ),
@@ -77,7 +77,7 @@ class _SpacingPageState extends State<SpacingPage> {
             ...spacings.map((token) => _buildSpacingDemo(token.$1, token.$2)),
             const M3Gap(M3Spacings.s32),
             const LaunchURLText(
-              label: 'M3Margins | M3MarginToken (by screen sizes)',
+              label: 'M3Margins (by screen sizes)',
               m3Url:
                   'https://m3.material.io/foundations/layout/applying-layout/compact',
             ),
@@ -85,7 +85,7 @@ class _SpacingPageState extends State<SpacingPage> {
             ...margins.map((margin) => _buildSpacingDemo(margin.$1, margin.$2)),
             const M3Gap(M3Spacings.s32),
             const LaunchURLText(
-              label: 'M3Spacers | M3SpacerToken (between two panes)',
+              label: 'M3Spacers (between two panes)',
               m3Url:
                   'https://m3.material.io/foundations/layout/understanding-layout/spacing',
             ),
@@ -144,51 +144,4 @@ class _SpacingPageState extends State<SpacingPage> {
       ),
     );
   }
-
-  // // This original method is kept as it's used by other lists.
-  // Widget _buildSpacingRow(
-  //   BuildContext context,
-  //   String label,
-  //   double value,
-  // ) {
-  //   final textTheme = Theme.of(context).textTheme;
-  //   final colorScheme = Theme.of(context).colorScheme;
-
-  //   final isInfinity = value == double.infinity;
-
-  //   return M3Padding(
-  //     padding: const M3EdgeInsets.symmetric(vertical: 4.0),
-  //     child: Row(
-  //       children: [
-  //         SizedBox(
-  //           width: 120,
-  //           child: Text(
-  //             '$label (${isInfinity ? "∞" : value.toInt()}dp):',
-  //             style: textTheme.bodyMedium,
-  //             maxLines: 2,
-  //             overflow: TextOverflow.ellipsis,
-  //           ),
-  //         ),
-  //         const M3Gap(M3Spacings.s16),
-  //         Expanded(
-  //           child: isInfinity
-  //               ? Text(
-  //                   'Represents unbounded space',
-  //                   style: textTheme.bodySmall?.copyWith(
-  //                     color: colorScheme.onSurfaceVariant,
-  //                     fontStyle: FontStyle.italic,
-  //                   ),
-  //                 )
-  //               : Container(
-  //                   height: value,
-  //                   decoration: ShapeDecoration(
-  //                     color: colorScheme.secondaryContainer,
-  //                     shape: M3Shape.extraSmall,
-  //                   ),
-  //                 ),
-  //         ),
-  //       ],
-  //     ),
-  //   );
-  // }
 }

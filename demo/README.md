@@ -1,16 +1,18 @@
-# material_design_demo
+# material_design demo
 
-A new Flutter project.
+Interactive showcase of the [`material_design`](../) package — every Material
+Design 3 token, live: spacing, shape, elevation, color, typography, motion,
+responsive utilities, and the M3 Expressive components.
 
-## Getting Started
+Live version: <https://fluttely.github.io/material_design/>
 
-This project is a starting point for a Flutter application.
+## Run locally
 
-A few resources to get you started if this is your first Flutter project:
+```sh
+flutter run -d chrome
+```
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Deployment
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+The demo is deployed to GitHub Pages automatically by the
+`.github/workflows/deploy-demo.yml` workflow — no manual steps required.

@@ -31,7 +31,7 @@ class ShapePage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  LaunchURLText(label: 'M3Corners | M3CornerToken'),
+                  LaunchURLText(label: 'M3Corners'),
                   Icon(Icons.keyboard_arrow_down_rounded),
                   LaunchURLText(label: 'M3Radius'),
                   Icon(Icons.keyboard_arrow_down_rounded),

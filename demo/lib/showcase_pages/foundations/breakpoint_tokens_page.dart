@@ -42,7 +42,7 @@ class BreakpointTokensPage extends StatelessWidget {
       body: ListView(
         padding: M3EdgeInsets.all(M3Spacings.s16),
         children: [
-          LaunchURLText(label: 'M3Breakpoints | M3BreakpointToken'),
+          LaunchURLText(label: 'M3Breakpoints'),
           Card(
             child: M3Padding(
               padding: M3EdgeInsets.all(M3Spacings.s16),

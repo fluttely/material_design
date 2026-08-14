@@ -89,6 +89,12 @@ class _AccessibilityPageState extends State<AccessibilityPage>
               content: _buildContrastShowcase(),
             ),
             _buildSection(
+              icon: Icons.build_circle_outlined,
+              title: 'M3Accessibility helpers',
+              subtitle: 'Live values from the package\'s accessibility API.',
+              content: _buildAccessibilityHelpersShowcase(),
+            ),
+            _buildSection(
               icon: Icons.center_focus_strong,
               title: 'Focus Management',
               subtitle: 'Visual focus indicators and keyboard navigation.',
@@ -504,6 +510,41 @@ class _AccessibilityPageState extends State<AccessibilityPage>
           label: 'Low Contrast (Fail)',
           backgroundColor: colorScheme.surfaceContainer,
           textColor: colorScheme.onSurfaceVariant.withValues(alpha: 0.5),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildAccessibilityHelpersShowcase() {
+    final colorScheme = Theme.of(context).colorScheme;
+    final meetsContrast = M3Accessibility.meetsContrastRequirement(
+      foreground: colorScheme.onSurface,
+      background: colorScheme.surface,
+    );
+
+    return Column(
+      children: [
+        _buildSettingTile(
+          icon: Icons.touch_app_outlined,
+          settingName: 'M3Accessibility.minTouchTarget(context)',
+          settingValue:
+              '${M3Accessibility.minTouchTarget(context).toStringAsFixed(0)}dp',
+        ),
+        _buildSettingTile(
+          icon: Icons.motion_photos_off_outlined,
+          settingName: 'M3Accessibility.shouldReduceMotion(context)',
+          settingValue: M3Accessibility.shouldReduceMotion(context).toString(),
+        ),
+        _buildSettingTile(
+          icon: Icons.contrast_outlined,
+          settingName: 'M3Accessibility.isHighContrastMode(context)',
+          settingValue: M3Accessibility.isHighContrastMode(context).toString(),
+        ),
+        _buildSettingTile(
+          icon:
+              meetsContrast ? Icons.check_circle_outline : Icons.error_outline,
+          settingName: 'meetsContrastRequirement(onSurface on surface)',
+          settingValue: meetsContrast ? 'true — WCAG AA' : 'false',
         ),
       ],
     );
