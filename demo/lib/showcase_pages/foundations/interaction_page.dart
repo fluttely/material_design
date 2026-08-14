@@ -20,7 +20,7 @@ class _InteractionPageState extends State<InteractionPage> {
         children: [
           LaunchURLText(
             label: 'M3StateLayer | M3FocusRing | M3InteractionState',
-            m3Url:
+            url:
                 'https://m3.material.io/foundations/interaction/states/overview',
           ),
           const M3Gap(M3Spacings.s16),

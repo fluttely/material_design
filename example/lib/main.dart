@@ -96,6 +96,7 @@ class ExampleHomePage extends StatelessWidget {
           _InteractionSection(),
           _MotionSection(),
           _AdaptiveSection(),
+          _ComponentTokensSection(),
           _AccessibilitySection(),
           _ExpressiveSection(),
           _ContractSection(),
@@ -857,7 +858,27 @@ class _AdaptiveSection extends StatelessWidget {
             style: M3TypeScale.bodySmall,
           ),
         ),
+        const M3Gap(M3Spacings.s16),
+        Text(
+          'The three canonical layouts. Note they collapse differently on a '
+          'phone: list-detail replaces, supporting-pane stacks.',
+          style: M3TypeScale.bodyMedium,
+        ),
         const M3Gap(M3Spacings.s8),
+        SizedBox(
+          height: M3Spacings.s96,
+          child: M3SupportingPaneLayout(
+            primary: _PaneBox(
+              label: 'primary',
+              color: Theme.of(context).colorScheme.primaryContainer,
+            ),
+            supporting: _PaneBox(
+              label: 'supporting',
+              color: Theme.of(context).colorScheme.tertiaryContainer,
+            ),
+          ),
+        ),
+        const M3Gap(M3Spacings.s16),
         FilledButton(
           onPressed: () => M3Adaptive.showAdaptiveDialog<void>(
             context: context,
@@ -873,6 +894,100 @@ class _AdaptiveSection extends StatelessWidget {
             ],
           ),
           child: const Text('M3Adaptive.showAdaptiveDialog'),
+        ),
+      ],
+    );
+  }
+}
+
+/// A labelled block standing in for a real pane in the layout demo.
+class _PaneBox extends StatelessWidget {
+  const _PaneBox({required this.label, required this.color});
+
+  final String label;
+  final Color color;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      alignment: Alignment.center,
+      decoration: M3BoxDecoration(
+        color: color,
+        borderRadius: M3BorderRadius.small,
+      ),
+      child: Text(label, style: M3TypeScale.labelLarge),
+    );
+  }
+}
+
+// ═════════════════════════════════════════════════════════════════════════
+// 8b. COMPONENT MEASUREMENTS — M3ButtonHeights, M3FabSizes, M3ListItemHeights
+// ═════════════════════════════════════════════════════════════════════════
+
+class _ComponentTokensSection extends StatelessWidget {
+  const _ComponentTokensSection();
+
+  @override
+  Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
+    return _Section(
+      title: '8b. Component measurements',
+      children: [
+        Text(
+          'The spec numbers for individual components, so a control you build '
+          'by hand matches the built-in one beside it. Values only — this '
+          'package does not ship M3 components.',
+          style: M3TypeScale.bodyMedium,
+        ),
+        const M3Gap(M3Spacings.s16),
+        Text('M3ButtonHeights', style: M3TypeScale.labelLarge),
+        const M3Gap(M3Spacings.s8),
+        for (final (name, height) in const <(String, M3SpacingValue)>[
+          ('extraSmall', M3ButtonHeights.extraSmall),
+          ('small', M3ButtonHeights.small),
+          ('medium', M3ButtonHeights.medium),
+        ])
+          M3Padding(
+            padding: const M3EdgeInsets.only(bottom: M3Spacings.s8),
+            child: Row(
+              children: [
+                Container(
+                  height: height,
+                  width: M3Spacings.s128,
+                  alignment: Alignment.center,
+                  decoration: M3BoxDecoration(
+                    color: colorScheme.secondaryContainer,
+                    borderRadius: M3BorderRadius.full,
+                  ),
+                  child: Text(
+                    '$name ${height.toInt()}dp',
+                    style: M3TypeScale.labelMedium,
+                  ),
+                ),
+                const M3Gap(M3Spacings.s12, orientation: Axis.horizontal),
+                // These are visual heights, not touch targets.
+                if (height < M3Accessibility.minTouchTargetMobile)
+                  Expanded(
+                    child: Text(
+                      'below the 48dp touch target — expand the tap area, '
+                      'not the box',
+                      style: M3TypeScale.bodySmall.copyWith(
+                        color: colorScheme.error,
+                      ),
+                    ),
+                  ),
+              ],
+            ),
+          ),
+        const M3Gap(M3Spacings.s8),
+        Text(
+          'Also: M3FabSizes.standard ${M3FabSizes.standard.toInt()}dp · '
+          'M3AppBarHeights.small ${M3AppBarHeights.small.toInt()}dp · '
+          'M3NavigationSizes.drawerWidth '
+          '${M3NavigationSizes.drawerWidth.toInt()}dp · '
+          'M3ListItemHeights.twoLine ${M3ListItemHeights.twoLine.toInt()}dp',
+          style: M3TypeScale.bodySmall,
         ),
       ],
     );

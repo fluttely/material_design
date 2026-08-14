@@ -16,7 +16,7 @@ class MotionPage extends StatelessWidget {
         children: [
           LaunchURLText(
             label: 'M3Motion (M3MotionDuration + M3MotionCurve)',
-            m3Url:
+            url:
                 'https://m3.material.io/styles/motion/easing-and-duration/applying-easing-and-duration',
           ),
           _MotionShowcase(

@@ -51,7 +51,7 @@ class TypographyPage extends StatelessWidget {
               alignment: Alignment.centerLeft,
               child: LaunchURLText(
                 label: 'M3TypeScale',
-                m3Url:
+                url:
                     'https://m3.material.io/styles/typography/type-scale-tokens',
               ),
             ),
@@ -138,7 +138,7 @@ class _EmphasisNote extends StatelessWidget {
               alignment: Alignment.centerLeft,
               child: LaunchURLText(
                 label: 'M3EmphasizedTypeScale',
-                m3Url:
+                url:
                     'https://m3.material.io/styles/typography/type-scale-tokens',
               ),
             ),

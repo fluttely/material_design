@@ -39,7 +39,7 @@ class _SpringPageState extends State<SpringPage> {
         children: [
           LaunchURLText(
             label: 'M3ESpring | M3MotionScheme | M3MotionSpeed',
-            m3Url: 'https://m3.material.io/styles/motion/overview/specs',
+            url: 'https://m3.material.io/styles/motion/overview/specs',
           ),
           _buildNoteSection(context, colorScheme),
           const M3Gap(M3Spacings.s16),

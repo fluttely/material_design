@@ -70,7 +70,7 @@ class OpacityTokensPage extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        LaunchURLText(label: title, m3Url: url),
+        LaunchURLText(label: title, url: url),
         const M3Gap(M3Spacings.s16),
         Wrap(
           spacing: M3Spacings.s16,

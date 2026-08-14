@@ -40,7 +40,7 @@ class _ColorSchemesPageState extends State<ColorSchemesPage> {
         children: [
           LaunchURLText(
             label: 'M3ColorSchemes | M3SchemeVariant | M3ContrastLevels',
-            m3Url:
+            url:
                 'https://m3.material.io/styles/color/system/how-the-system-works',
           ),
           _buildSeedSection(context, colorScheme, seedColor, brightness),

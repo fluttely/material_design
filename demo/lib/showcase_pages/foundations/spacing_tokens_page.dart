@@ -65,7 +65,7 @@ class _SpacingPageState extends State<SpacingPage> {
           children: [
             const LaunchURLText(
               label: 'M3Spacings (for Padding)',
-              m3Url:
+              url:
                   'https://m3.material.io/foundations/layout/understanding-layout/spacing',
             ),
             const M3Gap(M3Spacings.s8),
@@ -78,7 +78,7 @@ class _SpacingPageState extends State<SpacingPage> {
             const M3Gap(M3Spacings.s32),
             const LaunchURLText(
               label: 'M3Margins (by screen sizes)',
-              m3Url:
+              url:
                   'https://m3.material.io/foundations/layout/applying-layout/compact',
             ),
             const M3Gap(M3Spacings.s8),
@@ -86,7 +86,7 @@ class _SpacingPageState extends State<SpacingPage> {
             const M3Gap(M3Spacings.s32),
             const LaunchURLText(
               label: 'M3Spacers (between two panes)',
-              m3Url:
+              url:
                   'https://m3.material.io/foundations/layout/understanding-layout/spacing',
             ),
             const M3Gap(M3Spacings.s8),

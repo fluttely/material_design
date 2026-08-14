@@ -167,7 +167,7 @@ class ColorTokensPage extends StatelessWidget {
               alignment: Alignment.centerLeft,
               child: const LaunchURLText(
                 label: 'Color Roles',
-                m3Url: 'https://m3.material.io/styles/color/roles',
+                url: 'https://m3.material.io/styles/color/roles',
               ),
             ),
           ),

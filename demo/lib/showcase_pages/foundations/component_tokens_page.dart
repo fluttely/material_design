@@ -389,7 +389,7 @@ class _Section extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        LaunchURLText(label: tokenName, m3Url: m3Url),
+        LaunchURLText(label: tokenName, url: m3Url),
         Text(description, style: textTheme.bodyMedium),
         const M3Gap(M3Spacings.s16),
         child,

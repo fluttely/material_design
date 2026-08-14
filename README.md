@@ -152,8 +152,10 @@ Text('Body', style: M3TypeScale.bodyMedium);
 ```
 
 **Emphasis is part of the scale, not a `copyWith`** (M3 Expressive, experimental).
-Each role has an emphasized counterpart that keeps its size and line height — so
-swapping it in never reflows the layout — and only goes one weight step up:
+Each role has an emphasized counterpart at the same font size and line height, so
+swapping it in never changes the vertical rhythm. Weight goes one step up (400→500,
+or 500→700 for titles and labels); tracking moves only on the roles the spec adjusts,
+so a line can end up marginally wider:
 
 ```dart
 Text('Balance', style: M3TypeScale.titleMedium),
@@ -296,6 +298,28 @@ M3ResponsiveVisibility(visibleOn: const [M3ScreenSize.expanded], child: sidebar)
 M3ResponsiveScaffold(destinations: …);   // bottom bar → rail → drawer, automatically
 ```
 
+**The three canonical layouts** are ready-made, and each handles the compact case the
+way the spec says — which is not the same way for all three:
+
+```dart
+// List-detail: on a phone the detail *replaces* the list, and back returns.
+M3ListDetailLayout(
+  list: MailList(onSelect: (id) => setState(() => _selected = id)),
+  detail: _selected == null ? null : MailDetail(_selected!),
+  onNavigateBack: () => setState(() => _selected = null),
+);
+
+// Supporting pane: on a phone the support *stacks below* — it is part of the
+// same task, not a destination you navigate to.
+M3SupportingPaneLayout(primary: Editor(), supporting: PropertiesPanel());
+
+// Feed: columns, gutters and margins all follow the window size class.
+M3FeedLayout(children: cards);
+```
+
+`M3CanonicalLayout` exposes the shared policy (`displayModeOf`, `paneWidthFor`) if you
+need to make the same decision for a layout the package doesn't ship.
+
 Breakpoints (`M3Breakpoints`: 0/600/840/1200/1600) are tokens too. `M3Adaptive`
 bundles static helpers: `responsiveLayout`, `adaptivePadding`, `adaptiveNavigation`,
 `showAdaptiveDialog` (fullscreen on phones, dialog on desktop), `showAdaptiveSheet`
@@ -394,6 +418,21 @@ the package is honest about that instead of pretending otherwise.)
    composite tokens (`M3Motion`, `M3Elevation` — two fields read together) and
    selectors (`M3ScreenSize`, `M3InteractionState` — they name a situation).
 3. **Deviation is explicit and greppable** — `M3Contract`, above.
+
+### What this package deliberately does not ship
+
+**M3 components.** No buttons, menus, toolbars, split buttons, or FAB menus. Flutter's
+Material library owns those, and a second `FilledButton` here would become migration
+debt for every consumer the day Flutter changes its own. What the package ships
+instead is the *contract* those components are built from — including their
+measurements, in `M3ButtonHeights` and friends, so a control you build by hand lands
+on the same numbers as the built-in one beside it.
+
+The one exception is M3 Expressive widgets Flutter does not have yet
+(`M3ELoadingIndicator` today). Each is a stopgap, marked `@experimental`, and gets
+removed when Flutter ships the real thing — the 2025 Expressive components are
+tracked in [flutter/flutter#168813](https://github.com/flutter/flutter/issues/168813)
+and are deliberately *not* reimplemented here while that work is in flight.
 
 ### Architecture
 

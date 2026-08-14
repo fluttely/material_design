@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:material_design/material_design.dart';
 import 'package:material_design_demo/showcase_pages/foundations/border_tokens_page.dart';
+import 'package:material_design_demo/showcase_pages/foundations/canonical_layouts_page.dart';
 import 'package:material_design_demo/showcase_pages/foundations/breakpoint_tokens_page.dart';
 import 'package:material_design_demo/showcase_pages/foundations/component_tokens_page.dart';
 import 'package:material_design_demo/showcase_pages/foundations/icon_size_tokens_page.dart';
@@ -107,6 +108,7 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
     const AccessibilityPage(),
     const AdaptivePage(),
     const ResponsivePage(),
+    const CanonicalLayoutsPage(),
     const InteractionPage(),
 
     // Styles - Visual design elements
@@ -235,6 +237,11 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
         icon: Icon(Icons.grid_view_outlined),
         selectedIcon: Icon(Icons.grid_view),
         label: Text('Responsive'),
+      ),
+      NavigationRailDestination(
+        icon: Icon(Icons.view_quilt_outlined),
+        selectedIcon: Icon(Icons.view_quilt),
+        label: Text('Layouts'),
       ),
       NavigationRailDestination(
         icon: Icon(Icons.touch_app_outlined),
@@ -510,7 +517,7 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
           ),
           child: const LaunchURLText(
             label: 'Flutter M3 Demo',
-            m3Url: 'https://flutterweb-wasm.web.app/',
+            url: 'https://flutterweb-wasm.web.app/',
           ),
         ),
       ],
@@ -544,7 +551,7 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
           // Header with M3 link - Fixed at top
           const LaunchURLText(
             label: 'M3',
-            m3Url: 'https://m3.material.io/',
+            url: 'https://m3.material.io/',
           ),
 
           // Scrollable content area
@@ -557,7 +564,7 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
                   const LaunchURLText(
                     label: 'Foundations',
                     fontSize: 12,
-                    m3Url: 'https://m3.material.io/foundations',
+                    url: 'https://m3.material.io/foundations',
                   ),
 
                   // Foundations navigation items
@@ -582,7 +589,7 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
                   const LaunchURLText(
                     label: 'Styles',
                     fontSize: 12,
-                    m3Url: 'https://m3.material.io/styles',
+                    url: 'https://m3.material.io/styles',
                   ),
 
                   // Styles navigation items
@@ -714,7 +721,8 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
                 const LaunchURLText(
                   label: 'Demo',
                   fontSize: 10,
-                  m3Url: 'https://flutterweb-wasm.web.app/',
+                  url:
+                      'https://github.com/fluttely/material_design/tree/main/demo',
                 ),
 
                 const M3Gap(M3Spacings.s8),

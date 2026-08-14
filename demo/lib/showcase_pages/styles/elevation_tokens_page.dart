@@ -42,7 +42,7 @@ class ElevationPage extends StatelessWidget {
           const M3Gap(M3Spacings.s16),
           LaunchURLText(
             label: 'M3ElevationDps | M3Elevation',
-            m3Url: 'https://m3.material.io/styles/elevation/overview',
+            url: 'https://m3.material.io/styles/elevation/overview',
           ),
           _ElevationGrid(
             title: '(Surface Tint Color and Shadow Color)',
