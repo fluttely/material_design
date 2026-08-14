@@ -45,3 +45,4 @@ example/build/
 example/pubspec.lock
 example/test/
 example/*.iml
+documentation/documentation/

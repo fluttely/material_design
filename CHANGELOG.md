@@ -4,6 +4,21 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 1.0.0
+
+First stable release of the design contract. See the `1.0.0-dev` series for the change-by-change history, and the migration guide below for moving from `0.28.x`.
+
+### 🧹 Chore
+
+- **Version**: `1.0.0-dev.35` to `1.0.0`.
+- **`homepage:`**: Dropped the empty key; `repository:` already points at the source.
+
+### 📦 Packaging
+
+- **Published archive reduced from 692 KB to 134 KB**: Added `.pubignore`. `demo/` is a complete Flutter project (~1.1 MB of platform scaffolding) that ships as a hosted web demo instead, and `documentation/` is an Obsidian vault of working notes listed in `.gitignore` yet still tracked, so pub was bundling both.
+- **`example/`**: Kept `lib/` and `pubspec.yaml`, which pub.dev renders, and dropped the native runners beneath them.
+- A root `.pubignore` replaces `.gitignore` for pub's purposes, so the standard build artefacts are repeated in it.
+
 ## 1.0.0-dev.35
 
 ### 🧹 Chore
