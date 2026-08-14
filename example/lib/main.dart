@@ -9,7 +9,7 @@
 //   3. Elevation & surfaces    8. Adaptive & responsive
 //   4. Typography              9. Accessibility
 //   5. Color                  10. M3 Expressive (experimental)
-//                             11. Breaking the contract (M3Contract)
+//   5b. Schemes & contrast    11. Breaking the contract (M3Contract)
 //
 // Live version of everything here: https://fluttely.github.io/material_design/
 //
@@ -92,6 +92,7 @@ class ExampleHomePage extends StatelessWidget {
           _ElevationSection(),
           _TypographySection(),
           _ColorSection(),
+          _SchemeSection(),
           _InteractionSection(),
           _MotionSection(),
           _AdaptiveSection(),
@@ -410,6 +411,181 @@ class _ColorSection extends StatelessWidget {
     return Chip(
       avatar: CircleAvatar(backgroundColor: color),
       label: Text(label, style: M3TypeScale.labelMedium),
+    );
+  }
+}
+
+// ═════════════════════════════════════════════════════════════════════════
+// 5b. COLOR SCHEMES — M3ColorSchemes, M3SchemeVariant, M3ContrastLevels
+// ═════════════════════════════════════════════════════════════════════════
+
+class _SchemeSection extends StatefulWidget {
+  const _SchemeSection();
+
+  @override
+  State<_SchemeSection> createState() => _SchemeSectionState();
+}
+
+class _SchemeSectionState extends State<_SchemeSection> {
+  M3SchemeVariant _variant = M3SchemeVariant.tonalSpot;
+  M3ContrastLevelValue _contrast = M3ContrastLevels.standard;
+
+  static const _seed = Color(0xFF6750A4);
+
+  @override
+  Widget build(BuildContext context) {
+    // The variant and the contrast level are tokens, not loose values: you
+    // cannot pass `2.7` as a contrast level or invent a tenth variant.
+    final scheme = M3ColorSchemes.fromSeed(
+      seedColor: _seed,
+      variant: _variant,
+      contrastLevel: _contrast,
+      brightness: Theme.of(context).brightness,
+    );
+
+    return _Section(
+      title: '5b. Color schemes, variants & contrast',
+      children: [
+        Text('Variant', style: M3TypeScale.labelLarge),
+        const M3Gap(M3Spacings.s8),
+        Wrap(
+          spacing: M3Spacings.s8,
+          runSpacing: M3Spacings.s8,
+          children: [
+            for (final variant in M3SchemeVariant.values)
+              ChoiceChip(
+                label: Text(variant.name, style: M3TypeScale.labelMedium),
+                selected: _variant == variant,
+                onSelected: (_) => setState(() => _variant = variant),
+              ),
+          ],
+        ),
+        const M3Gap(M3Spacings.s16),
+        Text('Contrast', style: M3TypeScale.labelLarge),
+        const M3Gap(M3Spacings.s8),
+        Wrap(
+          spacing: M3Spacings.s8,
+          children: [
+            for (final (label, level) in const <(String, M3ContrastLevelValue)>[
+              ('reduced', M3ContrastLevels.reduced),
+              ('standard', M3ContrastLevels.standard),
+              ('medium', M3ContrastLevels.medium),
+              ('high', M3ContrastLevels.high),
+            ])
+              ChoiceChip(
+                label: Text(label, style: M3TypeScale.labelMedium),
+                selected: _contrast == level,
+                onSelected: (_) => setState(() => _contrast = level),
+              ),
+          ],
+        ),
+        const M3Gap(M3Spacings.s16),
+        Row(
+          children: M3GapUtils.addGaps(
+            [
+              for (final (label, bg, fg) in <(String, Color, Color)>[
+                ('primary', scheme.primary, scheme.onPrimary),
+                (
+                  'primaryContainer',
+                  scheme.primaryContainer,
+                  scheme.onPrimaryContainer
+                ),
+                ('tertiary', scheme.tertiary, scheme.onTertiary),
+                ('surface', scheme.surface, scheme.onSurface),
+              ])
+                Expanded(
+                  child: Container(
+                    height: M3Spacings.s64,
+                    alignment: Alignment.center,
+                    decoration: M3BoxDecoration(
+                      color: bg,
+                      borderRadius: M3BorderRadius.small,
+                    ),
+                    child: Text(
+                      label,
+                      textAlign: TextAlign.center,
+                      style: M3TypeScale.labelSmall.copyWith(color: fg),
+                    ),
+                  ),
+                ),
+            ],
+            M3Spacings.s8,
+          ),
+        ),
+        const M3Gap(M3Spacings.s16),
+        Text(
+          'onSurface/surface contrast: '
+          '${M3ColorUtils.calculateContrast(scheme.onSurface, scheme.surface).toStringAsFixed(2)}:1',
+          style: M3TypeScale.bodyMedium,
+        ),
+        const M3Gap(M3Spacings.s16),
+        Text(
+          'Brand colors harmonized into this scheme — a bounded HCT hue shift, '
+          'so they belong without becoming a different color:',
+          style: M3TypeScale.bodyMedium,
+        ),
+        const M3Gap(M3Spacings.s8),
+        Row(
+          children: M3GapUtils.addGaps(
+            [
+              for (final (name, source) in const <(String, Color)>[
+                ('success', Color(0xFF2E7D32)),
+                ('warning', Color(0xFFF9A825)),
+                ('info', Color(0xFF0277BD)),
+              ])
+                Expanded(
+                  child: _ExtendedColorTile(
+                    color: M3ExtendedColor.harmonized(
+                      name: name,
+                      source: source,
+                      harmonizeWith: scheme.primary,
+                      brightness: Theme.of(context).brightness,
+                    ),
+                    raw: source,
+                  ),
+                ),
+            ],
+            M3Spacings.s8,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _ExtendedColorTile extends StatelessWidget {
+  const _ExtendedColorTile({required this.color, required this.raw});
+
+  final M3ExtendedColor color;
+  final Color raw;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Container(
+          height: M3Spacings.s20,
+          decoration: M3BoxDecoration(
+            color: raw,
+            borderRadius: M3BorderRadius.extraSmall,
+          ),
+        ),
+        const M3Gap(M3Spacings.s4),
+        Container(
+          padding: const M3EdgeInsets.all(M3Spacings.s8),
+          decoration: M3BoxDecoration(
+            color: color.colorContainer,
+            borderRadius: M3BorderRadius.small,
+          ),
+          child: Text(
+            color.name,
+            textAlign: TextAlign.center,
+            style: M3TypeScale.labelMedium.copyWith(
+              color: color.onColorContainer,
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

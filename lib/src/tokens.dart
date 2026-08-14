@@ -26,3 +26,4 @@ part 'm3/tokens/elevation/elevation_shadows.dart';
 part 'm3/tokens/elevation/elevation.dart';
 part 'm3/tokens/typography/type_scale_token.dart';
 part 'm3/tokens/color/tonal_palette.dart';
+part 'm3/tokens/color/scheme_variant.dart';

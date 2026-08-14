@@ -103,4 +103,20 @@ abstract final class M3Contract {
   /// Prefer a constant from [M3ElevationDps], or the composite [M3Elevation]
   /// levels which pair a dp value with its matching shadows.
   static M3ElevationDpValue elevationDp(double dp) => M3ElevationDpValue._(dp);
+
+  /// Constructs an off-scale contrast level.
+  ///
+  /// Prefer a constant from [M3ContrastLevels]. Contrast is a user preference
+  /// surfaced by the platform, so an interpolated level is usually a bug —
+  /// legitimate uses are animating between two levels, or honouring a
+  /// finer-grained setting a platform exposes.
+  ///
+  /// Throws an [AssertionError] in debug mode if [level] is outside -1.0–1.0.
+  static M3ContrastLevelValue contrastLevel(double level) {
+    assert(
+      level >= -1.0 && level <= 1.0,
+      'Contrast level must be between -1.0 and 1.0, got $level.',
+    );
+    return M3ContrastLevelValue._(level);
+  }
 }

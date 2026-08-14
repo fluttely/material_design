@@ -158,6 +158,37 @@ last resort, it fights the user's accessibility setting), `responsiveDisplay`,
 
 ### 5. Color
 
+Build a scheme with the variant and contrast level as tokens rather than raw values:
+
+```dart
+final scheme = M3ColorSchemes.fromSeed(
+  seedColor: brandPurple,
+  variant: M3SchemeVariant.expressive,   // 9 spec variants
+  contrastLevel: M3ContrastLevels.high,  // reduced / standard / medium / high
+);
+
+// Better: follow the user's own contrast and brightness settings.
+final scheme = M3ColorSchemes.fromContext(context, seedColor: brandPurple);
+```
+
+Brand colors that must survive inside a seeded scheme get harmonized — a bounded hue
+shift in HCT, the spec algorithm, not an HSL approximation:
+
+```dart
+final green = M3ColorUtils.harmonize(brandGreen, scheme.primary);
+
+// Or as the four M3 custom-color roles, carried through the theme:
+ThemeData(extensions: [
+  M3ExtendedColors.of(
+    {'success': brandGreen, 'warning': brandAmber},
+    harmonizeWith: scheme.primary,
+    brightness: Brightness.light,
+  ),
+]);
+final success = M3ExtendedColors.from(context)['success']!;
+Text('Saved', style: TextStyle(color: success.onColorContainer));
+```
+
 Real HCT tonal palettes — the same math Material uses, via
 `material_color_utilities`:
 

@@ -16,6 +16,7 @@ import 'showcase_pages/foundations/accessibility_page.dart';
 import 'showcase_pages/foundations/adaptive_page.dart';
 import 'showcase_pages/foundations/interaction_page.dart';
 import 'showcase_pages/foundations/responsive_page.dart';
+import 'showcase_pages/styles/color_schemes_page.dart';
 import 'showcase_pages/styles/color_tokens_page.dart';
 import 'showcase_pages/styles/tonal_palette_page.dart';
 import 'showcase_pages/styles/elevation_tokens_page.dart';
@@ -107,6 +108,7 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
 
     // Styles - Visual design elements
     const ColorTokensPage(),
+    const ColorSchemesPage(),
     const TonalPalettePage(),
     const TypographyPage(),
     const ElevationPage(),
@@ -244,6 +246,11 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
         icon: Icon(Icons.format_paint_outlined),
         selectedIcon: Icon(Icons.format_paint),
         label: Text('Color'),
+      ),
+      NavigationRailDestination(
+        icon: Icon(Icons.gradient_outlined),
+        selectedIcon: Icon(Icons.gradient),
+        label: Text('Schemes'),
       ),
       NavigationRailDestination(
         icon: Icon(Icons.palette_outlined),
