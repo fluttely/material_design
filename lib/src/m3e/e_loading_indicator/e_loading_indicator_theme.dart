@@ -149,7 +149,7 @@ class M3ELoadingIndicatorTheme extends InheritedTheme {
   /// Typical usage is as follows:
   ///
   /// ```dart
-  /// M3ELoadingIndicatorThemeData? theme = M3ELoadingIndicatorTheme.of(context);
+  /// final theme = M3ELoadingIndicatorTheme.of(context);
   /// ```
   static M3ELoadingIndicatorThemeData? of(BuildContext context) {
     return context

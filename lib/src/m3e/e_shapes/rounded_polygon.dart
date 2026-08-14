@@ -27,9 +27,9 @@ class M3ERoundedPolygon {
         if ((cubic.anchor0X - prevCubic.anchor1X).abs() > _distanceEpsilon ||
             (cubic.anchor0Y - prevCubic.anchor1Y).abs() > _distanceEpsilon) {
           throw ArgumentError(
-            'M3ERoundedPolygon must be contiguous, with the anchor points of all '
-            'curves matching the anchor points of the preceding and succeeding '
-            'cubics.',
+            'M3ERoundedPolygon must be contiguous, with the anchor points '
+            'of all curves matching the anchor points of the preceding and '
+            'succeeding cubics.',
           );
         }
         prevCubic = cubic;
@@ -37,7 +37,8 @@ class M3ERoundedPolygon {
 
       return true;
     }(),
-        'M3ERoundedPolygon curves must be contiguous with matching anchor points');
+        'M3ERoundedPolygon curves must be contiguous with matching anchor '
+        'points');
   }
 
   /// This constructor takes the number of vertices in the resulting polygon.
@@ -288,12 +289,12 @@ class M3ERoundedPolygon {
   }
 
   /// Takes a list of [M3EFeature] objects that define the polygon's shape and
-  /// curves. By specifying the features directly, the summarization of [M3ECubic]
-  /// objects to curves can be precisely controlled. This affects [M3EMorph]'s
-  /// default mapping, as curves with the same type (convex or concave) are
-  /// mapped with each other. For example, if you have a convex curve in your
-  /// start polygon, [M3EMorph] will map it to another convex curve in the end
-  /// polygon.
+  /// curves. By specifying the features directly, the summarization of
+  /// [M3ECubic] objects to curves can be precisely controlled. This affects
+  /// [M3EMorph]'s default mapping, as curves with the same type (convex or
+  /// concave) are mapped with each other. For example, if you have a convex
+  /// curve in your start polygon, [M3EMorph] will map it to another convex
+  /// curve in the end polygon.
   ///
   /// The [centerX] and [centerY] parameters are optional. If not supplied,
   /// they will be estimated by calculating the average of all cubic anchor
@@ -374,8 +375,8 @@ class M3ERoundedPolygon {
 
     // Half of the angle between two adjacent vertices on the polygon.
     final theta = math.pi / numVertices;
-    // Radius of the underlying M3ERoundedPolygon object given the desired radius
-    // of the circle.
+    // Radius of the underlying M3ERoundedPolygon object given the desired
+    // radius of the circle.
     final polygonRadius = radius / math.cos(theta);
     return M3ERoundedPolygon.fromVerticesNum(
       numVertices,
@@ -393,7 +394,8 @@ class M3ERoundedPolygon {
   /// As with all [M3ERoundedPolygon] objects, if this shape is created with
   /// default dimensions and center, it is sized to fit within the 2x2
   /// bounding box around a center of (0, 0) and will need to be scaled and
-  /// moved using [M3ERoundedPolygon.transformed] to fit the intended area in a UI.
+  /// moved using [M3ERoundedPolygon.transformed] to fit the intended area in
+  /// a UI.
   ///
   /// [width] is the width of the rectangle, default value is 2.
   ///
@@ -582,17 +584,18 @@ class M3ERoundedPolygon {
     );
   }
 
-  /// A pillStar shape is like a [M3ERoundedPolygon.pill] except it has inner and
-  /// outer radii along its pill-shaped outline, just like a
+  /// A pillStar shape is like a [M3ERoundedPolygon.pill] except it has inner
+  /// and outer radii along its pill-shaped outline, just like a
   /// [M3ERoundedPolygon.star] has inner and outer radii along its circular
   /// outline. The parameters for a [M3ERoundedPolygon.pillStar] are similar to
-  /// those of a [M3ERoundedPolygon.star] except, like [M3ERoundedPolygon.pill], it
-  /// has a [width] and [height] to determine the general shape of the
-  /// underlying pill. Also, there is a subtle complication with the way that
-  /// inner and outer vertices proceed along the circular ends of the
-  /// shape, depending on the magnitudes of the [rounding], [innerRounding],
-  /// and [innerRadiusRatio] parameters. For example, a shape with outer
-  /// vertices that lie along the curved end outline will necessarily have
+  /// those of a [M3ERoundedPolygon.star] except, like
+  /// [M3ERoundedPolygon.pill], it has a [width] and [height] to determine the
+  /// general shape of the underlying pill. Also, there is a subtle
+  /// complication with the way that inner and outer vertices proceed along
+  /// the circular ends of the shape, depending on the magnitudes of the
+  /// [rounding], [innerRounding], and [innerRadiusRatio] parameters. For
+  /// example, a shape with outer vertices that lie along the curved end
+  /// outline will necessarily have
   /// inner vertices that are closer to each other, because of the curvature of
   /// that part of the shape. Conversely, if the inner vertices are lined up
   /// along the pill outline at the ends, then the outer vertices will be much
@@ -826,12 +829,14 @@ class M3ERoundedPolygon {
     }
   }
 
-  /// Transforms (scales/translates/etc.) this [M3ERoundedPolygon] with the given
-  /// [M3EPointTransformer] and returns a new [M3ERoundedPolygon]. This is a low
-  /// level API and there should be more platform idiomatic ways to transform
-  /// a [M3ERoundedPolygon] provided by the platform specific wrapper.
+  /// Transforms (scales/translates/etc.) this [M3ERoundedPolygon] with the
+  /// given [M3EPointTransformer] and returns a new [M3ERoundedPolygon]. This
+  /// is a low level API and there should be more platform idiomatic ways to
+  /// transform a [M3ERoundedPolygon] provided by the platform specific
+  /// wrapper.
   ///
-  /// [f] is the [M3EPointTransformer] used to transform this [M3ERoundedPolygon].
+  /// [f] is the [M3EPointTransformer] used to transform this
+  /// [M3ERoundedPolygon].
   M3ERoundedPolygon transformed(M3EPointTransformer f) {
     final center = this.center.transformed(f);
     return M3ERoundedPolygon._(
@@ -1017,8 +1022,8 @@ M3EPoint _calculateCenter(List<double> vertices) {
 /// parameter.
 ///
 /// If rounding is null, there is no rounding; the corner will simply be a
-/// single point at [p1]. This point will be represented by a [M3ECubic] of length
-/// 0 at that point.
+/// single point at [p1]. This point will be represented by a [M3ECubic] of
+/// length 0 at that point.
 ///
 /// If rounding is not null, the corner will be rounded either with a curve
 /// approximating a circular arc of the radius specified in [rounding], or with

@@ -11,7 +11,7 @@ part of '../../expressive.dart';
 ///
 /// ### Basic Geometric Shapes
 /// - [circle], [square], [triangle], [diamond], [oval]
-/// - [rectangle], [pentagon], [arch], [semiCircle]
+/// - [M3ERoundedPolygon.rectangle], [pentagon], [arch], [semiCircle]
 ///
 /// ### Expressive & Organic Shapes
 /// - [heart], [flower], [ghostish], [bun]
@@ -147,7 +147,7 @@ abstract final class M3EShapes {
       .transformed(
         (Matrix4.identity()
               ..rotateZ(_negative45Radians)
-              ..scale(1.0, 0.64))
+              ..scaleByDouble(1, 0.64, 1, 1))
             .asPointTransformer(),
       )
       .normalized();
@@ -538,7 +538,8 @@ abstract final class M3EShapes {
     mirroring: true,
   )
       .transformed(
-        (Matrix4.identity()..scale(1.0, 0.742)).asPointTransformer(),
+        (Matrix4.identity()..scaleByDouble(1, 0.742, 1, 1))
+            .asPointTransformer(),
       )
       .normalized();
 

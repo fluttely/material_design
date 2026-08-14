@@ -149,9 +149,9 @@ int _binarySearchBy<E, K>(
   int start = 0,
   int? end,
 ]) {
-  end = RangeError.checkValidRange(start, end, sortedList.length);
+  final checkedEnd = RangeError.checkValidRange(start, end, sortedList.length);
   var min = start;
-  var max = end;
+  var max = checkedEnd;
   final key = value;
   while (min < max) {
     final mid = min + ((max - min) >> 1);
@@ -267,10 +267,10 @@ extension M3EMorphToPath on M3EMorph {
   ///
   /// [rotationPivotX] is the rotation pivot on the X axis. By default it's set
   /// to 0, and that should align with M3EMorph instances that were created for
-  /// [M3ERoundedPolygon] with zero centerX. In case the [M3ERoundedPolygon] were
-  /// normalized (i. e. moved to (0.5, 0.5)), or where created with a different
-  /// centerX coordinated, this pivot point may need to be aligned to support a
-  /// proper rotation.
+  /// [M3ERoundedPolygon] with zero centerX. In case the [M3ERoundedPolygon]
+  /// were normalized (i. e. moved to (0.5, 0.5)), or where created with a
+  /// different centerX coordinated, this pivot point may need to be aligned
+  /// to support a proper rotation.
   ///
   /// [rotationPivotY] is the rotation pivot on the Y axis. By default it's set
   /// to 0, and that should align with M3EMorph instances that were created for
@@ -331,6 +331,7 @@ Path _pathFromCubics({
 }) {
   var first = true;
   M3ECubic? firstCubic;
+  var result = path;
 
   path.reset();
 
@@ -382,7 +383,7 @@ Path _pathFromCubics({
       cubics[0].anchor0X - rotationPivotX,
     );
     // Rotate the Path to to start from the given angle.
-    path = path.transform(
+    result = path.transform(
       (Matrix4.identity()
             ..rotateZ(
               -angleToFirstCubic + (startAngle * math.pi / 180),
@@ -391,5 +392,5 @@ Path _pathFromCubics({
     );
   }
 
-  return path;
+  return result;
 }

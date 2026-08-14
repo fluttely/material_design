@@ -90,8 +90,9 @@ class M3ECubic {
   /// smallest of the two possible arcs around the entire 360-degree circle.
   /// Arcs of greater than 180 degrees should use more than one arc together.
   /// Note that p0 and p1 should be equidistant from the center.
-  // TODO(material_design): consider a more general function (maybe in addition to this) that
-  // allows caller to get a list of curves surpassing 180 degrees.
+  // TODO(fluttely): consider a more general function (maybe in addition to
+  // this one) that lets the caller get a list of curves surpassing 180
+  // degrees, so callers do not have to stitch the arcs themselves.
   factory M3ECubic.circularArc(
     double centerX,
     double centerY,
@@ -319,7 +320,6 @@ class M3ECubic {
 
   /// Returns two Cubics, created by splitting this curve at the given
   /// distance of [t] between the original starting and ending anchor points.
-  // TODO(material_design): cartesian optimization?
   (M3ECubic, M3ECubic) split(double t) {
     final u = 1 - t;
     final point = pointOnCurve(t);
@@ -336,7 +336,6 @@ class M3ECubic {
         point.y,
       ),
       M3ECubic(
-        // TODO(material_design): should calculate once and share the result.
         point.x,
         point.y,
         control0X * (u * u) + control1X * (2 * u * t) + anchor1X * (t * t),

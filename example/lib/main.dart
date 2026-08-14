@@ -692,7 +692,104 @@ class _MotionSectionState extends State<_MotionSection> {
           '${M3Motion.durationFor(M3MotionDistance.long).inMilliseconds}ms',
           style: M3TypeScale.bodyMedium,
         ),
+        const M3Gap(M3Spacings.s24),
+        Text(
+          'M3 Expressive springs are the physics-based alternative: '
+          'interruptible and velocity-aware. Tap to launch both.',
+          style: M3TypeScale.bodyMedium,
+        ),
+        const M3Gap(M3Spacings.s8),
+        const _SpringDemo(),
       ],
+    );
+  }
+}
+
+/// Runs the same distance under a bouncy spatial spring and a critically
+/// damped effects spring, so the difference is visible rather than described.
+class _SpringDemo extends StatefulWidget {
+  const _SpringDemo();
+
+  @override
+  State<_SpringDemo> createState() => _SpringDemoState();
+}
+
+class _SpringDemoState extends State<_SpringDemo>
+    with TickerProviderStateMixin {
+  late final AnimationController _spatial = AnimationController.unbounded(
+    vsync: this,
+  );
+  late final AnimationController _effects = AnimationController.unbounded(
+    vsync: this,
+  );
+
+  @override
+  void dispose() {
+    _spatial.dispose();
+    _effects.dispose();
+    super.dispose();
+  }
+
+  void _run() {
+    for (final (controller, spring) in <(AnimationController, M3ESpring)>[
+      // Spatial springs move things and are allowed to overshoot.
+      (_spatial, M3MotionScheme.expressive.spatial(M3MotionSpeed.fast)),
+      // Effects springs change color/opacity and never overshoot.
+      (_effects, M3MotionScheme.expressive.effects(M3MotionSpeed.standard)),
+    ]) {
+      final from = controller.value > 0.5 ? 1.0 : 0.0;
+      controller
+        ..value = from
+        ..animateWith(
+          spring.simulation(start: from, end: 1 - from),
+        );
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
+    return GestureDetector(
+      onTap: _run,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          for (final (label, controller, bouncy)
+              in <(String, AnimationController, bool)>[
+            ('spatial · fast — overshoots', _spatial, true),
+            ('effects · standard — never overshoots', _effects, false),
+          ]) ...[
+            Text(label, style: M3TypeScale.labelMedium),
+            const M3Gap(M3Spacings.s4),
+            SizedBox(
+              height: M3Spacings.s40,
+              child: AnimatedBuilder(
+                animation: controller,
+                builder: (context, child) => Align(
+                  // Values outside 0..1 are exactly the overshoot.
+                  alignment: Alignment(
+                    (controller.value.clamp(-0.2, 1.2) * 2) - 1,
+                    0,
+                  ),
+                  child: child,
+                ),
+                child: Container(
+                  width: M3Spacings.s32,
+                  height: M3Spacings.s32,
+                  decoration: M3BoxDecoration(
+                    color: bouncy
+                        ? colorScheme.primary
+                        : colorScheme.tertiaryContainer,
+                    borderRadius: M3BorderRadius.full,
+                  ),
+                ),
+              ),
+            ),
+            const M3Gap(M3Spacings.s8),
+          ],
+        ],
+      ),
     );
   }
 }

@@ -20,7 +20,8 @@ part of '../../expressive.dart';
 /// See <https://m3.material.io/styles/shape/shape-scale-tokens>.
 @experimental
 class M3EMorph {
-  /// Creates a [M3EMorph] that can animate between the [start] and [end] polygons.
+  /// Creates a [M3EMorph] that can animate between the [start] and [end]
+  /// polygons.
   ///
   /// The constructor analyzes both polygons and creates a mapping between their
   /// curves to enable smooth animation. The mapping process aligns similar
@@ -48,9 +49,9 @@ class M3EMorph {
   /// one to one in each pair.
   late final List<(M3ECubic, M3ECubic)> _morphMatch;
 
-  /// [_match], called at [M3EMorph] construction time, creates the structure used
-  /// to animate between the start and end shapes. The technique is to match
-  /// geometry (curves) between the shapes when and where possible, and to
+  /// [_match], called at [M3EMorph] construction time, creates the structure
+  /// used to animate between the start and end shapes. The technique is to
+  /// match geometry (curves) between the shapes when and where possible, and to
   /// create new/placeholder curves when necessary (when one of the shapes has
   /// more curves than the other). The result is a list of pairs of M3ECubic
   /// curves. Those curves are the matched pairs: the first of each pair holds
@@ -104,8 +105,8 @@ class M3EMorph {
     // Match.
     // Now we can compare the two lists of measured cubics and create a list of
     // pairs of cubics [ret], which are the start/end curves that represent the
-    // M3EMorph object and the start and end shapes, and which can be interpolated
-    // to animate the between those shapes.
+    // M3EMorph object and the start and end shapes, and which can be
+    // interpolated to animate the between those shapes.
     final ret = <(M3ECubic, M3ECubic)>[];
     // i1/i2 are the indices of the current cubic on the start (1) and end (2)
     // shapes.

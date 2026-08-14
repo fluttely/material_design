@@ -139,7 +139,7 @@ class M3ELoadingIndicator extends StatefulWidget {
   /// The semantic label for this loading indicator.
 
   /// This value is read aloud to describe the indicator’s purpose.
-  /// It corresponds to [SemanticsProperties.label].
+  /// It corresponds to `SemanticsProperties.label`.
   final String? semanticsLabel;
 
   /// A list of [M3ERoundedPolygon]s for the sequence of shapes this loading

@@ -31,17 +31,47 @@ typedef M3EPointTransformer = (double, double) Function(double x, double y);
 @experimental
 @immutable
 class M3EPoint {
+  /// Creates a point at ([x], [y]) in the shape's own coordinate space.
   const M3EPoint(this.x, this.y);
+
+  /// The origin of the shape coordinate space, `(0, 0)`.
+  ///
+  /// Doubles as the zero vector, and is the default pivot of [rotate].
   static const zero = M3EPoint(0, 0);
 
+  /// The horizontal coordinate, increasing to the right.
+  ///
+  /// Expressed in the shape's own coordinate space — for the polygons built by
+  /// this module that is usually the unit square `(0, 0)`–`(1, 1)` after
+  /// [M3ERoundedPolygon.normalized], or a circle of radius 1 centred on the
+  /// origin before it — never logical pixels.
   final double x;
 
+  /// The vertical coordinate, increasing downwards.
+  ///
+  /// Shares the coordinate space described on [x]. The downwards-positive
+  /// convention matches Flutter's canvas, so a positive rotation angle turns
+  /// clockwise on screen.
   final double y;
 
+  /// Returns a point with the same coordinates as this one.
+  ///
+  /// [M3EPoint] is immutable, so this is only useful when porting upstream
+  /// code that relies on a distinct instance.
   M3EPoint copy() => M3EPoint(x, y);
 
+  /// Returns this vector turned a quarter turn about the origin.
+  ///
+  /// The turn is clockwise on screen, matching the downwards-positive [y] of
+  /// the coordinate space. Used to build the corner normals that the rounding
+  /// arcs are laid out along.
   M3EPoint rotate90() => M3EPoint(-y, x);
 
+  /// Returns this point rotated by [degrees] about [center].
+  ///
+  /// [degrees] is measured in degrees, positive turning clockwise on screen.
+  /// [center] is the pivot, in the same coordinate space as this point, and
+  /// defaults to the origin.
   M3EPoint rotate(double degrees, {M3EPoint center = M3EPoint.zero}) {
     final radians = degrees * math.pi / 180;
     final off = this - center;
@@ -54,12 +84,27 @@ class M3EPoint {
         center;
   }
 
+  /// Returns this point moved by [dx] horizontally and [dy] vertically.
+  ///
+  /// Both offsets are in the shape's coordinate space, not logical pixels.
   M3EPoint translate(double dx, double dy) => M3EPoint(x + dx, y + dy);
 
+  /// Returns this point scaled about the origin by [sx] and [sy].
+  ///
+  /// Scaling is anisotropic: pass different factors to squash a shape along
+  /// one axis, as the built-in oval and pill do.
   M3EPoint scale(double sx, double sy) => M3EPoint(x * sx, y * sy);
 
-  double get angleDegrees => angleRadians * math.pi / 180;
+  /// The direction of this vector from the origin, in degrees.
+  ///
+  /// Measured counter-clockwise from the positive x-axis, in the range
+  /// (-180, 180].
+  double get angleDegrees => angleRadians * 180 / math.pi;
 
+  /// The direction of this vector from the origin, in radians.
+  ///
+  /// Measured from the positive x-axis, growing clockwise on screen, in the
+  /// range `(-pi, pi]`. Zero for the zero vector.
   double get angleRadians => math.atan2(y, x);
 
   /// The magnitude of the [M3EPoint], which is the distance of this point from
@@ -76,8 +121,17 @@ class M3EPoint {
   /// This is cheaper than computing the [getDistance] itself.
   double getDistanceSquared() => x * x + y * y;
 
+  /// The dot product of this vector and [other].
+  ///
+  /// Zero when the two are perpendicular, positive when they point the same
+  /// way. The shape engine uses the sign to tell whether a corner's rounding
+  /// arc runs with or against an edge.
   double dotProduct(M3EPoint other) => x * other.x + y * other.y;
 
+  /// The dot product of this vector and the vector ([otherX], [otherY]).
+  ///
+  /// Same result as [dotProduct], without allocating a [M3EPoint] for the
+  /// operand — it is called from the inner loops of the morph.
   double dotProductXY(double otherX, double otherY) => x * otherX + y * otherY;
 
   /// Compute the Z coordinate of the cross product of two vectors, to check
@@ -86,6 +140,9 @@ class M3EPoint {
   /// are co-linear.
   bool clockwise(M3EPoint other) => (x * other.y - y * other.x) > 0;
 
+  /// Returns this vector normalized to unit length.
+  ///
+  /// Asserts in debug mode if this is the zero vector, which has no direction.
   M3EPoint getDirection() {
     final d = getDistance();
     assert(d > 0, "Can't get the direction of a 0-length vector");
@@ -96,8 +153,8 @@ class M3EPoint {
   ///
   /// Returns a [M3EPoint] with the coordinates negated.
   ///
-  /// If the [M3EPoint] represents an arrow on a plane, this operator returns the
-  /// same arrow but pointing in the reverse direction.
+  /// If the [M3EPoint] represents an arrow on a plane, this operator returns
+  /// the same arrow but pointing in the reverse direction.
   M3EPoint operator -() => M3EPoint(-x, -y);
 
   /// Binary subtraction operator.
@@ -137,6 +194,11 @@ class M3EPoint {
   /// right-hand-side operand (a [double]).
   M3EPoint operator %(double operand) => M3EPoint(x % operand, y % operand);
 
+  /// Returns this point mapped through [f].
+  ///
+  /// The result stays in whatever coordinate space [f] maps into; nothing here
+  /// re-normalizes it. This is the per-point primitive behind
+  /// [M3ECubic.transformed] and [M3ERoundedPolygon.transformed].
   M3EPoint transformed(M3EPointTransformer f) {
     final result = f(x, y);
     return M3EPoint(result.$1, result.$2);

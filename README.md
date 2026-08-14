@@ -242,6 +242,24 @@ AnimatedContainer(
 );
 ```
 
+**Springs (M3 Expressive, experimental).** M3 Expressive added a physics model
+alongside durations: springs are interruptible and velocity-aware, so a gesture handed
+off mid-flight continues instead of restarting.
+
+```dart
+// Pick a scheme once; select by intent, never by number.
+final spring = M3MotionScheme.expressive.spatial(M3MotionSpeed.fast);
+
+controller.animateWith(
+  spring.simulation(start: controller.value, end: 1, velocity: flingVelocity),
+);
+AnimatedContainer(/* … */); // or hand `spring.description` to a physics widget
+```
+
+`spatial()` springs move things and may overshoot; `effects()` springs change color
+and opacity and never do. Schemes: `M3MotionScheme.expressive` (Material's default)
+and `.standard` (utilitarian, minimal bounce). Speeds: `slow`, `standard`, `fast`.
+
 Schemes: `emphasized`, `emphasizedIncoming`, `emphasizedOutgoing`, `standard`,
 `standardIncoming`, `standardOutgoing`, `linear`. For `const` contexts use the flat
 aliases (`M3Motion.emphasizedDuration`). Pick by intent with

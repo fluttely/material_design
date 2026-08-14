@@ -1,17 +1,19 @@
 part of '../../expressive.dart';
 
-/// While a polygon's shape can be drawn solely using a list of [M3ECubic] objects
-/// representing its raw curves and lines, features add an extra layer of
-/// context to groups of cubics. Features group cubics into (straight) edges,
-/// convex corners, or concave corners. For example, rounding a rectangle adds
+/// While a polygon's shape can be drawn solely using a list of [M3ECubic]
+/// objects representing its raw curves and lines, features add an extra
+/// layer of context to groups of cubics. Features group cubics into
+/// (straight) edges, convex corners, or concave corners. For example,
+/// rounding a rectangle adds
 /// many cubics around its edges, but the rectangle's overall number of corners
-/// remains the same. [M3EMorph] therefore uses this grouping for several reasons:
+/// remains the same. [M3EMorph] therefore uses this grouping for several
+/// reasons:
 ///   - Noise Reduction: Grouping cubics reduces the amount of noise introduced
 ///     by individual cubics (as seen in the rounded rectangle example).
-///   - Mapping Base: The grouping serves as the base set for [M3EMorph]'s mapping
-///     process.
-///   - Curve Type Mapping: [M3EMorph] maps similar curve types (convex, concave)
-///     together. Note that edges or features created with
+///   - Mapping Base: The grouping serves as the base set for [M3EMorph]'s
+///     mapping process.
+///   - Curve Type Mapping: [M3EMorph] maps similar curve types (convex,
+///     concave) together. Note that edges or features created with
 ///     [M3EFeature.buildIgnorableFeature] are ignored in the default mapping.
 ///
 /// By using features, you can manipulate polygon shapes with more context and
@@ -38,10 +40,11 @@ abstract class M3EFeature {
   /// matching.
   ///
   /// For example, given a 12-pointed star, marking all concave corners as
-  /// ignorable will create a [M3EMorph] that only considers the outer corners of
-  /// the star. As a result, depending on the morphed to shape, the animation
-  /// may have fewer intersections and rotations. Another example for the other
-  /// way around is a [M3EMorph] between a pointed up triangle to a square.
+  /// ignorable will create a [M3EMorph] that only considers the outer corners
+  /// of the star. As a result, depending on the morphed to shape, the
+  /// animation may have fewer intersections and rotations. Another example
+  /// for the other way around is a [M3EMorph] between a pointed up triangle
+  /// to a square.
   /// Marking the square's top edge as a convex corner matches it to the
   /// triangle's upper corner. Instead of moving triangle's upper corner to one
   /// of rectangle's corners, the animation now splits the triangle to match
@@ -114,14 +117,14 @@ abstract class M3EFeature {
   /// Whether this M3EFeature is a corner.
   bool get isCorner;
 
-  /// Whether this M3EFeature is a convex corner (outward indentation in a shape).
+  /// Whether this feature is a convex corner (outward indentation in a shape).
   bool get isConvexCorner;
 
-  /// Whether this M3EFeature is a concave corner (inward indentation in a shape).
+  /// Whether this feature is a concave corner (inward indentation in a shape).
   bool get isConcaveCorner;
 
-  /// Transforms the points in this [M3EFeature] with the given [M3EPointTransformer]
-  /// and returns a new [M3EFeature].
+  /// Transforms the points in this [M3EFeature] with the given
+  /// [M3EPointTransformer] and returns a new [M3EFeature].
   M3EFeature transformed(M3EPointTransformer f);
 
   /// Returns a new [M3EFeature] with the points that define the shape of this
@@ -220,8 +223,9 @@ class M3ECornerFeature extends M3EFeature {
           _cubics.length,
           (i) => _cubics[_cubics.length - 1 - i].reverse(),
         ),
-        // TODO: b/369320447 - Revert flag negation when [M3ERoundedPolygon]
-        // ignores orientation for setting the flag.
+        // TODO(fluttely): upstream b/369320447 — drop this negation once
+        // M3ERoundedPolygon ignores orientation when setting the convex flag;
+        // until then reversing a feature has to flip it by hand.
         convex: !convex,
       );
 

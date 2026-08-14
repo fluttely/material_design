@@ -22,6 +22,7 @@ import 'showcase_pages/styles/tonal_palette_page.dart';
 import 'showcase_pages/styles/elevation_tokens_page.dart';
 import 'showcase_pages/styles/motion_page.dart';
 import 'showcase_pages/styles/shape_page.dart';
+import 'showcase_pages/styles/spring_page.dart';
 import 'showcase_pages/styles/typography_page.dart';
 import 'showcase_pages/widgets/utils_page.dart';
 import 'theme_provider.dart';
@@ -114,6 +115,7 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
     const ElevationPage(),
     const ShapePage(),
     const MotionPage(),
+    const SpringPage(),
 
     // Utilities
     const UtilsPage(),
@@ -276,6 +278,11 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
         icon: Icon(Icons.animation_outlined),
         selectedIcon: Icon(Icons.animation),
         label: Text('Motion'),
+      ),
+      NavigationRailDestination(
+        icon: Icon(Icons.waves_outlined),
+        selectedIcon: Icon(Icons.waves),
+        label: Text('Springs'),
       ),
     ];
   }

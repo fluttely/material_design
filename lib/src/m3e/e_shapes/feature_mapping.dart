@@ -168,8 +168,9 @@ class _MappingHelper {
 /// different shapes. This information is used to determine how to map features
 /// (and the curves that make up those features).
 double _featureDistSquared(M3EFeature f1, M3EFeature f2) {
-  // TODO: We might want to enable concave-convex matching in some situations.
-  // If so, the approach below will not work
+  // TODO(fluttely): we might want to enable concave-convex matching in some
+  // situations; the maxFinite guard below hard-blocks it, so that approach
+  // would have to be replaced rather than relaxed.
   if (f1 is M3ECornerFeature &&
       f2 is M3ECornerFeature &&
       f1.convex != f2.convex) {
@@ -182,7 +183,9 @@ double _featureDistSquared(M3EFeature f1, M3EFeature f2) {
       .getDistanceSquared();
 }
 
-// TODO: b/378441547 - Move to explicit parameter / expose?
+// TODO(fluttely): upstream b/378441547 — make the representative point an
+// explicit parameter, or expose it, so callers can pick their own instead of
+// always using the midpoint of the feature's end anchors.
 M3EPoint _featureRepresentativePoint(M3EFeature feature) {
   final cubics = feature.cubics;
   final x = (cubics.first.anchor0X + cubics.last.anchor1X) / 2;

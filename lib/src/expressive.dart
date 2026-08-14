@@ -8,9 +8,9 @@
 ///
 /// Everything this module exports is prefixed with `M3E` (`M3EPoint`,
 /// `M3ECubic`, `M3ERoundedPolygon`, `M3EMorph`, `M3EShapes`, …). The package
-/// is re-exported wholesale from `package:material_design/material_design.dart`,
-/// so the prefix is what keeps generic geometry names such as `Point`, `Cubic`
-/// or `Morph` out of your root namespace. Anything without the prefix is an
+/// is re-exported wholesale from `material_design.dart`, so the prefix is
+/// what keeps generic geometry names such as `Point`, `Cubic` or `Morph` out
+/// of your root namespace. Anything without the prefix is an
 /// implementation detail and is library-private: because the module is one
 /// library assembled from `part` files, a leading underscore hides a name from
 /// the whole package while still letting every part use it.
