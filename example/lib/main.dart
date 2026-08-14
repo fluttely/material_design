@@ -952,15 +952,20 @@ class _ExpressiveSection extends StatelessWidget {
                 height: M3Spacings.s64,
                 child: M3ELoadingIndicator.contained(),
               ),
+              // M3EShapeBorder puts a polygon anywhere Flutter takes a
+              // ShapeBorder — no CustomPainter needed.
               for (final shape in [
                 M3EShapes.sunny,
                 M3EShapes.cookie7Sided,
                 M3EShapes.flower,
                 M3EShapes.heart,
               ])
-                CustomPaint(
-                  size: const Size.square(M3Spacings.s48),
-                  painter: _PolygonPainter(shape, colorScheme.primary),
+                SizedBox.square(
+                  dimension: M3Spacings.s48,
+                  child: Material(
+                    shape: M3EShapeBorder(shape),
+                    color: colorScheme.primary,
+                  ),
                 ),
             ],
             M3Spacings.s16,
@@ -969,27 +974,6 @@ class _ExpressiveSection extends StatelessWidget {
       ],
     );
   }
-}
-
-/// Draws a normalized (unit-space) [M3ERoundedPolygon] scaled to the canvas.
-class _PolygonPainter extends CustomPainter {
-  const _PolygonPainter(this.polygon, this.color);
-
-  final M3ERoundedPolygon polygon;
-  final Color color;
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final matrix = Matrix4.diagonal3Values(size.width, size.height, 1);
-    canvas.drawPath(
-      polygon.toPath().transform(matrix.storage),
-      Paint()..color = color,
-    );
-  }
-
-  @override
-  bool shouldRepaint(_PolygonPainter oldDelegate) =>
-      oldDelegate.polygon != polygon || oldDelegate.color != color;
 }
 
 // ═════════════════════════════════════════════════════════════════════════

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:material_design/material_design.dart';
 import 'package:material_design_demo/showcase_pages/foundations/border_tokens_page.dart';
 import 'package:material_design_demo/showcase_pages/foundations/breakpoint_tokens_page.dart';
+import 'package:material_design_demo/showcase_pages/foundations/component_tokens_page.dart';
 import 'package:material_design_demo/showcase_pages/foundations/icon_size_tokens_page.dart';
 import 'package:material_design_demo/showcase_pages/foundations/opacity_tokens_page.dart';
 import 'package:material_design_demo/showcase_pages/foundations/spacing_tokens_page.dart';
@@ -101,6 +102,7 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
     const ZIndexTokensPage(),
     const BorderTokensPage(),
     const IconSizeTokensPage(),
+    const ComponentTokensPage(),
     const OpacityTokensPage(),
     const AccessibilityPage(),
     const AdaptivePage(),
@@ -208,6 +210,11 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
         icon: Icon(Icons.photo_size_select_small_outlined),
         selectedIcon: Icon(Icons.photo_size_select_small),
         label: Text('Icon Sizes'),
+      ),
+      NavigationRailDestination(
+        icon: Icon(Icons.widgets_outlined),
+        selectedIcon: Icon(Icons.widgets),
+        label: Text('Components'),
       ),
       NavigationRailDestination(
         icon: Icon(Icons.opacity_outlined),

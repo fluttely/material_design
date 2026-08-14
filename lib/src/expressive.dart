@@ -48,5 +48,6 @@ part 'm3e/e_shapes/rounded_polygon.dart';
 part 'm3e/e_shapes/shapes.dart';
 part 'm3e/e_shapes/e_shapes.dart';
 part 'm3e/e_shapes/morph.dart';
+part 'm3e/e_shapes/shape_border.dart';
 part 'm3e/e_loading_indicator/e_loading_indicator_theme.dart';
 part 'm3e/e_loading_indicator/e_loading_indicator.dart';

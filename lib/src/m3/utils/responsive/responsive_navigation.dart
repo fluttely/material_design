@@ -26,9 +26,13 @@ class M3ResponsiveNavigation {
   }
 
   /// Gets the recommended navigation rail width.
-  static double getRailWidth({required bool extended}) {
-    return extended ? 256.0 : 80.0;
-  }
+  ///
+  /// Returns an [M3SpacingValue] from [M3NavigationSizes] rather than a bare
+  /// double: these were inlined magic numbers until the component token layer
+  /// landed in 1.6.0.
+  static M3SpacingValue getRailWidth({required bool extended}) => extended
+      ? M3NavigationSizes.extendedRailWidth
+      : M3NavigationSizes.railWidth;
 }
 
 /// Navigation types for different window size classes.

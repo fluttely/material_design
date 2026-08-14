@@ -301,6 +301,23 @@ bundles static helpers: `responsiveLayout`, `adaptivePadding`, `adaptiveNavigati
 `showAdaptiveDialog` (fullscreen on phones, dialog on desktop), `showAdaptiveSheet`
 (bottom sheet ↔ side panel), `adaptiveButton` (48dp touch / 32dp mouse targets).
 
+### 8b. Component measurements
+
+The spec's per-component numbers, so a custom control lands on the same
+measurements as the built-in one beside it. **Values only** — this package does not
+ship M3 components; Flutter's Material library owns those.
+
+```dart
+M3ButtonHeights.medium;              // 56dp — the five Expressive size classes
+M3FabSizes.standard;                 // 56dp
+M3AppBarHeights.large;               // 152dp
+M3NavigationSizes.extendedRailWidth; // 256dp
+M3ListItemHeights.twoLine;           // 72dp
+```
+
+Note that `M3ButtonHeights.extraSmall` (32dp) and `.small` (40dp) are *visual*
+heights below the 48dp touch minimum — expand the tap area, not the box.
+
 ### 9. Accessibility
 
 ```dart
@@ -325,9 +342,21 @@ the analyzer will tell you when you opt in.
   `M3ERoundedPolygon`s, plus `M3EMorph` for shape-to-shape animation and `toPath()`
   to draw them.
 
+- **`M3EShapeBorder`** — puts those shapes anywhere Flutter takes a `ShapeBorder`,
+  and **morphs for free**: lerping two of them runs the real morph algorithm rather
+  than crossfading outlines, so any implicit animation morphs.
+
 ```dart
 // ignore_for_file: experimental_member_use
-CustomPaint(painter: MyPainter(M3EShapes.cookie7Sided));
+Card(shape: M3EShapeBorder(M3EShapes.cookie7Sided));
+
+AnimatedContainer(
+  duration: M3Motion.emphasized.duration,
+  decoration: ShapeDecoration(
+    color: color,
+    shape: M3EShapeBorder(expanded ? M3EShapes.burst : M3EShapes.circle),
+  ),
+);
 ```
 
 ---

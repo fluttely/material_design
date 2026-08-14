@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:material_design/material_design.dart';
 import 'package:material_design_demo/m3_expressive/loading_indicator/main.dart';
 import 'package:material_design_demo/m3_expressive/new_shapes/shapes_preview.dart';
+import 'package:material_design_demo/m3_expressive/shape_border/shape_border_showcase.dart';
 
 class M3ExpressivePage extends StatelessWidget {
   const M3ExpressivePage({super.key});
@@ -38,6 +39,17 @@ class M3ExpressivePage extends StatelessWidget {
             ),
             const M3Gap(M3Spacings.s16),
             const ShapesPreview(),
+            const M3Gap(M3Spacings.s32),
+            Text('Shapes as Borders', style: textTheme.headlineSmall),
+            const M3Gap(M3Spacings.s8),
+            Text(
+              'M3EShapeBorder turns the shape library into an OutlinedBorder, '
+              'so a Material, a Card or a ShapeDecoration can wear an '
+              'Expressive shape — and morph between two of them.',
+              style: textTheme.bodyMedium,
+            ),
+            const M3Gap(M3Spacings.s16),
+            const ShapeBorderShowcase(),
           ],
         ),
       ),

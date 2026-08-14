@@ -30,3 +30,4 @@ part 'm3/tokens/typography/type_scale_token.dart';
 part 'm3/tokens/typography/emphasized_type_scale.dart';
 part 'm3/tokens/color/tonal_palette.dart';
 part 'm3/tokens/color/scheme_variant.dart';
+part 'm3/tokens/component/component_tokens.dart';
