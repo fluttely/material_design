@@ -29,7 +29,7 @@ class BorderTokensPage extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        LaunchURLText(label: 'M3BorderWidths | M3BorderWidthToken'),
+        LaunchURLText(label: 'M3BorderWidths'),
         Icon(Icons.keyboard_arrow_down_rounded),
         LaunchURLText(label: 'M3BorderSide'),
         Icon(Icons.keyboard_arrow_down_rounded),

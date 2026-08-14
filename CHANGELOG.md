@@ -4,6 +4,43 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 1.0.1
+
+The three consumer-facing surfaces — README, `example/`, and the hosted demo — had
+drifted apart, and the demo still carried pre-1.0 artifacts (UI headings naming
+deleted `M3*Token` enums, commented-out code calling removed APIs, an Expressive page
+that overflowed its own constraints). This release aligns the triad around one
+canonical section order and cleans the demo up to the API it showcases. No library
+code changed.
+
+### 📚 Documentation
+
+- **README rewritten to be direct**: leads with the before/after table and a quick
+  start; the API tour now covers every exported family (adaptive helpers,
+  accessibility, `M3EdgeInsetsPatterns`, `M3GapUtils`, the Expressive namespace
+  caveat) in a fixed section order shared with the example and the demo. The
+  showcase snippet is unchanged and still compiled by `test/readme_showcase_test.dart`.
+- **`example/lib/main.dart` rebuilt as a guided tour**: still deliberately a single
+  copy-pasteable file, now organized into the same 11 numbered sections as the
+  README, exercising each family with only package tokens — including `M3Contract`,
+  which the old example never showed.
+- **Demo aligned with the 1.0 API**: stale `M3*Token` names removed from headings,
+  dead pages and commented-out legacy blocks deleted, the Expressive page rebuilt
+  (loading indicators no longer overflow; the 35-shape morphing preview is finally
+  enabled, re-themed to the ambient color scheme), and new showcases added for the
+  responsive widgets, `M3Accessibility`, and `M3Contract`. Navigation now reads
+  Foundations / Styles / Utilities / Expressive.
+- **`CLAUDE.md` expanded into the project constitution**: contract philosophy, module
+  graph, the README ↔ example ↔ demo triad rule with its canonical section order,
+  commit/changelog/versioning conventions, and verification steps.
+
+### 🧹 Chore
+
+- **Demo metadata caught up with reality**: pubspec description and SDK floor
+  (Dart `>=3.6.0`, Flutter `>=3.27.0`, matching the package), a real README, proper
+  web titles/manifest, and removal of the broken `deploy.sh` (deploys go through
+  `.github/workflows/deploy-demo.yml`).
+
 ## 1.0.0
 
 First stable release of the design contract. See the `1.0.0-dev` series for the change-by-change history, and the migration guide below for moving from `0.28.x`.

@@ -15,6 +15,7 @@ import 'color_picker.dart';
 import 'showcase_pages/foundations/accessibility_page.dart';
 import 'showcase_pages/foundations/adaptive_page.dart';
 import 'showcase_pages/foundations/interaction_page.dart';
+import 'showcase_pages/foundations/responsive_page.dart';
 import 'showcase_pages/styles/color_tokens_page.dart';
 import 'showcase_pages/styles/tonal_palette_page.dart';
 import 'showcase_pages/styles/elevation_tokens_page.dart';
@@ -101,6 +102,7 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
     const OpacityTokensPage(),
     const AccessibilityPage(),
     const AdaptivePage(),
+    const ResponsivePage(),
     const InteractionPage(),
 
     // Styles - Visual design elements
@@ -111,8 +113,10 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
     const ShapePage(),
     const MotionPage(),
 
-    // Components and Utilities
+    // Utilities
     const UtilsPage(),
+
+    // Expressive
     const M3ExpressivePage(),
   ];
 
@@ -217,6 +221,11 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
         label: Text('Adaptive'),
       ),
       NavigationRailDestination(
+        icon: Icon(Icons.grid_view_outlined),
+        selectedIcon: Icon(Icons.grid_view),
+        label: Text('Responsive'),
+      ),
+      NavigationRailDestination(
         icon: Icon(Icons.touch_app_outlined),
         selectedIcon: Icon(Icons.touch_app),
         label: Text('Interaction'),
@@ -261,16 +270,23 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
         selectedIcon: Icon(Icons.animation),
         label: Text('Motion'),
       ),
-      // NavigationRailDestination(
-      //   icon: Icon(Icons.widgets_outlined),
-      //   selectedIcon: Icon(Icons.widgets),
-      //   label: Text('Components'),
-      // ),
+    ];
+  }
+
+  /// Creates navigation destinations for the package's utility helpers.
+  List<NavigationRailDestination> _buildUtilitiesNavigationRailDestinations() {
+    return const [
       NavigationRailDestination(
         icon: Icon(Icons.auto_awesome_outlined),
         selectedIcon: Icon(Icons.auto_awesome),
         label: Text('Utils'),
       ),
+    ];
+  }
+
+  /// Creates navigation destinations for the M3 Expressive showcase.
+  List<NavigationRailDestination> _buildExpressiveNavigationRailDestinations() {
+    return const [
       NavigationRailDestination(
         icon: Icon(Icons.local_activity_outlined),
         selectedIcon: Icon(Icons.local_activity),
@@ -291,6 +307,8 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
     final textTheme = Theme.of(context).textTheme;
     final foundationDestinations = _buildFoundationNavigationRailDestinations();
     final styleDestinations = _buildStylesNavigationRailDestinations();
+    final utilityDestinations = _buildUtilitiesNavigationRailDestinations();
+    final expressiveDestinations = _buildExpressiveNavigationRailDestinations();
 
     return NavigationDrawer(
       selectedIndex: _selectedIndex,
@@ -355,6 +373,54 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
           child: Text('Styles', style: textTheme.titleSmall),
         ),
         ...styleDestinations.map(
+          (d) => NavigationDrawerDestination(
+            icon: d.icon,
+            label: d.label,
+            selectedIcon: d.selectedIcon,
+          ),
+        ),
+        M3Padding(
+          padding: M3EdgeInsets.symmetric(
+            horizontal: M3Spacings.s28,
+          ),
+          child: Divider(),
+        ),
+
+        // Utilities Section
+        M3Padding(
+          padding: M3EdgeInsets.fromLTRB(
+            M3Spacings.s28,
+            M3Spacings.s16,
+            M3Spacings.s16,
+            M3Spacings.s12,
+          ),
+          child: Text('Utilities', style: textTheme.titleSmall),
+        ),
+        ...utilityDestinations.map(
+          (d) => NavigationDrawerDestination(
+            icon: d.icon,
+            label: d.label,
+            selectedIcon: d.selectedIcon,
+          ),
+        ),
+        M3Padding(
+          padding: M3EdgeInsets.symmetric(
+            horizontal: M3Spacings.s28,
+          ),
+          child: Divider(),
+        ),
+
+        // Expressive Section
+        M3Padding(
+          padding: M3EdgeInsets.fromLTRB(
+            M3Spacings.s28,
+            M3Spacings.s16,
+            M3Spacings.s16,
+            M3Spacings.s12,
+          ),
+          child: Text('Expressive', style: textTheme.titleSmall),
+        ),
+        ...expressiveDestinations.map(
           (d) => NavigationDrawerDestination(
             icon: d.icon,
             label: d.label,
@@ -442,6 +508,11 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
     final themeProvider = Provider.of<ThemeProvider>(context);
     final foundationDestinations = _buildFoundationNavigationRailDestinations();
     final styleDestinations = _buildStylesNavigationRailDestinations();
+    final utilityDestinations = _buildUtilitiesNavigationRailDestinations();
+    final expressiveDestinations = _buildExpressiveNavigationRailDestinations();
+    final stylesOffset = foundationDestinations.length;
+    final utilitiesOffset = stylesOffset + styleDestinations.length;
+    final expressiveOffset = utilitiesOffset + utilityDestinations.length;
 
     return Container(
       width: 80,
@@ -495,7 +566,55 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
 
                   // Styles navigation items
                   ...styleDestinations.asMap().entries.map((entry) {
-                    final index = entry.key + foundationDestinations.length;
+                    final index = entry.key + stylesOffset;
+                    final destination = entry.value;
+                    return _buildNavigationRailItem(
+                      destination: destination,
+                      index: index,
+                      isSelected: _selectedIndex == index,
+                      onTap: () {
+                        setState(() {
+                          _selectedIndex = index;
+                        });
+                      },
+                    );
+                  }),
+
+                  Divider(indent: M3Spacings.s8, endIndent: M3Spacings.s8),
+
+                  // Utilities section
+                  const LaunchURLText(
+                    label: 'Utilities',
+                    fontSize: 12,
+                  ),
+
+                  // Utilities navigation items
+                  ...utilityDestinations.asMap().entries.map((entry) {
+                    final index = entry.key + utilitiesOffset;
+                    final destination = entry.value;
+                    return _buildNavigationRailItem(
+                      destination: destination,
+                      index: index,
+                      isSelected: _selectedIndex == index,
+                      onTap: () {
+                        setState(() {
+                          _selectedIndex = index;
+                        });
+                      },
+                    );
+                  }),
+
+                  Divider(indent: M3Spacings.s8, endIndent: M3Spacings.s8),
+
+                  // Expressive section
+                  const LaunchURLText(
+                    label: 'Expressive',
+                    fontSize: 12,
+                  ),
+
+                  // Expressive navigation items
+                  ...expressiveDestinations.asMap().entries.map((entry) {
+                    final index = entry.key + expressiveOffset;
                     final destination = entry.value;
                     return _buildNavigationRailItem(
                       destination: destination,

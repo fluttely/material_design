@@ -30,7 +30,7 @@ class IconSizeTokensPage extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        LaunchURLText(label: 'M3IconSizes | M3IconSizeToken'),
+        LaunchURLText(label: 'M3IconSizes'),
         const M3Gap(M3Spacings.s16),
         Wrap(
           spacing: M3Spacings.s16,

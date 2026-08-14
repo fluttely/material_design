@@ -70,7 +70,7 @@ class ZIndexTokensPage extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        LaunchURLText(label: 'M3ZIndexes | M3ZIndexToken'),
+        LaunchURLText(label: 'M3ZIndexes'),
         const M3Gap(M3Spacings.s8),
         Text(
           'Stacking order from bottom to top (lower to higher z-index)',
