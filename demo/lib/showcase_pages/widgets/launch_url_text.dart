@@ -20,7 +20,7 @@ class LaunchURLText extends StatelessWidget {
 
     return M3Padding(
       padding: M3EdgeInsets.symmetric(
-        vertical: M3SpacingToken.space16,
+        vertical: M3Spacings.s16,
       ),
       child: Tooltip(
         message: m3Url ?? '',

@@ -1,3 +1,6 @@
+// The test code constructs various widgets dynamically for comparison,
+// so constant constructors cannot always be preferred here.
+// ignore_for_file: prefer_const_constructors
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:material_design/material_design.dart';
@@ -11,7 +14,7 @@ void main() {
         MaterialApp(
           home: Scaffold(
             body: M3Padding(
-              padding: M3EdgeInsets.all(M3SpacingToken.space16),
+              padding: M3EdgeInsets.all(M3Spacings.s16),
               child: testChild,
             ),
           ),
@@ -28,10 +31,10 @@ void main() {
           home: Scaffold(
             body: M3Padding(
               padding: M3EdgeInsets.only(
-                left: M3SpacingToken.space8,
-                top: M3SpacingToken.space12,
-                right: M3SpacingToken.space16,
-                bottom: M3SpacingToken.space20,
+                left: M3Spacings.s8,
+                top: M3Spacings.s12,
+                right: M3Spacings.s16,
+                bottom: M3Spacings.s20,
               ),
               child: testChild,
             ),
@@ -52,8 +55,8 @@ void main() {
           home: Scaffold(
             body: M3Padding(
               padding: M3EdgeInsets.symmetric(
-                horizontal: M3SpacingToken.space24,
-                vertical: M3SpacingToken.space16,
+                horizontal: M3Spacings.s24,
+                vertical: M3Spacings.s16,
               ),
               child: testChild,
             ),
@@ -74,10 +77,10 @@ void main() {
           home: Scaffold(
             body: M3Padding(
               padding: M3EdgeInsets.fromLTRB(
-                M3SpacingToken.space8,
-                M3SpacingToken.space16,
-                M3SpacingToken.space24,
-                M3SpacingToken.space32,
+                M3Spacings.s8,
+                M3Spacings.s16,
+                M3Spacings.s24,
+                M3Spacings.s32,
               ),
               child: testChild,
             ),
@@ -97,7 +100,7 @@ void main() {
         MaterialApp(
           home: Scaffold(
             body: M3Padding(
-              padding: M3EdgeInsets.only(left: M3SpacingToken.space16),
+              padding: M3EdgeInsets.only(left: M3Spacings.s16),
               child: testChild,
             ),
           ),
@@ -119,7 +122,7 @@ void main() {
           home: Scaffold(
             body: M3Padding(
               padding: M3EdgeInsets.symmetric(
-                horizontal: M3SpacingToken.space24,
+                horizontal: M3Spacings.s24,
               ),
               child: testChild,
             ),
@@ -136,7 +139,7 @@ void main() {
 
     test('extends Padding class', () {
       final padding = M3Padding(
-        padding: M3EdgeInsets.all(M3SpacingToken.space16),
+        padding: M3EdgeInsets.all(M3Spacings.s16),
         child: testChild,
       );
       expect(padding, isA<Padding>());
@@ -147,7 +150,7 @@ void main() {
         MaterialApp(
           home: Scaffold(
             body: M3Padding(
-              padding: M3EdgeInsets.all(M3SpacingToken.space16),
+              padding: M3EdgeInsets.all(M3Spacings.s16),
               child: testChild,
             ),
           ),
@@ -162,7 +165,7 @@ void main() {
         MaterialApp(
           home: Scaffold(
             body: M3Padding(
-              padding: M3EdgeInsets.all(M3SpacingToken.none),
+              padding: M3EdgeInsets.all(M3Spacings.none),
               child: testChild,
             ),
           ),
@@ -178,7 +181,7 @@ void main() {
         MaterialApp(
           home: Scaffold(
             body: M3Padding(
-              padding: M3EdgeInsets.all(M3SpacingToken.space128),
+              padding: M3EdgeInsets.all(M3Spacings.s128),
               child: testChild,
             ),
           ),
@@ -195,8 +198,8 @@ void main() {
           home: Scaffold(
             body: M3Padding(
               padding: M3EdgeInsets.only(
-                left: M3SpacingToken.space8,
-                bottom: M3SpacingToken.space24,
+                left: M3Spacings.s8,
+                bottom: M3Spacings.s24,
               ),
               child: testChild,
             ),
@@ -215,12 +218,12 @@ void main() {
       tester,
     ) async {
       final spacings = [
-        M3SpacingToken.none,
-        M3SpacingToken.space4,
-        M3SpacingToken.space8,
-        M3SpacingToken.space16,
-        M3SpacingToken.space32,
-        M3SpacingToken.space64,
+        M3Spacings.none,
+        M3Spacings.s4,
+        M3Spacings.s8,
+        M3Spacings.s16,
+        M3Spacings.s32,
+        M3Spacings.s64,
       ];
 
       for (final spacing in spacings) {
@@ -236,7 +239,7 @@ void main() {
         );
 
         final padding = tester.widget<M3Padding>(find.byType(M3Padding));
-        expect(padding.padding, equals(EdgeInsets.all(spacing.value)));
+        expect(padding.padding, equals(EdgeInsets.all(spacing)));
       }
     });
   });

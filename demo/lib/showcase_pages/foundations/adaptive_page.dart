@@ -27,7 +27,7 @@ class _AdaptivePageState extends State<AdaptivePage> {
         automaticallyImplyLeading: false,
       ),
       body: SingleChildScrollView(
-        padding: M3EdgeInsets.all(M3SpacingToken.space16),
+        padding: M3EdgeInsets.all(M3Spacings.s16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -35,7 +35,7 @@ class _AdaptivePageState extends State<AdaptivePage> {
               'Adaptive Design Examples',
               style: Theme.of(context).textTheme.headlineLarge,
             ),
-            const M3Gap(M3SpacingToken.space16),
+            const M3Gap(M3Spacings.s16),
 
             // Current window size class
             _buildSection(
@@ -43,7 +43,7 @@ class _AdaptivePageState extends State<AdaptivePage> {
               'Current Window Size',
               Card(
                 child: M3Padding(
-                  padding: M3EdgeInsets.all(M3SpacingToken.space16),
+                  padding: M3EdgeInsets.all(M3Spacings.s16),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -51,13 +51,13 @@ class _AdaptivePageState extends State<AdaptivePage> {
                         'Window Size Class: ${_getScreenSizeName(context)}',
                         style: Theme.of(context).textTheme.titleMedium,
                       ),
-                      const M3Gap(M3SpacingToken.space8),
+                      const M3Gap(M3Spacings.s8),
                       Text(
                         'Screen width: ${MediaQuery.of(context).size.width.toInt()}dp',
                         style: Theme.of(context).textTheme.bodyMedium,
                       ),
                       Text(
-                        'Is compact: ${M3BreakpointToken.isCompact(context)}',
+                        'Is compact: ${M3ScreenSize.of(context) == M3ScreenSize.compact}',
                         style: Theme.of(context).textTheme.bodyMedium,
                       ),
                     ],
@@ -66,7 +66,7 @@ class _AdaptivePageState extends State<AdaptivePage> {
               ),
             ),
 
-            const M3Gap(M3SpacerToken.pane),
+            const M3Gap(M3Spacers.pane),
 
             // Responsive values example
             _buildSection(
@@ -74,7 +74,7 @@ class _AdaptivePageState extends State<AdaptivePage> {
               'Responsive Values',
               Card(
                 child: M3Padding(
-                  padding: M3EdgeInsets.all(M3SpacingToken.space16),
+                  padding: M3EdgeInsets.all(M3Spacings.s16),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -82,7 +82,7 @@ class _AdaptivePageState extends State<AdaptivePage> {
                         'Grid Columns',
                         style: Theme.of(context).textTheme.titleMedium,
                       ),
-                      const M3Gap(M3SpacingToken.space8),
+                      const M3Gap(M3Spacings.s8),
                       Text(
                         'Current columns: ${M3Adaptive.responsiveValue<int>(
                           context: context,
@@ -94,7 +94,7 @@ class _AdaptivePageState extends State<AdaptivePage> {
                         )}',
                         style: Theme.of(context).textTheme.bodyMedium,
                       ),
-                      const M3Gap(M3SpacingToken.space16),
+                      const M3Gap(M3Spacings.s16),
                       _buildResponsiveGrid(),
                     ],
                   ),
@@ -102,7 +102,7 @@ class _AdaptivePageState extends State<AdaptivePage> {
               ),
             ),
 
-            const M3Gap(M3SpacerToken.pane),
+            const M3Gap(M3Spacers.pane),
 
             // Adaptive layout example
             _buildSection(
@@ -119,7 +119,7 @@ class _AdaptivePageState extends State<AdaptivePage> {
               ),
             ),
 
-            const M3Gap(M3SpacerToken.pane),
+            const M3Gap(M3Spacers.pane),
 
             // Adaptive navigation example
             _buildSection(
@@ -148,7 +148,7 @@ class _AdaptivePageState extends State<AdaptivePage> {
                             size: 48,
                             color: Theme.of(context).colorScheme.primary,
                           ),
-                          const M3Gap(M3SpacingToken.space8),
+                          const M3Gap(M3Spacings.s8),
                           LaunchURLText(
                               label: _destinations[_selectedIndex].label),
                         ],
@@ -159,7 +159,7 @@ class _AdaptivePageState extends State<AdaptivePage> {
               ),
             ),
 
-            const M3Gap(M3SpacerToken.pane),
+            const M3Gap(M3Spacers.pane),
 
             // Adaptive dialogs example
             _buildSection(
@@ -171,7 +171,7 @@ class _AdaptivePageState extends State<AdaptivePage> {
                     onPressed: () => _showAdaptiveDialog(context),
                     child: const Text('Show Adaptive Dialog'),
                   ),
-                  const M3Gap(M3SpacingToken.space8),
+                  const M3Gap(M3Spacings.s8),
                   ElevatedButton(
                     onPressed: () => _showAdaptiveSheet(context),
                     child: const Text('Show Adaptive Sheet'),
@@ -193,7 +193,7 @@ class _AdaptivePageState extends State<AdaptivePage> {
           title,
           style: Theme.of(context).textTheme.headlineSmall,
         ),
-        const M3Gap(M3SpacingToken.space12),
+        const M3Gap(M3Spacings.s12),
         content,
       ],
     );
@@ -214,8 +214,8 @@ class _AdaptivePageState extends State<AdaptivePage> {
       physics: const NeverScrollableScrollPhysics(),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: columns,
-        crossAxisSpacing: M3SpacingToken.space8.value,
-        mainAxisSpacing: M3SpacingToken.space8.value,
+        crossAxisSpacing: M3Spacings.s8,
+        mainAxisSpacing: M3Spacings.s8,
         childAspectRatio: 2,
       ),
       itemCount: 6,
@@ -237,19 +237,13 @@ class _AdaptivePageState extends State<AdaptivePage> {
   }
 
   String _getScreenSizeName(BuildContext context) {
-    final screenSize = M3BreakpointToken.getScreenSizeFromContext(context);
-    switch (screenSize) {
-      case M3ScreenSize.compact:
-        return 'Compact';
-      case M3ScreenSize.medium:
-        return 'Medium';
-      case M3ScreenSize.expanded:
-        return 'Expanded';
-      case M3ScreenSize.large:
-        return 'Large';
-      case M3ScreenSize.extraLarge:
-        return 'Extra Large';
-    }
+    return switch (M3ScreenSize.of(context)) {
+      M3ScreenSize.compact => 'Compact',
+      M3ScreenSize.medium => 'Medium',
+      M3ScreenSize.expanded => 'Expanded',
+      M3ScreenSize.large => 'Large',
+      M3ScreenSize.extraLarge => 'Extra Large',
+    };
   }
 
   void _showAdaptiveDialog(BuildContext context) {
@@ -273,7 +267,7 @@ class _AdaptivePageState extends State<AdaptivePage> {
       context: context,
       title: 'Adaptive Sheet',
       child: M3Padding(
-        padding: M3EdgeInsets.all(M3SpacingToken.space16),
+        padding: M3EdgeInsets.all(M3Spacings.s16),
         child: Text(
           'This sheet adapts to the screen size. On mobile, it appears as a bottom sheet. On larger screens, it appears as a side sheet.',
         ),
@@ -302,7 +296,7 @@ class _CompactLayoutDemo extends StatelessWidget {
               size: 48,
               color: Theme.of(context).colorScheme.onPrimaryContainer,
             ),
-            const M3Gap(M3SpacingToken.space8),
+            const M3Gap(M3Spacings.s8),
             Text(
               'Compact Layout\n(Mobile Portrait)',
               textAlign: TextAlign.center,
@@ -336,7 +330,7 @@ class _MediumLayoutDemo extends StatelessWidget {
               size: 48,
               color: Theme.of(context).colorScheme.onSecondaryContainer,
             ),
-            const M3Gap(M3SpacingToken.space8),
+            const M3Gap(M3Spacings.s8),
             Text(
               'Medium Layout\n(Tablet/Mobile Landscape)',
               textAlign: TextAlign.center,
@@ -370,7 +364,7 @@ class _ExpandedLayoutDemo extends StatelessWidget {
               size: 48,
               color: Theme.of(context).colorScheme.onTertiaryContainer,
             ),
-            const M3Gap(M3SpacingToken.space8),
+            const M3Gap(M3Spacings.s8),
             Text(
               'Expanded Layout\n(Desktop)',
               textAlign: TextAlign.center,

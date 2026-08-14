@@ -8,7 +8,6 @@ class ColorTokensPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    final textTheme = Theme.of(context).textTheme;
 
     final keyColors = [
       (
@@ -163,7 +162,7 @@ class ColorTokensPage extends StatelessWidget {
       body: Column(
         children: [
           M3Padding(
-            padding: M3EdgeInsets.only(left: M3SpacingToken.space16),
+            padding: M3EdgeInsets.only(left: M3Spacings.s16),
             child: Align(
               alignment: Alignment.centerLeft,
               child: const LaunchURLText(
@@ -173,8 +172,7 @@ class ColorTokensPage extends StatelessWidget {
             ),
           ),
           SingleChildScrollView(
-            padding:
-                M3EdgeInsets.symmetric(horizontal: M3MarginToken.mediumScreen),
+            padding: M3EdgeInsets.symmetric(horizontal: M3Margins.mediumScreen),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -184,7 +182,7 @@ class ColorTokensPage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       LaunchURLText(label: 'Key Colors'),
-                      const M3Gap(M3SpacingToken.space16),
+                      const M3Gap(M3Spacings.s16),
                       ...keyColors.map(
                         (p) => _KeyColorChip(
                             name: p.$1, color: p.$2, onColor: p.$3),
@@ -192,7 +190,7 @@ class ColorTokensPage extends StatelessWidget {
                     ],
                   ),
                 ),
-                const M3Gap(M3SpacerToken.pane),
+                const M3Gap(M3Spacers.pane),
                 Expanded(
                   flex: 2,
                   child: Column(
@@ -200,10 +198,10 @@ class ColorTokensPage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       LaunchURLText(label: 'Scheme'),
-                      const M3Gap(M3SpacingToken.space16),
+                      const M3Gap(M3Spacings.s16),
                       Wrap(
-                        spacing: M3SpacingToken.space8.value,
-                        runSpacing: M3SpacingToken.space8.value,
+                        spacing: M3Spacings.s8,
+                        runSpacing: M3Spacings.s8,
                         children: allColors
                             .map(
                               (p) => _ColorChip(
@@ -244,9 +242,9 @@ class _KeyColorChip extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
 
     return M3Padding(
-      padding: M3EdgeInsets.only(bottom: M3SpacingToken.space8),
+      padding: M3EdgeInsets.only(bottom: M3Spacings.s8),
       child: Container(
-        padding: M3EdgeInsets.all(M3SpacingToken.space16),
+        padding: M3EdgeInsets.all(M3Spacings.s16),
         decoration: M3BoxDecoration(
           color: color,
           borderRadius: M3BorderRadius.medium,
@@ -289,7 +287,7 @@ class _ColorChip extends StatelessWidget {
 
     return Container(
       width: 150,
-      padding: M3EdgeInsets.all(M3SpacingToken.space8),
+      padding: M3EdgeInsets.all(M3Spacings.s8),
       decoration: BoxDecoration(
         color: color,
         borderRadius: M3BorderRadius.small,

@@ -1,5 +1,16 @@
 include: package:very_good_analysis/analysis_options.yaml
 
+analyzer:
+  exclude:
+    - lib/src/m3e/**
+    - build/**
+    - android/**
+    - ios/**
+    - web/**
+    - windows/**
+    - macos/**
+    - linux/**
+
 formatter:
   trailing_commas: preserve
   page_width: 80

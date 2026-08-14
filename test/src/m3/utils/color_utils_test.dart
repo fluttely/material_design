@@ -5,10 +5,10 @@ import 'package:material_design/material_design.dart';
 void main() {
   group('M3ColorUtils', () {
     group('Color Manipulation', () {
-      test('blendColors blends two colors correctly', () {
+      test('blend mixes two colors', () {
         const color1 = Colors.red;
         const color2 = Colors.blue;
-        final blended = M3ColorUtils.blendColors(color1, color2, 0.5);
+        final blended = M3ColorUtils.blend(color1, color2, 0.5);
 
         expect(blended, isA<Color>());
         expect(blended, isNot(equals(color1)));
@@ -92,9 +92,9 @@ void main() {
         );
       });
 
-      test('focused creates overlay with custom opacity', () {
+      test('focused creates overlay', () {
         const baseColor = Colors.green;
-        final focusedColor = M3ColorUtils.focused(baseColor, opacity: 0.2);
+        final focusedColor = M3ColorUtils.focused(baseColor);
 
         expect(focusedColor, isA<Color>());
         expect(focusedColor, isNot(equals(baseColor)));
@@ -110,7 +110,7 @@ void main() {
         );
       });
 
-      test('dragged creates overlay with correct opacity', () {
+      test('dragged creates overlay', () {
         const baseColor = Colors.purple;
         final draggedColor = M3ColorUtils.dragged(baseColor);
 
@@ -170,14 +170,10 @@ void main() {
           background,
         );
 
-        final originalContrast = M3ColorUtils.calculateContrast(
-          poorContrast,
-          background,
-        );
-        final adjustedContrast = M3ColorUtils.calculateContrast(
-          adjusted,
-          background,
-        );
+        final originalContrast =
+            M3ColorUtils.calculateContrast(poorContrast, background);
+        final adjustedContrast =
+            M3ColorUtils.calculateContrast(adjusted, background);
 
         expect(adjustedContrast, greaterThan(originalContrast));
         expect(adjustedContrast, greaterThan(4.0));
@@ -193,36 +189,26 @@ void main() {
           minContrast: 7,
         );
 
-        final adjustedContrast = M3ColorUtils.calculateContrast(
-          adjusted,
-          background,
-        );
+        final adjustedContrast =
+            M3ColorUtils.calculateContrast(adjusted, background);
 
         expect(adjustedContrast, greaterThan(6.0));
       });
     });
 
     group('Color Generation', () {
-      test('generateHarmoniousColors returns 5 colors', () {
+      test('harmonious returns 5 colors', () {
         const baseColor = Colors.blue;
-        final harmonious = M3ColorUtils.generateHarmoniousColors(baseColor);
+        final colors = M3ColorUtils.harmonious(baseColor);
 
-        expect(harmonious, hasLength(5));
-        for (final color in harmonious) {
+        expect(colors, hasLength(5));
+        for (final color in colors) {
           expect(color, isA<Color>());
         }
       });
 
-      test('createTonalPalette returns correct tonal values', () {
-        const sourceColor = Colors.red;
-        final palette = M3ColorUtils.createTonalPalette(sourceColor);
-
-        expect(palette, hasLength(13));
-        expect(palette[0], equals(Colors.black));
-        expect(palette[100], equals(Colors.white));
-        expect(palette.keys, contains(50));
-        expect(palette.keys, contains(95));
-      });
+      // Tonal palettes moved to M3TonalPalette (real HCT); see
+      // test/src/m3/tokens/color/tonal_palette_test.dart.
 
       test('isLight correctly identifies light colors', () {
         expect(M3ColorUtils.isLight(Colors.white), isTrue);
@@ -231,10 +217,10 @@ void main() {
         expect(M3ColorUtils.isLight(Colors.blue), isFalse);
       });
 
-      test('getTextColor returns appropriate contrast color', () {
-        expect(M3ColorUtils.getTextColor(Colors.white), equals(Colors.black));
-        expect(M3ColorUtils.getTextColor(Colors.black), equals(Colors.white));
-        expect(M3ColorUtils.getTextColor(Colors.yellow), equals(Colors.black));
+      test('onColor returns appropriate contrast color', () {
+        expect(M3ColorUtils.onColor(Colors.white), equals(Colors.black));
+        expect(M3ColorUtils.onColor(Colors.black), equals(Colors.white));
+        expect(M3ColorUtils.onColor(Colors.yellow), equals(Colors.black));
       });
     });
 
@@ -248,7 +234,6 @@ void main() {
       test('handles extreme values', () {
         const color = Colors.red;
 
-        // Test extreme lightening/darkening
         final extremeLight = M3ColorUtils.lighten(color, 10);
         final extremeDark = M3ColorUtils.darken(color, 10);
 
@@ -256,12 +241,12 @@ void main() {
         expect(extremeDark, isA<Color>());
       });
 
-      test('blendColors handles edge ratios', () {
+      test('blend handles edge ratios', () {
         const color1 = Colors.red;
         const color2 = Colors.blue;
 
-        final blend0 = M3ColorUtils.blendColors(color1, color2, 0);
-        final blend1 = M3ColorUtils.blendColors(color1, color2, 1);
+        final blend0 = M3ColorUtils.blend(color1, color2, 0);
+        final blend1 = M3ColorUtils.blend(color1, color2, 1);
 
         expect(blend0, isA<Color>());
         expect(blend1, isA<Color>());

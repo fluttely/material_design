@@ -1,4 +1,4 @@
-part of '../../../../material_design.dart';
+part of '../../../adaptive.dart';
 
 /// A responsive builder widget that rebuilds when the window size class
 /// changes.
@@ -32,7 +32,7 @@ class M3ResponsiveBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenSize = M3BreakpointToken.getScreenSizeFromContext(context);
+    final screenSize = M3ScreenSize.of(context);
     return builder(context, screenSize);
   }
 }

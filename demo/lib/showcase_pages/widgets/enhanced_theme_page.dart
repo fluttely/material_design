@@ -13,7 +13,7 @@ class EnhancedThemePage extends StatelessWidget {
         automaticallyImplyLeading: false,
       ),
       body: SingleChildScrollView(
-        padding: M3EdgeInsets.all(M3SpacingToken.space16),
+        padding: M3EdgeInsets.all(M3Spacings.s16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -21,7 +21,7 @@ class EnhancedThemePage extends StatelessWidget {
               'M3Theme Showcase',
               style: Theme.of(context).textTheme.headlineLarge,
             ),
-            const M3Gap(M3SpacingToken.space16),
+            const M3Gap(M3Spacings.s16),
 
             // Display styles
             _buildSection(
@@ -64,7 +64,7 @@ class EnhancedThemePage extends StatelessWidget {
               ),
             ),
 
-            const M3Gap(M3SpacerToken.pane),
+            const M3Gap(M3Spacers.pane),
 
             // // Cards with different elevations
             // _buildSection(
@@ -75,7 +75,7 @@ class EnhancedThemePage extends StatelessWidget {
             //       Card(
             //         elevation: M3Elevation.card,
             //         child: M3Padding(
-            //           padding: const M3EdgeInsets.all(M3SpacingToken.space16),
+            //           padding: const M3EdgeInsets.all(M3Spacings.s16),
             //           child: SizedBox(
             //             width: double.infinity,
             //             child: Text(
@@ -85,11 +85,11 @@ class EnhancedThemePage extends StatelessWidget {
             //           ),
             //         ),
             //       ),
-            //       const const M3Gap(M3SpacingToken.space8),
+            //       const const M3Gap(M3Spacings.s8),
             //       Card(
             //         elevation: M3Elevation.appBar,
             //         child: M3Padding(
-            //           padding: const M3EdgeInsets.all(M3SpacingToken.space16),
+            //           padding: const M3EdgeInsets.all(M3Spacings.s16),
             //           child: SizedBox(
             //             width: double.infinity,
             //             child: Text(
@@ -99,11 +99,11 @@ class EnhancedThemePage extends StatelessWidget {
             //           ),
             //         ),
             //       ),
-            //       const const M3Gap(M3SpacingToken.space8),
+            //       const const M3Gap(M3Spacings.s8),
             //       Card(
             //         elevation: M3Elevation.level5,
             //         child: M3Padding(
-            //           padding: const M3EdgeInsets.all(M3SpacingToken.space16),
+            //           padding: const M3EdgeInsets.all(M3Spacings.s16),
             //           child: SizedBox(
             //             width: double.infinity,
             //             child: Text(
@@ -117,7 +117,7 @@ class EnhancedThemePage extends StatelessWidget {
             //   ),
             // ),
 
-            const M3Gap(M3SpacerToken.pane),
+            const M3Gap(M3Spacers.pane),
 
             // Color roles showcase
             _buildSection(
@@ -130,13 +130,13 @@ class EnhancedThemePage extends StatelessWidget {
                     Theme.of(context).colorScheme.primaryContainer,
                     Theme.of(context).colorScheme.onPrimaryContainer,
                   ),
-                  const M3Gap(M3SpacingToken.space8),
+                  const M3Gap(M3Spacings.s8),
                   _buildColorRoleCard(
                     'Secondary Container',
                     Theme.of(context).colorScheme.secondaryContainer,
                     Theme.of(context).colorScheme.onSecondaryContainer,
                   ),
-                  const M3Gap(M3SpacingToken.space8),
+                  const M3Gap(M3Spacings.s8),
                   _buildColorRoleCard(
                     'Tertiary Container',
                     Theme.of(context).colorScheme.tertiaryContainer,
@@ -159,7 +159,7 @@ class EnhancedThemePage extends StatelessWidget {
           title,
           style: Theme.of(context).textTheme.headlineSmall,
         ),
-        const M3Gap(M3SpacingToken.space12),
+        const M3Gap(M3Spacings.s12),
         content,
       ],
     );
@@ -169,7 +169,7 @@ class EnhancedThemePage extends StatelessWidget {
       String label, Color backgroundColor, Color textColor) {
     return Container(
       width: double.infinity,
-      padding: M3EdgeInsets.all(M3SpacingToken.space16),
+      padding: M3EdgeInsets.all(M3Spacings.s16),
       decoration: ShapeDecoration(
         color: backgroundColor,
         shape: M3Shape.medium,

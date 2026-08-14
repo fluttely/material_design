@@ -1,4 +1,4 @@
-part of '../../../material_design.dart';
+part of '../../expressive.dart';
 
 /// While a polygon's shape can be drawn solely using a list of [Cubic] objects
 /// representing its raw curves and lines, features add an extra layer of
@@ -144,19 +144,19 @@ class EdgeFeature extends Feature {
 
   @override
   Feature transformed(PointTransformer f) => EdgeFeature(
-    List.generate(
-      _cubics.length,
-      (i) => _cubics[i].transformed(f),
-    ),
-  );
+        List.generate(
+          _cubics.length,
+          (i) => _cubics[i].transformed(f),
+        ),
+      );
 
   @override
   Feature reversed() => EdgeFeature(
-    List.generate(
-      _cubics.length,
-      (i) => _cubics[_cubics.length - 1 - i].reverse(),
-    ),
-  );
+        List.generate(
+          _cubics.length,
+          (i) => _cubics[_cubics.length - 1 - i].reverse(),
+        ),
+      );
 
   @override
   bool get isIgnorableFeature => true;
@@ -203,23 +203,23 @@ class CornerFeature extends Feature {
 
   @override
   Feature transformed(PointTransformer f) => CornerFeature(
-    List.generate(
-      _cubics.length,
-      (i) => _cubics[i].transformed(f),
-    ),
-    convex: convex,
-  );
+        List.generate(
+          _cubics.length,
+          (i) => _cubics[i].transformed(f),
+        ),
+        convex: convex,
+      );
 
   @override
   Feature reversed() => CornerFeature(
-    List.generate(
-      _cubics.length,
-      (i) => _cubics[_cubics.length - 1 - i].reverse(),
-    ),
-    // TODO: b/369320447 - Revert flag negation when [RoundedPolygon]
-    // ignores orientation for setting the flag.
-    convex: !convex,
-  );
+        List.generate(
+          _cubics.length,
+          (i) => _cubics[_cubics.length - 1 - i].reverse(),
+        ),
+        // TODO: b/369320447 - Revert flag negation when [RoundedPolygon]
+        // ignores orientation for setting the flag.
+        convex: !convex,
+      );
 
   @override
   bool get isIgnorableFeature => false;

@@ -1,4 +1,4 @@
-part of '../../../material_design.dart';
+part of '../../expressive.dart';
 
 typedef PointTransformer = (double, double) Function(double x, double y);
 

@@ -11,14 +11,14 @@ class M3StateLayerOpacityButtonExample extends StatelessWidget {
     return Column(
       children: [
         Text(title),
-        const M3Gap(M3SpacingToken.space12),
+        const M3Gap(M3Spacings.s12),
         CustomButton(
           onPressed: onPressed,
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
               Icon(Icons.add_shopping_cart),
-              const M3Gap(M3SpacingToken.space8),
+              const M3Gap(M3Spacings.s8),
               Text('Add to Cart'),
             ],
           ),
@@ -32,7 +32,7 @@ class M3StateLayerOpacityButtonExample extends StatelessWidget {
     return Row(
       children: [
         _buildButtonArea(title: 'Enabled State:', onPressed: () {}),
-        const M3Gap(M3SpacingToken.space32),
+        const M3Gap(M3Spacings.s32),
         _buildButtonArea(title: 'Disabled State:', onPressed: null),
       ],
     );
@@ -68,15 +68,15 @@ class _CustomButtonState extends State<CustomButton> {
 
   double get _stateLayerOpacity {
     if (!_isEnabled) return 0.0;
-    if (_isPressed) return M3StateLayerOpacityToken.pressed.value;
-    if (_isHovered) return M3StateLayerOpacityToken.hover.value;
+    if (_isPressed) return M3StateLayerOpacities.pressed;
+    if (_isHovered) return M3StateLayerOpacities.hover;
     return 0.0;
   }
 
   Color _getBackgroundColor(ColorScheme colorScheme) {
     if (!_isEnabled) {
       return colorScheme.onSurface.withValues(
-        alpha: M3OpacityToken.disabledContainer.value,
+        alpha: M3Opacities.disabledContainer,
       );
     }
 
@@ -86,7 +86,7 @@ class _CustomButtonState extends State<CustomButton> {
   Color _getContentColor(ColorScheme colorScheme) {
     if (!_isEnabled) {
       return colorScheme.onSurface.withValues(
-        alpha: M3OpacityToken.disabledContent.value,
+        alpha: M3Opacities.disabledContent,
       );
     }
     return colorScheme.primary;
@@ -117,7 +117,8 @@ class _CustomButtonState extends State<CustomButton> {
         onTapCancel: () => setState(() => _isPressed = false),
         onTap: widget.onPressed,
         child: AnimatedContainer(
-          duration: M3MotionDuration.short3,
+          curve: M3Motion.linearCurve,
+          duration: M3Motion.linearDuration,
           child: Material(
             type: MaterialType.canvas,
             elevation: _elevation.dp,
@@ -135,7 +136,7 @@ class _CustomButtonState extends State<CustomButton> {
                     data: IconThemeData(color: contentColor, size: 18),
                     child: Padding(
                       padding: EdgeInsets.symmetric(
-                        horizontal: M3SpacingToken.space24.value,
+                        horizontal: M3Spacings.s24,
                         vertical: 6,
                       ),
                       child: widget.child,
@@ -144,7 +145,8 @@ class _CustomButtonState extends State<CustomButton> {
                 ),
                 Positioned.fill(
                   child: AnimatedContainer(
-                    duration: M3MotionDuration.short3,
+                    curve: M3Motion.linearCurve,
+                    duration: M3Motion.linearDuration,
                     decoration: M3BoxDecoration(
                       color: stateLayerColor.withValues(
                         alpha: _stateLayerOpacity,

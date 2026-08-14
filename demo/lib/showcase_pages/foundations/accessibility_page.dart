@@ -63,12 +63,12 @@ class _AccessibilityPageState extends State<AccessibilityPage>
         ],
       ),
       body: SingleChildScrollView(
-        padding: M3EdgeInsets.all(M3SpacingToken.space16),
+        padding: M3EdgeInsets.all(M3Spacings.s16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _buildIntroCard(),
-            const M3Gap(M3SpacingToken.space24),
+            const M3Gap(M3Spacings.s24),
             _buildSection(
               icon: Icons.touch_app,
               title: 'Touch Targets & Sizing',
@@ -118,7 +118,7 @@ class _AccessibilityPageState extends State<AccessibilityPage>
               subtitle: 'Respecting reduced motion preferences.',
               content: _buildMotionShowcase(),
             ),
-            const M3Gap(M3SpacingToken.space32),
+            const M3Gap(M3Spacings.s32),
           ],
         ),
       ),
@@ -132,7 +132,7 @@ class _AccessibilityPageState extends State<AccessibilityPage>
     return Card(
       color: colorScheme.primaryContainer,
       child: M3Padding(
-        padding: M3EdgeInsets.all(M3SpacingToken.space20),
+        padding: M3EdgeInsets.all(M3Spacings.s20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -143,7 +143,7 @@ class _AccessibilityPageState extends State<AccessibilityPage>
                   size: 32,
                   color: colorScheme.onPrimaryContainer,
                 ),
-                const M3Gap(M3SpacingToken.space12),
+                const M3Gap(M3Spacings.s12),
                 Expanded(
                   child: Text(
                     'Material Design 3 Accessibility',
@@ -155,7 +155,7 @@ class _AccessibilityPageState extends State<AccessibilityPage>
                 ),
               ],
             ),
-            const M3Gap(M3SpacingToken.space16),
+            const M3Gap(M3Spacings.s16),
             Text(
               'This page demonstrates how to implement accessibility features following the WCAG 2.1 AA guidelines. '
               'Each section shows practical examples and comparisons between accessible and non-accessible implementations.',
@@ -163,7 +163,7 @@ class _AccessibilityPageState extends State<AccessibilityPage>
                     color: colorScheme.onPrimaryContainer,
                   ),
             ),
-            const M3Gap(M3SpacingToken.space12),
+            const M3Gap(M3Spacings.s12),
             _buildQuickStats(),
           ],
         ),
@@ -176,9 +176,9 @@ class _AccessibilityPageState extends State<AccessibilityPage>
     return Row(
       children: [
         _buildStatChip('WCAG 2.1 AA', Icons.verified, colorScheme.tertiary),
-        const M3Gap(M3SpacingToken.space8),
+        const M3Gap(M3Spacings.s8),
         _buildStatChip('48dp Touch', Icons.touch_app, colorScheme.secondary),
-        const M3Gap(M3SpacingToken.space8),
+        const M3Gap(M3Spacings.s8),
         _buildStatChip(
             'Screen Reader', Icons.record_voice_over, colorScheme.tertiary),
       ],
@@ -188,8 +188,8 @@ class _AccessibilityPageState extends State<AccessibilityPage>
   Widget _buildStatChip(String label, IconData icon, Color color) {
     return Container(
       padding: M3EdgeInsets.symmetric(
-        horizontal: M3SpacingToken.space8,
-        vertical: M3SpacingToken.space4,
+        horizontal: M3Spacings.s8,
+        vertical: M3Spacings.s4,
       ),
       decoration: BoxDecoration(
         color: color.withValues(alpha: 0.2),
@@ -199,8 +199,8 @@ class _AccessibilityPageState extends State<AccessibilityPage>
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(icon, size: M3IconSizeToken.dense.value, color: color),
-          const M3Gap(M3SpacingToken.space4),
+          Icon(icon, size: M3IconSizes.dense, color: color),
+          const M3Gap(M3Spacings.s4),
           Text(
             label,
             style: TextStyle(
@@ -222,7 +222,7 @@ class _AccessibilityPageState extends State<AccessibilityPage>
           'All interactive elements should have a minimum touch target of at least 48x48dp for easier interaction.',
           style: Theme.of(context).textTheme.bodyMedium,
         ),
-        const M3Gap(M3SpacingToken.space16),
+        const M3Gap(M3Spacings.s16),
         _buildComparisonExample(
           title: '✅ Correct - 48x48dp Touch Target',
           isGood: true,
@@ -241,7 +241,7 @@ class _AccessibilityPageState extends State<AccessibilityPage>
           ),
           description: '48x48dp touch target - easy to tap for all users.',
         ),
-        const M3Gap(M3SpacingToken.space16),
+        const M3Gap(M3Spacings.s16),
         _buildComparisonExample(
           title: '❌ Incorrect - Small Touch Target',
           isGood: false,
@@ -260,7 +260,7 @@ class _AccessibilityPageState extends State<AccessibilityPage>
           description:
               'Only a 24x24dp touch target - difficult to tap accurately.',
         ),
-        const M3Gap(M3SpacingToken.space20),
+        const M3Gap(M3Spacings.s20),
         _buildInteractiveDemo(
           title: 'Interactive Test',
           child: Column(
@@ -269,7 +269,7 @@ class _AccessibilityPageState extends State<AccessibilityPage>
                 'Try tapping the buttons below and notice the difference:',
                 style: Theme.of(context).textTheme.bodySmall,
               ),
-              const M3Gap(M3SpacingToken.space12),
+              const M3Gap(M3Spacings.s12),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -291,11 +291,11 @@ class _AccessibilityPageState extends State<AccessibilityPage>
                     height: 48,
                     decoration: ShapeDecoration(
                       color: Theme.of(context).colorScheme.primaryContainer,
-                      shape: M3Shape.largeIncreased,
+                      shape: M3Shape.large,
                     ),
                     child: InkWell(
                       onTap: () => _showSnackBar('48dp - Perfect!'),
-                      borderRadius: BorderRadius.circular(24),
+                      borderRadius: M3BorderRadius.full,
                       child: const Icon(Icons.check, size: 24),
                     ),
                   ),
@@ -314,7 +314,7 @@ class _AccessibilityPageState extends State<AccessibilityPage>
                   ),
                 ],
               ),
-              const M3Gap(M3SpacingToken.space8),
+              const M3Gap(M3Spacings.s8),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -344,7 +344,7 @@ class _AccessibilityPageState extends State<AccessibilityPage>
           'Semantic labels help screen readers understand the purpose of each element.',
           style: Theme.of(context).textTheme.bodyMedium,
         ),
-        const M3Gap(M3SpacingToken.space16),
+        const M3Gap(M3Spacings.s16),
         _buildComparisonExample(
           title: '✅ With Semantic Label',
           isGood: true,
@@ -360,7 +360,7 @@ class _AccessibilityPageState extends State<AccessibilityPage>
           description:
               'Screen reader will read: "Add product to favorites, button, double-tap to add".',
         ),
-        const M3Gap(M3SpacingToken.space16),
+        const M3Gap(M3Spacings.s16),
         _buildComparisonExample(
           title: '❌ Without Semantic Label',
           isGood: false,
@@ -371,7 +371,7 @@ class _AccessibilityPageState extends State<AccessibilityPage>
           description:
               'Screen reader will only read: "Button" - the function is unclear.',
         ),
-        const M3Gap(M3SpacingToken.space20),
+        const M3Gap(M3Spacings.s20),
         _buildInteractiveDemo(
           title: 'Varied Examples',
           child: Column(
@@ -382,13 +382,13 @@ class _AccessibilityPageState extends State<AccessibilityPage>
                 child: Column(
                   children: [
                     const LinearProgressIndicator(value: 0.75),
-                    const M3Gap(M3SpacingToken.space8),
+                    const M3Gap(M3Spacings.s8),
                     Text('Loading... 75%',
                         style: Theme.of(context).textTheme.bodySmall),
                   ],
                 ),
               ),
-              const M3Gap(M3SpacingToken.space16),
+              const M3Gap(M3Spacings.s16),
               Semantics(
                 label: _enableNotifications
                     ? 'Notifications enabled'
@@ -414,25 +414,37 @@ class _AccessibilityPageState extends State<AccessibilityPage>
   Widget _buildFormShowcase() {
     return Column(
       children: [
-        M3Accessibility.accessibleTextField(
-          label: 'Email Address',
-          hint: 'Enter your email',
-          required: true,
-          keyboardType: TextInputType.emailAddress,
-          onChanged: (value) {},
+        Semantics(
+          label: 'Email Address, required',
+          child: TextField(
+            keyboardType: TextInputType.emailAddress,
+            decoration: const InputDecoration(
+              labelText: 'Email Address *',
+              hintText: 'Enter your email',
+              border: OutlineInputBorder(),
+            ),
+            onChanged: (_) {},
+          ),
         ),
-        const M3Gap(M3SpacingToken.space16),
-        M3Accessibility.accessibleTextField(
+        const M3Gap(M3Spacings.s16),
+        Semantics(
           label: 'Message',
-          hint: 'Optional message',
-          maxLines: 3,
-          onChanged: (value) {},
+          child: TextField(
+            maxLines: 3,
+            decoration: const InputDecoration(
+              labelText: 'Message',
+              hintText: 'Optional message',
+              border: OutlineInputBorder(),
+            ),
+            onChanged: (_) {},
+          ),
         ),
-        const M3Gap(M3SpacingToken.space8),
-        M3Accessibility.accessibleCheckbox(
+        const M3Gap(M3Spacings.s8),
+        CheckboxListTile(
           value: _acceptTerms,
-          label: 'I accept the terms and conditions',
+          title: const Text('I accept the terms and conditions'),
           onChanged: (value) => setState(() => _acceptTerms = value ?? false),
+          controlAffinity: ListTileControlAffinity.leading,
         ),
       ],
     );
@@ -446,11 +458,12 @@ class _AccessibilityPageState extends State<AccessibilityPage>
           'Tap or use a keyboard (Tab key) to see the focus indicators on these interactive elements.',
           style: Theme.of(context).textTheme.bodyMedium,
         ),
-        const M3Gap(M3SpacingToken.space16),
+        const M3Gap(M3Spacings.s16),
         Row(
           children: [
             Expanded(
-              child: M3Accessibility.focusIndicator(
+              child: M3FocusRing(
+                borderRadius: M3BorderRadius.medium,
                 child: Card(
                   child: ListTile(
                     title: const Text('Focus Target 1'),
@@ -459,9 +472,9 @@ class _AccessibilityPageState extends State<AccessibilityPage>
                 ),
               ),
             ),
-            const M3Gap(M3SpacingToken.space8),
-            M3Accessibility.focusIndicator(
-              // isCircle: true, // TODO(kevin): now
+            const M3Gap(M3Spacings.s8),
+            M3FocusRing(
+              borderRadius: M3BorderRadius.full,
               child: IconButton(
                 icon: const Icon(Icons.share),
                 onPressed: () {},
@@ -515,8 +528,8 @@ class _AccessibilityPageState extends State<AccessibilityPage>
           settingValue: mediaQuery.highContrast.toString(),
           demo: Container(
             padding: M3EdgeInsets.symmetric(
-              horizontal: M3SpacingToken.space8,
-              vertical: M3SpacingToken.space4,
+              horizontal: M3Spacings.s8,
+              vertical: M3Spacings.s4,
             ),
             decoration: ShapeDecoration(
               color: mediaQuery.highContrast
@@ -566,7 +579,7 @@ class _AccessibilityPageState extends State<AccessibilityPage>
           'The app should adapt to the user\'s text size preferences.',
           style: Theme.of(context).textTheme.bodyMedium,
         ),
-        const M3Gap(M3SpacingToken.space16),
+        const M3Gap(M3Spacings.s16),
         _buildInteractiveDemo(
           title: 'Text Scaling Demonstration',
           child: Column(
@@ -578,12 +591,12 @@ class _AccessibilityPageState extends State<AccessibilityPage>
                   fontWeight: FontWeight.w600,
                 ),
               ),
-              const M3Gap(M3SpacingToken.space16),
+              const M3Gap(M3Spacings.s16),
               for (final scale in [0.8, 1.0, 1.2, 1.4, 1.8]) ...[
                 Container(
-                  padding: M3EdgeInsets.all(M3SpacingToken.space12),
+                  padding: M3EdgeInsets.all(M3Spacings.s12),
                   margin: M3EdgeInsets.only(
-                    bottom: M3SpacingToken.space8,
+                    bottom: M3Spacings.s8,
                   ),
                   decoration: ShapeDecoration(
                     color: scale == textScale
@@ -612,7 +625,7 @@ class _AccessibilityPageState extends State<AccessibilityPage>
                   ),
                 ),
               ],
-              const M3Gap(M3SpacingToken.space12),
+              const M3Gap(M3Spacings.s12),
               Text(
                 'Go to Settings > Accessibility > Font Size to test different scales.',
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
@@ -637,7 +650,7 @@ class _AccessibilityPageState extends State<AccessibilityPage>
           'The app should respect the user\'s preference for reduced animations.',
           style: Theme.of(context).textTheme.bodyMedium,
         ),
-        const M3Gap(M3SpacingToken.space16),
+        const M3Gap(M3Spacings.s16),
         _buildInteractiveDemo(
           title: 'Motion Demonstration',
           child: Column(
@@ -652,7 +665,7 @@ class _AccessibilityPageState extends State<AccessibilityPage>
                         ? Theme.of(context).colorScheme.outline
                         : Theme.of(context).colorScheme.primary,
                   ),
-                  const M3Gap(M3SpacingToken.space8),
+                  const M3Gap(M3Spacings.s8),
                   Expanded(
                     child: Text(
                       'Animations ${disableAnimations ? 'disabled' : 'enabled'} by the system',
@@ -661,7 +674,7 @@ class _AccessibilityPageState extends State<AccessibilityPage>
                   ),
                 ],
               ),
-              const M3Gap(M3SpacingToken.space20),
+              const M3Gap(M3Spacings.s20),
               AnimatedBuilder(
                 animation: _pulseController,
                 builder: (context, child) {
@@ -676,18 +689,18 @@ class _AccessibilityPageState extends State<AccessibilityPage>
                       height: 100,
                       decoration: ShapeDecoration(
                         color: Theme.of(context).colorScheme.primaryContainer,
-                        shape: M3Shape.extraExtraLarge,
+                        shape: M3Shape.extraLarge,
                       ),
                       child: Icon(
                         Icons.favorite,
                         color: Theme.of(context).colorScheme.onPrimaryContainer,
-                        size: M3IconSizeToken.large.value,
+                        size: M3IconSizes.large,
                       ),
                     ),
                   );
                 },
               ),
-              const M3Gap(M3SpacingToken.space16),
+              const M3Gap(M3Spacings.s16),
               Text(
                 disableAnimations
                     ? 'Animations are disabled - the element remains static.'
@@ -697,7 +710,7 @@ class _AccessibilityPageState extends State<AccessibilityPage>
                     ),
                 textAlign: TextAlign.center,
               ),
-              const M3Gap(M3SpacingToken.space12),
+              const M3Gap(M3Spacings.s12),
               Text(
                 'Go to Settings > Accessibility > Remove animations to test this feature.',
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
@@ -722,24 +735,24 @@ class _AccessibilityPageState extends State<AccessibilityPage>
   }) {
     return Card(
       margin: M3EdgeInsets.only(
-        bottom: M3SpacingToken.space16,
+        bottom: M3Spacings.s16,
       ),
       child: M3Padding(
-        padding: M3EdgeInsets.all(M3SpacingToken.space16),
+        padding: M3EdgeInsets.all(M3Spacings.s16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               children: [
                 Icon(icon, color: Theme.of(context).colorScheme.primary),
-                const M3Gap(M3SpacingToken.space12),
+                const M3Gap(M3Spacings.s12),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       LaunchURLText(label: title),
                       if (subtitle != null) ...[
-                        const M3Gap(M3SpacingToken.space4),
+                        const M3Gap(M3Spacings.s4),
                         Text(
                           subtitle,
                           style:
@@ -755,7 +768,7 @@ class _AccessibilityPageState extends State<AccessibilityPage>
                 ),
               ],
             ),
-            Divider(height: M3SpacingToken.space32.value),
+            Divider(height: M3Spacings.s32),
             content,
           ],
         ),
@@ -771,7 +784,7 @@ class _AccessibilityPageState extends State<AccessibilityPage>
   }) {
     final colorScheme = Theme.of(context).colorScheme;
     return Container(
-      padding: M3EdgeInsets.all(M3SpacingToken.space16),
+      padding: M3EdgeInsets.all(M3Spacings.s16),
       decoration: BoxDecoration(
         color: isGood
             ? colorScheme.secondaryContainer.withValues(alpha: 0.3)
@@ -792,9 +805,9 @@ class _AccessibilityPageState extends State<AccessibilityPage>
                   color: isGood ? colorScheme.secondary : colorScheme.error,
                 ),
           ),
-          const M3Gap(M3SpacingToken.space12),
+          const M3Gap(M3Spacings.s12),
           Center(child: child),
-          const M3Gap(M3SpacingToken.space12),
+          const M3Gap(M3Spacings.s12),
           Text(
             description,
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
@@ -813,7 +826,7 @@ class _AccessibilityPageState extends State<AccessibilityPage>
     final colorScheme = Theme.of(context).colorScheme;
     return Container(
       width: double.infinity,
-      padding: M3EdgeInsets.all(M3SpacingToken.space20),
+      padding: M3EdgeInsets.all(M3Spacings.s20),
       decoration: BoxDecoration(
         color: colorScheme.surfaceContainer,
         borderRadius: M3BorderRadius.large,
@@ -829,9 +842,9 @@ class _AccessibilityPageState extends State<AccessibilityPage>
               Icon(
                 Icons.play_circle_outline,
                 color: colorScheme.primary,
-                size: M3IconSizeToken.dense.value,
+                size: M3IconSizes.dense,
               ),
-              const M3Gap(M3SpacingToken.space8),
+              const M3Gap(M3Spacings.s8),
               Text(
                 title,
                 style: Theme.of(context).textTheme.titleSmall?.copyWith(
@@ -841,7 +854,7 @@ class _AccessibilityPageState extends State<AccessibilityPage>
               ),
             ],
           ),
-          const M3Gap(M3SpacingToken.space16),
+          const M3Gap(M3Spacings.s16),
           child,
         ],
       ),
@@ -866,7 +879,7 @@ class _AccessibilityPageState extends State<AccessibilityPage>
             outlineColor: Theme.of(context).colorScheme.outlineVariant),
       ),
       child: M3Padding(
-        padding: M3EdgeInsets.all(M3SpacingToken.space16),
+        padding: M3EdgeInsets.all(M3Spacings.s16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -875,7 +888,7 @@ class _AccessibilityPageState extends State<AccessibilityPage>
                     .textTheme
                     .titleMedium
                     ?.copyWith(color: textColor)),
-            const M3Gap(M3SpacingToken.space4),
+            const M3Gap(M3Spacings.s4),
             Text(
               'Ratio: ${contrast.toStringAsFixed(2)}:1 | WCAG AA: ${meetsAA ? '✓ Pass' : '✗ Fail'} | AAA: ${meetsAAA ? '✓ Pass' : '✗ Fail'}',
               style: Theme.of(context)
@@ -917,9 +930,9 @@ class _AccessibilityPageState extends State<AccessibilityPage>
               Text(
                 'This page demonstrates practical accessibility implementations following the WCAG 2.1 AA guidelines.',
               ),
-              const M3Gap(M3SpacingToken.space16),
+              const M3Gap(M3Spacings.s16),
               Text('Features demonstrated:'),
-              const M3Gap(M3SpacingToken.space8),
+              const M3Gap(M3Spacings.s8),
               Text('• Minimum 48x48dp touch targets'),
               Text('• Semantic labels for screen readers'),
               Text('• Adequate color contrast'),

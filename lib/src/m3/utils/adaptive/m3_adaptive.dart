@@ -1,6 +1,6 @@
-part of '../../../../../material_design.dart';
+part of '../../../adaptive.dart';
 
-/// Comprehensive adaptive design utilities for Material Design 3.
+/// Adaptive design utilities for Material Design 3.
 ///
 /// Provides responsive layouts, navigation patterns, and component adaptations
 /// that work seamlessly across different screen sizes and device types.
@@ -8,7 +8,8 @@ part of '../../../../../material_design.dart';
 abstract interface class M3Adaptive {
   // --- Layout Utilities ---
 
-  /// Creates a responsive layout that adapts to screen size.
+  /// Returns the widget matching the current window size class, falling back
+  /// to the nearest smaller variant when a specific size is not provided.
   static Widget responsiveLayout({
     required BuildContext context,
     required Widget compact,
@@ -17,23 +18,17 @@ abstract interface class M3Adaptive {
     Widget? large,
     Widget? extraLarge,
   }) {
-    final screenSize = M3BreakpointToken.getScreenSizeFromContext(context);
-
-    switch (screenSize) {
-      case M3ScreenSize.compact:
-        return compact;
-      case M3ScreenSize.medium:
-        return medium ?? compact;
-      case M3ScreenSize.expanded:
-        return expanded ?? medium ?? compact;
-      case M3ScreenSize.large:
-        return large ?? expanded ?? medium ?? compact;
-      case M3ScreenSize.extraLarge:
-        return extraLarge ?? large ?? expanded ?? medium ?? compact;
-    }
+    return switch (M3ScreenSize.of(context)) {
+      M3ScreenSize.compact => compact,
+      M3ScreenSize.medium => medium ?? compact,
+      M3ScreenSize.expanded => expanded ?? medium ?? compact,
+      M3ScreenSize.large => large ?? expanded ?? medium ?? compact,
+      M3ScreenSize.extraLarge =>
+        extraLarge ?? large ?? expanded ?? medium ?? compact,
+    };
   }
 
-  /// Creates a responsive value based on screen size.
+  /// Returns the value matching the current window size class.
   static T responsiveValue<T>({
     required BuildContext context,
     required T compact,
@@ -42,53 +37,49 @@ abstract interface class M3Adaptive {
     T? large,
     T? extraLarge,
   }) {
-    final screenSize = M3BreakpointToken.getScreenSizeFromContext(context);
-
-    switch (screenSize) {
-      case M3ScreenSize.compact:
-        return compact;
-      case M3ScreenSize.medium:
-        return medium ?? compact;
-      case M3ScreenSize.expanded:
-        return expanded ?? medium ?? compact;
-      case M3ScreenSize.large:
-        return large ?? expanded ?? medium ?? compact;
-      case M3ScreenSize.extraLarge:
-        return extraLarge ?? large ?? expanded ?? medium ?? compact;
-    }
+    return switch (M3ScreenSize.of(context)) {
+      M3ScreenSize.compact => compact,
+      M3ScreenSize.medium => medium ?? compact,
+      M3ScreenSize.expanded => expanded ?? medium ?? compact,
+      M3ScreenSize.large => large ?? expanded ?? medium ?? compact,
+      M3ScreenSize.extraLarge =>
+        extraLarge ?? large ?? expanded ?? medium ?? compact,
+    };
   }
 
-  /// Creates adaptive padding based on screen size.
+  /// Returns page padding matching the current window size class.
   static EdgeInsetsGeometry adaptivePadding(BuildContext context) {
     return M3EdgeInsets.all(
-      responsiveValue<M3MarginToken>(
+      responsiveValue<M3SpacingValue>(
         context: context,
-        compact: M3MarginToken.compactScreen,
-        medium: M3MarginToken.mediumScreen,
-        expanded: M3MarginToken.expandedScreen,
-        large: M3MarginToken.largeScreen,
-        extraLarge: M3MarginToken.extraLargeScreen,
+        compact: M3Margins.compactScreen,
+        medium: M3Margins.mediumScreen,
+        expanded: M3Margins.expandedScreen,
+        large: M3Margins.largeScreen,
+        extraLarge: M3Margins.extraLargeScreen,
       ),
     );
   }
 
-  /// Creates adaptive margins based on screen size.
+  /// Returns horizontal page margin matching the current window size class.
   static EdgeInsetsGeometry adaptiveMargin(BuildContext context) {
     return M3EdgeInsets.symmetric(
-      horizontal: responsiveValue<M3MarginToken>(
+      horizontal: responsiveValue<M3SpacingValue>(
         context: context,
-        compact: M3MarginToken.compactScreen,
-        medium: M3MarginToken.mediumScreen,
-        expanded: M3MarginToken.expandedScreen,
-        large: M3MarginToken.largeScreen,
-        extraLarge: M3MarginToken.extraLargeScreen,
+        compact: M3Margins.compactScreen,
+        medium: M3Margins.mediumScreen,
+        expanded: M3Margins.expandedScreen,
+        large: M3Margins.largeScreen,
+        extraLarge: M3Margins.extraLargeScreen,
       ),
     );
   }
 
   // --- Navigation Adaptations ---
 
-  /// Creates adaptive navigation based on screen size.
+  /// Returns the M3-recommended navigation widget for the current screen size:
+  /// compact → [NavigationBar], medium → [NavigationRail],
+  /// expanded+ → [NavigationDrawer].
   static Widget adaptiveNavigation({
     required BuildContext context,
     required List<NavigationDestination> destinations,
@@ -97,18 +88,13 @@ abstract interface class M3Adaptive {
     Widget? leading,
     Widget? trailing,
   }) {
-    final screenSize = M3BreakpointToken.getScreenSizeFromContext(context);
-
-    switch (screenSize) {
-      case M3ScreenSize.compact:
-        return NavigationBar(
+    return switch (M3ScreenSize.of(context)) {
+      M3ScreenSize.compact => NavigationBar(
           destinations: destinations,
           selectedIndex: selectedIndex,
           onDestinationSelected: onDestinationSelected,
-        );
-
-      case M3ScreenSize.medium:
-        return NavigationRail(
+        ),
+      M3ScreenSize.medium => NavigationRail(
           destinations: destinations
               .map(
                 (d) => NavigationRailDestination(
@@ -122,30 +108,26 @@ abstract interface class M3Adaptive {
           onDestinationSelected: onDestinationSelected,
           leading: leading,
           trailing: trailing,
-        );
-
-      case M3ScreenSize.expanded:
-      case M3ScreenSize.large:
-      case M3ScreenSize.extraLarge:
-        return NavigationDrawer(
+        ),
+      _ => NavigationDrawer(
           selectedIndex: selectedIndex,
           onDestinationSelected: onDestinationSelected,
           children: [
             if (leading != null) leading,
-            ...destinations.asMap().entries.map((entry) {
-              return NavigationDrawerDestination(
-                icon: entry.value.icon,
-                selectedIcon: entry.value.selectedIcon,
-                label: Text(entry.value.label),
-              );
-            }),
+            ...destinations.asMap().entries.map(
+                  (entry) => NavigationDrawerDestination(
+                    icon: entry.value.icon,
+                    selectedIcon: entry.value.selectedIcon,
+                    label: Text(entry.value.label),
+                  ),
+                ),
             if (trailing != null) trailing,
           ],
-        );
-    }
+        ),
+    };
   }
 
-  /// Creates an adaptive app bar with responsive behavior.
+  /// Returns an [AppBar] that centers its title on compact screens.
   static PreferredSizeWidget adaptiveAppBar({
     required BuildContext context,
     required String title,
@@ -153,8 +135,7 @@ abstract interface class M3Adaptive {
     Widget? leading,
     bool automaticallyImplyLeading = true,
   }) {
-    final isCompact = M3BreakpointToken.isCompact(context);
-
+    final isCompact = M3ScreenSize.of(context) == M3ScreenSize.compact;
     return AppBar(
       title: Text(title),
       centerTitle: isCompact,
@@ -167,7 +148,7 @@ abstract interface class M3Adaptive {
 
   // --- Dialog Adaptations ---
 
-  /// Shows an adaptive dialog that becomes fullscreen on mobile.
+  /// Shows a full-screen page on compact screens; a dialog on larger screens.
   static Future<T?> showAdaptiveDialog<T>({
     required BuildContext context,
     required String title,
@@ -175,12 +156,12 @@ abstract interface class M3Adaptive {
     List<Widget>? actions,
     bool barrierDismissible = true,
   }) {
-    final isCompact = M3BreakpointToken.isCompact(context);
+    final isCompact = M3ScreenSize.of(context) == M3ScreenSize.compact;
 
     if (isCompact) {
-      // Full-screen dialog for compact screens
       return Navigator.of(context).push<T>(
         MaterialPageRoute(
+          fullscreenDialog: true,
           builder: (context) => Scaffold(
             appBar: AppBar(
               title: Text(title),
@@ -195,31 +176,29 @@ abstract interface class M3Adaptive {
               child: content,
             ),
           ),
-          fullscreenDialog: true,
-        ),
-      );
-    } else {
-      // Modal dialog for larger screens
-      return showDialog<T>(
-        context: context,
-        barrierDismissible: barrierDismissible,
-        builder: (context) => AlertDialog(
-          title: Text(title),
-          content: content,
-          actions: actions,
         ),
       );
     }
+
+    return showDialog<T>(
+      context: context,
+      barrierDismissible: barrierDismissible,
+      builder: (context) => AlertDialog(
+        title: Text(title),
+        content: content,
+        actions: actions,
+      ),
+    );
   }
 
-  /// Shows an adaptive bottom sheet.
+  /// Shows a bottom sheet on compact screens; a side panel on larger screens.
   static Future<T?> showAdaptiveSheet<T>({
     required BuildContext context,
     required Widget child,
     String? title,
     bool isDismissible = true,
   }) {
-    final isCompact = M3BreakpointToken.isCompact(context);
+    final isCompact = M3ScreenSize.of(context) == M3ScreenSize.compact;
 
     if (isCompact) {
       return showModalBottomSheet<T>(
@@ -231,107 +210,97 @@ abstract interface class M3Adaptive {
           initialChildSize: 0.6,
           minChildSize: 0.3,
           maxChildSize: 0.9,
-          builder: (context, scrollController) {
-            return Column(
+          expand: false,
+          builder: (context, scrollController) => Column(
+            children: [
+              if (title != null) ...[
+                M3Padding(
+                  padding: const M3EdgeInsets.all(M3Spacings.s16),
+                  child: Text(
+                    title,
+                    style: Theme.of(context).textTheme.headlineSmall,
+                  ),
+                ),
+                const Divider(height: 1),
+              ],
+              Expanded(
+                child: SingleChildScrollView(
+                  controller: scrollController,
+                  child: child,
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+
+    return showGeneralDialog<T>(
+      context: context,
+      barrierDismissible: isDismissible,
+      barrierLabel: '',
+      pageBuilder: (context, animation, secondaryAnimation) => Align(
+        alignment: Alignment.centerRight,
+        child: Material(
+          child: Container(
+            width: 320,
+            height: double.infinity,
+            decoration: ShapeDecoration(
+              color: Theme.of(context).colorScheme.surface,
+              shape: M3Shape.large,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 if (title != null) ...[
                   M3Padding(
-                    padding: M3EdgeInsets.all(M3SpacingToken.space16),
-                    child: Text(
-                      title,
-                      style: Theme.of(context).textTheme.headlineSmall,
+                    padding: const M3EdgeInsets.all(M3Spacings.s16),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            title,
+                            style: Theme.of(context).textTheme.headlineSmall,
+                          ),
+                        ),
+                        IconButton(
+                          icon: const Icon(Icons.close),
+                          onPressed: () => Navigator.of(context).pop(),
+                        ),
+                      ],
                     ),
                   ),
                   const Divider(height: 1),
                 ],
                 Expanded(
                   child: SingleChildScrollView(
-                    controller: scrollController,
+                    padding: adaptivePadding(context),
                     child: child,
                   ),
                 ),
               ],
-            );
-          },
+            ),
+          ),
         ),
-      );
-    } else {
-      // Side sheet for larger screens
-      return showGeneralDialog<T>(
-        context: context,
-        barrierDismissible: isDismissible,
-        barrierLabel: '',
-        pageBuilder: (context, animation, secondaryAnimation) {
-          return Align(
-            alignment: Alignment.centerRight,
-            child: Material(
-              // elevation: _M3ComponentElevationToken.dialog,
-              child: Container(
-                width: 320,
-                height: double.infinity,
-                decoration: ShapeDecoration(
-                  color: Theme.of(context).colorScheme.surface,
-                  shape: M3Shape.large,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    if (title != null) ...[
-                      M3Padding(
-                        padding: M3EdgeInsets.all(M3SpacingToken.space16),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: Text(
-                                title,
-                                style: Theme.of(
-                                  context,
-                                ).textTheme.headlineSmall,
-                              ),
-                            ),
-                            IconButton(
-                              icon: const Icon(Icons.close),
-                              onPressed: () => Navigator.of(context).pop(),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const Divider(height: 1),
-                    ],
-                    Expanded(
-                      child: SingleChildScrollView(
-                        padding: adaptivePadding(context),
-                        child: child,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          );
-        },
-        transitionBuilder: (context, animation, secondaryAnimation, child) {
-          return SlideTransition(
-            position: Tween<Offset>(
-              begin: const Offset(1, 0),
-              end: Offset.zero,
-            ).animate(
-              CurvedAnimation(
-                parent: animation,
-                curve: M3MotionCurve.emphasizedDecelerate,
-              ),
-            ),
-            child: child,
-          );
-        },
-        transitionDuration: M3MotionDuration.long1,
-      );
-    }
+      ),
+      transitionBuilder: (context, animation, secondaryAnimation, child) =>
+          SlideTransition(
+        position: Tween<Offset>(
+          begin: const Offset(1, 0),
+          end: Offset.zero,
+        ).animate(CurvedAnimation(
+          parent: animation,
+          curve: M3MotionCurve.emphasizedDecelerate,
+        )),
+        child: child,
+      ),
+      transitionDuration: M3MotionDuration.long1,
+    );
   }
 
   // --- Grid Adaptations ---
 
-  /// Creates a responsive grid with adaptive column count.
+  /// Returns a [GridView] with a column count adapted to the screen size.
   static Widget adaptiveGrid({
     required BuildContext context,
     required List<Widget> children,
@@ -360,7 +329,7 @@ abstract interface class M3Adaptive {
     );
   }
 
-  /// Creates a responsive container with adaptive constraints.
+  /// Returns a constrained [Container] with adaptive max-width and padding.
   static Widget adaptiveContainer({
     required BuildContext context,
     required Widget child,
@@ -368,9 +337,7 @@ abstract interface class M3Adaptive {
     EdgeInsetsGeometry? margin,
     Decoration? decoration,
   }) {
-    final maxWidth = M3BreakpointToken.getMaxContentWidth(
-      M3BreakpointToken.getScreenSizeFromContext(context),
-    );
+    final maxWidth = M3ScreenSize.of(context).maxContentWidth;
 
     return Container(
       constraints: BoxConstraints(maxWidth: maxWidth),
@@ -383,15 +350,14 @@ abstract interface class M3Adaptive {
 
   // --- Component Adaptations ---
 
-  /// Creates adaptive button sizing based on screen size and input method.
+  /// Returns an [ElevatedButton] sized for the current input method.
   static Widget adaptiveButton({
     required BuildContext context,
     required Widget child,
     required VoidCallback? onPressed,
     ButtonStyle? style,
   }) {
-    final minSize = _getAdaptiveButtonSize(context);
-
+    final minSize = _adaptiveButtonSize(context);
     return ElevatedButton(
       onPressed: onPressed,
       style: (style ?? ElevatedButton.styleFrom()).copyWith(
@@ -401,7 +367,7 @@ abstract interface class M3Adaptive {
     );
   }
 
-  /// Creates adaptive FAB with size based on screen size.
+  /// Returns an extended FAB on larger screens and a regular FAB on compact.
   static Widget adaptiveFAB({
     required BuildContext context,
     required VoidCallback? onPressed,
@@ -409,76 +375,51 @@ abstract interface class M3Adaptive {
     bool isExtended = false,
     String? label,
   }) {
-    final isCompact = M3BreakpointToken.isCompact(context);
-
+    final isCompact = M3ScreenSize.of(context) == M3ScreenSize.compact;
     if (isExtended && !isCompact) {
       return FloatingActionButton.extended(
         onPressed: onPressed,
         icon: child,
         label: Text(label ?? ''),
       );
-    } else {
-      return FloatingActionButton(
-        onPressed: onPressed,
-        child: child,
-      );
     }
+    return FloatingActionButton(onPressed: onPressed, child: child);
   }
 
   // --- Platform Adaptations ---
 
-  /// Detects the input method type for adaptive sizing.
-  static InputMethodType getInputMethodType(BuildContext context) {
-    final platform = Theme.of(context).platform;
-    switch (platform) {
-      case TargetPlatform.iOS:
-      case TargetPlatform.android:
-        return InputMethodType.touch;
-      case TargetPlatform.macOS:
-      case TargetPlatform.windows:
-      case TargetPlatform.linux:
-        return InputMethodType.mouse;
-      case TargetPlatform.fuchsia:
-        return InputMethodType.touch;
-    }
-  }
-
-  /// Creates platform-adaptive scrolling behavior.
-  static ScrollBehavior adaptiveScrollBehavior(BuildContext context) {
-    return const MaterialScrollBehavior();
+  /// Returns whether the current platform primarily uses touch input.
+  static InputMethodType inputMethodType(BuildContext context) {
+    return switch (Theme.of(context).platform) {
+      TargetPlatform.iOS ||
+      TargetPlatform.android ||
+      TargetPlatform.fuchsia =>
+        InputMethodType.touch,
+      _ => InputMethodType.mouse,
+    };
   }
 
   // --- Private Helpers ---
 
-  static double _getAdaptiveButtonSize(BuildContext context) {
-    final inputType = getInputMethodType(context);
-    switch (inputType) {
-      case InputMethodType.touch:
-        return 48; // Mobile touch target
-      case InputMethodType.mouse:
-        return 32; // Desktop mouse target
-    }
+  static double _adaptiveButtonSize(BuildContext context) {
+    return inputMethodType(context) == InputMethodType.touch ? 48.0 : 32.0;
   }
 }
 
-/// Enumeration of input method types.
+/// The primary input method used on the current platform.
 enum InputMethodType {
-  /// Touch-based input (mobile, tablets).
+  /// Touch input (e.g. mobile device).
   touch,
 
-  /// Mouse and keyboard input (desktop).
+  /// Mouse input (e.g. desktop/web browser).
   mouse,
 }
 
-/// Adaptive scaffold that provides responsive layout structure.
-///
-/// Automatically switches between different navigation patterns based on
-/// screen size:
-/// - Compact: Bottom navigation bar
-/// - Medium: Navigation rail
-/// - Large: Navigation drawer
+/// An adaptive [Scaffold] that switches navigation patterns based on screen
+/// size: compact uses a bottom bar, medium uses a rail, expanded+ uses a
+/// drawer.
 class M3AdaptiveScaffold extends StatelessWidget {
-  /// Creates an adaptive scaffold with the given configuration.
+  /// Creates an adaptive scaffold.
   const M3AdaptiveScaffold({
     required this.body,
     super.key,
@@ -491,35 +432,34 @@ class M3AdaptiveScaffold extends StatelessWidget {
     this.navigationTrailing,
   });
 
-  /// The primary content of the scaffold.
+  /// The main content of the scaffold.
   final Widget body;
 
-  /// Navigation destinations for adaptive navigation.
+  /// The list of navigation destinations to display.
   final List<NavigationDestination>? destinations;
 
-  /// Currently selected destination index.
+  /// The index of the currently selected navigation destination.
   final int selectedIndex;
 
-  /// Callback when destination is selected.
+  /// Callback when a navigation destination is selected.
   final ValueChanged<int>? onDestinationSelected;
 
-  /// App bar for the scaffold.
+  /// Optional app bar to display at the top.
   final PreferredSizeWidget? appBar;
 
-  /// Floating action button.
+  /// Optional floating action button to display.
   final Widget? floatingActionButton;
 
-  /// Leading widget for navigation.
+  /// Optional leading widget for navigation rail/drawer.
   final Widget? navigationLeading;
 
-  /// Trailing widget for navigation.
+  /// Optional trailing widget for navigation rail/drawer.
   final Widget? navigationTrailing;
 
   @override
   Widget build(BuildContext context) {
-    final screenSize = M3BreakpointToken.getScreenSizeFromContext(context);
+    final screenSize = M3ScreenSize.of(context);
 
-    // For compact screens, use standard scaffold with bottom navigation
     if (screenSize == M3ScreenSize.compact) {
       return Scaffold(
         appBar: appBar,
@@ -535,7 +475,6 @@ class M3AdaptiveScaffold extends StatelessWidget {
       );
     }
 
-    // For medium screens, use navigation rail
     if (screenSize == M3ScreenSize.medium) {
       return Scaffold(
         appBar: appBar,
@@ -565,7 +504,6 @@ class M3AdaptiveScaffold extends StatelessWidget {
       );
     }
 
-    // For large screens, use navigation drawer
     return Scaffold(
       appBar: appBar,
       drawer: destinations != null
@@ -574,13 +512,13 @@ class M3AdaptiveScaffold extends StatelessWidget {
               onDestinationSelected: onDestinationSelected,
               children: [
                 if (navigationLeading != null) navigationLeading!,
-                ...destinations!.asMap().entries.map((entry) {
-                  return NavigationDrawerDestination(
-                    icon: entry.value.icon,
-                    selectedIcon: entry.value.selectedIcon,
-                    label: Text(entry.value.label),
-                  );
-                }),
+                ...destinations!.asMap().entries.map(
+                      (entry) => NavigationDrawerDestination(
+                        icon: entry.value.icon,
+                        selectedIcon: entry.value.selectedIcon,
+                        label: Text(entry.value.label),
+                      ),
+                    ),
                 if (navigationTrailing != null) navigationTrailing!,
               ],
             )

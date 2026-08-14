@@ -1,18 +1,21 @@
 name: material_design
-description: "The fastest path to consistent Material Design UIs in Flutter. Build beautiful apps aligned with official metrics and guidelines using a powerful set of ready-to-use design tokens and helper widgets."
-version: 0.28.1
-# author: Kevin Kobori <https://www.linkedin.com/in/kevin-kobori/>
-homepage:
+description: "A Material Design 3 contract for Flutter. Enforces M3 tokens system-wide, replacing free primitives with type-safe M3 equivalents."
+version: 1.0.0
 repository: https://github.com/fluttely/material_design
 issue_tracker: https://github.com/fluttely/material_design/issues
 
 environment:
-  sdk: ">=3.0.0 <4.0.0"
-  flutter: ">=3.10.0"
+  # Color.withValues / Color.a / toARGB32 landed in Flutter 3.27 (Dart 3.6).
+  # The package will not compile below this.
+  sdk: ">=3.6.0 <4.0.0"
+  flutter: ">=3.27.0"
 
 dependencies:
   flutter:
     sdk: flutter
+  # Pinned by the Flutter SDK; the range stays wide so it never blocks an
+  # upgrade. Used by M3TonalPalette for real HCT tone generation.
+  material_color_utilities: ">=0.11.0 <0.14.0"
   meta: ^1.15.0
   vector_math: ^2.1.4
 

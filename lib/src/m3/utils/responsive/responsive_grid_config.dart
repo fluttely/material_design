@@ -1,11 +1,11 @@
-part of '../../../../material_design.dart';
+part of '../../../adaptive.dart';
 
 /// Layout configuration for responsive grid layouts.
 ///
-/// This class provides Material Design 3 compliant grid layout configurations
+/// Provides Material Design 3 compliant grid layout configurations
 /// based on the current window size class.
 class M3ResponsiveGridConfig {
-  /// Creates a grid configuration.
+  /// Creates a responsive grid configuration.
   const M3ResponsiveGridConfig({
     required this.columns,
     required this.gutter,
@@ -13,25 +13,25 @@ class M3ResponsiveGridConfig {
     this.maxWidth,
   });
 
-  /// Gets the appropriate grid configuration for the given window size class.
+  /// Builds a responsive grid configuration based on [screenSize].
   factory M3ResponsiveGridConfig.forScreenSize(M3ScreenSize screenSize) {
     return M3ResponsiveGridConfig(
-      columns: M3BreakpointToken.getRecommendedColumns(screenSize),
-      gutter: M3BreakpointToken.getGutterWidth(screenSize),
-      margin: M3BreakpointToken.getMargin(screenSize),
-      maxWidth: M3BreakpointToken.getBodyWidth(screenSize),
+      columns: screenSize.columns,
+      gutter: screenSize.gutterWidth,
+      margin: screenSize.pageMargin,
+      maxWidth: screenSize.bodyWidth,
     );
   }
 
-  /// Number of columns in the grid.
+  /// The number of columns in the grid.
   final int columns;
 
-  /// Space between columns (gutter).
-  final double gutter;
+  /// The spacing between grid columns.
+  final M3SpacingValue gutter;
 
-  /// Margin around the grid.
-  final M3MarginToken margin;
+  /// The horizontal page margin.
+  final M3SpacingValue margin;
 
-  /// Maximum width of the grid (optional).
-  final double? maxWidth;
+  /// Optional maximum content width.
+  final M3BreakpointValue? maxWidth;
 }

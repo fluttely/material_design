@@ -10,7 +10,7 @@ class ZIndexTokensPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text('Z-Index')), // TODO(Kevin): fix title
       body: ListView(
-        padding: M3EdgeInsets.all(M3SpacingToken.space16),
+        padding: M3EdgeInsets.all(M3Spacings.s16),
         children: [
           _buildZIndexSection(context),
         ],
@@ -25,42 +25,42 @@ class ZIndexTokensPage extends StatelessWidget {
     final zIndexLayers = [
       _ZIndexLayer(
         name: 'Content',
-        zIndex: M3ZIndexToken.content,
+        zIndex: M3ZIndexes.content,
         description: 'Base content layer',
         color: colorScheme.surface,
         borderColor: colorScheme.outline,
       ),
       _ZIndexLayer(
         name: 'Floating',
-        zIndex: M3ZIndexToken.floating,
+        zIndex: M3ZIndexes.floating,
         description: 'FAB, chips, buttons',
         color: colorScheme.primaryContainer,
         borderColor: colorScheme.primary,
       ),
       _ZIndexLayer(
         name: 'Drawer',
-        zIndex: M3ZIndexToken.drawer,
+        zIndex: M3ZIndexes.drawer,
         description: 'Navigation drawer',
         color: colorScheme.secondaryContainer,
         borderColor: colorScheme.secondary,
       ),
       _ZIndexLayer(
         name: 'Modal',
-        zIndex: M3ZIndexToken.modal,
+        zIndex: M3ZIndexes.modal,
         description: 'Dialogs, bottom sheets',
         color: colorScheme.tertiaryContainer,
         borderColor: colorScheme.tertiary,
       ),
       _ZIndexLayer(
         name: 'Snackbar',
-        zIndex: M3ZIndexToken.snackbar,
+        zIndex: M3ZIndexes.snackbar,
         description: 'Snackbars, banners',
         color: colorScheme.errorContainer,
         borderColor: colorScheme.error,
       ),
       _ZIndexLayer(
         name: 'Tooltip',
-        zIndex: M3ZIndexToken.tooltip,
+        zIndex: M3ZIndexes.tooltip,
         description: 'Tooltips, top layer',
         color: colorScheme.surface,
         borderColor: colorScheme.onSurface,
@@ -71,17 +71,17 @@ class ZIndexTokensPage extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         LaunchURLText(label: 'M3ZIndexes | M3ZIndexToken'),
-        const M3Gap(M3SpacingToken.space8),
+        const M3Gap(M3Spacings.s8),
         Text(
           'Stacking order from bottom to top (lower to higher z-index)',
           style: textTheme.bodyMedium?.copyWith(
             color: colorScheme.onSurfaceVariant,
           ),
         ),
-        const M3Gap(M3SpacingToken.space16),
+        const M3Gap(M3Spacings.s16),
         Container(
           height: 512,
-          padding: M3EdgeInsets.all(M3SpacingToken.space16),
+          padding: M3EdgeInsets.all(M3Spacings.s16),
           decoration: BoxDecoration(
             color: colorScheme.surfaceContainerLowest,
             borderRadius: M3BorderRadius.medium,
@@ -92,7 +92,7 @@ class ZIndexTokensPage extends StatelessWidget {
               final index = entry.key;
               final layer = entry.value;
 
-              final offset = index * M3SpacingToken.space48.value;
+              final offset = index * M3Spacings.s48;
               final scale = 1.0 - (index * 0.05);
 
               return Positioned(
@@ -119,7 +119,7 @@ class ZIndexTokensPage extends StatelessWidget {
                       ],
                     ),
                     child: M3Padding(
-                      padding: M3EdgeInsets.all(M3SpacingToken.space12),
+                      padding: M3EdgeInsets.all(M3Spacings.s12),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -130,14 +130,14 @@ class ZIndexTokensPage extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          const M3Gap(M3SpacingToken.space4),
+                          const M3Gap(M3Spacings.s4),
                           Text(
-                            'z: ${layer.zIndex.value}',
+                            'z: ${layer.zIndex}',
                             style: textTheme.labelMedium?.copyWith(
                                 // color: _getTextColor(layer.color, colorScheme),
                                 ),
                           ),
-                          const M3Gap(M3SpacingToken.space4),
+                          const M3Gap(M3Spacings.s4),
                           Text(
                             layer.description,
                             style: textTheme.bodySmall?.copyWith(
@@ -153,7 +153,7 @@ class ZIndexTokensPage extends StatelessWidget {
             }).toList(),
           ),
         ),
-        const M3Gap(M3SpacingToken.space16),
+        const M3Gap(M3Spacings.s16),
         Container(
           decoration: BoxDecoration(
             color: colorScheme.surfaceContainerLow,
@@ -184,15 +184,15 @@ class ZIndexTokensPage extends StatelessWidget {
                 ),
                 trailing: Container(
                   padding: M3EdgeInsets.symmetric(
-                    horizontal: M3SpacingToken.space8,
-                    vertical: M3SpacingToken.space4,
+                    horizontal: M3Spacings.s8,
+                    vertical: M3Spacings.s4,
                   ),
                   decoration: M3BoxDecoration(
                     color: colorScheme.surfaceContainerHighest,
                     borderRadius: M3BorderRadius.small,
                   ),
                   child: Text(
-                    '${layer.zIndex.value}',
+                    '${layer.zIndex}',
                     style: textTheme.labelMedium?.copyWith(
                       fontWeight: FontWeight.bold,
                     ),
@@ -217,7 +217,7 @@ class _ZIndexLayer {
   });
 
   final String name;
-  final M3ZIndexToken zIndex;
+  final int zIndex;
   final String description;
   final Color color;
   final Color borderColor;

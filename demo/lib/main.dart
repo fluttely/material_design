@@ -14,7 +14,9 @@ import 'package:provider/provider.dart';
 import 'color_picker.dart';
 import 'showcase_pages/foundations/accessibility_page.dart';
 import 'showcase_pages/foundations/adaptive_page.dart';
+import 'showcase_pages/foundations/interaction_page.dart';
 import 'showcase_pages/styles/color_tokens_page.dart';
+import 'showcase_pages/styles/tonal_palette_page.dart';
 import 'showcase_pages/styles/elevation_tokens_page.dart';
 import 'showcase_pages/styles/motion_page.dart';
 import 'showcase_pages/styles/shape_page.dart';
@@ -99,9 +101,11 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
     const OpacityTokensPage(),
     const AccessibilityPage(),
     const AdaptivePage(),
+    const InteractionPage(),
 
     // Styles - Visual design elements
     const ColorTokensPage(),
+    const TonalPalettePage(),
     const TypographyPage(),
     const ElevationPage(),
     const ShapePage(),
@@ -116,7 +120,7 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
   Widget build(BuildContext context) {
     // Use Material Design 3 medium breakpoint (600dp) for responsive layout
     final isSmallScreen =
-        MediaQuery.of(context).size.width < M3BreakpointToken.medium.value;
+        MediaQuery.of(context).size.width < M3Breakpoints.medium;
 
     // Mobile layout: NavigationDrawer with hamburger menu
     if (isSmallScreen) {
@@ -128,8 +132,8 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
             _pages[_selectedIndex],
             // Floating hamburger menu button positioned according to M3 specs
             Positioned(
-              top: M3SpacingToken.space8.value,
-              left: M3SpacingToken.space16.value,
+              top: M3Spacings.s8,
+              left: M3Spacings.s16,
               child: IconButton(
                 tooltip: 'Open navigation menu',
                 onPressed: () => _scaffoldKey.currentState?.openDrawer(),
@@ -212,6 +216,11 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
         selectedIcon: Icon(Icons.devices),
         label: Text('Adaptive'),
       ),
+      NavigationRailDestination(
+        icon: Icon(Icons.touch_app_outlined),
+        selectedIcon: Icon(Icons.touch_app),
+        label: Text('Interaction'),
+      ),
     ];
   }
 
@@ -226,6 +235,11 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
         icon: Icon(Icons.format_paint_outlined),
         selectedIcon: Icon(Icons.format_paint),
         label: Text('Color'),
+      ),
+      NavigationRailDestination(
+        icon: Icon(Icons.palette_outlined),
+        selectedIcon: Icon(Icons.palette),
+        label: Text('Tonal'),
       ),
       NavigationRailDestination(
         icon: Icon(Icons.text_fields_outlined),
@@ -289,10 +303,10 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
       children: [
         M3Padding(
           padding: M3EdgeInsets.fromLTRB(
-            M3SpacingToken.space28,
-            M3SpacingToken.space16,
-            M3SpacingToken.space16,
-            M3SpacingToken.space12,
+            M3Spacings.s28,
+            M3Spacings.s16,
+            M3Spacings.s16,
+            M3Spacings.s12,
           ),
           child: Text(
             'Material Design 3',
@@ -301,7 +315,7 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
         ),
         M3Padding(
           padding: M3EdgeInsets.symmetric(
-            horizontal: M3SpacingToken.space28,
+            horizontal: M3Spacings.s28,
           ),
           child: Divider(),
         ),
@@ -309,10 +323,10 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
         // Foundations Section
         M3Padding(
           padding: M3EdgeInsets.fromLTRB(
-            M3SpacingToken.space28,
-            M3SpacingToken.space16,
-            M3SpacingToken.space16,
-            M3SpacingToken.space12,
+            M3Spacings.s28,
+            M3Spacings.s16,
+            M3Spacings.s16,
+            M3Spacings.s12,
           ),
           child: Text('Foundations', style: textTheme.titleSmall),
         ),
@@ -325,7 +339,7 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
         ),
         M3Padding(
           padding: M3EdgeInsets.symmetric(
-            horizontal: M3SpacingToken.space28,
+            horizontal: M3Spacings.s28,
           ),
           child: Divider(),
         ),
@@ -333,10 +347,10 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
         // Styles Section
         M3Padding(
           padding: M3EdgeInsets.fromLTRB(
-            M3SpacingToken.space28,
-            M3SpacingToken.space16,
-            M3SpacingToken.space16,
-            M3SpacingToken.space12,
+            M3Spacings.s28,
+            M3Spacings.s16,
+            M3Spacings.s16,
+            M3Spacings.s12,
           ),
           child: Text('Styles', style: textTheme.titleSmall),
         ),
@@ -349,7 +363,7 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
         ),
         M3Padding(
           padding: M3EdgeInsets.symmetric(
-            horizontal: M3SpacingToken.space28,
+            horizontal: M3Spacings.s28,
           ),
           child: Divider(),
         ),
@@ -357,16 +371,16 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
         // Theme Controls
         M3Padding(
           padding: M3EdgeInsets.fromLTRB(
-            M3SpacingToken.space28,
-            M3SpacingToken.space16,
-            M3SpacingToken.space16,
-            M3SpacingToken.space12,
+            M3Spacings.s28,
+            M3Spacings.s16,
+            M3Spacings.s16,
+            M3Spacings.s12,
           ),
           child: Text('Theme', style: textTheme.titleSmall),
         ),
         M3Padding(
           padding: M3EdgeInsets.symmetric(
-            horizontal: M3SpacingToken.space16,
+            horizontal: M3Spacings.s16,
           ),
           child: Row(
             children: [
@@ -384,7 +398,7 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
         ),
         M3Padding(
           padding: M3EdgeInsets.symmetric(
-            horizontal: M3SpacingToken.space16,
+            horizontal: M3Spacings.s16,
           ),
           child: Row(
             children: [
@@ -402,10 +416,10 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
             ],
           ),
         ),
-        const M3Gap(M3SpacingToken.space8),
+        const M3Gap(M3Spacings.s8),
         M3Padding(
           padding: M3EdgeInsets.symmetric(
-            horizontal: M3SpacingToken.space16,
+            horizontal: M3Spacings.s16,
           ),
           child: const LaunchURLText(
             label: 'Flutter M3 Demo',
@@ -447,9 +461,7 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
               child: Column(
                 children: [
                   // Foundations section
-                  Divider(
-                      indent: M3SpacingToken.space8.value,
-                      endIndent: M3SpacingToken.space8.value),
+                  Divider(indent: M3Spacings.s8, endIndent: M3Spacings.s8),
                   const LaunchURLText(
                     label: 'Foundations',
                     fontSize: 12,
@@ -472,9 +484,7 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
                     );
                   }),
 
-                  Divider(
-                      indent: M3SpacingToken.space8.value,
-                      endIndent: M3SpacingToken.space8.value),
+                  Divider(indent: M3Spacings.s8, endIndent: M3Spacings.s8),
 
                   // Styles section
                   const LaunchURLText(
@@ -499,7 +509,7 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
                     );
                   }),
 
-                  const M3Gap(M3SpacingToken.space24),
+                  const M3Gap(M3Spacings.s24),
                 ],
               ),
             ),
@@ -507,12 +517,10 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
 
           // Fixed bottom controls
           Container(
-            padding: M3EdgeInsets.symmetric(vertical: M3SpacingToken.space8),
+            padding: M3EdgeInsets.symmetric(vertical: M3Spacings.s8),
             child: Column(
               children: [
-                Divider(
-                    indent: M3SpacingToken.space8.value,
-                    endIndent: M3SpacingToken.space8.value),
+                Divider(indent: M3Spacings.s8, endIndent: M3Spacings.s8),
 
                 // Dark mode switch
                 Column(
@@ -525,7 +533,7 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
                         );
                       },
                     ),
-                    const M3Gap(M3SpacingToken.space4),
+                    const M3Gap(M3Spacings.s4),
                     const Text(
                       'Dark Mode',
                       style: TextStyle(fontSize: 10),
@@ -534,7 +542,7 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
                   ],
                 ),
 
-                const M3Gap(M3SpacingToken.space12),
+                const M3Gap(M3Spacings.s12),
 
                 // Color picker
                 Column(
@@ -560,7 +568,7 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
                   ],
                 ),
 
-                const M3Gap(M3SpacingToken.space12),
+                const M3Gap(M3Spacings.s12),
 
                 // Demo link
                 const LaunchURLText(
@@ -569,7 +577,7 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
                   m3Url: 'https://flutterweb-wasm.web.app/',
                 ),
 
-                const M3Gap(M3SpacingToken.space8),
+                const M3Gap(M3Spacings.s8),
               ],
             ),
           ),
@@ -587,40 +595,18 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
   /// - 56dp touch target height as per M3 guidelines
   /// - Rounded 16dp corners following M3 shape tokens
   /// - Semantic icon and label positioning
-  dynamic _buildNavigationRailItem({
+  Widget _buildNavigationRailItem({
     required NavigationRailDestination destination,
     required int index,
     required bool isSelected,
     required VoidCallback onTap,
   }) {
-    // return _NavigationRailItem(
-    //   destination: destination,
-    //   index: index,
-    //   isSelected: isSelected,
-    //   onTap: onTap,
-    // );
-
-    //  NavigationRail(
-    //         selectedIndex: _selectedIndex,
-    //         onDestinationSelected: (index) {
-    //           setState(() {
-    //             _selectedIndex = index;
-    //           });
-    //         },
-    //         labelType: NavigationRailLabelType.selected,
-    //         destinations: const [
-    return NavigationRailDestination(
-      icon: Icon(Icons.foundation_outlined),
-      selectedIcon: Icon(Icons.foundation),
-      label: Text('Foundations'),
+    return _NavigationRailItem(
+      destination: destination,
+      index: index,
+      isSelected: isSelected,
+      onTap: onTap,
     );
-    // NavigationRailDestination(
-    //   icon: Icon(Icons.style_outlined),
-    //   selectedIcon: Icon(Icons.style),
-    //   label: Text('Styles'),
-    //     ),
-    //   ],
-    // ),
   }
 }
 
@@ -693,7 +679,7 @@ class _NavigationRailItemState extends State<_NavigationRailItem>
 
     return M3Padding(
       padding: M3EdgeInsets.symmetric(
-        vertical: M3SpacingToken.space4,
+        vertical: M3Spacings.s4,
       ),
       child: GestureDetector(
         onTap: widget.onTap,
@@ -736,7 +722,7 @@ class _NavigationRailItemState extends State<_NavigationRailItem>
                   },
                 ),
               ),
-              const M3Gap(M3SpacingToken.space4),
+              const M3Gap(M3Spacings.s4),
               // Label
               Text(
                 (widget.destination.label as Text).data!,

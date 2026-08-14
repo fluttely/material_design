@@ -1,4 +1,4 @@
-part of '../../../material_design.dart';
+part of '../../expressive.dart';
 
 /// MeasuredFeatures contains a list of all features in a polygon along with
 /// the [0..1] progress at that feature.

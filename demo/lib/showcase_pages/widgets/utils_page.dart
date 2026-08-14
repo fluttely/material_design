@@ -20,7 +20,7 @@ class _UtilsPageState extends State<UtilsPage> {
         title: const Text('M3 Utilities Showcase'),
       ),
       body: SingleChildScrollView(
-        padding: M3EdgeInsets.all(M3SpacingToken.space16),
+        padding: M3EdgeInsets.all(M3Spacings.s16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -64,26 +64,26 @@ class _UtilsPageState extends State<UtilsPage> {
       children: [
         Text(
           'Responsive Display Text',
-          style: M3TextStyle.responsiveDisplay(context),
+          style: M3TextUtils.responsiveDisplay(context),
         ),
-        const M3Gap(M3SpacingToken.space8),
+        const M3Gap(M3Spacings.s8),
         Text(
           'This text has enhanced readability for better accessibility.',
-          style: M3TextStyle.enhancedReadability(textTheme.bodyLarge!),
+          style: M3TextUtils.dyslexiaFriendly(textTheme.bodyLarge!),
         ),
-        const M3Gap(M3SpacingToken.space16),
+        const M3Gap(M3Spacings.s16),
         _buildHighContrastShowcase(textTheme),
-        const M3Gap(M3SpacingToken.space16),
+        const M3Gap(M3Spacings.s16),
         Container(
           width: double.infinity,
-          padding: M3EdgeInsets.all(M3SpacingToken.space12),
+          padding: M3EdgeInsets.all(M3Spacings.s12),
           decoration: ShapeDecoration(
             color: Theme.of(context).colorScheme.surfaceContainer,
             shape: M3Shape.small,
           ),
           child: Text(
             'function total(items) => items.reduce((a, b) => a + b.price, 0);',
-            style: M3TextStyle.monoVariant(textTheme.bodyMedium!),
+            style: M3TextUtils.mono(textTheme.bodyMedium!),
           ),
         ),
       ],
@@ -94,9 +94,9 @@ class _UtilsPageState extends State<UtilsPage> {
     return Row(
       children: [
         Expanded(child: _buildSurfaceCard('Surface', M3Elevation.level0)),
-        const M3Gap(M3SpacingToken.space8),
+        const M3Gap(M3Spacings.s8),
         Expanded(child: _buildSurfaceCard('Surface+1', M3Elevation.level1)),
-        const M3Gap(M3SpacingToken.space8),
+        const M3Gap(M3Spacings.s8),
         Expanded(child: _buildSurfaceCard('Surface+3', M3Elevation.level2)),
       ],
     );
@@ -111,8 +111,8 @@ class _UtilsPageState extends State<UtilsPage> {
         ),
         Slider(
           value: _elevation.dp,
-          min: M3Elevation.level0.dp,
-          max: M3Elevation.level5.dp,
+          min: M3ElevationDps.level0,
+          max: M3ElevationDps.level5,
           divisions: 12,
           label: '${_elevation.dp.round()}dp',
           onChanged: (newValue) {
@@ -121,10 +121,10 @@ class _UtilsPageState extends State<UtilsPage> {
             });
           },
         ),
-        const M3Gap(M3SpacingToken.space8),
+        const M3Gap(M3Spacings.s8),
         AnimatedContainer(
-          duration: M3MotionDuration.medium2,
-          curve: M3Motion.standard.curve,
+          curve: M3Motion.standardCurve,
+          duration: M3Motion.standardDuration,
           decoration: ShapeDecoration(
             color: _elevation.surfaceColor(context),
             shape: M3Shape.large,
@@ -141,8 +141,8 @@ class _UtilsPageState extends State<UtilsPage> {
   }
 
   Widget _buildMotionPatternsShowcase() {
-    final animationDuration = M3Motion.emphasizedIncoming.duration;
-    final animationCurve = M3Motion.emphasizedIncoming.curve;
+    const animationCurve = M3Motion.emphasizedIncomingCurve;
+    const animationDuration = M3Motion.emphasizedIncomingDuration;
     return Column(
       children: [
         ElevatedButton.icon(
@@ -150,14 +150,14 @@ class _UtilsPageState extends State<UtilsPage> {
           icon: Icon(_runAnimations ? Icons.visibility_off : Icons.visibility),
           label: Text(_runAnimations ? 'Hide' : 'Animate'),
         ),
-        const M3Gap(M3SpacingToken.space16),
+        const M3Gap(M3Spacings.s16),
         AnimatedOpacity(
           opacity: _runAnimations ? 1.0 : 0.0,
           duration: animationDuration,
           curve: animationCurve,
           child: _buildMotionCard('Fade In', Icons.opacity),
         ),
-        const M3Gap(M3SpacingToken.space8),
+        const M3Gap(M3Spacings.s8),
         AnimatedSlide(
           offset: _runAnimations ? Offset.zero : const Offset(0, 0.5),
           duration: animationDuration,
@@ -169,14 +169,14 @@ class _UtilsPageState extends State<UtilsPage> {
             child: _buildMotionCard('Slide Up', Icons.arrow_upward_rounded),
           ),
         ),
-        const M3Gap(M3SpacingToken.space8),
+        const M3Gap(M3Spacings.s8),
         AnimatedScale(
           scale: _runAnimations ? 1.0 : 0.8,
           duration: animationDuration,
           curve: animationCurve,
           child: AnimatedOpacity(
             opacity: _runAnimations ? 1.0 : 0.0,
-            duration: M3MotionDuration.medium2,
+            duration: M3Motion.standardDuration,
             curve: Curves.easeIn,
             child: _buildMotionCard('Scale In', Icons.zoom_in_rounded),
           ),
@@ -187,8 +187,8 @@ class _UtilsPageState extends State<UtilsPage> {
 
   // Widget _buildShapeShowcase() {
   //   return Wrap(
-  //     spacing: M3SpacingToken.space8.value,
-  //     runSpacing: M3SpacingToken.space8.value,
+  //     spacing: M3Spacings.s8.value,
+  //     runSpacing: M3Spacings.s8.value,
   //     alignment: WrapAlignment.center,
   //     children: [
   //       // TODO(kevin): enhance this feature
@@ -237,7 +237,7 @@ class _UtilsPageState extends State<UtilsPage> {
         ),
         Text(
           'High Contrast',
-          style: M3TextStyle.highContrast(textTheme.titleMedium!),
+          style: M3TextUtils.highContrast(textTheme.titleMedium!),
         ),
       ],
     );
@@ -250,10 +250,10 @@ class _UtilsPageState extends State<UtilsPage> {
   }) {
     return Card(
       margin: M3EdgeInsets.only(
-        bottom: M3SpacingToken.space16,
+        bottom: M3Spacings.s16,
       ),
       child: M3Padding(
-        padding: M3EdgeInsets.all(M3SpacingToken.space16),
+        padding: M3EdgeInsets.all(M3Spacings.s16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -263,14 +263,14 @@ class _UtilsPageState extends State<UtilsPage> {
                   icon,
                   color: Theme.of(context).colorScheme.primary,
                 ),
-                const M3Gap(M3SpacingToken.space12),
+                const M3Gap(M3Spacings.s12),
                 Text(
                   title,
                   style: Theme.of(context).textTheme.headlineSmall,
                 ),
               ],
             ),
-            const M3Gap(M3SpacingToken.space16),
+            const M3Gap(M3Spacings.s16),
             content,
           ],
         ),
@@ -284,7 +284,7 @@ class _UtilsPageState extends State<UtilsPage> {
       decoration: BoxDecoration(
         color: elevation.surfaceColor(context),
         borderRadius: M3BorderRadius.medium,
-        border: elevation.dp == 0
+        border: elevation == M3Elevation.level0
             ? Border.all(color: Theme.of(context).colorScheme.outlineVariant)
             : null,
       ),
@@ -301,8 +301,8 @@ class _UtilsPageState extends State<UtilsPage> {
     final colorScheme = Theme.of(context).colorScheme;
     return Container(
       padding: M3EdgeInsets.symmetric(
-        horizontal: M3SpacingToken.space16,
-        vertical: M3SpacingToken.space12,
+        horizontal: M3Spacings.s16,
+        vertical: M3Spacings.s12,
       ),
       decoration: ShapeDecoration(
         color: colorScheme.secondaryContainer,
@@ -311,7 +311,7 @@ class _UtilsPageState extends State<UtilsPage> {
       child: Row(
         children: [
           Icon(icon, color: colorScheme.onSecondaryContainer),
-          const M3Gap(M3SpacingToken.space12),
+          const M3Gap(M3Spacings.s12),
           Text(
             label,
             style: Theme.of(context)

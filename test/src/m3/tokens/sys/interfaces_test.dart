@@ -2,67 +2,53 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:material_design/material_design.dart';
 
 void main() {
-  group('IM3Token Interface', () {
-    test('spacing tokens implement IM3Token correctly', () {
-      const token = M3SpacingToken.space16;
-      expect(token, isA<IM3Token<double>>());
-      expect(token.value, isA<double>());
-      expect(token.value, equals(16.0));
+  group('M3SpacingValue extension type', () {
+    test('implements double', () {
+      const value = M3Spacings.s16;
+      expect(value, isA<double>());
+      expect(value, equals(16.0));
     });
 
-    // test('shape tokens implement IM3Token correctly', () {
-    //   const token = M3Shape.medium;
-    //   expect(token, isA<IM3Token<RoundedRectangleBorder>>());
-    //   expect(token, isNotNull);
-    // });
-
-    test('margin tokens implement IM3Token correctly', () {
-      const token = M3MarginToken.compactScreen;
-      expect(token, isA<IM3Token<double>>());
-      expect(token.value, isA<double>());
-      expect(token.value, equals(16.0));
+    test('is usable as a double in arithmetic', () {
+      const value = M3Spacings.s16;
+      expect(value * 2, equals(32.0));
+      expect(value + M3Spacings.s8, equals(24.0));
     });
 
-    test('spacer tokens implement IM3Token correctly', () {
-      const token = M3SpacerToken.pane;
-      expect(token, isA<IM3Token<double>>());
-      expect(token.value, isA<double>());
-      expect(token.value, equals(24.0));
+    test('const values are identical', () {
+      const v1 = M3Spacings.s16;
+      const v2 = M3Spacings.s16;
+      expect(identical(v1, v2), isTrue);
     });
 
-    test('all tokens are immutable', () {
-      // Test that tokens are const and immutable
-      const token1 = M3SpacingToken.space16;
-      const token2 = M3SpacingToken.space16;
-      expect(identical(token1, token2), isTrue);
-
-      const shapeToken1 = M3Shape.medium;
-      const shapeToken2 = M3Shape.medium;
-      expect(identical(shapeToken1, shapeToken2), isTrue);
+    test('values are consistent across access', () {
+      expect(M3Spacings.s16, equals(M3Spacings.s16));
+      expect(M3Spacings.s24, equals(M3Spacings.s24));
     });
 
-    test('token values are consistent across calls', () {
-      final spacing1 = M3SpacingToken.space24.value;
-      final spacing2 = M3SpacingToken.space24.value;
-      expect(spacing1, equals(spacing2));
-
-      const shape1 = M3Shape.large;
-      const shape2 = M3Shape.large;
-      expect(shape1, equals(shape2));
+    test('is a subtype of M3SpacingValue', () {
+      expect(M3Spacings.s16, isA<M3SpacingValue>());
     });
   });
 
-  group('IM3SpacingToken Interface', () {
-    test('all spacing-related tokens implement IM3SpacingToken', () {
-      expect(M3SpacingToken.space16, isA<IM3SpacingToken>());
-      expect(M3MarginToken.compactScreen, isA<IM3SpacingToken>());
-      expect(M3SpacerToken.pane, isA<IM3SpacingToken>());
+  group('M3Margins', () {
+    test('compact screen margin is 16dp', () {
+      expect(M3Margins.compactScreen, equals(16.0));
+      expect(M3Margins.compactScreen, isA<M3SpacingValue>());
     });
 
-    test('IM3SpacingToken extends IM3Token<double>', () {
-      const token = M3SpacingToken.space32;
-      expect(token, isA<IM3Token<double>>());
-      expect(token, isA<IM3SpacingToken>());
+    test('medium and larger screen margins are 24dp', () {
+      expect(M3Margins.mediumScreen, equals(24.0));
+      expect(M3Margins.expandedScreen, equals(24.0));
+      expect(M3Margins.largeScreen, equals(24.0));
+      expect(M3Margins.extraLargeScreen, equals(24.0));
+    });
+  });
+
+  group('M3Spacers', () {
+    test('pane spacer is 24dp', () {
+      expect(M3Spacers.pane, equals(24.0));
+      expect(M3Spacers.pane, isA<M3SpacingValue>());
     });
   });
 }

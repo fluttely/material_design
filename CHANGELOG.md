@@ -2,7 +2,167 @@
 
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adherves to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## 1.0.0
+
+First stable release of the design contract. See the `1.0.0-dev` series for the change-by-change history, and the migration guide below for moving from `0.28.x`.
+
+### 🧹 Chore
+
+- **Version**: `1.0.0-dev.35` to `1.0.0`.
+- **`homepage:`**: Dropped the empty key; `repository:` already points at the source.
+
+### 📦 Packaging
+
+- **Published archive reduced from 692 KB to 134 KB**: Added `.pubignore`. `demo/` is a complete Flutter project (~1.1 MB of platform scaffolding) that ships as a hosted web demo instead, and `documentation/` is an Obsidian vault of working notes listed in `.gitignore` yet still tracked, so pub was bundling both.
+- **`example/`**: Kept `lib/` and `pubspec.yaml`, which pub.dev renders, and dropped the native runners beneath them.
+- A root `.pubignore` replaces `.gitignore` for pub's purposes, so the standard build artefacts are repeated in it.
+
+## 1.0.0-dev.35
+
+### 🧹 Chore
+
+- **Toolchain moved to Flutter 3.47.0 (stable)**: The development SDK was a seven-month-old `master` build. `flutter pub get` on 3.47 migrated `analysis_options.yaml` in the package and the example to exclude build and platform directories; those migrations are kept.
+- **Stray diagnostic file removed**: `demo/test/_probe_test.dart` was a throwaway used to reproduce the blank-page report and should never have been committed.
+
+### 📦 Packaging
+
+- **`.pubignore` restored**: It was introduced alongside a `1.0.0` release commit that was later dropped in favour of continuing the `dev` series, and went with it. Without it the published archive is 692 KB, bundling `demo/` (a full Flutter project) and `documentation/` (an Obsidian vault tracked in git despite being listed in `.gitignore`). With it, 135 KB.
+
+## 1.0.0-dev.34
+
+### 🐛 Bug Fixes
+
+`M3TextTheme.applyToTheme` blanked the text colors it was handed. Every `Text` in a dark theme rendered black on a dark surface — the type scale was applied, and the theme's own palette was thrown away with it.
+
+- **`M3TextTheme.applyToTheme` merges instead of replacing**: It called `theme.copyWith(textTheme: toTextTheme())`. `M3TypeScale` carries metrics only — no style defines a `color` — and `copyWith` swaps the whole `TextTheme`, discarding the brightness-aware one that `ThemeData`'s constructor had already resolved via `defaultTextTheme.merge(textTheme)`. All fifteen styles came out with `color: null`, which the engine paints as black, in both themes. It now merges onto `theme.textTheme`, so `TextStyle.merge` overwrites only the non-null metric fields and the resolved color survives. The `fontFamily` that `Typography` supplies was being lost the same way, and is likewise preserved.
+
+### ✅ Tests
+
+- **Regression coverage for the type scale applied to a theme**: Asserts that light and dark resolve to different non-null colors while the M3 metrics still land, and renders a `Text` under a dark theme to confirm the painted color is light rather than black.
+
+## 1.0.0
+
+`1.0.0` turns the package from a collection of tokens into a **design contract**: M3 scales are expressed as types, and stepping outside them requires saying so.
+
+This release breaks every call site from `0.28.x`. The [migration guide](#migration-from-028x) below maps each old name to its replacement.
+
+### 💥 Breaking Changes
+
+- **Type-safe token values everywhere.** Every scale is now an extension type over its primitive: `M3SpacingValue`, `M3BorderWidthValue`, `M3OpacityValue`, `M3CornerValue`, `M3IconSizeValue`, `M3BreakpointValue`, `M3ElevationDpValue`, `M3ZIndexValue`, `M3ToneValue`. They `implement` their representation type, so they pass straight into any Flutter API that takes a `double`/`int`.
+- **Scalar token enums removed.** `M3SpacingToken`, `M3CornerToken`, `M3BorderWidthToken`, `M3OpacityToken`, `M3IconSizeToken`, `M3ZIndexToken`, `M3BreakpointToken`, `M3MarginToken`, `M3SpacerToken`, `M3StateLayerOpacityToken`, `M3ElevationToken` and the `IM3Token` interface are gone, along with the `.value` unwrap that cost `const`-ness at every call site.
+- **`M3Motion` and `M3Elevation` are now enums.** These are *composite* tokens — you read `duration`+`curve` and `dp`+`shadows` together, never unwrap them to one number — so an enum is the right shape. They stay `const`, and gain `values` and exhaustive `switch`. See the philosophy section of the README for the precise rule.
+- **`M3Contract` is the single escape hatch.** Extension types are erased at runtime, so `17.3 as M3SpacingValue` has always compiled and no Dart design can stop it. Instead of claiming otherwise, deviations now route through `M3Contract.spacing(18)`, `M3Contract.corner(10)`, and friends — one greppable identifier you can audit or ban.
+- **Strict 7-level shape scale.** `none` (0dp, renamed from `zero`), `extraSmall`, `small`, `medium`, `large`, `extraLarge`, `full`. `M3Radius` now takes an `M3CornerValue` rather than any `double`.
+- **Typography overhaul.** `M3TextStyle`/`M3TextStyleToken`/`M3TypeScaleCategory` are replaced by `M3TypeScale` (the 15 styles as `const TextStyle`), `M3TextTheme` (build a Flutter `TextTheme`), and `M3TextUtils` (transformations).
+- **`M3TextUtils.adaptive` removed.** It pre-scaled `fontSize` and then rewrote `height` so absolute line height stayed *fixed* while the font grew — text overlapped at high text-scale settings — and it double-scaled, since `Text` applies the ambient `TextScaler` on top. Replaced by `M3TextUtils.clampedScaler(context, maxScaleFactor: …)`, which returns a clamped `TextScaler` to hand to `Text`.
+- **`ColorScheme` state layer helpers deduplicated.** `hoverLayerOn` / `focusLayerOn` / `pressLayerOn` / `dragLayerOn` and the parallel `M3ColorSchemeStateLayers` extension collapse into one `colorScheme.stateLayerColor(base, M3InteractionState.hover)`. The state-to-opacity mapping now lives once, on `M3InteractionState.stateLayerOpacity`.
+- **`M3ColorUtils.tonalPalette` removed** in favour of the real `M3TonalPalette` (see Features). The old one approximated HCT with HSL lightness.
+- **`M3EdgeInsetsPatterns.button` removed.** Its own doc admitted it rounded a 10dp spec value to the nearest 12dp token — an off-spec value inside a package that promises none.
+- **`M3Motion.getDurationByDistance` / `getEasingByType` renamed** to `durationFor` / `curveFor`, and they now return `M3MotionDuration` / `M3MotionCurve` instead of widening to bare `Duration` / `Curve`.
+- **SDK floor corrected to Flutter `>=3.27.0`, Dart `>=3.6.0`.** The package already used `Color.withValues` and `Color.a`, which do not exist below 3.27 — the previously declared `>=3.19.0` would not have compiled.
+- **`M3Accessibility`** is now `abstract final class` rather than `abstract interface class`; it is a namespace of statics and was never implementable.
+- **Deprecated APIs deleted:** the `deprecated/` folder, dead commented-out code, and the orphaned `M3Container` file that was never exported.
+
+### ✨ Features
+
+- **Real tonal palettes.** `M3TonalPalette` and `M3CorePalette` generate colors in HCT space through `material_color_utilities` — the same math Material Design uses. `M3TonalPalette.fromSeed(seed)[M3Tones.t40]` reproduces the Material baseline `primary` exactly (verified in the test suite). `M3CorePalette.fromSeed` yields all six palettes (primary, secondary, tertiary, neutral, neutralVariant, error).
+- **`M3Tones`** — the 13 tone stops (0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 95, 99, 100) as typed constants.
+- **`M3StateLayer`** — applies the correct M3 overlay for hover (8%), focus (10%), pressed (10%), and dragged (16%), with M3 precedence when several states are active at once.
+- **`M3FocusRing`** — the official 3dp ring at a 3dp offset. The inset is reserved whether or not the child is focused, so tabbing to a control never shifts it. The ring observes focus rather than taking it, and adds no tab stop of its own.
+- **`M3FocusIndicator`** — focus ring `thickness` and `offset` as their own tokens, kept off `M3BorderWidths` so 3dp cannot leak into ordinary component outlines.
+- **`values` lists on every scale** — `M3Spacings.values`, `M3Corners.values`, `M3BorderWidths.values`, `M3IconSizes.values`, `M3ZIndexes.values`, `M3Breakpoints.values`, `M3ElevationDps.values`, `M3Tones.values` — for building galleries and property tests without hand-maintained lists.
+- **`M3LayoutWidths`** — body (1040dp), pane (360dp), ultraWide (1920dp) and unbounded, replacing magic numbers previously inlined in `M3ScreenSize`.
+- **`M3ScreenSize.minWidth`**, and `gutterWidth`/`pageMargin` now return `M3SpacingValue` rather than bare doubles.
+
+### 🏗 Architecture
+
+- **The package is now nine modules**, not one 56-file `part of` monolith: `tokens`, `motion`, `shape`, `layout`, `color`, `typography`, `interaction`, `adaptive`, `expressive`. `material_design.dart` is a barrel of `export`s and the dependency graph runs one way. Private members are now genuinely private to their module.
+- The token layer stays a single library by design — the type-safe wrappers need library-private constructors, and splitting them would force those public and dissolve the contract.
+
+### ✅ Tests
+
+- Test count raised from 88 to 158, covering the areas the rewrite left unverified: tonal palette generation (against Material's own baseline), focus ring layout stability and focus semantics, state layer precedence, motion scheme/alias consistency, breakpoint boundaries, text scaling, elevation, and the token scales themselves (4dp grid adherence, ordering, spec values).
+- The README showcase is compiled and rendered by `test/readme_showcase_test.dart`, so documentation cannot drift from the API.
+
+---
+
+## Migration from 0.28.x
+
+### Scalar tokens: drop `.value`, use the constant
+
+| 0.28.x | 1.0.0 |
+| :--- | :--- |
+| `M3SpacingToken.space16` / `.value` | `M3Spacings.s16` |
+| `M3SpacingToken.space4` … `space128` | `M3Spacings.s4` … `s128` |
+| `M3MarginToken.compactScreen` | `M3Margins.compactScreen` |
+| `M3SpacerToken.pane` | `M3Spacers.pane` |
+| `M3CornerToken.zero` | `M3Corners.none` |
+| `M3CornerToken.medium.value` | `M3Corners.medium` |
+| `M3BorderWidthToken.thin.value` | `M3BorderWidths.thin` |
+| `M3OpacityToken.disabledContent.value` | `M3Opacities.disabledContent` |
+| `M3StateLayerOpacityToken.hover.value` | `M3StateLayerOpacities.hover` |
+| `M3IconSizeToken.standard.value` | `M3IconSizes.standard` |
+| `M3ZIndexToken.modal.value` | `M3ZIndexes.modal` |
+| `M3BreakpointToken.expanded.value` | `M3Breakpoints.expanded` |
+| `M3ElevationToken.level3` | `M3Elevation.level3` |
+| `M3Elevation.level3Dp` | `M3ElevationDps.level3` |
+| `M3Shadows.level2` | `M3ElevationShadows.level2` |
+
+### Typography
+
+| 0.28.x | 1.0.0 |
+| :--- | :--- |
+| `M3TextStyle.bodyLarge` | `M3TypeScale.bodyLarge` |
+| `M3TextStyleUtils.*` | `M3TextUtils.*` |
+| `M3TypeScaleCategory.*` | removed — use the 15 named styles |
+| `M3TextUtils.adaptive(...)` | `M3TextUtils.clampedScaler(context, maxScaleFactor: …)` on `Text.textScaler` |
+
+### Color
+
+| 0.28.x | 1.0.0 |
+| :--- | :--- |
+| `colorScheme.hoverLayerOn(c)` | `colorScheme.stateLayerColor(c, M3InteractionState.hover)` |
+| `colorScheme.focusLayerOn(c)` | `colorScheme.stateLayerColor(c, M3InteractionState.focus)` |
+| `colorScheme.pressLayerOn(c)` | `colorScheme.stateLayerColor(c, M3InteractionState.pressed)` |
+| `colorScheme.dragLayerOn(c)` | `colorScheme.stateLayerColor(c, M3InteractionState.dragged)` |
+| `M3ColorUtils.tonalPalette(c)` | `M3TonalPalette.fromColor(c)` |
+| `M3TonalPalette.tone40` (an `int`) | `M3Tones.t40`, or `palette[M3Tones.t40]` for the color |
+
+### Responsive
+
+| 0.28.x | 1.0.0 |
+| :--- | :--- |
+| `M3BreakpointToken.getScreenSize(context)` | `M3ScreenSize.of(context)` |
+| `M3BreakpointToken.fromWidth(w)` | `M3ScreenSize.fromWidth(w)` |
+
+### Motion
+
+| 0.28.x | 1.0.0 |
+| :--- | :--- |
+| `MotionDistance` / `MotionType` | `M3MotionDistance` / `M3MotionType` |
+| `M3MotionDuration.extralong1` | `M3MotionDuration.extraLong1` |
+| `M3Motion.getDurationByDistance(d)` | `M3Motion.durationFor(d)` |
+| `M3Motion.getEasingByType(t)` | `M3Motion.curveFor(t)` |
+
+### Values that are no longer on a scale
+
+Anything that was a raw `double` and is now rejected by the type system was, by definition, off-spec. Two ways forward:
+
+```dart
+// Preferred: snap to the nearest token.
+M3EdgeInsets.all(M3Spacings.s16)
+
+// When the value is genuinely required: say so, once, visibly.
+M3EdgeInsets.all(M3Contract.spacing(17.3))
+```
+
+Then audit what is left:
+
+```sh
+grep -rn 'M3Contract\.' lib/
+```
 
 ## 0.28.1
 

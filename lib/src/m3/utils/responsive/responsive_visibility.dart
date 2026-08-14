@@ -1,4 +1,4 @@
-part of '../../../../material_design.dart';
+part of '../../../adaptive.dart';
 
 /// A widget that conditionally displays content based on window size class.
 ///
@@ -32,7 +32,7 @@ class M3ResponsiveVisibility extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenSize = M3BreakpointToken.getScreenSizeFromContext(context);
+    final screenSize = M3ScreenSize.of(context);
     return visibleOn.contains(screenSize) ? child : replacement;
   }
 }

@@ -1,4 +1,4 @@
-part of '../../../../material_design.dart';
+part of '../../../adaptive.dart';
 
 /// A responsive scaffold that automatically adjusts navigation based on window
 /// size.
@@ -97,7 +97,7 @@ class M3ResponsiveScaffold extends StatelessWidget {
                     selectedIndex: selectedIndex,
                     onDestinationSelected: onDestinationSelected,
                     children: [
-                      const M3Gap(M3SpacingToken.space12),
+                      const M3Gap(M3Spacings.s12),
                       ...destinations.map((dest) {
                         return NavigationDrawerDestination(
                           icon: dest.icon,

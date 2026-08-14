@@ -12,7 +12,7 @@ class MotionPage extends StatelessWidget {
         title: Text('Motion'),
       ),
       body: ListView(
-        padding: M3EdgeInsets.all(M3MarginToken.mediumScreen),
+        padding: M3EdgeInsets.all(M3Margins.mediumScreen),
         children: [
           LaunchURLText(
             label: 'M3Motion (M3MotionDuration + M3MotionCurve)',
@@ -21,38 +21,38 @@ class MotionPage extends StatelessWidget {
           ),
           _MotionShowcase(
             title: 'Emphasized',
-            curve: M3MotionCurve.emphasizedAccelerate,
-            duration: M3MotionDuration.long2,
+            curve: M3Motion.emphasizedCurve,
+            duration: M3Motion.emphasizedDuration,
           ),
           _MotionShowcase(
             title: 'Emphasized Incoming',
-            curve: M3MotionCurve.emphasizedDecelerate,
-            duration: M3MotionDuration.long1,
+            curve: M3Motion.emphasizedIncomingCurve,
+            duration: M3Motion.emphasizedIncomingDuration,
           ),
           _MotionShowcase(
             title: 'Emphasized Outgoing',
-            curve: M3MotionCurve.emphasizedAccelerate,
-            duration: M3MotionDuration.short3,
+            curve: M3Motion.emphasizedOutgoingCurve,
+            duration: M3Motion.emphasizedOutgoingDuration,
           ),
           _MotionShowcase(
             title: 'Standard',
-            curve: M3MotionCurve.standard,
-            duration: M3MotionDuration.medium2,
+            curve: M3Motion.standardCurve,
+            duration: M3Motion.standardDuration,
           ),
           _MotionShowcase(
             title: 'Standard Incoming',
-            curve: M3MotionCurve.standardDecelerate,
-            duration: M3MotionDuration.medium1,
+            curve: M3Motion.standardIncomingCurve,
+            duration: M3Motion.standardIncomingDuration,
           ),
           _MotionShowcase(
             title: 'Standard Outgoing',
-            curve: M3MotionCurve.standardAccelerate,
-            duration: M3MotionDuration.short4,
+            curve: M3Motion.standardOutgoingCurve,
+            duration: M3Motion.standardOutgoingDuration,
           ),
           _MotionShowcase(
             title: 'Linear',
-            curve: M3MotionCurve.linear,
-            duration: M3MotionDuration.short3,
+            curve: M3Motion.linearCurve,
+            duration: M3Motion.linearDuration,
           ),
         ],
       ),
@@ -106,12 +106,12 @@ class _MotionShowcaseState extends State<_MotionShowcase>
     final textTheme = Theme.of(context).textTheme;
 
     return M3Padding(
-      padding: M3EdgeInsets.only(bottom: M3SpacingToken.space16),
+      padding: M3EdgeInsets.only(bottom: M3Spacings.s16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(widget.title, style: textTheme.titleMedium),
-          const M3Gap(M3SpacingToken.space8),
+          const M3Gap(M3Spacings.s8),
           AnimatedBuilder(
             animation: _animation,
             builder: (context, child) {

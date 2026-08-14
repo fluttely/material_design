@@ -1,4 +1,4 @@
-part of '../../../material_design.dart';
+part of '../../expressive.dart';
 
 /// This class is used to animate between start and end polygons objects.
 ///
@@ -29,7 +29,9 @@ class Morph {
   /// final morph = Morph(startPolygon, endPolygon);
   /// final intermediateShape = morph.asCubics(0.5); // 50% between start and end
   /// ```
-  Morph(RoundedPolygon start, RoundedPolygon end) : _start = start, _end = end {
+  Morph(RoundedPolygon start, RoundedPolygon end)
+      : _start = start,
+        _end = end {
     _morphMatch = _match(start, end);
   }
 

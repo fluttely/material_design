@@ -95,13 +95,13 @@ class ElevationPage extends StatelessWidget {
         title: const Text('Elevation'),
       ),
       body: ListView(
-        padding: M3EdgeInsets.all(M3MarginToken.mediumScreen),
+        padding: M3EdgeInsets.all(M3Margins.mediumScreen),
         children: [
           Text(
             'Elevation in M3 is a combination of a surface tint and, for some components, a shadow. Below, the cards are rendered according to the official rules defined in the M3ElevationDps | M3Elevation classes.',
             style: textTheme.bodyMedium,
           ),
-          const M3Gap(M3SpacingToken.space16),
+          const M3Gap(M3Spacings.s16),
           LaunchURLText(
             label: 'M3ElevationDps | M3Elevation',
             m3Url: 'https://m3.material.io/styles/elevation/overview',
@@ -110,18 +110,18 @@ class ElevationPage extends StatelessWidget {
             title: '(Surface Tint Color and Shadow Color)',
             elevations: elevations,
           ),
-          const M3Gap(M3SpacingToken.space32),
+          const M3Gap(M3Spacings.s32),
           _ElevationGrid(
             title: '(Surface Tint Color Only)',
             elevations: elevationsWithoutShadow,
           ),
-          // const M3Gap(M3SpacingToken.space32),
+          // const M3Gap(M3Spacings.s32),
           // _ElevationGrid(
           //   title: 'M3ComponentElevationToken true,(Elevation by Component)',
           //   m3Link: 'https://m3.material.io/styles/elevation/overview',
           //   elevations: componentElevations,
           // ),
-          // const M3Gap(M3SpacingToken.space32),
+          // const M3Gap(M3Spacings.s32),
           // _ElevationGrid(
           //   title: 'M3StateElevationToken (Interactive State Elevation)',
           //   m3Link:
@@ -139,32 +139,20 @@ class _ElevationGrid extends StatelessWidget {
   const _ElevationGrid({
     required this.title,
     required this.elevations,
-    this.subtitle,
   });
 
   final String title;
-  final String? subtitle;
   final List<(M3Elevation, bool, String)> elevations;
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         LaunchURLText(label: title),
-        if (subtitle != null) ...[
-          const M3Gap(M3SpacingToken.space16),
-          Text(
-            subtitle!,
-            style: textTheme.bodyMedium,
-          ),
-          const M3Gap(M3SpacingToken.space16),
-        ],
         Wrap(
-          spacing: M3SpacingToken.space16.value,
-          runSpacing: M3SpacingToken.space16.value,
+          spacing: M3Spacings.s16,
+          runSpacing: M3Spacings.s16,
           children: elevations.map((data) {
             // Passes the entire profile object and the name to the card.
             return _ElevationCard(
@@ -204,7 +192,7 @@ class _ElevationCard extends StatelessWidget {
         shadows: useShadows ? elevation.shadows : null,
       ),
       child: M3Padding(
-        padding: M3EdgeInsets.all(M3SpacingToken.space12),
+        padding: M3EdgeInsets.all(M3Spacings.s12),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -214,7 +202,7 @@ class _ElevationCard extends StatelessWidget {
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
             ),
-            const M3Gap(M3SpacingToken.space4),
+            const M3Gap(M3Spacings.s4),
             Text(
               '${elevation.dp.toStringAsFixed(0)} dp',
               style: textTheme.bodySmall,
@@ -224,10 +212,10 @@ class _ElevationCard extends StatelessWidget {
             Align(
               alignment: Alignment.bottomRight,
               child: Icon(
-                useShadows && elevation.hasShadow
+                useShadows && elevation.dp > 0
                     ? Icons.visibility
                     : Icons.visibility_off,
-                size: M3IconSizeToken.dense.value,
+                size: M3IconSizes.dense,
                 color: textTheme.bodySmall?.color?.withValues(alpha: 0.75),
               ),
             ),

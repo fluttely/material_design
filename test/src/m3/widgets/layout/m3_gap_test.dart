@@ -11,7 +11,7 @@ void main() {
             body: Column(
               children: [
                 Text('Top'),
-                M3Gap(M3SpacingToken.space16),
+                M3Gap(M3Spacings.s16),
                 Text('Bottom'),
               ],
             ),
@@ -37,7 +37,7 @@ void main() {
             body: Row(
               children: [
                 Text('Left'),
-                M3Gap(M3SpacingToken.space24, orientation: Axis.horizontal),
+                M3Gap(M3Spacings.s24, orientation: Axis.horizontal),
                 Text('Right'),
               ],
             ),
@@ -62,9 +62,9 @@ void main() {
           home: Scaffold(
             body: Column(
               children: [
-                M3Gap(M3SpacingToken.space8),
-                M3Gap(M3SpacingToken.space32),
-                M3Gap(M3SpacingToken.space64),
+                M3Gap(M3Spacings.s8),
+                M3Gap(M3Spacings.s32),
+                M3Gap(M3Spacings.s64),
               ],
             ),
           ),
@@ -90,7 +90,7 @@ void main() {
             body: Column(
               children: [
                 Text('Top'),
-                M3Gap(M3MarginToken.compactScreen),
+                M3Gap(M3Margins.compactScreen),
                 Text('Bottom'),
               ],
             ),
@@ -115,7 +115,7 @@ void main() {
             body: Column(
               children: [
                 Text('Top'),
-                M3Gap(M3SpacerToken.pane),
+                M3Gap(M3Spacers.pane),
                 Text('Bottom'),
               ],
             ),
@@ -140,7 +140,7 @@ void main() {
             body: Column(
               children: [
                 Text('Top'),
-                M3Gap(M3SpacingToken.none),
+                M3Gap(M3Spacings.none),
                 Text('Bottom'),
               ],
             ),
@@ -160,18 +160,18 @@ void main() {
     });
 
     test('supports infinity spacing token', () {
-      const gap = M3Gap(M3SpacingToken.infinity);
-      expect(gap.spacing.value, equals(double.infinity));
+      const gap = M3Gap(M3Spacings.infinity);
+      expect(gap.spacing, equals(double.infinity));
     });
 
     test('is a StatelessWidget', () {
-      const gap = M3Gap(M3SpacingToken.space16);
+      const gap = M3Gap(M3Spacings.s16);
       expect(gap, isA<StatelessWidget>());
     });
 
     test('uses correct spacing value from token', () {
-      const gap = M3Gap(M3SpacingToken.space32);
-      expect(gap.spacing.value, equals(32));
+      const gap = M3Gap(M3Spacings.s32);
+      expect(gap.spacing, equals(32));
     });
   });
 }
