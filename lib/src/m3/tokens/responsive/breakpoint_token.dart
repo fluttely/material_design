@@ -57,6 +57,15 @@ abstract final class M3LayoutWidths {
   /// Unbounded width — content fills the available space.
   static const M3BreakpointValue unbounded =
       M3BreakpointValue._(double.infinity);
+
+  /// The finite layout widths, in ascending order.
+  ///
+  /// Excludes [unbounded], which is a layout directive rather than a width.
+  static const List<M3BreakpointValue> values = <M3BreakpointValue>[
+    pane,
+    body,
+    ultraWide,
+  ];
 }
 
 /// The five Material Design 3 window size classes.

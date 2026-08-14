@@ -12,6 +12,11 @@
 //                             11. Breaking the contract (M3Contract)
 //
 // Live version of everything here: https://fluttely.github.io/material_design/
+//
+// Section 10 uses the M3 Expressive module, whose API is marked @experimental
+// because Material is still iterating on it upstream. Opting in is a decision,
+// so the analyzer warns — this file acknowledges it once, deliberately:
+// ignore_for_file: experimental_member_use
 
 import 'package:flutter/material.dart';
 import 'package:material_design/material_design.dart';
@@ -656,10 +661,10 @@ class _ExpressiveSection extends StatelessWidget {
                 child: M3ELoadingIndicator.contained(),
               ),
               for (final shape in [
-                MaterialShapes.sunny,
-                MaterialShapes.cookie7Sided,
-                MaterialShapes.flower,
-                MaterialShapes.heart,
+                M3EShapes.sunny,
+                M3EShapes.cookie7Sided,
+                M3EShapes.flower,
+                M3EShapes.heart,
               ])
                 CustomPaint(
                   size: const Size.square(M3Spacings.s48),
@@ -674,11 +679,11 @@ class _ExpressiveSection extends StatelessWidget {
   }
 }
 
-/// Draws a normalized (unit-space) [RoundedPolygon] scaled to the canvas.
+/// Draws a normalized (unit-space) [M3ERoundedPolygon] scaled to the canvas.
 class _PolygonPainter extends CustomPainter {
   const _PolygonPainter(this.polygon, this.color);
 
-  final RoundedPolygon polygon;
+  final M3ERoundedPolygon polygon;
   final Color color;
 
   @override

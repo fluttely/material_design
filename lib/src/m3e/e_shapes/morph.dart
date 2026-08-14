@@ -4,20 +4,23 @@ part of '../../expressive.dart';
 ///
 /// Morphing between arbitrary objects can be problematic because it can be
 /// difficult to determine how the points of a given shape map to the points of
-/// some other shape. [Morph] simplifies the problem by only operating on
-/// [RoundedPolygon] objects, which are known to have similar, contiguous
+/// some other shape. [M3EMorph] simplifies the problem by only operating on
+/// [M3ERoundedPolygon] objects, which are known to have similar, contiguous
 /// structures. For one thing, the shape of a polygon is contiguous from start
 /// to end (compared to an arbitrary [Path] object, which could have one or more
 /// `moveTo` operations in the shape). Also, all edges of a polygon shape are
-/// represented by [Cubic] objects, thus the start and end shapes use similar
+/// represented by [M3ECubic] objects, thus the start and end shapes use similar
 /// operations. Two Polygon shapes then only differ in the quantity and
 /// placement of their curves. The morph works by determining how to map the
 /// curves of the two shapes together (based on proximity and other
 /// information, such as distance to polygon vertices and concavity), and
 /// splitting curves when the shapes do not have the same number of curves or
 /// when the curve placement within the shapes is very different.
-class Morph {
-  /// Creates a [Morph] that can animate between the [start] and [end] polygons.
+///
+/// See <https://m3.material.io/styles/shape/shape-scale-tokens>.
+@experimental
+class M3EMorph {
+  /// Creates a [M3EMorph] that can animate between the [start] and [end] polygons.
   ///
   /// The constructor analyzes both polygons and creates a mapping between their
   /// curves to enable smooth animation. The mapping process aligns similar
@@ -26,48 +29,49 @@ class Morph {
   ///
   /// Example:
   /// ```dart
-  /// final morph = Morph(startPolygon, endPolygon);
+  /// final morph = M3EMorph(startPolygon, endPolygon);
   /// final intermediateShape = morph.asCubics(0.5); // 50% between start and end
   /// ```
-  Morph(RoundedPolygon start, RoundedPolygon end)
+  M3EMorph(M3ERoundedPolygon start, M3ERoundedPolygon end)
       : _start = start,
         _end = end {
     _morphMatch = _match(start, end);
   }
 
-  final RoundedPolygon _start;
+  final M3ERoundedPolygon _start;
 
-  final RoundedPolygon _end;
+  final M3ERoundedPolygon _end;
 
   /// The structure which holds the actual shape being morphed. It contains all
   /// cubics necessary to represent the start and end shapes (the original
   /// cubics in the shapes may be cut to align the start/end shapes), matched
   /// one to one in each pair.
-  late final List<(Cubic, Cubic)> _morphMatch;
+  late final List<(M3ECubic, M3ECubic)> _morphMatch;
 
-  /// [_match], called at [Morph] construction time, creates the structure used
+  /// [_match], called at [M3EMorph] construction time, creates the structure used
   /// to animate between the start and end shapes. The technique is to match
   /// geometry (curves) between the shapes when and where possible, and to
   /// create new/placeholder curves when necessary (when one of the shapes has
-  /// more curves than the other). The result is a list of pairs of Cubic
+  /// more curves than the other). The result is a list of pairs of M3ECubic
   /// curves. Those curves are the matched pairs: the first of each pair holds
   /// the geometry of the start shape, the second holds the geometry for the
-  /// end shape. Changing the progress of a Morph object simply interpolates
+  /// end shape. Changing the progress of a M3EMorph object simply interpolates
   /// between all pairs of curves for the morph shape.
   ///
-  /// Curves on both shapes are matched by running the [Measurer] to determine
+  /// Curves on both shapes are matched by running the [_Measurer] to determine
   /// where the points are in each shape (proportionally, along the outline),
-  /// and then running [featureMapper] which decides how to map (match) all of
+  /// and then running [_featureMapper] which decides how to map (match) all of
   /// the curves with each other.
-  static List<(Cubic, Cubic)> _match(RoundedPolygon p1, RoundedPolygon p2) {
+  static List<(M3ECubic, M3ECubic)> _match(
+      M3ERoundedPolygon p1, M3ERoundedPolygon p2) {
     // Measure polygons, returns lists of measured cubics for each polygon,
     // which we then use to match start/end curves.
-    final measuredPolygon1 = MeasuredPolygon.measurePolygon(
-      const LengthMeasurer(),
+    final measuredPolygon1 = _MeasuredPolygon.measurePolygon(
+      const _LengthMeasurer(),
       p1,
     );
-    final measuredPolygon2 = MeasuredPolygon.measurePolygon(
-      const LengthMeasurer(),
+    final measuredPolygon2 = _MeasuredPolygon.measurePolygon(
+      const _LengthMeasurer(),
       p2,
     );
 
@@ -82,13 +86,13 @@ class Morph {
     // shape to the closest feature in the other shape.
     // Given a progress in one of the shapes it can be used to find the
     // corresponding progress in the other shape (in both directions).
-    final doubleMapper = featureMapper(features1, features2);
+    final doubleMapper = _featureMapper(features1, features2);
 
     // cut point on poly2 is the mapping of the 0 point on poly1.
     final polygon2CutPoint = doubleMapper.map(0);
 
     // Cut and rotate.
-    // Polygons start at progress 0, and the featureMapper has decided that we
+    // Polygons start at progress 0, and the _featureMapper has decided that we
     // want to match progress 0 in the first polygon to `polygon2CutPoint` on
     // the second polygon. So we need to cut the second polygon there and
     // "rotate it", so as we walk through both polygons we can find the
@@ -100,9 +104,9 @@ class Morph {
     // Match.
     // Now we can compare the two lists of measured cubics and create a list of
     // pairs of cubics [ret], which are the start/end curves that represent the
-    // Morph object and the start and end shapes, and which can be interpolated
+    // M3EMorph object and the start and end shapes, and which can be interpolated
     // to animate the between those shapes.
-    final ret = <(Cubic, Cubic)>[];
+    final ret = <(M3ECubic, M3ECubic)>[];
     // i1/i2 are the indices of the current cubic on the start (1) and end (2)
     // shapes.
     var i1 = 0;
@@ -119,20 +123,20 @@ class Morph {
       final b2a = (i2 == bs2.length)
           ? 1.0
           : doubleMapper.mapBack(
-              positiveModulo(b2.endOutlineProgress + polygon2CutPoint, 1),
+              _positiveModulo(b2.endOutlineProgress + polygon2CutPoint, 1),
             );
       final minb = math.min(b1a, b2a);
       // min b is the progress at which the curve that ends first ends.
       // If both curves ends roughly there, no cutting is needed, we have a
       // match.
       // If one curve extends beyond, we need to cut it.
-      final (seg1, newb1) = (b1a > minb + angleEpsilon)
+      final (seg1, newb1) = (b1a > minb + _angleEpsilon)
           ? b1.cutAtProgress(minb)
           : (b1, bs1.getOrNull(i1++));
 
-      final (seg2, newb2) = (b2a > minb + angleEpsilon)
+      final (seg2, newb2) = (b2a > minb + _angleEpsilon)
           ? b2.cutAtProgress(
-              positiveModulo(doubleMapper.map(minb) - polygon2CutPoint, 1),
+              _positiveModulo(doubleMapper.map(minb) - polygon2CutPoint, 1),
             )
           : (b2, bs2.getOrNull(i2++));
 
@@ -143,7 +147,7 @@ class Morph {
 
     assert(
       b1 == null && b2 == null,
-      "Expected both Polygon's Cubic to be fully matched",
+      "Expected both Polygon's M3ECubic to be fully matched",
     );
 
     return ret;
@@ -209,7 +213,7 @@ class Morph {
   }
 
   /// Returns a representation of the morph object at a given [progress] value
-  /// as a list of [Cubic]s. Note that this function causes a new list to be
+  /// as a list of [M3ECubic]s. Note that this function causes a new list to be
   /// created and populated, so there is some
   /// overhead.
   ///
@@ -222,20 +226,20 @@ class Morph {
   /// The range is generally [0..1] and values outside could result in
   /// undefined shapes, but values close to (but outside) the range can be used
   /// to get an exaggerated effect (e.g., for a bounce or overshoot animation).
-  List<Cubic> asCubics(double progress) {
-    final result = <Cubic>[];
+  List<M3ECubic> asCubics(double progress) {
+    final result = <M3ECubic>[];
 
     // The first/last mechanism here ensures that the final anchor point in the
     // shape exactly matches the first anchor point. There can be rendering
     // artifacts introduced by those points being slightly off, even by much
     // less than a pixel.
-    Cubic? firstCubic;
-    Cubic? lastCubic;
+    M3ECubic? firstCubic;
+    M3ECubic? lastCubic;
 
     for (var i = 0; i < _morphMatch.length; i++) {
-      final cubic = Cubic._raw(
+      final cubic = M3ECubic._raw(
         List<double>.generate(8, (j) {
-          return lerp(
+          return _lerp(
             _morphMatch[i].$1.points[j],
             _morphMatch[i].$2.points[j],
             progress,
@@ -252,7 +256,7 @@ class Morph {
 
     if (lastCubic != null && firstCubic != null) {
       result.add(
-        Cubic(
+        M3ECubic(
           lastCubic.anchor0X,
           lastCubic.anchor0Y,
           lastCubic.control0X,

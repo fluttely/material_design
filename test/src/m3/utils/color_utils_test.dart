@@ -197,15 +197,8 @@ void main() {
     });
 
     group('Color Generation', () {
-      test('harmonious returns 5 colors', () {
-        const baseColor = Colors.blue;
-        final colors = M3ColorUtils.harmonious(baseColor);
-
-        expect(colors, hasLength(5));
-        for (final color in colors) {
-          expect(color, isA<Color>());
-        }
-      });
+      // `harmonious` was removed in 1.6.0: it shifted hues on the HSL wheel,
+      // which is not the spec algorithm. See M3ColorUtils.harmonize (HCT).
 
       // Tonal palettes moved to M3TonalPalette (real HCT); see
       // test/src/m3/tokens/color/tonal_palette_test.dart.

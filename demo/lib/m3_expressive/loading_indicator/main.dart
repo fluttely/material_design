@@ -1,3 +1,7 @@
+// The M3 Expressive module is @experimental by design; a showcase for it
+// necessarily opts in.
+// ignore_for_file: experimental_member_use
+
 import 'package:flutter/material.dart';
 import 'package:material_design/material_design.dart';
 

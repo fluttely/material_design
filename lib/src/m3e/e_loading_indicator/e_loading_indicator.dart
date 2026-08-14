@@ -26,7 +26,7 @@ const double _kMorphRotationAngle =
 ///
 /// ## Shape Morphing
 ///
-/// The indicator cycles through a sequence of [RoundedPolygon] shapes,
+/// The indicator cycles through a sequence of [M3ERoundedPolygon] shapes,
 /// creating smooth morphing transitions. The default sequence includes:
 /// - Soft burst pattern
 /// - 9-sided cookie shape
@@ -40,33 +40,38 @@ const double _kMorphRotationAngle =
 ///
 /// ```dart
 /// // Default loading indicator
-/// LoadingIndicator()
+/// M3ELoadingIndicator()
 ///
 /// // Contained variant with custom colors
-/// LoadingIndicator.contained(
+/// M3ELoadingIndicator.contained(
 ///   activeIndicatorColor: Colors.blue,
 ///   containerColor: Colors.blue.shade100,
 /// )
 ///
 /// // Custom shape sequence
-/// LoadingIndicator(
+/// M3ELoadingIndicator(
 ///   indicatorPolygons: [
-///     MaterialShapes.circle,
-///     MaterialShapes.square,
-///     MaterialShapes.triangle,
+///     M3EShapes.circle,
+///     M3EShapes.square,
+///     M3EShapes.triangle,
 ///   ],
 /// )
 /// ```
 ///
+/// ## References
+///
+/// <https://m3.material.io/components/loading-indicator/overview>
+///
 /// See also:
 ///
-/// * [LoadingIndicatorTheme], for customizing the appearance
-/// * [MaterialShapes], for available predefined shapes
-/// * [Morph], for understanding shape transition mechanics
+/// * [M3ELoadingIndicatorTheme], for customizing the appearance
+/// * [M3EShapes], for available predefined shapes
+/// * [M3EMorph], for understanding shape transition mechanics
+@experimental
 class M3ELoadingIndicator extends StatefulWidget {
   /// Creates a default (non-contained) version of [M3ELoadingIndicator].
   M3ELoadingIndicator({
-    List<RoundedPolygon>? indicatorPolygons,
+    List<M3ERoundedPolygon>? indicatorPolygons,
     Color? activeIndicatorColor,
     Color? containerColor,
     String? semanticsLabel,
@@ -82,7 +87,7 @@ class M3ELoadingIndicator extends StatefulWidget {
 
   /// Creates a contained version of [M3ELoadingIndicator].
   M3ELoadingIndicator.contained({
-    List<RoundedPolygon>? indicatorPolygons,
+    List<M3ERoundedPolygon>? indicatorPolygons,
     Color? activeIndicatorColor,
     Color? containerColor,
     String? semanticsLabel,
@@ -98,7 +103,7 @@ class M3ELoadingIndicator extends StatefulWidget {
 
   M3ELoadingIndicator._({
     required bool isContained,
-    List<RoundedPolygon>? indicatorPolygons,
+    List<M3ERoundedPolygon>? indicatorPolygons,
     this.activeIndicatorColor,
     this.containerColor,
     this.semanticsLabel,
@@ -117,8 +122,8 @@ class M3ELoadingIndicator extends StatefulWidget {
   /// Color of the active indicator shape.
   ///
   /// If [M3ELoadingIndicator.activeIndicatorColor] is null, the value from
-  /// [M3ELoadingIndicatorThemeData.activeIndicatorColor] in the ambient theme is
-  /// used. If that is also null, the color defaults to [ColorScheme.primary]
+  /// [M3ELoadingIndicatorThemeData.activeIndicatorColor] in the ambient theme
+  /// is used. If that is also null, the color defaults to [ColorScheme.primary]
   /// for non-contained indicators, and to [ColorScheme.onPrimaryContainer] for
   /// contained indicators.
   final Color? activeIndicatorColor;
@@ -126,8 +131,8 @@ class M3ELoadingIndicator extends StatefulWidget {
   /// Color of the background container.
   ///
   /// If [M3ELoadingIndicator.containerColor] is null, the value from
-  /// [M3ELoadingIndicatorThemeData.containerColor] in the ambient theme is used.
-  /// If that is also null, the color defaults to
+  /// [M3ELoadingIndicatorThemeData.containerColor] in the ambient theme is
+  /// used. If that is also null, the color defaults to
   /// [ColorScheme.primaryContainer].
   final Color? containerColor;
 
@@ -137,40 +142,40 @@ class M3ELoadingIndicator extends StatefulWidget {
   /// It corresponds to [SemanticsProperties.label].
   final String? semanticsLabel;
 
-  /// A list of [RoundedPolygon]s for the sequence of shapes this loading
+  /// A list of [M3ERoundedPolygon]s for the sequence of shapes this loading
   /// indicator will morph between as it progresses.
   ///
   /// The loading indicator expects at least two items in this list.
   ///
   /// Defaults to [M3ELoadingIndicator.indeterminateIndicatorPolygons].
-  final List<RoundedPolygon> indicatorPolygons;
+  final List<M3ERoundedPolygon> indicatorPolygons;
 
-  /// The sequence of [RoundedPolygon]s that the indeterminate
+  /// The sequence of [M3ERoundedPolygon]s that the indeterminate
   /// [M3ELoadingIndicator] will morph between when animating.
   ///
   /// This list is used as the default value for the
   /// [M3ELoadingIndicator.indicatorPolygons] parameter when none is explicitly
   /// provided.
-  static final UnmodifiableListView<RoundedPolygon>
+  static final UnmodifiableListView<M3ERoundedPolygon>
       indeterminateIndicatorPolygons = UnmodifiableListView(
     [
-      MaterialShapes.softBurst,
-      MaterialShapes.cookie9Sided,
-      MaterialShapes.pentagon,
-      MaterialShapes.pill,
-      MaterialShapes.sunny,
-      MaterialShapes.cookie4Sided,
-      MaterialShapes.oval,
+      M3EShapes.softBurst,
+      M3EShapes.cookie9Sided,
+      M3EShapes.pentagon,
+      M3EShapes.pill,
+      M3EShapes.sunny,
+      M3EShapes.cookie4Sided,
+      M3EShapes.oval,
     ],
   );
 
-  /// The sequence of [RoundedPolygon]s that the determinate [M3ELoadingIndicator]
-  /// will morph between when animating.
-  static final UnmodifiableListView<RoundedPolygon>
+  /// The sequence of [M3ERoundedPolygon]s that the determinate
+  /// [M3ELoadingIndicator] will morph between when animating.
+  static final UnmodifiableListView<M3ERoundedPolygon>
       determinateIndicatorPolygons = UnmodifiableListView(
     [
-      MaterialShapes.circle,
-      MaterialShapes.softBurst,
+      M3EShapes.circle,
+      M3EShapes.softBurst,
     ],
   );
 
@@ -184,7 +189,7 @@ class _M3ELoadingIndicatorState extends State<M3ELoadingIndicator>
 
   final _morphIndex = ValueNotifier<int>(0);
 
-  final List<Morph> _morphs = [];
+  final List<M3EMorph> _morphs = [];
 
   var _morphScaleFactor = 1.0;
 
@@ -264,7 +269,7 @@ class _M3ELoadingIndicatorState extends State<M3ELoadingIndicator>
     _morphs.clear();
     for (var i = 0; i < widget.indicatorPolygons.length; i++) {
       _morphs.add(
-        Morph(
+        M3EMorph(
           widget.indicatorPolygons[i],
           widget.indicatorPolygons[(i + 1) % widget.indicatorPolygons.length],
         ),
@@ -281,17 +286,17 @@ class _M3ELoadingIndicatorState extends State<M3ELoadingIndicator>
   }
 
   /// Calculates a scale factor that will be used when scaling the provided
-  /// [RoundedPolygon]s into a specified sized container.
+  /// [M3ERoundedPolygon]s into a specified sized container.
   ///
-  /// Since the polygons may rotate, a simple [RoundedPolygon.calculateBounds]
-  /// is not enough to determine the size the polygon will occupy as it
-  /// rotates. Using the simple bounds calculation may result in a clipped
-  /// shape.
+  /// Since the polygons may rotate, a simple
+  /// [M3ERoundedPolygon.calculateBounds] is not enough to determine the size
+  /// the polygon will occupy as it rotates. Using the simple bounds calculation
+  /// may result in a clipped shape.
   ///
   /// This function calculates and returns a scale factor by utilizing the
-  /// [RoundedPolygon.calculateMaxBounds] and comparing its result to the
-  /// [RoundedPolygon.calculateBounds].
-  double _calculateScaleFactor(List<RoundedPolygon> polygons) {
+  /// [M3ERoundedPolygon.calculateMaxBounds] and comparing its result to the
+  /// [M3ERoundedPolygon.calculateBounds].
+  double _calculateScaleFactor(List<M3ERoundedPolygon> polygons) {
     var scaleFactor = 1.0;
     // Axis-aligned max bounding box for this object, where the rectangles left,
     // top, right, and bottom values will be stored in entries 0, 1, 2, and 3,
@@ -312,7 +317,7 @@ class _M3ELoadingIndicatorState extends State<M3ELoadingIndicator>
 
   @override
   Widget build(BuildContext context) {
-    late final indicatorTheme = LoadingIndicatorTheme.of(context);
+    late final indicatorTheme = M3ELoadingIndicatorTheme.of(context);
 
     final activeIndicatorColor = widget.activeIndicatorColor ??
         indicatorTheme?.activeIndicatorColor ??
@@ -394,7 +399,7 @@ class _ActiveIndicatorPainter extends CustomPainter {
 
   final double morphScaleFactor;
 
-  final List<Morph> morphs;
+  final List<M3EMorph> morphs;
 
   final ValueListenable<int> morphIndex;
 

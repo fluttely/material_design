@@ -252,18 +252,20 @@ theme to the user's contrast/motion/text-size settings.
 
 ### 10. M3 Expressive (experimental)
 
-The 2025 M3 Expressive primitives, in the `m3e` module:
+The 2025 M3 Expressive primitives, in the `m3e` module. Every symbol is prefixed
+`M3E` and annotated `@experimental`: Material is still iterating on this upstream, so
+the analyzer will tell you when you opt in.
 
 - **`M3ELoadingIndicator`** (+ `.contained()`) — the morphing loading indicator that
   replaces most indeterminate spinners.
-- **`MaterialShapes`** — the official 35-shape library (`circle` … `heart`) as
-  `RoundedPolygon`s, plus `Morph` for shape-to-shape animation and `toPath()` to
-  draw them.
+- **`M3EShapes`** — the official 35-shape library (`circle` … `heart`) as
+  `M3ERoundedPolygon`s, plus `M3EMorph` for shape-to-shape animation and `toPath()`
+  to draw them.
 
-> ⚠️ The shape engine currently exports unprefixed names (`Point`, `Cubic`,
-> `Morph`, `lerp`, …). If they collide with your imports, use
-> `import 'package:material_design/material_design.dart' hide Point;` — a scoped
-> `M3E` namespace is planned.
+```dart
+// ignore_for_file: experimental_member_use
+CustomPaint(painter: MyPainter(M3EShapes.cookie7Sided));
+```
 
 ---
 

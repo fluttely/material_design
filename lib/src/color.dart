@@ -4,6 +4,7 @@ library;
 
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
+import 'package:material_color_utilities/material_color_utilities.dart' as mcu;
 import 'package:material_design/src/tokens.dart';
 
 part 'm3/utils/color/color_utils.dart';

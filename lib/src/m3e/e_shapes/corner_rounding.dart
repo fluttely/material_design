@@ -25,7 +25,7 @@ part of '../../expressive.dart';
 /// absolute size that should relate to the overall size of its shape. Thus if
 /// the shape is in screen coordinate size, the radius should be sized
 /// appropriately. If the shape is in some canonical form (bounds of (-1,-1) to
-/// (1,1), for example, which is the default when creating a [RoundedPolygon]
+/// (1,1), for example, which is the default when creating a [M3ERoundedPolygon]
 /// from a number of vertices), then the radius should be relative to that
 /// size. The radius will be scaled if the shape itself is transformed, since
 /// it will produce curves which round the corner and thus get transformed
@@ -37,8 +37,11 @@ part of '../../expressive.dart';
 /// arc; there are no flanking curves. A value of 1 indicates that there is no
 /// circular arc in the center; the flanking curves on either side meet at the
 /// middle.
-class CornerRounding {
-  const CornerRounding({
+///
+/// See <https://m3.material.io/styles/shape/shape-scale-tokens>.
+@experimental
+class M3ECornerRounding {
+  const M3ECornerRounding({
     this.radius = 0,
     this.smoothing = 0,
   })  : assert(radius >= 0, 'radius has to be greater that zero'),
@@ -46,7 +49,7 @@ class CornerRounding {
           smoothing >= 0 && smoothing <= 1,
           'smoothing has to be in range [0, 1]',
         );
-  static const unrounded = CornerRounding();
+  static const unrounded = M3ECornerRounding();
 
   final double radius;
 

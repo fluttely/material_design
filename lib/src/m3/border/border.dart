@@ -35,5 +35,5 @@ class M3Border extends Border {
       : super.fromBorderSide(M3BorderSide.extraThick(outlineColor));
 
   /// No visible border.
-  static M3Border none = const M3Border.fromBorderSide(M3BorderSide.none);
+  static const M3Border none = M3Border.fromBorderSide(M3BorderSide.none);
 }

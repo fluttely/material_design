@@ -1,14 +1,21 @@
 part of '../../expressive.dart';
 
-/// The RoundedPolygon class allows simple construction of polygonal shapes
+/// The M3ERoundedPolygon class allows simple construction of polygonal shapes
 /// with optional rounding at the vertices. Polygons can be constructed with
 /// either the number of vertices desired or an ordered list of vertices.
+///
+/// This is the shape primitive of Material Expressive. Ready-made instances
+/// live in [M3EShapes]; [toPath] turns one into a [Path], and [M3EMorph]
+/// animates between two of them.
+///
+/// See <https://m3.material.io/styles/shape/shape-scale-tokens>.
+@experimental
 @immutable
-class RoundedPolygon {
-  RoundedPolygon._(
+class M3ERoundedPolygon {
+  M3ERoundedPolygon._(
     this.features,
     this.center,
-  ) : cubics = <Cubic>[] {
+  ) : cubics = <M3ECubic>[] {
     _initCubics();
 
     assert(() {
@@ -17,10 +24,10 @@ class RoundedPolygon {
       for (var index = 0; index < cubics.length; index++) {
         final cubic = cubics[index];
 
-        if ((cubic.anchor0X - prevCubic.anchor1X).abs() > distanceEpsilon ||
-            (cubic.anchor0Y - prevCubic.anchor1Y).abs() > distanceEpsilon) {
+        if ((cubic.anchor0X - prevCubic.anchor1X).abs() > _distanceEpsilon ||
+            (cubic.anchor0Y - prevCubic.anchor1Y).abs() > _distanceEpsilon) {
           throw ArgumentError(
-            'RoundedPolygon must be contiguous, with the anchor points of all '
+            'M3ERoundedPolygon must be contiguous, with the anchor points of all '
             'curves matching the anchor points of the preceding and succeeding '
             'cubics.',
           );
@@ -30,7 +37,7 @@ class RoundedPolygon {
 
       return true;
     }(),
-        'RoundedPolygon curves must be contiguous with matching anchor points');
+        'M3ERoundedPolygon curves must be contiguous with matching anchor points');
   }
 
   /// This constructor takes the number of vertices in the resulting polygon.
@@ -58,14 +65,14 @@ class RoundedPolygon {
   /// [centerY] is the Y coordinate of the center of the polygon, around which
   /// all vertices will be placed. The default center is at (0,0).
   ///
-  /// [rounding] is the [CornerRounding] properties of all vertices. If some
+  /// [rounding] is the [M3ECornerRounding] properties of all vertices. If some
   /// vertices should have different rounding properties, then use
   /// [perVertexRounding] instead. The default rounding value is
-  /// [CornerRounding.unrounded], meaning that the polygon will use the
+  /// [M3ECornerRounding.unrounded], meaning that the polygon will use the
   /// vertices themselves in the final shape and not curves rounded around the
   /// vertices.
   ///
-  /// [perVertexRounding] is the [CornerRounding] properties of every vertex.
+  /// [perVertexRounding] is the [M3ECornerRounding] properties of every vertex.
   /// If this parameter is not null, then it must have [numVertices] elements.
   /// If this parameter is null, then the polygon will use the [rounding]
   /// parameter for every vertex instead. The default value is null.
@@ -73,19 +80,19 @@ class RoundedPolygon {
   /// Throws [ArgumentError] if [perVertexRounding] is not null and its size
   /// is not equal to [numVertices].
   /// Throws [ArgumentError] when [numVertices] is less than 3.
-  factory RoundedPolygon.fromVerticesNum(
+  factory M3ERoundedPolygon.fromVerticesNum(
     int numVertices, {
     double radius = 1,
     double centerX = 0,
     double centerY = 0,
-    CornerRounding rounding = CornerRounding.unrounded,
-    List<CornerRounding>? perVertexRounding,
+    M3ECornerRounding rounding = M3ECornerRounding.unrounded,
+    List<M3ECornerRounding>? perVertexRounding,
   }) {
     if (numVertices < 3) {
       throw ArgumentError('numVertices must be at least 3.');
     }
 
-    return RoundedPolygon.fromVertices(
+    return M3ERoundedPolygon.fromVertices(
       _verticesFromNumVerts(numVertices, radius, centerX, centerY),
       rounding: rounding,
       perVertexRounding: perVertexRounding,
@@ -94,14 +101,14 @@ class RoundedPolygon {
     );
   }
 
-  /// Creates a copy of the given [RoundedPolygon].
-  RoundedPolygon.from(RoundedPolygon roundedPolygon)
+  /// Creates a copy of the given [M3ERoundedPolygon].
+  M3ERoundedPolygon.from(M3ERoundedPolygon roundedPolygon)
       : this._(roundedPolygon.features, roundedPolygon.center);
 
   /// This function takes the vertices (either supplied or calculated,
-  /// depending on the constructor called), plus [CornerRounding] parameters,
-  /// and creates the actual [RoundedPolygon] shape, rounding around the
-  /// vertices (or not) as specified. The result is a list of [Cubic] curves
+  /// depending on the constructor called), plus [M3ECornerRounding] parameters,
+  /// and creates the actual [M3ERoundedPolygon] shape, rounding around the
+  /// vertices (or not) as specified. The result is a list of [M3ECubic] curves
   /// which represent the geometry of the final shape.
   ///
   /// [vertices] is the list of vertices in this polygon specified as pairs of
@@ -109,14 +116,14 @@ class RoundedPolygon {
   /// (with the outline of the shape going from each vertex to the next in
   /// order of this list), otherwise the results will be undefined.
   ///
-  /// [rounding] is the [CornerRounding] properties of all vertices. If some
+  /// [rounding] is the [M3ECornerRounding] properties of all vertices. If some
   /// vertices should have different rounding properties, then use
   /// [perVertexRounding] instead. The default rounding value is
-  /// [CornerRounding.unrounded], meaning that the polygon will use the
+  /// [M3ECornerRounding.unrounded], meaning that the polygon will use the
   /// vertices themselves in the final shape and not curves rounded around the
   /// vertices.
   ///
-  /// [perVertexRounding] is the [CornerRounding] properties of all vertices.
+  /// [perVertexRounding] is the [M3ECornerRounding] properties of all vertices.
   /// If this parameter is not null, then it must have the same size as
   /// [vertices]. If this parameter is null, then the polygon will use the
   /// [rounding] parameter for every vertex instead. The default value is null.
@@ -134,10 +141,10 @@ class RoundedPolygon {
   ///
   // TODO(performance): Update the map calls to more efficient code that
   // doesn't allocate Iterators unnecessarily.
-  factory RoundedPolygon.fromVertices(
+  factory M3ERoundedPolygon.fromVertices(
     List<double> vertices, {
-    CornerRounding rounding = CornerRounding.unrounded,
-    List<CornerRounding>? perVertexRounding,
+    M3ECornerRounding rounding = M3ECornerRounding.unrounded,
+    List<M3ECornerRounding>? perVertexRounding,
     double centerX = double.minPositive,
     double centerY = double.minPositive,
   }) {
@@ -154,7 +161,7 @@ class RoundedPolygon {
         'the same size as the number of vertices (vertices.size / 2).',
       );
     }
-    final corners = <List<Cubic>>[];
+    final corners = <List<M3ECubic>>[];
     final n = vertices.length ~/ 2;
     final roundedCorners = <_RoundedCorner>[];
     for (var i = 0; i < n; i++) {
@@ -163,9 +170,9 @@ class RoundedPolygon {
       final nextIndex = ((i + 1) % n) * 2;
       roundedCorners.add(
         _RoundedCorner(
-          Point(vertices[prevIndex], vertices[prevIndex + 1]),
-          Point(vertices[i * 2], vertices[i * 2 + 1]),
-          Point(vertices[nextIndex], vertices[nextIndex + 1]),
+          M3EPoint(vertices[prevIndex], vertices[prevIndex + 1]),
+          M3EPoint(vertices[i * 2], vertices[i * 2 + 1]),
+          M3EPoint(vertices[nextIndex], vertices[nextIndex + 1]),
           vtxRounding,
         ),
       );
@@ -187,7 +194,7 @@ class RoundedPolygon {
       final vtxY = vertices[ix * 2 + 1];
       final nextVtxX = vertices[((ix + 1) % n) * 2];
       final nextVtxY = vertices[((ix + 1) % n) * 2 + 1];
-      final sideSize = distance(vtxX - nextVtxX, vtxY - nextVtxY);
+      final sideSize = _distance(vtxX - nextVtxX, vtxY - nextVtxY);
 
       // Check expectedRoundCut first, and ensure we fulfill rounding needs
       // first for both corners before using space for smoothing.
@@ -229,28 +236,28 @@ class RoundedPolygon {
     // Finally, store the calculated cubics. This includes all of the rounded
     // corners from above, along with new cubics representing the edges between
     // those corners.
-    final tempFeatures = <Feature>[];
+    final tempFeatures = <M3EFeature>[];
     for (var i = 0; i < n; i++) {
       // Note that these indices are for pairs of values (points), they need to
       // be doubled to access the xy values in the vertices float array.
       final prevVtxIndex = (i + n - 1) % n;
       final nextVtxIndex = (i + 1) % n;
-      final currVertex = Point(vertices[i * 2], vertices[i * 2 + 1]);
-      final prevVertex = Point(
+      final currVertex = M3EPoint(vertices[i * 2], vertices[i * 2 + 1]);
+      final prevVertex = M3EPoint(
         vertices[prevVtxIndex * 2],
         vertices[prevVtxIndex * 2 + 1],
       );
-      final nextVertex = Point(
+      final nextVertex = M3EPoint(
         vertices[nextVtxIndex * 2],
         vertices[nextVtxIndex * 2 + 1],
       );
-      final cvx = convex(prevVertex, currVertex, nextVertex);
+      final cvx = _convex(prevVertex, currVertex, nextVertex);
       tempFeatures
-        ..add(CornerFeature(corners[i], convex: cvx))
+        ..add(M3ECornerFeature(corners[i], convex: cvx))
         ..add(
-          EdgeFeature(
+          M3EEdgeFeature(
             [
-              Cubic.straightLine(
+              M3ECubic.straightLine(
                 corners[i].last.anchor1X,
                 corners[i].last.anchor1Y,
                 corners[(i + 1) % n].first.anchor0X,
@@ -265,7 +272,7 @@ class RoundedPolygon {
     final double cY;
 
     if (centerX == double.minPositive || centerY == double.minPositive) {
-      final center = calculateCenter(vertices);
+      final center = _calculateCenter(vertices);
       cX = center.x;
       cY = center.y;
     } else {
@@ -273,22 +280,26 @@ class RoundedPolygon {
       cY = centerY;
     }
 
-    return RoundedPolygon.fromFeatures(tempFeatures, centerX: cX, centerY: cY);
+    return M3ERoundedPolygon._fromFeatures(
+      tempFeatures,
+      centerX: cX,
+      centerY: cY,
+    );
   }
 
-  /// Takes a list of [Feature] objects that define the polygon's shape and
-  /// curves. By specifying the features directly, the summarization of [Cubic]
-  /// objects to curves can be precisely controlled. This affects [Morph]'s
+  /// Takes a list of [M3EFeature] objects that define the polygon's shape and
+  /// curves. By specifying the features directly, the summarization of [M3ECubic]
+  /// objects to curves can be precisely controlled. This affects [M3EMorph]'s
   /// default mapping, as curves with the same type (convex or concave) are
   /// mapped with each other. For example, if you have a convex curve in your
-  /// start polygon, [Morph] will map it to another convex curve in the end
+  /// start polygon, [M3EMorph] will map it to another convex curve in the end
   /// polygon.
   ///
   /// The [centerX] and [centerY] parameters are optional. If not supplied,
   /// they will be estimated by calculating the average of all cubic anchor
   /// points.
   ///
-  /// [features] are the [Feature]s that describe the characteristics of each
+  /// [features] are the [M3EFeature]s that describe the characteristics of each
   /// outline segment of the polygon.
   ///
   /// [centerX] is the X coordinate of the center of the polygon, around which
@@ -301,9 +312,11 @@ class RoundedPolygon {
   ///
   /// Throws [ArgumentError] if [features] length is less than 2 or if they
   /// don't describe a closed shape.
-  @internal
-  factory RoundedPolygon.fromFeatures(
-    List<Feature> features, {
+  ///
+  /// Library-private: the feature list is an implementation detail of the
+  /// shape builders and is not part of the public surface.
+  factory M3ERoundedPolygon._fromFeatures(
+    List<M3EFeature> features, {
     double centerX = double.nan,
     double centerY = double.nan,
   }) {
@@ -322,15 +335,15 @@ class RoundedPolygon {
         }
       }
 
-      final center = calculateCenter(vertices);
+      final center = _calculateCenter(vertices);
 
       final cX = centerX.isNaN ? center.x : centerX;
       final cY = centerY.isNaN ? center.y : centerY;
 
-      return RoundedPolygon._(features, Point(cX, cY));
+      return M3ERoundedPolygon._(features, M3EPoint(cX, cY));
     }
 
-    return RoundedPolygon._(features, Point(centerX, centerY));
+    return M3ERoundedPolygon._(features, M3EPoint(centerX, centerY));
   }
 
   /// Creates a circular shape, approximating the rounding of the shape around
@@ -349,7 +362,7 @@ class RoundedPolygon {
   /// value is 0.
   ///
   /// Throws [ArgumentError] when [numVertices] is less than 3.
-  factory RoundedPolygon.circle({
+  factory M3ERoundedPolygon.circle({
     int numVertices = 8,
     double radius = 1,
     double centerX = 0,
@@ -361,15 +374,15 @@ class RoundedPolygon {
 
     // Half of the angle between two adjacent vertices on the polygon.
     final theta = math.pi / numVertices;
-    // Radius of the underlying RoundedPolygon object given the desired radius
+    // Radius of the underlying M3ERoundedPolygon object given the desired radius
     // of the circle.
     final polygonRadius = radius / math.cos(theta);
-    return RoundedPolygon.fromVerticesNum(
+    return M3ERoundedPolygon.fromVerticesNum(
       numVertices,
       radius: polygonRadius,
       centerX: centerX,
       centerY: centerY,
-      rounding: CornerRounding(radius: radius),
+      rounding: M3ECornerRounding(radius: radius),
     );
   }
 
@@ -377,23 +390,23 @@ class RoundedPolygon {
   /// center. Optional rounding parameters can be used to create a rounded
   /// rectangle instead.
   ///
-  /// As with all [RoundedPolygon] objects, if this shape is created with
+  /// As with all [M3ERoundedPolygon] objects, if this shape is created with
   /// default dimensions and center, it is sized to fit within the 2x2
   /// bounding box around a center of (0, 0) and will need to be scaled and
-  /// moved using [RoundedPolygon.transformed] to fit the intended area in a UI.
+  /// moved using [M3ERoundedPolygon.transformed] to fit the intended area in a UI.
   ///
   /// [width] is the width of the rectangle, default value is 2.
   ///
   /// [height] is the height of the rectangle, default value is 2.
   ///
-  /// [rounding] is the [CornerRounding] properties of every vertex. If some
+  /// [rounding] is the [M3ECornerRounding] properties of every vertex. If some
   /// vertices should have different rounding properties, then use
   /// [perVertexRounding] instead. The default rounding value is
-  /// [CornerRounding.unrounded], meaning that the polygon will use the
+  /// [M3ECornerRounding.unrounded], meaning that the polygon will use the
   /// vertices themselves in the final shape and not curves rounded around the
   /// vertices.
   ///
-  /// [perVertexRounding] is the [CornerRounding] properties of every vertex.
+  /// [perVertexRounding] is the [M3ECornerRounding] properties of every vertex.
   /// If this parameter is not null, then it must be of size 4 for the four
   /// corners of the shape. If this parameter is null, then the polygon will
   /// use the [rounding] parameter for every vertex instead. The default value
@@ -405,11 +418,11 @@ class RoundedPolygon {
   /// [centerY] is the Y coordinate of the center of the rectangle, around
   /// which all vertices will be placed equidistantly. The default center is
   /// at (0,0).
-  factory RoundedPolygon.rectangle({
+  factory M3ERoundedPolygon.rectangle({
     double width = 2,
     double height = 2,
-    CornerRounding rounding = CornerRounding.unrounded,
-    List<CornerRounding>? perVertexRounding,
+    M3ECornerRounding rounding = M3ECornerRounding.unrounded,
+    List<M3ECornerRounding>? perVertexRounding,
     double centerX = 0,
     double centerY = 0,
   }) {
@@ -418,7 +431,7 @@ class RoundedPolygon {
     final right = centerX + width / 2;
     final bottom = centerY + height / 2;
 
-    return RoundedPolygon.fromVertices(
+    return M3ERoundedPolygon.fromVertices(
       [right, bottom, left, bottom, left, top, right, top],
       rounding: rounding,
       perVertexRounding: perVertexRounding,
@@ -441,13 +454,13 @@ class RoundedPolygon {
   ///
   /// [innerRadius] is the inner radius for this star shape, must be greater
   /// than 0 and less than or equal to [radius]. Note that equal radii would
-  /// be the same as creating a [RoundedPolygon] directly, but with
+  /// be the same as creating a [M3ERoundedPolygon] directly, but with
   /// 2 * [numVerticesPerRadius] vertices. Default value is 0.5.
   ///
-  /// [rounding] is the [CornerRounding] properties of every vertex. If some
+  /// [rounding] is the [M3ECornerRounding] properties of every vertex. If some
   /// vertices should have different rounding properties, then use
   /// [perVertexRounding] instead. The default rounding value is
-  /// [CornerRounding.unrounded], meaning that the polygon will use the
+  /// [M3ECornerRounding.unrounded], meaning that the polygon will use the
   /// vertices themselves in the final shape and not curves rounded around the
   /// vertices.
   ///
@@ -455,7 +468,7 @@ class RoundedPolygon {
   /// the [innerRadius]. If null (the default value), inner vertices will use
   /// the [rounding] or [perVertexRounding] parameters instead.
   ///
-  /// [perVertexRounding] is the the [CornerRounding] properties of every
+  /// [perVertexRounding] is the the [M3ECornerRounding] properties of every
   /// vertex. If this parameter is not null, then it must have the same size as
   /// 2 * [numVerticesPerRadius]. If this parameter is null, then the polygon
   /// will use the [rounding] parameter for every vertex instead. The default
@@ -469,13 +482,13 @@ class RoundedPolygon {
   ///
   /// Throws [ArgumentError] if either [radius] or [innerRadius] are <= 0 or
   /// [innerRadius] > [radius].
-  factory RoundedPolygon.star({
+  factory M3ERoundedPolygon.star({
     required int numVerticesPerRadius,
     double radius = 1,
     double innerRadius = 0.5,
-    CornerRounding rounding = CornerRounding.unrounded,
-    CornerRounding? innerRounding,
-    List<CornerRounding>? perVertexRounding,
+    M3ECornerRounding rounding = M3ECornerRounding.unrounded,
+    M3ECornerRounding? innerRounding,
+    List<M3ECornerRounding>? perVertexRounding,
     double centerX = 0,
     double centerY = 0,
   }) {
@@ -501,7 +514,7 @@ class RoundedPolygon {
 
     // Star polygon is just a polygon with all vertices supplied (where we
     // generate those vertices to be on the inner/outer radii).
-    return RoundedPolygon.fromVertices(
+    return M3ERoundedPolygon.fromVertices(
       _starVerticesFromNumVerts(
         numVerticesPerRadius,
         radius,
@@ -535,7 +548,7 @@ class RoundedPolygon {
   /// all vertices will be placed. The default center is at (0,0).
   ///
   /// Throws [ArgumentError] if either [width] or [height] are <= 0.
-  factory RoundedPolygon.pill({
+  factory M3ERoundedPolygon.pill({
     double width = 2,
     double height = 1,
     double smoothing = 0,
@@ -549,7 +562,7 @@ class RoundedPolygon {
     final wHalf = width / 2;
     final hHalf = height / 2;
 
-    return RoundedPolygon.fromVertices(
+    return M3ERoundedPolygon.fromVertices(
       [
         wHalf + centerX,
         hHalf + centerY,
@@ -560,7 +573,7 @@ class RoundedPolygon {
         wHalf + centerX,
         -hHalf + centerY,
       ],
-      rounding: CornerRounding(
+      rounding: M3ECornerRounding(
         radius: math.min(wHalf, hHalf),
         smoothing: smoothing,
       ),
@@ -569,11 +582,11 @@ class RoundedPolygon {
     );
   }
 
-  /// A pillStar shape is like a [RoundedPolygon.pill] except it has inner and
+  /// A pillStar shape is like a [M3ERoundedPolygon.pill] except it has inner and
   /// outer radii along its pill-shaped outline, just like a
-  /// [RoundedPolygon.star] has inner and outer radii along its circular
-  /// outline. The parameters for a [RoundedPolygon.pillStar] are similar to
-  /// those of a [RoundedPolygon.star] except, like [RoundedPolygon.pill], it
+  /// [M3ERoundedPolygon.star] has inner and outer radii along its circular
+  /// outline. The parameters for a [M3ERoundedPolygon.pillStar] are similar to
+  /// those of a [M3ERoundedPolygon.star] except, like [M3ERoundedPolygon.pill], it
   /// has a [width] and [height] to determine the general shape of the
   /// underlying pill. Also, there is a subtle complication with the way that
   /// inner and outer vertices proceed along the circular ends of the
@@ -603,20 +616,20 @@ class RoundedPolygon {
   ///
   /// [innerRadiusRatio] is the Inner radius ratio for this star shape, must be
   /// greater than 0 and less than or equal to 1. Note that a value of 1 would
-  /// be similar to creating a [RoundedPolygon.pill], but with more vertices.
+  /// be similar to creating a [M3ERoundedPolygon.pill], but with more vertices.
   /// The default value is 0.5.
   ///
-  /// [rounding] is the [CornerRounding] properties of every vertex. If some
+  /// [rounding] is the [M3ECornerRounding] properties of every vertex. If some
   /// vertices should have different rounding properties, then use
   /// [perVertexRounding] instead. The default rounding value is
-  /// [CornerRounding.unrounded], meaning that the polygon will use the
+  /// [M3ECornerRounding.unrounded], meaning that the polygon will use the
   /// vertices themselves in the final shape and not curves rounded around the
   /// vertices.
   ///
   /// [innerRounding] is the optional rounding parameters for the vertices on
   /// the [innerRadiusRatio]. If null (the default value), inner vertices will
   /// use the [rounding] or [perVertexRounding] parameters instead.
-  /// [perVertexRounding] is the [CornerRounding] properties of every vertex.
+  /// [perVertexRounding] is the [M3ECornerRounding] properties of every vertex.
   /// If this parameter is not null, then it must have the same size as
   /// 2 * [numVerticesPerRadius]. If this parameter is null, then the polygon
   /// will use the [rounding] parameter for every vertex instead. The default
@@ -645,14 +658,14 @@ class RoundedPolygon {
   ///
   /// Throws [ArgumentError] if either [width] or [height] are <= 0 or
   ///  if [innerRadiusRatio] is outside the range of (0, 1].
-  factory RoundedPolygon.pillStar({
+  factory M3ERoundedPolygon.pillStar({
     double width = 2,
     double height = 1,
     int numVerticesPerRadius = 8,
     double innerRadiusRatio = 0.5,
-    CornerRounding rounding = CornerRounding.unrounded,
-    CornerRounding? innerRounding,
-    List<CornerRounding>? perVertexRounding,
+    M3ECornerRounding rounding = M3ECornerRounding.unrounded,
+    M3ECornerRounding? innerRounding,
+    List<M3ECornerRounding>? perVertexRounding,
     double vertexSpacing = 0.5,
     double startLocation = 0,
     double centerX = 0,
@@ -684,7 +697,7 @@ class RoundedPolygon {
       ];
     }
 
-    return RoundedPolygon.fromVertices(
+    return M3ERoundedPolygon.fromVertices(
       _pillStarVerticesFromNumVerts(
         numVerticesPerRadius,
         width,
@@ -707,17 +720,17 @@ class RoundedPolygon {
   ///
   /// Each feature represents a portion of the polygon's outline, such as
   /// corners or edges, and contains the cubic curves that define its shape.
-  final List<Feature> features;
+  final List<M3EFeature> features;
 
   /// The center point of the polygon.
   ///
   /// This point is used as a reference for transformations and calculations.
   /// It may be explicitly provided or automatically calculated based on the
   /// polygon's vertices.
-  final Point center;
+  final M3EPoint center;
 
-  /// A flattened version of the [Feature]s, as a `List<Cubic>`.
-  final List<Cubic> cubics;
+  /// A flattened version of the [M3EFeature]s, as a `List<M3ECubic>`.
+  final List<M3ECubic> cubics;
 
   /// The X coordinate of the polygon's center point.
   double get centerX => center.x;
@@ -730,10 +743,10 @@ class RoundedPolygon {
     // shape exactly matches the first anchor point. There can be rendering
     // artifacts introduced by those points being slightly off, even by much
     // less than a pixel.
-    Cubic? firstCubic;
-    Cubic? lastCubic;
-    List<Cubic>? firstFeatureSplitStart;
-    List<Cubic>? firstFeatureSplitEnd;
+    M3ECubic? firstCubic;
+    M3ECubic? lastCubic;
+    List<M3ECubic>? firstFeatureSplitStart;
+    List<M3ECubic>? firstFeatureSplitEnd;
 
     if (features.isNotEmpty && features[0].cubics.length == 3) {
       final centerCubic = features[0].cubics[1];
@@ -745,7 +758,7 @@ class RoundedPolygon {
     // iterating one past the features list size allows us to insert the
     // initial split cubic if it exists.
     for (var i = 0; i <= features.length; i++) {
-      final List<Cubic> featureCubics;
+      final List<M3ECubic> featureCubics;
 
       if (i == 0 && firstFeatureSplitEnd != null) {
         featureCubics = firstFeatureSplitEnd;
@@ -777,7 +790,7 @@ class RoundedPolygon {
             final points = lastCubic.points.toList();
             points[6] = cubic.anchor1X;
             points[7] = cubic.anchor1Y;
-            lastCubic = Cubic._raw(points);
+            lastCubic = M3ECubic._raw(points);
           }
         }
       }
@@ -785,7 +798,7 @@ class RoundedPolygon {
 
     if (lastCubic != null && firstCubic != null) {
       cubics.add(
-        Cubic(
+        M3ECubic(
           lastCubic.anchor0X,
           lastCubic.anchor0Y,
           lastCubic.control0X,
@@ -799,7 +812,7 @@ class RoundedPolygon {
     } else {
       // Empty / 0-sized polygon.
       cubics.add(
-        Cubic(
+        M3ECubic(
           centerX,
           centerY,
           centerX,
@@ -813,15 +826,15 @@ class RoundedPolygon {
     }
   }
 
-  /// Transforms (scales/translates/etc.) this [RoundedPolygon] with the given
-  /// [PointTransformer] and returns a new [RoundedPolygon]. This is a low
+  /// Transforms (scales/translates/etc.) this [M3ERoundedPolygon] with the given
+  /// [M3EPointTransformer] and returns a new [M3ERoundedPolygon]. This is a low
   /// level API and there should be more platform idiomatic ways to transform
-  /// a [RoundedPolygon] provided by the platform specific wrapper.
+  /// a [M3ERoundedPolygon] provided by the platform specific wrapper.
   ///
-  /// [f] is the [PointTransformer] used to transform this [RoundedPolygon].
-  RoundedPolygon transformed(PointTransformer f) {
+  /// [f] is the [M3EPointTransformer] used to transform this [M3ERoundedPolygon].
+  M3ERoundedPolygon transformed(M3EPointTransformer f) {
     final center = this.center.transformed(f);
-    return RoundedPolygon._(
+    return M3ERoundedPolygon._(
       [
         for (var i = 0; i < features.length; i++) features[i].transformed(f),
       ],
@@ -829,10 +842,10 @@ class RoundedPolygon {
     );
   }
 
-  /// Creates a new RoundedPolygon, moving and resizing this one, so it's
+  /// Creates a new M3ERoundedPolygon, moving and resizing this one, so it's
   /// completely inside the (0, 0) -> (1, 1) square, centered if there extra
   /// space in one direction.
-  RoundedPolygon normalized() {
+  M3ERoundedPolygon normalized() {
     final bounds = calculateBounds();
     final width = bounds[2] - bounds[0];
     final height = bounds[3] - bounds[1];
@@ -871,12 +884,12 @@ class RoundedPolygon {
     var maxDistSquared = 0.0;
     for (var i = 0; i < cubics.length; i++) {
       final cubic = cubics[i];
-      final anchorDistance = distanceSquared(
+      final anchorDistance = _distanceSquared(
         cubic.anchor0X - centerX,
         cubic.anchor0Y - centerY,
       );
       final middlePoint = cubic.pointOnCurve(0.5);
-      final middleDistance = distanceSquared(
+      final middleDistance = _distanceSquared(
         middlePoint.x - centerX,
         middlePoint.y - centerY,
       );
@@ -941,7 +954,7 @@ class RoundedPolygon {
 
   @override
   String toString() {
-    return '[RoundedPolygon. '
+    return '[M3ERoundedPolygon. '
         'Cubics = ${cubics.join(", ")}'
         ' || Features = ${features.join(", ")}'
         ' || Center = ($centerX, $centerY)]';
@@ -953,7 +966,7 @@ class RoundedPolygon {
       return true;
     }
 
-    if (other is! RoundedPolygon) {
+    if (other is! M3ERoundedPolygon) {
       return false;
     }
 
@@ -983,7 +996,7 @@ class RoundedPolygon {
 /// transformed. Any transforms that occur before the center is calculated will
 /// be taken into account automatically since the center calculation is an
 /// average of the current location of all cubic anchor points.
-Point calculateCenter(List<double> vertices) {
+M3EPoint _calculateCenter(List<double> vertices) {
   var cumulativeX = 0.0;
   var cumulativeY = 0.0;
   var index = 0;
@@ -991,7 +1004,7 @@ Point calculateCenter(List<double> vertices) {
     cumulativeX += vertices[index++];
     cumulativeY += vertices[index++];
   }
-  return Point(
+  return M3EPoint(
     cumulativeX / (vertices.length / 2),
     cumulativeY / (vertices.length / 2),
   );
@@ -1004,7 +1017,7 @@ Point calculateCenter(List<double> vertices) {
 /// parameter.
 ///
 /// If rounding is null, there is no rounding; the corner will simply be a
-/// single point at [p1]. This point will be represented by a [Cubic] of length
+/// single point at [p1]. This point will be represented by a [M3ECubic] of length
 /// 0 at that point.
 ///
 /// If rounding is not null, the corner will be rounded either with a curve
@@ -1051,7 +1064,7 @@ class _RoundedCorner {
 
       // identity: sin^2 + cos^2 = 1
       // sinAngle gives us the intersection
-      sinAngle = math.sqrt(1 - square(cosAngle));
+      sinAngle = math.sqrt(1 - _square(cosAngle));
 
       // How much we need to cut, as measured on a side, to get the required
       // radius calculating where the rounding circle hits the edge.
@@ -1061,8 +1074,8 @@ class _RoundedCorner {
           (sinAngle > 1e-3) ? cornerRadius * (cosAngle + 1) / sinAngle : 0;
     } else {
       // One (or both) of the sides is empty, not much we can do.
-      d1 = Point.zero;
-      d2 = Point.zero;
+      d1 = M3EPoint.zero;
+      d2 = M3EPoint.zero;
       cornerRadius = 0;
       smoothing = 0;
       cosAngle = 0;
@@ -1071,17 +1084,17 @@ class _RoundedCorner {
     }
   }
 
-  final Point p0;
+  final M3EPoint p0;
 
-  final Point p1;
+  final M3EPoint p1;
 
-  final Point p2;
+  final M3EPoint p2;
 
-  final CornerRounding? rounding;
+  final M3ECornerRounding? rounding;
 
-  late final Point d1;
+  late final M3EPoint d1;
 
-  late final Point d2;
+  late final M3EPoint d2;
 
   late final double cornerRadius;
 
@@ -1100,19 +1113,19 @@ class _RoundedCorner {
   /// The center of the circle approximated by the rounding curve (or the
   /// middle of the three curves if smoothing is requested).
   /// The center is the same as [p0] if there is no rounding.
-  Point center = Point.zero;
+  M3EPoint center = M3EPoint.zero;
 
-  List<Cubic> getCubics(double allowedCut0, double allowedCut1) {
+  List<M3ECubic> getCubics(double allowedCut0, double allowedCut1) {
     // We use the minimum of both cuts to determine the radius, but if there is
     // more space in one side we can use it for smoothing.
     final allowedCut = math.min(allowedCut0, allowedCut1);
 
     // Nothing to do, just use lines, or a point
-    if (expectedRoundCut < distanceEpsilon ||
-        allowedCut < distanceEpsilon ||
-        cornerRadius < distanceEpsilon) {
+    if (expectedRoundCut < _distanceEpsilon ||
+        allowedCut < _distanceEpsilon ||
+        cornerRadius < _distanceEpsilon) {
       center = p1;
-      return [Cubic.straightLine(p1.x, p1.y, p1.x, p1.y)];
+      return [M3ECubic.straightLine(p1.x, p1.y, p1.x, p1.y)];
     }
 
     // How much of the cut is required for the rounding part.
@@ -1127,7 +1140,7 @@ class _RoundedCorner {
     final actualR = cornerRadius * actualRoundCut / expectedRoundCut;
     // Distance from the corner (p1) to the center
     final centerDistance = math.sqrt(
-      square(actualR) + square(actualRoundCut),
+      _square(actualR) + _square(actualRoundCut),
     );
     // Center of the arc we will use for rounding
     center = p1 + ((d1 + d2) / 2).getDirection() * centerDistance;
@@ -1156,7 +1169,7 @@ class _RoundedCorner {
 
     return [
       flanking0,
-      Cubic.circularArc(
+      M3ECubic.circularArc(
         center.x,
         center.y,
         flanking0.anchor1X,
@@ -1211,14 +1224,14 @@ class _RoundedCorner {
   ///
   /// Returns a Bezier cubic curve that connects from the (cut) linear side
   /// and the (cut) circular segment in a smooth way.
-  Cubic _computeFlankingCurve(
+  M3ECubic _computeFlankingCurve(
     double actualRoundCut,
     double actualSmoothingValues,
-    Point corner,
-    Point sideStart,
-    Point circleSegmentIntersection,
-    Point otherCircleSegmentIntersection,
-    Point circleCenter,
+    M3EPoint corner,
+    M3EPoint sideStart,
+    M3EPoint circleSegmentIntersection,
+    M3EPoint otherCircleSegmentIntersection,
+    M3EPoint circleCenter,
     double actualR,
   ) {
     // sideStart is the anchor, 'anchor' is actual control point
@@ -1231,7 +1244,7 @@ class _RoundedCorner {
     // smooth = 1, we take nothing.
     // TODO(performance): Revisit this approach as it can be problematic when
     // the angle approaches 180 degrees.
-    final p = interpolate(
+    final p = _interpolate(
       circleSegmentIntersection,
       (circleSegmentIntersection + otherCircleSegmentIntersection) / 2,
       actualSmoothingValues,
@@ -1239,7 +1252,7 @@ class _RoundedCorner {
 
     // The flanking curve ends on the circle
     final curveEnd = circleCenter +
-        directionVector(p.x - circleCenter.x, p.y - circleCenter.y) * actualR;
+        _directionVector(p.x - circleCenter.x, p.y - circleCenter.y) * actualR;
 
     // The anchor on the circle segment side is in the intersection between the
     // tangent to the circle in the circle/flanking curve boundary and the
@@ -1257,24 +1270,25 @@ class _RoundedCorner {
     // 2/3 seems to come from design tools?
     final anchorStart = (curveStart + anchorEnd * 2) / 3;
 
-    return Cubic.fromPoints(curveStart, anchorStart, anchorEnd, curveEnd);
+    return M3ECubic._fromPoints(curveStart, anchorStart, anchorEnd, curveEnd);
   }
 
   /// Returns the intersection point of the two lines d0->d1 and p0->p1, or
   /// null if the lines do not intersect.
-  Point? _lineIntersection(Point p0, Point d0, Point p1, Point d1) {
+  M3EPoint? _lineIntersection(
+      M3EPoint p0, M3EPoint d0, M3EPoint p1, M3EPoint d1) {
     final rotatedD1 = d1.rotate90();
     final den = d0.dotProduct(rotatedD1);
 
-    if (den.abs() < distanceEpsilon) {
+    if (den.abs() < _distanceEpsilon) {
       return null;
     }
 
     final num = (p1 - p0).dotProduct(rotatedD1);
 
     // Also check the relative value. This is equivalent to
-    // (den/num).abs() < distanceEpsilon, but avoid doing a division
-    if (den.abs() < distanceEpsilon * num.abs()) {
+    // (den/num).abs() < _distanceEpsilon, but avoid doing a division
+    if (den.abs() < _distanceEpsilon * num.abs()) {
       return null;
     }
 
@@ -1293,11 +1307,11 @@ List<double> _verticesFromNumVerts(
 
   var arrayIndex = 0;
   for (var i = 0; i < numVertices; i++) {
-    final vertex = radialToCartesian(
+    final vertex = _radialToCartesian(
           radius,
           math.pi / numVertices * 2 * i,
         ) +
-        Point(centerX, centerY);
+        M3EPoint(centerX, centerY);
 
     result[arrayIndex++] = vertex.x;
     result[arrayIndex++] = vertex.y;
@@ -1337,7 +1351,7 @@ List<double> _pillStarVerticesFromNumVerts(
   // the inner and rounding parameters may cause the caller to want a different
   // value.
   final circlePerimeter =
-      twoPi * endcapRadius * lerp(innerRadius, 1, vertexSpacing);
+      _twoPi * endcapRadius * _lerp(innerRadius, 1, vertexSpacing);
   // perimeter is circle perimeter plus horizontal and vertical sections of
   // inner rectangle, whether either (or even both) might be of length zero.
   final perimeter = 2 * hSegLen + 2 * vSegLen + circlePerimeter;
@@ -1380,10 +1394,10 @@ List<double> _pillStarVerticesFromNumVerts(
   // The list of vertices to be returned.
   final result = List<double>.filled(numVerticesPerRadius * 4, 0);
   var arrayIndex = 0;
-  final rectBR = Point(hSegHalf, vSegHalf);
-  final rectBL = Point(-hSegHalf, vSegHalf);
-  final rectTL = Point(-hSegHalf, -vSegHalf);
-  final rectTR = Point(hSegHalf, -vSegHalf);
+  final rectBR = M3EPoint(hSegHalf, vSegHalf);
+  final rectBL = M3EPoint(-hSegHalf, vSegHalf);
+  final rectTL = M3EPoint(-hSegHalf, -vSegHalf);
+  final rectTR = M3EPoint(hSegHalf, -vSegHalf);
 
   // Each iteration through this loop uses the next t value as we walk around
   // the shape.
@@ -1410,26 +1424,26 @@ List<double> _pillStarVerticesFromNumVerts(
     // for that edge.
     final currRadius = inner ? (endcapRadius * innerRadius) : endcapRadius;
     final vertex = switch (currSecIndex) {
-      0 => Point(currRadius, tProportion * vSegHalf),
-      1 => radialToCartesian(currRadius, tProportion * math.pi / 2) + rectBR,
-      2 => Point(hSegHalf - tProportion * hSegLen, currRadius),
-      3 => radialToCartesian(
+      0 => M3EPoint(currRadius, tProportion * vSegHalf),
+      1 => _radialToCartesian(currRadius, tProportion * math.pi / 2) + rectBR,
+      2 => M3EPoint(hSegHalf - tProportion * hSegLen, currRadius),
+      3 => _radialToCartesian(
             currRadius,
             math.pi / 2 + (tProportion * math.pi / 2),
           ) +
           rectBL,
-      4 => Point(-currRadius, vSegHalf - tProportion * vSegLen),
+      4 => M3EPoint(-currRadius, vSegHalf - tProportion * vSegLen),
       5 =>
-        radialToCartesian(currRadius, math.pi + (tProportion * math.pi / 2)) +
+        _radialToCartesian(currRadius, math.pi + (tProportion * math.pi / 2)) +
             rectTL,
-      6 => Point(-hSegHalf + tProportion * hSegLen, -currRadius),
-      7 => radialToCartesian(
+      6 => M3EPoint(-hSegHalf + tProportion * hSegLen, -currRadius),
+      7 => _radialToCartesian(
             currRadius,
             math.pi * 1.5 + (tProportion * math.pi / 2),
           ) +
           rectTR,
       // 8
-      _ => Point(currRadius, -vSegHalf + tProportion * vSegHalf),
+      _ => M3EPoint(currRadius, -vSegHalf + tProportion * vSegHalf),
     };
     result[arrayIndex++] = vertex.x + centerX;
     result[arrayIndex++] = vertex.y + centerY;
@@ -1451,13 +1465,13 @@ List<double> _starVerticesFromNumVerts(
   var arrayIndex = 0;
 
   for (var i = 0; i < numVerticesPerRadius; i++) {
-    var vertex = radialToCartesian(
+    var vertex = _radialToCartesian(
       radius,
       math.pi / numVerticesPerRadius * 2 * i,
     );
     result[arrayIndex++] = vertex.x + centerX;
     result[arrayIndex++] = vertex.y + centerY;
-    vertex = radialToCartesian(
+    vertex = _radialToCartesian(
       innerRadius,
       math.pi / numVerticesPerRadius * (2 * i + 1),
     );
