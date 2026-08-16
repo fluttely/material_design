@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:material_design/material_design.dart';
-import 'package:material_design_demo/showcase_pages/widgets/launch_url_text.dart';
+import 'package:material_design_demo/widgets/showcase_link.dart';
 
 class ShapePage extends StatelessWidget {
   const ShapePage({super.key});
@@ -31,13 +31,13 @@ class ShapePage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  LaunchURLText(label: 'M3Corners'),
+                  ShowcaseLink(label: 'M3Corners'),
                   Icon(Icons.keyboard_arrow_down_rounded),
-                  LaunchURLText(label: 'M3Radius'),
+                  ShowcaseLink(label: 'M3Radius'),
                   Icon(Icons.keyboard_arrow_down_rounded),
-                  LaunchURLText(label: 'M3BorderRadius'),
+                  ShowcaseLink(label: 'M3BorderRadius'),
                   Icon(Icons.keyboard_arrow_down_rounded),
-                  LaunchURLText(
+                  ShowcaseLink(
                     label: 'M3Shape',
                     url:
                         'https://m3.material.io/styles/shape/corner-radius-scale',

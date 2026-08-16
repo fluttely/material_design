@@ -91,6 +91,7 @@ class ExampleHomePage extends StatelessWidget {
           _ShapeSection(),
           _ElevationSection(),
           _TypographySection(),
+          _IconSection(),
           _ColorSection(),
           _SchemeSection(),
           _InteractionSection(),
@@ -367,6 +368,110 @@ class _TypographySection extends StatelessWidget {
         Text(
           'M3TextUtils.dyslexiaFriendly — wider tracking, taller lines',
           style: M3TextUtils.dyslexiaFriendly(M3TypeScale.bodyMedium),
+        ),
+      ],
+    );
+  }
+}
+
+// ═════════════════════════════════════════════════════════════════════════
+// 4b. ICONS — M3IconSizes and the four Material Symbols axes, M3IconStyle
+// ═════════════════════════════════════════════════════════════════════════
+
+class _IconSection extends StatelessWidget {
+  const _IconSection();
+
+  @override
+  Widget build(BuildContext context) {
+    return _Section(
+      title: '4b. Icons',
+      children: [
+        Text(
+          'The size scale, each icon at the optical size that matches it:',
+          style: M3TypeScale.bodyMedium,
+        ),
+        const M3Gap(M3Spacings.s8),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            for (final size in M3IconSizes.values)
+              M3Padding(
+                padding: const M3EdgeInsets.only(right: M3Spacings.s8),
+                child: Icon(
+                  Icons.favorite,
+                  size: size,
+                  opticalSize: M3IconOpticalSizes.forIconSize(size),
+                ),
+              ),
+          ],
+        ),
+        const M3Gap(M3Spacings.s16),
+        Text(
+          'The weight axis — stroke thickness without a change of footprint. '
+          'The axes are rendered by the Material Symbols variable font; with '
+          "Flutter's bundled (static) Icons font the values are inert, but "
+          'they are still the values to pass:',
+          style: M3TypeScale.bodyMedium,
+        ),
+        const M3Gap(M3Spacings.s8),
+        Row(
+          children: [
+            for (final weight in M3IconWeights.values)
+              M3Padding(
+                padding: const M3EdgeInsets.only(right: M3Spacings.s8),
+                child: Icon(
+                  Icons.settings,
+                  size: M3IconSizes.medium,
+                  weight: weight,
+                ),
+              ),
+          ],
+        ),
+        const M3Gap(M3Spacings.s16),
+        Text(
+          'Fill is a state, not a style — M3 marks the active destination by '
+          'moving along the axis rather than swapping the glyph:',
+          style: M3TypeScale.bodyMedium,
+        ),
+        const M3Gap(M3Spacings.s8),
+        Row(
+          children: [
+            for (final fill in M3IconFills.values)
+              M3Padding(
+                padding: const M3EdgeInsets.only(right: M3Spacings.s8),
+                child: Icon(
+                  Icons.star,
+                  size: M3IconSizes.medium,
+                  fill: fill,
+                ),
+              ),
+          ],
+        ),
+        const M3Gap(M3Spacings.s16),
+        Text(
+          'M3IconStyle is an IconThemeData, so a whole subtree can be typed '
+          'at once:',
+          style: M3TypeScale.bodyMedium,
+        ),
+        const M3Gap(M3Spacings.s8),
+        // merge, not IconTheme: the style carries axes, and the color keeps
+        // coming from the theme. A bare IconTheme would replace the inherited
+        // color with null and drop every icon to Flutter's black fallback.
+        IconTheme.merge(
+          data: const M3IconStyle(
+            size: M3IconSizes.medium,
+            weight: M3IconWeights.semiBold,
+            grade: M3IconGrades.emphasis,
+          ),
+          child: const Row(
+            children: [
+              Icon(Icons.check_circle),
+              M3Gap(M3Spacings.s8),
+              Icon(Icons.bolt),
+              M3Gap(M3Spacings.s8),
+              Icon(Icons.shield),
+            ],
+          ),
         ),
       ],
     );

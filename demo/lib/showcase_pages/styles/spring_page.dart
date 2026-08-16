@@ -5,7 +5,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:material_design/material_design.dart';
-import 'package:material_design_demo/showcase_pages/widgets/launch_url_text.dart';
+import 'package:material_design_demo/widgets/showcase_link.dart';
 
 /// The fraction of the track the dot is allowed to travel past each end.
 ///
@@ -37,7 +37,7 @@ class _SpringPageState extends State<SpringPage> {
       body: ListView(
         padding: M3EdgeInsets.all(M3Spacings.s16),
         children: [
-          LaunchURLText(
+          ShowcaseLink(
             label: 'M3ESpring | M3MotionScheme | M3MotionSpeed',
             url: 'https://m3.material.io/styles/motion/overview/specs',
           ),

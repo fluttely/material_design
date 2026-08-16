@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:material_design/material_design.dart';
-import 'package:material_design_demo/showcase_pages/widgets/launch_url_text.dart';
+import 'package:material_design_demo/widgets/showcase_link.dart';
 
 /// Shows the component-layer measurements: the heights and sizes the M3 spec
 /// fixes for buttons, FABs, app bars, navigation and list items.
@@ -389,7 +389,7 @@ class _Section extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        LaunchURLText(label: tokenName, url: m3Url),
+        ShowcaseLink(label: tokenName, url: m3Url),
         Text(description, style: textTheme.bodyMedium),
         const M3Gap(M3Spacings.s16),
         child,

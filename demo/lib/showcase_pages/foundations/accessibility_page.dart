@@ -1,6 +1,9 @@
+// The emphasized type scale is @experimental; a showcase for it opts in.
+// ignore_for_file: experimental_member_use
+
 import 'package:flutter/material.dart';
 import 'package:material_design/material_design.dart';
-import 'package:material_design_demo/showcase_pages/widgets/launch_url_text.dart';
+import 'package:material_design_demo/widgets/showcase_link.dart';
 
 /// A comprehensive page demonstrating Material Design 3 accessibility features and best practices.
 /// Shows practical examples of WCAG compliance, touch targets, semantic labels, and more.
@@ -25,12 +28,13 @@ class _AccessibilityPageState extends State<AccessibilityPage>
   void initState() {
     super.initState();
     _pulseController = AnimationController(
-      duration: const Duration(seconds: 2),
+      // A slow, deliberate pulse: four times the emphasized transition.
+      duration: M3Motion.emphasized.duration * 4,
       vsync: this,
     )..repeat();
 
     _focusController = AnimationController(
-      duration: const Duration(milliseconds: 300),
+      duration: M3Motion.standard.duration,
       vsync: this,
     );
   }
@@ -146,7 +150,7 @@ class _AccessibilityPageState extends State<AccessibilityPage>
               children: [
                 Icon(
                   Icons.accessibility_new,
-                  size: 32,
+                  size: M3IconSizes.medium,
                   color: colorScheme.onPrimaryContainer,
                 ),
                 const M3Gap(M3Spacings.s12),
@@ -198,9 +202,10 @@ class _AccessibilityPageState extends State<AccessibilityPage>
         vertical: M3Spacings.s4,
       ),
       decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.2),
+        color: color.withValues(alpha: M3Contract.opacity(0.2)),
         borderRadius: M3BorderRadius.medium,
-        border: Border.all(color: color.withValues(alpha: 0.5)),
+        border:
+            Border.all(color: color.withValues(alpha: M3Contract.opacity(0.5))),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -209,11 +214,7 @@ class _AccessibilityPageState extends State<AccessibilityPage>
           const M3Gap(M3Spacings.s4),
           Text(
             label,
-            style: TextStyle(
-              color: color,
-              fontSize: 12,
-              fontWeight: FontWeight.w600,
-            ),
+            style: M3EmphasizedTypeScale.labelMedium.copyWith(color: color),
           ),
         ],
       ),
@@ -233,15 +234,15 @@ class _AccessibilityPageState extends State<AccessibilityPage>
           title: '✅ Correct - 48x48dp Touch Target',
           isGood: true,
           child: Container(
-            width: 48,
-            height: 48,
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.green, width: 2),
-              borderRadius: BorderRadius.circular(8),
+            width: M3Spacings.s48,
+            height: M3Spacings.s48,
+            decoration: M3BoxDecoration(
+              border: M3Border.thick(Colors.green),
+              borderRadius: M3BorderRadius.small,
             ),
             child: IconButton(
               onPressed: () => _showSnackBar('Adequate touch target!'),
-              icon: const Icon(Icons.thumb_up, size: 24),
+              icon: const Icon(Icons.thumb_up, size: M3IconSizes.standard),
               tooltip: 'Button with an adequate touch target',
             ),
           ),
@@ -252,15 +253,15 @@ class _AccessibilityPageState extends State<AccessibilityPage>
           title: '❌ Incorrect - Small Touch Target',
           isGood: false,
           child: Container(
-            width: 24,
-            height: 24,
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.red, width: 2),
-              borderRadius: BorderRadius.circular(4),
+            width: M3Spacings.s24,
+            height: M3Spacings.s24,
+            decoration: M3BoxDecoration(
+              border: M3Border.thick(Colors.red),
+              borderRadius: M3BorderRadius.extraSmall,
             ),
             child: InkWell(
               onTap: () => _showSnackBar('Hard to tap!'),
-              child: const Icon(Icons.thumb_down, size: 16),
+              child: Icon(Icons.thumb_down, size: M3Contract.iconSize(16)),
             ),
           ),
           description:
@@ -280,16 +281,16 @@ class _AccessibilityPageState extends State<AccessibilityPage>
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Container(
-                    width: 32,
-                    height: 32,
+                    width: M3Spacings.s32,
+                    height: M3Spacings.s32,
                     decoration: ShapeDecoration(
                       color: Theme.of(context).colorScheme.errorContainer,
                       shape: M3Shape.large,
                     ),
                     child: InkWell(
                       onTap: () => _showSnackBar('32dp - Too small!'),
-                      borderRadius: BorderRadius.circular(16),
-                      child: const Icon(Icons.close, size: 16),
+                      borderRadius: M3BorderRadius.large,
+                      child: Icon(Icons.close, size: M3Contract.iconSize(16)),
                     ),
                   ),
                   Container(
@@ -302,7 +303,8 @@ class _AccessibilityPageState extends State<AccessibilityPage>
                     child: InkWell(
                       onTap: () => _showSnackBar('48dp - Perfect!'),
                       borderRadius: M3BorderRadius.full,
-                      child: const Icon(Icons.check, size: 24),
+                      child:
+                          const Icon(Icons.check, size: M3IconSizes.standard),
                     ),
                   ),
                   Container(
@@ -314,8 +316,8 @@ class _AccessibilityPageState extends State<AccessibilityPage>
                     ),
                     child: InkWell(
                       onTap: () => _showSnackBar('56dp - Excellent!'),
-                      borderRadius: BorderRadius.circular(28),
-                      child: const Icon(Icons.star, size: 28),
+                      borderRadius: M3BorderRadius.extraLarge,
+                      child: Icon(Icons.star, size: M3Contract.iconSize(28)),
                     ),
                   ),
                 ],
@@ -509,7 +511,8 @@ class _AccessibilityPageState extends State<AccessibilityPage>
         _buildContrastCard(
           label: 'Low Contrast (Fail)',
           backgroundColor: colorScheme.surfaceContainer,
-          textColor: colorScheme.onSurfaceVariant.withValues(alpha: 0.5),
+          textColor: colorScheme.onSurfaceVariant
+              .withValues(alpha: M3Contract.opacity(0.5)),
         ),
       ],
     );
@@ -791,7 +794,7 @@ class _AccessibilityPageState extends State<AccessibilityPage>
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      LaunchURLText(label: title),
+                      ShowcaseLink(label: title),
                       if (subtitle != null) ...[
                         const M3Gap(M3Spacings.s4),
                         Text(
@@ -824,38 +827,39 @@ class _AccessibilityPageState extends State<AccessibilityPage>
     required String description,
   }) {
     final colorScheme = Theme.of(context).colorScheme;
-    return Container(
-      padding: M3EdgeInsets.all(M3Spacings.s16),
-      decoration: BoxDecoration(
-        color: isGood
-            ? colorScheme.secondaryContainer.withValues(alpha: 0.3)
-            : colorScheme.errorContainer.withValues(alpha: 0.3),
-        borderRadius: M3BorderRadius.medium,
-        border: Border.all(
-          color: isGood ? colorScheme.secondary : colorScheme.error,
-          width: 1,
+    // A Material rather than a decorated box: the examples inside are
+    // ListTiles and InkWells, and those paint their ink on the nearest
+    // Material ancestor — a colored box in between would hide it.
+    return Material(
+      color:
+          isGood ? colorScheme.secondaryContainer : colorScheme.errorContainer,
+      shape: M3Shape.medium.copyWith(
+        side: M3BorderSide(
+          outlineColor: isGood ? colorScheme.secondary : colorScheme.error,
         ),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            title,
-            style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                  fontWeight: FontWeight.bold,
-                  color: isGood ? colorScheme.secondary : colorScheme.error,
-                ),
-          ),
-          const M3Gap(M3Spacings.s12),
-          Center(child: child),
-          const M3Gap(M3Spacings.s12),
-          Text(
-            description,
-            style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color: Theme.of(context).colorScheme.onSurfaceVariant,
-                ),
-          ),
-        ],
+      child: M3Padding(
+        padding: const M3EdgeInsets.all(M3Spacings.s16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              title,
+              style: M3EmphasizedTypeScale.titleSmall.copyWith(
+                color: isGood ? colorScheme.secondary : colorScheme.error,
+              ),
+            ),
+            const M3Gap(M3Spacings.s12),
+            Center(child: child),
+            const M3Gap(M3Spacings.s12),
+            Text(
+              description,
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    color: colorScheme.onSurfaceVariant,
+                  ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -865,39 +869,37 @@ class _AccessibilityPageState extends State<AccessibilityPage>
     required Widget child,
   }) {
     final colorScheme = Theme.of(context).colorScheme;
-    return Container(
-      width: double.infinity,
-      padding: M3EdgeInsets.all(M3Spacings.s20),
-      decoration: BoxDecoration(
-        color: colorScheme.surfaceContainer,
-        borderRadius: M3BorderRadius.large,
-        border: Border.all(
-          color: colorScheme.outline.withValues(alpha: 0.5),
-        ),
+    return Material(
+      color: colorScheme.surfaceContainer,
+      shape: M3Shape.large.copyWith(
+        side: M3BorderSide(outlineColor: colorScheme.outlineVariant),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Icon(
-                Icons.play_circle_outline,
-                color: colorScheme.primary,
-                size: M3IconSizes.dense,
-              ),
-              const M3Gap(M3Spacings.s8),
-              Text(
-                title,
-                style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                      color: colorScheme.primary,
-                      fontWeight: FontWeight.w600,
-                    ),
-              ),
-            ],
-          ),
-          const M3Gap(M3Spacings.s16),
-          child,
-        ],
+      child: M3Padding(
+        padding: const M3EdgeInsets.all(M3Spacings.s20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Icon(
+                  Icons.play_circle_outline,
+                  color: colorScheme.primary,
+                  size: M3IconSizes.dense,
+                ),
+                const M3Gap(M3Spacings.s8),
+                Text(
+                  title,
+                  style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                        color: colorScheme.primary,
+                        fontWeight: FontWeight.w600,
+                      ),
+                ),
+              ],
+            ),
+            const M3Gap(M3Spacings.s16),
+            child,
+          ],
+        ),
       ),
     );
   }

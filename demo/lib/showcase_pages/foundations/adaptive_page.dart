@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:material_design/material_design.dart';
-import 'package:material_design_demo/showcase_pages/widgets/launch_url_text.dart';
+import 'package:material_design_demo/widgets/showcase_link.dart';
 
 /// Page demonstrating adaptive design features.
 class AdaptivePage extends StatefulWidget {
@@ -145,11 +145,11 @@ class _AdaptivePageState extends State<AdaptivePage> {
                                 ? (_destinations[_selectedIndex].icon as Icon)
                                     .icon
                                 : Icons.home,
-                            size: 48,
+                            size: M3IconSizes.extraLarge,
                             color: Theme.of(context).colorScheme.primary,
                           ),
                           const M3Gap(M3Spacings.s8),
-                          LaunchURLText(
+                          ShowcaseLink(
                               label: _destinations[_selectedIndex].label),
                         ],
                       ),
@@ -293,7 +293,7 @@ class _CompactLayoutDemo extends StatelessWidget {
           children: [
             Icon(
               Icons.phone_android,
-              size: 48,
+              size: M3IconSizes.extraLarge,
               color: Theme.of(context).colorScheme.onPrimaryContainer,
             ),
             const M3Gap(M3Spacings.s8),
@@ -327,7 +327,7 @@ class _MediumLayoutDemo extends StatelessWidget {
           children: [
             Icon(
               Icons.tablet_android,
-              size: 48,
+              size: M3IconSizes.extraLarge,
               color: Theme.of(context).colorScheme.onSecondaryContainer,
             ),
             const M3Gap(M3Spacings.s8),
@@ -361,7 +361,7 @@ class _ExpandedLayoutDemo extends StatelessWidget {
           children: [
             Icon(
               Icons.desktop_windows,
-              size: 48,
+              size: M3IconSizes.extraLarge,
               color: Theme.of(context).colorScheme.onTertiaryContainer,
             ),
             const M3Gap(M3Spacings.s8),

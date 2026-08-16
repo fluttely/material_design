@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 // Make sure this import points to the file where
 import 'package:material_design/material_design.dart';
-import 'package:material_design_demo/showcase_pages/widgets/launch_url_text.dart';
+import 'package:material_design_demo/widgets/showcase_link.dart';
 
 class ElevationPage extends StatelessWidget {
   const ElevationPage({super.key});
@@ -40,7 +40,7 @@ class ElevationPage extends StatelessWidget {
             style: textTheme.bodyMedium,
           ),
           const M3Gap(M3Spacings.s16),
-          LaunchURLText(
+          ShowcaseLink(
             label: 'M3ElevationDps | M3Elevation',
             url: 'https://m3.material.io/styles/elevation/overview',
           ),
@@ -74,7 +74,7 @@ class _ElevationGrid extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        LaunchURLText(label: title),
+        ShowcaseLink(label: title),
         Wrap(
           spacing: M3Spacings.s16,
           runSpacing: M3Spacings.s16,
@@ -141,7 +141,8 @@ class _ElevationCard extends StatelessWidget {
                     ? Icons.visibility
                     : Icons.visibility_off,
                 size: M3IconSizes.dense,
-                color: textTheme.bodySmall?.color?.withValues(alpha: 0.75),
+                color: textTheme.bodySmall?.color
+                    ?.withValues(alpha: M3Contract.opacity(0.75)),
               ),
             ),
           ],

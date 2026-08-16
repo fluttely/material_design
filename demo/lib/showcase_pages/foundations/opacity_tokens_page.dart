@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:material_design/material_design.dart'; // Assuming this is your local package
-import 'package:material_design_demo/showcase_pages/widgets/launch_url_text.dart';
-import 'package:material_design_demo/showcase_pages/widgets/state_layer_opacity_button_example.dart';
+import 'package:material_design_demo/widgets/showcase_link.dart';
+import 'package:material_design_demo/widgets/state_layer_opacity_button.dart';
 
 /// A page that demonstrates the Material Design 3 opacity tokens.
 class OpacityTokensPage extends StatelessWidget {
@@ -51,7 +51,7 @@ class OpacityTokensPage extends StatelessWidget {
             baseColor: colorScheme.onSurface,
           ),
           // Section with a practical example.
-          LaunchURLText(label: 'Practical Example'),
+          ShowcaseLink(label: 'Practical Example'),
           const M3Gap(M3Spacings.s12),
           const M3StateLayerOpacityButtonExample(),
         ],
@@ -70,7 +70,7 @@ class OpacityTokensPage extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        LaunchURLText(label: title, url: url),
+        ShowcaseLink(label: title, url: url),
         const M3Gap(M3Spacings.s16),
         Wrap(
           spacing: M3Spacings.s16,
@@ -104,7 +104,8 @@ class OpacityTokensPage extends StatelessWidget {
       decoration: BoxDecoration(
         color: color,
         borderRadius: M3BorderRadius.medium,
-        border: Border.all(color: textColor.withValues(alpha: 0.2)),
+        border: Border.all(
+            color: textColor.withValues(alpha: M3Contract.opacity(0.2))),
       ),
       child: Center(
         child: Text(

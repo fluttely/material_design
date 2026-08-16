@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:material_design/material_design.dart';
-import 'package:material_design_demo/showcase_pages/widgets/launch_url_text.dart';
+import 'package:material_design_demo/widgets/showcase_link.dart';
 
 class SpacingPage extends StatefulWidget {
   const SpacingPage({super.key});
@@ -63,7 +63,7 @@ class _SpacingPageState extends State<SpacingPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const LaunchURLText(
+            const ShowcaseLink(
               label: 'M3Spacings (for Padding)',
               url:
                   'https://m3.material.io/foundations/layout/understanding-layout/spacing',
@@ -76,7 +76,7 @@ class _SpacingPageState extends State<SpacingPage> {
             const M3Gap(M3Spacings.s16),
             ...spacings.map((token) => _buildSpacingDemo(token.$1, token.$2)),
             const M3Gap(M3Spacings.s32),
-            const LaunchURLText(
+            const ShowcaseLink(
               label: 'M3Margins (by screen sizes)',
               url:
                   'https://m3.material.io/foundations/layout/applying-layout/compact',
@@ -84,7 +84,7 @@ class _SpacingPageState extends State<SpacingPage> {
             const M3Gap(M3Spacings.s8),
             ...margins.map((margin) => _buildSpacingDemo(margin.$1, margin.$2)),
             const M3Gap(M3Spacings.s32),
-            const LaunchURLText(
+            const ShowcaseLink(
               label: 'M3Spacers (between two panes)',
               url:
                   'https://m3.material.io/foundations/layout/understanding-layout/spacing',

@@ -133,7 +133,10 @@ class _CustomButtonState extends State<CustomButton> {
                     color: contentColor,
                   ),
                   child: IconTheme(
-                    data: IconThemeData(color: contentColor, size: 18),
+                    data: M3IconStyle(
+                      size: M3Contract.iconSize(18),
+                      color: contentColor,
+                    ),
                     child: Padding(
                       padding: EdgeInsets.symmetric(
                         horizontal: M3Spacings.s24,

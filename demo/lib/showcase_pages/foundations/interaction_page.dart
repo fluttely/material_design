@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:material_design/material_design.dart';
-import 'package:material_design_demo/showcase_pages/widgets/launch_url_text.dart';
+import 'package:material_design_demo/widgets/showcase_link.dart';
 
 /// Demonstrates M3StateLayer, M3FocusRing, and M3InteractionState.
 class InteractionPage extends StatefulWidget {
@@ -18,7 +18,7 @@ class _InteractionPageState extends State<InteractionPage> {
       body: ListView(
         padding: M3EdgeInsets.all(M3Spacings.s16),
         children: [
-          LaunchURLText(
+          ShowcaseLink(
             label: 'M3StateLayer | M3FocusRing | M3InteractionState',
             url:
                 'https://m3.material.io/foundations/interaction/states/overview',
@@ -152,7 +152,8 @@ class _InteractionPageState extends State<InteractionPage> {
       ),
       decoration: BoxDecoration(
         color: cs.primary.withValues(alpha: opacity),
-        border: Border.all(color: cs.outline.withValues(alpha: 0.3)),
+        border: Border.all(
+            color: cs.outline.withValues(alpha: M3Contract.opacity(0.3))),
         borderRadius: M3BorderRadius.small,
       ),
       child: Text(
@@ -235,7 +236,8 @@ class _InteractionPageState extends State<InteractionPage> {
             Container(
               padding: M3EdgeInsets.all(M3Spacings.s12),
               decoration: BoxDecoration(
-                color: colorScheme.tertiaryContainer.withValues(alpha: 0.4),
+                color: colorScheme.tertiaryContainer
+                    .withValues(alpha: M3Contract.opacity(0.4)),
                 borderRadius: M3BorderRadius.small,
               ),
               child: Row(
@@ -325,7 +327,8 @@ class _InteractionPageState extends State<InteractionPage> {
                           color:
                               colorScheme.primary.withValues(alpha: s.opacity),
                           border: Border.all(
-                            color: colorScheme.outline.withValues(alpha: 0.3),
+                            color: colorScheme.outline
+                                .withValues(alpha: M3Contract.opacity(0.3)),
                           ),
                           borderRadius: M3BorderRadius.medium,
                         ),

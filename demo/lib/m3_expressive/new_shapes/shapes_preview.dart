@@ -65,6 +65,7 @@ class _ShapesPreviewState extends State<ShapesPreview>
   late final AnimationController _controller;
 
   Timer? _timer;
+  Timer? _startTimer;
 
   final _bouncySimulation = SpringSimulation(
     SpringDescription.withDampingRatio(
@@ -111,13 +112,12 @@ class _ShapesPreviewState extends State<ShapesPreview>
 
     _controller = AnimationController.unbounded(vsync: this);
 
-    Future.delayed(const Duration(seconds: 1), () {
-      if (!mounted) {
-        return;
-      }
-
+    // A cancellable timer rather than a fire-and-forget Future.delayed: the
+    // widget can be disposed during the initial pause, and a pending future
+    // outlives it.
+    _startTimer = Timer(M3MotionDuration.extraLong4, () {
       _timer = Timer.periodic(
-        const Duration(seconds: 1),
+        M3MotionDuration.extraLong4,
         (_) => _onAnimationDone(),
       );
 
@@ -134,6 +134,7 @@ class _ShapesPreviewState extends State<ShapesPreview>
     _shapeIndex.dispose();
     _morphIndex.dispose();
     _controller.dispose();
+    _startTimer?.cancel();
     _timer?.cancel();
     super.dispose();
   }
@@ -261,12 +262,14 @@ class __AnimatedTitleState extends State<_AnimatedTitle>
     _controller = AnimationController(
       vsync: this,
       value: 1,
-      duration: const Duration(milliseconds: 200),
+      duration: M3MotionDuration.short4,
     );
     _width = Tween<double>(
       begin: 600,
       end: 400,
-    ).chain(CurveTween(curve: Curves.easeOut)).animate(_controller);
+    )
+        .chain(CurveTween(curve: M3MotionCurve.standardDecelerate))
+        .animate(_controller);
   }
 
   @override

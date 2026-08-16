@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:material_design/material_design.dart';
-import 'package:material_design_demo/showcase_pages/widgets/launch_url_text.dart';
+import 'package:material_design_demo/widgets/showcase_link.dart';
 
 class MotionPage extends StatelessWidget {
   const MotionPage({super.key});
@@ -14,7 +14,7 @@ class MotionPage extends StatelessWidget {
       body: ListView(
         padding: M3EdgeInsets.all(M3Margins.mediumScreen),
         children: [
-          LaunchURLText(
+          ShowcaseLink(
             label: 'M3Motion (M3MotionDuration + M3MotionCurve)',
             url:
                 'https://m3.material.io/styles/motion/easing-and-duration/applying-easing-and-duration',
@@ -148,7 +148,7 @@ class _MotionPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
-      ..color = color.withValues(alpha: 0.5)
+      ..color = color.withValues(alpha: M3Contract.opacity(0.5))
       ..strokeWidth = 2.0
       ..style = PaintingStyle.stroke;
 

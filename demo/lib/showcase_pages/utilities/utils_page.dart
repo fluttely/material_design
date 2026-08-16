@@ -165,7 +165,7 @@ class _UtilsPageState extends State<UtilsPage> {
           child: AnimatedOpacity(
             opacity: _runAnimations ? 1.0 : 0.0,
             duration: animationDuration,
-            curve: Curves.easeIn,
+            curve: M3Motion.standardIncomingCurve,
             child: _buildMotionCard('Slide Up', Icons.arrow_upward_rounded),
           ),
         ),
@@ -177,7 +177,7 @@ class _UtilsPageState extends State<UtilsPage> {
           child: AnimatedOpacity(
             opacity: _runAnimations ? 1.0 : 0.0,
             duration: M3Motion.standardDuration,
-            curve: Curves.easeIn,
+            curve: M3Motion.standardIncomingCurve,
             child: _buildMotionCard('Scale In', Icons.zoom_in_rounded),
           ),
         ),

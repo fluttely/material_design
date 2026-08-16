@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:material_design/material_design.dart';
-import 'package:material_design_demo/showcase_pages/widgets/launch_url_text.dart';
+import 'package:material_design_demo/widgets/showcase_link.dart';
 
 class ZIndexTokensPage extends StatelessWidget {
   const ZIndexTokensPage({super.key});
@@ -70,7 +70,7 @@ class ZIndexTokensPage extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        LaunchURLText(label: 'M3ZIndexes'),
+        ShowcaseLink(label: 'M3ZIndexes'),
         const M3Gap(M3Spacings.s8),
         Text(
           'Stacking order from bottom to top (lower to higher z-index)',
@@ -112,7 +112,8 @@ class ZIndexTokensPage extends StatelessWidget {
                       ),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.black.withValues(alpha: 0.1),
+                          color: Colors.black
+                              .withValues(alpha: M3Contract.opacity(0.1)),
                           blurRadius: 4,
                           offset: Offset(0, index * 2.0),
                         ),
@@ -164,12 +165,12 @@ class ZIndexTokensPage extends StatelessWidget {
             children: zIndexLayers.map((layer) {
               return ListTile(
                 leading: Container(
-                  width: 24,
-                  height: 24,
-                  decoration: BoxDecoration(
+                  width: M3Spacings.s24,
+                  height: M3Spacings.s24,
+                  decoration: M3BoxDecoration(
                     color: layer.color,
-                    border: Border.all(color: layer.borderColor),
-                    borderRadius: BorderRadius.circular(4),
+                    border: M3Border.thin(layer.borderColor),
+                    borderRadius: M3BorderRadius.extraSmall,
                   ),
                 ),
                 title: Text(

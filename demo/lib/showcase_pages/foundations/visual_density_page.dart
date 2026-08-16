@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:material_design/material_design.dart';
-import 'package:material_design_demo/showcase_pages/widgets/launch_url_text.dart'; // Assuming this is your local package
+import 'package:material_design_demo/widgets/showcase_link.dart'; // Assuming this is your local package
 
 class VisualDensityPage extends StatefulWidget {
   const VisualDensityPage({super.key});
@@ -66,7 +66,7 @@ class _VisualDensityPageState extends State<VisualDensityPage> {
           children: [
             const Align(
               alignment: Alignment.centerLeft,
-              child: LaunchURLText(label: 'M3VisualDensity'),
+              child: ShowcaseLink(label: 'M3VisualDensity'),
             ),
             _buildPlatformInfo(),
             _buildDensitySelector(),

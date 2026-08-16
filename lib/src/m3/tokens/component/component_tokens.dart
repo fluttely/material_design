@@ -132,6 +132,15 @@ abstract final class M3NavigationSizes {
 
   /// Height of a destination's active indicator — 32dp.
   static const M3SpacingValue indicatorHeight = M3SpacingValue._(32);
+
+  /// Width of a destination's active indicator — 56dp.
+  ///
+  /// The pill around a rail or bar destination is 56×32dp; only the height was
+  /// here until 1.7.0, which left every caller inventing the width.
+  static const M3SpacingValue indicatorWidth = M3SpacingValue._(56);
+
+  /// Height of a rail destination, indicator plus label — 56dp.
+  static const M3SpacingValue railDestinationHeight = M3SpacingValue._(56);
 }
 
 /// List item heights, by how many lines of text the item carries.
