@@ -96,6 +96,21 @@ void main() {
       expect(M3NavigationSizes.extendedRailWidth, 256);
       expect(M3NavigationSizes.drawerWidth, 360);
       expect(M3NavigationSizes.indicatorHeight, 32);
+      expect(M3NavigationSizes.indicatorWidth, 56);
+      expect(M3NavigationSizes.railDestinationHeight, 56);
+    });
+
+    test('the active indicator is the 56x32dp pill from the spec', () {
+      // Only the height was tokenised before 1.7.0, so every caller drawing a
+      // rail destination invented the width.
+      expect(
+        M3NavigationSizes.indicatorWidth,
+        greaterThan(M3NavigationSizes.indicatorHeight),
+      );
+      expect(
+        M3NavigationSizes.indicatorWidth,
+        lessThan(M3NavigationSizes.railWidth),
+      );
     });
 
     test('the drawer is as wide as the standard layout pane', () {

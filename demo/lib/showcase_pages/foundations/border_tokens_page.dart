@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:material_design/material_design.dart';
-import 'package:material_design_demo/showcase_pages/widgets/launch_url_text.dart';
+import 'package:material_design_demo/widgets/showcase_link.dart';
 
 class BorderTokensPage extends StatelessWidget {
   const BorderTokensPage({super.key});
@@ -29,12 +29,12 @@ class BorderTokensPage extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        LaunchURLText(label: 'M3BorderWidths'),
+        ShowcaseLink(label: 'M3BorderWidths'),
         Icon(Icons.keyboard_arrow_down_rounded),
-        LaunchURLText(label: 'M3BorderSide'),
+        ShowcaseLink(label: 'M3BorderSide'),
         Icon(Icons.keyboard_arrow_down_rounded),
-        LaunchURLText(label: 'M3Border'),
-        LaunchURLText(
+        ShowcaseLink(label: 'M3Border'),
+        ShowcaseLink(
             label:
                 'outlineColor: Theme.of(context).colorScheme.outline;\noutlineColor: Theme.of(context).colorScheme.outlineVariant;'),
         const M3Gap(M3Spacings.s16),

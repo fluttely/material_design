@@ -35,7 +35,7 @@ tree-shakes away — the contract costs nothing at runtime.
 
 ```yaml
 dependencies:
-  material_design: ^1.0.0
+  material_design: ^1.7.0
 ```
 
 Requires Flutter `>=3.27.0` / Dart `>=3.6.0` (uses `Color.withValues` and extension
@@ -171,6 +171,56 @@ style: isSelected
 `M3TextUtils` covers the runtime cases: `clampedScaler` (bounded text scaling —
 last resort, it fights the user's accessibility setting), `responsiveDisplay`,
 `dyslexiaFriendly`, `mono`, `highContrast`, `withFontFamily`.
+
+### 4b. Icons
+
+Material Symbols is a variable font with four axes, and Flutter exposes all four
+as bare doubles. Each one has its scale here:
+
+- **`M3IconSizes`** — 20 · 24 · 32 · 40 · 48dp.
+- **`M3IconWeights`** — `thin` 100 … `regular` 400 … `bold` 700, matching the
+  text weight beside the icon.
+- **`M3IconGrades`** — `onDark` -25, `normal` 0, `emphasis` 200. Grade adjusts
+  stroke thickness *without* changing the icon's width, which is what makes it
+  the axis for optical correction rather than restyling.
+- **`M3IconFills`** — `unfilled` 0 / `filled` 1. Fill is a **state**: M3 marks
+  the selected destination by moving along this axis, not by swapping glyphs.
+- **`M3IconOpticalSizes`** — tracks the rendered size so stroke weight stays
+  perceptually constant; `forIconSize(size)` clamps into the 20–48 axis.
+
+`M3IconStyle` is an `IconThemeData` whose every axis is a token, so it drops into
+any Flutter icon slot:
+
+```dart
+MaterialApp(
+  theme: ThemeData(iconTheme: M3IconStyle(color: colorScheme.onSurface)),
+);
+
+IconTheme.merge(                    // merge: keeps the inherited color
+  data: const M3IconStyle(
+    size: M3IconSizes.dense,
+    weight: M3IconWeights.medium,
+  ),
+  child: const Icon(Icons.star),
+);
+
+// Or per icon — the axes are typed wherever they are passed.
+Icon(Icons.star, size: M3IconSizes.large, fill: M3IconFills.filled);
+```
+
+Presets: `M3IconStyle.standard`, `.dense`, `.selected` (filled), `.onDarkSurface`
+(grade -25), `.disabled` (38%). `opticalSize` defaults to `size` — the spec
+behaviour — so you only pass it to deviate.
+
+`color` is not defaulted: icon color is a color-scheme role, not an icon token.
+Mind the Flutter behaviour behind that — an `IconThemeData` with a null color puts
+`Icon` on its black fallback, so replacing `ThemeData.iconTheme` wholesale needs a
+`color`, and restyling a subtree wants `IconTheme.merge` rather than `IconTheme`.
+
+The three non-size axes are rendered by the **Material Symbols variable font**;
+Flutter's bundled `Icons` font is static, so with it the values are carried but
+not drawn. The tokens are the same either way — what changes is the font you
+ship.
 
 ### 5. Color
 

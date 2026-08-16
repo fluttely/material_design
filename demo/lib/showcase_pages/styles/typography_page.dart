@@ -3,7 +3,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:material_design/material_design.dart';
-import 'package:material_design_demo/showcase_pages/widgets/launch_url_text.dart';
+import 'package:material_design_demo/widgets/showcase_link.dart';
 
 /// Display names for the 15 roles, index-aligned with [M3TypeScale.values]
 /// and [M3EmphasizedTypeScale.values].
@@ -49,7 +49,7 @@ class TypographyPage extends StatelessWidget {
             padding: M3EdgeInsets.only(left: M3Spacings.s12),
             child: Align(
               alignment: Alignment.centerLeft,
-              child: LaunchURLText(
+              child: ShowcaseLink(
                 label: 'M3TypeScale',
                 url:
                     'https://m3.material.io/styles/typography/type-scale-tokens',
@@ -136,7 +136,7 @@ class _EmphasisNote extends StatelessWidget {
             ),
             Align(
               alignment: Alignment.centerLeft,
-              child: LaunchURLText(
+              child: ShowcaseLink(
                 label: 'M3EmphasizedTypeScale',
                 url:
                     'https://m3.material.io/styles/typography/type-scale-tokens',

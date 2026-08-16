@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:material_design/material_design.dart';
-import 'package:material_design_demo/m3_expressive/loading_indicator/main.dart';
+import 'package:material_design_demo/m3_expressive/loading_indicator/loading_indicator_page.dart';
 import 'package:material_design_demo/m3_expressive/new_shapes/shapes_preview.dart';
 import 'package:material_design_demo/m3_expressive/shape_border/shape_border_showcase.dart';
 

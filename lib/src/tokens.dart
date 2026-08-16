@@ -20,6 +20,8 @@ part 'm3/tokens/opacity/opacity_token.dart';
 part 'm3/tokens/opacity/state_layer_opacity_token.dart';
 part 'm3/tokens/shape/corner_token.dart';
 part 'm3/tokens/icon/icon_size_token.dart';
+part 'm3/tokens/icon/icon_axis_token.dart';
+part 'm3/tokens/icon/icon_style.dart';
 part 'm3/tokens/z_index/z_index_token.dart';
 part 'm3/tokens/responsive/breakpoint_token.dart';
 part 'm3/tokens/elevation/elevation_dps.dart';

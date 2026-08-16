@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:material_design/material_design.dart';
-import 'package:material_design_demo/showcase_pages/widgets/launch_url_text.dart';
-import 'package:material_design_demo/theme_provider.dart';
+import 'package:material_design_demo/widgets/showcase_link.dart';
+import 'package:material_design_demo/theme/theme_provider.dart';
 import 'package:provider/provider.dart';
 
 /// The brand colors used by the harmonization and extended color sections.
@@ -38,7 +38,7 @@ class _ColorSchemesPageState extends State<ColorSchemesPage> {
       body: ListView(
         padding: M3EdgeInsets.all(M3Spacings.s16),
         children: [
-          LaunchURLText(
+          ShowcaseLink(
             label: 'M3ColorSchemes | M3SchemeVariant | M3ContrastLevels',
             url:
                 'https://m3.material.io/styles/color/system/how-the-system-works',

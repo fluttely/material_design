@@ -1,6 +1,9 @@
+// The emphasized type scale is @experimental; a showcase for it opts in.
+// ignore_for_file: experimental_member_use
+
 import 'package:flutter/material.dart';
 import 'package:material_design/material_design.dart';
-import 'package:material_design_demo/showcase_pages/widgets/launch_url_text.dart';
+import 'package:material_design_demo/widgets/showcase_link.dart';
 
 /// Demonstrates M3TonalPalette, M3ColorSchemeTokens, and M3ColorUtils helpers.
 class TonalPalettePage extends StatelessWidget {
@@ -15,7 +18,7 @@ class TonalPalettePage extends StatelessWidget {
       body: ListView(
         padding: M3EdgeInsets.all(M3Spacings.s16),
         children: [
-          LaunchURLText(
+          ShowcaseLink(
             label: 'M3TonalPalette | M3ColorSchemeTokens',
             url:
                 'https://m3.material.io/styles/color/the-color-system/key-colors-tones',
@@ -71,10 +74,8 @@ class TonalPalettePage extends StatelessWidget {
                         child: Center(
                           child: Text(
                             '$tone',
-                            style: TextStyle(
-                              fontSize: 9,
+                            style: M3EmphasizedTypeScale.labelSmall.copyWith(
                               color: isLight ? Colors.black54 : Colors.white54,
-                              fontWeight: FontWeight.w600,
                             ),
                           ),
                         ),
@@ -98,16 +99,15 @@ class TonalPalettePage extends StatelessWidget {
                     color: color,
                     borderRadius: M3BorderRadius.small,
                     border: Border.all(
-                      color: cs.outline.withValues(alpha: 0.2),
+                      color:
+                          cs.outline.withValues(alpha: M3Contract.opacity(0.2)),
                     ),
                   ),
                   child: Column(
                     children: [
                       Text(
                         '$tone',
-                        style: TextStyle(
-                          fontSize: 11,
-                          fontWeight: FontWeight.w700,
+                        style: M3EmphasizedTypeScale.labelSmall.copyWith(
                           color: isLight ? Colors.black : Colors.white,
                         ),
                         textAlign: TextAlign.center,
@@ -165,7 +165,8 @@ class TonalPalettePage extends StatelessWidget {
                         color: entry.$2,
                         borderRadius: M3BorderRadius.small,
                         border: Border.all(
-                          color: cs.outline.withValues(alpha: 0.3),
+                          color: cs.outline
+                              .withValues(alpha: M3Contract.opacity(0.3)),
                         ),
                       ),
                     ),
@@ -226,7 +227,8 @@ class TonalPalettePage extends StatelessWidget {
                             color: cs.surfaceAtElevation(e.elevation),
                             borderRadius: M3BorderRadius.small,
                             border: Border.all(
-                              color: cs.outline.withValues(alpha: 0.2),
+                              color: cs.outline
+                                  .withValues(alpha: M3Contract.opacity(0.2)),
                             ),
                           ),
                           child: Center(
@@ -288,7 +290,7 @@ class TonalPalettePage extends StatelessWidget {
                     borderRadius: M3BorderRadius.small,
                     border: Border.all(
                       color: (accessible ? Colors.green : Colors.red)
-                          .withValues(alpha: 0.5),
+                          .withValues(alpha: M3Contract.opacity(0.5)),
                       width: 2,
                     ),
                   ),
@@ -309,16 +311,13 @@ class TonalPalettePage extends StatelessWidget {
                         children: [
                           Text(
                             '${ratio.toStringAsFixed(1)}:1',
-                            style: TextStyle(
-                              color: p.$2,
-                              fontSize: 12,
-                              fontWeight: FontWeight.w600,
-                            ),
+                            style: M3EmphasizedTypeScale.labelMedium
+                                .copyWith(color: p.$2),
                           ),
                           Icon(
                             accessible ? Icons.check_circle : Icons.cancel,
                             color: accessible ? Colors.green : Colors.red,
-                            size: 16,
+                            size: M3Contract.iconSize(16),
                           ),
                         ],
                       ),

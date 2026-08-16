@@ -26,6 +26,13 @@ void main() {
       }
     });
 
+    test('the icon axes each expose their whole range', () {
+      expect(M3IconWeights.values, hasLength(7));
+      expect(M3IconGrades.values, hasLength(3));
+      expect(M3IconFills.values, hasLength(2));
+      expect(M3IconOpticalSizes.values, hasLength(M3IconSizes.values.length));
+    });
+
     test('M3Spacers', () {
       expect(M3Spacers.values, [M3Spacers.pane]);
     });
@@ -82,6 +89,10 @@ void main() {
       expectAscending(M3Corners.values, 'M3Corners');
       expectAscending(M3BorderWidths.values, 'M3BorderWidths');
       expectAscending(M3IconSizes.values, 'M3IconSizes');
+      expectAscending(M3IconWeights.values, 'M3IconWeights');
+      expectAscending(M3IconGrades.values, 'M3IconGrades');
+      expectAscending(M3IconFills.values, 'M3IconFills');
+      expectAscending(M3IconOpticalSizes.values, 'M3IconOpticalSizes');
       expectAscending(M3ZIndexes.values, 'M3ZIndexes');
       expectAscending(M3Breakpoints.values, 'M3Breakpoints');
       expectAscending(M3ElevationDps.values, 'M3ElevationDps');

@@ -4,6 +4,94 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 1.7.0
+
+Icons were the one M3 style area the package typed only halfway. `M3IconSizes` has
+been there since the beginning, but the Material Symbols font has four variable axes
+and Flutter exposes all of them as bare doubles — so weight, grade, fill and optical
+size were the last place in an M3-typed UI where a raw number was the only option.
+This release closes that gap and rebuilds the demo's navigation on top of the
+package's own measurements.
+
+### ✨ Features
+
+- **The Material Symbols axes are scales now**: `M3IconWeights` (`thin` 100 …
+  `regular` 400 … `bold` 700), `M3IconGrades` (`onDark` -25, `normal` 0, `emphasis`
+  200), `M3IconFills` (`unfilled` 0 / `filled` 1) and `M3IconOpticalSizes` (20 · 24 ·
+  32 · 40 · 48, mirroring `M3IconSizes`). Each is an extension type over `double`, so
+  it passes straight to `Icon.weight`, `Icon.grade`, `Icon.fill` and
+  `Icon.opticalSize` while keeping arbitrary values out.
+- **`M3IconOpticalSizes.forIconSize(size)`** returns the optical size that matches a
+  rendered size — the spec's rule, since `opsz` exists to hold stroke weight
+  perceptually constant — clamping into the 20–48 range the axis is defined over so
+  a size routed through `M3Contract` still lands on a legal value.
+- **`M3IconStyle`** is an `IconThemeData` whose every axis is a token, so it drops
+  into `ThemeData.iconTheme`, `IconTheme`, and any `iconTheme:` slot without a
+  wrapper widget. `opticalSize` defaults to `size`, which is the spec behaviour, so
+  the common case needs no argument. Presets carry the states the spec names:
+  `standard`, `dense`, `selected` (filled), `onDarkSurface` (grade -25, cancelling
+  the optical bloom of light-on-dark strokes) and `disabled` (38%).
+  Consistent with the rest of the package, this is a *contract*, not a component —
+  Flutter's `Icon` already renders the axes; what was missing was the typing.
+  `color` is deliberately **not** defaulted, because icon color is a color-scheme
+  role rather than an icon token. Flutter's behaviour behind that is worth knowing:
+  an `IconThemeData` with a null color puts `Icon` on its black fallback, so
+  replacing `ThemeData.iconTheme` wholesale needs a `color`, and restyling a subtree
+  wants `IconTheme.merge` rather than `IconTheme`. Both are spelled out in the doc
+  comment and the README, and pinned by a test.
+- **`M3NavigationSizes.indicatorWidth` (56dp) and `.railDestinationHeight` (56dp).**
+  The active indicator is a 56×32dp pill, but only its height was tokenised in 1.6.0,
+  which left every caller drawing a custom rail inventing the width — the demo among
+  them.
+
+### 📚 Documentation
+
+- **README gains section 4b, Icons**, and `example/lib/main.dart` gains the matching
+  section, in the same position. Both state plainly that the three non-size axes are
+  rendered by the Material Symbols variable font: with Flutter's bundled (static)
+  `Icons` font the values are carried but not drawn. The tokens are the same either
+  way; what changes is the font you ship.
+
+### 🏗 Architecture
+
+The demo is part of the contract's evidence, so it is held to it. Its navigation was
+901 lines in `main.dart` built from two hand-synchronised lists — a `List<Widget>` of
+pages and a `List<NavigationRailDestination>` of labels — addressed by offset
+arithmetic. Inserting a page in the middle silently pointed every label below it at
+the wrong screen.
+
+- **One declarative source of truth.** `demo/lib/showcase/showcase_destinations.dart`
+  pairs each page with its destination and groups them into sections; the rail, the
+  drawer and the body all derive from that list. `main.dart` is 37 lines.
+- **The demo models what it showcases.** The rail's destination is drawn from
+  `M3NavigationSizes` (rail width, indicator size), `M3StateLayer` (hover, focus and
+  press feedback, replacing a hand-rolled `AnimationController`), `M3Motion` and
+  `M3BorderRadius`; the layout switch reads `M3ScreenSize.of(context)` instead of
+  comparing `MediaQuery` widths by hand. Remaining literal opacities in the showcase
+  pages now go through `M3Contract.opacity`, so every deviation is greppable.
+- **The rail's destination states follow the spec.** Hover used to light the whole
+  80×56dp block; the M3 state layer belongs to the **active indicator**, so it is now
+  the 56×32dp stadium around the icon that responds — and it responds to the pointer
+  anywhere on the destination, label included. The layer is painted over the
+  indicator rather than behind it, so a *selected* destination gives the same
+  feedback an unselected one does, in the content role it sits on
+  (`onSecondaryContainer` selected, `onSurface` otherwise) at the opacity
+  `M3InteractionState` assigns. Labels take `labelMedium` on `onSurface` in both
+  states and destinations sit 12dp apart, matching `NavigationRail`'s own M3
+  defaults; destinations are now focusable, activate on Enter/Space, and report
+  their selected state to the semantics tree. The indicator also **arrives and
+  leaves by scaling in X** rather than by fading its fill: a `secondaryContainer`
+  fading through 500ms of emphasized easing is a translucent tint, which is exactly
+  what a hover state layer looks like — so picking a new destination flashed the old
+  one as if the pointer had crossed it. The fill now switches in 100ms and the
+  emphasized motion lives in the scale, the way `NavigationIndicator` does it.
+- **A demo test suite.** `demo/test/` renders every showcase page, exercises both
+  navigation presentations, and pins the rail's hover/selected colors and the icon
+  page's layout at three window widths. It immediately found four real defects: a
+  `ListTile` whose ink was hidden by a decorated ancestor, an uncancellable start-up
+  timer in the expressive shapes preview, an icon theme that blacked out every
+  inherited icon in dark mode, and a 249px overflow on a narrow window.
+
 ## 1.6.0
 
 Six development milestones, released together as one version. Each is written up

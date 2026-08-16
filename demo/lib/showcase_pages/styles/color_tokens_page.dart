@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:material_design/material_design.dart';
-import 'package:material_design_demo/showcase_pages/widgets/launch_url_text.dart';
+import 'package:material_design_demo/widgets/showcase_link.dart';
 
 class ColorTokensPage extends StatelessWidget {
   const ColorTokensPage({super.key});
@@ -165,7 +165,7 @@ class ColorTokensPage extends StatelessWidget {
             padding: M3EdgeInsets.only(left: M3Spacings.s16),
             child: Align(
               alignment: Alignment.centerLeft,
-              child: const LaunchURLText(
+              child: const ShowcaseLink(
                 label: 'Color Roles',
                 url: 'https://m3.material.io/styles/color/roles',
               ),
@@ -181,7 +181,7 @@ class ColorTokensPage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      LaunchURLText(label: 'Key Colors'),
+                      ShowcaseLink(label: 'Key Colors'),
                       const M3Gap(M3Spacings.s16),
                       ...keyColors.map(
                         (p) => _KeyColorChip(
@@ -197,7 +197,7 @@ class ColorTokensPage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      LaunchURLText(label: 'Scheme'),
+                      ShowcaseLink(label: 'Scheme'),
                       const M3Gap(M3Spacings.s16),
                       Wrap(
                         spacing: M3Spacings.s8,
