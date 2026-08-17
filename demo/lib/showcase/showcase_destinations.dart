@@ -83,6 +83,18 @@ class ShowcaseSection {
 /// drawer, and the page body are all derived from it.
 const List<ShowcaseSection> showcaseSections = [
   ShowcaseSection(
+    title: 'Expressive',
+    url: 'https://m3.material.io/blog/building-with-m3-expressive',
+    destinations: [
+      ShowcaseDestination(
+        label: 'Expressive',
+        icon: Icons.local_activity_outlined,
+        selectedIcon: Icons.local_activity,
+        page: M3ExpressivePage(),
+      ),
+    ],
+  ),
+  ShowcaseSection(
     title: 'Foundations',
     url: 'https://m3.material.io/foundations',
     destinations: [
@@ -228,18 +240,6 @@ const List<ShowcaseSection> showcaseSections = [
         icon: Icons.auto_awesome_outlined,
         selectedIcon: Icons.auto_awesome,
         page: UtilsPage(),
-      ),
-    ],
-  ),
-  ShowcaseSection(
-    title: 'Expressive',
-    url: 'https://m3.material.io/blog/building-with-m3-expressive',
-    destinations: [
-      ShowcaseDestination(
-        label: 'Expressive',
-        icon: Icons.local_activity_outlined,
-        selectedIcon: Icons.local_activity,
-        page: M3ExpressivePage(),
       ),
     ],
   ),

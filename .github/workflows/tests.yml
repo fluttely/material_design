@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  test:
+  verify:
     runs-on: ubuntu-latest
 
     steps:
@@ -18,28 +18,19 @@ jobs:
         with:
           channel: "stable"
 
-      - name: Install dependencies (root)
-        run: flutter pub get
-
-      - name: Install dependencies (demo)
+      - name: Install dependencies
         run: |
-          cd demo
           flutter pub get
+          (cd example && flutter pub get)
+          (cd demo && flutter pub get)
 
-      - name: Run tests (root)
-        run: flutter test
-
-      - name: Run tests (demo)
-        run: |
-          cd demo
-          if [ -d "test" ]; then
-            flutter test
-          else
-            echo "No tests found in demo directory, skipping..."
-          fi
-
-      - name: Check code formatting
-        run: dart format --set-exit-if-changed .
-
-      # - name: Analyze code
-      #   run: flutter analyze --no-fatal-infos
+      # One script, not a list of steps that has to be kept in sync with the
+      # one a human runs locally. `./tool/verify.sh` is the gate: format,
+      # analyze, tests, the README↔example↔demo triad check, the
+      # CHANGELOG↔pub.dev check, the example, and the demo.
+      #
+      # `flutter analyze` used to be commented out here while the expressive
+      # module was unlinted. It is inside verify.sh now, and the tree is at
+      # zero issues — keep it that way rather than disabling it again.
+      - name: Verify
+        run: ./tool/verify.sh

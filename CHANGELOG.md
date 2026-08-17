@@ -4,6 +4,93 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 1.8.0
+
+The package's central rule — README, `example/` and `demo/` must never drift apart —
+had been written down since 1.0 and checked by nobody. Prose does not fail a build,
+so it drifted: nine exported scales were undocumented in at least one of the three,
+the README was missing two entire sections of its own API tour, and a demo caption
+advertised a class named `M3EShapeBorders` that has never existed in any version.
+None of that is something a Dart compiler can see. This release turns the rule into a
+program, fixes everything the program found on its first run, and puts it in CI.
+
+No public API changed in this release.
+
+### 🏗 Architecture
+
+- **`tool/verify.sh` is the gate now**, and `.github/workflows/tests.yml` runs that
+  same script rather than a parallel list of steps. Two lists of checks drift the way
+  two lists of pages drift; one script cannot disagree with itself. It runs format,
+  analyze, tests, the two new checkers, the example and the demo, reporting every
+  failure in one pass instead of stopping at the first.
+- **`tool/check_triad.dart` enforces the triad.** It fails when a token scale is
+  missing from README, `example/lib/main.dart` or `demo/`; when the three disagree on
+  the canonical section order; and when any prose or UI string names an `M3*`
+  identifier that no longer exists in `lib/`. That last check is the one no test could
+  ever replace — a string is invisible to the compiler, which is exactly why the
+  pre-1.0 demo advertised deleted `M3*Token` enums for months.
+- **`tool/check_changelog.dart` replaces the snippet.** Verifying this file against
+  pub.dev used to mean copying a Python block out of the contributor notes and pasting
+  it into a shell — a checker you have to copy before you can run is a checker that
+  does not run. It is a program now, wired into the gate, and it checks four things:
+  that `pubspec.yaml` and the top section agree, that sections run newest-first, that
+  none is duplicated, and that the set of documented versions matches what pub.dev
+  actually serves.
+- **`flutter analyze` is back in CI.** It had been commented out since the expressive
+  module was unlinted. The tree is at zero issues across package, example and demo,
+  and the gate keeps it there.
+
+### 🐛 Bug Fixes
+
+- **The shape-morph showcase named a class that does not exist.** Its caption
+  described lerping two `M3EShapeBorders`; the type is `M3EShapeBorder`. Found by the
+  new dead-name check on its first run, which is the entire argument for having one.
+
+### 📚 Documentation
+
+- **The README was missing two sections of its own API tour.** Colour schemes,
+  variants and contrast levels were folded into `5. Color` with no heading of their
+  own, and `M3Contract` was an unnumbered aside. They are `### 5b. Schemes, variants &
+  contrast` and `## 11. Breaking the contract, deliberately` now, so README, example
+  and demo present the API in one order — the order that is checked.
+- **Nine scales were exported but undocumented somewhere.** `M3LayoutWidths` appeared
+  in none of the three artifacts at all; `M3Corners`, `M3ZIndexes` and `M3ElevationDps`
+  were absent from both README and example; `M3Breakpoints`, `M3Opacities`,
+  `M3StateLayerOpacities` and `M3Spacers` were missing from the example, and
+  `M3ElevationShadows` from the demo. All nine are covered in all three now, including
+  a layout-widths card on the Breakpoints page explaining what separates a threshold
+  from a content width.
+- **The demo's shape scale reads its labels off `M3Corners`** instead of carrying
+  hand-typed dp strings beside the radii, so the example cannot state a number the
+  token disagrees with.
+
+### ✅ Tests
+
+- **The demo's navigation tests no longer depend on navigation order.** They used to
+  name the first destination, assume it was on screen, and `pumpAndSettle` on a shell
+  whose first page might animate forever — so reordering the rail failed five tests
+  about state layers, which have nothing to do with ordering. They now read the
+  selected destination off `showcaseDestinations`, scroll the rail before tapping,
+  disambiguate a label that a section and its only destination share, and pump bounded
+  frames. Ordering is a presentation decision; tests should not have a vote.
+
+### 🧹 Chore
+
+- **Expressive leads the demo's navigation.** It is the newest part of the spec and
+  the part a visitor is least likely to know exists, so it takes the position that
+  costs no scrolling. The rail, drawer and shell all follow, because all three still
+  derive from the single destination list.
+- **`.claude/` carries the repetitive rituals**: a hook that formats every Dart file
+  on write, so the formatting gate can no longer be what fails, plus commands for the
+  eight-artifact checklist a new scale has to satisfy and for the release sequence.
+  `tool/` and `.claude/` are both excluded from the published archive.
+- **`CLAUDE.md` and the `documentation/` vault are tracked now.** Both were gitignored
+  on the reasoning that they were personal working notes. They are not: they hold the
+  reasoning behind the API decisions and the gap analysis against the spec, and
+  keeping that out of the repository put it precisely where no contributor could find
+  it. Both stay out of the published archive — contributors need them, consumers
+  installing the package do not.
+
 ## 1.7.0
 
 Icons were the one M3 style area the package typed only halfway. `M3IconSizes` has
