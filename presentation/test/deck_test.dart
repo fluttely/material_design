@@ -9,7 +9,15 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:m3_talk/main.dart';
 import 'package:m3_talk/notes.dart';
 import 'package:m3_talk/presenter.dart';
+import 'package:m3_talk/slide_kit.dart';
 import 'package:m3_talk/slides.dart';
+
+/// How tall a slide's content may be on a 1080p projector.
+///
+/// The frame centres its content inside 48 px margins, and the footer covers
+/// the bottom ~80 px — so anything past `1080 − 2×80 − 2×48` runs under the
+/// progress bar even though the slide scrolls instead of overflowing.
+const _contentBudget = 1080.0 - 2 * 80 - 2 * 48;
 
 void main() {
   test('there is one note per slide', () {
@@ -81,6 +89,21 @@ void main() {
         opacities.every((o) => o > 0.99),
         isTrue,
         reason: 'a Reveal never settled — the slide would show up blank',
+      );
+
+      // And it has to fit. The frame scrolls rather than overflowing, so a
+      // slide that grew past the projector fails no other check — it just
+      // quietly hides its last line behind the footer, on stage.
+      final content = find
+          .descendant(
+            of: find.byType(SlideFrame),
+            matching: find.byType(Column),
+          )
+          .first;
+      expect(
+        tester.getSize(content).height,
+        lessThanOrEqualTo(_contentBudget),
+        reason: 'slide ${index + 1} is too tall for 1080p — cut a line',
       );
     });
   }

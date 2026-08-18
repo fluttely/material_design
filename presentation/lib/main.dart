@@ -10,9 +10,9 @@
 // on your laptop, and share the other one. They stay on the same slide
 // automatically — see deck_sync.dart.
 //
-// This folder is gitignored and .pubignore'd: it is talk material, not part
-// of the package. It does depend on the package, though — the deck is built
-// out of the contract it is about.
+// The deck is talk material, not part of the published package (`.pubignore`
+// keeps it out of the archive). It does depend on the package, though — it is
+// built out of the contract it is about.
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:material_design/material_design.dart';
