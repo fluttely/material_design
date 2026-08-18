@@ -1,22 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:material_design/material_design.dart';
 import 'package:material_design_demo/showcase/showcase_destinations.dart';
+import 'package:material_design_demo/showcase/showcase_mode.dart';
 import 'package:material_design_demo/showcase/theme_controls.dart';
 import 'package:material_design_demo/widgets/showcase_link.dart';
 
 /// The navigation drawer used on the compact window size class.
 ///
-/// Same destinations as [ShowcaseRail], same order, same selection index —
-/// both read [showcaseSections].
+/// Same destinations as [ShowcaseRail], same order, same selection index,
+/// same Visual/Code switch — both read [showcaseSections].
 class ShowcaseDrawer extends StatelessWidget {
   const ShowcaseDrawer({
     required this.selectedIndex,
     required this.onDestinationSelected,
+    required this.mode,
+    required this.onModeSelected,
     super.key,
   });
 
   final int selectedIndex;
   final ValueChanged<int> onDestinationSelected;
+  final ShowcaseMode mode;
+  final ValueChanged<ShowcaseMode> onModeSelected;
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +30,14 @@ class ShowcaseDrawer extends StatelessWidget {
       onDestinationSelected: onDestinationSelected,
       children: [
         const _DrawerHeading('Material Design 3'),
+        M3Padding(
+          padding: const M3EdgeInsets.only(bottom: M3Spacings.s8),
+          child: ShowcaseModeSwitch(
+            mode: mode,
+            onModeSelected: onModeSelected,
+            axis: Axis.horizontal,
+          ),
+        ),
         const _DrawerDivider(),
         for (final section in showcaseSections) ...[
           _DrawerHeading(section.title),

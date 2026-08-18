@@ -71,7 +71,59 @@ class BreakpointTokensPage extends StatelessWidget {
                 ],
               ),
             ),
-          )
+          ),
+          const M3Gap(M3Spacings.s16),
+          Card(
+            child: M3Padding(
+              padding: M3EdgeInsets.all(M3Spacings.s16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Layout widths', style: textTheme.headlineSmall),
+                  const M3Gap(M3Spacings.s8),
+                  Text(
+                    'Breakpoints are the thresholds a window is classified by. '
+                    'M3LayoutWidths are the widths content is measured against '
+                    'once it has been classified — they are the reason a body '
+                    'of text stops growing on a 4K monitor.',
+                    style: textTheme.bodyMedium,
+                  ),
+                  const M3Gap(M3Spacings.s16),
+                  ShowcaseLink(label: 'M3LayoutWidths'),
+                  const M3Gap(M3Spacings.s8),
+                  for (final (label, width, note)
+                      in <(String, M3BreakpointValue, String)>[
+                    (
+                      'pane',
+                      M3LayoutWidths.pane,
+                      'side pane in a multi-pane layout'
+                    ),
+                    (
+                      'body',
+                      M3LayoutWidths.body,
+                      'maximum readable body width'
+                    ),
+                    (
+                      'ultraWide',
+                      M3LayoutWidths.ultraWide,
+                      'maximum outer content width'
+                    ),
+                  ])
+                    M3Padding(
+                      padding: const M3EdgeInsets.only(bottom: M3Spacings.s4),
+                      child: Text(
+                        '$label — ${width.toInt()}dp · $note',
+                        style: textTheme.bodySmall,
+                      ),
+                    ),
+                  Text(
+                    'unbounded — content fills the available space',
+                    style: textTheme.bodySmall,
+                  ),
+                ],
+              ),
+            ),
+          ),
         ],
       ),
     );

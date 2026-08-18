@@ -35,7 +35,7 @@ tree-shakes away — the contract costs nothing at runtime.
 
 ```yaml
 dependencies:
-  material_design: ^1.7.0
+  material_design: ^1.8.0
 ```
 
 Requires Flutter `>=3.27.0` / Dart `>=3.6.0` (uses `Color.withValues` and extension
@@ -110,9 +110,9 @@ Column(
 
 ### 2. Shape & borders
 
-The M3 shape scale has exactly seven stops: `none` 0 · `extraSmall` 4 · `small` 8 ·
-`medium` 12 · `large` 16 · `extraLarge` 28 · `full` (pill). Each shape type extends
-its Flutter counterpart, so they drop in anywhere:
+The M3 shape scale has exactly seven stops — **`M3Corners`**: `none` 0 ·
+`extraSmall` 4 · `small` 8 · `medium` 12 · `large` 16 · `extraLarge` 28 · `full`
+(pill). Each shape type extends its Flutter counterpart, so they drop in anywhere:
 
 ```dart
 Card(shape: M3Shape.medium);                       // RoundedRectangleBorder
@@ -139,8 +139,14 @@ M3Elevation.level2.surfaceColor(context); // surface blended with tint at 3dp
 colorScheme.surfaceAtElevation(M3Elevation.level2); // same, from the scheme
 ```
 
-Levels: 0, 1, 3, 6, 8, 12 dp. Static shadow lists: `M3ElevationShadows.level0…5`.
-`M3ShapeDecoration` pairs an `M3Shape` with those shadows for `Container.decoration`.
+Levels: 0, 1, 3, 6, 8, 12 dp — the bare dps are **`M3ElevationDps.level0…5`** when
+you need the number without the shadows. Static shadow lists:
+`M3ElevationShadows.level0…5`. `M3ShapeDecoration` pairs an `M3Shape` with those
+shadows for `Container.decoration`.
+
+Stacking order is a scale too — **`M3ZIndexes`**: `background` 0 · `content` 1 ·
+`floating` 10 · `drawer` 100 · `modal` 1000 · `snackbar` 2000 · `tooltip` 9999, so
+a `Stack` orders its children by name instead of by invented integers.
 
 ### 4. Typography
 
@@ -224,6 +230,29 @@ ship.
 
 ### 5. Color
 
+Real HCT tonal palettes — the same math Material uses, via
+`material_color_utilities`:
+
+```dart
+final palette = M3TonalPalette.fromSeed(const Color(0xFF6750A4));
+palette[M3Tones.t40];                  // light-scheme primary
+palette[M3Tones.t80];                  // dark-scheme primary
+
+final core = M3CorePalette.fromSeed(seed);
+core.neutral[M3Tones.t99];             // light surface
+core.error[M3Tones.t40];               // spec red, independent of seed
+```
+
+On `ColorScheme`: `stateLayerColor(base, M3InteractionState.hover)`,
+`disabledContent(base)` (38%), `disabledContainer(base)` (12%),
+`surfaceAtElevation(level)`, `isAccessible(fg, bg)`.
+`M3ColorUtils` adds WCAG contrast math (`calculateContrast`, `meetsWCAGAA/AAA`,
+`adjustForAccessibility`) and color manipulation.
+Opacity tokens: `M3Opacities` (38/12/12/50%) and `M3StateLayerOpacities`
+(hover 8%, focus 10%, pressed 10%, dragged 16%).
+
+### 5b. Schemes, variants & contrast
+
 Build a scheme with the variant and contrast level as tokens rather than raw values:
 
 ```dart
@@ -254,27 +283,6 @@ ThemeData(extensions: [
 final success = M3ExtendedColors.from(context)['success']!;
 Text('Saved', style: TextStyle(color: success.onColorContainer));
 ```
-
-Real HCT tonal palettes — the same math Material uses, via
-`material_color_utilities`:
-
-```dart
-final palette = M3TonalPalette.fromSeed(const Color(0xFF6750A4));
-palette[M3Tones.t40];                  // light-scheme primary
-palette[M3Tones.t80];                  // dark-scheme primary
-
-final core = M3CorePalette.fromSeed(seed);
-core.neutral[M3Tones.t99];             // light surface
-core.error[M3Tones.t40];               // spec red, independent of seed
-```
-
-On `ColorScheme`: `stateLayerColor(base, M3InteractionState.hover)`,
-`disabledContent(base)` (38%), `disabledContainer(base)` (12%),
-`surfaceAtElevation(level)`, `isAccessible(fg, bg)`.
-`M3ColorUtils` adds WCAG contrast math (`calculateContrast`, `meetsWCAGAA/AAA`,
-`adjustForAccessibility`) and color manipulation.
-Opacity tokens: `M3Opacities` (38/12/12/50%) and `M3StateLayerOpacities`
-(hover 8%, focus 10%, pressed 10%, dragged 16%).
 
 ### 6. Interaction states & focus
 
@@ -370,8 +378,10 @@ M3FeedLayout(children: cards);
 `M3CanonicalLayout` exposes the shared policy (`displayModeOf`, `paneWidthFor`) if you
 need to make the same decision for a layout the package doesn't ship.
 
-Breakpoints (`M3Breakpoints`: 0/600/840/1200/1600) are tokens too. `M3Adaptive`
-bundles static helpers: `responsiveLayout`, `adaptivePadding`, `adaptiveNavigation`,
+Breakpoints (`M3Breakpoints`: 0/600/840/1200/1600) are tokens too, and so are the
+widths a layout is measured *against* — **`M3LayoutWidths`**: `pane` 360dp,
+`body` 1040dp (the maximum readable body width), `ultraWide` 1920dp, and
+`unbounded` for content that fills its space. `M3Adaptive` bundles static helpers: `responsiveLayout`, `adaptivePadding`, `adaptiveNavigation`,
 `showAdaptiveDialog` (fullscreen on phones, dialog on desktop), `showAdaptiveSheet`
 (bottom sheet ↔ side panel), `adaptiveButton` (48dp touch / 32dp mouse targets).
 
@@ -435,7 +445,7 @@ AnimatedContainer(
 
 ---
 
-## Breaking the contract, deliberately
+## 11. Breaking the contract, deliberately
 
 Sometimes the design system is not the authority — a brand asset really is 18dp.
 `M3Contract` is the one sanctioned way out:

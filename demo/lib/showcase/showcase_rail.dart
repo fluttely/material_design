@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:material_design/material_design.dart';
 import 'package:material_design_demo/showcase/showcase_destinations.dart';
+import 'package:material_design_demo/showcase/showcase_mode.dart';
 import 'package:material_design_demo/showcase/theme_controls.dart';
 import 'package:material_design_demo/widgets/showcase_link.dart';
 
@@ -12,15 +13,23 @@ import 'package:material_design_demo/widgets/showcase_link.dart';
 /// ([M3NavigationSizes]) and state-layer opacities ([M3InteractionState]), and
 /// to the same specification the built-in rail follows. See [_RailDestination]
 /// for the states.
+///
+/// The Visual/Code switch sits above the scroll area rather than inside it:
+/// it applies to every destination, so it should not scroll away with any one
+/// of them.
 class ShowcaseRail extends StatelessWidget {
   const ShowcaseRail({
     required this.selectedIndex,
     required this.onDestinationSelected,
+    required this.mode,
+    required this.onModeSelected,
     super.key,
   });
 
   final int selectedIndex;
   final ValueChanged<int> onDestinationSelected;
+  final ShowcaseMode mode;
+  final ValueChanged<ShowcaseMode> onModeSelected;
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +45,14 @@ class ShowcaseRail extends StatelessWidget {
             const ShowcaseLink(
               label: 'Lib',
               url: 'https://pub.dev/packages/material_design',
+            ),
+            M3Padding(
+              padding: const M3EdgeInsets.only(bottom: M3Spacings.s8),
+              child: ShowcaseModeSwitch(
+                mode: mode,
+                onModeSelected: onModeSelected,
+                axis: Axis.vertical,
+              ),
             ),
             Expanded(
               child: SingleChildScrollView(

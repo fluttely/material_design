@@ -135,7 +135,8 @@ class _Section extends StatelessWidget {
 }
 
 // ═════════════════════════════════════════════════════════════════════════
-// 1. SPACING & LAYOUT — M3Spacings, M3EdgeInsets, M3Padding, M3Gap
+// 1. SPACING & LAYOUT — M3Spacings, M3Margins, M3Spacers, M3EdgeInsets,
+//                       M3Padding, M3Gap
 // ═════════════════════════════════════════════════════════════════════════
 
 class _SpacingSection extends StatelessWidget {
@@ -191,6 +192,15 @@ class _SpacingSection extends StatelessWidget {
             M3Spacings.s8,
           ),
         ),
+        const M3Gap(M3Spacings.s16),
+        // Layout-level spacing is its own pair of scales: the page margin the
+        // spec prescribes per window size class, and the gap between panes.
+        Text(
+          'Page margin: ${M3Margins.compactScreen.toInt()}dp on compact, '
+          '${M3Margins.mediumScreen.toInt()}dp elsewhere. '
+          'Gap between panes: ${M3Spacers.pane.toInt()}dp.',
+          style: M3TypeScale.bodyMedium,
+        ),
       ],
     );
   }
@@ -203,14 +213,16 @@ class _SpacingSection extends StatelessWidget {
 class _ShapeSection extends StatelessWidget {
   const _ShapeSection();
 
-  static const _corners = <(String, M3BorderRadius)>[
-    ('none 0', M3BorderRadius.none),
-    ('xs 4', M3BorderRadius.extraSmall),
-    ('sm 8', M3BorderRadius.small),
-    ('md 12', M3BorderRadius.medium),
-    ('lg 16', M3BorderRadius.large),
-    ('xl 28', M3BorderRadius.extraLarge),
-    ('full', M3BorderRadius.full),
+  // M3Corners is the raw corner scale; M3BorderRadius applies it. Pairing them
+  // here means the dp labels below are read off the token, never retyped.
+  static const _corners = <(String, M3CornerValue, M3BorderRadius)>[
+    ('none', M3Corners.none, M3BorderRadius.none),
+    ('xs', M3Corners.extraSmall, M3BorderRadius.extraSmall),
+    ('sm', M3Corners.small, M3BorderRadius.small),
+    ('md', M3Corners.medium, M3BorderRadius.medium),
+    ('lg', M3Corners.large, M3BorderRadius.large),
+    ('xl', M3Corners.extraLarge, M3BorderRadius.extraLarge),
+    ('full', M3Corners.full, M3BorderRadius.full),
   ];
 
   @override
@@ -227,7 +239,7 @@ class _ShapeSection extends StatelessWidget {
           spacing: M3Spacings.s8,
           runSpacing: M3Spacings.s8,
           children: [
-            for (final (label, radius) in _corners)
+            for (final (label, corner, radius) in _corners)
               Container(
                 width: M3Spacings.s64,
                 height: M3Spacings.s48,
@@ -236,7 +248,11 @@ class _ShapeSection extends StatelessWidget {
                   color: colorScheme.surfaceContainerHighest,
                   borderRadius: radius,
                 ),
-                child: Text(label, style: M3TypeScale.labelSmall),
+                child: Text(
+                  // `full` is a 9999dp sentinel, so it shows as a pill instead.
+                  corner == M3Corners.full ? label : '$label ${corner.toInt()}',
+                  style: M3TypeScale.labelSmall,
+                ),
               ),
           ],
         ),
@@ -273,7 +289,8 @@ class _ShapeSection extends StatelessWidget {
 }
 
 // ═════════════════════════════════════════════════════════════════════════
-// 3. ELEVATION & SURFACES — M3Elevation, M3ElevationShadows, surface tint
+// 3. ELEVATION & SURFACES — M3Elevation, M3ElevationDps, M3ElevationShadows,
+//                           M3ZIndexes, surface tint
 // ═════════════════════════════════════════════════════════════════════════
 
 class _ElevationSection extends StatelessWidget {
@@ -311,6 +328,29 @@ class _ElevationSection extends StatelessWidget {
                 ),
               ),
           ],
+        ),
+        const M3Gap(M3Spacings.s16),
+        // The two halves of M3Elevation are also available on their own:
+        // M3ElevationDps when you need the number, M3ElevationShadows when you
+        // need the shadow list without the composite token.
+        Text(
+          'Levels in dp: '
+          '${M3ElevationDps.values.map((dp) => dp.toInt()).join(' · ')}. '
+          'Shadow lists alone: M3ElevationShadows.level0…5.',
+          style: M3TypeScale.bodyMedium,
+        ),
+        const M3Gap(M3Spacings.s16),
+        // Elevation is depth; z-index is paint order. M3ZIndexes names the
+        // stacking layers so a Stack never invents its own integers.
+        Text(
+          'Stacking order — M3ZIndexes: '
+          'content ${M3ZIndexes.content} · '
+          'floating ${M3ZIndexes.floating} · '
+          'drawer ${M3ZIndexes.drawer} · '
+          'modal ${M3ZIndexes.modal} · '
+          'snackbar ${M3ZIndexes.snackbar} · '
+          'tooltip ${M3ZIndexes.tooltip}.',
+          style: M3TypeScale.bodyMedium,
         ),
       ],
     );
@@ -527,6 +567,21 @@ class _ColorSection extends StatelessWidget {
               colorScheme.surfaceAtElevation(M3Elevation.level3),
             ),
           ],
+        ),
+        const M3Gap(M3Spacings.s16),
+        // The percentages behind those helpers are tokens in their own right,
+        // so a one-off overlay lands on the same numbers the extensions use.
+        Text(
+          'M3Opacities — disabled content '
+          '${(M3Opacities.disabledContent * 100).round()}% · '
+          'disabled container '
+          '${(M3Opacities.disabledContainer * 100).round()}%. '
+          'M3StateLayerOpacities — hover '
+          '${(M3StateLayerOpacities.hover * 100).round()}% · '
+          'focus ${(M3StateLayerOpacities.focus * 100).round()}% · '
+          'pressed ${(M3StateLayerOpacities.pressed * 100).round()}% · '
+          'dragged ${(M3StateLayerOpacities.dragged * 100).round()}%.',
+          style: M3TypeScale.bodyMedium,
         ),
       ],
     );
@@ -938,6 +993,18 @@ class _AdaptiveSection extends StatelessWidget {
           '${size.gutterWidth.toInt()}dp gutters, '
           '${size.pageMargin.toInt()}dp margins. Resize the window.',
           style: M3TypeScale.bodyMedium,
+        ),
+        const M3Gap(M3Spacings.s8),
+        // The numbers the window class is derived from, and the widths content
+        // is measured against, are both tokens rather than literals.
+        Text(
+          'Breakpoints — M3Breakpoints: '
+          '${M3Breakpoints.values.map((bp) => bp.toInt()).join(' / ')}. '
+          'Content widths — M3LayoutWidths: '
+          'pane ${M3LayoutWidths.pane.toInt()}dp · '
+          'body ${M3LayoutWidths.body.toInt()}dp · '
+          'ultraWide ${M3LayoutWidths.ultraWide.toInt()}dp.',
+          style: M3TypeScale.bodySmall,
         ),
         const M3Gap(M3Spacings.s8),
         M3ResponsiveValue<String>(
