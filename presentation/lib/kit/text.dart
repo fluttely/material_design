@@ -1,8 +1,11 @@
 // The text pieces every slide is written with. Sizes come from the M3 type
 // scale; nothing here picks a font size by hand.
 // ignore_for_file: experimental_member_use
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design/material_design.dart';
+
+import '../open_link.dart';
 
 /// Small caps label above a heading — orients the room without stealing focus.
 class Kicker extends StatelessWidget {
@@ -65,6 +68,64 @@ class Body extends StatelessWidget {
         color: color ?? scheme.onSurfaceVariant,
         fontWeight: emphasis ? FontWeight.w600 : FontWeight.w400,
         height: 1.45,
+      ),
+    );
+  }
+}
+
+/// Running text with one clickable segment, opened via [openLink].
+class BodyLink extends StatefulWidget {
+  const BodyLink({
+    required this.before,
+    required this.link,
+    required this.url,
+    this.after = '',
+    super.key,
+  });
+
+  final String before;
+  final String link;
+  final String after;
+  final String url;
+
+  @override
+  State<BodyLink> createState() => _BodyLinkState();
+}
+
+class _BodyLinkState extends State<BodyLink> {
+  late final _recognizer = TapGestureRecognizer()
+    ..onTap = () => openLink(widget.url);
+
+  @override
+  void dispose() {
+    _recognizer.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    final style = M3TypeScale.headlineSmall.copyWith(
+      color: scheme.onSurfaceVariant,
+      height: 1.45,
+    );
+    return Text.rich(
+      TextSpan(
+        children: [
+          TextSpan(text: widget.before, style: style),
+          TextSpan(
+            text: widget.link,
+            style: style.copyWith(
+              color: scheme.primary,
+              fontWeight: FontWeight.w600,
+              decoration: TextDecoration.underline,
+              decorationColor: scheme.primary,
+            ),
+            recognizer: _recognizer,
+            mouseCursor: SystemMouseCursors.click,
+          ),
+          TextSpan(text: widget.after, style: style),
+        ],
       ),
     );
   }

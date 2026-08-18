@@ -76,7 +76,7 @@ Widget _title(BuildContext context) {
     children: [
       const MorphMark(),
       const M3Gap(M3Spacings.s32),
-      const Kicker('Kevin Kobori · Material Design'),
+      const Kicker('Kevin Kobori · Material Design 3 Expressive'),
       const M3Gap(M3Spacings.s24),
       Text(
         'Como criar bons prompts\npara contextos técnicos complexos',
@@ -113,11 +113,13 @@ Widget _theCase(BuildContext context) {
     children: [
       const Kicker('O laboratório'),
       const M3Gap(M3Spacings.s16),
-      const Heading('Uma lib publicada, mantida por uma pessoa'),
+      const Heading('Uma lib publicada, mantida por 1 dev'),
       const M3Gap(M3Spacings.s16),
-      const Body(
-        'Não precisa conhecer Flutter: os exemplos vêm em Java, TypeScript '
-        'e Dart.',
+      const BodyLink(
+        before: 'Lib: ',
+        link: 'Material Design 3',
+        after: ' para Flutter.',
+        url: 'https://pub.dev/packages/material_design',
       ),
       const M3Gap(M3Spacings.s40),
       Row(
@@ -135,7 +137,7 @@ Widget _theCase(BuildContext context) {
       const M3Gap(M3Spacings.s40),
       const Body(
         'Construída com IA do primeiro commit ao release de ontem. '
-        'A palestra é sobre como.',
+        'A apresentação é sobre como.',
         emphasis: true,
       ),
     ],
@@ -174,8 +176,7 @@ Widget _twoPrompts(BuildContext context) {
               accent: scheme.enforced,
               children: const [
                 CodeBlock(
-                  'Adiciona o campo "cpf" no cadastro,\n'
-                  'seguindo o padrão do projeto.',
+                  'Adiciona o campo "cpf" no cadastro.',
                 ),
                 M3Gap(M3Spacings.s16),
                 Body('Rodado dentro de um repo\ncom contexto construído.'),
@@ -186,7 +187,7 @@ Widget _twoPrompts(BuildContext context) {
       ),
       const M3Gap(M3Spacings.s32),
       const Body(
-        'B ganha, e não é perto. O texto do prompt não foi o que mudou — '
+        'B ganha, de lavada. O texto do prompt não foi o que mudou — '
         'foi onde ele é lido.',
         emphasis: true,
       ),
@@ -230,8 +231,8 @@ Widget _formula(BuildContext context) {
       ),
       const M3Gap(M3Spacings.s32),
       const Body(
-        'O modelo não erra por causa da frase. Erra por não ter os critérios '
-        'de decisão do projeto.',
+        'O modelo não erra por causa do prompt. Erra por não ter os critérios '
+        'de decisão do projeto bem documentato.',
         emphasis: true,
       ),
     ],
@@ -262,7 +263,8 @@ Widget _iceberg(BuildContext context) {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'o prompt  ▔▔▔▔',
+              'PROMPT:\n'
+              'Implemente o sistema de tokens de espaçamento do Design System.',
               style: M3TypeScale.titleLarge.copyWith(
                 fontFamily: 'monospace',
                 color: scheme.primary,
@@ -272,6 +274,7 @@ Widget _iceberg(BuildContext context) {
             Divider(color: scheme.outline, thickness: M3BorderWidths.thick),
             const M3Gap(M3Spacings.s8),
             Text(
+              'CONTEXTO:\n'
               'tipos · testes · lint · CI · hooks\n'
               'convenções · decisões registradas · cicatrizes de bugs\n'
               'definição de pronto · escopo fechado · comandos',
@@ -286,8 +289,8 @@ Widget _iceberg(BuildContext context) {
       ),
       const M3Gap(M3Spacings.s32),
       const Body(
-        'Você não reexplica a arquitetura ao colega a cada pedido. Ele já tem '
-        'a base; você manda o delta.',
+        'Você não reexplica a arquitetura a IA a cada pedido. Ele já tem '
+        'a base; você manda apenas o delta.',
         emphasis: true,
       ),
     ],
@@ -717,7 +720,7 @@ Widget _theFile(BuildContext context) {
       // there is no real monospace family, so anything lined up with spaces
       // comes out crooked. Structure carries it instead.
       CodeBlock(
-        '# CLAUDE.md · AGENTS.md · .cursorrules\n'
+        '# CLAUDE.md / AGENTS.md / .cursorrules\n'
         '\n'
         '## Critérios\n'
         '   Controller não decide regra de negócio.\n'

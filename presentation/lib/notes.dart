@@ -70,7 +70,7 @@ const speakerNotes = <SlideNotes>[
   // 2 ─────────────────────────────────────────────────────────────────────
   SlideNotes(
     clock: '01:00',
-    title: 'Uma lib publicada, mantida por uma pessoa',
+    title: 'Uma lib publicada, mantida por 1 dev',
     opening: 'Isto é uma biblioteca publicada no pub.dev, versão 1.8.0.',
     beats: [
       'Tire o Flutter da frente logo: os exemplos vêm em Java, TypeScript e '
