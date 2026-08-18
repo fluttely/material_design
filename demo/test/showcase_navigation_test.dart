@@ -8,6 +8,7 @@ import 'package:material_design_demo/showcase/showcase_drawer.dart';
 import 'package:material_design_demo/showcase/showcase_rail.dart';
 import 'package:material_design_demo/showcase_pages/foundations/icon_tokens_page.dart';
 import 'package:material_design_demo/theme/theme_provider.dart';
+import 'package:material_design_demo/widgets/showcase_link.dart';
 import 'package:provider/provider.dart';
 
 /// The showcase's navigation, which used to be two hand-synchronised lists
@@ -18,13 +19,28 @@ void main() {
         child: const ShowcaseApp(),
       );
 
+  /// Pumps a second of frames — long enough for every M3 motion duration and
+  /// for a drawer or rail transition to land.
+  ///
+  /// Deliberately *not* `pumpAndSettle`. The shell renders whichever
+  /// destination comes first in [showcaseSections], and several pages animate
+  /// forever (the accessibility pulse, the expressive loading indicator).
+  /// Settling would make every shell test depend on the navigation order, so
+  /// reordering the rail would fail tests that have nothing to do with the
+  /// change.
+  Future<void> settle(WidgetTester tester) async {
+    for (var i = 0; i < 20; i++) {
+      await tester.pump(const Duration(milliseconds: 50));
+    }
+  }
+
   Future<void> pumpAt(WidgetTester tester, Size size) async {
     tester.view
       ..physicalSize = size
       ..devicePixelRatio = 1;
     addTearDown(tester.view.reset);
     await tester.pumpWidget(app());
-    await tester.pumpAndSettle();
+    await settle(tester);
   }
 
   group('destination model', () {
@@ -49,6 +65,23 @@ void main() {
       final labels = showcaseDestinations.map((d) => d.label).toSet();
       expect(labels, hasLength(showcaseDestinations.length));
     });
+
+    test('every destination has a code page of its own', () {
+      // Twenty-three pairs were wired by hand. Two destinations pointing at
+      // the same recipe page is the copy-paste mistake that would look
+      // completely fine in the rail.
+      final codePages =
+          showcaseDestinations.map((d) => d.codePage.runtimeType).toSet();
+      expect(codePages, hasLength(showcaseDestinations.length));
+    });
+
+    test('a code page is never also a visual page', () {
+      final visualPages =
+          showcaseDestinations.map((d) => d.page.runtimeType).toSet();
+      final codePages =
+          showcaseDestinations.map((d) => d.codePage.runtimeType).toSet();
+      expect(visualPages.intersection(codePages), isEmpty);
+    });
   });
 
   testWidgets('expanded window shows the rail and switches pages',
@@ -59,16 +92,60 @@ void main() {
     expect(find.byType(ShowcaseDrawer), findsNothing);
     expect(find.text('Spacing'), findsWidgets);
 
-    await tester.tap(find.text('Icons').last);
-    await tester.pumpAndSettle();
+    // The rail scrolls: how far down a destination sits depends on how many
+    // sections precede it, so scroll to it rather than assuming it is on
+    // screen. Otherwise adding one destination at the top breaks this test.
+    final icons = find.text('Icons').last;
+    await tester.ensureVisible(icons);
+    await settle(tester);
+
+    await tester.tap(icons);
+    await settle(tester);
 
     // The Icons page is up — its first section caption names the size scale.
     expect(find.text('M3IconSizes'), findsOneWidget);
   });
 
-  // Every page is rendered once. Several of them animate forever (the
-  // accessibility pulse, the expressive loading indicator), so this pumps
-  // frames rather than settling.
+  testWidgets('the rail switches the body between Visual and Code',
+      (tester) async {
+    await pumpAt(tester, const Size(1400, 1000));
+
+    // Read the destination off the model: the shell opens on whichever one is
+    // first, and that is a navigation-order decision this test has no opinion
+    // about.
+    final opening = showcaseDestinations.first.label;
+
+    Finder modeSegment(String label) => find.descendant(
+          of: find.byType(ShowcaseRail),
+          matching: find.text(label),
+        );
+
+    expect(find.text('$opening · Code'), findsNothing);
+
+    await tester.tap(modeSegment('Code'));
+    await settle(tester);
+    expect(find.text('$opening · Code'), findsOneWidget);
+
+    // The mode outlives a change of destination — a reader who came for the
+    // code stays in the code. The rail scrolls, so reach the destination the
+    // way a user would rather than assuming it is on screen.
+    final second = showcaseDestinations[1].label;
+    final target = find.text(second).last;
+    await tester.ensureVisible(target);
+    await settle(tester);
+
+    await tester.tap(target);
+    await settle(tester);
+    expect(find.text('$second · Code'), findsOneWidget);
+
+    await tester.tap(modeSegment('Visual'));
+    await settle(tester);
+    expect(find.text('$second · Code'), findsNothing);
+  });
+
+  // Every page is rendered once, in both modes. Several of them animate
+  // forever (the accessibility pulse, the expressive loading indicator), so
+  // this pumps frames rather than settling.
   for (final destination in showcaseDestinations) {
     testWidgets('${destination.label} page renders', (tester) async {
       tester.view
@@ -86,32 +163,84 @@ void main() {
 
       expect(tester.takeException(), isNull);
     });
+
+    testWidgets('${destination.label} code page renders', (tester) async {
+      tester.view
+        ..physicalSize = const Size(1400, 1200)
+        ..devicePixelRatio = 1;
+      addTearDown(tester.view.reset);
+
+      await tester.pumpWidget(
+        ChangeNotifierProvider(
+          create: (_) => ThemeProvider(),
+          child: MaterialApp(home: destination.codePage),
+        ),
+      );
+      await tester.pump(const Duration(milliseconds: 100));
+
+      expect(tester.takeException(), isNull);
+
+      // A code page titles itself with its destination's label, which is what
+      // lets a reader switching modes know they are still in the same place.
+      expect(find.text('${destination.label} · Code'), findsOneWidget);
+    });
   }
 
   group('rail destination states', () {
     /// A destination's label inside the rail — the page under it may show the
     /// same word in its app bar.
-    Finder railLabel(String label) => find.descendant(
-          of: find.byType(ShowcaseRail),
-          matching: find.text(label),
-        );
+    ///
+    /// Section headers are `ShowcaseLink`s and can carry the same word as the
+    /// only destination beneath them ("Expressive" does), so they are filtered
+    /// out: this finder always means the tappable destination.
+    Finder railLabel(String label) {
+      final inRail = find.descendant(
+        of: find.byType(ShowcaseRail),
+        matching: find.text(label),
+      );
+      return find.byElementPredicate((element) {
+        if (!inRail.evaluate().contains(element)) return false;
+        var insideLink = false;
+        element.visitAncestorElements((ancestor) {
+          if (ancestor.widget is ShowcaseLink) {
+            insideLink = true;
+            return false;
+          }
+          return true;
+        });
+        return !insideLink;
+      });
+    }
 
     /// The indicator's fill and its state layer, read back off the two
     /// stacked containers the destination draws.
+    ///
+    /// A label can appear twice in the rail when a section and its only
+    /// destination share a name — "Expressive" does. So rather than taking the
+    /// nearest `SizedBox` ancestor, this walks the candidates and takes the
+    /// smallest box holding exactly the indicator's two layers, which is the
+    /// destination itself and never the section around it.
     List<Color?> indicatorLayers(WidgetTester tester, String label) {
-      final destination = find.ancestor(
+      final boxes = find.ancestor(
         of: railLabel(label),
         matching: find.byType(SizedBox),
       );
-      return tester
-          .widgetList<AnimatedContainer>(
-            find.descendant(
-              of: destination.first,
-              matching: find.byType(AnimatedContainer),
-            ),
-          )
-          .map((c) => (c.decoration as ShapeDecoration?)?.color)
-          .toList();
+      for (var i = 0; i < boxes.evaluate().length; i++) {
+        final layers = tester
+            .widgetList<AnimatedContainer>(
+              find.descendant(
+                of: boxes.at(i),
+                matching: find.byType(AnimatedContainer),
+              ),
+            )
+            .toList();
+        if (layers.length == 2) {
+          return layers
+              .map((c) => (c.decoration as ShapeDecoration?)?.color)
+              .toList();
+        }
+      }
+      fail('No rail destination found for "$label".');
     }
 
     /// A single mouse pointer for the whole test — adding a second one trips
@@ -129,7 +258,7 @@ void main() {
       Finder target,
     ) async {
       await pointer.moveTo(tester.getCenter(target));
-      await tester.pumpAndSettle();
+      await settle(tester);
     }
 
     testWidgets('the state layer follows the M3 role for each state',
@@ -139,22 +268,28 @@ void main() {
         tester.element(find.byType(ShowcaseRail)),
       ).colorScheme;
 
+      // Read the two destinations off the model instead of naming them: the
+      // shell opens on whichever one is first, and that is a navigation-order
+      // decision this test has no opinion about.
+      final selected = showcaseDestinations.first.label;
+      final unselected = showcaseDestinations[1].label;
+
       // At rest: the selected destination is filled, nothing is overlaid.
       expect(
-        indicatorLayers(tester, 'Spacing'),
+        indicatorLayers(tester, selected),
         [colorScheme.secondaryContainer, Colors.transparent],
       );
       expect(
-        indicatorLayers(tester, 'Density'),
+        indicatorLayers(tester, unselected),
         [Colors.transparent, Colors.transparent],
       );
 
       // Hovering the *label* of an unselected destination lights the pill —
       // the whole destination is one target, not just the icon.
       final pointer = await mouse(tester);
-      await hover(tester, pointer, railLabel('Density'));
+      await hover(tester, pointer, railLabel(unselected));
       expect(
-        indicatorLayers(tester, 'Density').last,
+        indicatorLayers(tester, unselected).last,
         colorScheme.onSurface.withValues(
           alpha: M3InteractionState.hover.stateLayerOpacity,
         ),
@@ -162,9 +297,9 @@ void main() {
 
       // A selected destination gets the same feedback, in the content color
       // of the indicator it sits on.
-      await hover(tester, pointer, railLabel('Spacing'));
+      await hover(tester, pointer, railLabel(selected));
       expect(
-        indicatorLayers(tester, 'Spacing').last,
+        indicatorLayers(tester, selected).last,
         colorScheme.onSecondaryContainer.withValues(
           alpha: M3InteractionState.hover.stateLayerOpacity,
         ),
@@ -305,7 +440,7 @@ void main() {
     expect(find.byType(ShowcaseRail), findsNothing);
 
     await tester.tap(find.byIcon(Icons.menu));
-    await tester.pumpAndSettle();
+    await settle(tester);
 
     expect(find.byType(ShowcaseDrawer), findsOneWidget);
     expect(find.text('Foundations'), findsOneWidget);

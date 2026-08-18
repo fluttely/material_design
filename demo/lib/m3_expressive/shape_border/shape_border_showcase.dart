@@ -229,7 +229,7 @@ class _ShapeBorderShowcaseState extends State<ShapeBorderShowcase> {
           Expanded(
             child: Text(
               'The in-between frames are not a crossfade. Lerping two '
-              'M3EShapeBorders runs the real M3EMorph algorithm on the '
+              'M3EShapeBorder instances runs the real M3EMorph algorithm on the '
               'polygons, so the outline itself travels from one shape to the '
               'other — which is why an ordinary implicit animation is enough.',
               style: textTheme.bodySmall?.copyWith(

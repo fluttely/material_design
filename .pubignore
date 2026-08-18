@@ -22,6 +22,19 @@ demo/
 # anyone installing the package needs.
 documentation/
 
+# Repository tooling: the verification gate and its checkers. Tracked in git
+# and run by CI, but of no use to anyone installing the package.
+tool/
+
+# Agent-facing context: the format-on-write hook and the /new-scale, /release
+# and /verify commands. Shared with contributors, not shipped to consumers.
+.claude/
+
+# Local working directories. These are in .gitignore, which does NOT help here —
+# a .pubignore at the package root replaces .gitignore entirely, so anything
+# gitignored still ships unless it is repeated below. Add new ones here too.
+presentation/
+
 # Agent/editor scratch files.
 .gemini-cli
 .claude-cli

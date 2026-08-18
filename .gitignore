@@ -29,10 +29,15 @@ migrate_working_dir/
 build/
 .gemini-cli
 .claude-cli
+# .claude/ itself is tracked: the hook and the /new-scale, /release and /verify
+# commands are shared project context. Only per-developer overrides stay local.
+.claude/settings.local.json
 .env
 utils.js
-CLAUDE.md
-GEMINI.md
 testing
 lib/src/m3/trash
-documentation
+# Per-machine Obsidian layout: pane positions and recently-opened files, rewritten
+# every time the vault is opened. The vault's content is tracked; this is not.
+documentation/material_design/.obsidian/workspace.json
+# Slide deck for internal talks — local working material, not part of the package.
+presentation/

@@ -1,4 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:material_design_demo/recipe_pages/foundations/accessibility_recipes.dart';
+import 'package:material_design_demo/recipe_pages/foundations/adaptive_recipes.dart';
+import 'package:material_design_demo/recipe_pages/foundations/border_recipes.dart';
+import 'package:material_design_demo/recipe_pages/foundations/breakpoint_recipes.dart';
+import 'package:material_design_demo/recipe_pages/foundations/canonical_layout_recipes.dart';
+import 'package:material_design_demo/recipe_pages/foundations/component_recipes.dart';
+import 'package:material_design_demo/recipe_pages/foundations/icon_recipes.dart';
+import 'package:material_design_demo/recipe_pages/foundations/interaction_recipes.dart';
+import 'package:material_design_demo/recipe_pages/foundations/opacity_recipes.dart';
+import 'package:material_design_demo/recipe_pages/foundations/responsive_recipes.dart';
+import 'package:material_design_demo/recipe_pages/foundations/spacing_recipes.dart';
+import 'package:material_design_demo/recipe_pages/foundations/visual_density_recipes.dart';
+import 'package:material_design_demo/recipe_pages/foundations/z_index_recipes.dart';
+import 'package:material_design_demo/recipe_pages/m3_expressive/expressive_recipes.dart';
+import 'package:material_design_demo/recipe_pages/styles/color_recipes.dart';
+import 'package:material_design_demo/recipe_pages/styles/color_scheme_recipes.dart';
+import 'package:material_design_demo/recipe_pages/styles/elevation_recipes.dart';
+import 'package:material_design_demo/recipe_pages/styles/motion_recipes.dart';
+import 'package:material_design_demo/recipe_pages/styles/shape_recipes.dart';
+import 'package:material_design_demo/recipe_pages/styles/spring_recipes.dart';
+import 'package:material_design_demo/recipe_pages/styles/tonal_palette_recipes.dart';
+import 'package:material_design_demo/recipe_pages/styles/typography_recipes.dart';
+import 'package:material_design_demo/recipe_pages/utilities/utils_recipes.dart';
 import 'package:material_design_demo/showcase_pages/foundations/accessibility_page.dart';
 import 'package:material_design_demo/showcase_pages/foundations/adaptive_page.dart';
 import 'package:material_design_demo/showcase_pages/foundations/border_tokens_page.dart';
@@ -23,13 +46,17 @@ import 'package:material_design_demo/showcase_pages/styles/tonal_palette_page.da
 import 'package:material_design_demo/showcase_pages/styles/typography_page.dart';
 import 'package:material_design_demo/showcase_pages/utilities/utils_page.dart';
 
-/// One entry in the showcase: a page and the destination that reaches it.
+/// One entry in the showcase: a destination and the two pages behind it.
 ///
 /// Page and destination live in the same object on purpose. They used to be
 /// two parallel lists — a `List<Widget>` of pages and a `List<
 /// NavigationRailDestination>` of labels — kept in step by index arithmetic,
 /// which is a silent-breakage machine: insert a page in the middle and every
 /// label below it points at the wrong screen.
+///
+/// The same argument is why [codePage] is a field here rather than a second
+/// list of destinations: a token family and the code that uses it are one
+/// subject, and the rail should not grow a second copy of itself to say so.
 @immutable
 class ShowcaseDestination {
   const ShowcaseDestination({
@@ -37,6 +64,7 @@ class ShowcaseDestination {
     required this.icon,
     required this.selectedIcon,
     required this.page,
+    required this.codePage,
   });
 
   /// Short label shown under the rail icon and beside the drawer icon.
@@ -52,8 +80,13 @@ class ShowcaseDestination {
   /// variable, so the demo swaps to the filled glyph to get the same result.
   final IconData selectedIcon;
 
-  /// The page this destination opens.
+  /// The page this destination opens in `ShowcaseMode.visual` — the tokens,
+  /// rendered.
   final Widget page;
+
+  /// The page it opens in `ShowcaseMode.code` — the same families, written
+  /// out as the calls that produce them.
+  final Widget codePage;
 }
 
 /// A titled group of destinations, optionally linking to the spec page it
@@ -83,6 +116,19 @@ class ShowcaseSection {
 /// drawer, and the page body are all derived from it.
 const List<ShowcaseSection> showcaseSections = [
   ShowcaseSection(
+    title: 'Expressive',
+    url: 'https://m3.material.io/blog/building-with-m3-expressive',
+    destinations: [
+      ShowcaseDestination(
+        label: 'Expressive',
+        icon: Icons.local_activity_outlined,
+        selectedIcon: Icons.local_activity,
+        page: M3ExpressivePage(),
+        codePage: ExpressiveRecipes(),
+      ),
+    ],
+  ),
+  ShowcaseSection(
     title: 'Foundations',
     url: 'https://m3.material.io/foundations',
     destinations: [
@@ -91,78 +137,91 @@ const List<ShowcaseSection> showcaseSections = [
         icon: Icons.straighten_outlined,
         selectedIcon: Icons.straighten,
         page: SpacingPage(),
+        codePage: SpacingRecipes(),
       ),
       ShowcaseDestination(
         label: 'Density',
         icon: Icons.density_medium_outlined,
         selectedIcon: Icons.density_medium,
         page: VisualDensityPage(),
+        codePage: VisualDensityRecipes(),
       ),
       ShowcaseDestination(
         label: 'Breakpoints',
         icon: Icons.aspect_ratio_outlined,
         selectedIcon: Icons.aspect_ratio,
         page: BreakpointTokensPage(),
+        codePage: BreakpointRecipes(),
       ),
       ShowcaseDestination(
         label: 'Z-Index',
         icon: Icons.layers_outlined,
         selectedIcon: Icons.layers,
         page: ZIndexTokensPage(),
+        codePage: ZIndexRecipes(),
       ),
       ShowcaseDestination(
         label: 'Border',
         icon: Icons.border_style_outlined,
         selectedIcon: Icons.border_style,
         page: BorderTokensPage(),
+        codePage: BorderRecipes(),
       ),
       ShowcaseDestination(
         label: 'Icons',
         icon: Icons.emoji_symbols_outlined,
         selectedIcon: Icons.emoji_symbols,
         page: IconTokensPage(),
+        codePage: IconRecipes(),
       ),
       ShowcaseDestination(
         label: 'Components',
         icon: Icons.widgets_outlined,
         selectedIcon: Icons.widgets,
         page: ComponentTokensPage(),
+        codePage: ComponentRecipes(),
       ),
       ShowcaseDestination(
         label: 'Opacity',
         icon: Icons.opacity_outlined,
         selectedIcon: Icons.opacity,
         page: OpacityTokensPage(),
+        codePage: OpacityRecipes(),
       ),
       ShowcaseDestination(
         label: 'A11y',
         icon: Icons.accessibility_outlined,
         selectedIcon: Icons.accessibility,
         page: AccessibilityPage(),
+        codePage: AccessibilityRecipes(),
       ),
       ShowcaseDestination(
         label: 'Adaptive',
         icon: Icons.devices_outlined,
         selectedIcon: Icons.devices,
         page: AdaptivePage(),
+        codePage: AdaptiveRecipes(),
       ),
       ShowcaseDestination(
         label: 'Responsive',
         icon: Icons.grid_view_outlined,
         selectedIcon: Icons.grid_view,
         page: ResponsivePage(),
+        codePage: ResponsiveRecipes(),
       ),
       ShowcaseDestination(
         label: 'Layouts',
         icon: Icons.view_quilt_outlined,
         selectedIcon: Icons.view_quilt,
         page: CanonicalLayoutsPage(),
+        codePage: CanonicalLayoutRecipes(),
       ),
       ShowcaseDestination(
         label: 'Interaction',
         icon: Icons.touch_app_outlined,
         selectedIcon: Icons.touch_app,
         page: InteractionPage(),
+        codePage: InteractionRecipes(),
       ),
     ],
   ),
@@ -175,48 +234,56 @@ const List<ShowcaseSection> showcaseSections = [
         icon: Icons.format_paint_outlined,
         selectedIcon: Icons.format_paint,
         page: ColorTokensPage(),
+        codePage: ColorRecipes(),
       ),
       ShowcaseDestination(
         label: 'Schemes',
         icon: Icons.gradient_outlined,
         selectedIcon: Icons.gradient,
         page: ColorSchemesPage(),
+        codePage: ColorSchemeRecipes(),
       ),
       ShowcaseDestination(
         label: 'Tonal',
         icon: Icons.palette_outlined,
         selectedIcon: Icons.palette,
         page: TonalPalettePage(),
+        codePage: TonalPaletteRecipes(),
       ),
       ShowcaseDestination(
         label: 'Typography',
         icon: Icons.text_fields_outlined,
         selectedIcon: Icons.text_fields,
         page: TypographyPage(),
+        codePage: TypographyRecipes(),
       ),
       ShowcaseDestination(
         label: 'Elevation',
         icon: Icons.copy_outlined,
         selectedIcon: Icons.copy,
         page: ElevationPage(),
+        codePage: ElevationRecipes(),
       ),
       ShowcaseDestination(
         label: 'Shape',
         icon: Icons.rounded_corner_outlined,
         selectedIcon: Icons.rounded_corner,
         page: ShapePage(),
+        codePage: ShapeRecipes(),
       ),
       ShowcaseDestination(
         label: 'Motion',
         icon: Icons.animation_outlined,
         selectedIcon: Icons.animation,
         page: MotionPage(),
+        codePage: MotionRecipes(),
       ),
       ShowcaseDestination(
         label: 'Springs',
         icon: Icons.waves_outlined,
         selectedIcon: Icons.waves,
         page: SpringPage(),
+        codePage: SpringRecipes(),
       ),
     ],
   ),
@@ -228,18 +295,7 @@ const List<ShowcaseSection> showcaseSections = [
         icon: Icons.auto_awesome_outlined,
         selectedIcon: Icons.auto_awesome,
         page: UtilsPage(),
-      ),
-    ],
-  ),
-  ShowcaseSection(
-    title: 'Expressive',
-    url: 'https://m3.material.io/blog/building-with-m3-expressive',
-    destinations: [
-      ShowcaseDestination(
-        label: 'Expressive',
-        icon: Icons.local_activity_outlined,
-        selectedIcon: Icons.local_activity,
-        page: M3ExpressivePage(),
+        codePage: UtilsRecipes(),
       ),
     ],
   ),

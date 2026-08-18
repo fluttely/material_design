@@ -39,9 +39,17 @@ class ElevationPage extends StatelessWidget {
             'Elevation in M3 is a combination of a surface tint and, for some components, a shadow. Below, the cards are rendered according to the official rules defined in the M3ElevationDps | M3Elevation classes.',
             style: textTheme.bodyMedium,
           ),
+          const M3Gap(M3Spacings.s8),
+          Text(
+            'M3Elevation is the composite token — each level carries its dp and '
+            'its shadows together. The halves are available on their own when '
+            'you need only one: M3ElevationDps for the number, '
+            'M3ElevationShadows for the ready-made shadow list.',
+            style: textTheme.bodyMedium,
+          ),
           const M3Gap(M3Spacings.s16),
           ShowcaseLink(
-            label: 'M3ElevationDps | M3Elevation',
+            label: 'M3ElevationDps | M3ElevationShadows | M3Elevation',
             url: 'https://m3.material.io/styles/elevation/overview',
           ),
           _ElevationGrid(
