@@ -40,4 +40,4 @@ lib/src/m3/trash
 # every time the vault is opened. The vault's content is tracked; this is not.
 documentation/material_design/.obsidian/workspace.json
 # Slide deck for internal talks — local working material, not part of the package.
-presentation/
+# presentation/
