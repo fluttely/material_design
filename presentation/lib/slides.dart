@@ -427,8 +427,8 @@ Widget _pattern1(BuildContext context) => const _Pattern(
         ),
         (
           'Flutter',
-          'Cor e espaçamento vêm do token. Não achou o token? A tela não está '
-              'no design system.'
+          'Cor e espaçamento vêm do tema. Precisou de um número solto? O design '
+              'ainda não decidiu.'
         ),
       ],
       lesson: 'Descrição o modelo repete de volta. Critério ele aplica no caso '
@@ -453,8 +453,8 @@ Widget _pattern2(BuildContext context) => const _Pattern(
         ),
         (
           'Flutter',
-          'Componente que o framework já tem não se reimplementa: vira dívida '
-              'na próxima versão.'
+          'Reescrever um botão que o Material já tem: o seu não acompanha a '
+              'próxima versão.'
         ),
       ],
       lesson: 'Sem o motivo a regra vira burocracia — e modelo bom contorna '
@@ -903,7 +903,10 @@ Widget _bmadMap(BuildContext context) {
         right: 'O que virou, à mão',
         rows: [
           ('PRD + épicos', 'um roadmap.md com fases'),
-          ('Architecture doc em contexto', 'CLAUDE.md apontando para arquivos de regras'),
+          (
+            'Architecture doc em contexto',
+            'CLAUDE.md apontando para arquivos de regras'
+          ),
           ('Stories com contexto embutido', 'itens com critério de aceite'),
           ('Definition of done', 'uma checklist de 9 artefatos'),
           ('QA gate', 'um script + CI'),

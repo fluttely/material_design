@@ -198,7 +198,7 @@ const speakerNotes = <SlideNotes>[
       '✓ A forma que decide: se tal situação, faça tal coisa; não achou a '
           'situação, pare.',
       'Percorra os três cartões — controller sem regra, tela sem fetch, cor '
-          'sem literal. É a mesma frase três vezes.',
+          'sem número solto. É a mesma frase três vezes.',
       'O teste prático: leia a sua linha e pergunte "com só isso, o modelo '
           'resolve um caso novo?". Se não resolve, é descrição.',
     ],
@@ -212,8 +212,7 @@ const speakerNotes = <SlideNotes>[
         'semana? É esse que você escreve.',
     beats: [
       'Os três cartões são armadilhas que a sala reconhece: @Transactional '
-          'privado, key por índice, componente reimplementado. Espere o '
-          '"ahhh".',
+          'privado, key por índice, botão reescrito à mão. Espere o "ahhh".',
       'Insista no motivo junto da regra: sem motivo vira burocracia, e modelo '
           'bom contorna burocracia quando o caso parece diferente.',
       'Prática que cabe na segunda-feira: corrigiu a mesma coisa pela terceira '
