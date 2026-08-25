@@ -10,6 +10,14 @@ part of '../../../tokens.dart';
 extension type const M3BorderWidthValue._(double dp) implements double {}
 
 /// Material Design 3 border width tokens.
+///
+/// M3 publishes no standalone width *scale*: widths are prescribed per role.
+/// [thin] (1dp) is the outline every bordered component draws, [thick] (2dp) is
+/// the emphasis width for selected and focused states, and [extraThick] (4dp)
+/// is reserved for error and other critical affordances. The colour the width
+/// is drawn in comes from the `outline` and `outlineVariant` roles.
+///
+/// Spec: https://m3.material.io/styles/color/roles
 abstract final class M3BorderWidths {
   /// No border (0dp).
   static const M3BorderWidthValue none = M3BorderWidthValue._(0);

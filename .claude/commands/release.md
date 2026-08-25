@@ -2,6 +2,7 @@
 description: Cut a release — version, changelog section, gate, commit
 argument-hint: "<version> — e.g. 1.8.0"
 allowed-tools: Bash(dart:*), Bash(flutter:*), Bash(./tool/verify.sh:*), Bash(git:*), Read, Edit, Grep, Glob
+model: opus
 ---
 
 Prepare the release: **$ARGUMENTS**
@@ -28,9 +29,17 @@ SemVer, with this repository's standing policy (see `CLAUDE.md`, "Versioning"):
 - Pre-releases use `-dev.N` and collapse into one narrative section when the
   stable version ships.
 
-## 3. Write the section
+## 3. Finish the section that is already open
 
-Top of `CHANGELOG.md`, newest first. House style:
+The section is **not written here from scratch.** Every commit that changed something
+a consumer can observe already bumped `pubspec.yaml` and wrote its entry, so the top
+of `CHANGELOG.md` holds the release in progress. This step reads it against the log
+from step 1, fills in whatever landed without an entry, and rewrites the why-first
+paragraph to cover the release as a whole rather than the first change that opened it.
+If the number picked in step 2 differs from what is open, rename the heading and
+`pubspec.yaml` together.
+
+House style, which the open section already follows:
 
 - A short **why-first paragraph** giving the context — what was missing, and
   why it mattered. Not a summary of the bullets.
