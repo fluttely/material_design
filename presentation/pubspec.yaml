@@ -1,0 +1,23 @@
+name: m3_talk
+description: "Slide deck: prompts for complex technical contexts. Not part of the package."
+publish_to: "none"
+version: 1.0.0
+
+environment:
+  sdk: ">=3.6.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  # The deck is built with the package it is about.
+  material_design:
+    path: ../
+  web: ^1.1.1
+
+dev_dependencies:
+  flutter_lints: ^3.0.0
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true

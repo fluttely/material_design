@@ -39,5 +39,8 @@ lib/src/m3/trash
 # Per-machine Obsidian layout: pane positions and recently-opened files, rewritten
 # every time the vault is opened. The vault's content is tracked; this is not.
 documentation/material_design/.obsidian/workspace.json
-# Slide deck for internal talks — local working material, not part of the package.
-presentation/
+# Slide deck for internal talks. Tracked on `dev_presentation` and nowhere else:
+# this branch exists so the deck can be pulled onto another machine to present
+# from. On `dev` the line below is uncommented, which is the only difference
+# between the two branches besides the directory itself.
+# presentation/
