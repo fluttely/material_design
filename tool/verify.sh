@@ -48,6 +48,14 @@ step "flutter analyze"      flutter analyze
 step "flutter test"         flutter test
 step "triad README↔example↔demo" dart run tool/check_triad.dart
 step "changelog ↔ pub.dev"  dart run tool/check_changelog.dart $OFFLINE
+# The agent harness is gated like the package is. Context is a quality
+# variable, not just a cost, so the ring that every call pays for has a
+# ceiling — and a ceiling nobody is shown is a ceiling nobody respects.
+step "context budget"       dart run tool/check_context.dart
+# The git guard is a pair of regexes standing in front of the repository. A
+# regex that quietly stops matching leaves the rule looking enforced while it
+# is not, which is the one failure worse than never having written it.
+step "git guard refuses"    ./tool/check_guard.sh
 step "example compiles"     bash -c 'cd example && flutter analyze'
 
 if [[ $FAST -eq 0 ]]; then

@@ -66,8 +66,8 @@ either answer is yes, ship the tokens and stop.
 | `demo/` | Full Flutter web app — the live, interactive showcase deployed to GitHub Pages (https://fluttely.github.io/material_design/). Every destination has two pages: the token family rendered (`showcase_pages/`) and the code that produces it (`recipe_pages/`). | git, not pub |
 | `documentation/material_design/` | Obsidian vault: design notes, M3 reference docs, roadmap/plan. Bilingual: `en_US/` is the source of truth, `pt_BR/` mirrors it. | git, not pub |
 | `CLAUDE.md` | This file — the reasoning behind the API decisions and the working rules. | git, not pub |
-| `tool/` | The verification gate. `verify.sh` runs everything; `check_triad.dart` and `check_changelog.dart` enforce the rules below that no compiler can. | git, not pub |
-| `.claude/` | Agent-facing context: the format-on-write hook, and `/new-scale`, `/release`, `/verify`. Tracked — it is shared project context, not personal config. Only `settings.local.json` stays local. | git, not pub |
+| `tool/` | The verification gate. `verify.sh` runs everything; `check_triad.dart`, `check_changelog.dart` and `check_context.dart` enforce the rules below that no compiler can. | git, not pub |
+| `.claude/` | Agent-facing context: `hooks/` (format-on-write, git guard), `commands/` (`/new-scale`, `/release`, `/verify`) and `skills/` (`commit`). Tracked — it is shared project context, not personal config. Only `settings.local.json` stays local. | git, not pub |
 | `.github/workflows/` | CI: `tests.yml` (runs `./tool/verify.sh` on PRs to `main`), `deploy-demo.yml` (builds `demo/` web to gh-pages). | git |
 
 ### Module architecture
@@ -110,10 +110,9 @@ update all three in the same PR:
   API ⇒ both, in the matching section (Expressive / Foundations / Styles / Utilities
   — see "Demo conventions").
 
-Checklist for an API change: `lib/` + tests + README + `readme_showcase_test.dart` +
-`example/lib/main.dart` + `demo/` showcase page + `demo/` code recipe +
-`CHANGELOG.md` entry + (if concepts changed) `documentation/material_design/` notes in
-both languages. Use `/new-scale` — it is this checklist as a command.
+An API change lands in nine artifacts, from `lib/` through to the vault in both
+languages. `/new-scale` is that checklist as a command; it carries the list so this
+file does not have to.
 
 **This rule is enforced, not remembered.** `dart run tool/check_triad.dart` fails when
 a scale is missing from any of the three, when the section orders disagree, or when a
@@ -126,17 +125,11 @@ find yourself about to *silence* the checker, you are about to recreate that.
 ### The canonical section order
 
 README ("API tour"), `example/lib/main.dart`, and the demo all present the API in the
-same order — when adding a family, slot it consistently in all three:
-
-1. Spacing & layout · 2. Shape & borders · 3. Elevation & surfaces · 4. Typography ·
-4b. Icons · 5. Color · 5b. Schemes & contrast · 6. Interaction states & focus ·
-7. Motion · 8. Adaptive & responsive · 8b. Component measurements · 9. Accessibility ·
-10. M3 Expressive · 11. `M3Contract`
-
-The machine-readable copy of that list is `canonicalSections` in
-`tool/check_triad.dart`, and it is the source of truth — this paragraph is the
-explanation, not the definition. Change the list there when the tour genuinely gains
-a section.
+same order — when adding a family, slot it consistently in all three. The order itself
+is `canonicalSections` in `tool/check_triad.dart`, which is the source of truth and is
+also what checks the three artifacts against it. It used to be transcribed here too;
+a list kept in two places is a list that disagrees with itself eventually, and the copy
+without a checker under it is the one that goes stale.
 
 A family added to an existing area gets a `b` suffix rather than renumbering
 everything after it — renumbering churns three files and every cross-reference for no
@@ -199,82 +192,48 @@ Every destination has two pages, selected by `ShowcaseMode` in the shell:
 
 ## Commits
 
-**Never add AI attribution to a commit.** Do not append a `Co-Authored-By: Claude ...`
-trailer, and do not add a `🤖 Generated with Claude Code` line to pull request bodies.
-This applies to every commit, amend, rebase and squash, without exception — including
-when a tool's own default output template suggests otherwise.
+Two rules, both of which spent releases as prose and are now refused by
+`.claude/hooks/guard-git.sh` before the call runs:
 
-The authorship of a commit in this repository is the human who made it. Commit messages
-should describe the change and nothing else.
+- **Never add AI attribution.** No `Co-Authored-By: Claude ...` trailer, no
+  `🤖 Generated with Claude Code` line in a PR body. Every commit, amend, rebase and
+  squash, without exception — **including when a tool's own default template suggests
+  otherwise**, which is the only reason the rule needs writing down. The authorship of
+  a commit here is the human who made it; the message describes the change, nothing else.
+- **Never `git add -A` / `git add .`** (or `git commit -a`) while other work is in
+  flight. Stage the paths that belong to the change. A sweep picks up scratch files,
+  half-finished work and files another task is mid-edit on, and the mistake is invisible
+  until someone reads the diff. Fix an unpushed one with `git rm --cached <path>` +
+  `git commit --amend --no-edit`.
 
-### Message format
+Day-to-day work happens on `dev`; `main` receives PRs and is what CI gates and the demo
+deploy run against. Never commit directly to `main`.
 
-Release commits use the version as the subject, matching the `CHANGELOG.md` section they
-introduce — the commit body **is** the new changelog section, verbatim:
-
-```
-## 1.0.0-dev.33
-
-### 📚 Documentation
-
-<paragraph explaining why the change was needed>
-
-- **Lead in bold**: what changed and the reasoning behind it.
-```
-
-Other commits follow Conventional Commits (`feat!:`, `refactor!:`, `test:`, `chore:`),
-with `!` marking a breaking change.
-
-### Branching
-
-Day-to-day work happens on `dev`; `main` receives PRs and is what CI gates and the
-demo deploy run against. Never commit directly to `main`.
-
-### Staging
-
-**Never `git add -A` / `git add .` while other work is in flight.** Stage the paths
-that belong to the change. A release commit that sweeps the whole tree picks up
-scratch files, half-finished work, and files another task is mid-edit on — and the
-mistake is invisible until someone reads the diff. If a commit did sweep something up
-and is unpushed, `git rm --cached <path>` + `git commit --amend --no-edit` is the fix.
+The message format and the full checklist live in the `commit` skill
+(`.claude/skills/commit/`), loaded when a commit is being written rather than carried in
+every call. In short: a release commit takes the version as its subject and its body
+**is** the new changelog section verbatim; everything else is Conventional Commits
+(`feat!:`, `refactor!:`, `test:`, `chore:`) with `!` marking a break.
 
 ## Changelog
 
-`CHANGELOG.md` follows Keep a Changelog + SemVer, with this house style:
+`CHANGELOG.md` follows Keep a Changelog + SemVer, newest section first. The emoji
+taxonomy and the entry template are in the `commit` skill; two things hold always:
 
-- One `## <version>` section per release, newest first.
-- Subsections use this fixed emoji taxonomy (only include the ones that apply):
-  `### 💥 Breaking Changes`, `### ✨ Features`, `### 🏗 Architecture`,
-  `### 🐛 Bug Fixes`, `### ✅ Tests`, `### 📚 Documentation`, `### 📦 Packaging`,
-  `### 🧹 Chore`.
-- Entries are **why-first**: a short paragraph of context when the reason isn't
-  obvious, then bullets in the form `- **Bold lead**: what changed and the reasoning.`
-  Never a bare "Updated X".
-- Breaking changes always come with a migration mapping (old name → new name), in a
+- **Entries are why-first.** A short paragraph of context when the reason isn't obvious,
+  then `- **Bold lead**: what changed and the reasoning.` Never a bare "Updated X".
+  Breaking changes always ship with a migration mapping (old name → new name), in a
   table when there are several.
-
-### The changelog must match pub.dev exactly
-
-Every version published to pub.dev has a section, and no section exists for a version
-that was not published. Both directions have been violated before: `0.0.1`–`0.8.0` and
-`0.29.0-dev`–`1.0.0-dev.10` shipped without ever being documented, while
-`1.0.0-dev.34`/`.35` had sections for builds nobody could install. Verify with:
+- **The changelog must match pub.dev exactly.** Every published version has a section,
+  and no section exists for a version that was not published. Both directions have been
+  violated: `0.0.1`–`0.8.0` and `0.29.0-dev`–`1.0.0-dev.10` shipped undocumented, while
+  `1.0.0-dev.34`/`.35` had sections for builds nobody could install. The only version
+  allowed to be documented-but-unpublished is the one in `pubspec.yaml`. A release that
+  bundles several milestones gets **one** section covering all of them.
 
 ```sh
 dart run tool/check_changelog.dart            # add --offline to skip the network
 ```
-
-It checks all four things at once: that `pubspec.yaml` and the top section name the
-same version, that sections run newest-first, that none is duplicated, and that the
-set of sections matches what pub.dev actually serves. It used to be a Python snippet
-pasted into this file — a checker you have to copy out of a doc before running is a
-checker that does not run.
-
-The only version allowed to be documented-but-unpublished is the one you are about to
-publish. A release
-that bundles several development milestones gets **one** section covering all of them
-— not one section per milestone. The milestones live in git history as ordinary
-Conventional Commits; only the commit that ships takes a version subject.
 
 ## Versioning & releases
 
@@ -335,14 +294,45 @@ and local cannot disagree about what the gate is. The steps, in order:
 | `dart format --set-exit-if-changed` | CI fails on unformatted code. The `.claude/` hook also formats every Dart file on write, so this should never be what fails. |
 | `flutter analyze` | Zero issues, tree-wide. No longer disabled in CI — do not disable it again. |
 | `flutter test` | Package tests, including `readme_showcase_test.dart`, which compiles the README's showcase snippet verbatim. |
-| `tool/check_triad.dart` | README ↔ example ↔ demo: section order, scale coverage, dead API names in UI strings. |
+| `tool/check_triad.dart` | README ↔ example ↔ demo: section order, scale coverage, dead API names in UI strings, and that every scale cites the M3 page it implements (`--trace` prints scale → spec → `file:line`). |
 | `tool/check_changelog.dart` | `CHANGELOG.md` ↔ `pubspec.yaml` ↔ pub.dev. |
+| `tool/check_context.dart` | The agent context window, by ring — see "Agent harness". |
 | `cd example && flutter analyze` | The single-file example must always compile. |
 | `cd demo && flutter analyze && flutter test` | Every showcase page renders; a page that throws fails here, not in the deploy. |
 
 Nothing in this table is a judgement call. That is deliberate — the rules that need
 judgement are in the sections above, and the rules that do not should not be costing
 anyone attention.
+
+## Agent harness
+
+The work in this repository is done with an agent, so the agent gets the same treatment
+the package gives its consumers: make the correct thing structural, make deviation
+visible. Three layers, and only the third used to exist.
+
+| When | Mechanism | Effect |
+| :--- | :--- | :--- |
+| before | `permissions` in `settings.json`; each command's `allowed-tools` | narrows what can run at all |
+| before | `hooks/guard-git.sh` (PreToolUse) | **refuses** — exits 2, the call never happens |
+| during | `hooks/format-dart.sh` (PostToolUse) | formats every Dart file on write |
+| after | `tool/verify.sh`, and `tests.yml` running the same script | blocks the merge |
+
+A warning nobody must act on is not a harness. Only the rows that stop something count.
+
+**Model floor.** `/verify`, `/new-scale` and `/release` pin `model: opus`. That is a
+floor, not a spread across tiers: all three are judgement work, and **verification never
+runs on a model weaker than the generator.** A reviewer that cannot follow the code
+approves out of incompetence, which is worse than no review because it manufactures
+confidence. Pin a cheaper tier only on a command that is genuinely mechanical — there
+is none yet, and saying so is more honest than inventing one.
+
+**Context rings.** Context is a quality variable, not only a cost: an inflated window
+dilutes the signal, loses the middle, and accumulates contradictions. So the ring every
+call pays for — this file — is budgeted by `tool/check_context.dart`, the on-demand ring
+(`commands/`, `skills/`) is budgeted per body, and everything else is retrieved by grep
+and left unbudgeted at ~58× the size of this file. When a rule here is really a
+procedure, move it to a skill instead of growing this file; that is where the commit
+checklist went.
 
 ## documentation/material_design (Obsidian vault)
 

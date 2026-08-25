@@ -2,6 +2,7 @@
 description: Cut a release — version, changelog section, gate, commit
 argument-hint: "<version> — e.g. 1.8.0"
 allowed-tools: Bash(dart:*), Bash(flutter:*), Bash(./tool/verify.sh:*), Bash(git:*), Read, Edit, Grep, Glob
+model: opus
 ---
 
 Prepare the release: **$ARGUMENTS**
