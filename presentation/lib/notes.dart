@@ -369,7 +369,7 @@ const speakerNotes = <SlideNotes>[
   // 18 ────────────────────────────────────────────────────────────────────
   SlideNotes(
     clock: '22:00',
-    title: 'Você já defende isso — no código',
+    title: 'Já defendemos isso — no código',
     opening: 'Repare no que aconteceu sem eu ter projetado.',
     beats: [
       'Esquerda: o tipo é contrato para quem USA o código. O compilador recusa '
@@ -384,7 +384,7 @@ const speakerNotes = <SlideNotes>[
   // 19 ────────────────────────────────────────────────────────────────────
   SlideNotes(
     clock: '23:30',
-    title: 'Reimplementei ~80% do BMAD sem saber',
+    title: 'Reimplementado ~80% do BMAD sem saber',
     opening: 'Voltando ao BMAD, agora com o que a gente construiu no meio.',
     beats: [
       'Eu não usei BMAD neste projeto, e ainda assim reimplementei a maior '
@@ -422,7 +422,68 @@ const speakerNotes = <SlideNotes>[
 
   // 21 ────────────────────────────────────────────────────────────────────
   SlideNotes(
-    clock: '27:30',
+    clock: '26:00',
+    title: 'Os 10 termos, agrupados pelo que fazem',
+    opening: 'Vocês vão ouvir esses dez nomes esta semana. Em trinta '
+        'segundos, onde cada um encaixa — e onde esta palestra estava.',
+    beats: [
+      'Diga os quatro verbos, não os dez nomes. Restringem, especificam, '
+          'abastecem, economizam. É isso que a sala leva.',
+      'Situe a palestra: os padrões 1 a 7 são o grupo de cima. Harness é a '
+          'versão executável deles.',
+      'A coluna da direita é sobre escala, não definição: o que cada grupo '
+          'compra quando o produto cresce. Definição eles buscam sozinhos.',
+      'Se o tempo estiver curto, leia só a última linha e passe.',
+    ],
+    glossary: [
+      (
+        'MCP',
+        'Model Context Protocol: um protocolo aberto para a IA falar com '
+            'sistemas externos. Escreve o servidor uma vez, qualquer cliente '
+            'compatível usa.'
+      ),
+      (
+        'RAG',
+        'Retrieval-Augmented Generation: buscar o trecho relevante na hora da '
+            'pergunta e responder ancorado nele, em vez de retreinar o modelo.'
+      ),
+      (
+        'AIDLC',
+        'o ciclo de desenvolvimento redesenhado para a IA executar e o humano '
+            'especificar, orientar e verificar.'
+      ),
+    ],
+    bridge: 'E o que disso eu realmente uso no repositório que vocês viram.',
+    warning: 'Não leia os dez em voz alta. Quatro verbos, e siga.',
+  ),
+
+  // 22 ────────────────────────────────────────────────────────────────────
+  SlideNotes(
+    clock: '27:15',
+    title: 'Seis entraram. Dois ficaram de fora de propósito.',
+    opening: 'Honestidade sobre o meu próprio repositório: eu não uso os dez. '
+        'Uso seis, e recusei dois com conta feita.',
+    beats: [
+      'Esquerda, rápido: todo número ali é greppável no repositório. Se '
+          'alguém quiser conferir depois, dá.',
+      'Direita é a parte que importa. MCP: integração ponto a ponto vira '
+          '1×N — com um consumidor só, N é 1 e o servidor não se paga. Vira '
+          'sim quando aparecer o segundo cliente.',
+      'RAG: 76 arquivos. Nessa escala o grep ganha do embedding, e um índice '
+          'desatualiza no primeiro commit — é o modo de falha que eu passei a '
+          'palestra inteira denunciando.',
+      'AIDLC: os estágios já estavam lá com outros nomes. Adotar a sigla '
+          'seria rótulo, não construção.',
+      'Landing: motivo escrito é decisão; sem motivo é esquecimento.',
+    ],
+    bridge: 'Três frases para levar.',
+    warning: 'Este é o slide que gera pergunta. Não se alongue aqui — guarde '
+        'para o Q&A.',
+  ),
+
+  // 23 ────────────────────────────────────────────────────────────────────
+  SlideNotes(
+    clock: '28:30',
     title: 'Três frases para levar',
     opening: 'Três frases, e eu termino.',
     beats: [
@@ -432,9 +493,9 @@ const speakerNotes = <SlideNotes>[
     ],
   ),
 
-  // 22 ────────────────────────────────────────────────────────────────────
+  // 24 ────────────────────────────────────────────────────────────────────
   SlideNotes(
-    clock: '29:00',
+    clock: '30:00',
     title: 'Obrigado',
     opening: 'Obrigado. Os links estão aí, a lib é aberta.',
     beats: [

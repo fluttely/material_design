@@ -60,7 +60,18 @@ const deck = <Slide>[
   Slide(section: 'BMAD & SDD', build: _decisionRule),
 
   // ═══════════════════════════════════════════════════════════════════════
-  // BLOCO 6 — Fechamento (2 min)
+  // BLOCO 6 — O mapa completo (2,5 min)
+  //
+  // A palestra inteira é um recorte: contexto durável. Estes dois slides
+  // situam esse recorte no mapa maior, porque a sala vai ouvir os outros
+  // nomes esta semana e merece saber onde cada um encaixa — inclusive os
+  // dois que este projeto não usa, e por quê.
+  // ═══════════════════════════════════════════════════════════════════════
+  Slide(section: 'O mapa', build: _theTenTopics),
+  Slide(section: 'O mapa', build: _adoptedAndSkipped),
+
+  // ═══════════════════════════════════════════════════════════════════════
+  // BLOCO 7 — Fechamento (2 min)
   // ═══════════════════════════════════════════════════════════════════════
   Slide(section: 'Fechamento', build: _takeaways),
   Slide(section: 'Fechamento', build: _end),
@@ -232,7 +243,7 @@ Widget _formula(BuildContext context) {
       const M3Gap(M3Spacings.s32),
       const Body(
         'O modelo não erra por causa do prompt. Erra por não ter os critérios '
-        'de decisão do projeto bem documentato.',
+        'de decisão do projeto bem documentado.',
         emphasis: true,
       ),
     ],
@@ -790,7 +801,7 @@ Widget _rotsVsEnforced(BuildContext context) {
       const M3Gap(M3Spacings.s24),
       const Body(
         'Um doc que mente custa mais que um doc ausente: ausente você '
-        'desconfia, mentindo você segue.',
+        'desconfia, mentindo você confia.',
         emphasis: true,
       ),
     ],
@@ -852,7 +863,7 @@ Widget _twoLevels(BuildContext context) {
     children: [
       const Kicker('Dois níveis, uma filosofia'),
       const M3Gap(M3Spacings.s24),
-      const Heading('Você já defende isso — no código.'),
+      const Heading('Já defendemos isso — no código.'),
       const M3Gap(M3Spacings.s32),
       IntrinsicHeight(
         child: Row(
@@ -899,7 +910,7 @@ Widget _bmadMap(BuildContext context) {
     children: [
       Kicker('BMAD & SDD'),
       M3Gap(M3Spacings.s16),
-      Heading('Reimplementei ~80% do BMAD sem saber.'),
+      Heading('Reimplementado ~80% do BMAD sem saber.'),
       M3Gap(M3Spacings.s32),
       MapTable(
         left: 'O que o BMAD dá',
@@ -977,7 +988,120 @@ Widget _decisionRule(BuildContext context) {
 }
 
 // ─────────────────────────────────────────────────────────────────────────
-// Bloco 6 — Fechamento
+// Bloco 6 — O mapa completo
+// ─────────────────────────────────────────────────────────────────────────
+
+/// The ten terms the room will hear this week, grouped by what they *do*.
+///
+/// Ten items is a list nobody remembers, so this slide does not present ten
+/// items: it presents four verbs. The grouping is the content — once someone
+/// can say "this one restricts, that one supplies", the individual names stop
+/// competing for the same slot in their memory.
+///
+/// The right column is deliberately about scale rather than about definition.
+/// A definition is what a search engine gives you; what a room cannot get
+/// anywhere else is which of these starts paying when the codebase, the team
+/// or the number of sessions grows.
+Widget _theTenTopics(BuildContext context) {
+  return const SlideFrame(
+    children: [
+      Kicker('Onde esta palestra encaixa'),
+      M3Gap(M3Spacings.s16),
+      Heading('Os 10 termos, agrupados pelo que fazem'),
+      M3Gap(M3Spacings.s32),
+      MapTable(
+        left: 'O grupo',
+        right: 'O que ele compra num produto grande',
+        rows: [
+          (
+            'Restringem\n1 Harness · 7 Prompt Engineering',
+            'o erro do modelo não chega em produção',
+          ),
+          (
+            'Especificam\n3 Skills · 4 AIDLC · 5 SDD',
+            'o método sai da cabeça do sênior',
+          ),
+          (
+            'Abastecem\n2 MCP · 8 RAG',
+            'capacidade e conhecimento sem retreinar',
+          ),
+          (
+            'Economizam\n6 Tokens · 9 Modelos · 10 Camadas',
+            'cada chamada carrega só o que decide',
+          ),
+        ],
+      ),
+      M3Gap(M3Spacings.s32),
+      Body(
+        'Nenhum dos dez melhora o pedido. Todos melhoram o mundo em que ele '
+        'é lido.',
+        emphasis: true,
+      ),
+    ],
+  );
+}
+
+/// What this repository actually took, and what it refused — with the reason.
+///
+/// The refusals are the half worth the slide. A talk that adopts everything
+/// reads as a shopping list; a talk that says "I left two of these out, and
+/// here is the arithmetic" gives the room permission to do the same, which is
+/// the only outcome that survives contact with their own Monday.
+///
+/// Every number on the left is greppable in the repository. That is the point:
+/// this is the one slide where the argument is checkable rather than claimed.
+Widget _adoptedAndSkipped(BuildContext context) {
+  final scheme = Theme.of(context).colorScheme;
+  return SlideFrame(
+    children: [
+      const Kicker('O mesmo repositório, hoje'),
+      const M3Gap(M3Spacings.s16),
+      const Heading('Seis entraram. Dois ficaram de fora de propósito.'),
+      const M3Gap(M3Spacings.s32),
+      IntrinsicHeight(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Panel(
+              title: 'Entraram',
+              accent: scheme.enforced,
+              children: const [
+                Bullet('Harness — 10 portões, e o CI roda o mesmo script',
+                    marker: '✓'),
+                Bullet('Prompt e Skills — 3 comandos e 1 skill, versionados',
+                    marker: '✓'),
+                Bullet('SDD — 24 das 26 escalas rastreadas até a spec',
+                    marker: '✓'),
+                Bullet('Tokens e camadas — teto medido: 86% hoje', marker: '✓'),
+                Bullet('Modelos — piso: revisor nunca mais fraco', marker: '✓'),
+              ],
+            ),
+            const M3Gap(M3Spacings.s24),
+            Panel(
+              title: 'Ficaram fora',
+              accent: scheme.rots,
+              children: const [
+                Bullet('MCP — integração 1×N. Aqui N = 1.', marker: '×'),
+                Bullet('RAG — 76 arquivos: busca léxica ganha do embedding.',
+                    marker: '×'),
+                Bullet('AIDLC — já estava lá, sem a sigla.', marker: '×'),
+              ],
+            ),
+          ],
+        ),
+      ),
+      const M3Gap(M3Spacings.s24),
+      const Body(
+        'Deixar de fora com o motivo escrito é uma decisão. Sem o motivo, é '
+        'esquecimento — e daqui a seis meses ninguém sabe qual dos dois foi.',
+        emphasis: true,
+      ),
+    ],
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────
+// Bloco 7 — Fechamento
 // ─────────────────────────────────────────────────────────────────────────
 
 Widget _takeaways(BuildContext context) {
