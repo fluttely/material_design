@@ -4,6 +4,35 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 1.8.1
+
+`M3EShapeBorder` fits a morphing path to a bounding box so the shape fills its layout
+rect. It took that box to be the union of the morph's two endpoints, on the reasoning
+that every `M3EShapes` constant is normalised to the unit box and so the union equals
+both endpoints. It does not: `M3ERoundedPolygon.normalized` fits by *approximate*
+bounds — anchors and control points — while the fit uses the *exact* ones, so the
+constants do not share a bounding box at all. `cookie7Sided` is 0.93 tall where
+`sunny` is 0.99.
+
+### 🐛 Bug Fixes
+
+- **A morphing shape no longer breathes**: fitting to the union made every frame of a
+  morph smaller than the shapes it ran between, so a mark shrank by up to 7% across the
+  animation and then snapped back to full size on the frame it settled. The bounds are
+  now interpolated at the morph's own progress, which is the only fit continuous at
+  both ends — at `t == 0` it is exactly the start shape's fit and at `t == 1` exactly
+  the end shape's, the same one the settled border uses.
+
+### ✅ Tests
+
+- **The regression guard now measures tightly enough to be one**: the test that was
+  supposed to catch this used `Path.getBounds()`, which includes control points sitting
+  well outside the curve and is far too coarse to see a few percent of drift. It passed
+  for six releases while the shape visibly breathed. It now walks the outline to get
+  true bounds, runs the endpoint pairs whose normalised bounds disagree the most, and
+  asserts within 1% of the settled height — plus a second test pinning the last morph
+  frame to the size of the shape it lands on.
+
 ## 1.8.0
 
 The package's central rule — README, `example/` and `demo/` must never drift apart —

@@ -74,23 +74,30 @@ class M3EShapeBorder extends OutlinedBorder {
 
   /// The bounds the path occupies, used to fit it to the layout rect.
   ///
-  /// A morph is bounded by the union of its two endpoints rather than by the
-  /// current frame's bounds — otherwise the shape would breathe as the morph
-  /// ran, because the fit would rescale on every frame. Every [M3EShapes]
-  /// constant is normalised to the unit box, so in the common case the union
-  /// equals both endpoints and the settled shape lines up exactly with the
-  /// last morph frame.
+  /// A morph is bounded by its two endpoints' bounds *interpolated at
+  /// [_progress]*, not by the current frame's own bounds and not by the union
+  /// of the two. Interpolating is the only fit that is continuous at both ends
+  /// of the morph: at `t == 0` it is exactly the start shape's own fit and at
+  /// `t == 1` exactly the end shape's, which is what the settled, non-morphing
+  /// border uses — so the last morph frame and the shape it lands on are the
+  /// same size.
+  ///
+  /// The union was the obvious choice and is wrong. [M3ERoundedPolygon
+  /// .normalized] fits a shape to the unit box by its *approximate* bounds
+  /// (anchors and controls) while the fit here uses the *exact* ones, so the
+  /// normalised constants do not in fact share a bounding box: `cookie7Sided`
+  /// is 0.93 tall against `clover4Leaf`'s 0.94 and `sunny`'s 0.99. Fitting the
+  /// morph to the union of those made every frame of it smaller than the shape
+  /// it started and ended on, so the mark shrank by up to 7% across the morph
+  /// and then snapped back to full size on the frame it settled.
   List<double> _sourceBounds() {
     final from = polygon.calculateBounds(approximate: false);
     if (_morphTo == null) return from;
 
     final to = _morphTo.calculateBounds(approximate: false);
-    return <double>[
-      math.min(from[0], to[0]),
-      math.min(from[1], to[1]),
-      math.max(from[2], to[2]),
-      math.max(from[3], to[3]),
-    ];
+    // Not the file-private `_lerp`: the static `_lerp` below shadows it here.
+    double at(int i) => from[i] + (to[i] - from[i]) * _progress;
+    return <double>[at(0), at(1), at(2), at(3)];
   }
 
   Path _pathFor(Rect rect) {

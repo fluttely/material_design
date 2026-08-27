@@ -23,9 +23,13 @@
 ///    identifier that no longer exists in `lib/`. Pre-1.0 the demo's headings
 ///    advertised deleted `M3*Token` enums for months, because no compiler
 ///    checks a string.
+/// 5. **Spec traceability.** Every scale cites the https://m3.material.io/ page
+///    it implements, so "we follow the spec" is a claim with evidence behind it
+///    rather than an assertion. See [_checkSpecTraceability].
 ///
 /// ```sh
 /// dart run tool/check_triad.dart
+/// dart run tool/check_triad.dart --trace   # print the traceability table
 /// ```
 ///
 /// Exits non-zero on any error. Warnings are printed but do not fail the build.
@@ -89,10 +93,25 @@ const demoCoverageExemptions = <String, String>{
   'M3EdgeInsetsPatterns': 'exercised by the Spacing page rather than named',
 };
 
+/// Scales that cite no M3 spec page because there is none to cite.
+///
+/// The package's premise is that it ships the spec rather than inventions, so
+/// the honest way to hold that line is to name the exceptions out loud instead
+/// of letting them hide among the twenty-odd scales that do cite one. Each
+/// entry states what the values are derived from. Adding a name here is a claim
+/// that Material Design 3 genuinely does not specify this scale — not a way to
+/// skip looking for the page.
+const specExemptions = <String, String>{
+  'M3ZIndexes': 'not formal M3 tokens; a stacking convention derived from the '
+      'elevation order, as its own doc says',
+  'M3TextUtils': 'a utility namespace for manipulating text styles, not a '
+      'token scale — the scale it serves is M3TypeScale',
+};
+
 final _errors = <String>[];
 final _warnings = <String>[];
 
-void main() {
+void main(List<String> args) {
   final readme = File('README.md').readAsStringSync();
   final example = File('example/lib/main.dart').readAsStringSync();
   final destinations = File(
@@ -100,12 +119,16 @@ void main() {
   ).readAsStringSync();
   final demoSources = _readAll(Directory('demo/lib'));
   final libSources = _readAll(Directory('lib'));
+  final scales = _publishedScales(libSources);
 
   _checkSectionOrder('README.md', _readmeSections(readme));
   _checkSectionOrder('example/lib/main.dart', _exampleSections(example));
   _checkDemoSections(destinations);
-  _checkScaleCoverage(libSources, readme, example, demoSources);
+  _checkScaleCoverage(scales, readme, example, demoSources);
   _checkDeadNames(libSources, readme, demoSources);
+  _checkSpecTraceability(scales);
+
+  if (args.contains('--trace')) _printTraceTable(scales);
 
   _report();
   exit(_errors.isEmpty ? 0 : 1);
@@ -210,16 +233,15 @@ void _checkDemoSections(String destinations) {
 // ─────────────────────────────────────────────────────────────────────────────
 
 void _checkScaleCoverage(
-  Map<String, String> libSources,
+  List<_Scale> scales,
   String readme,
   String example,
   Map<String, String> demoSources,
 ) {
-  final scales = _publishedScales(libSources);
   final demoText = demoSources.values.join('\n');
   final gaps = <String, List<String>>{};
 
-  for (final scale in scales) {
+  for (final scale in scales.map((s) => s.name)) {
     final missing = <String>[
       if (!readme.contains(scale)) 'README',
       if (!example.contains(scale)) 'example',
@@ -243,28 +265,140 @@ void _checkScaleCoverage(
   }
 }
 
+/// A published token scale, with the evidence needed to trace it.
+class _Scale {
+  const _Scale(this.name, this.file, this.line, this.specUrls);
+
+  final String name;
+
+  /// Where it is declared — the `file:line` half of the traceability link.
+  final String file;
+  final int line;
+
+  /// The https://m3.material.io/ pages cited in its doc comment.
+  final List<String> specUrls;
+}
+
 /// Every `abstract final class M3Xs` whose body publishes a `values` list.
 ///
 /// The `values` list is the house marker of a real, enumerable token scale —
 /// helper classes and namespaces do not have one.
-Set<String> _publishedScales(Map<String, String> libSources) {
-  final scales = <String>{};
+List<_Scale> _publishedScales(Map<String, String> libSources) {
+  final scales = <_Scale>[];
   final declaration = RegExp(
     r'^abstract final class (M3E?\w+)',
     multiLine: true,
   );
+  final specUrl = RegExp(r'https://m3\.material\.io/[^\s)]*');
 
-  for (final source in libSources.values) {
+  for (final entry in libSources.entries) {
+    final source = entry.value;
     final matches = declaration.allMatches(source).toList();
     for (var i = 0; i < matches.length; i++) {
       final start = matches[i].end;
       final end = i + 1 < matches.length ? matches[i + 1].start : source.length;
-      if (source.substring(start, end).contains('static const List<')) {
-        scales.add(matches[i].group(1)!);
+      if (!source.substring(start, end).contains('static const List<')) {
+        continue;
       }
+      final line =
+          '\n'.allMatches(source.substring(0, matches[i].start)).length;
+      scales.add(
+        _Scale(
+          matches[i].group(1)!,
+          entry.key,
+          line + 1,
+          specUrl
+              .allMatches(_docCommentAbove(source, line))
+              .map((m) => m.group(0)!.replaceAll(RegExp(r'[.,]$'), ''))
+              .toSet()
+              .toList(),
+        ),
+      );
     }
   }
+  scales.sort((a, b) => a.name.compareTo(b.name));
   return scales;
+}
+
+/// The unbroken run of `///` lines (and any annotations among them) directly
+/// above a declaration on [zeroBasedLine].
+String _docCommentAbove(String source, int zeroBasedLine) {
+  final lines = source.split('\n');
+  final doc = <String>[];
+  for (var i = zeroBasedLine - 1; i >= 0; i--) {
+    final trimmed = lines[i].trimLeft();
+    if (!trimmed.startsWith('///') && !trimmed.startsWith('@')) break;
+    doc.add(trimmed);
+  }
+  return doc.join('\n');
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// 5. Spec traceability
+// ─────────────────────────────────────────────────────────────────────────────
+
+/// Requires every published scale to cite the M3 page it implements.
+///
+/// The package's whole claim is that an app built on it adheres to Material
+/// Design 3 by construction. That claim rests on the values being the spec's
+/// values — and until this check existed, the only thing standing behind it was
+/// that whoever typed the numbers had looked them up. `CLAUDE.md` says a new
+/// API "must state which M3 spec section it implements"; three scales did not,
+/// which is the usual arithmetic of a rule with no gate under it.
+///
+/// A citation is not proof that the numbers are right — nothing here reads the
+/// spec. What it buys is the link: scale → spec page → `file:line`, printable
+/// with `--trace`, so a reviewer can check a scale against its source in one
+/// hop instead of searching for which page it came from. Traceability is the
+/// cheap half of correctness, and it is the half that rots silently.
+void _checkSpecTraceability(List<_Scale> scales) {
+  final undocumented = scales
+      .where((s) => s.specUrls.isEmpty && !specExemptions.containsKey(s.name))
+      .toList();
+
+  final staleExemptions = specExemptions.keys.where(
+    (name) => !scales.any((s) => s.name == name),
+  );
+  for (final name in staleExemptions) {
+    _warnings.add(
+      'specExemptions still lists "$name", which is no longer a published '
+      'scale. Drop the entry.',
+    );
+  }
+
+  if (undocumented.isEmpty) {
+    final cited = scales.length - specExemptions.length;
+    print(
+      '  ✓ spec traceability — $cited of ${scales.length} scales cite an M3 '
+      'page (${specExemptions.length} exempt, with reasons)',
+    );
+    return;
+  }
+  for (final scale in undocumented) {
+    _errors.add(
+      '${scale.name} cites no M3 spec page (${scale.file}:${scale.line}). Add '
+      'the https://m3.material.io/ URL its values come from to the class doc '
+      'comment — or, if Material Design 3 genuinely does not specify this '
+      'scale, record it in specExemptions with what the values derive from.',
+    );
+  }
+}
+
+/// The traceability table: scale → spec page → `file:line`.
+///
+/// Printed on `--trace` rather than written to a file. The vault's coverage
+/// maps are prose a human maintains; this is the generated view, and the point
+/// of generating it is that it cannot be out of date the way the prose was.
+void _printTraceTable(List<_Scale> scales) {
+  print('\n  Traceability — scale → spec → source\n');
+  print('  | Scale | M3 spec | Declared |');
+  print('  | :--- | :--- | :--- |');
+  for (final scale in scales) {
+    final spec = scale.specUrls.isNotEmpty
+        ? scale.specUrls.map((u) => '[spec]($u)').join(' ')
+        : '_exempt — ${specExemptions[scale.name]}_';
+    print('  | `${scale.name}` | $spec | `${scale.file}:${scale.line}` |');
+  }
 }
 
 // ─────────────────────────────────────────────────────────────────────────────

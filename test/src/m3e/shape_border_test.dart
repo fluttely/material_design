@@ -1,9 +1,38 @@
 // The expressive module is @experimental by design; testing it opts in.
 // ignore_for_file: experimental_member_use
 
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:material_design/material_design.dart';
+
+/// The bounds the path actually covers.
+///
+/// [Path.getBounds] is conservative — it includes control points that sit well
+/// outside the curve — which is too coarse to see a few percent of drift in a
+/// fitted shape, so this walks the outline instead.
+Rect tightBounds(Path path) {
+  var left = double.infinity;
+  var top = double.infinity;
+  var right = -double.infinity;
+  var bottom = -double.infinity;
+
+  for (final metric in path.computeMetrics()) {
+    const samples = 720;
+    for (var i = 0; i <= samples; i++) {
+      final tangent = metric.getTangentForOffset(metric.length * i / samples);
+      if (tangent == null) continue;
+      final point = tangent.position;
+      left = math.min(left, point.dx);
+      top = math.min(top, point.dy);
+      right = math.max(right, point.dx);
+      bottom = math.max(bottom, point.dy);
+    }
+  }
+
+  return Rect.fromLTRB(left, top, right, bottom);
+}
 
 void main() {
   const rect = Rect.fromLTWH(0, 0, 100, 100);
@@ -108,17 +137,56 @@ void main() {
     });
 
     test('the fitted size stays stable across the whole morph', () {
-      // Regression guard: fitting each frame to its own bounds would make the
-      // shape breathe as it morphed. The union of the endpoints is used
-      // instead, so every frame maps onto the same rect.
-      for (var t = 0.0; t <= 1.0; t += 0.1) {
-        final bounds = (from.lerpTo(to, t)! as M3EShapeBorder)
-            .getOuterPath(rect)
-            .getBounds();
+      // Regression guard, and it has to measure tightly to be one: the union
+      // of the endpoints' bounds passed this assertion for six releases at
+      // `Path.getBounds()` precision while a morphing mark visibly shrank by
+      // 7% and snapped back on the frame it settled. The pairs below are the
+      // ones whose normalised bounds disagree the most — `cookie7Sided` is
+      // 0.93 tall where `sunny` is 0.99 — so they are where the fit shows.
+      final pairs = <(M3ERoundedPolygon, M3ERoundedPolygon)>[
+        (M3EShapes.circle, M3EShapes.burst),
+        (M3EShapes.cookie7Sided, M3EShapes.clover4Leaf),
+        (M3EShapes.clover4Leaf, M3EShapes.sunny),
+        (M3EShapes.sunny, M3EShapes.gem),
+        (M3EShapes.gem, M3EShapes.cookie7Sided),
+      ];
 
-        expect(bounds.width, closeTo(rect.width, 5), reason: 't=$t');
-        expect(bounds.height, closeTo(rect.height, 5), reason: 't=$t');
+      for (final (start, end) in pairs) {
+        final a = M3EShapeBorder(start);
+        final b = M3EShapeBorder(end);
+        final settled = tightBounds(a.getOuterPath(rect));
+
+        for (var i = 0; i <= 20; i++) {
+          final t = i / 20;
+          final frame = tightBounds(
+            (a.lerpTo(b, t)! as M3EShapeBorder).getOuterPath(rect),
+          );
+
+          // 1% of the rect. The width may legitimately dip further — a star's
+          // points really do retract as it morphs — but the fit must not add
+          // to it, and the height of these pairs is fit alone.
+          expect(
+            frame.height,
+            closeTo(settled.height, rect.height * 0.01),
+            reason: '$start -> $end at t=$t',
+          );
+        }
       }
+    });
+
+    test('the last morph frame is the size of the shape it settles on', () {
+      // The snap the fit used to make: at t == 1 the border stops morphing and
+      // was refitted to its own bounds, jumping size between two consecutive
+      // frames of the same animation.
+      final a = M3EShapeBorder(M3EShapes.gem);
+      final b = M3EShapeBorder(M3EShapes.cookie7Sided);
+
+      final lastFrame = tightBounds(
+          (a.lerpTo(b, 0.999)! as M3EShapeBorder).getOuterPath(rect));
+      final settled = tightBounds(b.getOuterPath(rect));
+
+      expect(lastFrame.width, closeTo(settled.width, 0.5));
+      expect(lastFrame.height, closeTo(settled.height, 0.5));
     });
 
     test('lerping to a non-M3E shape falls back instead of throwing', () {

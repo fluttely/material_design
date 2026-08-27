@@ -2,6 +2,7 @@
 description: Add an M3 token scale across all nine artifacts it has to touch
 argument-hint: "<scale name> — e.g. \"M3IconWeights, the Material Symbols wght axis\""
 allowed-tools: Bash(dart:*), Bash(flutter:*), Bash(./tool/verify.sh:*), Read, Edit, Write, Grep, Glob
+model: opus
 ---
 
 Add the scale: **$ARGUMENTS**
