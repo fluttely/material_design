@@ -409,6 +409,13 @@ class _TypographySection extends StatelessWidget {
           'M3TextUtils.dyslexiaFriendly — wider tracking, taller lines',
           style: M3TextUtils.dyslexiaFriendly(M3TypeScale.bodyMedium),
         ),
+        // With a bundled variable font (Roboto Flex) on Flutter < 3.41, the
+        // weight only renders once it is on the `wght` axis. Harmless
+        // otherwise: the axis value is the weight the style already has.
+        Text(
+          'M3TextUtils.withWeightAxis — the weight, on the wght axis',
+          style: M3TextUtils.withWeightAxis(M3TypeScale.titleMedium),
+        ),
       ],
     );
   }

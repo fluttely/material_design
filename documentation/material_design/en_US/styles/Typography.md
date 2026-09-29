@@ -71,10 +71,47 @@ survive (the 1.0.0-dev.34 lesson: `copyWith(textTheme:)` blanked every text colo
 - `highContrast(style)` — one weight step bolder.
 - `withFontFamily(base:, fontFamily:, fallback:)` — custom family over the system
   sans-serif stack.
+- `withWeightAxis(style)` / `textThemeWithWeightAxis(theme)` — the style's own
+  `fontWeight`, set on the `wght` axis (Unreleased). See below.
 
-## Still planned
+`highContrast` and `dyslexiaFriendly` step to the next *named* weight by value. They
+used to look the weight up in `FontWeight.values`, and since Flutter 3.41 a weight
+like `FontWeight(450)` (what `FontWeight.lerp` produces mid-animation) is in no list —
+the miss resolved to `w100`, making "bolder" text thinner. Fixed, with a regression
+test that failed against the old code.
 
-Variable-font axes guidance (wght/GRAD/wdth/ROND with Roboto Flex) —
-[[../Roadmap|Roadmap 3.2]].
+## Variable fonts (Roboto Flex) — Roadmap 3.2
+
+**What the spec gives a value for:** only the weight. The type scale fixes one weight
+per role (and the emphasized scale one step above it). It defines no grade, width,
+roundness or optical size for text — unlike icons, where `GRAD` has published stops
+(`M3IconGrades`). So the package encodes the weight axis and nothing else; inventing
+text grades would be exactly the kind of number this package exists to keep out.
+
+**Why the weight needs help at all:** until **Flutter 3.41** a `FontWeight` did not
+reach the `wght` axis of a variable font
+([flutter/flutter#148026](https://github.com/flutter/flutter/issues/148026), engine
+commit `e090117`, first stable 3.41.0). The package floor is 3.27, so on 3.27–3.38 an
+app that bundles Roboto Flex draws every role at the font's default weight, and
+`M3EmphasizedTypeScale` renders identical to the baseline. `withWeightAxis` sets
+`FontVariation('wght', fontWeight.value)` — a number the style already carries.
+
+- **Harmless elsewhere**: a static font has no `wght` axis and ignores it; on 3.41+ it
+  repeats what `FontWeight` already sets.
+- **Apply it last**: an explicit `wght` *overrides* `FontWeight`, so a later
+  `copyWith(fontWeight:)` draws the old weight on a variable font. `highContrast` and
+  `dyslexiaFriendly` re-sync an existing axis; they never add one.
+- **Map emphasis first**: `M3EmphasizedTypeScale.of` looks up by value, so a style that
+  already has variations comes back unchanged.
+- **Animation bonus**: two styles with the same axes in the same order lerp the axis
+  continuously, so a baseline → emphasized transition is smooth instead of snapping.
+
+**Left to the caller, deliberately:** `GRAD`, `wdth`, `ROND`, `slnt`. `opsz` too:
+Flutter documents `FontVariation.opticalSize` as normally derived from the font size,
+and OpenType (points) and CSS (px) disagree on its unit, so setting it explicitly
+would be a guess. Revisit if the spec publishes type-axis values.
+
+When the package floor reaches Flutter 3.41, `withWeightAxis` becomes redundant and
+can be removed.
 
 Related: [[Styles]] · [[../foundations/Accessibility|Accessibility]]

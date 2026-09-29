@@ -100,7 +100,7 @@ Spec: https://m3.material.io/styles/typography — 15 baseline styles ✅ (`M3Ty
 | # | Item | Notes |
 | :- | :--- | :--- |
 | 3.1 ✅ `1.6.0` | **`M3EmphasizedTypeScale`** — the 15 roles one weight step heavier, each keeping its baseline's size and line height so a swap never reflows a layout. `M3EmphasizedTypeScale.of(style)` maps a baseline style to its counterpart and returns anything else unchanged. `M3TypeScale.values` landed alongside it, index-aligned. | Expressive type |
-| 3.2 🔭 | **Variable font axes guidance**: document `wght`/`GRAD`/`wdth`/`ROND` usage with Roboto Flex; a `M3FontAxes` helper only if it can stay spec-true in pure Flutter. | Typography / fonts |
+| 3.2 ✅ `Unreleased` | **Variable font axes**: the spec gives type exactly one axis value — the weight per role — so that is the only one encoded. `M3TextUtils.withWeightAxis` / `textThemeWithWeightAxis` put the style's own `fontWeight` on `wght`, because before Flutter 3.41 `FontWeight` never reached the axis (flutter/flutter#148026) and Roboto Flex drew every role, emphasized or not, at one weight. `GRAD`/`wdth`/`ROND`/`opsz` are documented and left to the caller — no spec values for text, and `opsz`'s unit is contested. No `M3FontAxes` class: one axis does not need a namespace. Found on the way: `highContrast`/`dyslexiaFriendly` turned `FontWeight(450)` into `w100`; fixed. | Typography / fonts |
 
 > **Spec fact recorded:** `titleSmall` and `labelLarge` are metrically identical
 > (14sp / 20 line height / 0.1 tracking / weight 500), so the 15 roles collapse to 14
@@ -230,8 +230,8 @@ the contract `material_ui`'s components are built from, and nothing they already
 | `1.7.0` | — | Icon axes (`M3IconWeights`, `M3IconGrades`, `M3IconFills`, `M3IconOpticalSizes`, `M3IconStyle`); demo navigation rebuilt on one destination list |
 | `1.8.0` | — | The triad as a program (`tool/check_triad.dart`, `tool/check_changelog.dart`, `tool/verify.sh`); the demo's Code mode |
 | `1.8.1` | — | Morph bounds interpolated instead of unioned |
-| next minor | — | Phase 7 (`Unreleased` in the changelog) |
-| later | — | 1.5 (docs), 3.2 |
+| next minor | — | Phase 7 and 3.2 (`Unreleased` in the changelog) |
+| later | — | 1.5 (docs) |
 
 > SemVer note: Phase 0 was breaking and still shipped in a minor. That is the
 > pre-adopter policy in `CLAUDE.md` — no one is on `1.x` yet, so a major would misstate

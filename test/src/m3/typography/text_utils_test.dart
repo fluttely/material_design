@@ -151,6 +151,117 @@ void main() {
       );
     });
 
+    test('highContrast steps up from a weight between the named ones', () {
+      // FontWeight(450) is legal since Flutter 3.41, and lerp produces it
+      // there (a named weight before). Looking it up in FontWeight.values
+      // missed, and the miss resolved to w100 — thinner, not bolder.
+      final between = FontWeight.lerp(FontWeight.w400, FontWeight.w500, 0.5);
+      final bolder = M3TextUtils.highContrast(TextStyle(fontWeight: between));
+
+      expect(bolder.fontWeight!.value, greaterThan(between!.value));
+      expect(FontWeight.values, contains(bolder.fontWeight));
+    });
+
+    group('withWeightAxis', () {
+      double? wght(TextStyle style) => style.fontVariations
+          ?.where((v) => v.axis == 'wght')
+          .map((v) => v.value)
+          .singleOrNull;
+
+      test('carries every scale weight onto the axis, and nothing else', () {
+        for (final style in [
+          ...M3TypeScale.values,
+          ...M3EmphasizedTypeScale.values,
+        ]) {
+          final axis = M3TextUtils.withWeightAxis(style);
+          expect(wght(axis), style.fontWeight!.value);
+          expect(axis.fontSize, style.fontSize);
+          expect(axis.height, style.height);
+          expect(axis.letterSpacing, style.letterSpacing);
+          expect(axis.fontWeight, style.fontWeight);
+        }
+      });
+
+      test('keeps other axes and replaces an existing wght in place', () {
+        final axis = M3TextUtils.withWeightAxis(
+          M3TypeScale.titleMedium.copyWith(
+            fontVariations: const [
+              FontVariation('GRAD', -25),
+              FontVariation('wght', 300),
+              FontVariation('wdth', 90),
+            ],
+          ),
+        );
+
+        expect(
+          axis.fontVariations!.map((v) => v.axis),
+          ['GRAD', 'wght', 'wdth'],
+        );
+        expect(wght(axis), 500);
+      });
+
+      test('is idempotent', () {
+        final once = M3TextUtils.withWeightAxis(M3TypeScale.bodyLarge);
+        expect(M3TextUtils.withWeightAxis(once), once);
+      });
+
+      test('leaves a style without a weight alone', () {
+        const style = TextStyle(fontSize: 14);
+        expect(M3TextUtils.withWeightAxis(style), same(style));
+      });
+
+      test('highContrast and dyslexiaFriendly move the axis with the weight',
+          () {
+        final axis = M3TextUtils.withWeightAxis(M3TypeScale.bodyMedium);
+
+        // A stale 400 would override the new FontWeight on a variable font.
+        expect(wght(M3TextUtils.highContrast(axis)), 500);
+        expect(wght(M3TextUtils.dyslexiaFriendly(axis)), 500);
+        // A style that never had the axis does not grow one.
+        expect(
+          M3TextUtils.highContrast(M3TypeScale.bodyMedium).fontVariations,
+          isNull,
+        );
+      });
+
+      test('textThemeWithWeightAxis covers all fifteen roles', () {
+        final theme = M3TextUtils.textThemeWithWeightAxis(
+          M3TextTheme.toTextTheme(),
+        );
+        final styles = [
+          theme.displayLarge,
+          theme.displayMedium,
+          theme.displaySmall,
+          theme.headlineLarge,
+          theme.headlineMedium,
+          theme.headlineSmall,
+          theme.titleLarge,
+          theme.titleMedium,
+          theme.titleSmall,
+          theme.bodyLarge,
+          theme.bodyMedium,
+          theme.bodySmall,
+          theme.labelLarge,
+          theme.labelMedium,
+          theme.labelSmall,
+        ];
+
+        for (final (i, style) in styles.indexed) {
+          expect(wght(style!), M3TypeScale.values[i].fontWeight!.value);
+        }
+      });
+
+      test('an emphasis transition animates the axis', () {
+        // Same axes in the same order, so TextStyle.lerp interpolates the
+        // weight continuously instead of snapping at t = 0.5.
+        final from = M3TextUtils.withWeightAxis(M3TypeScale.titleMedium);
+        final to = M3TextUtils.withWeightAxis(
+          M3EmphasizedTypeScale.titleMedium,
+        );
+        expect(wght(TextStyle.lerp(from, to, 0.25)!), closeTo(550, 1e-9));
+      });
+    });
+
     test('mono swaps the family and zeroes tracking', () {
       final mono = M3TextUtils.mono(M3TypeScale.bodyMedium);
       expect(mono.fontFamily, 'Roboto Mono');

@@ -51,6 +51,27 @@ adopters, so removals ship without deprecation shims and take a minor, not a maj
   to retype sixteen durations by hand — which is exactly what the demo's Motion page
   did not do, and why it showed only the seven the schemes use. Durations are listed
   shortest first, curves in declaration order.
+- **`M3TextUtils.withWeightAxis` and `textThemeWithWeightAxis`**: until Flutter 3.41 a
+  `FontWeight` never reached the `wght` axis of a variable font
+  ([flutter/flutter#148026](https://github.com/flutter/flutter/issues/148026)). The
+  package supports 3.27 and up, so an app bundling Roboto Flex on 3.27–3.38 drew every
+  role of the type scale at the font's default weight — `titleMedium`'s 500 was lost,
+  and `M3EmphasizedTypeScale` rendered exactly what the baseline did. These set the axis
+  to the weight the style already carries: no number of their own, so they are harmless
+  on a static font and redundant, not wrong, on 3.41+. Apply them last — an explicit
+  `wght` overrides a later `copyWith(fontWeight:)`. Only the weight is carried: the
+  type scale defines no grade, width or roundness, and Flutter documents optical size
+  as derived from the font size.
+
+### 🐛 Bug Fixes
+
+- **`highContrast` and `dyslexiaFriendly` no longer make text thinner**: they found the
+  next weight by looking the current one up in `FontWeight.values`. Since Flutter 3.41
+  a weight such as `FontWeight(450)` is legal — `FontWeight.lerp` produces one in any
+  weight animation — and it is in no list, so the lookup missed and resolved to `w100`.
+  They now step to the next named weight by value. Both also move a `wght` axis set by
+  `withWeightAxis` along with the weight, where a stale one would have kept drawing the
+  old weight on a variable font.
 
 ### 📚 Documentation
 

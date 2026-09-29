@@ -81,6 +81,11 @@ M3TextTheme.toTextTheme(); // the bare TextTheme, if you prefer
               code: r'''
 Text('Balance', style: M3TypeScale.titleMedium);
 Text(r'R$ 12.480', style: M3EmphasizedTypeScale.headlineLarge);
+
+// Or map whatever style a row already uses:
+style: isSelected
+    ? M3EmphasizedTypeScale.of(M3TypeScale.bodyLarge)
+    : M3TypeScale.bodyLarge,
 ''',
               preview: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -99,19 +104,6 @@ Text(r'R$ 12.480', style: M3EmphasizedTypeScale.headlineLarge);
                   ),
                 ],
               ),
-            ),
-            const CodeRecipe(
-              title: 'Map any style to its counterpart',
-              summary: 'Useful when the baseline style is a variable — a '
-                  'selected row emphasizes whatever it was already using.',
-              code: '''
-Text(
-  label,
-  style: isSelected
-      ? M3EmphasizedTypeScale.of(M3TypeScale.bodyLarge)
-      : M3TypeScale.bodyLarge,
-)
-''',
             ),
           ],
         ),
@@ -140,6 +132,24 @@ M3TextUtils.withFontFamily(
                   color: colorScheme.onSurface,
                 ),
               ),
+            ),
+            const CodeRecipe(
+              title: 'Bundle a variable font',
+              summary: 'Before Flutter 3.41 a FontWeight never reached the '
+                  'wght axis, so Roboto Flex drew every role — and every '
+                  'emphasized one — at the same weight. withWeightAxis sets '
+                  'the axis to the weight the style already has.',
+              code: '''
+final theme = M3TextTheme.applyToTheme(
+  ThemeData(fontFamily: 'RobotoFlex'),
+);
+theme.copyWith(
+  textTheme: M3TextUtils.textThemeWithWeightAxis(theme.textTheme),
+);
+
+// Per style — apply it last, after any change of weight:
+M3TextUtils.withWeightAxis(M3EmphasizedTypeScale.titleMedium);
+''',
             ),
             const CodeRecipe(
               title: 'Clamp text scaling, reluctantly',

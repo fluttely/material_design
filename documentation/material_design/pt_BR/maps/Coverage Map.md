@@ -13,6 +13,7 @@ linhas já entregues carregam a versão; `Unreleased` marca o que ainda não est
 | Larguras de borda | ✅ | ✅ | ✅ | ✅ Border | as quatro larguras mais `M3Border.all`/`.fromBorderSide` (fechado pela 1.8.0) |
 | Tipografia (15 de base) | ✅ | ✅ | ✅ | ✅ Typography | `M3TypeScale.values` adicionado na 1.6.0 |
 | Tipografia (enfatizada) | ✅ 1.6.0 | ✅ | ✅ | ✅ Typography | os 15 pares mostrados com a prova numérica de que a troca não mexe no layout |
+| Tipografia: fontes variáveis (`wght`) | ✅ Unreleased | ✅ | ✅ | ✅ Typography (Code) | `withWeightAxis` / `textThemeWithWeightAxis`; só o peso tem valor na spec — `GRAD`/`wdth`/`ROND`/`opsz` documentados, não codificados (Roadmap 3.2). Só na página de código: o demo roda no Flutter 3.41+, onde a página visual não mostraria diferença |
 | Elevação | ✅ | ✅ | ✅ | ✅ Elevation | — |
 | Cor: paletas tonais | ✅ | ✅ | ✅ | ✅ Tonal | `M3CorePalette.fromSeed` renderizado como suas seis paletas-chave (Unreleased) |
 | Cor: schemes/variantes/contraste | ✅ 1.6.0 | ✅ | ✅ | ✅ Schemes | as nove variantes + os quatro níveis de contraste com razões medidas |
@@ -42,7 +43,7 @@ linhas já entregues carregam a versão; `Unreleased` marca o que ainda não est
 | Layouts canônicos / panes | ✅ 1.6.0 | ✅ 1.6.0 | ✅ 1.6.0 | ✅ 1.6.0 Layouts | os três layouts + `M3CanonicalLayout`/`M3PaneRole`/`M3PaneDisplayMode`; a página da demo roda os três ao vivo no tamanho de janela atual |
 | Tokens de componente (camada comp) | ✅ 1.6.0 | ✅ | ✅ 1.6.0 | ✅ Component Tokens | lacuna pega por este mapa e fechada na 1.6.0: o `example/lib/main.dart` agora tem uma seção `8b. Component measurements`, que sinaliza as alturas abaixo do alvo de toque comparando com o `M3Accessibility.minTouchTargetMobile` de verdade, não com um 48 fixo no código |
 
-Testes: **160 → 251** ao longo dos seis marcos que viraram a 1.6.0; **282** testes do pacote nesta auditoria.
+Testes: **160 → 251** ao longo dos seis marcos que viraram a 1.6.0; **290** testes do pacote nesta auditoria (282 antes do Roadmap 3.2).
 
 ## Dívida específica da demo
 

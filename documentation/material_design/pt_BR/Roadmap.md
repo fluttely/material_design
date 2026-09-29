@@ -104,7 +104,7 @@ Spec: https://m3.material.io/styles/typography — 15 estilos de base ✅ (`M3Ty
 | # | Item | Notas |
 | :- | :--- | :--- |
 | 3.1 ✅ `1.6.0` | **`M3EmphasizedTypeScale`** — os 15 papéis um passo de peso acima, cada um mantendo o tamanho e a altura de linha da base, de modo que a troca nunca reflui o layout. `M3EmphasizedTypeScale.of(style)` mapeia um estilo de base para seu equivalente e devolve qualquer outra coisa inalterada. `M3TypeScale.values` chegou junto, alinhado por índice. | Tipografia expressiva |
-| 3.2 🔭 | **Orientação sobre eixos de fontes variáveis**: documentar o uso de `wght`/`GRAD`/`wdth`/`ROND` com a Roboto Flex; um helper `M3FontAxes` apenas se conseguir se manter fiel à spec em Flutter puro. | Typography / fonts |
+| 3.2 ✅ `Unreleased` | **Eixos de fontes variáveis**: a spec dá à tipografia exatamente um valor de eixo — o peso por papel — então é o único codificado. `M3TextUtils.withWeightAxis` / `textThemeWithWeightAxis` colocam o próprio `fontWeight` do estilo no `wght`, porque antes do Flutter 3.41 o `FontWeight` nunca chegava ao eixo (flutter/flutter#148026) e a Roboto Flex desenhava todos os papéis, enfatizados ou não, num só peso. `GRAD`/`wdth`/`ROND`/`opsz` ficam documentados e a cargo de quem chama — não há valores da spec para texto, e a unidade do `opsz` é disputada. Sem classe `M3FontAxes`: um eixo só não precisa de namespace. Achado no caminho: `highContrast`/`dyslexiaFriendly` transformavam `FontWeight(450)` em `w100`; corrigido. | Typography / fonts |
 
 > **Fato da spec registrado:** `titleSmall` e `labelLarge` são metricamente idênticos
 > (14sp / altura de linha 20 / tracking 0.1 / peso 500), então os 15 papéis colapsam
@@ -241,8 +241,8 @@ nada que eles já sejam.
 | `1.7.0` | — | Eixos de ícone (`M3IconWeights`, `M3IconGrades`, `M3IconFills`, `M3IconOpticalSizes`, `M3IconStyle`); navegação da demo reconstruída sobre uma única lista de destinos |
 | `1.8.0` | — | A tríade como programa (`tool/check_triad.dart`, `tool/check_changelog.dart`, `tool/verify.sh`); o modo Code da demo |
 | `1.8.1` | — | Bounds do morph interpolados em vez de unidos |
-| próxima minor | — | Fase 7 (`Unreleased` no changelog) |
-| depois | — | 1.5 (documentação), 3.2 |
+| próxima minor | — | Fase 7 e 3.2 (`Unreleased` no changelog) |
+| depois | — | 1.5 (documentação) |
 
 > Nota sobre SemVer: a Fase 0 era breaking e mesmo assim saiu numa minor. Essa é a
 > política de pré-adoção do `CLAUDE.md` — ninguém está na `1.x` ainda, então uma major

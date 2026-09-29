@@ -218,6 +218,25 @@ style: isSelected
 last resort, it fights the user's accessibility setting), `responsiveDisplay`,
 `dyslexiaFriendly`, `mono`, `highContrast`, `withFontFamily`.
 
+**Variable fonts on Flutter before 3.41.** Until 3.41 a `FontWeight` never reached
+the `wght` axis of a variable font
+([flutter/flutter#148026](https://github.com/flutter/flutter/issues/148026)), so an
+app bundling Roboto Flex draws every role at one weight, and the emphasized scale
+looks exactly like the baseline. `withWeightAxis` sets the axis to the weight the
+style already carries — no number of its own, so it is harmless on a static font and
+on 3.41+:
+
+```dart
+final theme = M3TextTheme.applyToTheme(ThemeData(fontFamily: 'RobotoFlex'));
+theme.copyWith(textTheme: M3TextUtils.textThemeWithWeightAxis(theme.textTheme));
+
+// Per style — apply it last: an explicit wght overrides a later copyWith(fontWeight:).
+M3TextUtils.withWeightAxis(M3EmphasizedTypeScale.titleMedium);
+```
+
+Only the weight is carried. The type scale defines no grade, width or roundness, and
+Flutter documents optical size as derived from the font size, so those axes stay your call.
+
 ### 4b. Icons
 
 Material Symbols is a variable font with four axes, and Flutter exposes all four

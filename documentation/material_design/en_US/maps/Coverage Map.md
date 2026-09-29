@@ -12,6 +12,7 @@ demo page has a Code half since 1.8.0; the column counts both.
 | Border widths | ✅ | ✅ | ✅ | ✅ Border | all four widths plus `M3Border.all`/`.fromBorderSide` (closed by 1.8.0) |
 | Typography (baseline 15) | ✅ | ✅ | ✅ | ✅ Typography | `M3TypeScale.values` added in 1.6.0 |
 | Typography (emphasized) | ✅ 1.6.0 | ✅ | ✅ | ✅ Typography | all 15 pairs shown with the numeric proof that the swap is layout-safe |
+| Typography: variable fonts (`wght`) | ✅ Unreleased | ✅ | ✅ | ✅ Typography (Code) | `withWeightAxis` / `textThemeWithWeightAxis`; only the weight has a spec value — `GRAD`/`wdth`/`ROND`/`opsz` documented, not encoded (Roadmap 3.2). Code page only: the demo runs on Flutter 3.41+, where the Visual page would show no difference |
 | Elevation | ✅ | ✅ | ✅ | ✅ Elevation | — |
 | Color: tonal palettes | ✅ | ✅ | ✅ | ✅ Tonal | `M3CorePalette.fromSeed` rendered as its six key palettes (Unreleased) |
 | Color: schemes/variants/contrast | ✅ 1.6.0 | ✅ | ✅ | ✅ Schemes | all nine variants + the four contrast levels with measured ratios |
@@ -41,7 +42,7 @@ demo page has a Code half since 1.8.0; the column counts both.
 | Canonical layouts / panes | ✅ 1.6.0 | ✅ 1.6.0 | ✅ 1.6.0 | ✅ 1.6.0 Layouts | all three layouts + `M3CanonicalLayout`/`M3PaneRole`/`M3PaneDisplayMode`; the demo page runs them live at the current window size |
 | Component tokens (comp layer) | ✅ 1.6.0 | ✅ | ✅ 1.6.0 | ✅ Component Tokens | gap caught by this map and closed in 1.6.0: `example/lib/main.dart` now has an `8b. Component measurements` section, which flags the below-touch-target heights by comparing against the real `M3Accessibility.minTouchTargetMobile` instead of a hardcoded 48 |
 
-Tests: **160 → 251** across the six milestones that became 1.6.0; **282** package tests at this audit.
+Tests: **160 → 251** across the six milestones that became 1.6.0; **290** package tests at this audit (282 before Roadmap 3.2).
 
 ## Demo-specific debt
 
