@@ -49,9 +49,10 @@ friends in the component token layer).
 
 The single exception: an M3 Expressive widget Flutter does not have yet
 (`M3ELoadingIndicator` today). Each such widget is a stopgap, marked `@experimental`,
-and is removed once Flutter ships the real one. Do **not** implement the 2025
-Expressive components (button groups, split button, FAB menu, toolbars) while
-flutter/flutter#168813 is in flight — re-evaluate each release instead.
+and is removed the release after Flutter ships the real one — in `material_ui`, where
+Flutter's Material work lives since 3.47. Do **not** implement the 2025 Expressive
+components (button groups, split button, FAB menu, toolbars): this package complements
+`material_ui`, never competes with it. `/release` reads its changelog every release.
 
 Before adding any widget, ask: does Flutter already have this, or is it about to? If
 either answer is yes, ship the tokens and stop.
@@ -265,7 +266,9 @@ dart run tool/check_changelog.dart            # add --offline to skip the networ
   never existed. A changelog documents what shipped, not the path taken to it.
 - SDK floor: Flutter `>=3.27.0` / Dart `>=3.6.0` (needs `Color.withValues`, `Color.a`,
   `toARGB32`, extension types). Do not raise it without a changelog entry explaining
-  which API forces the bump; never lower it below what the code uses.
+  which API forces the bump; never lower it below what the code uses. Stay on
+  `package:flutter/material.dart` until it is formally deprecated, then move to
+  `material_ui` (Roadmap 7.1 — its 3.47 floor is the cost).
 - Packaging: `.pubignore` keeps the published archive small (~134 KB) — `demo/`,
   `documentation/`, and native runners under `example/` never ship to pub. If you add
   a new top-level directory, decide its `.pubignore` fate in the same commit.

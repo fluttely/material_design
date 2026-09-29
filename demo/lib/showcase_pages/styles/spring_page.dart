@@ -35,9 +35,9 @@ class _SpringPageState extends State<SpringPage> {
     return Scaffold(
       appBar: AppBar(title: const Text('Springs')),
       body: ListView(
-        padding: M3EdgeInsets.all(M3Spacings.s16),
+        padding: const M3EdgeInsets.all(M3Spacings.s16),
         children: [
-          ShowcaseLink(
+          const ShowcaseLink(
             label: 'M3ESpring | M3MotionScheme | M3MotionSpeed',
             url: 'https://m3.material.io/styles/motion/overview/specs',
           ),
@@ -49,6 +49,8 @@ class _SpringPageState extends State<SpringPage> {
           const M3Gap(M3Spacings.s16),
           _VelocitySection(spring: _scheme.spatial(_speed)),
           const M3Gap(M3Spacings.s16),
+          _buildReducedMotionSection(context, colorScheme),
+          const M3Gap(M3Spacings.s16),
           _buildTokenTableSection(context, colorScheme),
         ],
       ),
@@ -59,7 +61,7 @@ class _SpringPageState extends State<SpringPage> {
   Widget _buildNoteSection(BuildContext context, ColorScheme cs) {
     return Card(
       child: M3Padding(
-        padding: M3EdgeInsets.all(M3Spacings.s16),
+        padding: const M3EdgeInsets.all(M3Spacings.s16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -136,7 +138,7 @@ class _SpringPageState extends State<SpringPage> {
   Widget _buildSelectorSection(BuildContext context, ColorScheme cs) {
     return Card(
       child: M3Padding(
-        padding: M3EdgeInsets.all(M3Spacings.s16),
+        padding: const M3EdgeInsets.all(M3Spacings.s16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -192,6 +194,86 @@ class _SpringPageState extends State<SpringPage> {
     );
   }
 
+  /// What reduced motion does to the selected scheme's springs.
+  Widget _buildReducedMotionSection(BuildContext context, ColorScheme cs) {
+    final selected = _scheme.spatial(_speed);
+    final live = M3Accessibility.adaptiveSpring(context, selected);
+    final reduce = M3Accessibility.shouldReduceMotion(context);
+
+    return Card(
+      child: M3Padding(
+        padding: const M3EdgeInsets.all(M3Spacings.s16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Reduced motion',
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
+            const M3Gap(M3Spacings.s4),
+            Text(
+              'With the platform setting on, Material swaps slides and scales '
+              'for fades rather than shortening them. A spring’s part in that '
+              'is to stop overshooting: M3ESpring.reduced maps each spatial '
+              'spring to the effects spring of the same speed.',
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    color: cs.onSurfaceVariant,
+                  ),
+            ),
+            const M3Gap(M3Spacings.s12),
+            ...M3MotionSpeed.values.map((speed) {
+              final spatial = _scheme.spatial(speed);
+              final isSelected = spatial == selected;
+              final color =
+                  isSelected ? cs.onSecondaryContainer : cs.onSurfaceVariant;
+
+              return Container(
+                padding: const M3EdgeInsets.symmetric(
+                  horizontal: M3Spacings.s8,
+                  vertical: M3Spacings.s4,
+                ),
+                decoration: isSelected
+                    ? M3BoxDecoration(
+                        color: cs.secondaryContainer,
+                        borderRadius: M3BorderRadius.small,
+                      )
+                    : null,
+                child: Wrap(
+                  crossAxisAlignment: WrapCrossAlignment.center,
+                  spacing: M3Spacings.s8,
+                  children: [
+                    Text(
+                      spatial.name,
+                      style: M3TypeScale.labelMedium.copyWith(color: color),
+                    ),
+                    Icon(
+                      Icons.arrow_forward,
+                      size: M3IconSizes.dense,
+                      color: color,
+                    ),
+                    Text(
+                      spatial.reduced.name,
+                      style: M3TypeScale.labelMedium.copyWith(color: color),
+                    ),
+                  ],
+                ),
+              );
+            }),
+            const M3Gap(M3Spacings.s12),
+            Text(
+              'Here, reduce motion is ${reduce ? 'on' : 'off'}, so '
+              'M3Accessibility.adaptiveSpring(context, ${selected.name}) '
+              'returns ${live.name}.',
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    color: cs.onSurfaceVariant,
+                  ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   /// Every [M3ESpring] value, grouped by the scheme it belongs to.
   Widget _buildTokenTableSection(BuildContext context, ColorScheme cs) {
     final selectedSpatial = _scheme.spatial(_speed);
@@ -199,7 +281,7 @@ class _SpringPageState extends State<SpringPage> {
 
     return Card(
       child: M3Padding(
-        padding: M3EdgeInsets.all(M3Spacings.s16),
+        padding: const M3EdgeInsets.all(M3Spacings.s16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -293,7 +375,7 @@ class _SpringPageState extends State<SpringPage> {
 
   Widget _headerCell(ColorScheme cs, String label) {
     return M3Padding(
-      padding: M3EdgeInsets.symmetric(
+      padding: const M3EdgeInsets.symmetric(
         horizontal: M3Spacings.s8,
         vertical: M3Spacings.s8,
       ),
@@ -306,7 +388,7 @@ class _SpringPageState extends State<SpringPage> {
 
   Widget _valueCell(String value, Color color) {
     return M3Padding(
-      padding: M3EdgeInsets.symmetric(
+      padding: const M3EdgeInsets.symmetric(
         horizontal: M3Spacings.s8,
         vertical: M3Spacings.s8,
       ),
@@ -381,7 +463,7 @@ class _SpringRunnerSectionState extends State<_SpringRunnerSection>
         borderRadius: M3BorderRadius.medium,
         onTap: _run,
         child: M3Padding(
-          padding: M3EdgeInsets.all(M3Spacings.s16),
+          padding: const M3EdgeInsets.all(M3Spacings.s16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -590,7 +672,7 @@ class _VelocitySectionState extends State<_VelocitySection>
 
     return Card(
       child: M3Padding(
-        padding: M3EdgeInsets.all(M3Spacings.s16),
+        padding: const M3EdgeInsets.all(M3Spacings.s16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -637,7 +719,6 @@ class _VelocitySectionState extends State<_VelocitySection>
                                 .clamp(-safeTravel, safeTravel);
 
                             return Align(
-                              alignment: Alignment.center,
                               child: Transform.translate(
                                 offset: Offset(dx, 0),
                                 child: child,

@@ -157,31 +157,31 @@ class ColorTokensPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('ColorScheme'),
+        title: const Text('ColorScheme'),
       ),
       body: Column(
         children: [
-          M3Padding(
+          const M3Padding(
             padding: M3EdgeInsets.only(left: M3Spacings.s16),
             child: Align(
               alignment: Alignment.centerLeft,
-              child: const ShowcaseLink(
+              child: ShowcaseLink(
                 label: 'Color Roles',
                 url: 'https://m3.material.io/styles/color/roles',
               ),
             ),
           ),
           SingleChildScrollView(
-            padding: M3EdgeInsets.symmetric(horizontal: M3Margins.mediumScreen),
+            padding: const M3EdgeInsets.symmetric(
+                horizontal: M3Margins.mediumScreen),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Expanded(
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      ShowcaseLink(label: 'Key Colors'),
+                      const ShowcaseLink(label: 'Key Colors'),
                       const M3Gap(M3Spacings.s16),
                       ...keyColors.map(
                         (p) => _KeyColorChip(
@@ -194,10 +194,9 @@ class ColorTokensPage extends StatelessWidget {
                 Expanded(
                   flex: 2,
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      ShowcaseLink(label: 'Scheme'),
+                      const ShowcaseLink(label: 'Scheme'),
                       const M3Gap(M3Spacings.s16),
                       Wrap(
                         spacing: M3Spacings.s8,
@@ -242,9 +241,9 @@ class _KeyColorChip extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
 
     return M3Padding(
-      padding: M3EdgeInsets.only(bottom: M3Spacings.s8),
+      padding: const M3EdgeInsets.only(bottom: M3Spacings.s8),
       child: Container(
-        padding: M3EdgeInsets.all(M3Spacings.s16),
+        padding: const M3EdgeInsets.all(M3Spacings.s16),
         decoration: M3BoxDecoration(
           color: color,
           borderRadius: M3BorderRadius.medium,
@@ -287,7 +286,7 @@ class _ColorChip extends StatelessWidget {
 
     return Container(
       width: 150,
-      padding: M3EdgeInsets.all(M3Spacings.s8),
+      padding: const M3EdgeInsets.all(M3Spacings.s8),
       decoration: BoxDecoration(
         color: color,
         borderRadius: M3BorderRadius.small,

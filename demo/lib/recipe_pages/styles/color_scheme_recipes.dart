@@ -13,7 +13,7 @@ class ColorSchemeRecipes extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RecipePage(
+    return const RecipePage(
       title: 'Schemes',
       summary: 'A scheme is a seed plus two choices: which variant, and how '
           'much contrast. Both are tokens here rather than raw enums and '
@@ -39,7 +39,7 @@ MaterialApp(theme: ThemeData(colorScheme: scheme));
 ''',
               preview: _VariantStrip(),
             ),
-            const CodeRecipe(
+            CodeRecipe(
               title: 'Follow the user, not your defaults',
               summary: 'fromContext reads the platform brightness *and* the '
                   'contrast accessibility setting. Hard-coding standard '
@@ -68,7 +68,7 @@ M3ColorSchemes.dark(seedColor: seed);
             ),
           ],
         ),
-        const RecipeGroup(
+        RecipeGroup(
           title: 'M3ExtendedColors',
           url: 'https://m3.material.io/styles/color/advanced/'
               'define-new-colors',
@@ -128,7 +128,6 @@ class _VariantStrip extends StatelessWidget {
           PreviewBox(
             label: variant.name,
             width: M3Spacings.s96,
-            height: M3Spacings.s40,
             color: M3ColorSchemes.fromSeed(
               seedColor: ColorSchemeRecipes._seed,
               variant: variant,

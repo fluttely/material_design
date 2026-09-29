@@ -17,7 +17,7 @@ class ComponentTokensPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text('Component Tokens')),
       body: ListView(
-        padding: M3EdgeInsets.all(M3Spacings.s16),
+        padding: const M3EdgeInsets.all(M3Spacings.s16),
         children: [
           Text(
             'The component token layer is deliberately only values. Every box '
@@ -43,7 +43,7 @@ class ComponentTokensPage extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
 
     return Container(
-      padding: M3EdgeInsets.all(M3Spacings.s16),
+      padding: const M3EdgeInsets.all(M3Spacings.s16),
       decoration: M3BoxDecoration(
         color: colorScheme.errorContainer,
         borderRadius: M3BorderRadius.medium,
@@ -248,7 +248,7 @@ class ComponentTokensPage extends StatelessWidget {
               children: [
                 for (final (label, value) in widths)
                   M3Padding(
-                    padding: M3EdgeInsets.only(bottom: M3Spacings.s12),
+                    padding: const M3EdgeInsets.only(bottom: M3Spacings.s12),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -296,7 +296,7 @@ class ComponentTokensPage extends StatelessWidget {
         children: [
           for (final (label, value, lines) in items)
             M3Padding(
-              padding: M3EdgeInsets.only(bottom: M3Spacings.s12),
+              padding: const M3EdgeInsets.only(bottom: M3Spacings.s12),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -307,7 +307,7 @@ class ComponentTokensPage extends StatelessWidget {
                   const M3Gap(M3Spacings.s4),
                   Container(
                     height: value,
-                    padding: M3EdgeInsets.symmetric(
+                    padding: const M3EdgeInsets.symmetric(
                       horizontal: M3Spacings.s16,
                     ),
                     decoration: M3BoxDecoration(
@@ -425,7 +425,7 @@ class _MeasuredBar extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
 
     return M3Padding(
-      padding: M3EdgeInsets.only(bottom: M3Spacings.s12),
+      padding: const M3EdgeInsets.only(bottom: M3Spacings.s12),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -434,7 +434,7 @@ class _MeasuredBar extends StatelessWidget {
               Expanded(child: Text(label, style: textTheme.labelMedium)),
               if (flagged && flagLabel != null)
                 Container(
-                  padding: M3EdgeInsets.symmetric(
+                  padding: const M3EdgeInsets.symmetric(
                     horizontal: M3Spacings.s8,
                     vertical: M3Spacings.s4,
                   ),
@@ -456,13 +456,12 @@ class _MeasuredBar extends StatelessWidget {
             height: value,
             width: double.infinity,
             alignment: Alignment.centerLeft,
-            padding: M3EdgeInsets.symmetric(horizontal: M3Spacings.s12),
+            padding: const M3EdgeInsets.symmetric(horizontal: M3Spacings.s12),
             decoration: M3BoxDecoration(
               color: color,
               borderRadius: M3BorderRadius.small,
-              border: flagged
-                  ? M3Border.thick(colorScheme.error)
-                  : const M3Border(),
+              border:
+                  flagged ? M3Border.thick(colorScheme.error) : M3Border.none,
             ),
             child: Text(
               '${value.toInt()}dp',

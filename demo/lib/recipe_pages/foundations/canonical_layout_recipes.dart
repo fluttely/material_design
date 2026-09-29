@@ -85,12 +85,12 @@ M3SupportingPaneLayout(
             ),
           ],
         ),
-        RecipeGroup(
+        const RecipeGroup(
           title: 'M3FeedLayout',
           url: 'https://m3.material.io/foundations/layout/canonical-layouts/'
               'feed',
           recipes: [
-            const CodeRecipe(
+            CodeRecipe(
               title: 'A grid that reflows with the window',
               summary: 'Columns, gutter and margin all come from the size '
                   'class. Override itemColumns only for the classes that '

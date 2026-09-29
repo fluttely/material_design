@@ -16,7 +16,7 @@ class M3ExpressivePage extends StatelessWidget {
         title: const Text('M3 Expressive'),
       ),
       body: SingleChildScrollView(
-        padding: M3EdgeInsets.all(M3Spacings.s16),
+        padding: const M3EdgeInsets.all(M3Spacings.s16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

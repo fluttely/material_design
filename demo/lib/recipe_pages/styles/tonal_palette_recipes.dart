@@ -28,8 +28,8 @@ class TonalPaletteRecipes extends StatelessWidget {
           recipes: [
             CodeRecipe(
               title: 'Thirteen tones from one seed',
-              summary: 'Tone 40 is the light scheme\'s primary; tone 80 is the '
-                  'dark scheme\'s. That relationship is the whole system in '
+              summary: "Tone 40 is the light scheme's primary; tone 80 is the "
+                  "dark scheme's. That relationship is the whole system in "
                   'one line.',
               code: '''
 final palette = M3TonalPalette.fromSeed(const Color(0xFF6750A4));

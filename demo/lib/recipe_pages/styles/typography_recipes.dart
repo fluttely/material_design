@@ -51,7 +51,7 @@ Text('BUTTON', style: M3TypeScale.labelLarge);
             ),
             const CodeRecipe(
               title: 'Merge the scale into your theme',
-              summary: 'applyToTheme keeps the theme\'s colours and replaces '
+              summary: "applyToTheme keeps the theme's colours and replaces "
                   'only the metrics, so you get the spec type without losing '
                   'your scheme.',
               code: '''
@@ -78,9 +78,9 @@ M3TextTheme.toTextTheme(); // the bare TextTheme, if you prefer
               summary: 'Weight goes one step up and tracking moves only where '
                   'the spec moves it. Same size, same line height — the '
                   'vertical rhythm holds.',
-              code: '''
+              code: r'''
 Text('Balance', style: M3TypeScale.titleMedium);
-Text(r'R\$ 12.480', style: M3EmphasizedTypeScale.headlineLarge);
+Text(r'R$ 12.480', style: M3EmphasizedTypeScale.headlineLarge);
 ''',
               preview: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -143,7 +143,7 @@ M3TextUtils.withFontFamily(
             ),
             const CodeRecipe(
               title: 'Clamp text scaling, reluctantly',
-              summary: 'This fights the user\'s accessibility setting, so it '
+              summary: "This fights the user's accessibility setting, so it "
                   'is a last resort — make the layout flex first, and clamp '
                   'only what genuinely cannot.',
               code: '''

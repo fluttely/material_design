@@ -14,11 +14,11 @@ class M3StateLayerOpacityButtonExample extends StatelessWidget {
         const M3Gap(M3Spacings.s12),
         CustomButton(
           onPressed: onPressed,
-          child: Row(
+          child: const Row(
             mainAxisSize: MainAxisSize.min,
             children: [
               Icon(Icons.add_shopping_cart),
-              const M3Gap(M3Spacings.s8),
+              M3Gap(M3Spacings.s8),
               Text('Add to Cart'),
             ],
           ),
@@ -41,9 +41,9 @@ class M3StateLayerOpacityButtonExample extends StatelessWidget {
 
 class CustomButton extends StatefulWidget {
   const CustomButton({
-    super.key,
     required this.onPressed,
     required this.child,
+    super.key,
   });
 
   final VoidCallback? onPressed;
@@ -67,10 +67,10 @@ class _CustomButtonState extends State<CustomButton> {
   }
 
   double get _stateLayerOpacity {
-    if (!_isEnabled) return 0.0;
+    if (!_isEnabled) return 0;
     if (_isPressed) return M3StateLayerOpacities.pressed;
     if (_isHovered) return M3StateLayerOpacities.hover;
-    return 0.0;
+    return 0;
   }
 
   Color _getBackgroundColor(ColorScheme colorScheme) {
@@ -120,7 +120,6 @@ class _CustomButtonState extends State<CustomButton> {
           curve: M3Motion.linearCurve,
           duration: M3Motion.linearDuration,
           child: Material(
-            type: MaterialType.canvas,
             elevation: _elevation.dp,
             color: backgroundColor,
             shape: const StadiumBorder(),
@@ -138,7 +137,7 @@ class _CustomButtonState extends State<CustomButton> {
                       color: contentColor,
                     ),
                     child: Padding(
-                      padding: EdgeInsets.symmetric(
+                      padding: const EdgeInsets.symmetric(
                         horizontal: M3Spacings.s24,
                         vertical: 6,
                       ),

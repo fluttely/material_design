@@ -25,7 +25,7 @@ class SpringRecipes extends StatelessWidget {
           recipes: [
             CodeRecipe(
               title: 'Pick a scheme once, then select by intent',
-              summary: 'Expressive is Material\'s own default; standard is the '
+              summary: "Expressive is Material's own default; standard is the "
                   'utilitarian one. Never name a stiffness at a call site.',
               code: '''
 const scheme = M3MotionScheme.expressive;
@@ -84,7 +84,7 @@ final spring = M3MotionScheme.standard.spatial(M3MotionSpeed.standard);
 spring.description; // SpringDescription, unit mass
 spring.damping;     // 0.9
 spring.stiffness;   // 700
-spring.isBouncy;    // false — damping is 1.0 or higher
+spring.isBouncy;    // true — anything under 1.0 overshoots
 ''',
             ),
             CodeRecipe(
@@ -98,6 +98,21 @@ M3ESpring.standardSpatialDefault; // damping 0.9, stiffness 700
 M3ESpring.expressiveEffectsSlow;  // damping 1.0 — no overshoot
 
 M3MotionScheme.expressive.springs; // all six of that scheme
+''',
+            ),
+            CodeRecipe(
+              title: 'Honour reduce-motion',
+              summary: 'Under reduced motion Material swaps slides for fades; '
+                  'the spring driving them stops overshooting. reduced maps a '
+                  'spatial spring to the effects spring of its speed.',
+              code: '''
+final spring = M3Accessibility.adaptiveSpring(
+  context,
+  M3MotionScheme.expressive.spatial(M3MotionSpeed.fast),
+);
+
+M3ESpring.expressiveSpatialFast.reduced; // expressiveEffectsFast
+M3ESpring.expressiveEffectsFast.reduced; // itself — already no bounce
 ''',
             ),
           ],

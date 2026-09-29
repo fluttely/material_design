@@ -1184,6 +1184,12 @@ class _AccessibilitySection extends StatelessWidget {
       foreground: colorScheme.onSurface,
       background: colorScheme.surface,
     );
+    // Under reduce-motion the spring stops overshooting; what it animates
+    // (a fade instead of a slide) is still yours to choose.
+    final spring = M3Accessibility.adaptiveSpring(
+      context,
+      M3MotionScheme.expressive.spatial(M3MotionSpeed.fast),
+    );
 
     return _Section(
       title: '9. Accessibility',
@@ -1199,6 +1205,12 @@ class _AccessibilitySection extends StatelessWidget {
           '${M3Accessibility.minTouchTarget(context).toInt()}dp. '
           'Reduce motion requested: '
           '${M3Accessibility.shouldReduceMotion(context)}.',
+          style: M3TypeScale.bodyMedium,
+        ),
+        const M3Gap(M3Spacings.s8),
+        Text(
+          'Fast spatial spring here: ${spring.name} '
+          '(${spring.isBouncy ? 'bounces' : 'no overshoot'}).',
           style: M3TypeScale.bodyMedium,
         ),
       ],

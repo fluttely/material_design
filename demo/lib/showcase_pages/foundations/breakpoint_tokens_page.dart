@@ -7,7 +7,8 @@ class BreakpointTokensPage extends StatelessWidget {
   const BreakpointTokensPage({super.key});
 
   // A single, static source of truth for all breakpoint data.
-  static const _breakpoints = [
+  static const List<({IconData icon, String label, M3BreakpointValue min})>
+      _breakpoints = [
     (
       label: 'Compact',
       min: M3Breakpoints.compact,
@@ -34,18 +35,18 @@ class BreakpointTokensPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Get the current screen width once.
-    final double currentWidth = MediaQuery.of(context).size.width;
+    final currentWidth = MediaQuery.of(context).size.width;
     final textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
       appBar: AppBar(title: const Text('Breakpoints')),
       body: ListView(
-        padding: M3EdgeInsets.all(M3Spacings.s16),
+        padding: const M3EdgeInsets.all(M3Spacings.s16),
         children: [
-          ShowcaseLink(label: 'M3Breakpoints'),
+          const ShowcaseLink(label: 'M3Breakpoints'),
           Card(
             child: M3Padding(
-              padding: M3EdgeInsets.all(M3Spacings.s16),
+              padding: const M3EdgeInsets.all(M3Spacings.s16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -55,7 +56,8 @@ class BreakpointTokensPage extends StatelessWidget {
                   ),
                   const M3Gap(M3Spacings.s8),
                   Text(
-                    'Your current screen width is ${currentWidth.toInt()}dp. The active breakpoint is highlighted below.',
+                    'Your current screen width is ${currentWidth.toInt()}dp. '
+                    'The active breakpoint is highlighted below.',
                     style: textTheme.bodyMedium,
                   ),
                   const M3Gap(M3Spacings.s40),
@@ -66,7 +68,8 @@ class BreakpointTokensPage extends StatelessWidget {
                   const M3Gap(M3Spacings.s16),
                   const Divider(),
                   const M3Gap(M3Spacings.s16),
-                  // Generate the list of breakpoints from the single source of truth.
+                  // Generate the list of breakpoints from the single source
+                  // of truth.
                   ..._buildBreakpointList(context, currentWidth),
                 ],
               ),
@@ -75,7 +78,7 @@ class BreakpointTokensPage extends StatelessWidget {
           const M3Gap(M3Spacings.s16),
           Card(
             child: M3Padding(
-              padding: M3EdgeInsets.all(M3Spacings.s16),
+              padding: const M3EdgeInsets.all(M3Spacings.s16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -89,7 +92,7 @@ class BreakpointTokensPage extends StatelessWidget {
                     style: textTheme.bodyMedium,
                   ),
                   const M3Gap(M3Spacings.s16),
-                  ShowcaseLink(label: 'M3LayoutWidths'),
+                  const ShowcaseLink(label: 'M3LayoutWidths'),
                   const M3Gap(M3Spacings.s8),
                   for (final (label, width, note)
                       in <(String, M3BreakpointValue, String)>[
@@ -134,11 +137,11 @@ class BreakpointTokensPage extends StatelessWidget {
     return List.generate(_breakpoints.length, (index) {
       final current = _breakpoints[index];
       // Determine the max width by looking at the start of the next breakpoint.
-      final double max = (index < _breakpoints.length - 1)
+      final max = (index < _breakpoints.length - 1)
           ? _breakpoints[index + 1].min - 1
           : double.infinity;
       // Check if the current screen width falls into this breakpoint's range.
-      final bool isActive = currentWidth >= current.min &&
+      final isActive = currentWidth >= current.min &&
           (max == double.infinity || currentWidth <= max);
 
       return _BreakpointInfoRow(
@@ -177,7 +180,7 @@ class _BreakpointInfoRow extends StatelessWidget {
         : '${min.toInt()}dp - ${max.toInt()}dp';
 
     return M3Padding(
-      padding: M3EdgeInsets.symmetric(
+      padding: const M3EdgeInsets.symmetric(
         vertical: M3Spacings.s8,
       ),
       child: Row(
@@ -215,7 +218,8 @@ class _BreakpointInfoRow extends StatelessWidget {
   }
 }
 
-/// A widget that visually represents the breakpoint ranges and the current width.
+/// A widget that visually represents the breakpoint ranges and the current
+/// width.
 class _BreakpointVisualizer extends StatelessWidget {
   const _BreakpointVisualizer({
     required this.breakpoints,
@@ -228,14 +232,14 @@ class _BreakpointVisualizer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Define a practical max width for visualization purposes.
-    const double visualizationMaxWidth = 1600.0;
+    const visualizationMaxWidth = 1600;
     final colorScheme = Theme.of(context).colorScheme;
 
     return LayoutBuilder(
       builder: (context, constraints) {
-        final double barWidth = constraints.maxWidth;
+        final barWidth = constraints.maxWidth;
         // Calculate the position of the marker on the bar.
-        final double markerPosition =
+        final markerPosition =
             (currentWidth / visualizationMaxWidth).clamp(0.0, 1.0) * barWidth;
 
         return Stack(
@@ -244,7 +248,7 @@ class _BreakpointVisualizer extends StatelessWidget {
             // The main bar showing breakpoint ranges.
             Container(
               height: 32,
-              decoration: ShapeDecoration(shape: M3Shape.full),
+              decoration: const ShapeDecoration(shape: M3Shape.full),
               clipBehavior: Clip.antiAlias,
               child: Row(
                 children: List.generate(breakpoints.length, (index) {
@@ -253,12 +257,12 @@ class _BreakpointVisualizer extends StatelessWidget {
                       ? breakpoints[index + 1].min
                       : visualizationMaxWidth;
                   final rangeWidth = nextMin - current.min;
-                  final bool isActive =
+                  final isActive =
                       currentWidth >= current.min && currentWidth < nextMin;
 
                   return Expanded(
                     flex: rangeWidth.round(),
-                    child: Container(
+                    child: ColoredBox(
                       color: isActive
                           ? colorScheme.primary
                           : colorScheme.surfaceContainerHighest,

@@ -16,15 +16,17 @@ class TonalPalettePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text('Tonal Palette')),
       body: ListView(
-        padding: M3EdgeInsets.all(M3Spacings.s16),
+        padding: const M3EdgeInsets.all(M3Spacings.s16),
         children: [
-          ShowcaseLink(
+          const ShowcaseLink(
             label: 'M3TonalPalette | M3ColorSchemeTokens',
             url:
                 'https://m3.material.io/styles/color/the-color-system/key-colors-tones',
           ),
           const M3Gap(M3Spacings.s16),
           _buildTonalPaletteSection(context, colorScheme),
+          const M3Gap(M3Spacings.s24),
+          _buildCorePaletteSection(context, colorScheme),
           const M3Gap(M3Spacings.s24),
           _buildStateColorsSection(context, colorScheme),
           const M3Gap(M3Spacings.s24),
@@ -41,7 +43,7 @@ class TonalPalettePage extends StatelessWidget {
 
     return Card(
       child: M3Padding(
-        padding: M3EdgeInsets.all(M3Spacings.s16),
+        padding: const M3EdgeInsets.all(M3Spacings.s16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -94,7 +96,8 @@ class TonalPalettePage extends StatelessWidget {
                 final isLight = M3ColorUtils.isLight(color);
                 return Container(
                   width: 56,
-                  padding: M3EdgeInsets.symmetric(vertical: M3Spacings.s8),
+                  padding:
+                      const M3EdgeInsets.symmetric(vertical: M3Spacings.s8),
                   decoration: BoxDecoration(
                     color: color,
                     borderRadius: M3BorderRadius.small,
@@ -123,6 +126,71 @@ class TonalPalettePage extends StatelessWidget {
     );
   }
 
+  /// The six palettes Material derives from one seed.
+  Widget _buildCorePaletteSection(BuildContext context, ColorScheme cs) {
+    final core = M3CorePalette.fromSeed(cs.primary);
+    // Names only, in the order M3CorePalette.values documents them.
+    const names = <String>[
+      'primary',
+      'secondary',
+      'tertiary',
+      'neutral',
+      'neutralVariant',
+      'error',
+    ];
+
+    return Card(
+      child: M3Padding(
+        padding: const M3EdgeInsets.all(M3Spacings.s16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'M3CorePalette',
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
+            const M3Gap(M3Spacings.s4),
+            Text(
+              'One seed, six palettes. Every role in a ColorScheme is one tone '
+              'out of one of these. Error is generated independently of the '
+              'seed: a red that shifted with the brand would stop meaning '
+              '"error".',
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    color: cs.onSurfaceVariant,
+                  ),
+            ),
+            const M3Gap(M3Spacings.s16),
+            for (final (i, palette) in core.values.indexed) ...[
+              Text(
+                names[i],
+                style: Theme.of(context).textTheme.labelLarge,
+              ),
+              const M3Gap(M3Spacings.s4),
+              ClipRRect(
+                borderRadius: M3BorderRadius.small,
+                child: Row(
+                  children: [
+                    for (final tone in M3Tones.values)
+                      Expanded(
+                        child: Tooltip(
+                          message: '${names[i]} · tone $tone',
+                          child: Container(
+                            height: M3Spacings.s24,
+                            color: palette[tone],
+                          ),
+                        ),
+                      ),
+                  ],
+                ),
+              ),
+              const M3Gap(M3Spacings.s12),
+            ],
+          ],
+        ),
+      ),
+    );
+  }
+
   Widget _buildStateColorsSection(BuildContext context, ColorScheme cs) {
     final base = cs.primary;
     final stateColors = [
@@ -136,7 +204,7 @@ class TonalPalettePage extends StatelessWidget {
 
     return Card(
       child: M3Padding(
-        padding: M3EdgeInsets.all(M3Spacings.s16),
+        padding: const M3EdgeInsets.all(M3Spacings.s16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -155,7 +223,7 @@ class TonalPalettePage extends StatelessWidget {
             const M3Gap(M3Spacings.s16),
             ...stateColors.map(
               (entry) => M3Padding(
-                padding: M3EdgeInsets.only(bottom: M3Spacings.s8),
+                padding: const M3EdgeInsets.only(bottom: M3Spacings.s8),
                 child: Row(
                   children: [
                     Container(
@@ -197,7 +265,7 @@ class TonalPalettePage extends StatelessWidget {
 
     return Card(
       child: M3Padding(
-        padding: M3EdgeInsets.all(M3Spacings.s16),
+        padding: const M3EdgeInsets.all(M3Spacings.s16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -222,7 +290,7 @@ class TonalPalettePage extends StatelessWidget {
                         message: '${e.elevation.dp.toInt()}dp',
                         child: Container(
                           height: 64,
-                          margin: M3EdgeInsets.only(right: M3Spacings.s4),
+                          margin: const M3EdgeInsets.only(right: M3Spacings.s4),
                           decoration: BoxDecoration(
                             color: cs.surfaceAtElevation(e.elevation),
                             borderRadius: M3BorderRadius.small,
@@ -262,7 +330,7 @@ class TonalPalettePage extends StatelessWidget {
 
     return Card(
       child: M3Padding(
-        padding: M3EdgeInsets.all(M3Spacings.s16),
+        padding: const M3EdgeInsets.all(M3Spacings.s16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -282,9 +350,9 @@ class TonalPalettePage extends StatelessWidget {
               final accessible = cs.isAccessible(p.$2, p.$3);
               final ratio = M3ColorUtils.calculateContrast(p.$2, p.$3);
               return M3Padding(
-                padding: M3EdgeInsets.only(bottom: M3Spacings.s12),
+                padding: const M3EdgeInsets.only(bottom: M3Spacings.s12),
                 child: Container(
-                  padding: M3EdgeInsets.all(M3Spacings.s12),
+                  padding: const M3EdgeInsets.all(M3Spacings.s12),
                   decoration: BoxDecoration(
                     color: p.$3,
                     borderRadius: M3BorderRadius.small,

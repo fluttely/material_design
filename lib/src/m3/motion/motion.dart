@@ -55,6 +55,26 @@ class M3MotionDuration extends Duration {
   /// 1000ms — maximum duration transitions.
   static const M3MotionDuration extraLong4 =
       M3MotionDuration._(milliseconds: 1000);
+
+  /// Every duration token, shortest first — for galleries and property tests.
+  static const List<M3MotionDuration> values = <M3MotionDuration>[
+    short1,
+    short2,
+    short3,
+    short4,
+    medium1,
+    medium2,
+    medium3,
+    medium4,
+    long1,
+    long2,
+    long3,
+    long4,
+    extraLong1,
+    extraLong2,
+    extraLong3,
+    extraLong4,
+  ];
 }
 
 /// Material Design 3 motion curves.
@@ -123,6 +143,18 @@ class M3MotionCurve extends ThreePointCubic {
     Offset(0.75, 0.75),
     Offset(1, 1),
   );
+
+  /// Every easing token, in the order above — for galleries and property
+  /// tests.
+  static const List<M3MotionCurve> values = <M3MotionCurve>[
+    emphasized,
+    emphasizedDecelerate,
+    emphasizedAccelerate,
+    standard,
+    standardDecelerate,
+    standardAccelerate,
+    linear,
+  ];
 }
 
 /// A Material Design 3 motion scheme — a duration paired with the easing

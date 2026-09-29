@@ -78,7 +78,7 @@ M3Contract.contrastLevel(0.25);
             ),
           ],
         ),
-        RecipeGroup(
+        const RecipeGroup(
           title: 'Composed helpers',
           url: 'https://m3.material.io/styles',
           recipes: [
@@ -101,7 +101,7 @@ AnimatedContainer(
 ''',
               preview: _ElevationSlider(),
             ),
-            const CodeRecipe(
+            CodeRecipe(
               title: 'Typography that answers to the reader',
               summary: 'The three M3TextUtils transformations that depend on '
                   'something outside the type scale: the window, the user, and '

@@ -159,4 +159,38 @@ void main() {
       );
     });
   });
+
+  group('values lists', () {
+    test('M3MotionDuration.values holds all sixteen tokens, ascending', () {
+      expect(M3MotionDuration.values, hasLength(16));
+      expect(M3MotionDuration.values.first, M3MotionDuration.short1);
+      expect(M3MotionDuration.values.last, M3MotionDuration.extraLong4);
+      for (var i = 1; i < M3MotionDuration.values.length; i++) {
+        expect(
+          M3MotionDuration.values[i],
+          greaterThan(M3MotionDuration.values[i - 1]),
+        );
+      }
+    });
+
+    test('M3MotionDuration.values steps by 50ms to 600ms, then 100ms', () {
+      final ms = [for (final d in M3MotionDuration.values) d.inMilliseconds];
+      expect(ms, [
+        50, 100, 150, 200, 250, 300, 350, 400, //
+        450, 500, 550, 600, 700, 800, 900, 1000,
+      ]);
+    });
+
+    test('M3MotionCurve.values holds the seven distinct curves', () {
+      expect(M3MotionCurve.values, hasLength(7));
+      expect(M3MotionCurve.values.toSet(), hasLength(7));
+    });
+
+    test('every M3Motion scheme draws from the two scales', () {
+      for (final motion in M3Motion.values) {
+        expect(M3MotionDuration.values, contains(motion.duration));
+        expect(M3MotionCurve.values, contains(motion.curve));
+      }
+    });
+  });
 }

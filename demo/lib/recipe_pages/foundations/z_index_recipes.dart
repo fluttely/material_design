@@ -22,12 +22,12 @@ class ZIndexRecipes extends StatelessWidget {
               title: 'Order a Stack by intent',
               summary: 'Sort by the token and the list order stops being the '
                   'thing you have to keep right by hand.',
-              code: '''
+              code: r'''
 final layers = <(int, Widget)>[
   (M3ZIndexes.tooltip, tooltip),
   (M3ZIndexes.content, page),
   (M3ZIndexes.modal, dialog),
-]..sort((a, b) => a.\$1.compareTo(b.\$1));
+]..sort((a, b) => a.$1.compareTo(b.$1));
 
 Stack(
   children: [for (final (_, child) in layers) child],

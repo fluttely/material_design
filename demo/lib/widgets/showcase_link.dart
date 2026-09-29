@@ -43,7 +43,7 @@ class ShowcaseLink extends StatelessWidget {
     return M3Padding(
       padding: const M3EdgeInsets.symmetric(vertical: M3Spacings.s16),
       child: Tooltip(
-        message: url!,
+        message: url,
         child: M3StateLayer(
           overlayColor: colorScheme.primary,
           borderRadius: M3BorderRadius.small,

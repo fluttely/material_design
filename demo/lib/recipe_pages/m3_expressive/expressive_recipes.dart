@@ -82,11 +82,11 @@ AnimatedContainer(
             ),
           ],
         ),
-        RecipeGroup(
+        const RecipeGroup(
           title: 'M3EShapes & M3EMorph',
           url: 'https://m3.material.io/styles/shape/overview',
           recipes: [
-            const CodeRecipe(
+            CodeRecipe(
               title: 'The 35-shape library',
               summary: 'The official catalog, normalised to the unit square. '
                   'Members are static final, not const — the geometry is '
@@ -103,7 +103,7 @@ M3EShapes.flower;
 M3EShapes.heart;
 ''',
             ),
-            const CodeRecipe(
+            CodeRecipe(
               title: 'Draw or animate one yourself',
               summary: 'toPath gives a Path for a CustomPainter; M3EMorph '
                   'gives the shape halfway between two, for when you are '

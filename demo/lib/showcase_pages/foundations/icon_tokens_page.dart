@@ -193,7 +193,7 @@ class _WeightSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return _Section(
       api: 'M3IconWeights',
-      subtitle: 'Weight changes stroke thickness without changing the icon\'s '
+      subtitle: "Weight changes stroke thickness without changing the icon's "
           'footprint, so nothing reflows when it moves. The specimen on each '
           'row is text, not an icon: it is the same axis, on the one font this '
           'demo can vary.',
@@ -228,8 +228,8 @@ class _GradeSection extends StatelessWidget {
 
     return _Section(
       api: 'M3IconGrades',
-      subtitle: 'Grade is weight\'s fine-grained sibling: it thickens or thins '
-          'strokes without changing the icon\'s width at all, which makes it '
+      subtitle: "Grade is weight's fine-grained sibling: it thickens or thins "
+          "strokes without changing the icon's width at all, which makes it "
           'the axis for optical correction rather than restyling. Each value '
           'below is shown on the surface it exists for.',
       child: Column(
@@ -473,7 +473,6 @@ class _TokenRow extends StatelessWidget {
     return M3Padding(
       padding: const M3EdgeInsets.symmetric(vertical: M3Spacings.s8),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           if (specimen != null) ...[
             SizedBox(

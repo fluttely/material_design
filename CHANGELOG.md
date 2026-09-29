@@ -4,6 +4,86 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## Unreleased
+
+Flutter 3.47 moved the Material library out of the framework and into the standalone
+`material_ui` package, and Flutter's M3 Expressive work resumed there. That changes
+what this package is next to: `material_ui` owns the components, and this package is
+the contract they are built from — a complement, never a competitor. This release
+says so where a consumer will read it, states plainly what a `material_ui` app can and
+cannot use today, and closes the two open motion items on the same principle: ship the
+tokens, not what Flutter already ships.
+
+This carries a breaking change on purpose: the package still has no external
+adopters, so removals ship without deprecation shims and take a minor, not a major.
+
+### 💥 Breaking Changes
+
+- **`M3Accessibility.adaptiveDuration` and `adaptiveCurve` are removed**: they
+  answered reduced motion by scaling a duration by an invented `0.3` and swapping in
+  `Curves.linear`. The first lands between the steps of the scale (300ms becomes 90ms,
+  which no token is) and accepted any `Duration`, so it was the one motion API that
+  quietly took raw values; neither had a test. And it answered the wrong question —
+  Material defines no "reduced" duration. With the platform's reduce-motion setting
+  on, the spec changes *what* moves: subtle fades instead of slides and scales, no
+  parallax, no shape morphing
+  ([applying transitions](https://m3.material.io/styles/motion/transitions/applying-transitions)).
+
+  | Before | After |
+  | :--- | :--- |
+  | `M3Accessibility.adaptiveDuration(context: c, normal: d)` | Branch on `M3Accessibility.shouldReduceMotion(c)` and animate opacity instead of position or scale, keeping the duration token |
+  | `M3Accessibility.adaptiveCurve(context: c, normal: k)` | Same; the easing token stays as it is |
+  | a spring driving the motion | `M3Accessibility.adaptiveSpring(c, spring)` |
+
+### ✨ Features
+
+- **`M3ESpring.reduced`**: the spring to use in a spring's place under reduced motion.
+  Each spatial spring maps to the effects spring of the same scheme and speed —
+  critically damped, so nothing overshoots — and effects springs map to themselves.
+  Only published tokens are involved, because the spec publishes no reduced-motion
+  values of its own.
+- **`M3Accessibility.adaptiveSpring(context, spring)`**: applies `reduced` only when
+  the user asked for less motion. It removes the bounce, not the travel; what the
+  spring animates stays the caller's decision, which is why there is deliberately no
+  duration counterpart.
+- **`M3MotionDuration.values` and `M3MotionCurve.values`**: the two motion scales were
+  the last ones without the `values` list every other scale carries, so a gallery had
+  to retype sixteen durations by hand — which is exactly what the demo's Motion page
+  did not do, and why it showed only the seven the schemes use. Durations are listed
+  shortest first, curves in declaration order.
+
+### 📚 Documentation
+
+- **README: "Using it with `material_ui`"**: which parts of the API work unchanged in
+  a `material_ui` app and which do not, checked by compiling and running against
+  `material_ui` 1.5.0 on Flutter 3.47.5 rather than inferred. Everything built on
+  `widgets`/`painting` types works; everything typed with a Material class
+  (`ColorScheme`, `ThemeExtension`, `VisualDensity`, `TextTheme`,
+  `DynamicSchemeVariant`) does not compile, because `material_ui` ships its own copies
+  of those classes, and `MaterialUiCompatibilityBridge` cannot change that. The
+  section gives the workaround that does work: feed the tokens to `material_ui`'s own
+  constructors. The package itself stays on `package:flutter/material.dart` until
+  that library is formally deprecated — moving now would raise the floor from Flutter
+  3.27 to 3.47.
+- **README: transition patterns come from `package:animations`**: container
+  transform, shared axis and fade through are already implemented in
+  flutter/packages, so the package documents how to give them its timing, and a fade
+  under reduced motion, instead of shipping a second copy.
+- **README: the scope note tracks `material_ui`**, where Flutter's Expressive work now
+  lands (its 1.2.0 added a `StyleVariant`, 1.5.0 an Expressive `IconButton`), instead
+  of flutter/flutter#168813. The Versioning section no longer lists spring tokens,
+  scheme variants and the emphasized type scale as upcoming; all three shipped in
+  `1.6.0`.
+- **The demo shows what it used to only name**: the Motion page renders all sixteen
+  durations off `M3MotionDuration.values` and what `durationFor`/`curveFor` resolve
+  to; Tonal renders `M3CorePalette`'s six palettes; Shape puts the `M3Corners` radius
+  on each level; Springs shows each spatial spring's `reduced` counterpart and what
+  `adaptiveSpring` returns on the current device.
+- **Two demo snippets taught something false**: the springs page said
+  `standardSpatialDefault.isBouncy` is `false` "because damping is 1.0 or higher" —
+  its damping is 0.9, so it is `true`; and the icon restyle recipe set a weight in
+  its snippet that its live preview never applied.
+
 ## 1.8.1
 
 `M3EShapeBorder` fits a morphing path to a bounding box so the shape fills its layout

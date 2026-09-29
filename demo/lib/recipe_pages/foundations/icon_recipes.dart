@@ -82,7 +82,10 @@ IconTheme.merge(
 )
 ''',
               preview: IconTheme.merge(
-                data: const M3IconStyle(size: M3IconSizes.dense),
+                data: const M3IconStyle(
+                  size: M3IconSizes.dense,
+                  weight: M3IconWeights.medium,
+                ),
                 child: Row(
                   children: [
                     for (final icon in const [
@@ -119,7 +122,7 @@ M3IconStyle.disabled;     // 38% opacity
             CodeRecipe(
               title: 'Fill marks selection, not a different glyph',
               summary: 'M3 moves the active destination along the FILL axis. '
-                  'Flutter\'s bundled Icons font is static, so this carries '
+                  "Flutter's bundled Icons font is static, so this carries "
                   'the value — ship Material Symbols to see it drawn.',
               code: '''
 Icon(

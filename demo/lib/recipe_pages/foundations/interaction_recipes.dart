@@ -26,7 +26,7 @@ class InteractionRecipes extends StatelessWidget {
             CodeRecipe(
               title: 'Make anything respond like a component',
               summary: 'Wrap a custom surface and it gets the four M3 '
-                  'overlays, in the spec\'s precedence, clipped to the shape '
+                  "overlays, in the spec's precedence, clipped to the shape "
                   'you name.',
               code: '''
 M3StateLayer(
@@ -74,12 +74,12 @@ M3StateLayer(
             ),
           ],
         ),
-        RecipeGroup(
+        const RecipeGroup(
           title: 'M3InteractionState',
           url: 'https://m3.material.io/foundations/interaction/states/'
               'overview',
           recipes: [
-            const CodeRecipe(
+            CodeRecipe(
               title: 'Resolve a state yourself',
               summary: 'When you are driving the states by hand, take the '
                   'strongest active one — that is the precedence the spec '

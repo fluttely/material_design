@@ -1,5 +1,5 @@
-// ignore_for_file: experimental_member_use
 // M3EmphasizedTypeScale is @experimental and showcasing it is this page's job.
+// ignore_for_file: experimental_member_use
 
 import 'package:flutter/material.dart';
 import 'package:material_design/material_design.dart';
@@ -45,7 +45,7 @@ class TypographyPage extends StatelessWidget {
       appBar: AppBar(title: const Text('Type Scale')),
       body: Column(
         children: [
-          M3Padding(
+          const M3Padding(
             padding: M3EdgeInsets.only(left: M3Spacings.s12),
             child: Align(
               alignment: Alignment.centerLeft,
@@ -58,7 +58,7 @@ class TypographyPage extends StatelessWidget {
           ),
           Expanded(
             child: ListView(
-              padding: M3EdgeInsets.all(M3Spacings.s16),
+              padding: const M3EdgeInsets.all(M3Spacings.s16),
               children: [
                 const _EmphasisNote(),
                 const M3Gap(M3Spacings.s24),
@@ -107,7 +107,7 @@ class _EmphasisNote extends StatelessWidget {
         borderRadius: M3BorderRadius.large,
       ),
       child: M3Padding(
-        padding: M3EdgeInsets.all(M3Spacings.s16),
+        padding: const M3EdgeInsets.all(M3Spacings.s16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -134,7 +134,7 @@ class _EmphasisNote extends StatelessWidget {
               'applied everywhere is emphasis nowhere.',
               style: textTheme.bodyMedium,
             ),
-            Align(
+            const Align(
               alignment: Alignment.centerLeft,
               child: ShowcaseLink(
                 label: 'M3EmphasizedTypeScale',
@@ -183,9 +183,9 @@ class _RoleComparison extends StatelessWidget {
     }
 
     return Card(
-      margin: M3EdgeInsets.only(bottom: M3Spacings.s16),
+      margin: const M3EdgeInsets.only(bottom: M3Spacings.s16),
       child: M3Padding(
-        padding: M3EdgeInsets.all(M3Spacings.s16),
+        padding: const M3EdgeInsets.all(M3Spacings.s16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -274,9 +274,9 @@ class _EmphasisSelectionDemoState extends State<_EmphasisSelectionDemo> {
     final textTheme = Theme.of(context).textTheme;
 
     return Card(
-      margin: M3EdgeInsets.only(bottom: M3Spacings.s16),
+      margin: const M3EdgeInsets.only(bottom: M3Spacings.s16),
       child: M3Padding(
-        padding: M3EdgeInsets.all(M3Spacings.s8),
+        padding: const M3EdgeInsets.all(M3Spacings.s8),
         child: Column(
           children: [
             for (var index = 0; index < _options.length; index++)
@@ -291,7 +291,7 @@ class _EmphasisSelectionDemoState extends State<_EmphasisSelectionDemo> {
                   borderRadius: M3BorderRadius.large,
                   onTap: () => setState(() => _selectedIndex = index),
                   child: M3Padding(
-                    padding: M3EdgeInsets.symmetric(
+                    padding: const M3EdgeInsets.symmetric(
                       horizontal: M3Spacings.s16,
                       vertical: M3Spacings.s12,
                     ),
@@ -322,7 +322,7 @@ class _EmphasisSelectionDemoState extends State<_EmphasisSelectionDemo> {
                 ),
               ),
             M3Padding(
-              padding: M3EdgeInsets.all(M3Spacings.s8),
+              padding: const M3EdgeInsets.all(M3Spacings.s8),
               child: Text(
                 'Selected row: M3EmphasizedTypeScale.of(M3TypeScale.bodyLarge)'
                 ' — ${_weight(M3EmphasizedTypeScale.of(M3TypeScale.bodyLarge))}'

@@ -20,7 +20,7 @@ class _UtilsPageState extends State<UtilsPage> {
         title: const Text('M3 Utilities Showcase'),
       ),
       body: SingleChildScrollView(
-        padding: M3EdgeInsets.all(M3Spacings.s16),
+        padding: const M3EdgeInsets.all(M3Spacings.s16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -76,7 +76,7 @@ class _UtilsPageState extends State<UtilsPage> {
         const M3Gap(M3Spacings.s16),
         Container(
           width: double.infinity,
-          padding: M3EdgeInsets.all(M3Spacings.s12),
+          padding: const M3EdgeInsets.all(M3Spacings.s12),
           decoration: ShapeDecoration(
             color: Theme.of(context).colorScheme.surfaceContainer,
             shape: M3Shape.small,
@@ -111,7 +111,6 @@ class _UtilsPageState extends State<UtilsPage> {
         ),
         Slider(
           value: _elevation.dp,
-          min: M3ElevationDps.level0,
           max: M3ElevationDps.level5,
           divisions: 12,
           label: '${_elevation.dp.round()}dp',
@@ -130,9 +129,9 @@ class _UtilsPageState extends State<UtilsPage> {
             shape: M3Shape.large,
             shadows: _elevation.shadows,
           ),
-          child: ListTile(
-            leading: const Icon(Icons.layers),
-            title: const Text('Dynamic Elevation Card'),
+          child: const ListTile(
+            leading: Icon(Icons.layers),
+            title: Text('Dynamic Elevation Card'),
             subtitle: Text('Surface tint and shadow change together.'),
           ),
         ),
@@ -200,7 +199,7 @@ class _UtilsPageState extends State<UtilsPage> {
         const M3Gap(M3Spacings.s8),
         Container(
           width: double.infinity,
-          padding: M3EdgeInsets.all(M3Spacings.s12),
+          padding: const M3EdgeInsets.all(M3Spacings.s12),
           decoration: ShapeDecoration(
             color: colorScheme.surfaceContainer,
             shape: M3Shape.small,
@@ -254,11 +253,11 @@ class _UtilsPageState extends State<UtilsPage> {
     required Widget content,
   }) {
     return Card(
-      margin: M3EdgeInsets.only(
+      margin: const M3EdgeInsets.only(
         bottom: M3Spacings.s16,
       ),
       child: M3Padding(
-        padding: M3EdgeInsets.all(M3Spacings.s16),
+        padding: const M3EdgeInsets.all(M3Spacings.s16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -305,7 +304,7 @@ class _UtilsPageState extends State<UtilsPage> {
   Widget _buildMotionCard(String label, IconData icon) {
     final colorScheme = Theme.of(context).colorScheme;
     return Container(
-      padding: M3EdgeInsets.symmetric(
+      padding: const M3EdgeInsets.symmetric(
         horizontal: M3Spacings.s16,
         vertical: M3Spacings.s12,
       ),

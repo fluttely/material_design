@@ -17,10 +17,10 @@ class CanonicalLayoutsPage extends StatefulWidget {
 
 class _CanonicalLayoutsPageState extends State<CanonicalLayoutsPage> {
   /// Height of every miniature demo, so the page itself stays the scroller.
-  static final double _demoHeight = M3Spacings.s128 * 2;
+  static const double _demoHeight = M3Spacings.s128 * 2;
 
   /// Minimum height of a supporting-pane miniature when stacked.
-  static final double _stackedPaneHeight = M3Spacings.s128;
+  static const double _stackedPaneHeight = M3Spacings.s128;
 
   static const List<_Message> _messages = [
     _Message('Layout review', 'Panes, gutters, and margins for the new feed.'),
@@ -45,7 +45,7 @@ class _CanonicalLayoutsPageState extends State<CanonicalLayoutsPage> {
         title: const Text('Canonical Layouts'),
       ),
       body: SingleChildScrollView(
-        padding: M3EdgeInsets.all(M3Spacings.s16),
+        padding: const M3EdgeInsets.all(M3Spacings.s16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -141,7 +141,7 @@ class _CanonicalLayoutsPageState extends State<CanonicalLayoutsPage> {
   Widget _buildReadoutRow(BuildContext context, String label, String value) {
     final textTheme = Theme.of(context).textTheme;
     return M3Padding(
-      padding: M3EdgeInsets.only(bottom: M3Spacings.s4),
+      padding: const M3EdgeInsets.only(bottom: M3Spacings.s4),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -216,7 +216,8 @@ class _CanonicalLayoutsPageState extends State<CanonicalLayoutsPage> {
           final message = _messages[index];
           return ListTile(
             dense: true,
-            contentPadding: M3EdgeInsets.symmetric(horizontal: M3Spacings.s8),
+            contentPadding:
+                const M3EdgeInsets.symmetric(horizontal: M3Spacings.s8),
             shape: const RoundedRectangleBorder(
               borderRadius: M3BorderRadius.medium,
             ),
@@ -287,7 +288,7 @@ class _CanonicalLayoutsPageState extends State<CanonicalLayoutsPage> {
       ),
       child: Center(
         child: M3Padding(
-          padding: M3EdgeInsets.all(M3Spacings.s16),
+          padding: const M3EdgeInsets.all(M3Spacings.s16),
           child: Text(
             'placeholder — select a message',
             textAlign: TextAlign.center,
@@ -455,7 +456,7 @@ class _CanonicalLayoutsPageState extends State<CanonicalLayoutsPage> {
 
     Widget point(String title, String body) {
       return M3Padding(
-        padding: M3EdgeInsets.only(bottom: M3Spacings.s12),
+        padding: const M3EdgeInsets.only(bottom: M3Spacings.s12),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -516,7 +517,7 @@ class _CanonicalLayoutsPageState extends State<CanonicalLayoutsPage> {
       borderRadius: M3BorderRadius.medium,
       clipBehavior: Clip.antiAlias,
       child: M3Padding(
-        padding: M3EdgeInsets.all(M3Spacings.s12),
+        padding: const M3EdgeInsets.all(M3Spacings.s12),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -540,14 +541,14 @@ class _CanonicalLayoutsPageState extends State<CanonicalLayoutsPage> {
     final textTheme = Theme.of(context).textTheme;
 
     return ConstrainedBox(
-      constraints: BoxConstraints(minHeight: _stackedPaneHeight),
+      constraints: const BoxConstraints(minHeight: _stackedPaneHeight),
       child: DecoratedBox(
         decoration: M3BoxDecoration(
           color: color,
           borderRadius: M3BorderRadius.medium,
         ),
         child: M3Padding(
-          padding: M3EdgeInsets.all(M3Spacings.s12),
+          padding: const M3EdgeInsets.all(M3Spacings.s12),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
@@ -600,7 +601,7 @@ class _CanonicalLayoutsPageState extends State<CanonicalLayoutsPage> {
         borderRadius: M3BorderRadius.medium,
       ),
       child: M3Padding(
-        padding: M3EdgeInsets.all(M3Spacings.s12),
+        padding: const M3EdgeInsets.all(M3Spacings.s12),
         child: Text(
           text,
           style: theme.textTheme.bodySmall?.copyWith(
@@ -617,9 +618,9 @@ class _CanonicalLayoutsPageState extends State<CanonicalLayoutsPage> {
     required Widget child,
   }) {
     return Card(
-      margin: M3EdgeInsets.only(bottom: M3Spacings.s16),
+      margin: const M3EdgeInsets.only(bottom: M3Spacings.s16),
       child: M3Padding(
-        padding: M3EdgeInsets.all(M3Spacings.s16),
+        padding: const M3EdgeInsets.all(M3Spacings.s16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

@@ -90,6 +90,7 @@ M3Motion.curveFor(M3MotionType.incoming);     // emphasizedDecelerate
 M3MotionDuration.short2;     //  100ms
 M3MotionDuration.medium2;    //  300ms
 M3MotionDuration.extraLong4; // 1000ms
+M3MotionDuration.values;     // all sixteen, shortest first
 
 M3MotionCurve.emphasized;
 M3MotionCurve.emphasizedDecelerate;
@@ -99,7 +100,7 @@ M3MotionCurve.linear;
             ),
             CodeRecipe(
               title: 'As a tween',
-              summary: 'asTween chains the scheme\'s curve onto a Tween, so an '
+              summary: "asTween chains the scheme's curve onto a Tween, so an "
                   'explicit animation gets the same easing an implicit one '
                   'would.',
               code: '''

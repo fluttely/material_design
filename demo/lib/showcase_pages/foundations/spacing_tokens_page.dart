@@ -59,7 +59,7 @@ class _SpacingPageState extends State<SpacingPage> {
         title: const Text('Spacing'),
       ),
       body: SingleChildScrollView(
-        padding: M3EdgeInsets.all(M3Spacings.s16),
+        padding: const M3EdgeInsets.all(M3Spacings.s16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -70,7 +70,8 @@ class _SpacingPageState extends State<SpacingPage> {
             ),
             const M3Gap(M3Spacings.s8),
             Text(
-              'Material Design uses a 4dp base unit for spacing. This creates visual rhythm and hierarchy.',
+              'Material Design uses a 4dp base unit for spacing. This creates '
+              'visual rhythm and hierarchy.',
               style: textTheme.bodyMedium,
             ),
             const M3Gap(M3Spacings.s16),
@@ -104,7 +105,7 @@ class _SpacingPageState extends State<SpacingPage> {
     final isInfinity = spacing == double.infinity;
 
     return M3Padding(
-      padding: M3EdgeInsets.only(bottom: M3Spacings.s16),
+      padding: const M3EdgeInsets.only(bottom: M3Spacings.s16),
       child: Row(
         children: [
           SizedBox(
@@ -117,7 +118,8 @@ class _SpacingPageState extends State<SpacingPage> {
           SizedBox(
             width: 48,
             child: Text(
-              // FIX: Display '∞' for infinity, otherwise display the integer value.
+              // FIX: Display '∞' for infinity, otherwise display the integer
+              // value.
               isInfinity ? '∞' : '${spacing.toInt()}dp',
               style: textTheme.bodyMedium?.copyWith(
                 color: colorScheme.onSurfaceVariant,
@@ -125,7 +127,8 @@ class _SpacingPageState extends State<SpacingPage> {
             ),
           ),
           const M3Gap(M3Spacings.s16),
-          // FIX: Conditionally render the container or a text label for infinity.
+          // FIX: Conditionally render the container or a text label for
+          // infinity.
           if (isInfinity)
             Text(
               'Unbounded',

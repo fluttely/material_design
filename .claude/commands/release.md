@@ -1,7 +1,7 @@
 ---
 description: Cut a release — version, changelog section, gate, commit
 argument-hint: "<version> — e.g. 1.8.0"
-allowed-tools: Bash(dart:*), Bash(flutter:*), Bash(./tool/verify.sh:*), Bash(git:*), Read, Edit, Grep, Glob
+allowed-tools: Bash(dart:*), Bash(flutter:*), Bash(./tool/verify.sh:*), Bash(git:*), Read, Edit, Grep, Glob, WebFetch(domain:pub.dev)
 model: opus
 ---
 
@@ -57,6 +57,22 @@ House style, which the open section already follows:
   table when there is more than one.
 - A release that bundles several milestones gets **one** section, not one per
   milestone.
+
+## 3b. Check what Flutter shipped since
+
+Read the `material_ui` changelog (https://pub.dev/packages/material_ui/changelog)
+back to the previous release date. Flutter's Material work lands there now, and
+two of this package's decisions wait on it (Roadmap 7.1, 7.5):
+
+- **A stopgap expired** — it shipped a widget carried here as an `M3E*` stopgap
+  (`M3ELoadingIndicator` today): delete ours in this release, with a migration
+  line pointing at Flutter's.
+- **The migration trigger fired** — a stable release formally deprecated
+  `package:flutter/material.dart`: plan the move to `material_ui` for the next
+  release.
+
+Anything else Expressive it shipped (motion, shape, type tokens): check that ours
+agree. Report what was found to the owner, even when it is nothing.
 
 ## 4. Make the three numbers agree
 

@@ -10,21 +10,23 @@ class ShapePage extends StatelessWidget {
     final colorScheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
 
+    // Each level with the M3Corners radius behind it, so the number on the
+    // tile is read off the token rather than typed beside it.
     final shapes = [
-      ('None', M3Shape.none),
-      ('Extra Small', M3Shape.extraSmall),
-      ('Small', M3Shape.small),
-      ('Medium', M3Shape.medium),
-      ('Large', M3Shape.large),
-      ('Extra Large', M3Shape.extraLarge),
-      ('Full (Stadium)', M3Shape.full),
+      ('None', M3Shape.none, M3Corners.none),
+      ('Extra Small', M3Shape.extraSmall, M3Corners.extraSmall),
+      ('Small', M3Shape.small, M3Corners.small),
+      ('Medium', M3Shape.medium, M3Corners.medium),
+      ('Large', M3Shape.large, M3Corners.large),
+      ('Extra Large', M3Shape.extraLarge, M3Corners.extraLarge),
+      ('Full (Stadium)', M3Shape.full, M3Corners.full),
     ];
 
     return Scaffold(
-      appBar: AppBar(title: Text('Shape')),
+      appBar: AppBar(title: const Text('Shape')),
       body: Column(
         children: [
-          M3Padding(
+          const M3Padding(
             padding: M3EdgeInsets.only(left: M3Spacings.s12),
             child: Align(
               alignment: Alignment.centerLeft,
@@ -48,8 +50,8 @@ class ShapePage extends StatelessWidget {
           ),
           Expanded(
             child: GridView.builder(
-              padding: M3EdgeInsets.all(M3Margins.mediumScreen),
-              gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+              padding: const M3EdgeInsets.all(M3Margins.mediumScreen),
+              gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
                 maxCrossAxisExtent: 200,
                 childAspectRatio: 1.5,
                 mainAxisSpacing: M3Spacings.s16,
@@ -57,18 +59,29 @@ class ShapePage extends StatelessWidget {
               ),
               itemCount: shapes.length,
               itemBuilder: (context, index) {
-                final (label, shape) = shapes[index];
+                final (label, shape, corner) = shapes[index];
                 return Container(
                   decoration: ShapeDecoration(
                     color: colorScheme.surfaceContainer,
                     shape: shape,
                   ),
-                  child: Center(
-                    child: Text(
-                      label,
-                      style: textTheme.bodyLarge,
-                      textAlign: TextAlign.center,
-                    ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        label,
+                        style: textTheme.bodyLarge,
+                        textAlign: TextAlign.center,
+                      ),
+                      Text(
+                        corner == M3Corners.full
+                            ? 'M3Corners.full'
+                            : '${corner.toInt()}dp',
+                        style: textTheme.labelMedium?.copyWith(
+                          color: colorScheme.onSurfaceVariant,
+                        ),
+                      ),
+                    ],
                   ),
                 );
               },

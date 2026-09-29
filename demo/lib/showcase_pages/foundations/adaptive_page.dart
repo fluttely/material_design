@@ -27,7 +27,7 @@ class _AdaptivePageState extends State<AdaptivePage> {
         automaticallyImplyLeading: false,
       ),
       body: SingleChildScrollView(
-        padding: M3EdgeInsets.all(M3Spacings.s16),
+        padding: const M3EdgeInsets.all(M3Spacings.s16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -43,7 +43,7 @@ class _AdaptivePageState extends State<AdaptivePage> {
               'Current Window Size',
               Card(
                 child: M3Padding(
-                  padding: M3EdgeInsets.all(M3Spacings.s16),
+                  padding: const M3EdgeInsets.all(M3Spacings.s16),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -53,11 +53,13 @@ class _AdaptivePageState extends State<AdaptivePage> {
                       ),
                       const M3Gap(M3Spacings.s8),
                       Text(
-                        'Screen width: ${MediaQuery.of(context).size.width.toInt()}dp',
+                        'Screen width: '
+                        '${MediaQuery.of(context).size.width.toInt()}dp',
                         style: Theme.of(context).textTheme.bodyMedium,
                       ),
                       Text(
-                        'Is compact: ${M3ScreenSize.of(context) == M3ScreenSize.compact}',
+                        'Is compact: '
+                        '${M3ScreenSize.of(context) == M3ScreenSize.compact}',
                         style: Theme.of(context).textTheme.bodyMedium,
                       ),
                     ],
@@ -74,7 +76,7 @@ class _AdaptivePageState extends State<AdaptivePage> {
               'Responsive Values',
               Card(
                 child: M3Padding(
-                  padding: M3EdgeInsets.all(M3Spacings.s16),
+                  padding: const M3EdgeInsets.all(M3Spacings.s16),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -247,11 +249,12 @@ class _AdaptivePageState extends State<AdaptivePage> {
   }
 
   void _showAdaptiveDialog(BuildContext context) {
-    M3Adaptive.showAdaptiveDialog(
+    M3Adaptive.showAdaptiveDialog<void>(
       context: context,
       title: 'Adaptive Dialog',
       content: const Text(
-        'This dialog adapts to the screen size. On mobile, it appears fullscreen. On larger screens, it appears as a modal dialog.',
+        'This dialog adapts to the screen size. On mobile, it appears '
+        'fullscreen. On larger screens, it appears as a modal dialog.',
       ),
       actions: [
         TextButton(
@@ -263,13 +266,14 @@ class _AdaptivePageState extends State<AdaptivePage> {
   }
 
   void _showAdaptiveSheet(BuildContext context) {
-    M3Adaptive.showAdaptiveSheet(
+    M3Adaptive.showAdaptiveSheet<void>(
       context: context,
       title: 'Adaptive Sheet',
-      child: M3Padding(
+      child: const M3Padding(
         padding: M3EdgeInsets.all(M3Spacings.s16),
         child: Text(
-          'This sheet adapts to the screen size. On mobile, it appears as a bottom sheet. On larger screens, it appears as a side sheet.',
+          'This sheet adapts to the screen size. On mobile, it appears as a '
+          'bottom sheet. On larger screens, it appears as a side sheet.',
         ),
       ),
     );

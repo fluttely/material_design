@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:material_design/material_design.dart';
 import 'package:material_design_demo/showcase/showcase_destinations.dart';
 import 'package:material_design_demo/showcase/showcase_mode.dart';
+import 'package:material_design_demo/showcase/showcase_rail.dart'
+    show ShowcaseRail;
 import 'package:material_design_demo/showcase/theme_controls.dart';
 import 'package:material_design_demo/widgets/showcase_link.dart';
 
@@ -52,9 +54,9 @@ class ShowcaseDrawer extends StatelessWidget {
         const _DrawerHeading('Theme'),
         const ThemeControls(axis: Axis.horizontal),
         const M3Gap(M3Spacings.s8),
-        M3Padding(
-          padding: const M3EdgeInsets.symmetric(horizontal: M3Spacings.s16),
-          child: const ShowcaseLink(
+        const M3Padding(
+          padding: M3EdgeInsets.symmetric(horizontal: M3Spacings.s16),
+          child: ShowcaseLink(
             label: 'Flutter M3 Demo',
             url: 'https://flutterweb-wasm.web.app/',
           ),

@@ -88,27 +88,31 @@ abstract final class M3Accessibility {
 
   // --- Motion helpers ---
 
-  /// Returns a reduced duration when the user prefers reduced motion.
-  static Duration adaptiveDuration({
-    required BuildContext context,
-    required Duration normal,
-    double reductionFactor = 0.3,
-  }) {
-    if (shouldReduceMotion(context)) {
-      return Duration(
-        milliseconds: (normal.inMilliseconds * reductionFactor).round(),
-      );
-    }
-    return normal;
-  }
-
-  /// Returns a linear curve when the user prefers reduced motion.
-  static Curve adaptiveCurve({
-    required BuildContext context,
-    required Curve normal,
-  }) {
-    return shouldReduceMotion(context) ? Curves.linear : normal;
-  }
+  /// [spring], or its [M3ESpring.reduced] counterpart when the user prefers
+  /// reduced motion.
+  ///
+  /// Under reduced motion Material changes what moves, not how long it takes:
+  /// fades instead of slides and scales, no parallax, no shape morphing. That
+  /// part is the caller's — branch on [shouldReduceMotion] and animate opacity.
+  /// This helper covers the part a token can: the spring that drives it stops
+  /// overshooting.
+  ///
+  /// ```dart
+  /// final spring = M3Accessibility.adaptiveSpring(
+  ///   context,
+  ///   M3MotionScheme.expressive.spatial(M3MotionSpeed.fast),
+  /// );
+  /// controller.animateWith(spring.simulation(start: 0, end: 1));
+  /// ```
+  ///
+  /// There is deliberately no duration counterpart. The spec defines no
+  /// "reduced" duration, and scaling a token by a factor lands between the
+  /// steps of the scale.
+  ///
+  /// Spec: https://m3.material.io/styles/motion/transitions/applying-transitions
+  @experimental
+  static M3ESpring adaptiveSpring(BuildContext context, M3ESpring spring) =>
+      shouldReduceMotion(context) ? spring.reduced : spring;
 
   // --- High-contrast theme helpers ---
 

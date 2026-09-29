@@ -38,7 +38,8 @@ class _VisualDensityPageState extends State<VisualDensityPage> {
     ),
   ];
 
-  /// Getter para determinar o nome do valor de densidade adaptativa na plataforma atual.
+  /// Getter para determinar o nome do valor de densidade adaptativa na
+  /// plataforma atual.
   String get _adaptiveDensityValueName {
     final platform = Theme.of(context).platform;
     final recommendedToken = M3VisualDensity.forPlatform(platform);
@@ -84,7 +85,8 @@ class _VisualDensityPageState extends State<VisualDensityPage> {
         leading: const Icon(Icons.info_outline),
         title: const Text('Adaptive Density'),
         subtitle: Text(
-          'On this platform, the adaptive value is "$_adaptiveDensityValueName".',
+          'On this platform, the adaptive value is '
+          '"$_adaptiveDensityValueName".',
         ),
       ),
     );
@@ -93,7 +95,7 @@ class _VisualDensityPageState extends State<VisualDensityPage> {
   /// Constrói o seletor de densidade com botões segmentados.
   Widget _buildDensitySelector() {
     return M3Padding(
-      padding: M3EdgeInsets.symmetric(
+      padding: const M3EdgeInsets.symmetric(
         vertical: M3Spacings.s8,
       ),
       child: SegmentedButton<VisualDensity>(
@@ -136,12 +138,12 @@ class _VisualDensityPageState extends State<VisualDensityPage> {
   /// Constrói a lista de exemplo para visualizar a densidade.
   Widget _buildDemoList() {
     return ListView.builder(
-      padding: M3EdgeInsets.symmetric(vertical: M3Spacings.s16),
+      padding: const M3EdgeInsets.symmetric(vertical: M3Spacings.s16),
       itemCount: 6,
       itemBuilder: (context, index) {
         return Card(
           child: M3Padding(
-            padding: M3EdgeInsets.all(M3Spacings.s16),
+            padding: const M3EdgeInsets.all(M3Spacings.s16),
             child: Column(
               children: [
                 ListTile(

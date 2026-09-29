@@ -212,7 +212,7 @@ class _ShapeBorderShowcaseState extends State<ShapeBorderShowcase> {
     final textTheme = Theme.of(context).textTheme;
 
     return Container(
-      padding: M3EdgeInsets.all(M3Spacings.s12),
+      padding: const M3EdgeInsets.all(M3Spacings.s12),
       decoration: M3BoxDecoration(
         color: colorScheme.surfaceContainerHighest,
         borderRadius: M3BorderRadius.medium,
@@ -229,9 +229,10 @@ class _ShapeBorderShowcaseState extends State<ShapeBorderShowcase> {
           Expanded(
             child: Text(
               'The in-between frames are not a crossfade. Lerping two '
-              'M3EShapeBorder instances runs the real M3EMorph algorithm on the '
-              'polygons, so the outline itself travels from one shape to the '
-              'other — which is why an ordinary implicit animation is enough.',
+              'M3EShapeBorder instances runs the real M3EMorph algorithm on '
+              'the polygons, so the outline itself travels from one shape to '
+              'the other — which is why an ordinary implicit animation is '
+              'enough.',
               style: textTheme.bodySmall?.copyWith(
                 color: colorScheme.onSurfaceVariant,
               ),
@@ -269,7 +270,7 @@ class _ShapeTile extends StatelessWidget {
           Material(
             color: color,
             shape: M3EShapeBorder(shape, side: side),
-            child: SizedBox.square(dimension: M3Spacings.s80),
+            child: const SizedBox.square(dimension: M3Spacings.s80),
           ),
           const M3Gap(M3Spacings.s8),
           Text(

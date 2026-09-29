@@ -19,7 +19,7 @@ class ResponsivePage extends StatelessWidget {
         title: const Text('Responsive'),
       ),
       body: SingleChildScrollView(
-        padding: M3EdgeInsets.all(M3Spacings.s16),
+        padding: const M3EdgeInsets.all(M3Spacings.s16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -98,7 +98,7 @@ class ResponsivePage extends StatelessWidget {
 
     Widget row(String label, String value) {
       return M3Padding(
-        padding: M3EdgeInsets.only(bottom: M3Spacings.s4),
+        padding: const M3EdgeInsets.only(bottom: M3Spacings.s4),
         child: Row(
           children: [
             SizedBox(
@@ -160,9 +160,9 @@ class ResponsivePage extends StatelessWidget {
     required Widget child,
   }) {
     return Card(
-      margin: M3EdgeInsets.only(bottom: M3Spacings.s16),
+      margin: const M3EdgeInsets.only(bottom: M3Spacings.s16),
       child: M3Padding(
-        padding: M3EdgeInsets.all(M3Spacings.s16),
+        padding: const M3EdgeInsets.all(M3Spacings.s16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

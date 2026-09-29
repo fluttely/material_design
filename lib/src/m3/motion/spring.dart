@@ -105,6 +105,41 @@ enum M3ESpring {
   /// Whether this spring overshoots its target before settling.
   bool get isBouncy => damping < 1.0;
 
+  /// The spring to use in this one's place when the user has asked the
+  /// platform to reduce motion.
+  ///
+  /// Material does not answer reduced motion with shorter motion; it changes
+  /// the motion's *kind*. With the setting on, transitions use subtle fades
+  /// instead of sliding or scaling, and decorative effects such as parallax
+  /// and shape morphing are dropped. The spring half of that is critical
+  /// damping: a spatial spring becomes the effects spring of the same scheme
+  /// and speed (damping 1.0 — published values only), so nothing overshoots.
+  /// Effects springs are critically damped already and map to themselves.
+  ///
+  /// This removes the bounce, not the travel. What the spring animates is
+  /// still the caller's choice, and under reduced motion the spec wants that
+  /// to be opacity rather than position or scale.
+  /// `M3Accessibility.adaptiveSpring` applies this only when the setting is
+  /// on.
+  ///
+  /// Spec: https://m3.material.io/styles/motion/transitions/applying-transitions
+  M3ESpring get reduced => switch (this) {
+        M3ESpring.standardSpatialSlow => M3ESpring.standardEffectsSlow,
+        M3ESpring.standardSpatialDefault => M3ESpring.standardEffectsDefault,
+        M3ESpring.standardSpatialFast => M3ESpring.standardEffectsFast,
+        M3ESpring.expressiveSpatialSlow => M3ESpring.expressiveEffectsSlow,
+        M3ESpring.expressiveSpatialDefault =>
+          M3ESpring.expressiveEffectsDefault,
+        M3ESpring.expressiveSpatialFast => M3ESpring.expressiveEffectsFast,
+        M3ESpring.standardEffectsSlow ||
+        M3ESpring.standardEffectsDefault ||
+        M3ESpring.standardEffectsFast ||
+        M3ESpring.expressiveEffectsSlow ||
+        M3ESpring.expressiveEffectsDefault ||
+        M3ESpring.expressiveEffectsFast =>
+          this,
+      };
+
   /// This token as a Flutter [SpringDescription], with unit mass.
   SpringDescription get description => SpringDescription.withDampingRatio(
         mass: 1,

@@ -8,9 +8,9 @@ class ZIndexTokensPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Z-Index')), // TODO(Kevin): fix title
+      appBar: AppBar(title: const Text('Z-Index')),
       body: ListView(
-        padding: M3EdgeInsets.all(M3Spacings.s16),
+        padding: const M3EdgeInsets.all(M3Spacings.s16),
         children: [
           _buildZIndexSection(context),
         ],
@@ -70,7 +70,7 @@ class ZIndexTokensPage extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        ShowcaseLink(label: 'M3ZIndexes'),
+        const ShowcaseLink(label: 'M3ZIndexes'),
         const M3Gap(M3Spacings.s8),
         Text(
           'Stacking order from bottom to top (lower to higher z-index)',
@@ -81,7 +81,7 @@ class ZIndexTokensPage extends StatelessWidget {
         const M3Gap(M3Spacings.s16),
         Container(
           height: 512,
-          padding: M3EdgeInsets.all(M3Spacings.s16),
+          padding: const M3EdgeInsets.all(M3Spacings.s16),
           decoration: BoxDecoration(
             color: colorScheme.surfaceContainerLowest,
             borderRadius: M3BorderRadius.medium,
@@ -120,30 +120,25 @@ class ZIndexTokensPage extends StatelessWidget {
                       ],
                     ),
                     child: M3Padding(
-                      padding: M3EdgeInsets.all(M3Spacings.s12),
+                      padding: const M3EdgeInsets.all(M3Spacings.s12),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
                             layer.name,
                             style: textTheme.titleSmall?.copyWith(
-                              // color: _getTextColor(layer.color, colorScheme),
                               fontWeight: FontWeight.bold,
                             ),
                           ),
                           const M3Gap(M3Spacings.s4),
                           Text(
                             'z: ${layer.zIndex}',
-                            style: textTheme.labelMedium?.copyWith(
-                                // color: _getTextColor(layer.color, colorScheme),
-                                ),
+                            style: textTheme.labelMedium,
                           ),
                           const M3Gap(M3Spacings.s4),
                           Text(
                             layer.description,
-                            style: textTheme.bodySmall?.copyWith(
-                                // color: _getTextColor(layer.color, colorScheme),
-                                ),
+                            style: textTheme.bodySmall,
                           ),
                         ],
                       ),
@@ -184,7 +179,7 @@ class ZIndexTokensPage extends StatelessWidget {
                   ),
                 ),
                 trailing: Container(
-                  padding: M3EdgeInsets.symmetric(
+                  padding: const M3EdgeInsets.symmetric(
                     horizontal: M3Spacings.s8,
                     vertical: M3Spacings.s4,
                   ),
@@ -223,8 +218,3 @@ class _ZIndexLayer {
   final Color color;
   final Color borderColor;
 }
-
-// Color _getTextColor(Color backgroundColor, ColorScheme colorScheme) {
-//   final luminance = backgroundColor.computeLuminance();
-//   return luminance > 0.5 ? colorScheme.onSurface : colorScheme.onInverseSurface;
-// }

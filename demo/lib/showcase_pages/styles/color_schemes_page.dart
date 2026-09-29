@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:material_design/material_design.dart';
-import 'package:material_design_demo/widgets/showcase_link.dart';
 import 'package:material_design_demo/theme/theme_provider.dart';
+import 'package:material_design_demo/widgets/showcase_link.dart';
 import 'package:provider/provider.dart';
 
 /// The brand colors used by the harmonization and extended color sections.
@@ -36,9 +36,9 @@ class _ColorSchemesPageState extends State<ColorSchemesPage> {
     return Scaffold(
       appBar: AppBar(title: const Text('Color Schemes')),
       body: ListView(
-        padding: M3EdgeInsets.all(M3Spacings.s16),
+        padding: const M3EdgeInsets.all(M3Spacings.s16),
         children: [
-          ShowcaseLink(
+          const ShowcaseLink(
             label: 'M3ColorSchemes | M3SchemeVariant | M3ContrastLevels',
             url:
                 'https://m3.material.io/styles/color/system/how-the-system-works',
@@ -68,7 +68,7 @@ class _ColorSchemesPageState extends State<ColorSchemesPage> {
   ) {
     return Card(
       child: M3Padding(
-        padding: M3EdgeInsets.all(M3Spacings.s16),
+        padding: const M3EdgeInsets.all(M3Spacings.s16),
         child: Row(
           children: [
             Container(
@@ -150,7 +150,7 @@ class _ColorSchemesPageState extends State<ColorSchemesPage> {
 
     return Card(
       child: M3Padding(
-        padding: M3EdgeInsets.all(M3Spacings.s16),
+        padding: const M3EdgeInsets.all(M3Spacings.s16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -232,7 +232,7 @@ class _ColorSchemesPageState extends State<ColorSchemesPage> {
   ) {
     return Card(
       child: M3Padding(
-        padding: M3EdgeInsets.all(M3Spacings.s16),
+        padding: const M3EdgeInsets.all(M3Spacings.s16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -268,7 +268,7 @@ class _ColorSchemesPageState extends State<ColorSchemesPage> {
 
                 return Container(
                   width: M3Spacings.s128,
-                  padding: M3EdgeInsets.all(M3Spacings.s12),
+                  padding: const M3EdgeInsets.all(M3Spacings.s12),
                   decoration: M3BoxDecoration(
                     color: scheme.surface,
                     borderRadius: M3BorderRadius.medium,
@@ -331,7 +331,7 @@ class _ColorSchemesPageState extends State<ColorSchemesPage> {
   Widget _buildHarmonizationSection(BuildContext context, ColorScheme cs) {
     return Card(
       child: M3Padding(
-        padding: M3EdgeInsets.all(M3Spacings.s16),
+        padding: const M3EdgeInsets.all(M3Spacings.s16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -356,7 +356,7 @@ class _ColorSchemesPageState extends State<ColorSchemesPage> {
               );
 
               return M3Padding(
-                padding: M3EdgeInsets.only(bottom: M3Spacings.s12),
+                padding: const M3EdgeInsets.only(bottom: M3Spacings.s12),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -375,7 +375,7 @@ class _ColorSchemesPageState extends State<ColorSchemesPage> {
                           ),
                         ),
                         M3Padding(
-                          padding: M3EdgeInsets.symmetric(
+                          padding: const M3EdgeInsets.symmetric(
                             horizontal: M3Spacings.s8,
                           ),
                           child: Icon(
@@ -410,7 +410,7 @@ class _ColorSchemesPageState extends State<ColorSchemesPage> {
   ) {
     return Card(
       child: M3Padding(
-        padding: M3EdgeInsets.all(M3Spacings.s16),
+        padding: const M3EdgeInsets.all(M3Spacings.s16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -438,7 +438,7 @@ class _ColorSchemesPageState extends State<ColorSchemesPage> {
               );
 
               return M3Padding(
-                padding: M3EdgeInsets.only(bottom: M3Spacings.s16),
+                padding: const M3EdgeInsets.only(bottom: M3Spacings.s16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -486,7 +486,7 @@ class _ColorSchemesPageState extends State<ColorSchemesPage> {
 
     return Card(
       child: M3Padding(
-        padding: M3EdgeInsets.all(M3Spacings.s16),
+        padding: const M3EdgeInsets.all(M3Spacings.s16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -506,7 +506,7 @@ class _ColorSchemesPageState extends State<ColorSchemesPage> {
             const M3Gap(M3Spacings.s16),
             Container(
               width: double.infinity,
-              padding: M3EdgeInsets.all(M3Spacings.s16),
+              padding: const M3EdgeInsets.all(M3Spacings.s16),
               decoration: M3BoxDecoration(
                 color: cs.surfaceContainerHigh,
                 borderRadius: M3BorderRadius.medium,
@@ -558,7 +558,7 @@ class _ColorSchemesPageState extends State<ColorSchemesPage> {
   }) {
     return Container(
       width: M3Spacings.s128,
-      padding: M3EdgeInsets.all(M3Spacings.s8),
+      padding: const M3EdgeInsets.all(M3Spacings.s8),
       decoration: M3BoxDecoration(
         color: color,
         borderRadius: M3BorderRadius.small,
@@ -603,7 +603,7 @@ class _ColorSchemesPageState extends State<ColorSchemesPage> {
     final onColor = M3ColorUtils.onColor(color);
 
     return Container(
-      padding: M3EdgeInsets.all(M3Spacings.s12),
+      padding: const M3EdgeInsets.all(M3Spacings.s12),
       decoration: M3BoxDecoration(
         color: color,
         borderRadius: M3BorderRadius.medium,
@@ -636,7 +636,7 @@ class _ColorSchemesPageState extends State<ColorSchemesPage> {
     required String foregroundLabel,
   }) {
     return Container(
-      padding: M3EdgeInsets.all(M3Spacings.s12),
+      padding: const M3EdgeInsets.all(M3Spacings.s12),
       decoration: M3BoxDecoration(
         color: background,
         borderRadius: M3BorderRadius.medium,
@@ -665,8 +665,10 @@ class _ColorSchemesPageState extends State<ColorSchemesPage> {
 }
 
 /// Formats a color as an RGB hex string.
-String _hex(Color color) =>
-    '#${color.toARGB32().toRadixString(16).padLeft(8, '0').substring(2).toUpperCase()}';
+String _hex(Color color) {
+  final argb = color.toARGB32().toRadixString(16).padLeft(8, '0');
+  return '#${argb.substring(2).toUpperCase()}';
+}
 
 /// The human-readable name of a contrast level token.
 String _contrastName(M3ContrastLevelValue level) {

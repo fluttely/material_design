@@ -41,6 +41,46 @@ dependencies:
 Requires Flutter `>=3.27.0` / Dart `>=3.6.0` (uses `Color.withValues` and extension
 types).
 
+### Using it with `material_ui`
+
+Since Flutter 3.47 the Material library also ships as the standalone
+[`material_ui`](https://pub.dev/packages/material_ui) package. This package is meant
+to sit **beside** it — it types the values `material_ui`'s components are built from,
+and ships none of the components — but it still builds on the in-framework
+`package:flutter/material.dart`, and will until that library is formally deprecated.
+Moving now would raise the floor from Flutter 3.27 to 3.47.
+
+`material_ui` ships its own copies of the Material classes, so the two meet at the type
+level (checked against `material_ui` 1.5.0 on Flutter 3.47.5):
+
+| Works unchanged in a `material_ui` app | Needs a workaround |
+| :--- | :--- |
+| Every scale and wrapper built on `widgets`/`painting` types: spacing, `M3EdgeInsets`, `M3Gap`, `M3TypeScale` (`TextStyle`), `M3Shape`/`M3BorderRadius`/`M3EShapeBorder` (`OutlinedBorder`), `M3IconStyle` (`IconThemeData`), `M3Motion`/`M3ESpring`, `M3StateLayer`, `M3ELoadingIndicator` | Anything typed with a Material class: `M3ColorSchemes` (`ColorScheme`), `M3ExtendedColors` (`ThemeExtension`), `M3VisualDensity`, `M3TextTheme`, `M3SchemeVariant.dynamicSchemeVariant`, the `ThemeData` helpers, `M3ResponsiveScaffold` |
+
+The right-hand column fails to compile, and `MaterialUiCompatibilityBridge` does not
+change that — it maps `Theme.of` at runtime, not types. Runtime is the second thing to
+know: helpers that read the theme from a `BuildContext` (`M3Elevation.surfaceColor`,
+`M3ExtendedColors.from`, `context.visualDensity`, the loading indicator's default
+colors) read the *in-framework* `Theme.of`, which a `material_ui` app never sets, so
+they see Flutter's fallback theme. The bridge fixes colors, density and text for them,
+but not theme extensions, `iconTheme` or the `*Fixed*` color roles; pass those values
+explicitly. What does work at both levels is to feed the tokens to `material_ui`'s own
+constructors:
+
+```dart
+ThemeData(
+  // material_ui's own ColorScheme, still chosen by the contract's tokens.
+  colorScheme: ColorScheme.fromSeed(
+    seedColor: brand,
+    dynamicSchemeVariant: DynamicSchemeVariant.values.byName(
+      M3SchemeVariant.expressive.dynamicSchemeVariant.name,
+    ),
+    contrastLevel: M3ContrastLevels.standard,
+  ),
+  iconTheme: M3IconStyle.standard, // IconThemeData is shared: no workaround
+);
+```
+
 ## Quick start
 
 ```dart
@@ -339,7 +379,33 @@ Schemes: `emphasized`, `emphasizedIncoming`, `emphasizedOutgoing`, `standard`,
 aliases (`M3Motion.emphasizedDuration`). Pick by intent with
 `M3Motion.durationFor(M3MotionDistance.long)` /
 `M3Motion.curveFor(M3MotionType.incoming)`. Raw scales: `M3MotionDuration.short1…extraLong4`
-(50–1000ms), `M3MotionCurve.*` (the official cubics).
+(50–1000ms), `M3MotionCurve.*` (the official cubics), each with a `values` list.
+
+**Transition patterns** — container transform, shared axis, fade through — are not
+reimplemented here: [`animations`](https://pub.dev/packages/animations) already ships
+them. Give them the contract's timing, and a fade when the user asked for less motion:
+
+```dart
+final reduce = M3Accessibility.shouldReduceMotion(context);
+
+PageTransitionSwitcher(
+  duration: M3Motion.standard.duration, // 300ms, from the scale
+  transitionBuilder: (child, animation, secondaryAnimation) => reduce
+      // Reduced motion: a fade, not a slide.
+      ? FadeThroughTransition(
+          animation: animation,
+          secondaryAnimation: secondaryAnimation,
+          child: child,
+        )
+      : SharedAxisTransition(
+          animation: animation,
+          secondaryAnimation: secondaryAnimation,
+          transitionType: SharedAxisTransitionType.horizontal,
+          child: child,
+        ),
+  child: page,
+);
+```
 
 ### 8. Adaptive & responsive
 
@@ -408,8 +474,13 @@ heights below the 48dp touch minimum — expand the tap area, not the box.
 M3Accessibility.minTouchTarget(context);           // 48dp touch, 32dp desktop
 M3Accessibility.meetsContrastRequirement(foreground: fg, background: bg);
 M3Accessibility.shouldReduceMotion(context);
-M3Accessibility.adaptiveDuration(context: context, normal: d); // honors reduce-motion
+M3Accessibility.adaptiveSpring(context, spring); // no overshoot under reduce-motion
 ```
+
+Reduced motion in M3 changes *what* moves, not how long it takes: fades instead of
+slides and scales, no parallax, no shape morphing. Branch on `shouldReduceMotion` for
+that; `adaptiveSpring` handles the part a token can, swapping a spatial spring for the
+critically damped effects spring of the same speed (`M3ESpring.reduced`).
 
 `M3AccessibilityConfig.fromContext(context).applyToTheme(theme)` adapts a whole
 theme to the user's contrast/motion/text-size settings.
@@ -490,9 +561,12 @@ on the same numbers as the built-in one beside it.
 
 The one exception is M3 Expressive widgets Flutter does not have yet
 (`M3ELoadingIndicator` today). Each is a stopgap, marked `@experimental`, and gets
-removed when Flutter ships the real thing — the 2025 Expressive components are
-tracked in [flutter/flutter#168813](https://github.com/flutter/flutter/issues/168813)
-and are deliberately *not* reimplemented here while that work is in flight.
+removed when Flutter ships the real thing. Flutter's Expressive work now lands in
+[`material_ui`](https://pub.dev/packages/material_ui) (its 1.2.0 added a
+`StyleVariant`, 1.5.0 an Expressive `IconButton`), so the 2025 Expressive
+components — button groups, split button, FAB menu, toolbars — are deliberately *not*
+reimplemented here: this package complements `material_ui`, it does not compete
+with it.
 
 ### Architecture
 
@@ -582,10 +656,9 @@ class PremiumCardShowcase extends StatelessWidget {
 
 ## Versioning
 
-`1.0.x` is young and has no deprecation baggage: API corrections ship as renames
-with a migration table in the [CHANGELOG](CHANGELOG.md). Upcoming work (Expressive
-spring motion tokens, color scheme variants, emphasized type scale) follows the
-same contract rules.
+SemVer. The package has no deprecation baggage by policy: while it has no external
+adopters, API corrections ship as outright renames or removals — in a minor, said so
+in the release notes — with a migration table in the [CHANGELOG](CHANGELOG.md).
 
 ## License
 

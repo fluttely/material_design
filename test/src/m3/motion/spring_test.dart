@@ -186,4 +186,48 @@ void main() {
       expect(flung.x(0.05), greaterThan(still.x(0.05)));
     });
   });
+
+  group('M3ESpring.reduced', () {
+    test('every spatial spring becomes the effects spring of its speed', () {
+      for (final scheme in M3MotionScheme.values) {
+        for (final speed in M3MotionSpeed.values) {
+          expect(
+            scheme.spatial(speed).reduced,
+            scheme.effects(speed),
+            reason: '$scheme $speed',
+          );
+        }
+      }
+    });
+
+    test('effects springs map to themselves', () {
+      for (final scheme in M3MotionScheme.values) {
+        for (final speed in M3MotionSpeed.values) {
+          final spring = scheme.effects(speed);
+          expect(spring.reduced, same(spring));
+        }
+      }
+    });
+
+    test('no reduced spring overshoots', () {
+      for (final spring in M3ESpring.values) {
+        expect(spring.reduced.isBouncy, isFalse, reason: '$spring');
+        expect(spring.reduced.damping, 1.0, reason: '$spring');
+      }
+    });
+
+    test('reducing is idempotent', () {
+      for (final spring in M3ESpring.values) {
+        expect(spring.reduced.reduced, spring.reduced, reason: '$spring');
+      }
+    });
+
+    test('a reduced spring is a published token, not a derived value', () {
+      // The spec defines no reduced-motion numbers of its own, so the mapping
+      // may only land on springs Material publishes.
+      for (final spring in M3ESpring.values) {
+        expect(M3ESpring.values, contains(spring.reduced));
+      }
+    });
+  });
 }

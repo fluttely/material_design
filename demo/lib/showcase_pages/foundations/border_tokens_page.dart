@@ -15,7 +15,7 @@ class BorderTokensPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text('Border')),
       body: ListView(
-        padding: M3EdgeInsets.all(M3Spacings.s16),
+        padding: const M3EdgeInsets.all(M3Spacings.s16),
         children: const [
           _BorderWidthsSection(),
           M3Gap(M3Spacings.s32),
@@ -108,7 +108,8 @@ class _BorderWidthsSection extends StatelessWidget {
   }
 }
 
-/// One width, shown twice: as the stroke itself, and as an outline around a box.
+/// One width, shown twice: as the stroke itself, and as an outline around a
+/// box.
 class _WidthRow extends StatelessWidget {
   const _WidthRow({required this.name, required this.width});
 
@@ -233,7 +234,7 @@ class _BorderSideSection extends StatelessWidget {
                 decoration: M3BoxDecoration(
                   color: colorScheme.surfaceContainerHighest,
                   borderRadius: M3BorderRadius.medium,
-                  border: const M3Border.fromBorderSide(M3BorderSide.none),
+                  border: M3Border.none,
                 ),
               ),
             ),

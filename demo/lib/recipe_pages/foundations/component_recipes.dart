@@ -92,7 +92,7 @@ M3ListItemHeights.threeLine;         //  88dp
             ),
             CodeRecipe(
               title: 'A rail built to the spec',
-              summary: 'This demo\'s own rail is drawn from these — the '
+              summary: "This demo's own rail is drawn from these — the "
                   'indicator is a 56×32dp stadium because the token says so, '
                   'not because it looked right.',
               code: '''

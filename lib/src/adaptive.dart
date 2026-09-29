@@ -12,6 +12,8 @@ import 'package:material_design/src/layout.dart';
 import 'package:material_design/src/motion.dart';
 import 'package:material_design/src/shape.dart';
 import 'package:material_design/src/tokens.dart';
+// `@experimental` is not re-exported by flutter/material, unlike @immutable.
+import 'package:meta/meta.dart';
 
 part 'm3/utils/responsive/responsive_builder.dart';
 part 'm3/utils/responsive/responsive_grid_config.dart';

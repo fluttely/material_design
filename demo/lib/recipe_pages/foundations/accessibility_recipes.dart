@@ -1,3 +1,7 @@
+// adaptiveSpring returns an M3ESpring, which is M3 Expressive and still
+// @experimental upstream.
+// ignore_for_file: experimental_member_use
+
 import 'package:flutter/material.dart';
 import 'package:material_design/material_design.dart';
 import 'package:material_design_demo/recipes/code_recipe.dart';
@@ -13,6 +17,10 @@ class AccessibilityRecipes extends StatelessWidget {
     final colorScheme = Theme.of(context).colorScheme;
     final touchTarget = M3Accessibility.minTouchTarget(context);
     final reduceMotion = M3Accessibility.shouldReduceMotion(context);
+    final spring = M3Accessibility.adaptiveSpring(
+      context,
+      M3MotionScheme.expressive.spatial(M3MotionSpeed.fast),
+    );
 
     return RecipePage(
       title: 'A11y',
@@ -98,24 +106,26 @@ final safe = M3Accessibility.makeAccessible(
           recipes: [
             CodeRecipe(
               title: 'Honour reduce-motion',
-              summary: 'Do not branch on the flag by hand at every call site '
-                  '— hand the normal duration in and get back whatever the '
-                  'user asked for.',
+              summary: 'Reduced motion changes what moves, not how long it '
+                  'takes: a fade instead of a slide, and a spring that stops '
+                  'overshooting. The duration stays on the scale.',
               code: '''
-AnimatedContainer(
-  duration: M3Accessibility.adaptiveDuration(
-    context: context,
-    normal: M3Motion.emphasized.duration,
-  ),
-  curve: M3Accessibility.adaptiveCurve(
-    context: context,
-    normal: M3Motion.emphasized.curve,
-  ),
-)
+final reduce = M3Accessibility.shouldReduceMotion(context);
+
+final transition = reduce
+    ? FadeTransition(opacity: animation, child: child)
+    : SlideTransition(position: offset, child: child);
+
+final spring = M3Accessibility.adaptiveSpring(
+  context,
+  M3MotionScheme.expressive.spatial(M3MotionSpeed.fast),
+);
 ''',
               preview: PreviewValue(
-                reduceMotion ? 'true — animations reduced' : 'false',
-                label: 'shouldReduceMotion',
+                reduceMotion
+                    ? 'true — fade, and ${spring.name}'
+                    : 'false — slide, and ${spring.name}',
+                label: 'shouldReduceMotion · adaptiveSpring',
               ),
             ),
             const CodeRecipe(

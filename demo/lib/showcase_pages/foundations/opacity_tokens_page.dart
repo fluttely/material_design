@@ -7,15 +7,18 @@ import 'package:material_design_demo/widgets/state_layer_opacity_button.dart';
 class OpacityTokensPage extends StatelessWidget {
   const OpacityTokensPage({super.key});
 
-  // Lists of tokens defined as constants for better performance and organization.
-  static const _stateLayerOpacities = [
+  // Lists of tokens defined as constants for better performance and
+  // organization.
+  static const List<({String label, M3OpacityValue token})>
+      _stateLayerOpacities = [
     (label: 'Hover', token: M3StateLayerOpacities.hover),
     (label: 'Focus', token: M3StateLayerOpacities.focus),
     (label: 'Pressed', token: M3StateLayerOpacities.pressed),
     (label: 'Dragged', token: M3StateLayerOpacities.dragged),
   ];
 
-  static const _generalOpacities = [
+  static const List<({String label, M3OpacityValue token})> _generalOpacities =
+      [
     (label: 'Disabled Content', token: M3Opacities.disabledContent),
     (label: 'Disabled Container', token: M3Opacities.disabledContainer),
     (label: 'Divider', token: M3Opacities.divider),
@@ -29,7 +32,7 @@ class OpacityTokensPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text('Opacity')),
       body: ListView(
-        padding: M3EdgeInsets.all(M3Spacings.s16),
+        padding: const M3EdgeInsets.all(M3Spacings.s16),
         children: [
           // Section for state layer opacities.
           _buildSection(
@@ -51,7 +54,7 @@ class OpacityTokensPage extends StatelessWidget {
             baseColor: colorScheme.onSurface,
           ),
           // Section with a practical example.
-          ShowcaseLink(label: 'Practical Example'),
+          const ShowcaseLink(label: 'Practical Example'),
           const M3Gap(M3Spacings.s12),
           const M3StateLayerOpacityButtonExample(),
         ],
@@ -59,7 +62,8 @@ class OpacityTokensPage extends StatelessWidget {
     );
   }
 
-  /// Builds a complete section with a title, link, and a grid of opacity tokens.
+  /// Builds a complete section with a title, link, and a grid of opacity
+  /// tokens.
   Widget _buildSection({
     required BuildContext context,
     required String title,
@@ -81,7 +85,8 @@ class OpacityTokensPage extends StatelessWidget {
               value: token.token,
               // Applies the opacity to the section's base color.
               color: baseColor.withValues(alpha: token.token),
-              // The text color is the base color without opacity, to ensure contrast.
+              // The text color is the base color without opacity, to ensure
+              // contrast.
               textColor: baseColor,
             );
           }).toList(),
@@ -109,9 +114,10 @@ class OpacityTokensPage extends StatelessWidget {
       ),
       child: Center(
         child: Text(
-          '$label\n(${(value * 100).toStringAsFixed(0)}%)', // Displays as a percentage.
+          // Displays as a percentage.
+          '$label\n(${(value * 100).toStringAsFixed(0)}%)',
           textAlign: TextAlign.center,
-          style: TextStyle(
+          style: const TextStyle(
             fontWeight: FontWeight.w500,
           ),
         ),

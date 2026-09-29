@@ -9,11 +9,11 @@ class MotionPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Motion'),
+        title: const Text('Motion'),
       ),
       body: ListView(
-        padding: M3EdgeInsets.all(M3Margins.mediumScreen),
-        children: [
+        padding: const M3EdgeInsets.all(M3Margins.mediumScreen),
+        children: const [
           ShowcaseLink(
             label: 'M3Motion (M3MotionDuration + M3MotionCurve)',
             url:
@@ -54,6 +54,10 @@ class MotionPage extends StatelessWidget {
             curve: M3Motion.linearCurve,
             duration: M3Motion.linearDuration,
           ),
+          M3Gap(M3Spacings.s8),
+          _DurationScale(),
+          M3Gap(M3Spacings.s16),
+          _Selectors(),
         ],
       ),
     );
@@ -88,8 +92,8 @@ class _MotionShowcaseState extends State<_MotionShowcase>
       vsync: this,
     );
     _animation = Tween<double>(
-      begin: 0.0,
-      end: 1.0,
+      begin: 0,
+      end: 1,
     ).chain(CurveTween(curve: widget.curve)).animate(_controller);
     _controller.repeat(reverse: true);
   }
@@ -106,7 +110,7 @@ class _MotionShowcaseState extends State<_MotionShowcase>
     final textTheme = Theme.of(context).textTheme;
 
     return M3Padding(
-      padding: M3EdgeInsets.only(bottom: M3Spacings.s16),
+      padding: const M3EdgeInsets.only(bottom: M3Spacings.s16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -121,7 +125,7 @@ class _MotionShowcaseState extends State<_MotionShowcase>
                   curve: widget.curve,
                   color: colorScheme.primary,
                 ),
-                child: SizedBox(
+                child: const SizedBox(
                   height: 100,
                   width: double.infinity,
                 ),
@@ -152,8 +156,7 @@ class _MotionPainter extends CustomPainter {
       ..strokeWidth = 2.0
       ..style = PaintingStyle.stroke;
 
-    final path = Path();
-    path.moveTo(0, size.height);
+    final path = Path()..moveTo(0, size.height);
 
     for (double t = 0; t <= 1.0; t += 0.01) {
       final y = size.height - curve.transform(t) * size.height;
@@ -170,5 +173,170 @@ class _MotionPainter extends CustomPainter {
   @override
   bool shouldRepaint(_MotionPainter oldDelegate) {
     return animationValue != oldDelegate.animationValue;
+  }
+}
+
+/// The names the spec gives the curves, index-aligned with
+/// [M3MotionCurve.values]. Names only — every number on this page is read
+/// off a token.
+const _curveNames = <String>[
+  'emphasized',
+  'emphasizedDecelerate',
+  'emphasizedAccelerate',
+  'standard',
+  'standardDecelerate',
+  'standardAccelerate',
+  'linear',
+];
+
+String _curveName(M3MotionCurve curve) =>
+    _curveNames[M3MotionCurve.values.indexOf(curve)];
+
+/// The four duration groups, four steps each, in [M3MotionDuration.values]
+/// order.
+const _durationGroups = <String>['short', 'medium', 'long', 'extraLong'];
+
+/// All sixteen duration tokens as bars against the longest one.
+class _DurationScale extends StatelessWidget {
+  const _DurationScale();
+
+  @override
+  Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final textTheme = Theme.of(context).textTheme;
+    final longest = M3MotionDuration.values.last.inMilliseconds;
+
+    return Card(
+      child: M3Padding(
+        padding: const M3EdgeInsets.all(M3Spacings.s16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('M3MotionDuration — all sixteen', style: textTheme.titleLarge),
+            const M3Gap(M3Spacings.s4),
+            Text(
+              'The schemes above use seven of these. The rest are there for '
+              'motion a scheme does not describe: 50ms steps up to 600ms, then '
+              '100ms steps to a full second.',
+              style: textTheme.bodyMedium?.copyWith(
+                color: colorScheme.onSurfaceVariant,
+              ),
+            ),
+            const M3Gap(M3Spacings.s12),
+            for (final (i, duration) in M3MotionDuration.values.indexed)
+              M3Padding(
+                padding: const M3EdgeInsets.only(bottom: M3Spacings.s4),
+                child: Row(
+                  children: [
+                    SizedBox(
+                      width: M3Spacings.s96,
+                      child: Text(
+                        '${_durationGroups[i ~/ 4]}${i % 4 + 1}',
+                        style: M3TypeScale.labelMedium,
+                      ),
+                    ),
+                    Expanded(
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: FractionallySizedBox(
+                          widthFactor: duration.inMilliseconds / longest,
+                          child: Container(
+                            height: M3Spacings.s8,
+                            decoration: M3BoxDecoration(
+                              color: colorScheme.primary,
+                              borderRadius: M3BorderRadius.full,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      width: M3Spacings.s64,
+                      child: Text(
+                        '${duration.inMilliseconds}ms',
+                        textAlign: TextAlign.end,
+                        style: M3TypeScale.labelMedium.copyWith(
+                          color: colorScheme.onSurfaceVariant,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// What [M3Motion.durationFor] and [M3Motion.curveFor] resolve to.
+class _Selectors extends StatelessWidget {
+  const _Selectors();
+
+  @override
+  Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final textTheme = Theme.of(context).textTheme;
+
+    Widget row(String from, String to) => M3Padding(
+          padding: const M3EdgeInsets.only(bottom: M3Spacings.s4),
+          child: Row(
+            children: [
+              Expanded(child: Text(from, style: M3TypeScale.labelMedium)),
+              Icon(
+                Icons.arrow_forward,
+                size: M3IconSizes.dense,
+                color: colorScheme.onSurfaceVariant,
+              ),
+              const M3Gap(M3Spacings.s8),
+              Expanded(
+                child: Text(
+                  to,
+                  style: M3TypeScale.labelMedium.copyWith(
+                    color: colorScheme.onSurfaceVariant,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+
+    return Card(
+      child: M3Padding(
+        padding: const M3EdgeInsets.all(M3Spacings.s16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('Choosing by intent', style: textTheme.titleLarge),
+            const M3Gap(M3Spacings.s4),
+            Text(
+              'Two selectors pick from the scales without naming a number: '
+              'how far the element travels decides its duration, and whether '
+              'it is arriving, leaving or staying decides its easing.',
+              style: textTheme.bodyMedium?.copyWith(
+                color: colorScheme.onSurfaceVariant,
+              ),
+            ),
+            const M3Gap(M3Spacings.s12),
+            Text('M3Motion.durationFor', style: textTheme.titleSmall),
+            const M3Gap(M3Spacings.s8),
+            for (final distance in M3MotionDistance.values)
+              row(
+                'M3MotionDistance.${distance.name}',
+                '${M3Motion.durationFor(distance).inMilliseconds}ms',
+              ),
+            const M3Gap(M3Spacings.s12),
+            Text('M3Motion.curveFor', style: textTheme.titleSmall),
+            const M3Gap(M3Spacings.s8),
+            for (final type in M3MotionType.values)
+              row(
+                'M3MotionType.${type.name}',
+                _curveName(M3Motion.curveFor(type)),
+              ),
+          ],
+        ),
+      ),
+    );
   }
 }
