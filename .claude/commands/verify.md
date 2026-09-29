@@ -38,6 +38,15 @@ Then act on the result.
     a version that shipped. If a published version is undocumented, write its
     section. The only version allowed to be documented-but-unpublished is the
     one in `pubspec.yaml`.
+  - `API ↔ version` — `lib/` changed and the changelog does not say so. Between
+    releases: open `## Unreleased` with the entry, and give a break its
+    `### 💥 Breaking Changes` subsection with the migration mapping — do not bump
+    `pubspec.yaml`. In a release commit: the bump is below what the diff
+    requires (addition ⇒ minor, break ⇒ minor under the post-1.0 policy). Fix
+    the changelog or the number, never the checker. A "no longer true: X is
+    const" line is a real break — restore the `const` if it was not intended.
+  - `pub archive validates` — `flutter pub publish --dry-run` reported a
+    warning. Fix the package or `.pubignore`; never publish around it.
   - `demo renders every page` — a page that throws on build fails here rather
     than during the gh-pages deploy. That is the point; fix the page.
 

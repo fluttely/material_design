@@ -48,6 +48,24 @@ step "flutter analyze"      flutter analyze
 step "flutter test"         flutter test
 step "triad README↔example↔demo" dart run tool/check_triad.dart
 step "changelog ↔ pub.dev"  dart run tool/check_changelog.dart $OFFLINE
+# The public API is the product, so what lib/ did since the last release —
+# added, broke, or dropped a `const` — decides the bump and whether the open
+# section needs a 💥 heading. dart_apitool is blind to const-ness; the script
+# covers that half itself.
+step "API ↔ version"        dart run tool/check_api.dart
+# Publishing is the one step that cannot be undone, so the archive is validated
+# on every run rather than discovered broken on release day. A dirty tree is the
+# normal state of a pre-commit gate, so pub's "files are modified in git"
+# warning is the one issue ignored here; CI checks out clean and never sees it.
+pub_archive() {
+  local out issues
+  out=$(flutter pub publish --dry-run 2>&1)
+  grep -E '^(Total compressed|Package has)' <<<"$out"
+  grep -q '^Package has' <<<"$out" || { tail -20 <<<"$out"; return 1; }
+  issues=$(grep -E '^\* ' <<<"$out" | grep -v 'checked-in files are modified in git')
+  [[ -z "$issues" ]] || { echo "$issues"; return 1; }
+}
+step "pub archive validates" pub_archive
 # The agent harness is gated like the package is. Context is a quality
 # variable, not just a cost, so the ring that every call pays for has a
 # ceiling — and a ceiling nobody is shown is a ceiling nobody respects.

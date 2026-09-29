@@ -67,7 +67,7 @@ either answer is yes, ship the tokens and stop.
 | `demo/` | Full Flutter web app — the live, interactive showcase deployed to GitHub Pages (https://fluttely.github.io/material_design/). Every destination has two pages: the token family rendered (`showcase_pages/`) and the code that produces it (`recipe_pages/`). | git, not pub |
 | `documentation/material_design/` | Obsidian vault: design notes, M3 reference docs, roadmap/plan. Bilingual: `en_US/` is the source of truth, `pt_BR/` mirrors it. | git, not pub |
 | `CLAUDE.md` | This file — the reasoning behind the API decisions and the working rules. | git, not pub |
-| `tool/` | The verification gate. `verify.sh` runs everything; `check_triad.dart`, `check_changelog.dart` and `check_context.dart` enforce the rules below that no compiler can. | git, not pub |
+| `tool/` | The verification gate. `verify.sh` runs everything; `check_triad.dart`, `check_changelog.dart`, `check_api.dart` and `check_context.dart` enforce the rules below that no compiler can. | git, not pub |
 | `.claude/` | Agent-facing context: `hooks/` (format-on-write, git guard), `commands/` (`/new-scale`, `/release`, `/verify`) and `skills/` (`commit`). Tracked — it is shared project context, not personal config. Only `settings.local.json` stays local. | git, not pub |
 | `.github/workflows/` | CI: `tests.yml` (runs `./tool/verify.sh` on PRs to `main`), `deploy-demo.yml` (builds `demo/` web to gh-pages). | git |
 
@@ -306,6 +306,8 @@ and local cannot disagree about what the gate is. The steps, in order:
 | `flutter test` | Package tests, including `readme_showcase_test.dart`, which compiles the README's showcase snippet verbatim. |
 | `tool/check_triad.dart` | README ↔ example ↔ demo: section order, scale coverage, dead API names in UI strings, and that every scale cites the M3 page it implements (`--trace` prints scale → spec → `file:line`). |
 | `tool/check_changelog.dart` | `CHANGELOG.md` ↔ `pubspec.yaml` ↔ pub.dev. |
+| `tool/check_api.dart` | `lib/` since the last release ↔ the changelog: a change needs `## Unreleased`, a break (including lost `const`) a 💥 section; at release, the bump must cover the diff. |
+| `flutter pub publish --dry-run` | The archive validates before release day, not on it. |
 | `tool/check_context.dart` | The agent context window, by ring — see "Agent harness". |
 | `cd example && flutter analyze` | The single-file example must always compile. |
 | `cd demo && flutter analyze && flutter test` | Every showcase page renders; a page that throws fails here, not in the deploy. |

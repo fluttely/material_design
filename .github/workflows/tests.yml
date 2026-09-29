@@ -22,6 +22,10 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          # tool/check_api.dart diffs lib/ against the last `## x.y.z` release
+          # commit, which a shallow clone does not contain.
+          fetch-depth: 0
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -33,6 +37,9 @@ jobs:
           flutter pub get
           (cd example && flutter pub get)
           (cd demo && flutter pub get)
+          # Pinned to the version tool/check_api.dart names, so CI and a local
+          # run classify an API change the same way.
+          dart pub global activate dart_apitool 0.23.2
 
       # One script, not a list of steps that has to be kept in sync with the
       # one a human runs locally. `./tool/verify.sh` is the gate: format,
