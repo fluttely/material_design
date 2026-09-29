@@ -1,9 +1,19 @@
 name: Tests
 
 on:
+  # `dev` is where the work happens, so it is gated on every push rather than
+  # only once it reaches a PR. `main` is gated on push as well because the demo
+  # deploy waits on this workflow's result for the merged commit — see
+  # deploy-demo.yml.
+  push:
+    branches: [main, dev]
   pull_request:
     branches: [main]
   workflow_dispatch:
+
+concurrency:
+  group: tests-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   verify:

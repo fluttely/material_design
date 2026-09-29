@@ -10,12 +10,16 @@ Prepare the release: **$ARGUMENTS**
 ## 1. Establish what actually changed
 
 ```sh
-git log --oneline "$(git describe --tags --abbrev=0 2>/dev/null || echo HEAD~20)"..HEAD
-git diff --stat
+last=$(git log --format='%H %s' | awk '$2 == "##" { print $1; exit }')
+git log --oneline "$last"..HEAD
+git diff --stat "$last"..HEAD
 ```
 
-Read the commits. The changelog section is written from what shipped, not from
-what was planned.
+The anchor is the last release commit, found by its `## x.y.z` subject — the
+repository has no version tags, so `git describe` would silently fall back to an
+arbitrary window. Merge commits are skipped because their subject is not the
+version. Read the commits. The changelog section is written from what shipped,
+not from what was planned.
 
 ## 2. Pick the number
 

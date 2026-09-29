@@ -1,12 +1,30 @@
 name: Deploy Demo
 
+# The demo deploys what `main` *is*, and only after the gate has passed on it.
+#
+# This used to trigger on `pull_request`, which published every PR to gh-pages
+# the moment it was opened or pushed to — before review, before merge, and in
+# parallel with the Tests workflow rather than after it. A PR with a failing
+# gate still went live. `workflow_run` makes the deploy a consequence of a green
+# Tests run on a push to `main`, so there is no path from an unmerged or failing
+# commit to the live site.
 on:
-  pull_request:
+  workflow_run:
+    workflows: [Tests]
+    types: [completed]
     branches: [main]
   workflow_dispatch:
 
+concurrency:
+  group: deploy-demo
+  cancel-in-progress: true
+
 jobs:
   deploy:
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.workflow_run.conclusion == 'success' &&
+       github.event.workflow_run.event == 'push')
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -14,6 +32,11 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          # A workflow_run checkout defaults to the default branch's tip, which
+          # may already be newer than the commit that was verified. Deploy the
+          # commit the gate actually passed on.
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2

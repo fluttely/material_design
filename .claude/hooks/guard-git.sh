@@ -21,6 +21,12 @@
 #      pattern-7 case in one file: your context competes with the tool's
 #      defaults, and only one of them is enforced.
 #
+#      The default itself is now switched off at the source — `attribution` in
+#      .claude/settings.json sets both lines to empty, so the tool stops
+#      suggesting them. This hook stays as the wall behind it: a setting can be
+#      overridden by a user or managed config, and a subagent or a different
+#      tool may not read it at all.
+#
 # Matching is done on the raw payload rather than on a parsed `command` field,
 # deliberately: no `jq` dependency (same call as format-dart.sh), and a banned
 # string is banned wherever it appears — a `gh pr create --body` carrying the
