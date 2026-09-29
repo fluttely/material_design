@@ -5,7 +5,7 @@ expresses the Material Design 3 spec (https://m3.material.io/) as Dart types. It
 working documentation for maintainers — the consumer-facing docs are the README, the
 single-file `example/`, and the live demo (https://fluttely.github.io/material_design/).
 
-Everything here describes the **1.6.0 API**: extension types (`M3SpacingValue`) +
+Everything here describes the **current API (`1.8.1` plus `Unreleased`)**: extension types (`M3SpacingValue`) +
 `abstract final` constant classes (`M3Spacings.s16`) + the `M3Contract` escape hatch.
 The pre-1.0 enum API (`M3SpacingToken.space16.value`) no longer exists; if you find a
 reference to it in this vault, that reference is a bug. So is any unprefixed

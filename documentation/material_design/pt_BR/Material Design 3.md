@@ -6,7 +6,7 @@ documentação de trabalho para mantenedores — a documentação voltada ao con
 README, o `example/` de arquivo único e a demo ao vivo
 (https://fluttely.github.io/material_design/).
 
-Tudo aqui descreve a **API 1.6.0**: extension types (`M3SpacingValue`) + classes de
+Tudo aqui descreve a **API atual (`1.8.1` mais o `Unreleased`)**: extension types (`M3SpacingValue`) + classes de
 constantes `abstract final` (`M3Spacings.s16`) + a válvula de escape `M3Contract`.
 A API de enums pré-1.0 (`M3SpacingToken.space16.value`) não existe mais; se você
 encontrar uma referência a ela neste vault, essa referência é um bug. O mesmo vale

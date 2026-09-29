@@ -2,7 +2,7 @@
 
 Lista autoritativa de todas as escalas, com valores exatos. Se esta tabela e a `lib/`
 discordarem, o código vence e este arquivo é corrigido na mesma sessão.
-Atualizado contra a 1.6.0.
+Atualizado contra a 1.8.1 mais o `Unreleased`.
 
 ## Convenção de nomenclatura
 
@@ -48,7 +48,7 @@ controle customizado caia nas mesmas medidas do componente nativo ao lado. Todos
 | `M3ButtonHeights` | extraSmall 32, small 40, medium 56, large 96, extraLarge 136 | ✅ |
 | `M3FabSizes` | small 40, standard 56, large 96 | ✅ |
 | `M3AppBarHeights` | small 64, medium 112, large 152, bottom 80 | ✅ (as três alturas de topo; `bottom` é outro componente) |
-| `M3NavigationSizes` | barHeight 80, railWidth 80, extendedRailWidth 256, drawerWidth 360, indicatorHeight 32 | — (não é uma escala — são cinco medidas diferentes) |
+| `M3NavigationSizes` | barHeight 80, railWidth 80, extendedRailWidth 256, drawerWidth 360, indicatorWidth 56, indicatorHeight 32, railDestinationHeight 56 (os dois últimos pares desde a 1.7.0) | — (não é uma escala — são sete medidas diferentes) |
 | `M3ListItemHeights` | oneLine 56, twoLine 72, threeLine 88 | ✅ |
 
 ⚠️ `M3ButtonHeights.extraSmall` (32) e `.small` (40) são alturas **visuais** abaixo do
@@ -61,7 +61,7 @@ mínimo de toque de 48dp em mobile. Expanda a área de toque, não a caixa —
 | :--- | :--- | :--- |
 | `M3Elevation` | `dp`, `shadows` | level0–level5 (0/1/3/6/8/12 dp) + `fromValue` |
 | `M3Motion` | `duration`, `curve` | emphasized 500, emphasizedIncoming 450, emphasizedOutgoing 150, standard 300, standardIncoming 250, standardOutgoing 200, linear 150 (ms) |
-| `M3ESpring` ⚗️ | `damping`, `stiffness` | 12 tokens, tabela abaixo. `description` → `SpringDescription`, `simulation(start:, end:, velocity:)` → `SpringSimulation`, `isBouncy` |
+| `M3ESpring` ⚗️ | `damping`, `stiffness` | 12 tokens, tabela abaixo. `description` → `SpringDescription`, `simulation(start:, end:, velocity:)` → `SpringSimulation`, `isBouncy`, `reduced` (Unreleased: espacial → o spring de efeito do mesmo scheme e velocidade) |
 
 ### `M3ESpring` — os 12 tokens de spring
 

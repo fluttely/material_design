@@ -7,7 +7,8 @@ Módulo do pacote: `lib/src/m3e/` (barrel `expressive` — standalone, sem depen
 
 Este pacote entrega **tokens e primitivas** do Expressive, e **widgets** do
 Expressive **apenas enquanto o Flutter não tiver o equivalente nativo** (acompanhado
-em flutter/flutter#168813). Cada widget provisório é removido quando o Flutter lança
+no changelog do `material_ui` desde que o Flutter 3.47 levou o Material para lá; ver
+[[../Roadmap|Roadmap 7.5]]). Cada widget provisório é removido quando o Flutter lança
 o de verdade. Nunca duplique um componente que o Flutter já fornece.
 
 ## Nomenclatura e estabilidade (resolvidas na 1.6.0)
@@ -109,7 +110,8 @@ Os componentes do Expressive de 2025 — button groups, split button, FAB menu, 
 registrada*, não uma questão em aberto rediscutida a cada release
 ([[../Roadmap|Roadmap Fase 6]], e o "What this package deliberately does not ship" do
 README). O Flutter está ativamente entregando esses componentes
-(flutter/flutter#168813); lançar os nossos entregaria a cada consumidor uma migração no
+— no `material_ui` agora, cujo 1.2.0 adicionou um `StyleVariant` e o 1.5.0 um
+`IconButton` Expressive; lançar os nossos entregaria a cada consumidor uma migração no
 dia em que os do Flutter chegarem. A resposta é não até o Flutter lançar, e então a
 resposta é "use o do Flutter".
 

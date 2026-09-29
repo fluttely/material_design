@@ -49,7 +49,7 @@ never unwrap them to one number. They keep `const`, `values`, and exhaustive `sw
 ### 3. Selectors — enums that name a situation
 
 `M3ScreenSize`, `M3InteractionState`, `M3MotionDistance`, `M3MotionType`,
-`M3NavigationType`, `M3InputMethodType`, and — since 1.6.0/1.6.0 — `M3SchemeVariant`,
+`M3NavigationType`, `M3InputMethodType`, and — since 1.6.0 — `M3SchemeVariant`,
 `M3MotionScheme`, `M3MotionSpeed`, `M3MotionSpringKind`. They resolve *to* tokens
 (`M3InteractionState.hover.stateLayerOpacity`,
 `M3MotionScheme.expressive.spatial(M3MotionSpeed.fast)`).

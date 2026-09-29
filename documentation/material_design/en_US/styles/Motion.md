@@ -80,10 +80,24 @@ ship the *same* effects springs — expression belongs to movement, not to color
 
 `expressiveSpatialFast` (damping 0.6) is the bounciest token Material publishes.
 
-## Still planned
+### Reduced motion (Unreleased)
 
-Transition-pattern presets (container transform, shared axis, fade through) and
-reduced-motion fallbacks via `M3Accessibility.shouldReduceMotion` —
-[[../Roadmap|Roadmap 2.3–2.4]].
+`M3ESpring.reduced` maps each spatial spring to the effects spring of the same scheme
+and speed (damping 1.0); effects springs map to themselves. `M3Accessibility.adaptiveSpring(context, spring)`
+applies it when the platform's reduce-motion setting is on. That is the whole spring
+side of the spec's rule — fades instead of slides, no parallax, no morph — and the
+rest (animating opacity instead of position) is the caller's. The spec publishes no
+reduced durations, so the package has no duration helper
+([[../Roadmap|Roadmap 7.3]]).
+
+## Transition patterns — decided, not planned
+
+Container transform, shared axis and fade through are **not** shipped here:
+[`package:animations`](https://pub.dev/packages/animations) (flutter/packages)
+already implements them, and a second copy would be migration debt the day Flutter
+changes its own. The README shows the wiring — `PageTransitionSwitcher` with
+`duration: M3Motion.standard.duration`, and `FadeThroughTransition` instead of
+`SharedAxisTransition` when `M3Accessibility.shouldReduceMotion` is true
+([[../Roadmap|Roadmap 7.4]]).
 
 Related: [[Styles]] · [[../foundations/Interaction States|Interaction States]]

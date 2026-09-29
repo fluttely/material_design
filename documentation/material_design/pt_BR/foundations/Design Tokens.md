@@ -50,7 +50,7 @@ exaustivo.
 ### 3. Seletores — enums que nomeiam uma situação
 
 `M3ScreenSize`, `M3InteractionState`, `M3MotionDistance`, `M3MotionType`,
-`M3NavigationType`, `M3InputMethodType` e — desde as 1.6.0/1.6.0 — `M3SchemeVariant`,
+`M3NavigationType`, `M3InputMethodType` e — desde as 1.6.0 — `M3SchemeVariant`,
 `M3MotionScheme`, `M3MotionSpeed`, `M3MotionSpringKind`. Eles resolvem *para* tokens
 (`M3InteractionState.hover.stateLayerOpacity`,
 `M3MotionScheme.expressive.spatial(M3MotionSpeed.fast)`).

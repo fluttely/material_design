@@ -26,10 +26,20 @@ M3Accessibility.meetsContrastRequirement(
 M3Accessibility.makeAccessible(color: c, background: bg); // nudges until it passes
 M3Accessibility.isHighContrastMode(context);
 M3Accessibility.shouldReduceMotion(context);
-M3Accessibility.adaptiveDuration(context: context, normal: d); // honors reduce-motion
+M3Accessibility.adaptiveSpring(context, spring); // no overshoot under reduce-motion
 M3Accessibility.highContrastColorScheme(base: scheme, isDark: true);
 M3Accessibility.highContrastTextTheme(textTheme);
 ```
+
+Movimento reduzido, segundo a spec
+([applying transitions](https://m3.material.io/styles/motion/transitions/applying-transitions)),
+muda *o que* se move, não quanto tempo leva: fades sutis em vez de deslizamentos e
+escalas, sem parallax, sem morph de forma. Essa parte é de quem chama — ramifique em
+`shouldReduceMotion` e anime a opacidade. O `adaptiveSpring` cuida da parte que um
+token consegue: o spring espacial vira o spring de efeito criticamente amortecido da
+mesma velocidade (`M3ESpring.reduced`). Deliberadamente não há helper de duração: o
+`adaptiveDuration` escalava por um `0.3` inventado e caía fora da escala, e é
+removido na próxima release (`Unreleased`).
 
 `M3AccessibilityConfig` agrupa as necessidades do usuário (`highContrast`,
 `reducedMotion`, `largeText`, `dyslexiaFriendly`, `textScaleFactor`) — construa com

@@ -6,7 +6,8 @@ Package module: `lib/src/m3e/` (`expressive` barrel — standalone, no token dep
 ## Scope rule
 
 This package ships Expressive **tokens and primitives**, and Expressive **widgets
-only while Flutter lacks the native equivalent** (tracked in flutter/flutter#168813).
+only while Flutter lacks the native equivalent** (tracked in `material_ui`'s changelog
+since Flutter 3.47 moved Material there; see [[../Roadmap|Roadmap 7.5]]).
 Each stopgap widget is removed when Flutter ships the real one. Never duplicate a
 component Flutter already provides.
 
@@ -107,7 +108,8 @@ The 2025 Expressive components — button groups, split button, FAB menu, toolba
 a **deliberate wait** on Flutter, and as of 1.6.0 that is a *recorded decision* rather
 than an open question re-litigated every release ([[../Roadmap|Roadmap Phase 6]], and
 the README's "What this package deliberately does not ship"). Flutter is actively
-landing them (flutter/flutter#168813); shipping our own would hand every consumer a
+landing them — in `material_ui` now, whose 1.2.0 added a `StyleVariant` and 1.5.0 an
+Expressive `IconButton`; shipping our own would hand every consumer a
 migration the day Flutter's arrive. The answer is no until Flutter ships, and then the
 answer is "use Flutter's".
 

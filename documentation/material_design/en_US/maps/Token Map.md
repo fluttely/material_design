@@ -2,7 +2,7 @@
 
 Authoritative list of every scale, with exact values. If this table and `lib/`
 disagree, the code wins and this file gets fixed in the same session.
-Current against 1.6.0.
+Current against 1.8.1 plus `Unreleased`.
 
 ## Naming convention
 
@@ -48,7 +48,7 @@ custom control lands on the same measurements as the built-in one beside it. All
 | `M3ButtonHeights` | extraSmall 32, small 40, medium 56, large 96, extraLarge 136 | ✅ |
 | `M3FabSizes` | small 40, standard 56, large 96 | ✅ |
 | `M3AppBarHeights` | small 64, medium 112, large 152, bottom 80 | ✅ (the three top heights; `bottom` is a different component) |
-| `M3NavigationSizes` | barHeight 80, railWidth 80, extendedRailWidth 256, drawerWidth 360, indicatorHeight 32 | — (not one scale — five different measurements) |
+| `M3NavigationSizes` | barHeight 80, railWidth 80, extendedRailWidth 256, drawerWidth 360, indicatorWidth 56, indicatorHeight 32, railDestinationHeight 56 (the last two pairs since 1.7.0) | — (not one scale — seven different measurements) |
 | `M3ListItemHeights` | oneLine 56, twoLine 72, threeLine 88 | ✅ |
 
 ⚠️ `M3ButtonHeights.extraSmall` (32) and `.small` (40) are **visual** heights below
@@ -61,7 +61,7 @@ the 48dp mobile touch minimum. Expand the tap area, not the box —
 | :--- | :--- | :--- |
 | `M3Elevation` | `dp`, `shadows` | level0–level5 (0/1/3/6/8/12 dp) + `fromValue` |
 | `M3Motion` | `duration`, `curve` | emphasized 500, emphasizedIncoming 450, emphasizedOutgoing 150, standard 300, standardIncoming 250, standardOutgoing 200, linear 150 (ms) |
-| `M3ESpring` ⚗️ | `damping`, `stiffness` | 12 tokens, table below. `description` → `SpringDescription`, `simulation(start:, end:, velocity:)` → `SpringSimulation`, `isBouncy` |
+| `M3ESpring` ⚗️ | `damping`, `stiffness` | 12 tokens, table below. `description` → `SpringDescription`, `simulation(start:, end:, velocity:)` → `SpringSimulation`, `isBouncy`, `reduced` (Unreleased: spatial → the effects spring of the same scheme and speed) |
 
 ### `M3ESpring` — the 12 spring tokens
 

@@ -83,10 +83,24 @@ não à cor.
 
 `expressiveSpatialFast` (damping 0.6) é o token mais saltitante que o Material publica.
 
-## Ainda planejado
+### Movimento reduzido (Unreleased)
 
-Presets de padrões de transição (container transform, shared axis, fade through) e
-fallbacks de movimento reduzido via `M3Accessibility.shouldReduceMotion` —
-[[../Roadmap|Roadmap 2.3–2.4]].
+`M3ESpring.reduced` mapeia cada spring espacial para o spring de efeito do mesmo
+scheme e velocidade (damping 1.0); springs de efeito mapeiam para si mesmos.
+`M3Accessibility.adaptiveSpring(context, spring)` o aplica quando a preferência de
+reduzir movimento da plataforma está ligada. Esse é todo o lado de spring da regra da
+spec — fades em vez de deslizamentos, sem parallax, sem morph —, e o resto (animar a
+opacidade em vez da posição) é de quem chama. A spec não publica durações reduzidas,
+então o pacote não tem helper de duração ([[../Roadmap|Roadmap 7.3]]).
+
+## Padrões de transição — decididos, não planejados
+
+Container transform, shared axis e fade through **não** são entregues aqui: o
+[`package:animations`](https://pub.dev/packages/animations) (flutter/packages) já os
+implementa, e uma segunda cópia seria dívida de migração no dia em que o Flutter mudar
+a sua. O README mostra a ligação — `PageTransitionSwitcher` com
+`duration: M3Motion.standard.duration`, e `FadeThroughTransition` no lugar de
+`SharedAxisTransition` quando `M3Accessibility.shouldReduceMotion` é verdadeiro
+([[../Roadmap|Roadmap 7.4]]).
 
 Relacionado: [[Styles|Estilos]] · [[../foundations/Interaction States|Estados de Interação]]

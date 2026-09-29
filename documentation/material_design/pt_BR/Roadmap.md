@@ -1,6 +1,6 @@
 # Roadmap — fechando a lacuna com o m3.material.io
 
-**Status:** plano vivo. Última revisão completa: 2026-08-14, contra o `material_design` 1.6.0.
+**Status:** plano vivo. Última revisão completa: 2026-09-29, contra o `material_design` 1.8.1 e a seção `Unreleased` do changelog.
 
 Este é o plano de ação para tornar o pacote um contrato Material Design 3 *completo*.
 Ele é o resultado de uma auditoria de toda a spec oficial (https://m3.material.io/ —
@@ -8,9 +8,12 @@ Foundations, Styles, Components e a atualização M3 Expressive de 2025) contra 
 real exportada. Cada item declara o que a spec define, o que o pacote tem hoje e o
 que construir.
 
-As fases 0–5 foram lançadas como `1.6.0`–`1.6.0`; cada item concluído carrega a
-versão que o entregou. A Fase 6 também está fechada, mas como uma **decisão
-registrada**, não como código — ver abaixo.
+As fases 0–5 saíram todas em **uma única release publicada, a `1.6.0`**. Elas foram
+construídas como os marcos internos `1.1.0`–`1.6.0`, que nunca foram publicados; o
+changelog os mantém como subseções da `1.6.0`, e este plano cita um marco apenas onde a
+ordem importa. Cada item concluído carrega a versão *publicada* que o entregou. A Fase
+6 também está fechada, mas como uma **decisão registrada**, não como código. A Fase 7 é
+a que está aberta — ver abaixo.
 
 Regras que governam todos os itens aqui:
 
@@ -42,7 +45,7 @@ sem shims.
 | 0.3 ✅ `1.6.0` | **`LoadingIndicatorTheme` → `M3ELoadingIndicatorTheme`**; `InputMethodType` → `M3InputMethodType`. | Regra de prefixo: `M3` spec / `M3E` expressive |
 | 0.4 ✅ `1.6.0` | **Toda a superfície `m3e` é `@experimental`.** O consumidor opta de forma visível (`ignore_for_file: experimental_member_use`) em vez de inferir estabilidade a partir de um doc comment. | Sinaliza níveis de estabilidade |
 | 0.5 ✅ `1.6.0` | Listas `values` adicionadas a `M3Margins`, `M3Spacers`, `M3Opacities`, `M3StateLayerOpacities`, `M3LayoutWidths`; `M3Border.none` é `const`. | Uniformidade das classes de escala |
-| 0.6 ✅ `1.6.0` + `1.6.0` | Passada de doc-comments: URLs da spec nas classes de token (`1.6.0`) e, quando o `m3e` passou a ser analisado, 19 docs de API faltantes escritos (`1.6.0`). | Rastreabilidade da spec |
+| 0.6 ✅ `1.6.0` | Passada de doc-comments: URLs da spec nas classes de token (marco `1.1.0`) e, quando o `m3e` passou a ser analisado, 19 docs de API faltantes escritos (marco `1.3.0`). | Rastreabilidade da spec |
 
 > **Decisão registrada:** prefixar venceu a alternativa de mover o engine para uma
 > biblioteca opt-in `expressive_shapes.dart`, porque a própria API do
@@ -60,7 +63,7 @@ Spec: https://m3.material.io/styles/color — o pacote tinha paletas tonais HCT 
 | :- | :--- | :--- |
 | 1.1 ✅ `1.6.0` | **`M3ColorSchemes`** — `fromSeed(seedColor:, variant:, brightness:, contrastLevel:)`, mais `light`, `dark` e `fromContext` (que lê o brilho da plataforma *e* a preferência de contraste do usuário). **`M3SchemeVariant`** carrega as nove variantes da spec e resolve para o `DynamicSchemeVariant` do Flutter. | Color / dynamic color schemes |
 | 1.2 ✅ `1.6.0` | **`M3ContrastLevels`** — `reduced` (−1.0), `standard` (0.0), `medium` (0.5), `high` (1.0), como `M3ContrastLevelValue`, com `M3ContrastLevels.of(context)` e `M3Contract.contrastLevel` como válvula de escape. | Color / contrast |
-| 1.3 ✅ `1.6.0` + `1.6.0` | **Harmonização de cores**: `harmonious()` (aritmética de roda HSL, cinco cores, uma operação que o Material não define) foi removido na `1.6.0`; `M3ColorUtils.harmonize(designColor, sourceColor)` — o `Blend.harmonize` em HCT da spec, um deslocamento de matiz limitado a ≤15° — o substituiu na `1.6.0`. | Color / custom & extended colors |
+| 1.3 ✅ `1.6.0` | **Harmonização de cores**: `harmonious()` (aritmética de roda HSL, cinco cores, uma operação que o Material não define) foi removido no marco `1.1.0`; `M3ColorUtils.harmonize(designColor, sourceColor)` — o `Blend.harmonize` em HCT da spec, um deslocamento de matiz limitado a ≤15° — o substituiu no marco `1.2.0`. | Color / custom & extended colors |
 | 1.4 ✅ `1.6.0` | **Suporte a cores estendidas**: `M3ExtendedColor` (os quatro papéis da spec nas paradas de tom fixas por brilho, com uma factory `.harmonized`), levado pelo tema por `M3ExtendedColors`, uma `ThemeExtension`. | Color / extended colors |
 | 1.5 🔭 | Cor dinâmica de plataforma (extração do wallpaper no Android 12+) permanece **fora de escopo** — esse é o trabalho do `dynamic_color`; documentar a integração em vez de encapsulá-la. | — |
 
@@ -82,8 +85,8 @@ física.
 | :- | :--- | :--- |
 | 2.1 ✅ `1.6.0` | **`M3ESpring`** — os doze tokens publicados como um enum composto carregando `damping` e `stiffness`, com `description` → `SpringDescription` e `simulation(start:, end:, velocity:)` → `SpringSimulation`. Valores no [[maps/Token Map\|Mapa de Tokens]]. | Springs espaciais movem coisas; springs de efeito fazem fade/tint |
 | 2.2 ✅ `1.6.0` | **`M3MotionScheme`** (`standard`/`expressive`) selecionando por intenção via `spatial(speed)`, `effects(speed)`, `spring(kind, speed)`, `springs`, com **`M3MotionSpeed`** (slow/standard/fast) e **`M3MotionSpringKind`** (spatial/effects) como seletores acompanhantes. | Espelho de `M3Motion.durationFor/curveFor` |
-| 2.3 🔭 | **Presets de padrões de transição** construídos sobre os tokens: container transform, shared axis (x/y/z), fade through, fade — como `PageTransitionsBuilder`s / configurações de `AnimatedSwitcher`. | Motion / transitions |
-| 2.4 🔭 | Integração com `M3Accessibility.shouldReduceMotion`: todo preset de movimento ganha um fallback de movimento reduzido (duração mais curta, sem bounce). | Acessibilidade × Movimento |
+| 2.3 → 7.4 | ~~Presets de padrões de transição~~ — fechado como decisão na Fase 7: o `package:animations` já os entrega, então o pacote documenta como alimentá-los com seus tokens. | Motion / transitions |
+| 2.4 → 7.3 | Integração com movimento reduzido — movida para a Fase 7, onde a checagem da spec mudou sua forma: a spec pede uma mudança de *tipo* (fade em vez de deslocamento), não uma duração mais curta. | Acessibilidade × Movimento |
 
 > **Decisões registradas:** os dois schemes entregam os *mesmos* springs de efeito
 > (damping 1.0 com stiffness 800/1600/3800) — expressão pertence ao movimento, não à
@@ -127,10 +130,15 @@ Spec: https://m3.material.io/styles/shape + as tabelas de tokens por componente.
 > do próprio Flutter fazem isso com `MaterialTapTargetSize.padded`). Está no doc
 > comment e garantido por teste, para ninguém "corrigir" os números.
 >
-> Os frames intermediários do morph são ajustados à *união* dos bounds dos dois
-> extremos, e não aos bounds de cada frame, o que faria a forma respirar enquanto o
-> morph roda; um teste fixa isso. Os extremos voltam a ser borders comuns, para que
-> uma animação terminada pare de pagar o setup do morph a cada paint.
+> Os frames intermediários do morph são ajustados a bounds **interpolados no próprio
+> progresso do morph** (desde a `1.8.1`). Esta ressalva dizia *união* dos bounds dos
+> dois extremos, na crença de que toda constante de `M3EShapes` compartilha a caixa
+> unitária. Não compartilham — `normalized` ajusta por bounds aproximados, o border por
+> bounds exatos —, então o ajuste pela união encolhia todo frame intermediário em até 7%
+> e voltava de uma vez no último. O teste que o "fixava" media com `Path.getBounds()`,
+> grosseiro demais para ver o desvio; agora ele percorre o contorno. Os extremos voltam
+> a ser borders comuns, para que uma animação terminada pare de pagar o setup do morph a
+> cada paint.
 
 ## Fase 5 — Layouts adaptativos & canônicos — ✅ lançada na `1.6.0`
 
@@ -167,9 +175,47 @@ está declarado no README do pacote, em "What this package deliberately does not
 
 | # | Decisão |
 | :- | :--- |
-| 6.1 ✅ | `M3ELoadingIndicator` (lançado) — a exceção que confirma a regra; continuar acompanhando o nativo do Flutter e deletar este quando ele chegar. |
+| 6.1 ✅ | `M3ELoadingIndicator` (lançado) — a exceção que confirma a regra; deletar quando o nativo do Flutter chegar, o que desde a Fase 7 significa **no `material_ui`** (7.5). |
 | 6.2 ✅ `1.6.0` | FAB/feedback de pressão baseados em `M3EShapeMorph`: **decidido — só na demo**, nunca na lib. Desbloqueados por 4.1–4.2; um FAB que faz morph é uma aplicação do shape border, não um componente que o pacote deva a alguém. |
-| 6.3 ✅ `1.6.0` | Button groups / split button / FAB menu / toolbar: **decidido — espera deliberada** pelo flutter/flutter#168813. Não é uma questão em aberto rediscutida a cada release: a resposta é não até o Flutter lançar, e então a resposta é "use o do Flutter". |
+| 6.3 ✅ `1.6.0` | Button groups / split button / FAB menu / toolbar: **decidido — espera deliberada** pelo Flutter, acompanhada no `material_ui` desde a Fase 7 (7.5) em vez do flutter/flutter#168813. Não é uma questão em aberto rediscutida a cada release: a resposta é não até o Flutter lançar, e então a resposta é "use o do Flutter". |
+
+## Fase 7 — Convivendo com o `material_ui` — ✅ feita na árvore, sai na próxima release (`Unreleased`)
+
+Auditoria: 2026-09-29. O Flutter 3.47 (2026-08) tirou a biblioteca Material do
+framework e a levou para o pacote independente
+[`material_ui`](https://pub.dev/packages/material_ui), no flutter/packages. O
+`package:flutter/material.dart` do framework está congelado desde a 3.44 e tem
+deprecation formal prevista para um stable próximo
+([guia de migração](https://docs.flutter.dev/release/breaking-changes/material-ui-and-cupertino-ui)).
+O trabalho no M3 Expressive recomeçou **lá**, não no flutter/flutter#168813: o
+`material_ui` 1.2.0 adicionou um `StyleVariant` (M3 / M3 Expressive) e o 1.5.0 um
+`IconButton` Expressive.
+
+Esta fase realinha o pacote a essa realidade. O princípio, decidido pelo owner: **o
+`material_design` é um complemento do `material_ui`, nunca um concorrente.** Ele
+entrega o contrato a partir do qual os componentes do `material_ui` são construídos, e
+nada que eles já sejam.
+
+| # | Item | Notas |
+| :- | :--- | :--- |
+| 7.1 ✅ decisão | **Continuar no `package:flutter/material.dart` até que ele seja formalmente deprecated.** Migrar agora significa um piso de Flutter 3.47 / Dart 3.13 (exigido pelo `material_ui` ≥1.4.0), acima de 3.27 / 3.6 — alto demais para o momento (owner, 2026-09-29). Gatilho para revisitar: o stable que deprecar a biblioteca do framework; migrar na release seguinte. | Mantém o piso 3.27 |
+| 7.2 ✅ `Unreleased` | **Documentar o que um app com `material_ui` pode usar hoje.** Verificado por uma sonda de compilação + runtime contra o `material_ui` 1.5.0 no Flutter 3.47.5. A API só de tokens — espaçamento, `TextStyle`s, `OutlinedBorder`s (`M3Shape`, `M3EShapeBorder`), `IconThemeData` (`M3IconStyle`), motion, `M3StateLayer`, `M3ELoadingIndicator` — **compila sem mudança**, porque esses tipos vivem em `widgets`/`painting`, que o `material_ui` re-exporta. Tudo que é tipado com uma classe do Material — `ColorScheme` (`M3ColorSchemes`, `surfaceAtElevation`), `ThemeExtension` (`M3ExtendedColors`), `VisualDensity`, `TextTheme`, `DynamicSchemeVariant`, os helpers de `ThemeData`, os destinos do `M3ResponsiveScaffold` — **não compila**, porque o `material_ui` traz as próprias cópias dessas classes. O `MaterialUiCompatibilityBridge` é `@Deprecated`, corrige só leituras de `Theme.of` em runtime (cores, densidade, texto, localizações — não extensions, `iconTheme` nem os papéis `*Fixed*`) e não corrige nenhum erro de compilação; o guia de migração diz isso. O README ganha a matriz e os contornos. | Voltado ao consumidor |
+| 7.3 ✅ `Unreleased` | **Movimento reduzido, tipado e fiel à spec** (era 2.4). A spec ([applying transitions](https://m3.material.io/styles/motion/transitions/applying-transitions)): com a preferência de reduzir movimento ligada, trocar deslizamentos e escalas por fades sutis e desligar efeitos decorativos como parallax e morph de forma — uma mudança de *tipo*, não uma duração mais curta. Então `M3ESpring.reduced` mapeia cada spring espacial para o spring de efeito do mesmo scheme e velocidade (damping 1.0; só valores publicados), e `M3Accessibility.adaptiveSpring(context, spring)` o aplica quando a preferência está ligada. `adaptiveDuration` / `adaptiveCurve` são **removidos**: o fator `0.3` era inventado, produzia durações fora da escala (300ms → 90ms) e não tinha teste. Breaking; migração no changelog. | Acessibilidade × Movimento |
+| 7.4 ✅ decisão | **Presets de transição (era 2.3): documentação, não código.** O [`package:animations`](https://pub.dev/packages/animations) (flutter/packages) já implementa container transform, shared axis e fade through. Pela regra de escopo, o pacote entrega os tokens que os alimentam e para por aí; o README e [[styles/Motion\|Motion]] mostram a ligação. | Limite de escopo |
+| 7.5 ✅ `Unreleased` | **O acompanhamento do Expressive passa para o `material_ui`.** O limite de escopo do `CLAUDE.md` e os itens 6.1/6.3 acompanham o changelog do `material_ui` em vez do flutter/flutter#168813, e o `/release` o confere a cada release. O `M3ELoadingIndicator` é deletado na release seguinte àquela em que o `material_ui` lançar um loading indicator. | Limite de escopo |
+| 7.6 ✅ `Unreleased` | **Higiene do vault e da demo.** (a) Versões que colapsaram quando os marcos `1.1.0`–`1.5.0` foram dobrados na `1.6.0` ("lançadas como `1.6.0`–`1.6.0`") — corrigidas aqui, nos mapas e no `en_US/`. (b) A ressalva de bounds do morph da Fase 4 reescrita depois da `1.8.1`. (c) Mapa de Cobertura, Mapa de Tokens e a home do vault reauditados contra a versão atual. (d) A demo passa a usar `very_good_analysis`, como o pacote. (e) Lacunas de páginas da demo: Motion (as dezesseis durações — o que exigiu `M3MotionDuration.values` / `M3MotionCurve.values`, as últimas escalas sem uma — e `durationFor`/`curveFor`), Tonal (`M3CorePalette`) e Shape (o raio de `M3Corners` por nível). (f) O título com `TODO` da página Z-Index. | Contínuo |
+
+**Ordem de trabalho** — passos 1–6 feitos em 2026-09-29; o passo 7 é do owner. Cada passo deixa o portão verde por conta própria:
+
+1. 7.6 (a)–(c) — o vault, nos dois locales.
+2. 7.6 (d) + (f) — lints da demo e o `TODO` perdido.
+3. 7.2 + 7.4 — seções do README, notas do vault.
+4. 7.5 — limite de escopo no `CLAUDE.md` + passo no `/release`.
+5. 7.3 — código, testes, README ↔ example ↔ demo (os dois modos), vault; a entrada vai
+   para `## Unreleased`, e a quebra faz da próxima release uma minor sob a
+   política de pré-adoção.
+6. 7.6 (e) — páginas Motion e Tonal da demo, nos dois modos.
+7. `./tool/verify.sh`, depois `/release` — uma minor, por causa da quebra; o owner publica.
 
 ## Contínuo — documentação & portões de qualidade
 
@@ -179,24 +225,28 @@ está declarado no README do pacote, em "What this package deliberately does not
 - Testes de propriedade para toda nova escala (aderência à grade, ordenação,
   completude de `values`).
 - Manter `test/readme_showcase_test.dart` compilando o showcase do README ao pé da letra.
-- Crescimento da suíte ao longo das seis releases: **160 → 251 testes** (182 depois da
+- Crescimento da suíte ao longo dos seis marcos que viraram a `1.6.0`: **160 → 251 testes** (182 depois da
   Fase 0, 182→199 na Fase 2, 199→210 na Fase 3, 210→238 na Fase 4, 238→251 na Fase 5).
 
 ## Trem de releases — o que realmente foi lançado
 
-| Release | Conteúdo |
-| :--- | :--- |
-| `1.6.0` | Fase 0 inteira (breaking; tabela de migração no changelog) |
-| `1.6.0` | Fase 1 — 1.1–1.4 |
-| `1.6.0` | Fase 2 — 2.1–2.2, mais a exclusão do `m3e` na análise e a correção de `angleDegrees` |
-| `1.6.0` | Fase 3 — 3.1 |
-| `1.6.0` | Fase 4 — 4.1–4.4, mais o 5.3 fechado antes da hora |
-| `1.6.0` | Fase 5 — 5.1–5.2 (layouts canônicos + modelo de panes); Fase 6 fechada como decisão registrada; a lacuna de tríade dos tokens de componente deixada pela 1.6.0 fechada em `example/lib/main.dart` |
-| depois | 1.5 (documentação), 2.3–2.4, 3.2 |
+| Publicada | Marco interno | Conteúdo |
+| :--- | :--- | :--- |
+| `1.6.0` | `1.1.0` | Fase 0 inteira (breaking; tabela de migração no changelog) |
+| `1.6.0` | `1.2.0` | Fase 1 — 1.1–1.4 |
+| `1.6.0` | `1.3.0` | Fase 2 — 2.1–2.2, mais a exclusão do `m3e` na análise e a correção de `angleDegrees` |
+| `1.6.0` | `1.4.0` | Fase 3 — 3.1 |
+| `1.6.0` | `1.5.0` | Fase 4 — 4.1–4.4, mais o 5.3 fechado antes da hora |
+| `1.6.0` | `1.6.0` | Fase 5 — 5.1–5.2 (layouts canônicos + modelo de panes); Fase 6 fechada como decisão registrada; a lacuna de tríade dos tokens de componente deixada pelo marco `1.5.0` fechada em `example/lib/main.dart` |
+| `1.7.0` | — | Eixos de ícone (`M3IconWeights`, `M3IconGrades`, `M3IconFills`, `M3IconOpticalSizes`, `M3IconStyle`); navegação da demo reconstruída sobre uma única lista de destinos |
+| `1.8.0` | — | A tríade como programa (`tool/check_triad.dart`, `tool/check_changelog.dart`, `tool/verify.sh`); o modo Code da demo |
+| `1.8.1` | — | Bounds do morph interpolados em vez de unidos |
+| próxima minor | — | Fase 7 (`Unreleased` no changelog) |
+| depois | — | 1.5 (documentação), 3.2 |
 
-> Nota sobre SemVer: o plano permitia uma `1.6.0` breaking sob a exceção documentada
-> de "sem adotantes". Ela não foi usada — a Fase 0 saiu como uma `1.6.0` de verdade,
-> com tabela de migração completa, que é justamente o que a cláusula de escape da nota
-> pedia.
+> Nota sobre SemVer: a Fase 0 era breaking e mesmo assim saiu numa minor. Essa é a
+> política de pré-adoção do `CLAUDE.md` — ninguém está na `1.x` ainda, então uma major
+> descreveria mal a maturidade do pacote — e ela veio com uma tabela de migração
+> completa, que é o que a política pede em troca.
 
 Relacionado: [[Material Design 3]] · [[maps/Coverage Map|Mapa de Cobertura]] · [[maps/Token Map|Mapa de Tokens]]
