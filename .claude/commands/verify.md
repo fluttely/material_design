@@ -36,8 +36,8 @@ Then act on the result.
     `.claude/hooks/guard-git.sh`, never the expectations file.
   - `changelog ↔ pub.dev` — never "fix" this by deleting a changelog section for
     a version that shipped. If a published version is undocumented, write its
-    section. The only version allowed to be documented-but-unpublished is the
-    one in `pubspec.yaml`.
+    section. What has not shipped goes under `## Unreleased`, never under a
+    number; `pubspec.yaml` is bumped only by the release commit.
   - `API ↔ version` — `lib/` changed and the changelog does not say so. Between
     releases: open `## Unreleased` with the entry, and give a break its
     `### 💥 Breaking Changes` subsection with the migration mapping — do not bump

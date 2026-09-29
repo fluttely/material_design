@@ -32,19 +32,22 @@ its `CHANGELOG.md` entry belongs in it, not in the release that ships it later. 
 reasoning behind a change is at hand exactly once, while you are making it; a release
 that reconstructs it from commit subjects months later writes a worse changelog.
 
-- The top section is already open at the next version ⇒ append the bullet under the
-  right emoji subsection.
-- The top section is the last **published** version ⇒ open the next one: bump
-  `pubspec.yaml` (`1.8.0` → `1.8.1` for a fix, → `1.9.0` for a feature or a break while
-  the post-1.0 policy holds) and write the new section above it. Both files are part of
-  this commit.
+- `## Unreleased` is the top section ⇒ append the bullet under the right emoji
+  subsection.
+- It is not there ⇒ open it above the last release, with this entry in it. Never an
+  empty heading.
 
-`check_changelog.dart` requires `pubspec.yaml` and the top heading to be the same
-string, and allows exactly that one documented-but-unpublished version.
+**Do not touch `pubspec.yaml`.** It names the last published version until `/release`
+bumps it. The number depends on everything the release bundles — a patch opened by a
+`fix:` becomes a minor the moment a `feat:` lands — so it is decided once, at release
+time, not guessed by the first change and renamed later.
 
-Internal-only work — the harness, tests, the vault — takes an entry too whenever the
-release will narrate it; `1.8.0` was harness work end to end and got a whole section.
-What genuinely needs no entry is a change nobody reading the release would look for.
+The test for an entry is **would someone upgrading need to know this?** Breaks with
+their migration, features, fixes a consumer could see, the SDK floor, packaging, the
+README and example. Not the harness, CI, `tool/`, `.claude/`, tests or the vault: that
+reasoning goes in the **commit body**, where `git log` keeps it for contributors. A
+change made only of those never causes a release — `1.8.0` shipped to pub.dev with no
+API change.
 
 ## 3. Pick the message shape
 
@@ -92,9 +95,10 @@ Taxonomy, only the ones that apply: `### 💥 Breaking Changes`, `### ✨ Featur
 `### 📦 Packaging`, `### 🧹 Chore`. A breaking change always ships with a
 migration mapping — old name → new name, in a table when there are several.
 
-`CHANGELOG.md` must match pub.dev exactly: every published version has a
-section, and the only version allowed to be documented-but-unpublished is the
-one in `pubspec.yaml`. `dart run tool/check_changelog.dart` proves it.
+`CHANGELOG.md` must match pub.dev exactly: every numbered section is a published
+version, and what has not shipped lives under `## Unreleased`.
+`dart run tool/check_changelog.dart` proves it, and `tool/check_api.dart` checks
+that a break in `lib/` has its `### 💥 Breaking Changes` entry there.
 
 ## 6. Branch and gate
 
@@ -112,7 +116,8 @@ result:
 - [ ] Only the paths of this change are staged
 - [ ] Subject is a version (release) or Conventional Commits (everything else)
 - [ ] No AI attribution anywhere in the message or PR body
-- [ ] A consumer-visible change carries its `CHANGELOG.md` entry — why-first, under
-      the right emoji subsection — and `pubspec.yaml` names the open version
+- [ ] A consumer-visible change carries its entry under `## Unreleased` — why-first,
+      under the right emoji subsection — and `pubspec.yaml` is untouched
+- [ ] Harness, CI, test and vault reasoning is in the commit body, not the changelog
 - [ ] On `dev`, not `main`
 - [ ] `./tool/verify.sh` passes

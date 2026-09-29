@@ -69,7 +69,7 @@ either answer is yes, ship the tokens and stop.
 | `CLAUDE.md` | This file — the reasoning behind the API decisions and the working rules. | git, not pub |
 | `tool/` | The verification gate. `verify.sh` runs everything; `check_triad.dart`, `check_changelog.dart`, `check_api.dart` and `check_context.dart` enforce the rules below that no compiler can. | git, not pub |
 | `.claude/` | Agent-facing context: `hooks/` (format-on-write, git guard), `commands/` (`/new-scale`, `/release`, `/verify`) and `skills/` (`commit`). Tracked — it is shared project context, not personal config. Only `settings.local.json` stays local. | git, not pub |
-| `.github/workflows/` | CI: `tests.yml` (runs `./tool/verify.sh` on PRs to `main`), `deploy-demo.yml` (builds `demo/` web to gh-pages). | git |
+| `.github/workflows/` | CI: `tests.yml` (runs `./tool/verify.sh` on pushes to `dev`/`main` and PRs), `deploy-demo.yml` (deploys `demo/` to gh-pages after a green push to `main`). | git |
 
 ### Module architecture
 
@@ -219,15 +219,20 @@ every call. In short: a release commit takes the version as its subject and its 
 ## Changelog
 
 `CHANGELOG.md` follows Keep a Changelog + SemVer, newest section first. The emoji
-taxonomy and the entry template are in the `commit` skill; three things hold always:
+taxonomy and the entry template are in the `commit` skill; four things hold always:
 
-- **The entry ships with the change, not with the release.** A commit that changes
-  anything a consumer can observe bumps `pubspec.yaml` to the next version and writes
-  its `CHANGELOG.md` section in the same commit; later commits extend that open section
-  until the release commit ships it. Writing the changelog at release time meant
-  reconstructing months of reasoning from commit subjects, which is the one moment the
-  reasoning is no longer at hand. The open section is the one version allowed to be
-  documented-but-unpublished, so `check_changelog.dart` already accepts it.
+- **The entry ships with the change; the number ships with the release.** A commit
+  that changes anything a consumer can observe writes its entry under `## Unreleased`
+  in the same commit — writing the changelog at release time meant reconstructing
+  months of reasoning from commit subjects. But `pubspec.yaml` stays on the last
+  published version: the number depends on everything the release bundles, so only
+  `/release` decides it, renaming `## Unreleased` and bumping in one commit. Opening
+  a numbered section per change made the first `fix:` guess a patch that the next
+  `feat:` had to rename.
+- **Entries are for the consumer.** The test is "would someone upgrading need to know
+  this?" Harness, CI, `tool/`, tests and the vault go in commit bodies — `git log` is
+  the complete record, the changelog is the curated one pub.dev renders. A change made
+  only of those never causes a release: `1.8.0` shipped with no API change.
 - **Entries are why-first.** A short paragraph of context when the reason isn't obvious,
   then `- **Bold lead**: what changed and the reasoning.` Never a bare "Updated X".
   Breaking changes always ship with a migration mapping (old name → new name), in a
@@ -235,9 +240,9 @@ taxonomy and the entry template are in the `commit` skill; three things hold alw
 - **The changelog must match pub.dev exactly.** Every published version has a section,
   and no section exists for a version that was not published. Both directions have been
   violated: `0.0.1`–`0.8.0` and `0.29.0-dev`–`1.0.0-dev.10` shipped undocumented, while
-  `1.0.0-dev.34`/`.35` had sections for builds nobody could install. The only version
-  allowed to be documented-but-unpublished is the one in `pubspec.yaml`. A release that
-  bundles several milestones gets **one** section covering all of them.
+  `1.0.0-dev.34`/`.35` had sections for builds nobody could install. Every numbered
+  section is a published version (the release commit's, briefly, before it is
+  published). A release that bundles several milestones gets **one** section.
 
 ```sh
 dart run tool/check_changelog.dart            # add --offline to skip the network
@@ -247,8 +252,8 @@ dart run tool/check_changelog.dart            # add --offline to skip the networ
 
 - SemVer. Pre-releases use the `-dev.N` series (`1.6.0-dev.1`, `-dev.2`, …) and are
   collapsed into one narrative section when the stable version ships.
-- `pubspec.yaml` `version:`, the top `CHANGELOG.md` section, and the release commit
-  subject must always agree.
+- `pubspec.yaml` `version:`, the newest numbered `CHANGELOG.md` section, and the last
+  release commit subject must always agree. Releases after `1.8.1` are tagged `vX.Y.Z`.
 - **Post-1.0 breaking policy (as of 2026-08: decided by the owner):** `1.0.0` has no
   external users yet, so breaking changes are still acceptable and ship **without
   deprecation shims** — remove the old API outright and document the migration in the

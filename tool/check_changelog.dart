@@ -13,6 +13,13 @@
 /// `1.0.0-dev.34`/`.35` had sections for builds that were never released. This
 /// script is why that cannot happen again.
 ///
+/// Work between releases is documented under `## Unreleased`, which carries no
+/// number: the version is decided by the release, from everything it bundles,
+/// not by whichever change happened to open the section. So `pubspec.yaml`
+/// names the last published version until the release commit renames
+/// `Unreleased` and bumps it — the only moment a version may be documented but
+/// not yet on pub.dev.
+///
 /// ```sh
 /// dart run tool/check_changelog.dart            # includes the pub.dev check
 /// dart run tool/check_changelog.dart --offline  # local checks only
@@ -38,7 +45,24 @@ Future<int> main(List<String> args) async {
     return 1;
   }
 
-  // 1. pubspec.yaml and the top changelog section name the same release.
+  // 0. `## Unreleased` is the top section or absent, appears at most once, and
+  //    is never an empty heading — an empty one would ship to pub.dev as-is.
+  final unreleased = _readUnreleased();
+  if (unreleased.count > 1) {
+    failures.add('CHANGELOG.md has ${unreleased.count} "## Unreleased" '
+        'sections. There is one, at the top.');
+  }
+  if (unreleased.count > 0 && !unreleased.isTop) {
+    failures.add('"## Unreleased" is not the top section of CHANGELOG.md. It '
+        'documents what has not shipped, so it sits above every release.');
+  }
+  if (unreleased.count > 0 && unreleased.isEmpty) {
+    failures
+        .add('"## Unreleased" has no entries. Open it with the first entry, '
+            'not before.');
+  }
+
+  // 1. pubspec.yaml and the newest numbered section name the same release.
   final top = documented.first;
   if (top != pubspecVersion) {
     failures.add(
@@ -98,6 +122,17 @@ Future<int> main(List<String> args) async {
           'section is $pubspecVersion.',
         );
       }
+      // A bumped pubspec means a release commit is in progress, and that
+      // commit is the one that renames `## Unreleased` — so both at once is a
+      // version opened ahead of its release.
+      if (!published.contains(pubspecVersion) && unreleased.count > 0) {
+        failures.add(
+          'pubspec.yaml names $pubspecVersion, which is not on pub.dev, while '
+          '"## Unreleased" is still open. Between releases pubspec.yaml stays '
+          'on the last published version; only the release commit bumps it, '
+          'and it renames "## Unreleased" in the same commit.',
+        );
+      }
     }
   }
 
@@ -124,7 +159,20 @@ String _readPubspecVersion() {
   return match.group(1)!;
 }
 
-/// Every `## <version>` heading in `CHANGELOG.md`, in file order.
+/// Where `## Unreleased` sits, how often it appears, and whether the top one
+/// has any content before the next `## ` heading.
+({int count, bool isTop, bool isEmpty}) _readUnreleased() {
+  final changelog = File('CHANGELOG.md').readAsStringSync();
+  final sections = changelog.split(RegExp('^## ', multiLine: true)).skip(1);
+  final headings = [for (final s in sections) s.split('\n').first.trim()];
+  final count = headings.where((h) => h == 'Unreleased').length;
+  final isTop = headings.isNotEmpty && headings.first == 'Unreleased';
+  final body = isTop ? sections.first.split('\n').skip(1).join('\n') : '';
+  return (count: count, isTop: isTop, isEmpty: body.trim().isEmpty);
+}
+
+/// Every `## <version>` heading in `CHANGELOG.md`, in file order. A
+/// `## Unreleased` heading carries no version and is not listed.
 List<String> _readChangelogVersions() {
   final changelog = File('CHANGELOG.md').readAsStringSync();
   return RegExp(r'^## (\d[\w.\-+]*)\s*$', multiLine: true)

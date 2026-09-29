@@ -15,13 +15,20 @@ git log --oneline "$last"..HEAD
 git diff --stat "$last"..HEAD
 ```
 
-The anchor is the last release commit, found by its `## x.y.z` subject — the
-repository has no version tags, so `git describe` would silently fall back to an
-arbitrary window. Merge commits are skipped because their subject is not the
-version. Read the commits. The changelog section is written from what shipped,
-not from what was planned.
+The anchor is the last release commit, found by its `## x.y.z` subject — present
+in every clone, unlike a tag that was never pushed. Merge commits are skipped
+because their subject is not the version. Read the commits.
+
+**No `## Unreleased` section means no release.** Harness, CI, test or vault
+commits change nothing a consumer can install. Stop and say so.
 
 ## 2. Pick the number
+
+The number is decided here, once, from everything the release bundles. Two
+readings must agree: the Conventional Commit types in step 1 (`fix` ⇒ patch,
+`feat` ⇒ minor, `!` ⇒ a break) and `dart run tool/check_api.dart`, which prints
+the least bump `lib/` requires. The second wins where they differ — a commit type
+is a claim, the API diff is a measurement.
 
 SemVer, with this repository's standing policy (see `CLAUDE.md`, "Versioning"):
 
@@ -33,15 +40,21 @@ SemVer, with this repository's standing policy (see `CLAUDE.md`, "Versioning"):
 - Pre-releases use `-dev.N` and collapse into one narrative section when the
   stable version ships.
 
-## 3. Finish the section that is already open
+## 3. Turn `## Unreleased` into the release
 
 The section is **not written here from scratch.** Every commit that changed something
-a consumer can observe already bumped `pubspec.yaml` and wrote its entry, so the top
-of `CHANGELOG.md` holds the release in progress. This step reads it against the log
-from step 1, fills in whatever landed without an entry, and rewrites the why-first
-paragraph to cover the release as a whole rather than the first change that opened it.
-If the number picked in step 2 differs from what is open, rename the heading and
-`pubspec.yaml` together.
+a consumer can observe wrote its entry under `## Unreleased`, so the top of
+`CHANGELOG.md` holds the release in progress. This step:
+
+- reads it against the log from step 1 and fills in whatever consumer-visible
+  change landed without an entry;
+- removes anything a consumer would not look for — harness, CI, tests, the vault
+  belong in commit bodies, not in the notes pub.dev renders;
+- rewrites the why-first paragraph to cover the release as a whole rather than the
+  first change that opened it;
+- renames `## Unreleased` — and the vault's `Unreleased` markers — to the number,
+  and sets `pubspec.yaml` to it. This is the only commit that bumps the version. No empty
+  `## Unreleased` is left behind; the next entry opens a new one.
 
 House style, which the open section already follows:
 
@@ -120,4 +133,10 @@ verbatim:
 overrides any default template. The author of a commit here is the human who
 made it, and the message describes the change and nothing else.
 
-Do not push or publish without being asked.
+Then tag the release commit, locally:
+
+```sh
+git tag -a "v<number>" -m "<number>"
+```
+
+Do not push, push tags, or publish without being asked.
