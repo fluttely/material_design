@@ -62,6 +62,17 @@ adopters, so removals ship without deprecation shims and take a minor, not a maj
   `wght` overrides a later `copyWith(fontWeight:)`. Only the weight is carried: the
   type scale defines no grade, width or roundness, and Flutter documents optical size
   as derived from the font size.
+- **The corner radius scale has ten stops, not seven**: the 2025 update added three
+  levels to the baseline M3 scale — `largeIncreased` (20dp), `extraLargeIncreased`
+  (32dp) and `extraExtraLarge` (48dp) — and `M3Corners` still ended at the original
+  seven, so a design specifying 20, 32 or 48dp had no token and could only get there
+  through `M3Contract.corner`. That escape hatch is for deliberate deviation, and
+  these are spec values. The three are baseline, not Expressive: Material Components
+  for Android and Compose ship them next to the original seven. They land on every
+  class that carries the scale — `M3Corners`, `M3Radius`, `M3BorderRadius`,
+  `M3Shape` — and in `M3Corners.values`, which grows from seven entries to ten, still
+  ascending. The doc comments cite the current spec page
+  ([corner radius scale](https://m3.material.io/styles/shape/corner-radius-scale)).
 
 ### 🐛 Bug Fixes
 

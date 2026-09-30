@@ -2,9 +2,9 @@ part of '../../../shape.dart';
 
 /// Material Design 3 [Radius] objects for consistent corner rounding.
 ///
-/// Strictly aligned with the 7-level M3 shape scale.
+/// Strictly aligned with the 10-level M3 corner radius scale.
 ///
-/// Reference: https://m3.material.io/foundations/shape/shape-scale
+/// Reference: https://m3.material.io/styles/shape/corner-radius-scale
 class M3Radius extends Radius {
   /// Creates a circular M3 radius from an M3 corner token.
   ///
@@ -28,8 +28,18 @@ class M3Radius extends Radius {
   /// Large circular radius (16dp).
   static const M3Radius large = M3Radius(M3Corners.large);
 
+  /// Large-increased circular radius (20dp).
+  static const M3Radius largeIncreased = M3Radius(M3Corners.largeIncreased);
+
   /// Extra-large circular radius (28dp).
   static const M3Radius extraLarge = M3Radius(M3Corners.extraLarge);
+
+  /// Extra-large-increased circular radius (32dp).
+  static const M3Radius extraLargeIncreased =
+      M3Radius(M3Corners.extraLargeIncreased);
+
+  /// Extra-extra-large circular radius (48dp).
+  static const M3Radius extraExtraLarge = M3Radius(M3Corners.extraExtraLarge);
 
   /// Full circular radius for pill shapes (9999dp).
   static const M3Radius full = M3Radius(M3Corners.full);

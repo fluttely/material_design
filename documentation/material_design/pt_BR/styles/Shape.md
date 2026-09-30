@@ -2,19 +2,33 @@
 
 Spec: https://m3.material.io/styles/shape
 
-## A escala de cantos de 7 níveis
+## A escala de raio de canto de 10 níveis
+
+Spec: https://m3.material.io/styles/shape/corner-radius-scale
 
 `M3Corners` (como `M3CornerValue`): `none` 0 · `extraSmall` 4 · `small` 8 · `medium` 12
-· `large` 16 · `extraLarge` 28 · `full` 9999 (+ `values`). Exatamente sete — a escala
-é fechada; qualquer outra coisa passa por `M3Contract.corner(…)`.
+· `large` 16 · `largeIncreased` 20 · `extraLarge` 28 · `extraLargeIncreased` 32 ·
+`extraExtraLarge` 48 · `full` 9999 (+ `values`). Exatamente dez — a escala é fechada;
+qualquer outra coisa passa por `M3Contract.corner(…)`.
+
+A escala tinha sete níveis até a atualização de 2025 acrescentar `largeIncreased`,
+`extraLargeIncreased` e `extraExtraLarge` (Unreleased aqui). Eles são M3 **baseline**,
+não extras do Expressive — o Material Components para Android
+(`ShapeAppearance.Material3.Corner.*`) e o Compose (`Shapes.*`) os entregam ao lado
+dos sete originais — por isso ficam em `M3Corners`, não em `m3e`.
+
+> **Nota de renderização:** o Flutter reduz, proporcionalmente, raios que não cabem
+> na caixa até que caibam. Um canto de 48dp precisa de uma caixa com pelo menos 96dp
+> no lado menor, senão é desenhado como pílula. Por isso as galerias do demo e do
+> example usam amostras quadradas de 96dp.
 
 ## A família de forma (cada tipo estende seu equivalente no Flutter)
 
 | Tipo | Estende | Notas |
 | :--- | :--- | :--- |
-| `M3Radius` | `Radius` | `const M3Radius(M3CornerValue)` + os 7 estáticos |
-| `M3BorderRadius` | `BorderRadius` | `.all/.vertical/.horizontal/.only` (parâmetros `M3Radius`) + 7 estáticos |
-| `M3Shape` | `RoundedRectangleBorder` | `Card(shape: M3Shape.medium)`; 7 estáticos |
+| `M3Radius` | `Radius` | `const M3Radius(M3CornerValue)` + os 10 estáticos |
+| `M3BorderRadius` | `BorderRadius` | `.all/.vertical/.horizontal/.only` (parâmetros `M3Radius`) + 10 estáticos |
+| `M3Shape` | `RoundedRectangleBorder` | `Card(shape: M3Shape.medium)`; 10 estáticos |
 | `M3BorderSide` | `BorderSide` | `outlineColor` + `M3BorderWidthValue`; `.thin/.thick/.extraThick`, `none`; largura 0 ⇒ `BorderStyle.none` |
 | `M3Border` | `Border` | `.fromBorderSide`, `.all(outlineColor:, width:)`, `.thin/.thick/.extraThick`; `none` é `const` desde a 1.6.0 |
 | `M3BoxDecoration` | `BoxDecoration` | restringe `borderRadius`/`border`/`boxShadow` a tipos M3 |

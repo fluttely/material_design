@@ -8,7 +8,7 @@ demo page has a Code half since 1.8.0; the column counts both.
 | M3 area | lib | README | example | demo page | Gaps / notes |
 | :--- | :-: | :-: | :-: | :-: | :--- |
 | Spacing / layout grid | ✅ | ✅ | ✅ | ✅ Spacing | — |
-| Shape scale | ✅ | ✅ | ✅ | ✅ Shape | each level of the scale shows its `M3Corners` radius, read off the token (Unreleased) |
+| Shape scale | ✅ | ✅ | ✅ | ✅ Shape | all ten levels, including the 2025 additions `largeIncreased` 20 / `extraLargeIncreased` 32 / `extraExtraLarge` 48; each shows its `M3Corners` radius, read off the token (Unreleased) |
 | Border widths | ✅ | ✅ | ✅ | ✅ Border | all four widths plus `M3Border.all`/`.fromBorderSide` (closed by 1.8.0) |
 | Typography (baseline 15) | ✅ | ✅ | ✅ | ✅ Typography | `M3TypeScale.values` added in 1.6.0 |
 | Typography (emphasized) | ✅ 1.6.0 | ✅ | ✅ | ✅ Typography | all 15 pairs shown with the numeric proof that the swap is layout-safe |

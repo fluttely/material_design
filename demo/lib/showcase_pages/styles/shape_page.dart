@@ -18,7 +18,18 @@ class ShapePage extends StatelessWidget {
       ('Small', M3Shape.small, M3Corners.small),
       ('Medium', M3Shape.medium, M3Corners.medium),
       ('Large', M3Shape.large, M3Corners.large),
+      ('Large Increased', M3Shape.largeIncreased, M3Corners.largeIncreased),
       ('Extra Large', M3Shape.extraLarge, M3Corners.extraLarge),
+      (
+        'Extra Large Increased',
+        M3Shape.extraLargeIncreased,
+        M3Corners.extraLargeIncreased,
+      ),
+      (
+        'Extra Extra Large',
+        M3Shape.extraExtraLarge,
+        M3Corners.extraExtraLarge,
+      ),
       ('Full (Stadium)', M3Shape.full, M3Corners.full),
     ];
 

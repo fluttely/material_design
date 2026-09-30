@@ -20,7 +20,7 @@ não geometria).
 | Spacing | `M3SpacingValue` | `M3Spacings`: none 0, s4, s8, s12, s16, s20, s24, s28, s32, s36, s40, s48, s56, s64, s72, s80, s96, s128, infinity | ✅ (18 finitos; `infinity` é uma diretiva de layout, não um valor) | `M3Contract.spacing` |
 | Margens | `M3SpacingValue` | `M3Margins`: compactScreen 16, medium/expanded/large/extraLargeScreen 24 | ✅ (alinhada por índice com `M3ScreenSize.values`) | — |
 | Spacers | `M3SpacingValue` | `M3Spacers`: pane 24 | ✅ | — |
-| Cantos | `M3CornerValue` | `M3Corners`: none 0, extraSmall 4, small 8, medium 12, large 16, extraLarge 28, full 9999 | ✅ | `M3Contract.corner` |
+| Cantos | `M3CornerValue` | `M3Corners`: none 0, extraSmall 4, small 8, medium 12, large 16, largeIncreased 20, extraLarge 28, extraLargeIncreased 32, extraExtraLarge 48, full 9999 | ✅ | `M3Contract.corner` |
 | Larguras de borda | `M3BorderWidthValue` | `M3BorderWidths`: none 0, thin 1, thick 2, extraThick 4 | ✅ | `M3Contract.borderWidth` |
 | Indicador de foco | — | `M3FocusIndicator`: thickness 3 (largura de borda), offset 3 (espaçamento) | — | — |
 | Opacidades | `M3OpacityValue` | `M3Opacities`: disabledContent .38, disabledContainer .12, divider .12, backdrop .50 | ✅ | `M3Contract.opacity` |

@@ -118,6 +118,7 @@ Spec: https://m3.material.io/styles/shape + per-component token tables.
 | 4.2 ✅ `1.6.0` | **Morphing comes for free**, then **`M3EShapeMorph`** on top of it: `lerpFrom`/`lerpTo` run the real `M3EMorph` algorithm rather than crossfading two outlines, so *any* implicit animation that lerps the shape morphs it. `M3EShapeMorph` is the wrapper for when the shape is the only thing animating. | Shape morphing |
 | 4.3 ✅ `1.6.0` | **Component token layer**: `M3ButtonHeights` (the five Expressive size classes), `M3FabSizes`, `M3AppBarHeights`, `M3NavigationSizes`, `M3ListItemHeights` — all typed `M3SpacingValue`, all asserted on the 4dp grid. Contract only, *no widget implementations*. | Components / specs |
 | 4.4 ✅ `1.6.0` | Decided and documented on the component token layer itself: this package **does not ship M3 components** (buttons, menus, toolbars). Expressive *widgets* are the single exception (`M3ELoadingIndicator` today) because Flutter does not provide them yet; each one gets removed if/when Flutter ships the real thing (track flutter/flutter#168813). | Scope boundary |
+| 4.5 ✅ `Unreleased` | **The corner radius scale has ten levels.** The 2025 update added `largeIncreased` 20, `extraLargeIncreased` 32 and `extraExtraLarge` 48 to the *baseline* scale (MDC-Android and Compose ship them beside the original seven), and `M3Corners` stopped at seven, so those values could only be reached through `M3Contract`. Added to `M3Corners`, `M3Radius`, `M3BorderRadius`, `M3Shape` and `values`. Found by re-auditing a closed scale against the spec, not by any open item — every map row was ✅. | [corner radius scale](https://m3.material.io/styles/shape/corner-radius-scale) |
 
 > **Caveat recorded:** `M3ButtonHeights.extraSmall` (32dp) and `.small` (40dp) are
 > **visual** heights below the 48dp mobile touch minimum. That is the spec — a control
@@ -230,7 +231,7 @@ the contract `material_ui`'s components are built from, and nothing they already
 | `1.7.0` | — | Icon axes (`M3IconWeights`, `M3IconGrades`, `M3IconFills`, `M3IconOpticalSizes`, `M3IconStyle`); demo navigation rebuilt on one destination list |
 | `1.8.0` | — | The triad as a program (`tool/check_triad.dart`, `tool/check_changelog.dart`, `tool/verify.sh`); the demo's Code mode |
 | `1.8.1` | — | Morph bounds interpolated instead of unioned |
-| next minor | — | Phase 7 and 3.2 (`Unreleased` in the changelog) |
+| next minor | — | Phase 7, 3.2 and 4.5 (`Unreleased` in the changelog) |
 | later | — | 1.5 (docs) |
 
 > SemVer note: Phase 0 was breaking and still shipped in a minor. That is the

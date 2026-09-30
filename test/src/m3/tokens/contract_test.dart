@@ -19,11 +19,11 @@ void main() {
       }
     });
 
-    test('shape scale has exactly the 7 M3 levels', () {
-      expect(M3Corners.values, hasLength(7));
+    test('corner radius scale has exactly the 10 M3 levels', () {
+      expect(M3Corners.values, hasLength(10));
       expect(
         M3Corners.values,
-        orderedEquals(<double>[0, 4, 8, 12, 16, 28, 9999]),
+        orderedEquals(<double>[0, 4, 8, 12, 16, 20, 28, 32, 48, 9999]),
       );
     });
 

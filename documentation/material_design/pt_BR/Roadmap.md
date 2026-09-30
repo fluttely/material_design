@@ -123,6 +123,7 @@ Spec: https://m3.material.io/styles/shape + as tabelas de tokens por componente.
 | 4.2 ✅ `1.6.0` | **O morph vem de graça**, e então **`M3EShapeMorph`** por cima: `lerpFrom`/`lerpTo` rodam o algoritmo `M3EMorph` de verdade em vez de fazer crossfade de dois contornos, então *qualquer* animação implícita que interpole a forma faz morph. `M3EShapeMorph` é o wrapper para quando a forma é a única coisa animando. | Morphing de formas |
 | 4.3 ✅ `1.6.0` | **Camada de tokens de componente**: `M3ButtonHeights` (as cinco classes de tamanho do Expressive), `M3FabSizes`, `M3AppBarHeights`, `M3NavigationSizes`, `M3ListItemHeights` — todos `M3SpacingValue` tipados, todos verificados contra a grade de 4dp. Contrato apenas, *nenhuma implementação de widget*. | Components / specs |
 | 4.4 ✅ `1.6.0` | Decidido e documentado na própria camada de tokens de componente: este pacote **não entrega componentes M3** (botões, menus, toolbars). *Widgets* do Expressive são a única exceção (`M3ELoadingIndicator` hoje) porque o Flutter ainda não os fornece; cada um é removido se/quando o Flutter lançar o de verdade (acompanhar flutter/flutter#168813). | Limite de escopo |
+| 4.5 ✅ `Unreleased` | **A escala de raio de canto tem dez níveis.** A atualização de 2025 acrescentou `largeIncreased` 20, `extraLargeIncreased` 32 e `extraExtraLarge` 48 à escala *baseline* (MDC-Android e Compose os entregam ao lado dos sete originais), e `M3Corners` parava em sete, então esses valores só eram alcançáveis via `M3Contract`. Adicionados a `M3Corners`, `M3Radius`, `M3BorderRadius`, `M3Shape` e `values`. Encontrado ao reauditar uma escala já fechada contra a spec, não por item aberto — toda linha dos mapas estava ✅. | [escala de raio de canto](https://m3.material.io/styles/shape/corner-radius-scale) |
 
 > **Ressalva registrada:** `M3ButtonHeights.extraSmall` (32dp) e `.small` (40dp) são
 > alturas **visuais** abaixo do mínimo de toque de 48dp em mobile. Isso é a spec — um
@@ -241,7 +242,7 @@ nada que eles já sejam.
 | `1.7.0` | — | Eixos de ícone (`M3IconWeights`, `M3IconGrades`, `M3IconFills`, `M3IconOpticalSizes`, `M3IconStyle`); navegação da demo reconstruída sobre uma única lista de destinos |
 | `1.8.0` | — | A tríade como programa (`tool/check_triad.dart`, `tool/check_changelog.dart`, `tool/verify.sh`); o modo Code da demo |
 | `1.8.1` | — | Bounds do morph interpolados em vez de unidos |
-| próxima minor | — | Fase 7 e 3.2 (`Unreleased` no changelog) |
+| próxima minor | — | Fase 7, 3.2 e 4.5 (`Unreleased` no changelog) |
 | depois | — | 1.5 (documentação) |
 
 > Nota sobre SemVer: a Fase 0 era breaking e mesmo assim saiu numa minor. Essa é a

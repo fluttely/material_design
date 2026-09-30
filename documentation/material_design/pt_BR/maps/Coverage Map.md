@@ -9,7 +9,7 @@ linhas já entregues carregam a versão; `Unreleased` marca o que ainda não est
 | Área M3 | lib | README | example | página da demo | Lacunas / notas |
 | :--- | :-: | :-: | :-: | :-: | :--- |
 | Spacing / grade de layout | ✅ | ✅ | ✅ | ✅ Spacing | — |
-| Escala de forma | ✅ | ✅ | ✅ | ✅ Shape | cada nível da escala mostra seu raio de `M3Corners`, lido do token (Unreleased) |
+| Escala de forma | ✅ | ✅ | ✅ | ✅ Shape | os dez níveis, incluindo as adições de 2025 `largeIncreased` 20 / `extraLargeIncreased` 32 / `extraExtraLarge` 48; cada um mostra seu raio de `M3Corners`, lido do token (Unreleased) |
 | Larguras de borda | ✅ | ✅ | ✅ | ✅ Border | as quatro larguras mais `M3Border.all`/`.fromBorderSide` (fechado pela 1.8.0) |
 | Tipografia (15 de base) | ✅ | ✅ | ✅ | ✅ Typography | `M3TypeScale.values` adicionado na 1.6.0 |
 | Tipografia (enfatizada) | ✅ 1.6.0 | ✅ | ✅ | ✅ Typography | os 15 pares mostrados com a prova numérica de que a troca não mexe no layout |

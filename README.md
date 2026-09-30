@@ -150,9 +150,12 @@ Column(
 
 ### 2. Shape & borders
 
-The M3 shape scale has exactly seven stops — **`M3Corners`**: `none` 0 ·
-`extraSmall` 4 · `small` 8 · `medium` 12 · `large` 16 · `extraLarge` 28 · `full`
-(pill). Each shape type extends its Flutter counterpart, so they drop in anywhere:
+The M3 corner radius scale has exactly ten stops — **`M3Corners`**: `none` 0 ·
+`extraSmall` 4 · `small` 8 · `medium` 12 · `large` 16 · `largeIncreased` 20 ·
+`extraLarge` 28 · `extraLargeIncreased` 32 · `extraExtraLarge` 48 · `full` (pill).
+The three `…Increased`/`extraExtraLarge` stops came with the 2025 update and belong
+to the baseline scale. `M3Radius`, `M3BorderRadius` and `M3Shape` carry all ten.
+Each shape type extends its Flutter counterpart, so they drop in anywhere:
 
 ```dart
 Card(shape: M3Shape.medium);                       // RoundedRectangleBorder

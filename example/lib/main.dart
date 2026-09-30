@@ -221,7 +221,10 @@ class _ShapeSection extends StatelessWidget {
     ('sm', M3Corners.small, M3BorderRadius.small),
     ('md', M3Corners.medium, M3BorderRadius.medium),
     ('lg', M3Corners.large, M3BorderRadius.large),
+    ('lg+', M3Corners.largeIncreased, M3BorderRadius.largeIncreased),
     ('xl', M3Corners.extraLarge, M3BorderRadius.extraLarge),
+    ('xl+', M3Corners.extraLargeIncreased, M3BorderRadius.extraLargeIncreased),
+    ('xxl', M3Corners.extraExtraLarge, M3BorderRadius.extraExtraLarge),
     ('full', M3Corners.full, M3BorderRadius.full),
   ];
 
@@ -232,7 +235,7 @@ class _ShapeSection extends StatelessWidget {
     return _Section(
       title: '2. Shape & borders',
       children: [
-        Text('The shape scale has exactly seven stops:',
+        Text('The corner radius scale has exactly ten stops:',
             style: M3TypeScale.bodyMedium),
         const M3Gap(M3Spacings.s8),
         Wrap(
@@ -240,9 +243,11 @@ class _ShapeSection extends StatelessWidget {
           runSpacing: M3Spacings.s8,
           children: [
             for (final (label, corner, radius) in _corners)
+              // 96dp square: Flutter shrinks radii that do not fit the box,
+              // so anything smaller would draw 48dp as a pill.
               Container(
-                width: M3Spacings.s64,
-                height: M3Spacings.s48,
+                width: M3Spacings.s96,
+                height: M3Spacings.s96,
                 alignment: Alignment.center,
                 decoration: M3BoxDecoration(
                   color: colorScheme.surfaceContainerHighest,
@@ -1241,7 +1246,7 @@ class _ExpressiveSection extends StatelessWidget {
       children: [
         Text(
           'The morphing loading indicator replaces most indeterminate '
-          'spinners, and MaterialShapes ships the official 35-shape library:',
+          'spinners, and M3EShapes ships the official 35-shape library:',
           style: M3TypeScale.bodyMedium,
         ),
         const M3Gap(M3Spacings.s8),

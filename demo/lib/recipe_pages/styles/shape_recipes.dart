@@ -13,13 +13,14 @@ class ShapeRecipes extends StatelessWidget {
 
     return RecipePage(
       title: 'Shape',
-      summary: 'The M3 shape scale has exactly seven stops. Every shape type '
-          'here extends its Flutter counterpart, so they drop into any slot '
-          'that already takes a Radius, a BorderRadius or a ShapeBorder.',
+      summary: 'The M3 corner radius scale has exactly ten stops. Every '
+          'shape type here extends its Flutter counterpart, so they drop into '
+          'any slot that already takes a Radius, a BorderRadius or a '
+          'ShapeBorder.',
       groups: [
         RecipeGroup(
           title: 'M3Shape & M3Corners',
-          url: 'https://m3.material.io/styles/shape/shape-scale-tokens',
+          url: 'https://m3.material.io/styles/shape/corner-radius-scale',
           recipes: [
             CodeRecipe(
               title: 'A shape for a component',
@@ -41,12 +42,17 @@ FloatingActionButton(shape: M3Shape.large, onPressed: onTap);
                     ('small', M3Shape.small),
                     ('medium', M3Shape.medium),
                     ('large', M3Shape.large),
+                    ('largeIncreased', M3Shape.largeIncreased),
                     ('extraLarge', M3Shape.extraLarge),
+                    ('extraLargeIncreased', M3Shape.extraLargeIncreased),
+                    ('extraExtraLarge', M3Shape.extraExtraLarge),
                     ('full', M3Shape.full),
                   ])
                     Container(
+                      // Square, so a 48dp corner fits instead of being
+                      // shrunk into a pill.
                       width: M3Spacings.s96,
-                      height: M3Spacings.s56,
+                      height: M3Spacings.s96,
                       alignment: Alignment.center,
                       decoration: M3ShapeDecoration(
                         shape: shape,
@@ -63,24 +69,27 @@ FloatingActionButton(shape: M3Shape.large, onPressed: onTap);
               ),
             ),
             const CodeRecipe(
-              title: 'The seven corner values',
+              title: 'The ten corner values',
               summary: 'The dp behind each stop, for the rare place that wants '
                   'the number rather than the shape.',
               code: '''
-M3Corners.none;       //  0dp
-M3Corners.extraSmall; //  4dp
-M3Corners.small;      //  8dp
-M3Corners.medium;     // 12dp
-M3Corners.large;      // 16dp
-M3Corners.extraLarge; // 28dp
-M3Corners.full;       // a pill
+M3Corners.none;                //  0dp
+M3Corners.extraSmall;          //  4dp
+M3Corners.small;               //  8dp
+M3Corners.medium;              // 12dp
+M3Corners.large;               // 16dp
+M3Corners.largeIncreased;      // 20dp
+M3Corners.extraLarge;          // 28dp
+M3Corners.extraLargeIncreased; // 32dp
+M3Corners.extraExtraLarge;     // 48dp
+M3Corners.full;                // a pill
 ''',
             ),
           ],
         ),
         RecipeGroup(
           title: 'M3BorderRadius & M3Radius',
-          url: 'https://m3.material.io/styles/shape/shape-scale-tokens',
+          url: 'https://m3.material.io/styles/shape/corner-radius-scale',
           recipes: [
             CodeRecipe(
               title: 'Round some corners and not others',
@@ -94,7 +103,7 @@ const M3BorderRadius.only(
 
 const M3BorderRadius.vertical(top: M3Radius.extraLarge);
 const M3BorderRadius.all(M3Radius.medium);
-M3BorderRadius.full; // and the seven ready-made stops
+M3BorderRadius.full; // and the ten ready-made stops
 ''',
               preview: Row(
                 children: [

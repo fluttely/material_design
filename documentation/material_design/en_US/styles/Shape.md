@@ -2,19 +2,32 @@
 
 Spec: https://m3.material.io/styles/shape
 
-## The 7-level corner scale
+## The 10-level corner radius scale
+
+Spec: https://m3.material.io/styles/shape/corner-radius-scale
 
 `M3Corners` (as `M3CornerValue`): `none` 0 · `extraSmall` 4 · `small` 8 · `medium` 12
-· `large` 16 · `extraLarge` 28 · `full` 9999 (+ `values`). Exactly seven — the scale
-is closed; anything else goes through `M3Contract.corner(…)`.
+· `large` 16 · `largeIncreased` 20 · `extraLarge` 28 · `extraLargeIncreased` 32 ·
+`extraExtraLarge` 48 · `full` 9999 (+ `values`). Exactly ten — the scale is closed;
+anything else goes through `M3Contract.corner(…)`.
+
+The scale had seven levels until the 2025 update added `largeIncreased`,
+`extraLargeIncreased` and `extraExtraLarge` (Unreleased here). They are **baseline**
+M3, not Expressive extras — Material Components for Android
+(`ShapeAppearance.Material3.Corner.*`) and Compose (`Shapes.*`) ship them next to the
+original seven — so they live in `M3Corners`, not under `m3e`.
+
+> **Rendering note:** Flutter shrinks radii that do not fit their box, proportionally,
+> until they do. A 48dp corner needs a box at least 96dp on its short side, or it draws
+> as a pill. That is why the demo and example galleries use 96dp-square swatches.
 
 ## The shape family (each extends its Flutter counterpart)
 
 | Type | Extends | Notes |
 | :--- | :--- | :--- |
-| `M3Radius` | `Radius` | `const M3Radius(M3CornerValue)` + the 7 statics |
-| `M3BorderRadius` | `BorderRadius` | `.all/.vertical/.horizontal/.only` (M3Radius params) + 7 statics |
-| `M3Shape` | `RoundedRectangleBorder` | `Card(shape: M3Shape.medium)`; 7 statics |
+| `M3Radius` | `Radius` | `const M3Radius(M3CornerValue)` + the 10 statics |
+| `M3BorderRadius` | `BorderRadius` | `.all/.vertical/.horizontal/.only` (M3Radius params) + 10 statics |
+| `M3Shape` | `RoundedRectangleBorder` | `Card(shape: M3Shape.medium)`; 10 statics |
 | `M3BorderSide` | `BorderSide` | `outlineColor` + `M3BorderWidthValue`; `.thin/.thick/.extraThick`, `none`; width 0 ⇒ `BorderStyle.none` |
 | `M3Border` | `Border` | `.fromBorderSide`, `.all(outlineColor:, width:)`, `.thin/.thick/.extraThick`; `none` is `const` since 1.6.0 |
 | `M3BoxDecoration` | `BoxDecoration` | narrows `borderRadius`/`border`/`boxShadow` to M3 types |
